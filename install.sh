@@ -5,7 +5,7 @@
 
 set -e
 
-FORGE_VERSION="2.5.4"
+FORGE_VERSION="2.5.5"
 REPO_URL="https://github.com/glensanders-gdev/Forge"
 GLOBAL_SRC="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/global"
 CLAUDE_DIR="$HOME/.claude"

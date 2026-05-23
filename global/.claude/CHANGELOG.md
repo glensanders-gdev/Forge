@@ -11,6 +11,25 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
+## v2.5.5 — 2026-05-23
+
+**New skill: /lang-rules + common coding rules layer + rules/README enrichment**
+
+### Added
+- `/lang-rules` — install and activate language-specific coding rule sets for the current project. Detects languages from project files, copies matching rule sets from `~/.claude/rules/<lang>/` into `.claude/rules/`, and writes `.claude/rules/active.md` so `/review`, `/build`, and `/push-standards` know which baselines apply. HITL gate before writing. Adapted from Affaan Mustafa (ECC / github.com/affaan-m/ECC) via /assimilate.
+- `~/.claude/rules/common/coding-style.md` — universal baseline: immutability, KISS/DRY/YAGNI, file/function size limits (800-line cap, 50-line function cap, 4-level nesting cap), error handling, input validation, naming conventions.
+- `~/.claude/rules/common/quality-checklist.md` — pre-ship checklist covering code quality, testing, security, and CI integration. Referenced by `/review` and `/qa-plan`.
+- `~/.claude/rules/common/research-first.md` — search-before-writing rule: codebase → package registry → GitHub → docs → web. Explicit never rules.
+- `~/.claude/rules/common/security.md` — pre-commit security checklist and escalation triggers for `/security-review`.
+- `~/.claude/rules/README.md` — documents the layered rules architecture and how skills consume it.
+
+### Changed
+- `/push-standards` — now reads `.claude/rules/active.md` before exploring the codebase. Uses installed language rules as the baseline; only documents patterns that extend beyond what global rules already define.
+- `~/.claude/rules/README.md` — added "Rules vs Skills" distinction (rules = what to meet; skills = how to do it) and "Scaffold a new language" file spec with required opening line format. Adapted from Affaan Mustafa (ECC / github.com/affaan-m/ECC).
+- `/lang-rules` — added scaffolding spec: exact file set for a new language directory (`coding-style.md`, `testing.md`, `patterns.md`, `hooks.md`, `security.md`) and required `> This file extends...` opening line convention.
+
+---
+
 ## v2.5.4 — 2026-05-22
 
 **New skill: /write-article**

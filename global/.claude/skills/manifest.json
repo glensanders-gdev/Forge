@@ -1,5 +1,5 @@
 {
-  "forge_version": "2.5.4",
+  "forge_version": "2.5.5",
   "skills": {
     "grill-me": "1.0.0",
     "grill-with-docs": "1.0.0",
@@ -58,6 +58,7 @@
     "accessibility": "1.0.0",
     "ai-first-engineering": "1.0.0",
     "assimilate": "1.0.0",
-    "write-article": "1.0.0"
+    "write-article": "1.0.0",
+    "lang-rules": "1.0.0"
   }
 }

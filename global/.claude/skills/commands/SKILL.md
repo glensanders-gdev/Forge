@@ -60,6 +60,7 @@ Print the following reference exactly:
 | `/user:diagnose` | Systematically debug a failing ticket — hypothesis before fix |
 | `/user:review` | Structured code review against ADRs, CONTEXT.md, and standards |
 | `/user:critic` | Honest prioritised critique of a framework, PRD, plan, or design |
+| `/user:lang-rules` | Install and activate language-specific coding rule sets for the current project |
 | `/user:push-standards` | Extract codebase patterns into .claude/CODING-STANDARDS.md project-specific section |
 | `/user:write-adr` | Create an Architecture Decision Record for a hard design decision |
 | `/user:token-report` | Program-level token usage report — by feature, sprint, PI, or calibration analysis |
