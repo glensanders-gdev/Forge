@@ -1,0 +1,1 @@
+Invoke the pii-check skill. Phase 1 (AFK) scans codebase and Forge documents for PII across all default and custom categories. Phase 2 (HITL) reviews findings one at a time — classify as Necessary or Incidental, assess handling, confirm remediation. Saves a living compliance report to docs/pii-report.md. Run during QA before /approve.

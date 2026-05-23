@@ -1,0 +1,1 @@
+Invoke the save-state skill. Save current session state immediately — HANDOFF.md first, kanban.md second, DEVLOG entry last. No confirmation prompts. Use to pause cleanly at any pipeline stage, or triggered automatically when context window exhaustion is imminent.

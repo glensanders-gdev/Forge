@@ -1,0 +1,1 @@
+Invoke the testplan skill. Design the testing strategy for the current feature — classify behaviours as automated or manual, identify critical path items, define what is explicitly not tested. Saves to docs/testplan-[feature].md. Feeds into /tdd and /qa-plan.

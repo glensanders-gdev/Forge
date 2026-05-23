@@ -1,0 +1,1 @@
+Invoke the assimilate skill. Adapt an idea, skill, or pattern from an external source into Forge. Phase 1 (AFK) fetches the source and evaluates what maps to Forge, what adds value, and what doesn't apply. Phase 2 (HITL) adapts and writes the new skill with Forge conventions. Always credits the original author in the frontmatter origin: field and skill body.

@@ -1,0 +1,1 @@
+Invoke the build skill. Execute the current sprint's AFK tickets in sequence, running /tdd for each. Pauses at HITL tickets with clear prompts and CONTINUE signal. Updates kanban in real time. Resumable — picks up from first non-Done ticket. Smart zone checked before each ticket. Deployment not included — handled by /go-nogo and future /deploy skills.

@@ -1,0 +1,1 @@
+Invoke the update-context skill. Review the current session for new or refined domain terms, confirmed assumptions, and system discoveries. Present proposed updates to CONTEXT.md and knowledge files before writing anything.

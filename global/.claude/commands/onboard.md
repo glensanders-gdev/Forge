@@ -1,0 +1,1 @@
+Invoke the onboard skill. Bootstrap Forge onto an existing project. Phase 1 (AFK) explores the codebase and existing docs. Phase 2 (HITL) scaffolds Forge template files, migrates decisions to ADRs, converts requirements to kanban tickets, and creates an initial commit. Never overwrites existing files.

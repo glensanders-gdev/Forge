@@ -1,0 +1,138 @@
+sequenceDiagram
+    participant H as Human
+    participant S as Forge Skills
+    participant A as Artifacts
+    participant AI as AI Agent
+    participant E as External
+
+    rect rgb(240, 240, 255)
+        Note over H,E: IDEATION
+        H->>S: pitch idea
+        S->>A: IDEA-NNN assigned + idea.md + diagram.mmd + estimate
+        S-->>H: ACCEPT / DECLINE / HOLD
+        H->>S: accept → /create-project
+        S->>AI: scaffold + commit (PROJ-NNN assigned)
+        AI->>E: push to git remote
+        Note over S,A: registry.md updated — IDEA-NNN → PROJ-NNN cross-ref
+    end
+
+    rect rgb(240, 255, 240)
+        Note over H,E: PLANNING
+        H->>S: /grill-with-docs (planning phase entry point)
+        S-->>H: Q+A loop — checks CONTEXT.md + codebase + ADRs
+        S->>A: CONTEXT.md updated inline (Avoid aliases, Flagged Ambiguities)
+        S->>A: research/*.md (optional)
+        S->>A: /prototype (optional)
+        H->>S: confirm scope → /write-prd
+        S->>AI: Phase 1 — AFK explore
+        AI-->>S: scope summary + per-module estimates
+        H->>S: confirm → Phase 2 write
+        S->>A: prd/active/*.md (with estimates + Estimate Status)
+        H->>S: /testplan → TC-NNN assigned per test case
+        S->>A: testplan-*.md + docs/tests/registry.md updated
+        S->>A: /estimate → story points + token bands confirmed
+        S->>A: /break-down → kanban.md tickets (with S|M|L|XL | Npts tags)
+        Note over H,S: /grill-me for ad-hoc stress-testing only
+    end
+
+    rect rgb(255, 255, 240)
+        Note over H,E: SPRINT MANAGEMENT
+        H->>S: /sprint-start (Tuesdays)
+        S->>AI: capacity check vs preferences.md (story pts + token budget)
+        AI-->>H: ⚠️ over capacity / XL ticket warnings (if needed)
+        S->>A: sprint-NN.md
+        loop Every session
+            AI->>S: /standup
+            S-->>H: daily brief + token spend + deadline flags
+        end
+    end
+
+    rect rgb(255, 235, 200)
+        Note over H,E: BUILD
+        H->>S: /build — type CONFIRM
+        S->>AI: buffer window check (Friday EOD cutoff)
+        S->>AI: pre-build health check (.claude/deploy.md)
+        loop AFK ticket loop
+            S->>AI: execute ticket (with CODING-STANDARDS + TESTING loaded)
+            AI->>AI: red → green → refactor (/tdd)
+            AI->>AI: lightweight PII scan per ticket
+            AI->>A: kanban.md (real time) + actual token band recorded
+            Note over AI,A: context checkpoint every 3 tickets if 3+ remain
+        end
+        S-->>H: ⏸ HITL pause — type CONTINUE
+        AI-->>S: 2× failure → /diagnose (with TESTING + ERROR-HANDLING loaded)
+        S->>A: docs/tokens/[feature].md — build phase recorded
+        S-->>H: build summary
+    end
+
+    rect rgb(240, 248, 255)
+        Note over H,E: QA
+        S->>A: /qa-plan → qa-plan.md (TC-NNN IDs carried from testplan)
+        S-->>H: human works through checklist (tick TC-NNN items)
+        S->>AI: /pii-check Phase 1 — AFK scan (codebase + docs)
+        AI->>A: pii-report.md (Necessary / Incidental findings)
+        S-->>H: /pii-check Phase 2 — HITL review one finding at a time
+        S->>A: docs/tokens/[feature].md — QA phase recorded
+        H->>S: type APPROVE → /approve
+        S->>A: PRD archived + HANDOFF reset + token ledger updated
+        S-->>H: run /update-readme
+    end
+
+    rect rgb(255, 245, 240)
+        Note over H,E: SPRINT CLOSE
+        S->>AI: /sprint-end Phase 1 — AFK draft
+        AI->>A: sprint-NN.md + HANDOFF (Session type: Sprint Close)
+        S-->>H: /sprint-end Phase 2 — HITL retro
+        H->>S: confirm
+        S->>A: kanban-archive.md (estimated vs actual bands)
+        Note over S,A: Sprint token total surfaced
+    end
+
+    rect rgb(245, 240, 255)
+        Note over H,E: PI MANAGEMENT — Go/No Go Gate (Friday 5pm)
+        S->>AI: /go-nogo — AFK brief
+        AI->>A: gono-brief.md
+        S-->>H: GO / NO-GO decision
+        Note over H,S: NO-GO → /sprint-replan or /diagnose suggested
+    end
+
+    rect rgb(255, 240, 240)
+        Note over H,E: DEPLOY (3rd Monday of month)
+        H->>S: /deploy — type CONFIRM
+        S->>AI: Go/No Go gate check + rollback validation
+        AI->>E: staging deploy
+        AI-->>H: health check ✓ — type PROMOTE
+        H->>S: PROMOTE confirmed
+        AI->>E: production deploy (Monday)
+        AI->>A: deploy-log.md + diagram-v5-deployed
+        Note over H,E: On failure: ROLLBACK / INVESTIGATE / STOP — never auto-rollback
+
+        H->>S: /deploy-pi (full PI in sequence by deploy-order)
+        S->>AI: deploy project 1 → 2 → N
+        AI->>E: each project deployed
+        AI->>A: PI plan per-project status (✅ Deployed / ❌ Failed / ⏳ Pending)
+
+        H->>S: /rollback or /rollback-pi (emergency — no Go/No Go gate)
+        S-->>H: present last good version + require reason
+        AI->>E: rollback (reverse deploy-order for /rollback-pi)
+        S-->>H: DIAGNOSE handoff on success
+    end
+
+    rect rgb(245, 240, 255)
+        Note over H,E: PI CLOSE
+        H->>S: /pi-end
+        S->>A: PI plan archived + stakeholder delivery summary
+        Note over S,A: PI token total from ledger surfaced
+        S->>E: stakeholder delivery summary
+    end
+
+    Note over H,E: SUPPORT SKILLS — available at any stage
+    Note over H,S: /critic /review /write-adr /debrief /save-state /scope-check /update-context
+    Note over S,A: /estimate /token-report /lookup /grill-with-docs /add-system /summarise-system
+    Note over S,E: /onboard /write-a-skill /backlog-add /sprint-replan /pi-replan /pii-check
+
+    Note over H,E: TOKEN RECORDING — AFK automatic at end of each phase
+    Note over A,AI: docs/tokens/[feature].md updated per phase → ~/.claude/tokens/ledger.md at /approve
+
+    Note over H,E: ID SYSTEM — assigned automatically, never reused
+    Note over A,AI: IDEA-NNN at /idea · PROJ-NNN at /create-project · TC-NNN at /testplan → /lookup resolves any ID

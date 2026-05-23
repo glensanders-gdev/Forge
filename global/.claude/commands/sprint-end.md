@@ -1,0 +1,1 @@
+Invoke the sprint-end skill. Runs in two modes: AFK draft (pulls kanban data, writes a draft sprint-end record, creates a HITL finalise ticket) or HITL finalise (human confirms carry-over, fills in the retro, finalises the record and marks the sprint closed in the calendar).

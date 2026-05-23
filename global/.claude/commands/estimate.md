@@ -1,0 +1,1 @@
+Invoke the estimate skill. Generate token cost bands (S/M/L/XL) and story points (1/2/3/5/8/13) for a feature, module set, or ticket. AI suggests all estimates as a table with reasoning, human confirms in aggregate. XL items flagged for /break-down. Writes confirmed estimates to the relevant document.

@@ -1,0 +1,1 @@
+Invoke the create-project skill. Progress an accepted idea into a new project repository. Runs /grill-me to align on scope before scaffolding any file structure, then sets up the repo with the Forge project template and links the idea documents.

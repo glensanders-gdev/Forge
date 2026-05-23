@@ -1,0 +1,33 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Sensitive — never commit
+.env
+*.env.*
+secrets/
+credentials/
+
+# User data — these live in ~/.claude, not in the repo
+# (listed here in case someone accidentally copies them in)
+global/.claude/registry.md
+global/.claude/tokens/ledger.md
+global/.claude/instincts/*.md
+!global/.claude/instincts/_template.md
+!global/.claude/instincts/registry.md
+global/.claude/knowledge/systems/*/
+global/.claude/priorities.md
+global/.claude/backlog.md
+global/.claude/pi/
+global/.claude/sprints/calendar.md
+
+# Build artefacts
+*.zip
+forge-sequence-v*.mmd
+!forge-sequence.mmd

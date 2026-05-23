@@ -1,0 +1,1 @@
+Invoke the lookup skill. Find any Forge entity by its unique ID — IDEA-NNN, PROJ-NNN, or TC-NNN. Returns a summary of the entity, its current status, cross-references, and file path. Reads from ~/.claude/registry.md for ideas and projects, docs/tests/registry.md for test cases.

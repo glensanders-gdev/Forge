@@ -1,0 +1,1 @@
+Invoke the token-report skill. Generate a program-level token usage report. Scope options: feature (phase breakdown + estimate calibration), sprint (all features in sprint), PI (cross-project PI total), program (all time), or calibration (estimate accuracy analysis). Reads from docs/tokens/ and ~/.claude/tokens/ledger.md.

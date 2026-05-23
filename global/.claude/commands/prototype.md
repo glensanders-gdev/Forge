@@ -1,0 +1,1 @@
+Invoke the prototype skill. Spike ideas in throwaway code under the /prototype folder. Document findings in LOGIC.md and UI.md. Nothing carries over to src/ silently. Clean up /prototype after /write-prd completes.
