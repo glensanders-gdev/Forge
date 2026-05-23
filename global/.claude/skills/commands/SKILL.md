@@ -69,6 +69,8 @@ Print the following reference exactly:
 ### Knowledge Base
 | Command | What it does |
 |---------|-------------|
+| `/user:knowledge-onboard` | Guided company knowledge setup — style guide, acronyms, domain terms, and core systems in sequence |
+| `/user:style-check` | Review any deliverable against the company style guide — CRITICAL/HIGH/LOW findings, pass/fail gate |
 | `/user:knowledge-health` | Read-only diagnostic across all knowledge layers — coverage scorecard, stale files, cross-reference conflicts, interesting connections |
 | `/user:add-term` | Add a term to the company-level glossary — acronyms or domain concepts, lightweight quick-add |
 | `/user:add-system` | Scaffold a new system folder in ~/.claude/knowledge/systems/ |

@@ -46,6 +46,11 @@ Read `~/.claude/knowledge/company/context.md`:
 - Extract all `_Needs enrichment_` flagged terms
 - Extract all Flagged Ambiguities — note which are unresolved
 
+Check `~/.claude/knowledge/company/style-guide.md`:
+- If missing: flag as P1 — "Style guide not found. Run `/user:knowledge-onboard` to set it up."
+- If present but all sections are placeholders: flag as P1 — "Style guide exists but is unpopulated. Fill in before running `/user:style-check`."
+- If partially populated: flag as P2 — note which sections are still placeholder
+
 ### 4. Scan Project CONTEXT.md Files
 
 For each active project (from `~/.claude/registry.md`):

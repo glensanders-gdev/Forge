@@ -63,7 +63,8 @@ Runs after human confirms Phase 1 summary. Writes the PRD and cleans up.
 ### Phase 2 Process
 
 1. Incorporate any corrections from the human's Phase 1 confirmation.
-2. Write the PRD using the template below.
+2. Check `~/.claude/knowledge/company/style-guide.md` — if populated, apply its tone, terminology, and formatting standards when writing the PRD. If it is a placeholder, proceed without it.
+3. Write the PRD using the template below.
 3. **Generate per-module estimates** — for each module identified in Phase 1:
    - Estimate AI token cost band (S/M/L/XL) and story points (1/2/3/5/8/13)
    - Present as a table for human confirmation before writing to the PRD:

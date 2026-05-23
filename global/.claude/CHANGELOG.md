@@ -11,6 +11,26 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
+## v2.5.6 — 2026-05-23
+
+**New skills: /knowledge-onboard, /style-check + company knowledge layer**
+
+### Added
+- `/knowledge-onboard` — guided company knowledge setup for a new employer. Four-stage sequence: style guide → acronyms → domain terms → core systems. HITL gate between every stage. Multi-source ingestion: Confluence URL, file path (PDF/Word), manual paste (SharePoint), or verbal description. Produces `style-guide.md`, populates `acronyms.md` and `context.md`, and scaffolds system knowledge via `/summarise-system` logic.
+- `/style-check` — reviews any document against `~/.claude/knowledge/company/style-guide.md`. CRITICAL/HIGH/LOW severity model (mirrors `/pii-check`). Pass/fail gate: APPROVED or NEEDS REVISION. Gracefully degrades if style guide is a placeholder.
+- `~/.claude/knowledge/company/style-guide.md` — placeholder template covering written style, formatting, fonts, colour scheme, approved/banned terminology, logo usage, and document types. Populated via `/knowledge-onboard` or manually at the company.
+
+### Changed
+- `/write-article` — reads `style-guide.md` before writing (step 0 of writing process); quality gate now includes a `/style-check` reminder for external deliverables
+- `/write-prd` — reads `style-guide.md` in Phase 2 before writing
+- `/knowledge-health` — company knowledge scan now checks for `style-guide.md`: missing = P1, all-placeholder = P1, partially populated = P2
+
+### Deferred
+- `api.md` template and `/add-system` extension — deferred for future build
+- `/summarise-system` API ingestion path — deferred for future build
+
+---
+
 ## v2.5.5 — 2026-05-23
 
 **New skill: /lang-rules + common coding rules layer + rules/README enrichment**
