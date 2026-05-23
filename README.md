@@ -1,4 +1,4 @@
-# Forge v2.0.0
+# Forge v2.5.5
 
 An AI-assisted development workflow framework for Claude Code.
 
@@ -20,7 +20,7 @@ Each stage produces an artifact that feeds the next. The AI agent orients itself
 
 ## What's Included
 
-**50 skills** covering the full software delivery lifecycle:
+**59 skills** covering the full software delivery lifecycle:
 
 | Category | Skills |
 |----------|--------|
@@ -31,10 +31,11 @@ Each stage produces an artifact that feeds the next. The AI agent orients itself
 | Sprint | `/sprint-start`, `/sprint-end`, `/standup`, `/debrief`, `/save-state` |
 | PI & Release | `/piplan`, `/pi-end`, `/sprintplan`, `/go-nogo`, `/deploy`, `/deploy-pi`, `/rollback`, `/rollback-pi`, `/standalone-release`, `/sprint-replan`, `/pi-replan` |
 | Session | `/backlog-list`, `/backlog-proj`, `/backlog-add` |
-| Code Quality | `/review`, `/critic`, `/write-adr`, `/push-standards`, `/update-readme` |
-| Knowledge | `/add-system`, `/summarise-system`, `/update-context` |
+| Code Quality | `/review`, `/critic`, `/write-adr`, `/push-standards`, `/lang-rules`, `/update-readme`, `/accessibility`, `/ai-first-engineering`, `/write-article`, `/assimilate` |
+| Knowledge | `/add-system`, `/summarise-system`, `/update-context`, `/add-term`, `/knowledge-health` |
+| Session | `/handoff`, `/save-state`, `/lookup` |
 | Token Tracking | `/token-report` — per-phase recording across all 11 pipeline stages, global ledger, calibration analysis |
-| Framework | `/write-a-skill`, `/commands` |
+| Framework | `/write-a-skill`, `/learn`, `/evolve`, `/commands` |
 
 ---
 
@@ -140,6 +141,9 @@ Or if you have an existing project:
   PRINCIPLES.md        ← Forge design philosophy — read before writing new skills
   CHANGELOG.md         ← Forge version history
   forge-sequence.mmd   ← framework sequence diagram
+  rules/
+    common/            ← language-agnostic coding standards (always active)
+    [lang]/            ← language-specific rule sets, installed via /lang-rules
 ```
 
 ---
@@ -169,7 +173,7 @@ Or if you have an existing project:
 
 ## Skill Versioning
 
-Skills are versioned in `~/.claude/skills/manifest.json`. The current framework version is `2.0.0`. Project-level skill overrides in `.claude/skills/[skill-name]/SKILL.md` take precedence over global skills.
+Skills are versioned in `~/.claude/skills/manifest.json`. The current framework version is `2.5.5`. Project-level skill overrides in `.claude/skills/[skill-name]/SKILL.md` take precedence over global skills.
 
 ---
 
@@ -183,6 +187,15 @@ The full framework lifecycle is documented in `~/.claude/forge-sequence.mmd`. Re
 
 | Version | Changes |
 |---------|---------|
+| 2.5.5 | Language rules layer — `/lang-rules`, `~/.claude/rules/common/` (coding-style, quality-checklist, research-first, security), `/push-standards` baseline awareness |
+| 2.5.4 | `/write-article` — long-form content in a concrete voice |
+| 2.5.3 | `/assimilate` — structured process for adapting external ideas into Forge with attribution |
+| 2.5.2 | `/ai-first-engineering` — operating principles for AI-assisted delivery teams |
+| 2.5.1 | `/accessibility` — WCAG 2.2 Level AA compliance skill for Web, iOS, and Android |
+| 2.5.0 | Instincts system — `/learn` and `/evolve` for continuous framework improvement |
+| 2.4.0 | Knowledge base health checking and research promotion |
+| 2.3.7 | `/add-term`, `/knowledge-health`, `/handoff`, `/lookup`, `/save-state` |
+| 2.3.0 | Unique entity IDs — `IDEA-NNN`, `PROJ-NNN`, `TC-NNN` with global registry |
 | 2.2.2 | Token recording housekeeping — `_template.md`, feature name convention, multi-PI handling |
 | 2.2.1 | Token recording completeness — all 11 phases, session counter, approve failure mode |
 | 2.2.0 | Token recording and program-level reporting — `/token-report`, global ledger, per-phase records |
@@ -192,3 +205,16 @@ The full framework lifecycle is documented in `~/.claude/forge-sequence.mmd`. Re
 | 2.1.0 | Token and complexity estimation — `/estimate`, story points, sprint capacity check, actuals tracking |
 | 2.0.0 | Full lifecycle — build, deploy, rollback, PI planning, PII check, TDD, 48 skills |
 | 1.0.0 | Initial release — planning pipeline, sprint management, knowledge base, 7 skills |
+
+---
+
+## Acknowledgements
+
+Forge draws on ideas, patterns, and techniques from several excellent open-source projects. Many skills have been adapted — not copied — with Forge conventions applied and original sources credited.
+
+| Source | Author | What was adapted |
+|--------|--------|-----------------|
+| [ECC](https://github.com/affaan-m/ECC) | Affaan Mustafa | Accessibility (WCAG 2.2), AI-first engineering principles, write-article style rules, lang-rules system, common coding rules layer (coding-style, quality-checklist, research-first, security), instincts concept |
+| [skills](https://github.com/mattpocock/skills) | Matt Pocock | Foundational skill structure and composable workflow design that shaped Forge's overall architecture |
+
+Every adapted skill includes an `origin:` field in its frontmatter and a credit line in the skill body. If you adapt Forge skills for your own framework, please carry the credits forward.
