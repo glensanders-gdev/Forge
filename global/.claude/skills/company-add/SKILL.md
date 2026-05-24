@@ -105,6 +105,8 @@ Structure:
   ideas/
     active/
     archive/
+  metrics/          ← /fy-review and /dashboard-tokens write cross-project metrics here
+  reviews/          ← /fy-review writes manager-summary.md and team-retrospective.md here
 
 preferences.md will be updated: active_company: [name]
 
@@ -131,6 +133,8 @@ On confirmation, create the following:
 ~/.claude/companies/[name]/ideas/
 ~/.claude/companies/[name]/ideas/active/
 ~/.claude/companies/[name]/ideas/archive/
+~/.claude/companies/[name]/metrics/
+~/.claude/companies/[name]/reviews/
 ```
 
 ### `config.md`
@@ -143,6 +147,15 @@ domain: (e.g. yourcompany.com — fill in after setup)
 jira_base_url: (e.g. https://yourcompany.atlassian.net — fill in if using Jira)
 active: true
 created: YYYY-MM-DD
+
+## Financial Year
+fy_start: July 1
+review_display_name: FY Review
+
+## AI Cost Tracking (optional)
+# token_cost_per_1k: 0.003
+# Set to your per-1k-token cost to enable cost-per-feature and cost-per-story-point metrics.
+# Example: Claude Sonnet at $0.003 per 1k tokens (output). Check current pricing.
 ```
 
 ### `registry.md`

@@ -52,7 +52,8 @@ Triggered when the human runs `/user:sprint-end` or picks up the HITL finalise t
    - "One thing to improve next sprint?"
 5. Present the finalised draft for confirmation before writing.
 6. Write the finalised Sprint End section into `docs/sprints/sprint-NN.md`.
-7. **Update `docs/HANDOFF.md`** — overwrite with sprint close state:
+7. **Log sprint metrics** — append one row to `docs/metrics/metrics-log.md` (see Metrics Logging below).
+8. **Update `docs/HANDOFF.md`** — overwrite with sprint close state:
    - Session type: Sprint Close
    - Current ticket: "Sprint-NN closed"
    - What just happened: sprint summary in one sentence
@@ -62,8 +63,8 @@ Triggered when the human runs `/user:sprint-end` or picks up the HITL finalise t
    - Append under heading: `## Sprint-NN — YYYY-MM-DD`
    - Leave only In Progress, Blocked, and Backlog tickets in `kanban.md`
    - Keeps `kanban.md` lean for future session start reads
-8. Update `~/.claude/sprints/calendar.md` — mark sprint as Closed.
-9. Prompt (do not trigger): "Sprint-NN closed. Run `/user:sprint-start` when you're ready to open Sprint-NN+1."
+9. Update `~/.claude/sprints/calendar.md` — mark sprint as Closed.
+10. Prompt (do not trigger): "Sprint-NN closed. Run `/user:sprint-start` when you're ready to open Sprint-NN+1."
 
 ---
 
@@ -107,6 +108,33 @@ _None_ (if everything completed)
 **One thing to improve next sprint:**
 ⏳ Awaiting human input (or completed text)
 ```
+
+---
+
+## Metrics Logging
+
+After writing the finalised sprint record (HITL mode only), append one row to `docs/metrics/metrics-log.md`.
+Create the file and section header if they don't exist.
+
+**Section header (create if absent):**
+```markdown
+## Sprint Velocity
+
+| Sprint | Closed | Points Done | Points Carried | Carry-Over % | Goals Met | Goals Total | Goal % |
+|--------|--------|-------------|----------------|--------------|-----------|-------------|--------|
+```
+
+**Append row:**
+```
+| Sprint-13 | YYYY-MM-DD | 21 | 3 | 13% | 2 | 3 | 67% |
+```
+
+- **Points Done / Carried**: story points if tracked; ticket counts with `(tix)` suffix if not.
+- **Carry-Over %**: points carried ÷ (done + carried) × 100%, rounded to nearest whole number.
+- **Goal %**: goals met ÷ goals total × 100%, rounded to nearest whole number.
+- AFK mode does not log — wait for HITL finalisation since carry-over may change.
+
+Log silently — do not mention to the user.
 
 ---
 

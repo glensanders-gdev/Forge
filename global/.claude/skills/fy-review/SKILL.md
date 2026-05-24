@@ -32,6 +32,7 @@ These are **private documents** — never committed to git, never published to C
 Read from `~/.claude/companies/[active_company]/config.md`:
 - `fy_start` — default `July 1` if not set (Australian FY)
 - `review_display_name` — default `FY Review` if not set
+- `token_cost_per_1k` — optional; enables cost-per-feature and cost-per-story-point metrics
 
 ### Determine period
 
@@ -79,6 +80,7 @@ absent sources are skipped gracefully, not errored.
 - `docs/kanban.md` — completed and carried tickets
 - `docs/sprints/sprint-NN.md` — sprint records
 - `docs/tokens/[feature].md` — token spend per feature
+- `docs/metrics/metrics-log.md` — critic sessions, diagnose events, lookup activity, sprint velocity
 - `docs/tech-debt.md` — debt register
 - `docs/security/assessment-*.md` — security assessments
 - `docs/performance/review-*.md` — performance reviews
@@ -173,6 +175,46 @@ investment in `/ingest` and `/add-system` is paying off.
 | Average flag lifetime | Average days from creation to removal for resolved flags |
 | Overdue flags at period end | Count flags past removal date |
 
+### AI Assistance Quality
+Read from `docs/metrics/metrics-log.md` (Critic Sessions + Diagnose Events tables).
+
+| Metric | How to calculate |
+|--------|-----------------|
+| Critic sessions run | Count rows in Critic Sessions table within period |
+| Average P1 findings per session | Sum P1 ÷ session count |
+| Diagnose events — total | Count rows in Diagnose Events table within period |
+| Diagnose trigger split | Explicit count vs Failed-twice count |
+| Diagnose resolution rate | Resolved ÷ total diagnose events × 100% |
+| HITL-to-AFK ratio | Count `[HITL]` tickets ÷ count `[AFK]` tickets in kanban within period |
+
+The HITL-to-AFK ratio indicates how much human oversight is applied to AI output.
+A high HITL ratio means the human is reviewing most AI work. Neither extreme is inherently good — context matters.
+
+### AI Knowledge Base ROI
+Read from `docs/metrics/metrics-log.md` (Lookup Activity + Sprint Velocity tables) and token data.
+
+| Metric | How to calculate |
+|--------|-----------------|
+| Lookup frequency per sprint | Total lookup rows ÷ sprint count |
+| Lookup hit rate | Found lookups ÷ total lookups × 100% |
+| Token efficiency trend | Average tokens/ticket: first half of period vs second half (from sprint + token data) |
+| Token efficiency improvement | % change: (first-half avg − second-half avg) ÷ first-half avg × 100% |
+
+A positive token efficiency improvement (fewer tokens per ticket in H2) confirms the knowledge
+base is paying off. Compare year-on-year: this should improve each FY as KB matures.
+
+### Cost Metrics
+Only calculated if `token_cost_per_1k` is set in company config.
+
+| Metric | How to calculate |
+|--------|-----------------|
+| Total cost (period) | Total tokens ÷ 1000 × token_cost_per_1k |
+| Average cost per feature | Total cost ÷ features delivered |
+| Average cost per story point | Total cost ÷ total story points completed |
+| Cost trend | Compare H1 vs H2 cost per story point — should decline with KB growth |
+
+If `token_cost_per_1k` is not set, note "Configure token_cost_per_1k in company config to enable cost metrics."
+
 ---
 
 ## Phase 4 — Discover Additional Metrics
@@ -243,6 +285,9 @@ If prior data exists, compute deltas for key metrics:
 | Incident rate / release | 1.2 | 0.6 | -50% ↓ ✅ |
 | Estimate calibration | 58% | 74% | +16pts ↑ |
 | Sprint carry-over rate | 28% | 19% | -9pts ↓ ✅ |
+| Lookup hit rate | 71% | 84% | +13pts ↑ ✅ |
+| Diagnose events (Failed twice) | 8 | 3 | -63% ↓ ✅ |
+| Cost per story point | $4.20 | $2.80 | -33% ↓ ✅ |
 ```
 
 Direction indicators: ↑ ↓ with ✅ where the direction is positive (lower incidents = ✅,
@@ -437,6 +482,44 @@ Write `team-retrospective.md`. Audience: engineering team. Full technical detail
 | Flags removed | N |
 | Average lifetime | N days |
 | Overdue at period end | N |
+
+---
+
+## AI Assistance Quality
+
+| Metric | Value |
+|--------|-------|
+| Critic sessions run | N |
+| Average P1 findings per session | N |
+| Diagnose events total | N |
+| Diagnose trigger split | N Explicit / N Failed-twice |
+| Diagnose resolution rate | N% |
+| HITL-to-AFK ratio | N% HITL |
+
+---
+
+## AI Knowledge Base ROI
+
+| Metric | Value |
+|--------|-------|
+| Lookup frequency per sprint | N |
+| Lookup hit rate | N% |
+| Token efficiency H1 | ~Nk tokens/ticket |
+| Token efficiency H2 | ~Nk tokens/ticket |
+| Efficiency improvement | N% ↓ (improving) / N% ↑ (growing) |
+
+---
+
+## Cost Metrics
+
+[Only included if token_cost_per_1k is configured]
+
+| Metric | Value |
+|--------|-------|
+| Total cost (period) | $N.NN |
+| Average cost per feature | $N.NN |
+| Average cost per story point | $N.NN |
+| H1 vs H2 cost per point | $N.NN → $N.NN |
 
 ---
 

@@ -105,6 +105,28 @@ The registry currently has [N] ideas (IDEA-001 through IDEA-[last]).
 Run /user:lookup IDEA-001 through IDEA-[last] to find what you're looking for.
 ```
 
+## Metrics Logging
+
+After returning a result (found or not found), append one row to `docs/metrics/metrics-log.md`
+in the current project directory.
+
+**Section header (create if absent):**
+```markdown
+## Lookup Activity
+
+| Date | ID | Type | Found |
+|------|-----|------|-------|
+```
+
+**Append row:**
+```
+| YYYY-MM-DD | IDEA-003 | IDEA | Yes |
+```
+
+Log silently — do not mention to the user.
+
+---
+
 ## Rules
 
 - Never guess — if the ID isn't in the registry, say so clearly
