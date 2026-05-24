@@ -6,6 +6,8 @@ description: Run a read-only diagnostic across all Forge knowledge layers — sy
 
 # Knowledge Health
 
+> **Company-aware:** When `active_company` is set in `~/.claude/preferences.md` (configured by `/company-add`), all scan paths resolve under `~/.claude/companies/[active_company]/` instead of `~/.claude/knowledge/`. The health report is written to the same location.
+
 Read-only diagnostic across all Forge knowledge layers. Never modifies files. Reports findings with specific actionable suggestions — the human decides what to act on.
 
 ## When to Use

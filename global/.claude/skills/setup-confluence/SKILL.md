@@ -5,6 +5,8 @@ description: Interactively configure Confluence publishing for the knowledge bas
 
 # Setup Confluence
 
+> **Company-aware:** When `active_company` is set in `~/.claude/preferences.md` (configured by `/company-add`), `confluence.md` is written to `~/.claude/companies/[active_company]/knowledge/publish/` instead of `~/.claude/knowledge/publish/`.
+
 Guided interactive setup for Confluence publishing. Asks one question at a time, validates
 the connection before writing anything, and produces a ready-to-use `confluence.md`.
 

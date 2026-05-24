@@ -5,6 +5,8 @@ description: Compile unprocessed Raw/ items into the Wiki. Handles three intake 
 
 # Ingest
 
+> **Company-aware:** When `active_company` is set in `~/.claude/preferences.md` (configured by `/company-add`), all Raw/ and Wiki/ paths resolve under `~/.claude/companies/[active_company]/knowledge/` instead of `~/.claude/knowledge/`.
+
 Compile unprocessed source material into the Wiki. Raw is always the origin — all intake
 modes save to `Raw/` first, then flow through the same pipeline.
 

@@ -5,6 +5,8 @@ description: Scaffold a new system knowledge folder with Raw/Wiki/Outputs tiers 
 
 # Add System
 
+> **Company-aware:** When `active_company` is set in `~/.claude/preferences.md` (configured by `/company-add`), systems are scaffolded under `~/.claude/companies/[active_company]/knowledge/systems/` instead of `~/.claude/knowledge/systems/`.
+
 Scaffold the full three-tier knowledge structure for a new system under `~/.claude/knowledge/systems/`.
 
 ## Process

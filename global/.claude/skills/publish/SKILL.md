@@ -5,6 +5,8 @@ description: Publish wiki articles and ideas to Confluence. Pushes changed artic
 
 # Publish
 
+> **Company-aware:** When `active_company` is set in `~/.claude/preferences.md` (configured by `/company-add`), publish config is read from `~/.claude/companies/[active_company]/knowledge/publish/confluence.md` and wiki content is sourced from the company knowledge directory instead of the global paths below.
+
 Publish wiki articles to the configured Confluence space. The wiki is always the master —
 Confluence is the published view. Edits made directly in Confluence will be overwritten
 on the next publish.
