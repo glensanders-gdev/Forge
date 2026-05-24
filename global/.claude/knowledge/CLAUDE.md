@@ -12,6 +12,12 @@ The intake layer. Source material lands here — articles, papers, repos, datase
 web clips, notes, dumps. Humans add to Raw; you never modify or delete what's in it.
 Treat Raw as append-only source-of-truth.
 
+**Naming convention:** `YYYY-MM-DD_[source-slug].[ext]` — date prefix, source-based slug
+(not topic-based), original extension preserved. Examples:
+- `2026-05-24_karpathy-llm-knowledge-bases.md`
+- `2026-05-24_openai-gpt4-technical-report.pdf`
+- `2026-05-24_salesforce-schema-export.csv`
+
 `Raw/_compiled.log` tracks every item that has been processed — one line per entry:
 ```
 YYYY-MM-DD | [filename] | compiled | [Wiki article(s) updated]
