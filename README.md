@@ -1,4 +1,4 @@
-# Forge v2.5.6
+# Forge v2.5.7
 
 An AI-assisted development workflow framework for Claude Code.
 
@@ -20,7 +20,7 @@ Each stage produces an artifact that feeds the next. The AI agent orients itself
 
 ## What's Included
 
-**82 skills** covering the full software delivery lifecycle:
+**84 skills** covering the full software delivery lifecycle:
 
 | Category | Skills |
 |----------|--------|
@@ -33,7 +33,7 @@ Each stage produces an artifact that feeds the next. The AI agent orients itself
 | PI & Release | `/piplan`, `/pi-end`, `/sprintplan`, `/go-nogo`, `/changelog`, `/deploy`, `/deploy-pi`, `/rollback`, `/rollback-pi`, `/standalone-release`, `/sprint-replan`, `/pi-replan`, `/incident` |
 | Sprint Management | `/sprint-start`, `/sprint-end`, `/pir` |
 | Maintenance | `/feature-flag`, `/tech-debt`, `/dependency-update` |
-| Company Config | `/company-add`, `/company-git`, `/company-sync` |
+| Company Config | `/company-add`, `/company-git`, `/company-sync`, `/tool-add`, `/tool-check` |
 | Framework | `/write-a-skill`, `/assimilate`, `/learn`, `/evolve`, `/link-jira`, `/commands` |
 
 ---
@@ -128,8 +128,10 @@ Or if you have an existing project:
 
 ```
 ~/.claude/
-  skills/              ← 82 global skills
-  commands/            ← 82 slash commands
+  skills/              ← 84 global skills
+  commands/            ← 84 slash commands
+  tools/
+    global.md          ← global tools registry (security scanners, perf analysers, etc.)
   knowledge/
     company/
       acronyms.md
@@ -197,6 +199,7 @@ The full framework lifecycle is documented in `~/.claude/forge-sequence.mmd`. Re
 
 | Version | Changes |
 |---------|---------|
+| 2.5.7 | Tools registry — `~/.claude/tools/global.md` + company `tools.md`; `/tool-add`, `/tool-check`; `/security-assessment` and `/performance-review` use registry; `/build` pre-flight checks required tools |
 | 2.5.6 | 19 new skills added (company config, knowledge, maintenance, metrics); company-config wired into `/build`, `/pii-check`, `/deploy`; `/approve` and `/deploy` suggest `/pir`; install.sh non-interactive fix; sequence diagram rewritten |
 | 2.5.5 | Language rules layer — `/lang-rules`, `~/.claude/rules/common/` (coding-style, quality-checklist, research-first, security), `/push-standards` baseline awareness |
 | 2.5.4 | `/write-article` — long-form content in a concrete voice |

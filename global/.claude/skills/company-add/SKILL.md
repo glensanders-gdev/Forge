@@ -516,8 +516,9 @@ Next steps:
   1. Fill in config.md — domain, jira_base_url, token_cost_per_1k
   2. Fill in knowledge/company/context.md and acronyms.md
   3. Run /add-system [name] to add your first system
-  4. Run /setup-confluence if publishing to Confluence
-  5. Run /company-git if you have a company-approved GitHub for this data
+  4. Run /tool-add --company [name] to configure required, approved, and prohibited tools
+  5. Run /setup-confluence if publishing to Confluence
+  6. Run /company-git if you have a company-approved GitHub for this data
 ```
 
 ---

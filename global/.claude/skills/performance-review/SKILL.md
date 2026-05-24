@@ -36,16 +36,18 @@ docs/performance/
 
 Create `docs/performance/` if it does not exist.
 
-### 2 — Detect available tools
+### 2 — Query tools registry
 
-Check silently:
+Load available tools for the `performance-analyser` category:
 
-```bash
-command -v lighthouse      # web performance (requires Chrome)
-command -v npx             # for webpack-bundle-analyzer, clinic.js
-command -v py-spy          # Python profiler
-command -v go tool pprof   # Go profiler
-```
+1. Read `~/.claude/companies/[active_company]/tools.md` (if company is set) — company entries take priority
+2. Read `~/.claude/tools/global.md` — global fallback
+3. For each tool in `performance-analyser`:
+   - `prohibited` → skip entirely; note in the announcement
+   - `required` → check `check-command`; if missing, note (pre-flight will have already blocked `/build`)
+   - `approved` / `global-only` → check `check-command`; use if installed
+
+The first installed tool found per category wins.
 
 ### 3 — Announce scope
 
@@ -53,13 +55,12 @@ command -v go tool pprof   # Go profiler
 🔍 Performance Review — [Project Name]
    Scope: [Full codebase / --scope X / path]
    AI analysis: ✅
-   Lighthouse:             ✅ / ⚠️ not installed
-   webpack-bundle-analyzer: ✅ / ⚠️ not installed / ➖ not a JS project
-   py-spy:                 ✅ / ⚠️ not installed / ➖ not a Python project
-   go pprof:               ✅ / ⚠️ not installed / ➖ not a Go project
+   [tool-name] (performance-analyser): ✅ installed / ❌ missing / 🚫 prohibited / ➖ not applicable
 
 Running review — this may take a few minutes...
 ```
+
+If no performance-analyser tools are installed, note: "No performance-analyser tools installed — running AI analysis only. Run /tool-check for recommendations."
 
 ---
 
@@ -121,37 +122,42 @@ Flag each finding with `[Requires verification]`.
 
 Write output to `docs/performance/tmp/`. Clean up after Phase 5.
 
-### Lighthouse (web projects — requires a running dev server)
+For each tool identified as installed in Pre-flight Step 2, invoke it using the `usage`
+guidance from its registry entry. Follow the `anti-patterns` field to avoid common misuse.
 
-```bash
-lighthouse [dev-server-url] --output json --output-path docs/performance/tmp/lighthouse.json --quiet
+**Common invocation patterns** (override by registry `usage` if they differ):
+
+- Lighthouse (web — requires running dev server):
+  ```bash
+  lighthouse [dev-server-url] --output json --output-path docs/performance/tmp/lighthouse.json --quiet
+  ```
+  If no dev server URL is available, skip and note: "Lighthouse skipped — provide a running dev server URL with `/performance-review --url http://localhost:3000`"
+
+- webpack-bundle-analyzer (JS projects):
+  ```bash
+  npx webpack-bundle-analyzer [stats-file] --mode static --report docs/performance/tmp/bundle-report.html --no-open
+  ```
+
+- py-spy (Python — requires a running process):
+  ```bash
+  py-spy record -o docs/performance/tmp/profile.svg --pid [pid] --duration 30
+  ```
+  Skip if no process is running — note for manual profiling.
+
+- go pprof (Go projects):
+  ```bash
+  go test -cpuprofile docs/performance/tmp/cpu.prof -memprofile docs/performance/tmp/mem.prof ./...
+  go tool pprof -text docs/performance/tmp/cpu.prof > docs/performance/tmp/pprof-report.txt
+  ```
+
+For any tool not installed:
+```
+❌ [tool] not installed — [description from registry]. Install: [install-hint]
 ```
 
-Note: Lighthouse requires a running application. If no dev server URL is available,
-skip and note: "Lighthouse skipped — provide a running dev server URL with
-`/performance-review --url http://localhost:3000`"
-
-### webpack-bundle-analyzer (JS projects)
-
-```bash
-npx webpack-bundle-analyzer [stats-file] --mode static --report docs/performance/tmp/bundle-report.html --no-open
+For any tool marked `prohibited` in company config:
 ```
-
-Or for projects using the analyzer plugin, read the existing stats file.
-
-### py-spy (Python — requires a running process)
-
-```bash
-py-spy record -o docs/performance/tmp/profile.svg --pid [pid] --duration 30
-```
-
-Skip if no process is running — note for manual profiling.
-
-### go pprof (Go projects)
-
-```bash
-go test -cpuprofile docs/performance/tmp/cpu.prof -memprofile docs/performance/tmp/mem.prof ./...
-go tool pprof -text docs/performance/tmp/cpu.prof > docs/performance/tmp/pprof-report.txt
+🚫 [tool] prohibited by company policy — skipped.
 ```
 
 ---

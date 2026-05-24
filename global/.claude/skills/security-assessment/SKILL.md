@@ -61,16 +61,19 @@ docs/security/
 
 Create `docs/security/` if it does not exist.
 
-### 2 — Detect available tools
+### 2 — Query tools registry
 
-Check silently for each tool. Note availability for Phase 4 — do not error if absent.
+Load available tools for the `security-scanner` and `dependency-auditor` categories:
 
-```bash
-command -v semgrep   # general pattern scanner
-command -v npm       # for npm audit (Node projects)
-command -v bandit    # Python static analysis
-command -v trivy     # container and dependency CVE scanner
-```
+1. Read `~/.claude/companies/[active_company]/tools.md` (if company is set) — company entries take priority
+2. Read `~/.claude/tools/global.md` — global fallback
+3. For each tool in these categories:
+   - `prohibited` → skip entirely; note in the announcement
+   - `required` → check `check-command`; if missing, note (pre-flight will have already blocked `/build`, but `/security-assessment` can run standalone)
+   - `approved` / `global-only` → check `check-command`; use if installed
+
+The first installed tool found per category wins. `security-scanner` tools run in Phase 4;
+`dependency-auditor` tools also run in Phase 4 for dependency-scoped work.
 
 ### 3 — Announce scope
 
@@ -80,13 +83,13 @@ State what will be assessed and which tools will run before starting:
 🔍 Security Assessment — [Project Name]
    Scope: [Full codebase / --scope X / path]
    AI analysis: ✅
-   semgrep:     ✅ / ⚠️ not installed
-   npm audit:   ✅ / ⚠️ not installed / ➖ not a Node project
-   bandit:      ✅ / ⚠️ not installed / ➖ not a Python project
-   trivy:       ✅ / ⚠️ not installed
+   [tool-name] (security-scanner):   ✅ installed / ❌ missing / 🚫 prohibited
+   [tool-name] (dependency-auditor): ✅ installed / ❌ missing / ➖ not applicable
 
 Running assessment — this may take a few minutes...
 ```
+
+If no tools are installed, note: "No security-scanner tools installed — running AI analysis only. Install tools via /tool-check for recommendations."
 
 ---
 
@@ -161,33 +164,28 @@ If `--scope deps` was specified, skip Phases 2 and 3 entirely and begin here.
 - `--scope deps`: use `.` (project root — tools scan manifests and lock files)
 - Path argument (e.g. `src/payments/`): use that path
 
-Run each available tool against the resolved scope. Write output to `docs/security/tmp/`
-(already gitignored as a subdirectory of `docs/security/`). Clean up tmp files after
-Phase 5 consolidation.
+For each tool identified as installed in Pre-flight Step 2, invoke it using the `usage`
+guidance from its registry entry. Write output to `docs/security/tmp/` (already gitignored
+as a subdirectory of `docs/security/`). Clean up tmp files after Phase 5 consolidation.
 
-### semgrep
-```bash
-semgrep --config=auto [scope-path] --json --output docs/security/tmp/semgrep-results.json
-```
+Follow the registry `usage` field exactly — it contains the correct flags and output format
+for each tool. Follow the `anti-patterns` field to avoid common misuse.
 
-### npm audit (Node projects only — run from project root regardless of scope-path)
-```bash
-npm audit --json > docs/security/tmp/npm-audit-results.json
-```
+**Common invocation patterns** (override by registry `usage` if they differ):
 
-### bandit (Python projects only)
-```bash
-bandit -r [scope-path] -f json -o docs/security/tmp/bandit-results.json
-```
-
-### trivy (if Dockerfile or lock files present)
-```bash
-trivy fs [scope-path] --format json --output docs/security/tmp/trivy-results.json
-```
+- `semgrep --config=auto [scope-path] --json --output docs/security/tmp/semgrep-results.json`
+- `npm audit --json > docs/security/tmp/npm-audit-results.json` (Node projects, project root)
+- `bandit -r [scope-path] -f json -o docs/security/tmp/bandit-results.json` (Python only)
+- `trivy fs [scope-path] --format json --output docs/security/tmp/trivy-results.json`
 
 For any tool that is not installed, add a note in the report's Tool Output section:
 ```
-⚠️ [tool] not installed — install for [what it covers]. Run: [install command]
+❌ [tool] not installed — [description from registry]. Install: [install-hint]
+```
+
+For any tool marked `prohibited` in company config:
+```
+🚫 [tool] prohibited by company policy — skipped.
 ```
 
 ---

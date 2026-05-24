@@ -129,6 +129,8 @@ Print the following reference exactly:
 | `/user:company-add` | Set up a company-specific config — grills on sprint cadence, team locations, freeze periods, compliance, and AI policy |
 | `/user:company-git` | Connect the company knowledge directory to a company-approved GitHub remote |
 | `/user:company-sync` | Sync company knowledge directory with the team GitHub remote — pull, push, or selective |
+| `/user:tool-add` | Register a tool in the global or company tools registry — grills on category, usage, and anti-patterns |
+| `/user:tool-check` | Verify which registered tools are installed — full matrix by category with company classifications |
 
 ### Framework
 | Command | What it does |

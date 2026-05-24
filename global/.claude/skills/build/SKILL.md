@@ -26,6 +26,19 @@ Before executing any ticket:
    - `ai_human_signoff_required` — if `true`, add a mandatory HITL sign-off gate before each ticket is marked Done (see Execution Loop Step 4)
    - `ai_data_restrictions` — if set, note at build start: "⚠️ AI policy: [restrictions] — do not include restricted data in prompts or generated code."
 
+7. **Check required tools** — if a company is set, read `~/.claude/companies/[active_company]/tools.md`:
+   - For each tool marked `required`: run its `check-command`
+   - If any required tool is missing, stop:
+     ```
+     ⛔ Required tools missing — install before running /build:
+
+       [tool-name] ([category])
+         Install: [install-hint from registry]
+
+     Run /tool-check for the full picture.
+     ```
+   - If all required tools are present, proceed silently.
+
 If no sprint tickets found: "No sprint tickets found in kanban.md. Run `/user:sprint-start` to open a sprint first."
 
 4. **Check sprint buffer window** — read `~/.claude/sprints/calendar.md` and `~/.claude/pi/[current-pi]/plan.md`:

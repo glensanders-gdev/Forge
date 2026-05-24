@@ -1,6 +1,8 @@
 {
-  "forge_version": "2.5.6",
+  "forge_version": "2.5.7",
   "skills": {
+    "tool-add": "1.0.0",
+    "tool-check": "1.0.0",
     "grill-me": "1.0.0",
     "grill-with-docs": "1.0.0",
     "research": "1.0.0",
