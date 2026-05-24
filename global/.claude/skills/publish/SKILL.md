@@ -1,6 +1,6 @@
 ---
 name: publish
-description: Publish wiki articles to Confluence. Pushes changed articles since the last publish run, or all articles with --all. One-way: wiki is the master, Confluence is the published view. Use when user runs /publish or /publish --all.
+description: Publish wiki articles and ideas to Confluence. Pushes changed articles since the last publish run, or all articles with --all. One-way: wiki and ideas are the master, Confluence is the published view. Use when user runs /publish or /publish --all.
 ---
 
 # Publish
@@ -33,15 +33,17 @@ Before publishing:
 
 | Invocation | Scope |
 |---|---|
-| `/publish` | Articles changed since `last_published` in config, across all wikis |
-| `/publish --all` | All wiki articles regardless of change date |
+| `/publish` | Articles changed since `last_published` in config, across all wikis + active ideas |
+| `/publish --all` | All wiki articles and all active ideas regardless of change date |
 | `/publish [system-name]` | Changed articles in `systems/[name]/Wiki/` only |
 | `/publish projects/[name]` | Changed articles in `projects/[name]/Wiki/` only |
+| `/publish ideas` | Active ideas only |
 
 ---
 
 ## What Gets Published
 
+### Wiki Articles
 Changed articles are identified by reading `Wiki/_changelog.md` entries dated after
 `last_published`. Scope: global `Wiki/`, all `systems/*/Wiki/`, all `projects/*/Wiki/`.
 
@@ -49,6 +51,17 @@ Articles published:
 - All `.md` files in `Wiki/` except `_index.md`, `_compiled.log`
 - `_changelog.md` is published as its own Confluence page
 - `_index.md` content is used to build the Confluence page hierarchy, not published as a page
+
+### Ideas
+Ideas are published directly from `~/.claude/ideas/active/` — no knowledge base tier.
+Changed ideas are identified by comparing each `idea.md` `Last updated` date against `last_published`.
+
+Published per idea:
+- `idea.md` → one Confluence page per idea, titled `[IDEA-NNN] [Idea Name]`
+- Diagram images (`diagram.mmd` rendered) embedded in the page where supported
+- Status (Active / Holding), Impact, Effort, and Tracking ID shown prominently at the top
+
+Archived ideas (`~/.claude/ideas/archived/`) are not published — they remain local only.
 
 ---
 
@@ -67,13 +80,20 @@ Wiki folder structure maps to Confluence nested pages under `root_page_id`:
   │       ├── Schema
   │       ├── Known Issues
   │       └── Changelog
-  └── Projects
-      └── [Project Name]
-          ├── Overview
-          ├── Decisions
-          ├── Known Issues
-          └── Changelog
+  ├── Projects
+  │   └── [Project Name]
+  │       ├── Overview
+  │       ├── Decisions
+  │       ├── Known Issues
+  │       └── Changelog
+  └── Ideas
+      ├── [IDEA-001] [Idea Name]    ← Active
+      ├── [IDEA-002] [Idea Name]    ← Holding
+      └── ...
 ```
+
+The Ideas section is a flat list — no nesting. Each idea is its own page titled with its
+tracking ID and name so it is scannable and referenceable by ID in other pages or tickets.
 
 ---
 
