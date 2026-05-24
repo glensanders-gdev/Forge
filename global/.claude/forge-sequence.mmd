@@ -5,6 +5,14 @@ sequenceDiagram
     participant AI as AI Agent
     participant E as External
 
+    rect rgb(235, 240, 255)
+        Note over H,E: COMPANY SETUP (one-time per install)
+        H->>S: /company-add [name] (or --quick for defaults)
+        S-->>H: 7-topic grilling — cadence, team locations, holidays, freeze periods, compliance, approval gate, AI policy
+        S->>A: ~/.claude/companies/[name]/config.md
+        Note over S,A: /company-git to connect team remote · /company-sync to stay current
+    end
+
     rect rgb(240, 240, 255)
         Note over H,E: IDEATION
         H->>S: pitch idea
@@ -21,8 +29,7 @@ sequenceDiagram
         H->>S: /grill-with-docs (planning phase entry point)
         S-->>H: Q+A loop — checks CONTEXT.md + codebase + ADRs
         S->>A: CONTEXT.md updated inline (Avoid aliases, Flagged Ambiguities)
-        S->>A: research/*.md (optional)
-        S->>A: /prototype (optional)
+        S->>A: research/*.md (optional) · /prototype (optional)
         H->>S: confirm scope → /write-prd
         S->>AI: Phase 1 — AFK explore
         AI-->>S: scope summary + per-module estimates
@@ -37,31 +44,36 @@ sequenceDiagram
 
     rect rgb(255, 255, 240)
         Note over H,E: SPRINT MANAGEMENT
-        H->>S: /sprint-start (Tuesdays)
+        H->>S: /sprint-start
+        S->>AI: read company config — sprint_length_weeks + freeze period + public holiday check
         S->>AI: capacity check vs preferences.md (story pts + token budget)
-        AI-->>H: ⚠️ over capacity / XL ticket warnings (if needed)
-        S->>A: sprint-NN.md
+        AI-->>H: ⚠️ over capacity / XL ticket warnings / ❄️ freeze overlap / 🗓️ holiday flags
+        S->>A: sprint-NN.md (with Public Holidays & Freeze Periods field)
         loop Every session
-            AI->>S: /standup
-            S-->>H: daily brief + token spend + deadline flags
+            AI->>S: /standup — reads company config for upcoming freeze + team holiday flags
+            S-->>H: daily brief + token spend + deadline flags + ❄️ freeze warnings
         end
     end
 
     rect rgb(255, 235, 200)
         Note over H,E: BUILD
         H->>S: /build — type CONFIRM
-        S->>AI: buffer window check (Friday EOD cutoff)
-        S->>AI: pre-build health check (.claude/deploy.md)
+        S->>AI: read company config — ai_human_signoff_required + ai_data_restrictions
+        S->>AI: buffer window check · pre-build health check (.claude/deploy.md)
         loop AFK ticket loop
             S->>AI: execute ticket (with CODING-STANDARDS + TESTING loaded)
             AI->>AI: red → green → refactor (/tdd)
             AI->>AI: lightweight PII scan per ticket
             AI->>A: kanban.md (real time) + actual token band recorded
             Note over AI,A: context checkpoint every 3 tickets if 3+ remain
+            alt ai_human_signoff_required: true
+                S-->>H: ✋ AI policy — type APPROVED to mark ticket Done
+            end
         end
         S-->>H: ⏸ HITL pause — type CONTINUE
-        AI-->>S: 2× failure → /diagnose (with TESTING + ERROR-HANDLING loaded)
+        AI-->>S: 2× failure → /diagnose
         S->>A: docs/tokens/[feature].md — build phase recorded
+        S->>A: docs/metrics/metrics-log.md — diagnose events logged
         S-->>H: build summary
     end
 
@@ -70,46 +82,52 @@ sequenceDiagram
         S->>A: /qa-plan → qa-plan.md (TC-NNN IDs carried from testplan)
         S-->>H: human works through checklist (tick TC-NNN items)
         S->>AI: /pii-check Phase 1 — AFK scan (codebase + docs)
-        AI->>A: pii-report.md (Necessary / Incidental findings)
+        Note over S,AI: reads ai_data_restrictions from company config — surfaced in report header
+        AI->>A: pii-report.md (AI policy + Necessary / Incidental findings)
         S-->>H: /pii-check Phase 2 — HITL review one finding at a time
         S->>A: docs/tokens/[feature].md — QA phase recorded
         H->>S: type APPROVE → /approve
         S->>A: PRD archived + HANDOFF reset + token ledger updated
-        S-->>H: run /update-readme
+        S-->>H: 💡 consider /pir [PROJ-NNN] — did this feature achieve its stated goals?
     end
 
-    rect rgb(255, 245, 240)
+    rect rgb(255, 255, 245)
         Note over H,E: SPRINT CLOSE
         S->>AI: /sprint-end Phase 1 — AFK draft
         AI->>A: sprint-NN.md + HANDOFF (Session type: Sprint Close)
+        AI->>A: docs/metrics/metrics-log.md — sprint velocity row appended
         S-->>H: /sprint-end Phase 2 — HITL retro
         H->>S: confirm
         S->>A: kanban-archive.md (estimated vs actual bands)
+        S->>A: ~/.claude/companies/[name]/retrospectives/sprint-NN-retro.md
         Note over S,A: Sprint token total surfaced
     end
 
     rect rgb(245, 240, 255)
-        Note over H,E: PI MANAGEMENT — Go/No Go Gate (Friday 5pm)
-        S->>AI: /go-nogo — AFK brief
-        AI->>A: gono-brief.md
+        Note over H,E: PI MANAGEMENT — Go/No Go Gate
+        S->>AI: /go-nogo — reads company config (freeze periods, compliance tier, external approval gate, release_cadence/release_day)
+        AI->>A: gono-brief.md (freeze check + external approval section if configured)
         S-->>H: GO / NO-GO decision
         Note over H,S: NO-GO → /sprint-replan or /diagnose suggested
+        H->>S: /changelog — generate release notes from kanban + DEVLOG + git log
+        S->>A: CHANGELOG.md + user-facing release summary
     end
 
     rect rgb(255, 240, 240)
-        Note over H,E: DEPLOY (3rd Monday of month)
+        Note over H,E: DEPLOY
         H->>S: /deploy — type CONFIRM
-        S->>AI: Go/No Go gate check + rollback validation
+        S->>AI: Go/No Go gate check + company deployment_chain cross-check vs .claude/deploy.md
+        Note over S,AI: deployment_manual_gates add HITL pauses before each gated environment
         AI->>E: staging deploy
         AI-->>H: health check ✓ — type PROMOTE
         H->>S: PROMOTE confirmed
-        AI->>E: production deploy (Monday)
+        AI->>E: production deploy
         AI->>A: deploy-log.md + diagram-v5-deployed
+        S-->>H: 💡 consider /pir [PROJ-NNN] — did it achieve its goals in production?
         Note over H,E: On failure: ROLLBACK / INVESTIGATE / STOP — never auto-rollback
 
         H->>S: /deploy-pi (full PI in sequence by deploy-order)
         S->>AI: deploy project 1 → 2 → N
-        AI->>E: each project deployed
         AI->>A: PI plan per-project status (✅ Deployed / ❌ Failed / ⏳ Pending)
 
         H->>S: /rollback or /rollback-pi (emergency — no Go/No Go gate)
@@ -124,15 +142,35 @@ sequenceDiagram
         S->>A: PI plan archived + stakeholder delivery summary
         Note over S,A: PI token total from ledger surfaced
         S->>E: stakeholder delivery summary
+        H->>S: /pir PI-N — PI-level review across all delivered features
+        S-->>H: HITL outcome assessment — did features achieve stated goals?
+        S->>A: ~/.claude/companies/[name]/pir/PI-N/pir-YYYY-MM-DD.md
+        Note over S,A: PIR gaps feed /fy-review as primary data source
     end
 
-    Note over H,E: SUPPORT SKILLS — available at any stage
-    Note over H,S: /critic /review /write-adr /debrief /save-state /scope-check /update-context
-    Note over S,A: /estimate /token-report /lookup /grill-with-docs /add-system /summarise-system
-    Note over S,E: /onboard /write-a-skill /backlog-add /sprint-replan /pi-replan /pii-check
+    Note over H,E: SESSION MANAGEMENT — available at any stage
+    Note over H,S: /continue (resume from HANDOFF.md) · /handoff (any planned pause — writes HANDOFF.md) · /debrief (end-of-day — also updates kanban + DEVLOG) · /save-state (emergency)
+    Note over H,S: /standup (daily orient) · /scope-check · /backlog-add · /backlog-list · /backlog-proj · /lookup
+
+    Note over H,E: CODE QUALITY & SECURITY — available at any stage
+    Note over H,S: /critic · /review · /write-adr · /security-assessment · /security-resolve · /performance-review · /dependency-update
+    Note over H,S: /lang-rules · /push-standards · /accessibility · /ai-first-engineering · /diagnose · /write-article
+
+    Note over H,E: KNOWLEDGE BASE — available at any stage
+    Note over S,A: /knowledge-onboard · /add-system · /add-project · /ingest · /publish · /setup-confluence
+    Note over S,A: /knowledge-health · /context-health · /add-term · /update-context · /summarise-system · /style-check
+
+    Note over H,E: METRICS & REPORTING — available at any stage
+    Note over S,A: /token-report · /dashboard-tokens · /context-health · /fy-review · /pir
+
+    Note over H,E: MAINTENANCE — available at any stage
+    Note over S,A: /feature-flag · /tech-debt · /dependency-update · /incident · /standalone-release · /sprint-replan · /pi-replan · /link-jira
+
+    Note over H,E: FRAMEWORK — available at any stage
+    Note over S,A: /write-a-skill · /learn · /evolve · /assimilate · /commands · /onboard · /create-project
 
     Note over H,E: TOKEN RECORDING — AFK automatic at end of each phase
     Note over A,AI: docs/tokens/[feature].md updated per phase → ~/.claude/tokens/ledger.md at /approve
 
     Note over H,E: ID SYSTEM — assigned automatically, never reused
-    Note over A,AI: IDEA-NNN at /idea · PROJ-NNN at /create-project · TC-NNN at /testplan → /lookup resolves any ID
+    Note over A,AI: IDEA-NNN · PROJ-NNN · TC-NNN · SEC-YYYYMMDD-NNN · PERF-YYYYMMDD-NNN · INC-NNN → /lookup resolves any ID
