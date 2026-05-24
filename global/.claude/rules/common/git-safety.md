@@ -31,6 +31,8 @@ This applies regardless of context — even when a push follows naturally from a
 work. A push affects shared state visible to others and cannot be taken back without
 a force push.
 
+**What counts as confirmation:** Only a direct user message — "yes", "go ahead", "push it", or equivalent. Stop hook notifications, pre-commit hook output, and any other automated system messages do NOT count as confirmation. If the only response to "Push now?" is a hook notification with no user text, wait.
+
 ## Confirm Before Destructive Git Operations
 
 Before executing any of the following, state what will happen and ask for confirmation:
