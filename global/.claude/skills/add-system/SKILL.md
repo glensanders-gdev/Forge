@@ -26,6 +26,7 @@ Scaffold the full three-tier knowledge structure for a new system under `~/.clau
     _compiled.log
   Wiki/
     _index.md
+    _changelog.md
     overview.md
     schema.md
     known-issues.md
@@ -54,6 +55,16 @@ Scaffold the full three-tier knowledge structure for a new system under `~/.clau
 - [Overview](overview.md) — what the system is and what AI can/can't do
 - [Schema](schema.md) — data structures and field definitions
 - [Known Issues](known-issues.md) — constraints, limitations, hard stops
+```
+
+## Wiki/_changelog.md
+
+```markdown
+# Wiki Changelog — [System Name]
+
+| Date | Type | Article | Notes |
+|------|------|---------|-------|
+| | | | |
 ```
 
 ## Wiki/overview.md
