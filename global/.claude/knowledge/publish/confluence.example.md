@@ -28,6 +28,20 @@ auth_token: your-token-here
 auth_email:
 ```
 
+## Optional Plugins
+
+```yaml
+mermaid_plugin: false
+```
+
+Set `mermaid_plugin: true` if your Confluence instance has a Mermaid rendering plugin installed
+(e.g. "Mermaid Diagrams for Confluence" or similar). When `true`, `/publish` embeds diagrams
+as rendered Mermaid. When `false` (default), diagrams are included as fenced code blocks.
+
+---
+
+## Authentication
+
 `auth_method` options:
 - `PAT` — Personal Access Token (recommended for Confluence Data Center and Cloud)
   Set `auth_token` to your PAT. Leave `auth_email` blank.

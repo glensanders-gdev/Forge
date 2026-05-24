@@ -25,7 +25,21 @@ Read all knowledge files before producing any output. Never write during this ph
 
 Read `~/.claude/knowledge/health-report.md` if it exists — extract last check date and coverage scores for comparison.
 
-### 2. Scan System Knowledge
+### 2. Scan Three-Tier Knowledge Structure
+
+For each knowledge space (global, each system in `systems/`, each project in `projects/`):
+
+- **Raw orphans** — read `Raw/_compiled.log`; identify any Raw files not listed as `compiled`.
+  Flag as orphans if older than 7 days (recently added files get a grace period).
+- **Wiki conflicts** — scan all `.md` files in `Wiki/` for `conflict: true` in frontmatter.
+  Collect title, `conflict_sources`, and `last_updated` for each.
+- **Stale Outputs** — list files in `Outputs/` older than `outputs_ttl_days` from
+  `~/.claude/knowledge/CLAUDE.md` frontmatter (default 90 days) with no matching
+  `source: outputs/[filename]` reference in any Wiki article. Flag as cleanup candidates.
+- **Projects coverage** — for each folder in `~/.claude/knowledge/projects/`, check for
+  required Wiki files: `overview.md`, `decisions.md`, `known-issues.md`, `_index.md`, `_changelog.md`.
+
+### 3. Scan System Knowledge
 
 For each folder in `~/.claude/knowledge/systems/`:
 
@@ -104,15 +118,35 @@ Calculate and present at the top of the report:
 ```markdown
 ## P1 — Structural Health
 
+### Wiki Conflicts (requires human resolution)
+| Space | Article | Conflict Sources | Flagged |
+|-------|---------|-----------------|---------|
+| systems/salesforce | overview.md | vendor-docs-2026.md vs meeting-notes.md | 2026-05-01 |
+
+→ Run /ingest [space] after resolving — conflict: true must be manually cleared.
+
+### Raw Orphans (uncompiled source material)
+| Space | File | Age |
+|-------|------|-----|
+| global | 2026-04-10_some-article.md | 44 days |
+
+→ Run /ingest [space] to compile.
+
+### Stale Outputs (no filed-back Wiki entry, older than TTL)
+| Space | File | Age | Action |
+|-------|------|-----|--------|
+| projects/my-project | 2026-02-01_analysis.md | 112 days | File back or delete |
+
 ### Stale Files
 | File | Last updated | Days stale | Action |
 |------|-------------|-----------|--------|
 | ~/.claude/knowledge/systems/salesforce/overview.md | 2025-08-01 | 294 days | Run /summarise-system salesforce |
 
 ### Missing Required Files
-| System | Missing | Action |
-|--------|---------|--------|
-| legacy-crm | schema.md | Run /add-system legacy-crm to scaffold |
+| Space | Type | Missing | Action |
+|-------|------|---------|--------|
+| systems/legacy-crm | system | Wiki/schema.md | Run /add-system legacy-crm to scaffold |
+| projects/my-project | project | Wiki/decisions.md | Run /add-project my-project to scaffold |
 
 ### Unresolved Flagged Ambiguities
 | File | Term | Flagged | Age | Action |
@@ -231,5 +265,7 @@ Consider running /user:knowledge-health before this sprint begins.
 | No system knowledge folder exists | Note "No system knowledge base found. Run /add-system to start building." |
 | No company context files | Note "Company context files not found. Run /add-term to start building." |
 | No active projects | Run health check on global knowledge only |
+| No projects/ folder | Note "No project knowledge base found. Run /add-project to start building." |
 | Previous report missing | Run as first check, show "—" for all change fields |
 | `preferences.md` missing staleness threshold | Default to 90 days |
+| `CLAUDE.md` missing `outputs_ttl_days` | Default to 90 days for stale Outputs check |

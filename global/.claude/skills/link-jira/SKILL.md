@@ -24,7 +24,8 @@ Examples:
 /link-jira PROJ-001 CAP-12 --type capability --reason "promoted from Epic"
 ```
 
-If `--type` is omitted, infer from the Jira ID prefix where possible, or ask once.
+If `--type` is omitted, always ask once before writing — do not infer from the Jira ID prefix.
+Jira project keys are company-configured and carry no reliable type information.
 If `--reason` is omitted and a current ID is being superseded, ask for the reason before writing.
 
 ---

@@ -34,12 +34,15 @@ User pastes text content into the session. Before processing:
 
 | Invocation | Scope |
 |---|---|
-| `/ingest` | Current system context — the system most recently referenced in this session |
-| `/ingest --all` | All `Raw/` folders across global and all systems |
+| `/ingest` | Ask user — no default (see below) |
+| `/ingest --all` | All `Raw/` folders across global, all systems, and all projects |
 | `/ingest [system-name]` | Named system only |
+| `/ingest projects/[name]` | Named project only |
 | `/ingest --global` | Global `knowledge/Raw/` only |
 
-If no system context is established and no flag is provided, ask the user which scope to use.
+If no flag or name is provided, there is no default scope — ask the user:
+> "Which Raw/ folder should I ingest? Options: --global, --all, or a system/project name."
+Do not guess based on session context.
 
 ---
 
@@ -51,8 +54,9 @@ For each uncompiled item:
 2. **Classify** — identify which concept(s) it belongs to
 3. **Check for cross-system scope** — if the concept requires two or more system names to
    explain, it belongs in global `Wiki/`. Check `cross_system_gate` in
-   `knowledge/CLAUDE.md` frontmatter:
-   - `open` → pause and confirm with the human before creating the article; set gate to `confirmed` on approval
+   `~/.claude/preferences.md`:
+   - `open` (or missing) → pause and confirm with the human before creating the article;
+     write `cross_system_gate: confirmed` to `preferences.md` on approval
    - `confirmed` → proceed without confirmation
 4. **Create or update** the relevant concept article(s) in the appropriate `Wiki/`
 5. **Add backlinks** from the concept article to the Raw source

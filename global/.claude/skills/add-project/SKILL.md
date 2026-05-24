@@ -80,7 +80,7 @@ beyond any single session.
 **Last updated:** YYYY-MM-DD
 **Status:**
 **Owner / Contact:**
-**Forge ID:** PROJ-NNN
+**Forge ID:** (assign via /create-project)
 
 external_ids:
   jira: (populated by /link-jira — omit until linked)

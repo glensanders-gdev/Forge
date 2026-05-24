@@ -1,6 +1,5 @@
 ---
 outputs_ttl_days: 90
-cross_system_gate: open
 ---
 
 # Knowledge Base — Librarian Instructions
@@ -234,6 +233,6 @@ See the `/publish` skill for the full publish pipeline.
 - Never silently resolve a conflict — either update with clear attribution or flag for human review.
 - **Cross-system concepts live in global `Wiki/`**, backlinked from each system's wiki.
   Rule: if you need two system names to explain the concept, it belongs at the global level.
-  `cross_system_gate` (see frontmatter): when `open`, pause and confirm with the human before
-  creating the first cross-system article. Set to `confirmed` after first approval — gate is
-  lifted for subsequent cross-system articles.
+  Gate state is tracked in `~/.claude/preferences.md` under `cross_system_gate`:
+  when `open`, pause and confirm with the human before creating the first cross-system article;
+  set to `confirmed` in `preferences.md` after first approval — gate lifted for subsequent articles.

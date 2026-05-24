@@ -70,7 +70,8 @@ Published per idea:
   Effort: High | Medium | Low
   ```
 
-- Diagram images (`diagram.mmd` rendered) embedded in the page where supported
+- Diagrams: if a Mermaid plugin is installed in Confluence, render `diagram.mmd` inline;
+  otherwise include the Mermaid source as a fenced code block labelled `mermaid`
 - Full ID history (superseded Jira IDs) shown in a collapsed section at the bottom of the page
 
 Archived ideas (`~/.claude/ideas/archived/`) are not published — they remain local only.
@@ -122,36 +123,77 @@ For each article to publish:
    ```bash
    curl -X PUT -H "Authorization: Bearer [token]" \
      -H "Content-Type: application/json" \
-     -d '{"version":{"number":[current+1]},"title":"[title]","body":{"representation":"wiki","value":"[content]"}}' \
+     -d '{"version":{"number":[current+1]},"title":"[title]","body":{"representation":"storage","value":"[csf-content]"}}' \
      "[base_url]/wiki/api/v2/pages/[page-id]"
    ```
 3. **If page does not exist** — create it under the correct parent:
    ```bash
    curl -X POST -H "Authorization: Bearer [token]" \
      -H "Content-Type: application/json" \
-     -d '{"spaceId":"[space-id]","parentId":"[parent-id]","title":"[title]","body":{"representation":"wiki","value":"[content]"}}' \
+     -d '{"spaceId":"[space-id]","parentId":"[parent-id]","title":"[title]","body":{"representation":"storage","value":"[csf-content]"}}' \
      "[base_url]/wiki/api/v2/pages"
    ```
-4. **Log result** — track page ID for future updates
+   `[csf-content]` is the article body converted from Markdown to Confluence Storage Format
+   (CSF — an XHTML-based format). Key conversions: headings (`# →  <h1>`), bold (`**text**` →
+   `<strong>text</strong>`), links (`[text](url)` → `<a href="url">text</a>`), code blocks
+   (` ``` ` → `<ac:structured-macro ac:name="code">`). Convert before posting.
+4. **Log result** — append to `~/.claude/knowledge/publish/publish-log.md`:
+   ```
+   YYYY-MM-DD | [page-title] | [confluence-page-id] | success | run-N
+   YYYY-MM-DD | [page-title] | — | failed: [reason] | run-N | consecutive-failures: N
+   ```
 
 After all articles:
 
 5. **Check for orphans** — Confluence pages under `root_page_id` with no matching Wiki article.
    List them in the publish summary. Never delete automatically.
-6. **Update `last_published`** in `confluence.md` to today's date
+6. **Update `last_published`** in `confluence.md` to today's date (only if zero failures)
 7. **Present publish summary**:
+   - Retry queue processed (N pages retried, N succeeded, N escalated)
    - Articles published (created / updated)
    - Orphaned Confluence pages flagged (if any)
-   - Any failures with reasons
+   - Failures this run (with reasons)
+   - Escalated failures requiring human review (if any)
 
 ---
 
+## Retry Mechanism
+
+Failed pages are tracked in `~/.claude/knowledge/publish/publish-log.md` — a retry queue
+separate from `last_published`.
+
+**At the start of every `/publish` run:**
+1. Read `publish-log.md` for any entries with status `failed`
+2. Retry each failed page through the normal publish pipeline
+3. On success: update the entry to `success` in `publish-log.md`
+4. On second consecutive failure: move entry to the `## Escalated` section of `publish-log.md`,
+   stop retrying automatically, surface prominently in the publish summary
+
+**`last_published` is only updated when the run completes with zero failures** (retries + new pages).
+This ensures the next run re-attempts any outstanding failures via the changelog.
+
+**publish-log.md format:**
+```markdown
+# Publish Log
+
+## Active Retry Queue
+| Date | Title | Page ID | Status | Run | Consecutive Failures |
+|------|-------|---------|--------|-----|---------------------|
+| YYYY-MM-DD | [title] | — | failed: [reason] | 1 | 1 |
+
+## Escalated (requires human review)
+| Date | Title | Reason | First failed |
+|------|-------|--------|-------------|
+| YYYY-MM-DD | [title] | [reason] | YYYY-MM-DD |
+```
+
+`publish-log.md` is gitignored — it is transient publish state, not source material.
+
 ## Failure Handling
 
-- A single page failure does not stop the batch — log it and continue
-- If more than 20% of pages fail, stop and report: likely a connection or auth issue
-- Failed pages are not marked in `_changelog.md` — they will be retried on the next `/publish` run
-  because `last_published` is only updated on full success
+- A single page failure does not stop the batch — log it to `publish-log.md` and continue
+- If more than 20% of pages fail in a single run, stop and report: likely a connection or auth issue
+- Two consecutive failures on the same page → escalate to `## Escalated` section, stop auto-retry
 
 ---
 
