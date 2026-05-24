@@ -126,3 +126,17 @@ After sprint goals are confirmed and tickets are assigned, check capacity:
    ⚠️ #N [ticket name] is estimated XL — run /break-down before /build.
    ```
 6. Human decides whether to adjust or proceed.
+
+---
+
+## Context Health Check
+
+After the capacity check, check `context-health-last-run` in `~/.claude/preferences.md`.
+If more than 7 days ago (or missing):
+
+```
+⚠️ Context health check overdue (last run: N days ago).
+Consider running /context-health before this sprint begins to avoid mid-session compaction.
+```
+
+Do not block sprint start — this is advisory only.
