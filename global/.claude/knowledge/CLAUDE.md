@@ -93,16 +93,9 @@ When a new Raw item contradicts an existing Wiki article:
 4. Flagged conflicts surface in `/knowledge-health` as a dedicated **Conflicts** section
 
 ### On health check (`/knowledge-health`)
-Scan the Wiki for:
-- **Conflicts** — articles with `conflict: true` in frontmatter
-- **Inconsistencies** — conflicting facts across articles
-- **Gaps** — concepts referenced but not yet articulated
-- **Orphans** — Raw items in `_compiled.log` not linked from any Wiki article
-- **Connections** — non-obvious links between articles worth surfacing as new articles
-- **Staleness** — articles with a `last_updated` older than 90 days that have newer Raw material
-- **Stale outputs** — files in `Outputs/` older than `outputs_ttl_days` with no filed-back Wiki entry
-
-Report findings. Suggest article candidates. Do not auto-fix without confirmation.
+Run the `/knowledge-health` skill — it owns the full scan logic across all knowledge tiers.
+Do not duplicate scan behaviour here. The skill reports conflicts, orphans, stale outputs,
+missing files, cross-system risks, and promotion candidates.
 
 ---
 
@@ -160,12 +153,15 @@ Update `_index.md` on every `/ingest` run and whenever a Wiki article is created
 ## `_changelog.md` Format
 
 Tracks significant changes only: new articles, major rewrites, conflict resolutions, filed-back outputs.
-Per-system `Wiki/_changelog.md` files are independent. The global `Wiki/_changelog.md` includes
-global-level article changes plus a one-line roll-up of system-level activity.
+Per-system and per-project `Wiki/_changelog.md` files are independent and track their own changes.
+The global `Wiki/_changelog.md` tracks global-level article changes plus a roll-up section
+summarising the most recent activity across all systems and projects.
 Designed for Confluence publishing — each changelog becomes its own page.
 
+### Per-system / Per-project format
+
 ```markdown
-# Wiki Changelog — [System Name / Global]
+# Wiki Changelog — [System Name / Project Name]
 
 | Date | Type | Article | Notes |
 |------|------|---------|-------|
@@ -174,6 +170,26 @@ Designed for Confluence publishing — each changelog becomes its own page.
 | YYYY-MM-DD | conflict-resolved | [Article Title](path) | which source won |
 | YYYY-MM-DD | filed-back | [Article Title](path) | output that was promoted |
 ```
+
+### Global format (includes roll-up)
+
+```markdown
+# Wiki Changelog — Global
+
+| Date | Type | Article | Notes |
+|------|------|---------|-------|
+| YYYY-MM-DD | created | [Article Title](path) | brief note |
+
+## System & Project Activity
+
+| Space | Last changed | Most recent article | Type |
+|-------|-------------|---------------------|------|
+| systems/salesforce | YYYY-MM-DD | Overview | updated |
+| projects/portal | YYYY-MM-DD | Decisions | created |
+```
+
+The roll-up row for a system or project is updated each time that space's `_changelog.md`
+receives a new entry. It shows only the most recent change per space — not a full history.
 
 Change types: `created` · `updated` · `conflict-resolved` · `filed-back`
 
@@ -231,6 +247,9 @@ See the `/publish` skill for the full publish pipeline.
 - `Wiki/_changelog.md` is updated on every significant change. Never backfill silently.
 - Prefer updating an existing article over creating a new one unless the concept is genuinely distinct.
 - Never silently resolve a conflict — either update with clear attribution or flag for human review.
+- **Wiki subfolders:** keep articles flat until a single category reaches 7 or more articles,
+  then create a subfolder for that category. Name subfolders in lowercase with hyphens.
+  Update `_index.md` to reflect the new hierarchy when a subfolder is created.
 - **Cross-system concepts live in global `Wiki/`**, backlinked from each system's wiki.
   Rule: if you need two system names to explain the concept, it belongs at the global level.
   Gate state is tracked in `~/.claude/preferences.md` under `cross_system_gate`:
