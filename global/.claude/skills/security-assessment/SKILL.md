@@ -27,6 +27,27 @@ vulnerability details never enter version control.
 
 ---
 
+## Compliance Tier
+
+Read `~/.claude/companies/[active_company]/config.md` (if set) for `compliance_tier`
+and `compliance_frameworks`. This affects assessment behaviour:
+
+| Tier | Mandatory before release? | Critical finding rule | Scheduled audits |
+|------|--------------------------|----------------------|-----------------|
+| none | No | Advisory | None required |
+| standard | Recommended | Advisory | None required |
+| regulated | Yes — /go-nogo will flag if overdue (>30 days) | Must be resolved or formally accepted before GO | None required |
+| highly-regulated | Yes — /go-nogo will flag if overdue (>14 days) | Must be resolved before GO — no acceptance without documented justification | Periodic (frequency per framework) |
+
+If frameworks are listed, note them at the top of the report:
+```
+Compliance context: [APRA / SOX / etc.] — [tier]
+```
+
+If no company config, default to `standard` behaviour.
+
+---
+
 ## Pre-flight
 
 ### 1 — Gitignore setup

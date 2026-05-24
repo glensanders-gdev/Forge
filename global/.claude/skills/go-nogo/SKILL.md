@@ -15,7 +15,12 @@ Prepare the Go/No Go brief for an upcoming monthly release. The AI assembles all
 
 ## Process
 
-1. **Identify the release** — read `~/.claude/pi/[current-pi]/plan.md` to confirm which release is gating.
+1. **Read company config** — read `~/.claude/companies/[active_company]/config.md` (if set) for:
+   - `freeze_periods` — check if the deployment date falls within or near a freeze window
+   - `compliance_tier` — determines whether security assessment is advisory or required
+   - `external_approval_required` / `external_approval_name` — adds an approval gate step if set
+   - `freeze_warning_days_ahead` — how early to start warning (default 14 days)
+2. **Identify the release** — read `~/.claude/pi/[current-pi]/plan.md` to confirm which release is gating.
 2. **Read each active project's kanban** — identify:
    - Tickets completed for this release
    - Tickets incomplete (still In Progress or Blocked)
@@ -120,22 +125,74 @@ When human types `GO`:
    - Run /user:standalone-release if any urgent fixes are needed before then.
    ```
 
+## Freeze Period Check
+
+After identifying the deployment date, check company config `freeze_periods`:
+
+- If the deployment date falls **within** a `no-deploy` freeze window:
+  ```
+  🚫 FREEZE PERIOD: [reason] — [window]
+     This deployment falls within a no-deploy window.
+     Proceeding to GO would violate company policy.
+     Recommend NO-GO and rescheduling after [end date].
+  ```
+  Include as a P1 risk. AI recommendation must be NO-GO.
+
+- If the deployment date falls **within** a `warn-only` freeze window:
+  ```
+  ⚠️ FREEZE PERIOD (advisory): [reason] — [window]
+     Deployment is within a restricted window. Human decision required.
+  ```
+  Include as High risk. Does not force NO-GO recommendation.
+
+- If within `freeze_warning_days_ahead` days of a freeze window start:
+  ```
+  ⚠️ Upcoming freeze: [reason] begins [date] ([N days away]).
+     Consider whether this release timeline is appropriate.
+  ```
+
+If no company config or no freeze periods configured, skip this check silently.
+
+---
+
+## External Approval Gate
+
+If `external_approval_required: true` in company config, add the following
+section to the brief after Risk Assessment:
+
+```markdown
+## External Approval
+
+**Approval type:** [external_approval_name]
+**Scope:** [external_approval_scope]
+**System:** [external_approval_url — or "Not recorded"]
+
+- [ ] [external_approval_name] approval obtained before deployment
+
+```
+
+When the human types GO, ask: "Has [external_approval_name] approval been obtained?
+Record the approval reference or confirm verbally. (reference / confirmed)"
+Capture the response and append to the brief's Decision section.
+
+---
+
 ## Security Assessment Check
 
-Before producing the brief, read `security-assessment-last-run` from `~/.claude/preferences.md`.
-If more than 30 days ago (or missing), include in the Risk Assessment table:
+Before producing the brief, read `security-assessment-last-run` from `~/.claude/preferences.md`
+and `compliance_tier` from company config.
 
-```
-| No recent security assessment | Medium | Run /security-assessment before deploying |
-```
+| Compliance tier | Overdue threshold | Behaviour |
+|----------------|------------------|-----------|
+| none / standard | 30 days | Advisory warning — does not force NO-GO |
+| regulated | 30 days | Required — recommend NO-GO if overdue |
+| highly-regulated | 14 days | Required — recommend NO-GO if overdue; must be formally accepted |
 
-And surface an advisory note at the top of the brief:
+If overdue, include in the Risk Assessment table and surface at the top of the brief:
 ```
 ⚠️ Security assessment overdue (last run: N days ago / never).
-   Consider running /security-assessment before approving GO.
+   [Compliance tier: regulated/highly-regulated → this is required, not advisory.]
 ```
-
-This is advisory — it does not force a NO-GO recommendation.
 
 ---
 

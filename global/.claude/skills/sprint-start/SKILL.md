@@ -34,18 +34,23 @@ Open a new sprint for the current project. Pulls context automatically from the 
    - Ask: "These known issues are unresolved — should any be scheduled as tickets in this sprint?"
    - Do not add them automatically — human confirms
 
-6. **Gather sprint goals** — ask the user:
+6. **Check company config** — read `~/.claude/companies/[active_company]/config.md` (if set):
+   - Scan configured `freeze_periods` — if the sprint period overlaps a `no-deploy` window, flag it
+   - Scan configured team `locales` — note any likely public holidays falling within the sprint period and surface them as a planning note. Format: "⚠️ [locale] public holiday likely near [date] — verify team availability."
+   - Forge does not auto-fetch holiday calendars; it prompts the human to verify.
+
+7. **Gather sprint goals** — ask the user:
    - What are the goals for this sprint? (1–5)
    - Are there any fixed deadlines within the sprint?
    - Any context or constraints worth noting?
 
-5. **Present the full draft** for confirmation before writing.
+8. **Present the full draft** for confirmation before writing.
 
-6. **Write** `docs/sprints/sprint-NN.md` using the template below.
+9. **Write** `docs/sprints/sprint-NN.md` using the template below.
 
-7. **Update active PRDs** — for any PRD in `docs/prd/active/`, update the `Sprint:` field to the current sprint name if blank or outdated.
+10. **Update active PRDs** — for any PRD in `docs/prd/active/`, update the `Sprint:` field to the current sprint name if blank or outdated.
 
-8. **Update** `docs/kanban.md` if relevant tickets should be flagged for this sprint.
+11. **Update** `docs/kanban.md` if relevant tickets should be flagged for this sprint.
 
 ## Sprint Record Template (Start Section)
 
@@ -78,6 +83,9 @@ _None_ (if first sprint or no carry-in)
 | Item | Deadline | Notes |
 |------|----------|-------|
 | | | |
+
+### Public Holidays & Freeze Periods
+[Any holidays or freeze windows falling in this sprint period — or "None identified"]
 
 ### Notes / Constraints
 [Anything relevant to how this sprint should be run]

@@ -15,14 +15,20 @@ Generate a concise standup summary from the project's living documents. No input
 4. Read `docs/kanban.md` — current In Progress, Blocked, and top Backlog items.
 5. Read active PRDs — check Delivery Type and Due Dates for deadline risk.
 6. Read `docs/prd/active/` — confirm what feature is currently in flight.
-7. **Run automatic checks:**
+7. **Read company config** — `~/.claude/companies/[active_company]/config.md` (if set):
+   - `freeze_periods` — check if today or any release date in the next 14 days is near a freeze
+   - `freeze_warning_days_ahead` — use configured lead time (default 14 days)
+   - `teams[].timezone` and `teams[].locale` — note any team locales for holiday awareness
+8. **Run automatic checks:**
    - If today is within 5 days of a Go/No Go date → flag it
    - If today is within 3 days of an internal due date → flag deadline risk
    - If today is within 7 days of an external due date → flag deadline risk
    - If Delivery Type is Fixed Deadline or Fixed Both → run scope check summary
    - Run `/feature-flag check` — surface any flags past their removal date
-8. Produce the standup report.
-9. Ask: "Are these the right goals for today, or do you want to adjust?"
+   - If within `freeze_warning_days_ahead` of a freeze period → flag it
+   - If today is a likely public holiday for any configured team locale → note it
+9. Produce the standup report.
+10. Ask: "Are these the right goals for today, or do you want to adjust?"
 
 ## Output Format
 
@@ -34,6 +40,8 @@ Generate a concise standup summary from the project's living documents. No input
 - 🔴 [Feature] deadline at risk — [N days to internal/external due date]
 - 🟡 Fixed Deadline feature — scope check summary below
 - 🚩 Overdue feature flags: [FF-NNN flag-name (N days overdue), ...]
+- ❄️ Freeze period approaching: [reason] — [window] ([N days away])
+- 🗓️ Public holiday check: [locale] — verify team availability for [date]
 
 ### Yesterday
 [What was completed or progressed in the last session — from DEVLOG]
