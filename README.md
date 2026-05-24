@@ -55,6 +55,17 @@ bash ~/forge/install.sh
 cd ~/forge && git pull && bash update.sh
 ```
 
+### Remote / Web Sessions (Claude Code on Web)
+
+Each remote session runs in a fresh container — `~/.claude/skills/` resets on every new session. Re-run the installer at the start of each session:
+
+```bash
+# From the Forge repo root (non-interactive, skips backup prompt)
+echo "n" | bash install.sh
+```
+
+Skills are fully functional after this. Any data in `~/.claude/knowledge/`, `~/.claude/companies/`, and `~/.claude/tokens/` is preserved between sessions if the container retains state (check your environment's persistence policy).
+
 ### Manual install
 
 See `INSTALL.md` for step-by-step instructions including hidden file visibility and Windows paths.

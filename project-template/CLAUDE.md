@@ -44,8 +44,7 @@ Read this file completely at the start of every session before doing anything el
 
 At the start of every session, before anything else:
 
-1. Read `~/.claude/preferences.md` — global preferences. Respect these throughout.
-1a. Load `~/.claude/rules/common/git-safety.md` — confirm before push, confirm before any destructive git operation.
+1. Read `~/.claude/preferences.md` — global preferences. Respect these throughout. Also load `~/.claude/rules/common/git-safety.md` if present — confirm before push and before any destructive git operation.
 2. Read `~/.claude/knowledge/company/acronyms.md` — company terminology.
 3. Read `docs/HANDOFF.md` if it exists — highest-signal context. If "Current phase" field shows the same phase continuing, increment the session counter in `docs/tokens/[feature].md`.
 4. Read `docs/CONTEXT.md` — project domain glossary.
@@ -56,7 +55,7 @@ At the start of every session, before anything else:
 9. Confirm session goals (max 3). Do not begin work until confirmed.
 10. State any assumptions upfront.
 
-**Hard limit: maximum 4 files loaded automatically at session start.** Load others on demand. Exception: `HANDOFF.md` always loads.
+**Load only what you need.** Steps 1–7 above are the mandatory baseline. Load additional files on demand — do not pre-load the full project structure before understanding what the session requires. Exception: `HANDOFF.md` always loads.
 
 ---
 

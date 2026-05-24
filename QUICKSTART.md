@@ -90,7 +90,8 @@ Work through the QA checklist, review PII findings, then type `APPROVE` to close
 
 ## Tips
 
-- **Stuck mid-session?** Run `/user:debrief` to save state and close cleanly.
+- **Stuck mid-session?** Run `/user:handoff` to save state and pause cleanly. For end-of-day full close (updates kanban + DEVLOG), use `/user:debrief`.
 - **Something broken?** Run `/user:diagnose` — the agent forms a hypothesis before touching anything.
 - **Scope creeping?** Run `/user:scope-check` to force an explicit decision.
 - **Existing project?** Skip steps 1–2 and run `/user:onboard` instead.
+- **Setting up for a company?** Run `/user:company-add [name]` to configure sprint cadence, holidays, freeze periods, compliance tier, and AI policy. Add `--quick` to apply all defaults in under 30 seconds.

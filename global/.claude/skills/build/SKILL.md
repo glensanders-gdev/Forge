@@ -22,6 +22,9 @@ Before executing any ticket:
 3. Read `docs/testplan-[feature].md` if it exists — understand what needs testing
 4. Read `~/.claude/sprints/calendar.md` — confirm current sprint dates
 5. Check for resumable state — any tickets already In Progress from a previous build session
+6. **Read company config** — `~/.claude/companies/[active_company]/config.md` (if set):
+   - `ai_human_signoff_required` — if `true`, add a mandatory HITL sign-off gate before each ticket is marked Done (see Execution Loop Step 4)
+   - `ai_data_restrictions` — if set, note at build start: "⚠️ AI policy: [restrictions] — do not include restricted data in prompts or generated code."
 
 If no sprint tickets found: "No sprint tickets found in kanban.md. Run `/user:sprint-start` to open a sprint first."
 
@@ -119,7 +122,22 @@ REFACTOR: Clean up — run tests again to confirm still green
 Reference `docs/testplan-[feature].md` for which behaviours to test.
 Follow all rules from the TDD skill — vertical slices, public interfaces only, no horizontal slicing.
 
-### Step 4 — Mark Done
+### Step 4 — Human Sign-Off Gate (if ai_human_signoff_required)
+
+If `ai_human_signoff_required: true` was read from company config in pre-flight, pause before marking the ticket Done:
+
+```
+✋ AI policy: human sign-off required before this ticket is marked complete.
+
+Ticket: #N [Ticket name]
+Work completed: [brief summary of what was built and tested]
+
+Review the changes and type APPROVED to close this ticket, or REWORK to continue.
+```
+
+Wait for `APPROVED` before updating kanban. Do not mark tickets Done autonomously when this policy is active.
+
+### Step 5 — Mark Done
 
 On successful completion, run a lightweight PII hint scan on files written during this ticket:
 - Check for email address patterns, phone number formats, and obvious real names in test fixtures or hardcoded values

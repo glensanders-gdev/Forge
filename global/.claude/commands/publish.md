@@ -1,0 +1,1 @@
+Invoke the publish skill. Publish wiki articles and ideas to Confluence — pushes changed articles since the last publish run, or all articles with --all. One-way sync: the wiki and ideas directory is the master; Confluence is the published view.

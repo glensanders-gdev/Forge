@@ -24,7 +24,7 @@ echo -e "${BLUE}╚════════════════════�
 echo ""
 
 # ── check claude code ────────────────────────────────────────────────────────
-if [ ! -d "$HOME/.claude" ] && [ ! -f "$HOME/.claude/settings.json" ] 2>/dev/null; then
+if [ ! -d "$HOME/.claude" ] || [ ! -f "$HOME/.claude/settings.json" ] 2>/dev/null; then
   echo -e "${YELLOW}⚠  ~/.claude not found — Claude Code may not be installed.${NC}"
   echo "   Forge will still install but you need Claude Code to use it."
   echo "   See https://docs.anthropic.com/en/docs/claude-code"
@@ -34,12 +34,16 @@ fi
 # ── backup existing ──────────────────────────────────────────────────────────
 if [ -d "$CLAUDE_DIR/skills" ]; then
   echo -e "${YELLOW}ℹ  Existing ~/.claude/skills found.${NC}"
-  read -p "   Back up existing skills before installing? [Y/n] " -n 1 -r
-  echo ""
-  if [[ ! $REPLY =~ ^[Nn]$ ]]; then
-    BACKUP="$CLAUDE_DIR/skills.backup.$(date +%Y%m%d-%H%M%S)"
-    cp -r "$CLAUDE_DIR/skills" "$BACKUP"
-    echo -e "${GREEN}✓  Backed up to $BACKUP${NC}"
+  if [ -t 0 ]; then
+    read -p "   Back up existing skills before installing? [Y/n] " -n 1 -r
+    echo ""
+    if [[ ! $REPLY =~ ^[Nn]$ ]]; then
+      BACKUP="$CLAUDE_DIR/skills.backup.$(date +%Y%m%d-%H%M%S)"
+      cp -r "$CLAUDE_DIR/skills" "$BACKUP"
+      echo -e "${GREEN}✓  Backed up to $BACKUP${NC}"
+    fi
+  else
+    echo "   (Non-interactive mode — skipping backup. Run manually to back up if needed.)"
   fi
 fi
 

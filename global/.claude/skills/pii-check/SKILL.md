@@ -21,7 +21,22 @@ Scan the solution and its documentation for Personal Identifying Information. Pr
 
 Runs unattended. Never modifies any file during this phase.
 
-### 1. Load PII Categories
+### 1. Load Company AI Policy
+
+Read `~/.claude/companies/[active_company]/config.md` (if set) for `ai_data_restrictions`. If set, surface at the top of the report:
+
+```
+## Company AI Data Policy
+
+ai_data_restrictions: [value from config]
+
+Note: This policy governs what data may appear in AI prompts during development.
+Review findings below against this restriction as part of the PII assessment.
+```
+
+If no company config or no restriction set, skip this section silently.
+
+### 2. Load PII Categories
 
 **Default categories:**
 - Names (first, last, full, usernames that map to real people)
@@ -35,15 +50,15 @@ Runs unattended. Never modifies any file during this phase.
 
 **Custom categories:** Read `~/.claude/knowledge/company/pii-categories.md` if it exists. Merge with defaults.
 
-### 2. Load System Context
+### 3. Load System Context
 
 Read relevant `~/.claude/knowledge/systems/*/overview.md` and `known-issues.md` — note any system-level encryption, access control, or known PII handling gaps. This informs the handling assessment for Necessary PII findings.
 
-### 3. Load Existing Report
+### 4. Load Existing Report
 
 Read `docs/pii-report.md` if it exists — load previously Accepted and Deferred findings to avoid re-flagging them.
 
-### 4. Scan Codebase
+### 5. Scan Codebase
 
 Scan all source files, test fixtures, config files, and environment templates:
 - Hardcoded PII values (real names, emails, phone numbers in code or tests)
@@ -52,7 +67,7 @@ Scan all source files, test fixtures, config files, and environment templates:
 - PII passed to third-party APIs or external services
 - PII in comments or documentation strings
 
-### 5. Scan Forge Documents
+### 6. Scan Forge Documents
 
 Scan `docs/` folder:
 - PRDs — example data, user stories with real names
@@ -61,7 +76,7 @@ Scan `docs/` folder:
 - `docs/research/` — research files with real data examples
 - `docs/kanban.md` — ticket descriptions with PII
 
-### 6. Classify Findings
+### 7. Classify Findings
 
 For each finding, classify as:
 
@@ -76,7 +91,7 @@ For each finding, classify as:
 - Real names in code comments or example data
 - PII inadvertently captured in planning documents
 
-### 7. Assess Handling (Necessary PII only)
+### 8. Assess Handling (Necessary PII only)
 
 For each Necessary PII finding, assess:
 - **Encryption at rest** — is it encrypted? Does the system support it? (reference system knowledge)
