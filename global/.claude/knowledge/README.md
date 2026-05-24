@@ -14,6 +14,9 @@ knowledge/
   Raw/                   ← source material intake (humans write here)
   Wiki/                  ← compiled knowledge (AI writes and maintains)
   Outputs/               ← generated artifacts (AI produces on demand)
+  publish/
+    confluence.example.md  ← Confluence config template (copy to confluence.md and fill in)
+    confluence.md          ← your live config — GITIGNORED, never commit
   company/
     acronyms.md          ← company terminology, loaded every session
     context.md           ← domain concepts and business language
@@ -103,3 +106,5 @@ Add a line to a project's `CLAUDE.md` to auto-load system knowledge relevant to 
 - Never delete entries from `Wiki/known-issues.md` — mark resolved ones as such with a date
 - Process files in `framework/` should reference system files in `systems/` rather than duplicating system detail
 - Run `/ingest` after adding new files to any `Raw/` folder to compile them into the Wiki
+- Run `/publish` to push changed Wiki articles to Confluence (requires `publish/confluence.md`)
+- `publish/confluence.md` is gitignored — never commit it; see `confluence.example.md` for setup

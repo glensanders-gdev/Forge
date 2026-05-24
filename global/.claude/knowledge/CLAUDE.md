@@ -205,6 +205,22 @@ the project's lifetime. Each project's `Raw/` has its own `_compiled.log`. Each 
 
 ---
 
+## Publishing
+
+Wiki articles can be published to Confluence using `/publish`. This is optional — only
+available when `knowledge/publish/confluence.md` exists and is configured.
+
+- Publishing is one-way: wiki → Confluence. Edits made in Confluence will be overwritten.
+- `/publish` pushes articles changed since `last_published` (tracked in `confluence.md`)
+- `/publish --all` pushes everything — use for initial setup or recovery
+- Orphaned Confluence pages (no matching Wiki article) are flagged, never auto-deleted
+- `confluence.md` is gitignored — never commit it
+
+See `knowledge/publish/confluence.example.md` for setup instructions.
+See the `/publish` skill for the full publish pipeline.
+
+---
+
 ## Rules
 
 - You write the Wiki. Humans write Raw.
