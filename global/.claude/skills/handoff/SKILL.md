@@ -1,7 +1,7 @@
 ---
 name: handoff
 version: 1.0.0
-description: Compact the current session into a structured handoff document so a fresh agent or human can continue the work without re-reading the conversation. Writes to docs/HANDOFF.md. References artifacts by path rather than reproducing content. Suggests skills for the next session. Use /handoff when passing work to another session or person — use /debrief for a thorough session close that updates kanban, DEVLOG, and backlog.
+description: Compact the current session into a structured handoff document so the next session can continue without re-reading the conversation. Writes to docs/HANDOFF.md. References artifacts by path rather than reproducing content. Suggests skills for the next session. Use /handoff for any planned pause — same-day resume, passing to another agent, or handing to a colleague. Use /debrief for a thorough end-of-day close that updates kanban, DEVLOG, and backlog.
 argument-hint: What will the next session focus on?
 ---
 
@@ -16,9 +16,10 @@ Adapted from techniques and skills by Matt Pocock (AIHero.dev / github.com/mattp
 ## Rules
 
 - **Reference, don't duplicate.** Do not reproduce content already captured in PRDs, ADRs, kanban tickets, DEVLOG entries, testplans, or other Forge artifacts. Reference them by filename or path instead.
-- **Forge-first.** The handoff writes to `docs/HANDOFF.md` — the Forge session handoff file that is read automatically at the next session start.
+- **Forge-first.** The handoff writes to `docs/HANDOFF.md` — read by `/continue` at the next session start.
 - **Tailored.** If the user provides an argument (e.g. `/handoff "next session: implement the login flow"`), use it to shape the focus of the handoff — what to prioritise, what context is most relevant.
 - **Suggest skills.** At the end, suggest which Forge skills the next session should use first.
+- **`/handoff` vs `/debrief` vs `/save-state`:** `/handoff` is for any planned pause — same-day resume, passing to another agent, or handing to a colleague. It writes HANDOFF.md only. `/debrief` is for end-of-day full close — it also updates kanban, DEVLOG, and reorders the backlog. `/save-state` is for emergencies when context limit is imminent.
 
 ---
 

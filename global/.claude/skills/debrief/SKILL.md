@@ -7,7 +7,10 @@ description: Thorough session close — updates HANDOFF.md, kanban, DEVLOG, and 
 
 Close a working session cleanly when a feature is not yet complete. Lighter than `/approve` — no PRD archiving, no feature closure. Updates all session state documents so the next session can resume without re-reading the conversation.
 
-**`/debrief` vs `/handoff`:** Use `/debrief` at the end of your own session — it's a thorough close that updates kanban, DEVLOG, and backlog. Use `/handoff` when passing work to another agent or person — it compacts the session into a targeted brief and suggests which skills to use next, without the full session close overhead.
+**Session close hierarchy:**
+- `/handoff` — any planned pause (same-day resume, passing to another agent or colleague). Writes HANDOFF.md only. Light and fast.
+- `/debrief` — end-of-day full close. Updates HANDOFF.md, kanban, DEVLOG, and reorders the backlog. Use this when you're done for the day, not just pausing.
+- `/save-state` — emergency save when context limit is imminent. No ceremony, just saves state.
 
 ## When to Use
 
