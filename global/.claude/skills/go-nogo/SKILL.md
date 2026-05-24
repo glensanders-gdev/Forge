@@ -113,6 +113,25 @@ When human types `GO`:
 2. Update release status in `~/.claude/pi/[current-pi]/plan.md` to `Approved`
 3. Remind human: "Deployment is Sunday DD MMM. Run `/user:standalone-release` if any urgent fixes are needed before then."
 
+## Security Assessment Check
+
+Before producing the brief, read `security-assessment-last-run` from `~/.claude/preferences.md`.
+If more than 30 days ago (or missing), include in the Risk Assessment table:
+
+```
+| No recent security assessment | Medium | Run /security-assessment before deploying |
+```
+
+And surface an advisory note at the top of the brief:
+```
+⚠️ Security assessment overdue (last run: N days ago / never).
+   Consider running /security-assessment before approving GO.
+```
+
+This is advisory — it does not force a NO-GO recommendation.
+
+---
+
 ## Rules
 
 - Never recommend GO if there are incomplete P1 tickets
