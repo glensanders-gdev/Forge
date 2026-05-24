@@ -1,85 +1,63 @@
-# Handoff: Forge Framework Development
+# Handoff: Forge Framework
 
-**Last updated:** 2026-05-24
-**Session type:** Framework build — critic resolution + install fix
+**Last updated:** 2026-05-24 (end of session)
+**Session type:** Framework Maintenance — Critic Resolution
 **Prepared by:** /handoff
 
 ---
 
 ## Current Ticket
 
-No active kanban ticket — this is a Forge framework development session on branch
+No active kanban ticket — this is a Forge framework maintenance session on branch
 `claude/forge-learning-on-go-STAq0`. All changes committed and pushed.
 
 ---
 
 ## What Just Happened
 
-Resolved all P1/P2/P3 findings from the `/critic Forge` session. 10 files changed,
-143 insertions. All pushed to remote. Also diagnosed and fixed a remote-session issue
-where Forge skills were not installed in the new container.
+Three rounds of `/critic forge` were run this session, all findings resolved between each. The third round (final) found 3 P1s, 2 P2s, 3 P3s — all fixed in one commit: README version drift corrected (2.5.5 refs, stale 50/51 skill counts, missing v2.5.6 history row), hardcoded release timing in project-template and README replaced with company-config references, and `/lookup` extended to handle SEC/PERF/INC IDs. Sequence diagram was also rewritten to reflect full v2.5.6 state (committed earlier in session).
 
 Key artifacts updated this session:
-- `global/.claude/skills/manifest.json` — rebuilt to 82 skills (19 orphaned skills added)
-- `global/.claude/skills/commands/SKILL.md` — all 82 skills across 11 sections; drift note added
-- `global/.claude/skills/company-add/SKILL.md` — --quick flag added
-- `global/.claude/skills/go-nogo/SKILL.md` — release_cadence/release_day wiring; hardcoded "Sunday" removed; sprint calendar guard added
-- `global/.claude/skills/sprint-start/SKILL.md` — sprint_length_weeks from company config
-- `global/.claude/skills/approve/SKILL.md` — /pir suggestion after approval
-- `global/.claude/skills/deploy/SKILL.md` — /pir suggestion after deployment
-- `install.sh` — preferences.md now created with defaults on fresh install (was broken)
-- `project-template/CLAUDE.md` — loads git-safety rule at session start
-- `README.md` — v2.5.6, 82 skills, updated category table
+- `README.md` — version refs, skill counts, install command, timing, v2.5.6 history row
+- `global/.claude/skills/lookup/SKILL.md` — SEC/PERF/INC ID types added
+- `global/.claude/skills/commands/SKILL.md` — /lookup description updated
+- `project-template/CLAUDE.md` — hardcoded timing softened to company-config references
+- `global/.claude/forge-sequence.mmd` — full v2.5.6 rewrite
+- `docs/metrics/metrics-log.md` — three critic session rows recorded
 
 ---
 
 ## Next Action
 
-Decide on the PR to main. Branch `claude/forge-learning-on-go-STAq0` is fully
-resolved — all critic P1/P2/P3 findings addressed. The branch is ready to merge.
-
-Three deferred wiring tasks remain (see Open Decisions) — they can go in a follow-up
-PR or be addressed before merging, depending on appetite.
+Decide whether to open a PR from `claude/forge-learning-on-go-STAq0` → `main`. The branch is clean, all critic findings resolved across 3 consecutive passes, and the framework is in a stable v2.5.6 state. No open P1 or P2 issues remain.
 
 ---
 
 ## Context the Next Session Will Need
 
-- **Remote session install step**: In Claude Code on Web sessions, `~/.claude/skills/`
-  is reset on each new container. Run `echo "n" | bash install.sh` from the Forge repo
-  root before using any `/user:` commands.
-- Branch `claude/forge-learning-on-go-STAq0` — all work on this branch, not yet merged to main.
-- The `--quick` flag on /company-add is documented in the skill but not yet in QUICKSTART.md
-  (noted as P3 by critic, still outstanding).
+- **Remote session install**: In Claude Code on Web, `~/.claude/skills/` resets per container. Run `bash install.sh` from the Forge repo root before using any `/user:` commands (install.sh now handles non-interactive mode natively — no `echo "n" |` pipe needed).
+- The active kanban (`docs/kanban.md`) belongs to the **knowledge-onboard feature** sprint — tickets #2, #7, #10, #11 are deferred pending an `api.md` template design decision. Separate from this session's work.
+- All framework maintenance this session was on `claude/forge-learning-on-go-STAq0` — no PR opened yet.
 
 ---
 
 ## Open Decisions
 
-- **PR to main**: Branch is clean and critic-resolved. Decision on whether to open PR now
-  is pending.
-- **`/deploy` skill**: Should read `deployment_chain` and `deployment_manual_gates` from
-  company config — noted in /company-add confirm screen but not yet implemented.
-- **`/build` skill**: Should read `ai_human_signoff_required` from company config to add
-  a HITL review gate — noted but not implemented.
-- **`/pii-check` skill**: Should surface `ai_data_restrictions` from company config —
-  noted but not implemented.
-- **QUICKSTART.md**: Should document `--quick` flag for /company-add.
+- **PR to main**: Branch is clean and critic-stable across 3 passes. Decision on whether to open a PR is pending.
+- **Knowledge-onboard deferred tickets** (#2, #7, #10, #11): Require `api.md` template design decision before proceeding. Low urgency.
 
 ---
 
 ## Blockers
 
-None.
+_None_
 
 ---
 
 ## Suggested Skills for Next Session
 
-1. `/user:continue` — picks up cleanly from this handoff with the exact next action
-2. `/user:critic` — run a focused critic on the three deferred wiring tasks (/deploy,
-   /build, /pii-check) if implementing them before the PR
-3. `/user:write-article` — if drafting the PR description or updating QUICKSTART.md
+1. `/user:critic forge` — one final pass before opening the PR to confirm stability; three consecutive clean rounds suggests it may be ready
+2. `/user:standup` — if resuming after a gap, orient before making any PR decision
 
 ---
 
