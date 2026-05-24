@@ -80,6 +80,10 @@ beyond any single session.
 **Last updated:** YYYY-MM-DD
 **Status:**
 **Owner / Contact:**
+**Forge ID:** PROJ-NNN
+
+external_ids:
+  jira: (populated by /link-jira — omit until linked)
 
 ---
 

@@ -197,6 +197,9 @@ Update `~/.claude/registry.md` Idea Registry table:
 **Effort:** High | Medium | Low
 **Project:** PROJ-NNN | None (updated when /create-project runs)
 
+external_ids:
+  jira: (populated by /link-jira — omit until linked)
+
 ---
 
 ## Problem Statement

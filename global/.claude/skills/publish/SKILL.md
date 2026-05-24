@@ -57,9 +57,21 @@ Ideas are published directly from `~/.claude/ideas/active/` — no knowledge bas
 Changed ideas are identified by comparing each `idea.md` `Last updated` date against `last_published`.
 
 Published per idea:
-- `idea.md` → one Confluence page per idea, titled `[IDEA-NNN] [Idea Name]`
+- `idea.md` → one Confluence page per idea
+- Page title: `[IDEA-NNN] [Idea Name]` — or `[IDEA-NNN / PROJ-123] [Idea Name]` when a
+  current Jira ID exists in `external_ids.jira.current`
+- Reference block at top of page:
+
+  ```
+  Forge ID: IDEA-NNN
+  Jira: PROJ-123 (ticket)        ← shown only when external_ids.jira.current exists
+  Status: Active | Holding
+  Impact: High | Medium | Low
+  Effort: High | Medium | Low
+  ```
+
 - Diagram images (`diagram.mmd` rendered) embedded in the page where supported
-- Status (Active / Holding), Impact, Effort, and Tracking ID shown prominently at the top
+- Full ID history (superseded Jira IDs) shown in a collapsed section at the bottom of the page
 
 Archived ideas (`~/.claude/ideas/archived/`) are not published — they remain local only.
 
