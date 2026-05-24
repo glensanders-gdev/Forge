@@ -1,4 +1,4 @@
-# Forge v2.5.5
+# Forge v2.5.6
 
 An AI-assisted development workflow framework for Claude Code.
 
@@ -20,22 +20,21 @@ Each stage produces an artifact that feeds the next. The AI agent orients itself
 
 ## What's Included
 
-**59 skills** covering the full software delivery lifecycle:
+**82 skills** covering the full software delivery lifecycle:
 
 | Category | Skills |
 |----------|--------|
 | Ideation | `/idea`, `/create-project`, `/onboard` |
-| Planning | `/grill-with-docs`, `/grill-me`, `/research`, `/prototype`, `/write-prd`, `/testplan`, `/estimate`, `/break-down` |
-| Build | `/build`, `/tdd`, `/diagnose`, `/scope-check` |
-| QA | `/qa-plan`, `/pii-check`, `/approve` |
-| Sprint | `/sprint-start`, `/sprint-end`, `/standup`, `/debrief`, `/save-state` |
-| PI & Release | `/piplan`, `/pi-end`, `/sprintplan`, `/go-nogo`, `/deploy`, `/deploy-pi`, `/rollback`, `/rollback-pi`, `/standalone-release`, `/sprint-replan`, `/pi-replan` |
-| Session | `/backlog-list`, `/backlog-proj`, `/backlog-add` |
-| Code Quality | `/review`, `/critic`, `/write-adr`, `/push-standards`, `/lang-rules`, `/update-readme`, `/accessibility`, `/ai-first-engineering`, `/write-article`, `/assimilate` |
-| Knowledge | `/add-system`, `/summarise-system`, `/update-context`, `/add-term`, `/knowledge-health` |
-| Session | `/handoff`, `/save-state`, `/lookup` |
-| Token Tracking | `/token-report` — per-phase recording across all 11 pipeline stages, global ledger, calibration analysis |
-| Framework | `/write-a-skill`, `/learn`, `/evolve`, `/commands` |
+| Pipeline | `/grill-with-docs`, `/grill-me`, `/research`, `/prototype`, `/write-prd`, `/testplan`, `/estimate`, `/break-down`, `/build`, `/tdd`, `/qa-plan`, `/pii-check`, `/approve` |
+| Session Management | `/continue`, `/standup`, `/handoff`, `/debrief`, `/save-state`, `/scope-check`, `/backlog-list`, `/backlog-proj`, `/backlog-add`, `/lookup` |
+| Code Quality | `/review`, `/critic`, `/write-adr`, `/push-standards`, `/lang-rules`, `/update-readme`, `/accessibility`, `/ai-first-engineering`, `/write-article`, `/security-assessment`, `/security-resolve`, `/performance-review` |
+| Knowledge Base | `/add-system`, `/add-project`, `/summarise-system`, `/update-context`, `/add-term`, `/knowledge-health`, `/knowledge-onboard`, `/style-check`, `/ingest`, `/publish`, `/setup-confluence` |
+| Metrics & Reporting | `/token-report`, `/dashboard-tokens`, `/context-health`, `/fy-review` |
+| PI & Release | `/piplan`, `/pi-end`, `/sprintplan`, `/go-nogo`, `/changelog`, `/deploy`, `/deploy-pi`, `/rollback`, `/rollback-pi`, `/standalone-release`, `/sprint-replan`, `/pi-replan`, `/incident` |
+| Sprint Management | `/sprint-start`, `/sprint-end`, `/pir` |
+| Maintenance | `/feature-flag`, `/tech-debt`, `/dependency-update` |
+| Company Config | `/company-add`, `/company-git`, `/company-sync` |
+| Framework | `/write-a-skill`, `/assimilate`, `/learn`, `/evolve`, `/link-jira`, `/commands` |
 
 ---
 

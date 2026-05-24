@@ -63,6 +63,25 @@
     "write-article": "1.0.0",
     "lang-rules": "1.0.0",
     "knowledge-onboard": "1.0.0",
-    "style-check": "1.0.0"
+    "style-check": "1.0.0",
+    "add-project": "1.0.0",
+    "changelog": "1.0.0",
+    "company-add": "1.0.0",
+    "company-git": "1.0.0",
+    "company-sync": "1.0.0",
+    "context-health": "1.0.0",
+    "dashboard-tokens": "1.0.0",
+    "dependency-update": "1.0.0",
+    "feature-flag": "1.0.0",
+    "fy-review": "1.0.0",
+    "incident": "1.0.0",
+    "ingest": "1.0.0",
+    "link-jira": "1.0.0",
+    "performance-review": "1.0.0",
+    "publish": "1.0.0",
+    "security-assessment": "1.0.0",
+    "security-resolve": "1.0.0",
+    "setup-confluence": "1.0.0",
+    "tech-debt": "1.0.0"
   }
 }

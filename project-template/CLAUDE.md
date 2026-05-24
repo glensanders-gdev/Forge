@@ -45,6 +45,7 @@ Read this file completely at the start of every session before doing anything el
 At the start of every session, before anything else:
 
 1. Read `~/.claude/preferences.md` — global preferences. Respect these throughout.
+1a. Load `~/.claude/rules/common/git-safety.md` — confirm before push, confirm before any destructive git operation.
 2. Read `~/.claude/knowledge/company/acronyms.md` — company terminology.
 3. Read `docs/HANDOFF.md` if it exists — highest-signal context. If "Current phase" field shows the same phase continuing, increment the session counter in `docs/tokens/[feature].md`.
 4. Read `docs/CONTEXT.md` — project domain glossary.

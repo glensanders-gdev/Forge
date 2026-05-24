@@ -13,7 +13,7 @@ Open a new sprint for the current project. Pulls context automatically from the 
    - Identify the current sprint by today's date.
    - If no current sprint exists, ask the user:
      - "No active sprint found in the calendar. Would you like me to generate the next sprint dates, or do you have a calendar to sync from?"
-     - If generate: propose start = today, end = today + 13 days, confirm before adding to calendar.
+     - If generate: read `sprint_length_weeks` from `~/.claude/companies/[active_company]/config.md` (default 2 if not set or no company config). Propose start = today, end = today + (sprint_length_weeks × 7 − 1) days. Confirm before adding to calendar.
      - If sync: ask the user to provide the sprint name, start, and end dates.
 
 2. **Read active projects** — from the calendar entry for this sprint.

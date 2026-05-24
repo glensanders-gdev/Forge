@@ -90,6 +90,9 @@ If the response is not exactly `APPROVE`, respond: "Approval cancelled. No chang
 8. **Suggest README update**
    - Prompt: "Want me to update the README to reflect this feature? Run `/user:update-readme`."
 
+8b. **Suggest PIR**
+   - Prompt: "Consider running a Post Implementation Review: `/user:pir [PROJ-NNN]`. Did this feature achieve its stated goals?"
+
 9. **Update idea diagram** — if an idea in `~/.claude/ideas/active/` is linked to this project:
    - Read `~/.claude/ideas/active/[idea-name]/diagram.mmd`
    - Update to reflect the final delivered state

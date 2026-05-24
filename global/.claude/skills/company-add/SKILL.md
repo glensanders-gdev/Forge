@@ -15,6 +15,37 @@ on the local machine unless a company-approved GitHub is configured via `/compan
 
 ---
 
+## Quick Mode
+
+If the user runs `/company-add [name] --quick`:
+
+1. Run the same pre-checks as normal (existing company guard, existing data warning, name normalisation).
+2. Skip all 7 grilling topics — use every default value from the config template as-is.
+3. Present a brief summary before writing:
+   ```
+   Quick setup — all defaults applied.
+
+   Company: [name]
+   Sprint length: 2 weeks
+   Release cadence: end-of-sprint
+   Compliance tier: standard
+   External approval: none
+   AI policy: none
+
+   Create with defaults? (yes/no)
+   ```
+4. On confirmation, create the directory structure and write `config.md` with all default values and `# TODO` comments on every field that typically needs filling in.
+5. End with:
+   ```
+   ✅ Company "[name]" created with defaults.
+   Edit ~/.claude/companies/[name]/config.md to customise for your environment.
+   Run /company-add [name] (without --quick) at any time to redo the full grilling session.
+   ```
+
+--quick completes in under 30 seconds. It is suitable for getting started immediately and refining later. All skills will use the defaults until config.md is updated.
+
+---
+
 ## Pre-checks
 
 ### 1 — Already configured?

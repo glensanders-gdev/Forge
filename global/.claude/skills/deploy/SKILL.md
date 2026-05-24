@@ -127,6 +127,10 @@ Time: YYYY-MM-DD HH:MM
 Deploy log updated: docs/releases/deploy-log.md
 ```
 
+### PIR Prompt
+
+Suggest: "Now that this feature is deployed, consider a Post Implementation Review: `/user:pir [PROJ-NNN]`. Did it achieve its stated goals in production?"
+
 ### Idea Diagram Update
 
 If an idea in `~/.claude/ideas/active/` is linked to this project:

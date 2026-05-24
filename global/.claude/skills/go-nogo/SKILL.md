@@ -11,7 +11,7 @@ Prepare the Go/No Go brief for an upcoming monthly release. The AI assembles all
 
 - User runs `/user:go-nogo` explicitly
 - `/standup` flags a Go/No Go is due within 5 days
-- It is Friday and a release is scheduled for Sunday
+- The configured release day is approaching (typically 2 days before the deployment date — read from PI plan and company config `release_day`)
 
 ## Process
 
@@ -20,6 +20,8 @@ Prepare the Go/No Go brief for an upcoming monthly release. The AI assembles all
    - `compliance_tier` — determines whether security assessment is advisory or required
    - `external_approval_required` / `external_approval_name` — adds an approval gate step if set
    - `freeze_warning_days_ahead` — how early to start warning (default 14 days)
+   - `release_cadence` — determines expected release timing (end-of-sprint / monthly / quarterly / on-demand)
+   - `release_day` — the configured release day for monthly/quarterly cadences (e.g. "last Friday of the month")
 2. **Identify the release** — read `~/.claude/pi/[current-pi]/plan.md` to confirm which release is gating.
 2. **Read each active project's kanban** — identify:
    - Tickets completed for this release
@@ -118,7 +120,7 @@ When human types `GO`:
 2. Update release status in `~/.claude/pi/[current-pi]/plan.md` to `Approved`
 3. Remind human:
    ```
-   Deployment is Sunday DD MMM.
+   Deployment is [deployment date from PI plan].
 
    Suggested pre-deploy steps:
    - Run /changelog to generate release notes before /deploy
@@ -209,6 +211,7 @@ If overdue, include in the Risk Assessment table and surface at the top of the b
 |-----------|-----------|
 | No active PI plan found | Stop. "No active PI plan found at ~/.claude/pi/. Run `/piplan` to create one before running Go/No Go." |
 | No release date found for current sprint | Stop. "Cannot determine release date. Check ~/.claude/pi/[pi]/plan.md and confirm the release calendar." |
+| release_cadence = end-of-sprint and no sprint calendar found | Stop. "Release cadence is end-of-sprint but no sprint calendar found at ~/.claude/sprints/calendar.md. Run /sprint-start to set up the sprint calendar before running Go/No Go." |
 | `kanban.md` missing for a project | Note the project as "kanban unavailable — status unknown" in the brief. Flag as risk. |
 | No active PRD for a feature | Note feature as "PRD unavailable — cannot assess completion" in the brief. Flag as risk. |
 | Brief cannot be saved (no `docs/releases/` folder) | Create the folder and save. Note it was created. |
