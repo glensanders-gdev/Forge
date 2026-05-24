@@ -1,11 +1,11 @@
 ---
 name: lookup
-description: Find any entity by ID — IDEA-NNN, PROJ-NNN, or TC-NNN. Returns a summary of the entity, its current status, cross-references, and file path. Use when user runs /lookup [ID] or wants to find something by its ID.
+description: Find any entity by ID — IDEA-NNN, PROJ-NNN, TC-NNN, SEC-YYYYMMDD-NNN, PERF-YYYYMMDD-NNN, or INC-NNN. Returns a summary of the entity, its current status, cross-references, and file path. Use when user runs /lookup [ID] or wants to find something by its ID.
 ---
 
 # Lookup
 
-Find any Forge entity by its unique ID. Resolves IDEA, PROJ, and TC IDs to their source documents and returns a summary.
+Find any Forge entity by its unique ID. Resolves IDEA, PROJ, TC, SEC, PERF, and INC IDs to their source documents and returns a summary.
 
 ## Usage
 
@@ -13,6 +13,9 @@ Find any Forge entity by its unique ID. Resolves IDEA, PROJ, and TC IDs to their
 /lookup IDEA-003
 /lookup PROJ-001
 /lookup TC-042
+/lookup SEC-20260524-001
+/lookup PERF-20260524-001
+/lookup INC-001
 ```
 
 ## ID Assignment Rules
@@ -87,17 +90,66 @@ When assigning a new ID (called from `/idea`, `/create-project`, `/onboard`, `/t
 **Testplan section:** [testplan-filename].md → [section name]
 ```
 
+### SEC-YYYYMMDD-NNN
+
+1. Search `docs/security/` for a report file containing the ID in its header
+2. Return summary:
+
+```markdown
+## SEC-20260524-001 — [Assessment title]
+
+**Status:** Open | Resolved | Accepted Risk
+**Created:** YYYY-MM-DD
+**Severity:** Critical | High | Medium | Low
+
+**File:** docs/security/[report-filename].md
+```
+
+### PERF-YYYYMMDD-NNN
+
+1. Search `docs/performance/` for a report file containing the ID in its header
+2. Return summary:
+
+```markdown
+## PERF-20260524-001 — [Assessment title]
+
+**Status:** Open | Resolved
+**Created:** YYYY-MM-DD
+
+**File:** docs/performance/[report-filename].md
+```
+
+### INC-NNN
+
+1. Search `docs/incidents/` for an incident file containing the ID in its header
+2. Return summary:
+
+```markdown
+## INC-001 — [Incident title]
+
+**Status:** Active | Resolved | Post-mortem complete
+**Declared:** YYYY-MM-DD HH:MM
+**Severity:** P1 | P2 | P3
+
+**File:** docs/incidents/[incident-filename].md
+```
+
+---
+
 ## ID Format Validation
 
 - `IDEA-NNN` — 3+ digit number, e.g. `IDEA-001`, `IDEA-042`, `IDEA-1000`
 - `PROJ-NNN` — same format
 - `TC-NNN` — same format
+- `SEC-YYYYMMDD-NNN` — date-stamped security assessment ID, e.g. `SEC-20260524-001`
+- `PERF-YYYYMMDD-NNN` — date-stamped performance report ID, e.g. `PERF-20260524-001`
+- `INC-NNN` — incident ID, e.g. `INC-001`
 
-If the format doesn't match, respond: "That doesn't look like a valid Forge ID. Valid formats: IDEA-001, PROJ-001, TC-001."
+If the format doesn't match, respond: "That doesn't look like a valid Forge ID. Valid formats: IDEA-001, PROJ-001, TC-001, SEC-20260524-001, PERF-20260524-001, INC-001."
 
 ## Not Found Handling
 
-If the ID is not in the registry:
+If the ID is not in the registry or its file cannot be located:
 ```
 IDEA-099 not found in ~/.claude/registry.md.
 

@@ -105,9 +105,9 @@ Suggest the next stage at the end of each stage. Wait for human confirmation bef
 | `[PREP]` | Deployment prep — safe during buffer window |
 | `blocked-by: #N` | Cannot start until ticket #N is complete |
 | Smart Zone | Keep each unit of work under 100k tokens |
-| Buffer window | Friday–Sunday before release Monday. Friday EOD is the last working day for features. |
-| Release day | 3rd Monday of each month |
-| Sprint start | Tuesdays |
+| Buffer window | Days before the release date (default: Friday–Sunday). Set by company config — run `/user:company-add` |
+| Release day | Set by company config (default: 3rd Monday of each month) |
+| Sprint start | Set by company config (default: Tuesdays) |
 
 ---
 

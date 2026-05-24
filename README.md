@@ -60,8 +60,8 @@ cd ~/forge && git pull && bash update.sh
 Each remote session runs in a fresh container — `~/.claude/skills/` resets on every new session. Re-run the installer at the start of each session:
 
 ```bash
-# From the Forge repo root (non-interactive, skips backup prompt)
-echo "n" | bash install.sh
+# From the Forge repo root (non-interactive — detects no TTY and skips backup prompt automatically)
+bash install.sh
 ```
 
 Skills are fully functional after this. Any data in `~/.claude/knowledge/`, `~/.claude/companies/`, and `~/.claude/tokens/` is preserved between sessions if the container retains state (check your environment's persistence policy).
@@ -128,8 +128,8 @@ Or if you have an existing project:
 
 ```
 ~/.claude/
-  skills/              ← 50 global skills
-  commands/            ← 51 slash commands
+  skills/              ← 82 global skills
+  commands/            ← 82 slash commands
   knowledge/
     company/
       acronyms.md
@@ -168,9 +168,9 @@ Or if you have an existing project:
 | `[PREP]` | Deployment prep — safe to execute during buffer window |
 | `blocked-by: #N` | Cannot start until ticket #N is complete |
 | Smart Zone | Keep each task under 100k tokens |
-| Buffer window | Friday–Sunday before release Monday. Friday EOD is the last working day for features. |
-| Release day | 3rd Monday of each month |
-| Sprint start | Tuesdays |
+| Buffer window | Days before the release date (default: Friday–Sunday). Configured via `/company-add` |
+| Release day | Configured via `/company-add` (default: 3rd Monday of each month) |
+| Sprint start | Configured via `/company-add` (default: Tuesdays) |
 | `IDEA-NNN` | Unique idea ID — assigned at `/idea`, tracked in `~/.claude/registry.md` |
 | `PROJ-NNN` | Unique project ID — assigned at `/create-project` or `/onboard` |
 | `TC-NNN` | Unique test case ID — assigned at `/testplan`, tracked in `docs/tests/registry.md` |
@@ -183,7 +183,7 @@ Or if you have an existing project:
 
 ## Skill Versioning
 
-Skills are versioned in `~/.claude/skills/manifest.json`. The current framework version is `2.5.5`. Project-level skill overrides in `.claude/skills/[skill-name]/SKILL.md` take precedence over global skills.
+Skills are versioned in `~/.claude/skills/manifest.json`. The current framework version is `2.5.6`. Project-level skill overrides in `.claude/skills/[skill-name]/SKILL.md` take precedence over global skills.
 
 ---
 
@@ -197,6 +197,7 @@ The full framework lifecycle is documented in `~/.claude/forge-sequence.mmd`. Re
 
 | Version | Changes |
 |---------|---------|
+| 2.5.6 | 19 new skills added (company config, knowledge, maintenance, metrics); company-config wired into `/build`, `/pii-check`, `/deploy`; `/approve` and `/deploy` suggest `/pir`; install.sh non-interactive fix; sequence diagram rewritten |
 | 2.5.5 | Language rules layer — `/lang-rules`, `~/.claude/rules/common/` (coding-style, quality-checklist, research-first, security), `/push-standards` baseline awareness |
 | 2.5.4 | `/write-article` — long-form content in a concrete voice |
 | 2.5.3 | `/assimilate` — structured process for adapting external ideas into Forge with attribution |

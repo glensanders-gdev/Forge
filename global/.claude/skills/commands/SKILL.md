@@ -138,7 +138,7 @@ Print the following reference exactly:
 | `/user:learn` | Capture a session pattern as a Forge instinct — checks duplicates, increments count, one behaviour question |
 | `/user:evolve` | Review High confidence instincts — PROMOTE to skill, DEFER, or RETIRE. Never auto-promotes. |
 | `/user:link-jira` | Link a Forge ID (IDEA-NNN or PROJ-NNN) to a Jira ticket, epic, or capability |
-| `/user:lookup` | Find any entity by ID — IDEA-NNN, PROJ-NNN, TC-NNN — returns summary and file path |
+| `/user:lookup` | Find any entity by ID — IDEA-NNN, PROJ-NNN, TC-NNN, SEC-NNN, PERF-NNN, INC-NNN — returns summary and file path |
 | `/user:commands` | Show this reference |
 
 ---
