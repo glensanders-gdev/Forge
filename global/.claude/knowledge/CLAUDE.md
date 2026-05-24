@@ -149,6 +149,9 @@ that points to each system's own index — it does not duplicate article-level d
 
 ## Systems
 - [System Name](systems/[name]/Wiki/_index.md) — one-line summary of the system
+
+## Projects
+- [Project Name](projects/[name]/Wiki/_index.md) — one-line summary of the project
 ```
 
 Update `_index.md` on every `/ingest` run and whenever a Wiki article is created or significantly updated.
@@ -187,6 +190,18 @@ Each system under `knowledge/systems/[name]/` follows the same three-tier struct
 The existing `overview.md`, `schema.md`, and `known-issues.md` are Wiki-tier files.
 Treat them accordingly — you maintain them, humans rarely edit directly.
 Each system's `Raw/` has its own `_compiled.log`. Each system's `Wiki/` has its own `_changelog.md`.
+
+## Per-Project Knowledge
+
+Each project under `knowledge/projects/[name]/` follows the same three-tier structure:
+- `Raw/` — research, meeting notes, requirements docs, external references
+- `Wiki/` — compiled knowledge: `overview.md`, `decisions.md`, `known-issues.md`, plus any concept articles
+- `Outputs/` — generated reports, analysis, diagrams about the project
+
+Distinct from the project's `docs/` directory: `docs/` holds session state (handoffs, devlogs,
+kanban). `knowledge/projects/[name]/` holds durable domain knowledge worth preserving across
+the project's lifetime. Each project's `Raw/` has its own `_compiled.log`. Each project's
+`Wiki/` has its own `_changelog.md`.
 
 ---
 

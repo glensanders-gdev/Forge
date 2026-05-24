@@ -29,7 +29,18 @@ knowledge/
         schema.md        ← data structures and field definitions
         known-issues.md  ← constraints, limitations, hard stops
         _index.md        ← system-level wiki index
+        _changelog.md    ← significant change log
       Outputs/           ← generated reports, query answers, diagrams
+  projects/
+    [project-name]/
+      Raw/               ← research, meeting notes, requirements, external refs
+      Wiki/
+        overview.md      ← what the project is and its current state
+        decisions.md     ← key decisions and rationale
+        known-issues.md  ← constraints, blockers, hard stops
+        _index.md        ← project-level wiki index
+        _changelog.md    ← significant change log
+      Outputs/           ← generated reports, analysis, diagrams
 ```
 
 ---
@@ -37,6 +48,14 @@ knowledge/
 ## Adding a New System
 
 Run `/add-system` — it scaffolds the full `Raw/Wiki/Outputs` structure and stub files automatically.
+
+---
+
+## Adding a New Project
+
+Run `/add-project` — it scaffolds the full `Raw/Wiki/Outputs` structure and stub files automatically.
+Distinct from the project's `docs/` directory: `docs/` holds session state; `knowledge/projects/`
+holds durable domain knowledge.
 
 After creation:
 1. Fill in `Wiki/overview.md` first
