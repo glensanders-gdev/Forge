@@ -24,11 +24,44 @@ Read `~/.claude/preferences.md`. If `active_company` is already set:
 ⚠️ A company is already configured: [active_company]
    Forge is designed for one company per install.
 
-   To reconfigure, remove active_company from ~/.claude/preferences.md
-   and delete ~/.claude/companies/[name]/ manually, then re-run /company-add.
+   To reconfigure, run these two commands manually:
+     1. Edit ~/.claude/preferences.md — remove the line: active_company: [active_company]
+     2. Delete the directory: rm -rf ~/.claude/companies/[active_company]/
+
+   Then re-run /company-add [name].
 ```
 
 Do not proceed. Exit.
+
+### 2 — Existing knowledge data?
+
+Before prompting for a name, check whether any of the following exist:
+- `~/.claude/knowledge/systems/` (any subdirectories)
+- `~/.claude/knowledge/projects/` (any subdirectories)
+- `~/.claude/ideas/active/` or `~/.claude/ideas/archive/` (any files)
+
+If any exist, surface a warning before continuing:
+
+```
+⚠️ Existing Forge data found at the global paths:
+
+   [list each non-empty path found, e.g.:]
+   - ~/.claude/knowledge/systems/salesforce-crm/
+   - ~/.claude/knowledge/projects/customer-portal/
+   - ~/.claude/ideas/active/idea-001.md
+
+   After /company-add, all skills will resolve paths to the new company
+   directory. This existing data will NOT be moved automatically.
+
+   To migrate after setup, copy or move the above into:
+   - ~/.claude/companies/[name]/knowledge/systems/
+   - ~/.claude/companies/[name]/knowledge/projects/
+   - ~/.claude/companies/[name]/ideas/
+
+   Continue with setup? (yes/no)
+```
+
+If the user answers no, exit without changes.
 
 ### 2 — Name provided?
 
@@ -214,6 +247,9 @@ If `preferences.md` does not exist, create it with this single entry.
 
    Data location: ~/.claude/companies/[name]/
    This directory is outside the Forge repo — it will never be committed to GitHub.
+
+   Note: the global registry at ~/.claude/registry.md is now superseded by
+   ~/.claude/companies/[name]/registry.md — all skills write to the company registry.
 
 Next steps:
   1. Fill in ~/.claude/companies/[name]/config.md (domain, Jira URL)

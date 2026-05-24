@@ -156,8 +156,7 @@ If confirmed:
 
 ```bash
 git -C ~/.claude/companies/[active_company] fetch origin
-git -C ~/.claude/companies/[active_company] branch -M main
-git -C ~/.claude/companies/[active_company] branch --set-upstream-to=origin/main main
+git -C ~/.claude/companies/[active_company] checkout -b main --track origin/main
 git -C ~/.claude/companies/[active_company] pull --rebase origin main
 ```
 
@@ -191,6 +190,8 @@ Do not proceed to the confirmation step until conflicts are resolved.
 Pull-before-push convention:
    Always pull before pushing knowledge changes to avoid conflicts.
    Run /company-sync to share future changes with your team.
+   (/company-sync not yet available — use the following manually until it is:
+    git -C ~/.claude/companies/[active_company] pull && git -C ~/.claude/companies/[active_company] push)
 
 Next steps:
   1. Share [url] with team members — they run /company-add then /company-git [url]
@@ -213,6 +214,8 @@ Next steps:
 Pull-before-push convention:
    Always pull before pushing knowledge changes to avoid conflicts.
    Run /company-sync to share future changes with your team.
+   (/company-sync not yet available — use the following manually until it is:
+    git -C ~/.claude/companies/[active_company] pull && git -C ~/.claude/companies/[active_company] push)
 ```
 
 ---

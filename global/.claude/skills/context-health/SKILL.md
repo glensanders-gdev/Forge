@@ -5,6 +5,8 @@ description: Audit the token load profile of the current project's context files
 
 # Context Health
 
+> **Company-aware:** When `active_company` is set in `~/.claude/preferences.md` (configured by `/company-add`), company-specific files (acronyms, context, systems, projects) are measured from `~/.claude/companies/[active_company]/knowledge/` instead of `~/.claude/knowledge/`.
+
 Audit how much of the 100k token soft limit is consumed by loaded files before a single
 message is sent. Flags bloated files early, before they cause mid-session compaction.
 

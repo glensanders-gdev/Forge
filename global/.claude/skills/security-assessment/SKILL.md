@@ -42,7 +42,7 @@ Create `docs/security/` if it does not exist.
 
 ### 2 — Detect available tools
 
-Check silently for each tool. Note availability for Phase 3 — do not error if absent.
+Check silently for each tool. Note availability for Phase 4 — do not error if absent.
 
 ```bash
 command -v semgrep   # general pattern scanner
@@ -133,26 +133,35 @@ identified — consolidate in Phase 5.
 
 ## Phase 4 — Tool Invocation (if available)
 
-Run each available tool against the appropriate scope. Capture output for consolidation.
+If `--scope deps` was specified, skip Phases 2 and 3 entirely and begin here.
+
+`[scope-path]` resolves as follows:
+- No `--scope` flag or `--scope auth|api|data`: use `.` (project root) for full or category scans
+- `--scope deps`: use `.` (project root — tools scan manifests and lock files)
+- Path argument (e.g. `src/payments/`): use that path
+
+Run each available tool against the resolved scope. Write output to `docs/security/tmp/`
+(already gitignored as a subdirectory of `docs/security/`). Clean up tmp files after
+Phase 5 consolidation.
 
 ### semgrep
 ```bash
-semgrep --config=auto [scope-path] --json --output /tmp/semgrep-results.json
+semgrep --config=auto [scope-path] --json --output docs/security/tmp/semgrep-results.json
 ```
 
-### npm audit (Node projects only)
+### npm audit (Node projects only — run from project root regardless of scope-path)
 ```bash
-npm audit --json > /tmp/npm-audit-results.json
+npm audit --json > docs/security/tmp/npm-audit-results.json
 ```
 
 ### bandit (Python projects only)
 ```bash
-bandit -r [scope-path] -f json -o /tmp/bandit-results.json
+bandit -r [scope-path] -f json -o docs/security/tmp/bandit-results.json
 ```
 
 ### trivy (if Dockerfile or lock files present)
 ```bash
-trivy fs [scope-path] --format json --output /tmp/trivy-results.json
+trivy fs [scope-path] --format json --output docs/security/tmp/trivy-results.json
 ```
 
 For any tool that is not installed, add a note in the report's Tool Output section:
@@ -164,8 +173,11 @@ For any tool that is not installed, add a note in the report's Tool Output secti
 
 ## Phase 5 — Consolidate Findings
 
-Deduplicate and merge AI findings with tool findings. Assign a `SEC-NNN` ID to each unique
-finding (sequential, reset per report). Classify severity:
+Deduplicate and merge AI findings with tool findings. Assign a `SEC-YYYYMMDD-NNN` ID to
+each unique finding (date = report date, NNN sequential within the report). This prevents
+ID collisions when multiple reports exist in kanban simultaneously.
+
+Classify severity and confidence:
 
 | Severity | Criteria |
 |----------|----------|
@@ -174,6 +186,20 @@ finding (sequential, reset per report). Classify severity:
 | 🟡 Medium | Risk that should be addressed — missing input validation, weak crypto, verbose error messages |
 | 🔵 Low | Best practice gaps — missing security headers, overly permissive CORS, deprecated functions |
 | ℹ️ Info | Observations worth noting — outdated deps with no known CVE, defence-in-depth suggestions |
+
+Assign a confidence level to every AI-generated finding:
+
+| Confidence | Meaning |
+|------------|---------|
+| High | Directly observed in code — specific file and line, no inference required |
+| Medium | Inferred from patterns — likely but requires manual verification |
+| Low | Architectural concern — possible risk based on design, not confirmed in code |
+
+**Rule:** Critical severity requires High confidence. A Medium or Low confidence finding
+cannot be classified Critical — downgrade to High and mark "requires manual verification."
+Tool-generated findings inherit High confidence by default.
+
+After Phase 5, delete `docs/security/tmp/` to remove raw tool output.
 
 ---
 
@@ -216,29 +242,29 @@ Write `docs/security/assessment-YYYY-MM-DD.md`:
 
 ### 🔴 Critical
 
-| ID | Location | Description | Recommendation |
-|----|----------|-------------|----------------|
-| SEC-001 | src/auth/login.ts:42 | SQL query built from unsanitised user input | Use parameterised queries |
+| ID | Location | Description | Confidence | Recommendation |
+|----|----------|-------------|------------|----------------|
+| SEC-20260524-001 | src/auth/login.ts:42 | SQL query built from unsanitised user input | High | Use parameterised queries |
 
 ### 🟠 High
 
-| ID | Location | Description | Recommendation |
-|----|----------|-------------|----------------|
+| ID | Location | Description | Confidence | Recommendation |
+|----|----------|-------------|------------|----------------|
 
 ### 🟡 Medium
 
-| ID | Location | Description | Recommendation |
-|----|----------|-------------|----------------|
+| ID | Location | Description | Confidence | Recommendation |
+|----|----------|-------------|------------|----------------|
 
 ### 🔵 Low
 
-| ID | Location | Description | Recommendation |
-|----|----------|-------------|----------------|
+| ID | Location | Description | Confidence | Recommendation |
+|----|----------|-------------|------------|----------------|
 
 ### ℹ️ Info
 
-| ID | Observation | Suggestion |
-|----|-------------|------------|
+| ID | Observation | Confidence | Suggestion |
+|----|-------------|------------|------------|
 
 ---
 
@@ -258,7 +284,7 @@ Write `docs/security/assessment-YYYY-MM-DD.md`:
 
 [Numbered list, Critical first. Each item: SEC-NNN, file/line, specific fix.]
 
-1. SEC-001 (`src/auth/login.ts:42`) — replace string-concatenated query with parameterised statement. Estimated fix: 30 min.
+1. SEC-20260524-001 (`src/auth/login.ts:42`) — replace string-concatenated query with parameterised statement. Estimated fix: 30 min.
 
 ---
 
@@ -285,13 +311,17 @@ Create tickets? (yes / no / select)
 If yes (or select), create a ticket per confirmed finding using the format:
 
 ```markdown
-- [ ] SEC-001 — Security finding (see local assessment report) | High | security
+- [ ] SEC-20260524-001 — Security finding (see docs/security/assessment-2026-05-24.md) | High | security
 ```
 
 The full finding detail stays in `docs/security/assessment-YYYY-MM-DD.md` only.
 
 If `docs/known-issues.md` exists and the finding is a persistent issue rather than a
 one-off fix, offer to add a reference there too — ID and severity only.
+
+To mark a finding resolved after fixing, note: a future `/security-resolve [ID]` skill
+will handle closure tracking. Until then, re-running `/security-assessment` and finding
+the issue absent is sufficient confirmation of resolution.
 
 ---
 
@@ -309,7 +339,7 @@ Confirm to the user:
 
    Report: docs/security/assessment-YYYY-MM-DD.md  (gitignored)
    Findings: 🔴 N Critical | 🟠 N High | 🟡 N Medium | 🔵 N Low | ℹ️ N Info
-   Kanban tickets created: N (SEC-001 … SEC-N)
+   Kanban tickets created: N (SEC-YYYYMMDD-001 … SEC-YYYYMMDD-N)
 
    Next assessment due: YYYY-MM-DD (+30 days)
    /go-nogo will warn if overdue before a release.
