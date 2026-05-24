@@ -107,6 +107,8 @@ Structure:
     archive/
   metrics/          ← /fy-review and /dashboard-tokens write cross-project metrics here
   reviews/          ← /fy-review writes manager-summary.md and team-retrospective.md here
+  retrospectives/   ← /sprint-end writes private retro summaries here
+  pir/              ← /pir writes Post Implementation Reviews here
 
 preferences.md will be updated: active_company: [name]
 
@@ -135,6 +137,8 @@ On confirmation, create the following:
 ~/.claude/companies/[name]/ideas/archive/
 ~/.claude/companies/[name]/metrics/
 ~/.claude/companies/[name]/reviews/
+~/.claude/companies/[name]/retrospectives/
+~/.claude/companies/[name]/pir/
 ```
 
 ### `config.md`

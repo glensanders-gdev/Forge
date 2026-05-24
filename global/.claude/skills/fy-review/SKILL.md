@@ -75,6 +75,8 @@ absent sources are skipped gracefully, not errored.
 - `~/.claude/companies/[active_company]/ideas/active/` and `archive/`
 - `~/.claude/companies/[active_company]/incidents/`
 - `~/.claude/companies/[active_company]/reviews/` — prior FY reviews for year-over-year
+- `~/.claude/companies/[active_company]/pir/` — PIR outcome assessments per project and PI
+- `~/.claude/companies/[active_company]/retrospectives/` — sprint retrospective summaries
 
 **Per-project sources** (scan all known projects from registry):
 - `docs/kanban.md` — completed and carried tickets
@@ -239,9 +241,12 @@ Present any discovered metrics in a dedicated section of the retrospective.
 
 For each **delivered project** in the period:
 
-1. Read the project's PRD — extract stated goals, success criteria, target outcomes
-2. Read what was actually shipped (kanban completed tickets, release records)
-3. Note any incidents, known issues, or carry-forward items
+1. Check `~/.claude/companies/[active_company]/pir/PROJ-NNN/` for PIR records within the period.
+   If PIR records exist: use their outcome assessments as the primary source — they already
+   contain human-confirmed observations. Skip to step 4 using PIR data directly.
+2. If no PIR exists: read the project's archived PRDs for stated goals and user story outcomes.
+3. Read what was actually shipped (kanban completed tickets, release records) and note
+   any incidents, known issues, or carry-forward items.
 4. Draft a value observation paragraph (3–5 sentences):
    - What was delivered
    - How it relates to the stated goals
