@@ -20,6 +20,7 @@ Generate a concise standup summary from the project's living documents. No input
    - If today is within 3 days of an internal due date → flag deadline risk
    - If today is within 7 days of an external due date → flag deadline risk
    - If Delivery Type is Fixed Deadline or Fixed Both → run scope check summary
+   - Run `/feature-flag check` — surface any flags past their removal date
 8. Produce the standup report.
 9. Ask: "Are these the right goals for today, or do you want to adjust?"
 
@@ -32,6 +33,7 @@ Generate a concise standup summary from the project's living documents. No input
 - 📋 Go/No Go for PI-N-RN due [date] — [N days away]
 - 🔴 [Feature] deadline at risk — [N days to internal/external due date]
 - 🟡 Fixed Deadline feature — scope check summary below
+- 🚩 Overdue feature flags: [FF-NNN flag-name (N days overdue), ...]
 
 ### Yesterday
 [What was completed or progressed in the last session — from DEVLOG]

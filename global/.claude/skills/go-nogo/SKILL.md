@@ -111,7 +111,14 @@ When human types `NO-GO`:
 When human types `GO`:
 1. Record decision in brief
 2. Update release status in `~/.claude/pi/[current-pi]/plan.md` to `Approved`
-3. Remind human: "Deployment is Sunday DD MMM. Run `/user:standalone-release` if any urgent fixes are needed before then."
+3. Remind human:
+   ```
+   Deployment is Sunday DD MMM.
+
+   Suggested pre-deploy steps:
+   - Run /changelog to generate release notes before /deploy
+   - Run /user:standalone-release if any urgent fixes are needed before then.
+   ```
 
 ## Security Assessment Check
 

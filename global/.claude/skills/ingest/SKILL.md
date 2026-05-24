@@ -90,6 +90,21 @@ After all items:
 
 ---
 
+## Company Sync
+
+After a successful compile run, if `active_company` is set and a company git remote is
+configured, offer to push the new Wiki articles to the team:
+
+```
+✅ Ingest complete — N articles created/updated.
+
+   Share with your team? Run /company-sync --push-only
+```
+
+Do not run `/company-sync` automatically — always offer and let the user decide.
+
+---
+
 ## Rules
 
 - Raw is always the origin — never compile content that hasn't been saved to `Raw/` first

@@ -129,6 +129,23 @@ After sprint goals are confirmed and tickets are assigned, check capacity:
 
 ---
 
+## Tech Debt Check
+
+After the capacity check, read `docs/tech-debt.md`. If any High priority items exist:
+
+```
+⚠️ High priority tech debt in this project:
+
+  TD-NNN | [description] | [location] | Added [date]
+  ...
+
+Should any of these be scheduled as tickets in this sprint?
+```
+
+Present items for human decision — never add automatically.
+
+---
+
 ## Context Health Check
 
 After the capacity check, check `context-health-last-run` in `~/.claude/preferences.md`.
