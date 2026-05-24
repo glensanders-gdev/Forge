@@ -47,7 +47,7 @@ At the start of every session, before anything else:
 1. Read `~/.claude/preferences.md` — global preferences. Respect these throughout. Also load `~/.claude/rules/common/git-safety.md` if present — confirm before push and before any destructive git operation.
 2. Read `~/.claude/knowledge/company/acronyms.md` — company terminology.
 3. Read `docs/HANDOFF.md` if it exists — highest-signal context. If "Current phase" field shows the same phase continuing, increment the session counter in `docs/tokens/[feature].md`.
-4. Read `docs/CONTEXT.md` — project domain glossary.
+4. Read `docs/CONTEXT.md` — project domain glossary. Skip silently if the file is empty or contains only the stub template (no terms defined yet). Domain model is built progressively via `/grill-with-docs`.
 5. Read the most recent entry of `docs/DEVLOG.md` only — not the full file.
 6. Read `docs/kanban.md` — current ticket state.
 7. Read `~/.claude/priorities.md` — global feature priority order.
