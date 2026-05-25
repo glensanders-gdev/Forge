@@ -350,7 +350,6 @@ Ready to set up Forge for [Company Name].
       technology1/ ... technology8/   ← Wiki/Outputs only; hardware/ inside each (Wiki/Outputs only)
     publish/           confluence config
   ideas/active/ archived/
-  instincts/           company-specific patterns and learnings (shared)
   rules/               company rule extensions (layers on global common/)
   metrics/             cross-project metrics
   reviews/             FY reviews (private)
@@ -479,7 +478,6 @@ On confirmation, create all directories and stub files.
 ~/.claude/companies/[name]/ideas/
 ~/.claude/companies/[name]/ideas/active/
 ~/.claude/companies/[name]/ideas/archived/
-~/.claude/companies/[name]/instincts/
 ~/.claude/companies/[name]/rules/
 ~/.claude/companies/[name]/metrics/
 ~/.claude/companies/[name]/reviews/
@@ -626,8 +624,6 @@ Create the following stub files:
 - For each `technologyN/hardware/`: create `Wiki/_index.md` and `Wiki/_changelog.md` — same pattern, no Raw/
 - `tools.md` — pre-populate with skeleton entries for any prohibited/required/approved tools captured in Topic 8; each entry flagged with `# TODO: run /tool-add --company [name] to complete details`; if none captured, create an empty `tools.md` with the standard header (see `/tool-add` appendix template)
 - `projects/registry.md` — company project index stub; populated incrementally by `/add-project` and `/create-project`
-- `instincts/_template.md` — copy verbatim from `~/.claude/instincts/_template.md`
-- `instincts/registry.md` — fresh company instincts registry (same structure as global, titled "[Company Name] — Instincts Registry"; counters reset to instinct-000/instinct-001)
 - `rules/README.md` — explain that `~/.claude/rules/common/` is the universal baseline; rules in this directory are company-specific extensions and overrides; stub out sections for naming conventions, compliance gates, and deployment rules; note that projects activate rules via `.claude/rules/active.md`
 
 ---
@@ -639,7 +635,7 @@ Copy the following 18 skills from the user's global `~/.claude/` install into th
 - `~/.claude/companies/[name]/.claude/skills/[skill]/SKILL.md` — full skill content (copied verbatim)
 - `~/.claude/companies/[name]/.claude/commands/[skill].md` — command trigger file (copied verbatim)
 
-**Skills to bundle:**
+**Skills to bundle (17):**
 
 | Skill | Purpose |
 |-------|---------|
@@ -652,7 +648,6 @@ Copy the following 18 skills from the user's global `~/.claude/` install into th
 | `lookup` | Search the knowledge base |
 | `style-check` | Validate docs against style guide |
 | `pii-check` | Check for PII exposure |
-| `learn` | Capture company instincts |
 | `company-sync` | Push/pull to company git remote |
 | `add-project` | Register a project |
 | `incident` | Log and manage incidents |
@@ -756,7 +751,6 @@ Windows: run in Git Bash or WSL.
 | `/add-system` | Document a new system |
 | `/add-term` | Add a term to the company glossary |
 | `/lookup` | Search the knowledge base |
-| `/learn` | Capture a company pattern or instinct |
 | `/company-sync` | Push/pull knowledge updates with the team |
 | `/style-check` | Validate a document against the company style guide |
 | `/pii-check` | Check content for PII before sharing |
@@ -797,9 +791,8 @@ Create the file if it doesn't exist.
    Knowledge:      ~/.claude/companies/[name]/knowledge/ (Raw/ → Wiki/ → Outputs/)
    Projects:       ~/.claude/companies/[name]/projects/registry.md
    Tools:          ~/.claude/companies/[name]/tools.md
-   Instincts:      ~/.claude/companies/[name]/instincts/
    Rules:          ~/.claude/companies/[name]/rules/
-   Skills bundled: ~/.claude/companies/[name]/.claude/ (18 company knowledge skills)
+   Skills bundled: ~/.claude/companies/[name]/.claude/ (17 company knowledge skills)
    Setup script:   ~/.claude/companies/[name]/setup.sh
 
    Note: the global registry at ~/.claude/registry.md is superseded by
@@ -817,7 +810,6 @@ Skills that read your new config:
   /dashboard-tokens → shows spend vs monthly cap if configured
   /fy-review       → uses fy_start and review_display_name
   /ingest          → routes Raw/Wiki to knowledge/ (shared with team)
-  /learn           → asks whether instinct is company-specific or global Forge
 
 Next steps:
   1. Fill in config.md — domain, jira_base_url, token_cost_per_1k
