@@ -5,9 +5,10 @@
 
 set -e
 
-FORGE_VERSION="2.5.6"
-REPO_URL="https://github.com/glensanders-gdev/Forge"
 GLOBAL_SRC="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/global"
+FORGE_VERSION=$(grep '"forge_version"' "$GLOBAL_SRC/.claude/skills/manifest.json" 2>/dev/null | grep -o '[0-9][0-9.]*' | head -1)
+FORGE_VERSION="${FORGE_VERSION:-unknown}"
+REPO_URL="https://github.com/glensanders-gdev/Forge"
 CLAUDE_DIR="$HOME/.claude"
 
 # ── colours ──────────────────────────────────────────────────────────────────

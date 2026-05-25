@@ -11,6 +11,61 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
+## v2.6.0 — 2026-05-25
+
+**New skill: /company-update + critic resolution (16 issues)**
+
+### Added
+- `/company-update` v1.0.0 — post-install maintenance for company repos. Two modes:
+  - `--reconfigure`: re-run any of the 8 grilling topics from `/company-add` against the existing config; shows a diff of changes before writing; fields from unselected topics are untouched
+  - `--update-skills`: compare version fields of the 17 bundled skills against `~/.claude/skills/`; show an update inventory; copy newer versions on confirmation
+  - `--all`: reconfigure then update-skills in sequence
+- `decisions/ADR-001-one-company-per-install.md` — formal ADR documenting the one-company-per-install constraint: rationale (unambiguous path resolution, knowledge contamination risk, config conflicts), alternatives considered, and revisit criteria
+
+### Changed
+- `/company-add` v1.2.0 — multiple correctness and completeness fixes:
+  - `setup.sh` template: replaced `sed -i` (broken on macOS — requires backup suffix) with portable `awk` equivalent
+  - Frontmatter description: removed stale "instincts" reference
+  - Confirm block and CLAUDE.md template: corrected bundled skill count from 18 to 17 (learn was removed last patch)
+  - Embedded CLAUDE.md template: removed `instincts/` from repository structure section
+  - Company Skills section header: corrected "18 skills" to "17 skills"
+  - `config.md` template: added `git_remote` / `git_branch` fields (default `origin` / `main`) — read by `/company-sync`
+  - Next steps: added step 10 — rename `technology1–technology8` to actual domain names with example `mv` command and follow-up note
+- `/company-sync` v1.1.0 — safety and portability improvements:
+  - Push phase now reads `git_remote` and `git_branch` from `config.md` (defaults to `origin` / `main`)
+  - Added HITL gate before committing: shows a `git status --short`-style file list and requires `SYNC` before staging or committing
+  - Merge conflict guidance expanded: explains that knowledge article conflicts should be merged (combining content), not overwritten; provides step-by-step resolution commands
+  - Failure modes: added branch protection rejection and missing git config fields
+- `/ingest` v1.1.0 — technology sub-category routing:
+  - When processing items from `technology/Raw/`, after classifying, lists available sub-categories and asks the user which domain each item belongs to (HITL per item)
+  - `top` option available to route to `technology/Wiki/` without a sub-category; flagged in compile log for later review
+  - Step numbering corrected (10 and 11, not 9 and 10)
+- `/build` — fixed duplicate `### Step 5` label in execution loop; second Step 5 renamed to Step 6 — Context Checkpoint
+- `/write-a-skill` — two checklist corrections:
+  - "SKILL.md under 100 lines" replaced with realistic guidance (~400 lines for workflow logic; dense reference material extracted to REFERENCE.md)
+  - Added `forge-sequence.mmd` review item: update diagram when a new pipeline phase is added or phase order changes
+- `SOUL.md` — added AFK exception to the file-writing rule: during `/build` AFK execution, writing code, tests, and kanban updates is the expected autonomous output (not a HITL violation)
+- `install.sh` — FORGE_VERSION now read dynamically from `manifest.json` instead of hardcoded; never drifts on version bumps
+- `update.sh` — added `decisions/` directory to framework file sync; ADRs are now updated alongside PRINCIPLES.md and SOUL.md on `bash update.sh`
+
+### Fixed
+- P1-1 `setup.sh` macOS portability — `sed -i` → `awk`
+- P1-2 Stale "instincts" in company-add frontmatter description
+- P1-3 Wrong bundled skill count (18 → 17) in three locations
+- P1-4 `/company-sync` blind commit — HITL gate added
+- P1-5 `/build` duplicate Step 5 numbering
+- P2-7/P2-8 No post-install update path — resolved by `/company-update`
+- P2-9 `/ingest` had no technology sub-category routing
+- P2-10 `/write-a-skill` 100-line rule was fiction in practice
+- P2-11 `/company-sync` hard-coded `origin main` — now reads from config
+- P3-12 One-company constraint undocumented — ADR-001 written
+- P3-13 No rename-domain guidance — step 10 added to /company-add next steps
+- P3-14 SOUL.md contradiction with AFK mode — exception clause added
+- P3-15 forge-sequence.mmd update criterion vague — checklist item added to /write-a-skill
+- P3-16 Merge conflict guidance for prose knowledge files was absent
+
+---
+
 ## v2.5.8 — 2026-05-25
 
 **Company structure mirrors global: Raw/Wiki/Outputs, rules, projects, tools, legal, technology**

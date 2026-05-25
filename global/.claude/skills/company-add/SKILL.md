@@ -1,6 +1,6 @@
 ---
 name: company-add
-description: Set up a company-specific file structure outside the Forge repo at ~/.claude/companies/[name]/. Grills the user on company operational config — sprint cadence, team locations, public holidays, freeze periods, compliance tier, external approval gates, deployment environments, AI usage policy, and tools policy. Scaffolds knowledge, projects, instincts, rules, and tools sections mirroring the global structure. Company data is never committed to the Forge GitHub. Use when user runs /company-add [name] or sets up Forge for a new company install.
+description: Set up a company-specific file structure outside the Forge repo at ~/.claude/companies/[name]/. Grills the user on company operational config — sprint cadence, team locations, public holidays, freeze periods, compliance tier, external approval gates, deployment environments, AI usage policy, and tools policy. Scaffolds knowledge, projects, rules, and tools sections mirroring the global structure. Company data is never committed to the Forge GitHub. Use when user runs /company-add [name] or sets up Forge for a new company install.
 ---
 
 # Company Add
@@ -357,8 +357,8 @@ Ready to set up Forge for [Company Name].
   pir/                 Post Implementation Reviews (private)
   .claude/
     CLAUDE.md          ← repo onboarding context for Claude
-    commands/          ← 18 bundled company knowledge commands
-    skills/            ← 18 bundled company knowledge skills
+    commands/          ← 17 bundled company knowledge commands
+    skills/            ← 17 bundled company knowledge skills
   setup.sh             ← one-time teammate setup script
 
 ─── Configuration Summary ────────────────────────────
@@ -605,6 +605,14 @@ ai_monthly_spend_cap_usd:
 # token_cost_per_1k: 0.003
 # Set to your per-1k-token rate to enable cost-per-feature metrics.
 # Check current model pricing before setting.
+
+## Git Remote
+# Used by /company-sync and /company-update.
+# Change if your team uses a different remote name or branch protection model.
+# Branch protection (PRs required): set git_branch to your default branch and
+# perform pushes manually — /company-sync will stage and commit but remind you to open a PR.
+git_remote: origin
+git_branch: main
 ```
 
 ### Other stub files
@@ -630,7 +638,7 @@ Create the following stub files:
 
 ### Company Skills
 
-Copy the following 18 skills from the user's global `~/.claude/` install into the company repo at the time `/company-add` runs. Each skill gets two files:
+Copy the following 17 skills from the user's global `~/.claude/` install into the company repo at the time `/company-add` runs. Each skill gets two files:
 
 - `~/.claude/companies/[name]/.claude/skills/[skill]/SKILL.md` — full skill content (copied verbatim)
 - `~/.claude/companies/[name]/.claude/commands/[skill].md` — command trigger file (copied verbatim)
@@ -687,7 +695,9 @@ echo "  ↳ Linked: ~/.claude/companies/$COMPANY_NAME → $REPO_DIR"
 # 2. Set active_company in preferences.md
 PREFS="$CLAUDE_DIR/preferences.md"
 if grep -q "^active_company:" "$PREFS" 2>/dev/null; then
-  sed -i "s|^active_company:.*|active_company: $COMPANY_NAME|" "$PREFS"
+  awk -v company="$COMPANY_NAME" \
+    '/^active_company:/ {print "active_company: " company; next} {print}' \
+    "$PREFS" > "$PREFS.tmp" && mv "$PREFS.tmp" "$PREFS"
   echo "  ↳ Updated active_company in preferences.md"
 else
   echo "active_company: $COMPANY_NAME" >> "$PREFS"
@@ -738,7 +748,7 @@ bash setup.sh
 ```
 
 This links the repo to `~/.claude/companies/[name]/`, sets `active_company`,
-and installs 18 company knowledge skills. Restart Claude Code after running.
+and installs 17 company knowledge skills. Restart Claude Code after running.
 
 Windows: run in Git Bash or WSL.
 
@@ -760,7 +770,6 @@ Windows: run in Git Bash or WSL.
 ## Repository structure
 
 - `knowledge/` — company knowledge base (Raw/ → Wiki/ → Outputs/)
-- `instincts/` — company-specific patterns and learnings
 - `rules/` — company coding standard extensions
 - `config.md` — company operational configuration
 - `tools.md` — approved, required, and prohibited tools
@@ -821,6 +830,11 @@ Next steps:
   7. Run /tool-add --company [name] to complete tool details for entries registered during setup
   8. Run /tool-check to verify required tools are installed
   9. Run /setup-confluence if publishing to Confluence
+  10. Rename technology1–technology8 to your actual domain names, e.g.:
+      mv ~/.claude/companies/[name]/knowledge/technology/technology1 \
+         ~/.claude/companies/[name]/knowledge/technology/architecture
+      Then update knowledge/technology/Wiki/_index.md to reflect the new names.
+      Run /company-update to sync the renamed sub-categories with the team.
 ```
 
 ---

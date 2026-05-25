@@ -109,9 +109,9 @@ The command file is what registers `/user:skill-name` in Claude Code. Without it
 ## When to Split Files
 
 Split into separate files when:
-- `SKILL.md` exceeds 100 lines
+- `SKILL.md` workflow logic exceeds ~400 lines
 - Content has distinct domains (e.g. logic vs UI)
-- Advanced reference material is rarely needed during normal use
+- Advanced reference material (reference tables, stub templates, config schemas) is rarely needed during normal use — extract to `REFERENCE.md` so the main workflow stays readable
 
 ## Review Checklist
 
@@ -119,10 +119,11 @@ Before finalising, verify:
 - [ ] Read `~/.claude/PRINCIPLES.md` — does this skill follow the 8 design principles?
 - [ ] Description includes "Use when [triggers]"
 - [ ] **If adapting from an external source** — use `/user:assimilate` instead. It handles attribution, fit evaluation, and adaptation automatically.
-- [ ] `SKILL.md` is under 100 lines
+- [ ] Workflow steps are readable without scrolling — dense reference tables, stub templates, and rarely-needed config belong in `REFERENCE.md`, not `SKILL.md` (guide: keep workflow under ~400 lines)
 - [ ] No time-sensitive information included
 - [ ] Terminology consistent with `docs/CONTEXT.md`
 - [ ] `manifest.json` updated with new skill and version `"1.0.0"`
 - [ ] Command file created if slash command needed
 - [ ] **`~/.claude/skills/commands/SKILL.md` updated** — add the new command to the correct section in the command reference table. This is mandatory — never skip it.
 - [ ] **`~/.claude/CHANGELOG.md` updated** — add the new skill under the current `forge_version` entry (or create a new version entry if bumping the version). Version bump guidance: patch (x.x.N) for skill fixes, minor (x.N.0) for new skills, major (N.0.0) for lifecycle changes (new pipeline phases, fundamental workflow changes). Never let the changelog drift from the actual skill set.
+- [ ] **`~/.claude/forge-sequence.mmd` reviewed** — if a new pipeline phase was added, or the order of skills in the delivery lifecycle changed, update the diagram. Not required for every skill — only when the diagram would be materially wrong without it (e.g. a new mandatory gate between two existing phases).

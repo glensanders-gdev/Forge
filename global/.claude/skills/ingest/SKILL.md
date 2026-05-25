@@ -54,25 +54,41 @@ For each uncompiled item:
 
 1. **Read and summarise** the item
 2. **Classify** — identify which concept(s) it belongs to
-3. **Check for cross-system scope** — if the concept requires two or more system names to
+3. **Technology sub-category routing** — if the source path is `technology/Raw/`, after
+   classifying, list the available sub-categories (read from subdirectory names under
+   `technology/`) and ask:
+   ```
+   Which technology domain does "[filename]" belong to?
+
+   Available sub-categories:
+   1. technology1 (or renamed equivalent)
+   2. technology2
+   ...
+
+   Enter the number, or type 'top' to route to technology/Wiki/ without a sub-category.
+   ```
+   Wait for a response before proceeding. Route the article to the matching
+   sub-category's `Wiki/` folder. If `top` is chosen, route to `technology/Wiki/` and
+   note `⚠️ No sub-category assigned` in the compile log for later review.
+4. **Check for cross-system scope** — if the concept requires two or more system names to
    explain, it belongs in global `Wiki/`. Check `cross_system_gate` in
    `~/.claude/preferences.md`:
    - `open` (or missing) → pause and confirm with the human before creating the article;
      write `cross_system_gate: confirmed` to `preferences.md` on approval
    - `confirmed` → proceed without confirmation
-4. **Create or update** the relevant concept article(s) in the appropriate `Wiki/`
-5. **Add backlinks** from the concept article to the Raw source
-6. **Update `Raw/_compiled.log`**:
+5. **Create or update** the relevant concept article(s) in the appropriate `Wiki/`
+6. **Add backlinks** from the concept article to the Raw source
+7. **Update `Raw/_compiled.log`**:
    ```
    YYYY-MM-DD | [filename] | compiled | [Wiki article(s) updated]
    ```
-7. **Update `Wiki/_changelog.md`** — log `created` or `updated` with the article path
-8. **On failure** — log `failed: [reason]` in `_compiled.log` and continue to next item
+8. **Update `Wiki/_changelog.md`** — log `created` or `updated` with the article path
+9. **On failure** — log `failed: [reason]` in `_compiled.log` and continue to next item
 
 After all items:
 
-9. **Update `Wiki/_index.md`** — refresh Recently Updated section and any new categories
-10. **Present a summary**:
+10. **Update `Wiki/_index.md`** — refresh Recently Updated section and any new categories
+11. **Present a summary**:
     - Items compiled
     - Articles created / updated
     - Cross-system articles created (if any)

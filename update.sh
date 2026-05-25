@@ -45,6 +45,12 @@ for file in PRINCIPLES.md SOUL.md CHANGELOG.md forge-sequence.mmd; do
   fi
 done
 
+# Update decisions/ directory (ADRs for Forge design decisions)
+if [ -d "$FORGE_DIR/global/.claude/decisions" ]; then
+  mkdir -p "$CLAUDE_DIR/decisions"
+  cp -r "$FORGE_DIR/global/.claude/decisions/." "$CLAUDE_DIR/decisions/"
+fi
+
 echo ""
 echo -e "${GREEN}✓  Forge updated to v${NEW_VERSION}${NC}"
 echo -e "${GREEN}✓  Previous skills backed up to $BACKUP${NC}"

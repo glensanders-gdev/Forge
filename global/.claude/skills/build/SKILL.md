@@ -171,7 +171,7 @@ Update `docs/kanban.md` immediately:
 - [x] [AFK] #N [Ticket name]  ✓
 ```
 
-### Step 5 — Context Checkpoint
+### Step 6 — Context Checkpoint
 
 After every 3 completed tickets, if **3 or more tickets remain in the queue**, checkpoint before continuing:
 
