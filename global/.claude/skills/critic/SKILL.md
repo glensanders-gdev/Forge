@@ -73,6 +73,28 @@ What could go wrong?
 [Ordered list of recommended next actions]
 ```
 
+## Metrics Logging
+
+After presenting the critique, append one row to `docs/metrics/metrics-log.md`.
+Create the file and the section header if they don't exist.
+
+**Section header (create if absent):**
+```markdown
+## Critic Sessions
+
+| Date | Subject | P1 | P2 | P3 | Total |
+|------|---------|----|----|-----|-------|
+```
+
+**Append row:**
+```
+| YYYY-MM-DD | [brief description of subject] | N | N | N | N |
+```
+
+If `docs/metrics/` doesn't exist, create the directory. Log silently — do not mention to the user.
+
+---
+
 ## Rules
 
 - Be honest — the value of this skill is in what it finds, not in being kind.

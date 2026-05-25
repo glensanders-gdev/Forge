@@ -5,7 +5,7 @@
 
 set -e
 
-FORGE_VERSION="2.5.5"
+FORGE_VERSION="2.5.6"
 REPO_URL="https://github.com/glensanders-gdev/Forge"
 GLOBAL_SRC="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/global"
 CLAUDE_DIR="$HOME/.claude"
@@ -24,7 +24,7 @@ echo -e "${BLUE}╚════════════════════�
 echo ""
 
 # ── check claude code ────────────────────────────────────────────────────────
-if [ ! -d "$HOME/.claude" ] && [ ! -f "$HOME/.claude/settings.json" ] 2>/dev/null; then
+if [ ! -d "$HOME/.claude" ] || [ ! -f "$HOME/.claude/settings.json" ] 2>/dev/null; then
   echo -e "${YELLOW}⚠  ~/.claude not found — Claude Code may not be installed.${NC}"
   echo "   Forge will still install but you need Claude Code to use it."
   echo "   See https://docs.anthropic.com/en/docs/claude-code"
@@ -34,12 +34,16 @@ fi
 # ── backup existing ──────────────────────────────────────────────────────────
 if [ -d "$CLAUDE_DIR/skills" ]; then
   echo -e "${YELLOW}ℹ  Existing ~/.claude/skills found.${NC}"
-  read -p "   Back up existing skills before installing? [Y/n] " -n 1 -r
-  echo ""
-  if [[ ! $REPLY =~ ^[Nn]$ ]]; then
-    BACKUP="$CLAUDE_DIR/skills.backup.$(date +%Y%m%d-%H%M%S)"
-    cp -r "$CLAUDE_DIR/skills" "$BACKUP"
-    echo -e "${GREEN}✓  Backed up to $BACKUP${NC}"
+  if [ -t 0 ]; then
+    read -p "   Back up existing skills before installing? [Y/n] " -n 1 -r
+    echo ""
+    if [[ ! $REPLY =~ ^[Nn]$ ]]; then
+      BACKUP="$CLAUDE_DIR/skills.backup.$(date +%Y%m%d-%H%M%S)"
+      cp -r "$CLAUDE_DIR/skills" "$BACKUP"
+      echo -e "${GREEN}✓  Backed up to $BACKUP${NC}"
+    fi
+  else
+    echo "   (Non-interactive mode — skipping backup. Run manually to back up if needed.)"
   fi
 fi
 
@@ -76,7 +80,34 @@ echo -e "${BLUE}Or let Forge do it:${NC}"
 echo "  Open Claude Code in any directory and run: /user:create-project"
 
 # ── preferences ──────────────────────────────────────────────────────────────
-if [ ! -f "$CLAUDE_DIR/preferences.md" ] || ! grep -q "sprint-capacity-points" "$CLAUDE_DIR/preferences.md" 2>/dev/null; then
+if [ ! -f "$CLAUDE_DIR/preferences.md" ]; then
+  cat > "$CLAUDE_DIR/preferences.md" << 'EOF'
+# Forge Preferences
+# Edit these to match your setup. Uncomment and set the values you want.
+
+## Identity
+# username: Your Name
+
+## Sprint & Capacity
+# sprint-capacity-points: 20
+# sprint-capacity-tokens: 400000
+
+## Knowledge Freshness
+# staleness-warning-days: 90
+
+## Context Health
+# context-health-last-run: (set automatically by /context-health)
+
+## Security Assessment
+# security-assessment-last-run: (set automatically by /security-assessment)
+
+## Company (set by /company-add — do not edit manually)
+# active_company:
+EOF
+  echo ""
+  echo -e "${GREEN}✓  preferences.md created at $CLAUDE_DIR/preferences.md${NC}"
+  echo "   Edit it to set your username, sprint capacity, and other preferences."
+else
   echo ""
   echo -e "${YELLOW}ℹ  preferences.md already exists — not overwriting.${NC}"
   echo "   Review $CLAUDE_DIR/preferences.md and update to match your setup."

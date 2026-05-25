@@ -13,7 +13,7 @@ Open a new sprint for the current project. Pulls context automatically from the 
    - Identify the current sprint by today's date.
    - If no current sprint exists, ask the user:
      - "No active sprint found in the calendar. Would you like me to generate the next sprint dates, or do you have a calendar to sync from?"
-     - If generate: propose start = today, end = today + 13 days, confirm before adding to calendar.
+     - If generate: read `sprint_length_weeks` from `~/.claude/companies/[active_company]/config.md` (default 2 if not set or no company config). Propose start = today, end = today + (sprint_length_weeks × 7 − 1) days. Confirm before adding to calendar.
      - If sync: ask the user to provide the sprint name, start, and end dates.
 
 2. **Read active projects** — from the calendar entry for this sprint.
@@ -34,18 +34,23 @@ Open a new sprint for the current project. Pulls context automatically from the 
    - Ask: "These known issues are unresolved — should any be scheduled as tickets in this sprint?"
    - Do not add them automatically — human confirms
 
-6. **Gather sprint goals** — ask the user:
+6. **Check company config** — read `~/.claude/companies/[active_company]/config.md` (if set):
+   - Scan configured `freeze_periods` — if the sprint period overlaps a `no-deploy` window, flag it
+   - Scan configured team `locales` — note any likely public holidays falling within the sprint period and surface them as a planning note. Format: "⚠️ [locale] public holiday likely near [date] — verify team availability."
+   - Forge does not auto-fetch holiday calendars; it prompts the human to verify.
+
+7. **Gather sprint goals** — ask the user:
    - What are the goals for this sprint? (1–5)
    - Are there any fixed deadlines within the sprint?
    - Any context or constraints worth noting?
 
-5. **Present the full draft** for confirmation before writing.
+8. **Present the full draft** for confirmation before writing.
 
-6. **Write** `docs/sprints/sprint-NN.md` using the template below.
+9. **Write** `docs/sprints/sprint-NN.md` using the template below.
 
-7. **Update active PRDs** — for any PRD in `docs/prd/active/`, update the `Sprint:` field to the current sprint name if blank or outdated.
+10. **Update active PRDs** — for any PRD in `docs/prd/active/`, update the `Sprint:` field to the current sprint name if blank or outdated.
 
-8. **Update** `docs/kanban.md` if relevant tickets should be flagged for this sprint.
+11. **Update** `docs/kanban.md` if relevant tickets should be flagged for this sprint.
 
 ## Sprint Record Template (Start Section)
 
@@ -78,6 +83,9 @@ _None_ (if first sprint or no carry-in)
 | Item | Deadline | Notes |
 |------|----------|-------|
 | | | |
+
+### Public Holidays & Freeze Periods
+[Any holidays or freeze windows falling in this sprint period — or "None identified"]
 
 ### Notes / Constraints
 [Anything relevant to how this sprint should be run]
@@ -126,3 +134,34 @@ After sprint goals are confirmed and tickets are assigned, check capacity:
    ⚠️ #N [ticket name] is estimated XL — run /break-down before /build.
    ```
 6. Human decides whether to adjust or proceed.
+
+---
+
+## Tech Debt Check
+
+After the capacity check, read `docs/tech-debt.md`. If any High priority items exist:
+
+```
+⚠️ High priority tech debt in this project:
+
+  TD-NNN | [description] | [location] | Added [date]
+  ...
+
+Should any of these be scheduled as tickets in this sprint?
+```
+
+Present items for human decision — never add automatically.
+
+---
+
+## Context Health Check
+
+After the capacity check, check `context-health-last-run` in `~/.claude/preferences.md`.
+If more than 7 days ago (or missing):
+
+```
+⚠️ Context health check overdue (last run: N days ago).
+Consider running /context-health before this sprint begins to avoid mid-session compaction.
+```
+
+Do not block sprint start — this is advisory only.

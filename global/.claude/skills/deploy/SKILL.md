@@ -17,6 +17,18 @@ Read `.claude/deploy.md` — extract:
 - Health check URL
 - Rollback command
 
+**Cross-check with company config** — read `~/.claude/companies/[active_company]/config.md` (if set):
+- `deployment_chain` — compare to the environments in `.claude/deploy.md`. If the chains differ, flag:
+  ```
+  ⚠️ Deployment chain mismatch
+  Company config: [deployment_chain]
+  deploy.md:      [configured environments]
+  Proceeding with deploy.md as the authoritative source. Update one to match the other.
+  ```
+- `deployment_manual_gates` — if set, add each gate as a mandatory HITL pause before the next environment (in addition to any gates already in deploy.md).
+
+If no company config, skip cross-check silently.
+
 If `.claude/deploy.md` is missing:
 ```
 ⛔ No deploy configuration found.
@@ -126,6 +138,10 @@ Time: YYYY-MM-DD HH:MM
 
 Deploy log updated: docs/releases/deploy-log.md
 ```
+
+### PIR Prompt
+
+Suggest: "Now that this feature is deployed, consider a Post Implementation Review: `/user:pir [PROJ-NNN]`. Did it achieve its stated goals in production?"
 
 ### Idea Diagram Update
 

@@ -87,11 +87,18 @@ Helps with systems.
 
 ## Command File Template
 
-If the skill needs a `/user:skill-name` trigger, create a command file:
+If the skill needs a `/user:skill-name` trigger, create `global/.claude/commands/[skill-name].md` containing plain text only — **not** a SKILL.md frontmatter file. The format is one short paragraph:
 
-```markdown
-Invoke the [skill-name] skill. [One sentence describing what it does and what it produces.]
 ```
+Invoke the [skill-name] skill. [What it does and what it produces.] [Key arguments or flags if any.] Use when [trigger conditions].
+```
+
+**Example** (`global/.claude/commands/handoff.md`):
+```
+Invoke the handoff skill. Compact the current session into a structured handoff document written to docs/HANDOFF.md. References Forge artifacts by path rather than reproducing them. Suggests which skills the next session should use first. Optional argument: description of what the next session will focus on (e.g. /handoff "next session: implement login flow"). Add --archive to also save a timestamped copy to docs/handoffs/.
+```
+
+The command file is what registers `/user:skill-name` in Claude Code. Without it, the skill exists but cannot be invoked as a slash command.
 
 ## After Writing Files
 

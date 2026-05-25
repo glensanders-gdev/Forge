@@ -52,7 +52,11 @@ Triggered when the human runs `/user:sprint-end` or picks up the HITL finalise t
    - "One thing to improve next sprint?"
 5. Present the finalised draft for confirmation before writing.
 6. Write the finalised Sprint End section into `docs/sprints/sprint-NN.md`.
-7. **Update `docs/HANDOFF.md`** — overwrite with sprint close state:
+7. **Write retrospective to company directory** — if `active_company` is set, write the
+   retrospective section to `~/.claude/companies/[active_company]/retrospectives/sprint-NN-retro.md`
+   (see Retrospective Storage below).
+8. **Log sprint metrics** — append one row to `docs/metrics/metrics-log.md` (see Metrics Logging below).
+9. **Update `docs/HANDOFF.md`** — overwrite with sprint close state:
    - Session type: Sprint Close
    - Current ticket: "Sprint-NN closed"
    - What just happened: sprint summary in one sentence
@@ -62,8 +66,8 @@ Triggered when the human runs `/user:sprint-end` or picks up the HITL finalise t
    - Append under heading: `## Sprint-NN — YYYY-MM-DD`
    - Leave only In Progress, Blocked, and Backlog tickets in `kanban.md`
    - Keeps `kanban.md` lean for future session start reads
-8. Update `~/.claude/sprints/calendar.md` — mark sprint as Closed.
-9. Prompt (do not trigger): "Sprint-NN closed. Run `/user:sprint-start` when you're ready to open Sprint-NN+1."
+9. Update `~/.claude/sprints/calendar.md` — mark sprint as Closed.
+10. Prompt (do not trigger): "Sprint-NN closed. Run `/user:sprint-start` when you're ready to open Sprint-NN+1."
 
 ---
 
@@ -107,6 +111,85 @@ _None_ (if everything completed)
 **One thing to improve next sprint:**
 ⏳ Awaiting human input (or completed text)
 ```
+
+---
+
+## Retrospective Storage
+
+When `active_company` is set, write the retrospective to the company directory in addition
+to the main sprint record. This keeps sensitive reflections (what went wrong, team friction,
+process failures) private — not committed to the project's GitHub.
+
+Create `~/.claude/companies/[active_company]/retrospectives/` if it doesn't exist.
+
+**File:** `~/.claude/companies/[active_company]/retrospectives/sprint-NN-retro.md`
+
+```markdown
+# Sprint Retrospective — Sprint-NN
+
+**Project:** [Project Name] (PROJ-NNN)
+**Sprint closed:** YYYY-MM-DD
+**Sprint period:** [start date] → [end date]
+
+## Goals Review
+
+| Goal | Outcome |
+|------|---------|
+| [Goal 1] | ✅ Achieved / ⚠️ Partial / ❌ Not started |
+
+## Velocity
+
+| Metric | Value |
+|--------|-------|
+| Points completed | N |
+| Points carried | N |
+| Carry-over rate | N% |
+| Goal hit rate | N% |
+
+## Retrospective
+
+**Went well:**
+[Human input]
+
+**Didn't go well:**
+[Human input]
+
+**One thing to improve next sprint:**
+[Human input]
+
+---
+*Private — not committed to project GitHub.*
+```
+
+If `active_company` is not set, skip this step silently — the retro data is captured only
+in `docs/sprints/sprint-NN.md`.
+
+---
+
+## Metrics Logging
+
+After writing the finalised sprint record (HITL mode only), append one row to `docs/metrics/metrics-log.md`.
+Create the file and section header if they don't exist.
+
+**Section header (create if absent):**
+```markdown
+## Sprint Velocity
+
+| Sprint | Closed | Points Done | Points Carried | Carry-Over % | Goals Met | Goals Total | Goal % |
+|--------|--------|-------------|----------------|--------------|-----------|-------------|--------|
+```
+
+**Append row:**
+```
+| Sprint-13 | YYYY-MM-DD | 21 | 3 | 13% | 2 | 3 | 67% |
+```
+
+- **Points Done / Carried**: story points if tracked; ticket counts with `(tix)` suffix if not.
+- **Carry-Over %**: points carried ÷ (done + carried) × 100%, rounded to nearest whole number.
+- **Goal %**: goals met ÷ goals total × 100%, rounded to nearest whole number.
+- AFK mode does not log — wait for HITL finalisation since carry-over may change.
+
+Log silently — do not mention to the user.
 
 ---
 

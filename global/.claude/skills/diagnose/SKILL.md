@@ -24,6 +24,7 @@ Systematically investigate a failure before attempting another fix. Stop the imp
 7. **Propose fix** — describe the fix before implementing it. Get human confirmation if it's a significant change.
 8. **Implement and verify** — make the fix, confirm it resolves the failure.
 9. **Update kanban** — note the diagnosis and fix in the ticket.
+10. **Log to metrics** — append one row to `docs/metrics/metrics-log.md` (see Metrics Logging below).
 
 ## Diagnosis Report Format
 
@@ -48,6 +49,32 @@ Systematically investigate a failure before attempting another fix. Stop the imp
 ### Verification
 [How the fix was confirmed to work]
 ```
+
+## Metrics Logging
+
+After step 9, append one row to `docs/metrics/metrics-log.md`.
+Create the file and section header if they don't exist.
+
+**Section header (create if absent):**
+```markdown
+## Diagnose Events
+
+| Date | Ticket | Trigger | Root Cause | Resolution |
+|------|--------|---------|------------|------------|
+```
+
+**Append row:**
+```
+| YYYY-MM-DD | #N short-title | Explicit / Failed twice | Implementation bug / Design flaw / Missing context / External dependency / Other | Resolved / Escalated / Design change required |
+```
+
+- **Trigger**: `Explicit` when human invoked `/diagnose` directly; `Failed twice` when AI self-suggested after two failed attempts.
+- **Root Cause**: use the most accurate category; `Other` if none fit.
+- **Resolution**: `Resolved` if fix applied and verified; `Escalated` if surfaced without fix; `Design change required` if an ADR/PRD amendment was flagged.
+
+Log silently — do not mention to the user.
+
+---
 
 ## Rules
 

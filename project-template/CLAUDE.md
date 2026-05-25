@@ -44,10 +44,10 @@ Read this file completely at the start of every session before doing anything el
 
 At the start of every session, before anything else:
 
-1. Read `~/.claude/preferences.md` — global preferences. Respect these throughout.
+1. Read `~/.claude/preferences.md` — global preferences. Respect these throughout. Also load `~/.claude/rules/common/git-safety.md` if present — confirm before push and before any destructive git operation.
 2. Read `~/.claude/knowledge/company/acronyms.md` — company terminology.
 3. Read `docs/HANDOFF.md` if it exists — highest-signal context. If "Current phase" field shows the same phase continuing, increment the session counter in `docs/tokens/[feature].md`.
-4. Read `docs/CONTEXT.md` — project domain glossary.
+4. Read `docs/CONTEXT.md` — project domain glossary. Skip silently if the file is empty or contains only the stub template (no terms defined yet). Domain model is built progressively via `/grill-with-docs`.
 5. Read the most recent entry of `docs/DEVLOG.md` only — not the full file.
 6. Read `docs/kanban.md` — current ticket state.
 7. Read `~/.claude/priorities.md` — global feature priority order.
@@ -55,7 +55,7 @@ At the start of every session, before anything else:
 9. Confirm session goals (max 3). Do not begin work until confirmed.
 10. State any assumptions upfront.
 
-**Hard limit: maximum 4 files loaded automatically at session start.** Load others on demand. Exception: `HANDOFF.md` always loads.
+**Load only what you need.** Steps 1–7 above are the mandatory baseline. Load additional files on demand — do not pre-load the full project structure before understanding what the session requires. Exception: `HANDOFF.md` always loads.
 
 ---
 
@@ -105,9 +105,9 @@ Suggest the next stage at the end of each stage. Wait for human confirmation bef
 | `[PREP]` | Deployment prep — safe during buffer window |
 | `blocked-by: #N` | Cannot start until ticket #N is complete |
 | Smart Zone | Keep each unit of work under 100k tokens |
-| Buffer window | Friday–Sunday before release Monday. Friday EOD is the last working day for features. |
-| Release day | 3rd Monday of each month |
-| Sprint start | Tuesdays |
+| Buffer window | Days before the release date (default: Friday–Sunday). Set by company config — run `/user:company-add` |
+| Release day | Set by company config (default: 3rd Monday of each month) |
+| Sprint start | Set by company config (default: Tuesdays) |
 
 ---
 

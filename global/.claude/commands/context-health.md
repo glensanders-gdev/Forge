@@ -1,0 +1,1 @@
+Invoke the context-health skill. Audit the token load profile of the current project's context files — measures every file loaded into a session, estimates token cost, flags files growing too large, and recommends trimming actions. Saves a report to docs/context-health-report.md. Run weekly or before a sprint starts.

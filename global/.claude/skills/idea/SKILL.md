@@ -5,6 +5,8 @@ description: Capture and stress-test a new idea through structured grilling — 
 
 # Idea
 
+> **Company-aware:** When `active_company` is set in `~/.claude/preferences.md` (configured by `/company-add`), ideas are written to `~/.claude/companies/[active_company]/ideas/active/` and the company registry is updated instead of `~/.claude/ideas/` and `~/.claude/registry.md`.
+
 Capture a raw idea and stress-test it into a well-framed problem worth solving. Produces a structured `idea.md` and living sequence diagrams that evolve through the project lifecycle.
 
 ## Trigger Detection
@@ -196,6 +198,9 @@ Update `~/.claude/registry.md` Idea Registry table:
 **Impact:** High | Medium | Low
 **Effort:** High | Medium | Low
 **Project:** PROJ-NNN | None (updated when /create-project runs)
+
+external_ids:
+  jira: (populated by /link-jira — omit until linked)
 
 ---
 

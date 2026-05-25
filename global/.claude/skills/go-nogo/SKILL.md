@@ -11,11 +11,18 @@ Prepare the Go/No Go brief for an upcoming monthly release. The AI assembles all
 
 - User runs `/user:go-nogo` explicitly
 - `/standup` flags a Go/No Go is due within 5 days
-- It is Friday and a release is scheduled for Sunday
+- The configured release day is approaching (typically 2 days before the deployment date — read from PI plan and company config `release_day`)
 
 ## Process
 
-1. **Identify the release** — read `~/.claude/pi/[current-pi]/plan.md` to confirm which release is gating.
+1. **Read company config** — read `~/.claude/companies/[active_company]/config.md` (if set) for:
+   - `freeze_periods` — check if the deployment date falls within or near a freeze window
+   - `compliance_tier` — determines whether security assessment is advisory or required
+   - `external_approval_required` / `external_approval_name` — adds an approval gate step if set
+   - `freeze_warning_days_ahead` — how early to start warning (default 14 days)
+   - `release_cadence` — determines expected release timing (end-of-sprint / monthly / quarterly / on-demand)
+   - `release_day` — the configured release day for monthly/quarterly cadences (e.g. "last Friday of the month")
+2. **Identify the release** — read `~/.claude/pi/[current-pi]/plan.md` to confirm which release is gating.
 2. **Read each active project's kanban** — identify:
    - Tickets completed for this release
    - Tickets incomplete (still In Progress or Blocked)
@@ -111,7 +118,85 @@ When human types `NO-GO`:
 When human types `GO`:
 1. Record decision in brief
 2. Update release status in `~/.claude/pi/[current-pi]/plan.md` to `Approved`
-3. Remind human: "Deployment is Sunday DD MMM. Run `/user:standalone-release` if any urgent fixes are needed before then."
+3. Remind human:
+   ```
+   Deployment is [deployment date from PI plan].
+
+   Suggested pre-deploy steps:
+   - Run /changelog to generate release notes before /deploy
+   - Run /user:standalone-release if any urgent fixes are needed before then.
+   ```
+
+## Freeze Period Check
+
+After identifying the deployment date, check company config `freeze_periods`:
+
+- If the deployment date falls **within** a `no-deploy` freeze window:
+  ```
+  🚫 FREEZE PERIOD: [reason] — [window]
+     This deployment falls within a no-deploy window.
+     Proceeding to GO would violate company policy.
+     Recommend NO-GO and rescheduling after [end date].
+  ```
+  Include as a P1 risk. AI recommendation must be NO-GO.
+
+- If the deployment date falls **within** a `warn-only` freeze window:
+  ```
+  ⚠️ FREEZE PERIOD (advisory): [reason] — [window]
+     Deployment is within a restricted window. Human decision required.
+  ```
+  Include as High risk. Does not force NO-GO recommendation.
+
+- If within `freeze_warning_days_ahead` days of a freeze window start:
+  ```
+  ⚠️ Upcoming freeze: [reason] begins [date] ([N days away]).
+     Consider whether this release timeline is appropriate.
+  ```
+
+If no company config or no freeze periods configured, skip this check silently.
+
+---
+
+## External Approval Gate
+
+If `external_approval_required: true` in company config, add the following
+section to the brief after Risk Assessment:
+
+```markdown
+## External Approval
+
+**Approval type:** [external_approval_name]
+**Scope:** [external_approval_scope]
+**System:** [external_approval_url — or "Not recorded"]
+
+- [ ] [external_approval_name] approval obtained before deployment
+
+```
+
+When the human types GO, ask: "Has [external_approval_name] approval been obtained?
+Record the approval reference or confirm verbally. (reference / confirmed)"
+Capture the response and append to the brief's Decision section.
+
+---
+
+## Security Assessment Check
+
+Before producing the brief, read `security-assessment-last-run` from `~/.claude/preferences.md`
+and `compliance_tier` from company config.
+
+| Compliance tier | Overdue threshold | Behaviour |
+|----------------|------------------|-----------|
+| none / standard | 30 days | Advisory warning — does not force NO-GO |
+| regulated | 30 days | Required — recommend NO-GO if overdue |
+| highly-regulated | 14 days | Required — recommend NO-GO if overdue; must be formally accepted |
+
+If overdue, include in the Risk Assessment table and surface at the top of the brief:
+```
+⚠️ Security assessment overdue (last run: N days ago / never).
+   [Compliance tier: regulated/highly-regulated → this is required, not advisory.]
+```
+
+---
 
 ## Rules
 
@@ -126,6 +211,7 @@ When human types `GO`:
 |-----------|-----------|
 | No active PI plan found | Stop. "No active PI plan found at ~/.claude/pi/. Run `/piplan` to create one before running Go/No Go." |
 | No release date found for current sprint | Stop. "Cannot determine release date. Check ~/.claude/pi/[pi]/plan.md and confirm the release calendar." |
+| release_cadence = end-of-sprint and no sprint calendar found | Stop. "Release cadence is end-of-sprint but no sprint calendar found at ~/.claude/sprints/calendar.md. Run /sprint-start to set up the sprint calendar before running Go/No Go." |
 | `kanban.md` missing for a project | Note the project as "kanban unavailable — status unknown" in the brief. Flag as risk. |
 | No active PRD for a feature | Note feature as "PRD unavailable — cannot assess completion" in the brief. Flag as risk. |
 | Brief cannot be saved (no `docs/releases/` folder) | Create the folder and save. Note it was created. |

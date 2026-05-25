@@ -1,4 +1,4 @@
-# Forge v2.5.5
+# Forge v2.5.7
 
 An AI-assisted development workflow framework for Claude Code.
 
@@ -20,22 +20,21 @@ Each stage produces an artifact that feeds the next. The AI agent orients itself
 
 ## What's Included
 
-**59 skills** covering the full software delivery lifecycle:
+**84 skills** covering the full software delivery lifecycle:
 
 | Category | Skills |
 |----------|--------|
 | Ideation | `/idea`, `/create-project`, `/onboard` |
-| Planning | `/grill-with-docs`, `/grill-me`, `/research`, `/prototype`, `/write-prd`, `/testplan`, `/estimate`, `/break-down` |
-| Build | `/build`, `/tdd`, `/diagnose`, `/scope-check` |
-| QA | `/qa-plan`, `/pii-check`, `/approve` |
-| Sprint | `/sprint-start`, `/sprint-end`, `/standup`, `/debrief`, `/save-state` |
-| PI & Release | `/piplan`, `/pi-end`, `/sprintplan`, `/go-nogo`, `/deploy`, `/deploy-pi`, `/rollback`, `/rollback-pi`, `/standalone-release`, `/sprint-replan`, `/pi-replan` |
-| Session | `/backlog-list`, `/backlog-proj`, `/backlog-add` |
-| Code Quality | `/review`, `/critic`, `/write-adr`, `/push-standards`, `/lang-rules`, `/update-readme`, `/accessibility`, `/ai-first-engineering`, `/write-article`, `/assimilate` |
-| Knowledge | `/add-system`, `/summarise-system`, `/update-context`, `/add-term`, `/knowledge-health` |
-| Session | `/handoff`, `/save-state`, `/lookup` |
-| Token Tracking | `/token-report` — per-phase recording across all 11 pipeline stages, global ledger, calibration analysis |
-| Framework | `/write-a-skill`, `/learn`, `/evolve`, `/commands` |
+| Pipeline | `/grill-with-docs`, `/grill-me`, `/research`, `/prototype`, `/write-prd`, `/testplan`, `/estimate`, `/break-down`, `/build`, `/tdd`, `/qa-plan`, `/pii-check`, `/approve` |
+| Session Management | `/continue`, `/standup`, `/handoff`, `/debrief`, `/save-state`, `/scope-check`, `/backlog-list`, `/backlog-proj`, `/backlog-add`, `/lookup` |
+| Code Quality | `/review`, `/critic`, `/write-adr`, `/push-standards`, `/lang-rules`, `/update-readme`, `/accessibility`, `/ai-first-engineering`, `/write-article`, `/security-assessment`, `/security-resolve`, `/performance-review` |
+| Knowledge Base | `/add-system`, `/add-project`, `/summarise-system`, `/update-context`, `/add-term`, `/knowledge-health`, `/knowledge-onboard`, `/style-check`, `/ingest`, `/publish`, `/setup-confluence` |
+| Metrics & Reporting | `/token-report`, `/dashboard-tokens`, `/context-health`, `/fy-review` |
+| PI & Release | `/piplan`, `/pi-end`, `/sprintplan`, `/go-nogo`, `/changelog`, `/deploy`, `/deploy-pi`, `/rollback`, `/rollback-pi`, `/standalone-release`, `/sprint-replan`, `/pi-replan`, `/incident` |
+| Sprint Management | `/sprint-start`, `/sprint-end`, `/pir` |
+| Maintenance | `/feature-flag`, `/tech-debt`, `/dependency-update` |
+| Company Config | `/company-add`, `/company-git`, `/company-sync`, `/tool-add`, `/tool-check` |
+| Framework | `/write-a-skill`, `/assimilate`, `/learn`, `/evolve`, `/link-jira`, `/commands` |
 
 ---
 
@@ -55,6 +54,17 @@ bash ~/forge/install.sh
 ```bash
 cd ~/forge && git pull && bash update.sh
 ```
+
+### Remote / Web Sessions (Claude Code on Web)
+
+Each remote session runs in a fresh container — `~/.claude/skills/` resets on every new session. Re-run the installer at the start of each session:
+
+```bash
+# From the Forge repo root (non-interactive — detects no TTY and skips backup prompt automatically)
+bash install.sh
+```
+
+Skills are fully functional after this. Any data in `~/.claude/knowledge/`, `~/.claude/companies/`, and `~/.claude/tokens/` is preserved between sessions if the container retains state (check your environment's persistence policy).
 
 ### Manual install
 
@@ -118,8 +128,10 @@ Or if you have an existing project:
 
 ```
 ~/.claude/
-  skills/              ← 50 global skills
-  commands/            ← 51 slash commands
+  skills/              ← 84 global skills
+  commands/            ← 84 slash commands
+  tools/
+    global.md          ← global tools registry (security scanners, perf analysers, etc.)
   knowledge/
     company/
       acronyms.md
@@ -158,9 +170,9 @@ Or if you have an existing project:
 | `[PREP]` | Deployment prep — safe to execute during buffer window |
 | `blocked-by: #N` | Cannot start until ticket #N is complete |
 | Smart Zone | Keep each task under 100k tokens |
-| Buffer window | Friday–Sunday before release Monday. Friday EOD is the last working day for features. |
-| Release day | 3rd Monday of each month |
-| Sprint start | Tuesdays |
+| Buffer window | Days before the release date (default: Friday–Sunday). Configured via `/company-add` |
+| Release day | Configured via `/company-add` (default: 3rd Monday of each month) |
+| Sprint start | Configured via `/company-add` (default: Tuesdays) |
 | `IDEA-NNN` | Unique idea ID — assigned at `/idea`, tracked in `~/.claude/registry.md` |
 | `PROJ-NNN` | Unique project ID — assigned at `/create-project` or `/onboard` |
 | `TC-NNN` | Unique test case ID — assigned at `/testplan`, tracked in `docs/tests/registry.md` |
@@ -173,7 +185,7 @@ Or if you have an existing project:
 
 ## Skill Versioning
 
-Skills are versioned in `~/.claude/skills/manifest.json`. The current framework version is `2.5.5`. Project-level skill overrides in `.claude/skills/[skill-name]/SKILL.md` take precedence over global skills.
+Skills are versioned in `~/.claude/skills/manifest.json`. The current framework version is `2.5.6`. Project-level skill overrides in `.claude/skills/[skill-name]/SKILL.md` take precedence over global skills.
 
 ---
 
@@ -187,6 +199,8 @@ The full framework lifecycle is documented in `~/.claude/forge-sequence.mmd`. Re
 
 | Version | Changes |
 |---------|---------|
+| 2.5.7 | Tools registry — `~/.claude/tools/global.md` + company `tools.md`; `/tool-add`, `/tool-check`; `/security-assessment` and `/performance-review` use registry; `/build` pre-flight checks required tools |
+| 2.5.6 | 19 new skills added (company config, knowledge, maintenance, metrics); company-config wired into `/build`, `/pii-check`, `/deploy`; `/approve` and `/deploy` suggest `/pir`; install.sh non-interactive fix; sequence diagram rewritten |
 | 2.5.5 | Language rules layer — `/lang-rules`, `~/.claude/rules/common/` (coding-style, quality-checklist, research-first, security), `/push-standards` baseline awareness |
 | 2.5.4 | `/write-article` — long-form content in a concrete voice |
 | 2.5.3 | `/assimilate` — structured process for adapting external ideas into Forge with attribution |
