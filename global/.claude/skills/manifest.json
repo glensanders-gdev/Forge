@@ -1,5 +1,5 @@
 {
-  "forge_version": "2.5.7",
+  "forge_version": "2.5.8",
   "skills": {
     "tool-add": "1.0.0",
     "tool-check": "1.0.0",
@@ -57,7 +57,7 @@
     "pir": "1.0.0",
     "add-term": "1.0.0",
     "knowledge-health": "1.0.0",
-    "learn": "1.0.0",
+    "learn": "1.1.0",
     "evolve": "1.0.0",
     "accessibility": "1.0.0",
     "ai-first-engineering": "1.0.0",
@@ -68,7 +68,7 @@
     "style-check": "1.0.0",
     "add-project": "1.0.0",
     "changelog": "1.0.0",
-    "company-add": "1.0.0",
+    "company-add": "1.1.0",
     "company-git": "1.0.0",
     "company-sync": "1.0.0",
     "context-health": "1.0.0",

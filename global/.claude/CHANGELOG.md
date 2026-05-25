@@ -11,6 +11,37 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
+## v2.5.8 — 2026-05-25
+
+**Company structure mirrors global: Raw/Wiki/Outputs, instincts, rules + /learn company routing**
+
+### Changed
+- `/company-add` v1.1.0 — scaffold now mirrors global `~/.claude/` structure:
+  - Added `knowledge/Raw/`, `knowledge/Wiki/`, `knowledge/Outputs/` — three-tier knowledge pipeline lands in company repo; `/ingest` already routes here when `active_company` is set
+  - Added `knowledge/legal/` with full three-tier structure (Raw/Wiki/Outputs) — contracts and legal advice are ingested via Raw/ first; Wiki index stub notes legal privilege sensitivity and suggests `/pii-check` before sharing
+  - Added `knowledge/technology/` with Raw/Wiki/Outputs at the domain level; 8 placeholder sub-categories (`technology1/`–`technology8/`) with Wiki/Outputs only — Raw/ lives at `technology/` level, `/ingest` classifies and routes articles into the correct sub-category Wiki/; each sub-category also has a `hardware/` folder (Wiki/Outputs, no Raw/); sub-categories renamed to actual domains at company install
+  - Added `projects/` with `registry.md` stub — company-level project index; populated by `/add-project` and `/create-project`. Distinct from `knowledge/projects/` (which holds knowledge content per project)
+  - Added `tools.md` — required/approved/prohibited tools registry; scaffolded by `/company-add` and populated via `/tool-add --company [name]`
+  - Added Topic 8 — Tools Policy grilling: captures prohibited tools (compliance/licensing), required tools (security scanners, test runners), and approved standard tools; writes skeleton entries to `tools.md` with TODO comments
+  - Added `instincts/` with `_template.md` and `registry.md` stubs — company-specific patterns are now captured separately from personal Forge instincts
+  - Added `rules/` with `README.md` stub — company rule extensions layer on top of global `~/.claude/rules/common/` baseline
+  - Fixed `ideas/archive/` → `ideas/archived/` to match global naming
+  - Added `.claude/` scaffold to company repo: 18 company knowledge skills bundled verbatim from `~/.claude/` at install time (commands + SKILL.md files); teammates who clone the repo run `setup.sh` — no full Forge install required
+  - Added `setup.sh` — symlinks `~/.claude/companies/[name]` → repo root, sets `active_company` in preferences.md, installs bundled skills to `~/.claude/`; works on macOS/Linux (Git Bash/WSL for Windows)
+  - Added `.claude/CLAUDE.md` — repo-level onboarding context: explains structure, lists available commands, documents setup process
+  - Bundled skills: `ingest`, `knowledge-health`, `add-system`, `add-term`, `summarise-system`, `update-context`, `lookup`, `style-check`, `pii-check`, `learn`, `company-sync`, `add-project`, `incident`, `pir`, `idea`, `tool-add`, `tool-check`, `knowledge-onboard`
+  - Updated confirm summary, skills list, and next steps to reflect full structure
+- `/learn` v1.1.0 — company-aware routing:
+  - When `active_company` is set, step 0 asks the human to choose scope: **Company** (writes to `~/.claude/companies/[name]/instincts/`, shared with the team) or **Forge/global** (writes to `~/.claude/instincts/`, personal)
+  - All path references updated to use `[instincts_path]` / `[registry_path]` variables resolved by scope
+  - Confirm message shows scope, and for company instincts suggests `/company-sync` to push to the team
+  - New failure mode: warns if company instincts directory is missing (not yet run `/company-add`)
+
+### Fixed
+- `rules/common/git-safety.md` — present in `forge/global/` but missing from installed `~/.claude/rules/common/`; added to live install
+
+---
+
 ## v2.5.6 — 2026-05-23
 
 **New skills: /knowledge-onboard, /style-check + company knowledge layer**

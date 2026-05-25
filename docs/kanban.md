@@ -34,7 +34,7 @@ _None_
 - [x] [AFK] #13 Extend `/write-prd` — consult `style-guide.md` when present `blocked-by: #6` ✓
 - [x] [AFK] #14 Extend `/knowledge-health` — check `style-guide.md` presence `blocked-by: #6` (api.md portion deferred) ✓
 - [x] [AFK] #15 Update `manifest.json`, `commands/SKILL.md`, and `CHANGELOG.md` `blocked-by: #5` ✓
-- [>] [AFK] #16 Sync changes to `~/forge/global/.claude/` and commit `blocked-by: #15`
+- [x] [AFK] #16 Sync changes to `~/forge/global/.claude/` and commit `blocked-by: #15` ✓
 
 ---
 

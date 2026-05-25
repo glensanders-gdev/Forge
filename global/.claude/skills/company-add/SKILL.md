@@ -1,6 +1,6 @@
 ---
 name: company-add
-description: Set up a company-specific file structure outside the Forge repo at ~/.claude/companies/[name]/. Grills the user on company operational config — sprint cadence, team locations, public holidays, freeze periods, compliance tier, external approval gates, deployment environments, and AI usage policy. Company data is never committed to the Forge GitHub. Use when user runs /company-add [name] or sets up Forge for a new company install.
+description: Set up a company-specific file structure outside the Forge repo at ~/.claude/companies/[name]/. Grills the user on company operational config — sprint cadence, team locations, public holidays, freeze periods, compliance tier, external approval gates, deployment environments, AI usage policy, and tools policy. Scaffolds knowledge, projects, instincts, rules, and tools sections mirroring the global structure. Company data is never committed to the Forge GitHub. Use when user runs /company-add [name] or sets up Forge for a new company install.
 ---
 
 # Company Add
@@ -20,7 +20,7 @@ on the local machine unless a company-approved GitHub is configured via `/compan
 If the user runs `/company-add [name] --quick`:
 
 1. Run the same pre-checks as normal (existing company guard, existing data warning, name normalisation).
-2. Skip all 7 grilling topics — use every default value from the config template as-is.
+2. Skip all 8 grilling topics — use every default value from the config template as-is.
 3. Present a brief summary before writing:
    ```
    Quick setup — all defaults applied.
@@ -31,6 +31,7 @@ If the user runs `/company-add [name] --quick`:
    Compliance tier: standard
    External approval: none
    AI policy: none
+   Tools policy: none
 
    Create with defaults? (yes/no)
    ```
@@ -297,6 +298,32 @@ If no formal policy:
 
 ---
 
+### Topic 8 — Tools Policy
+
+```
+Capturing your company tool requirements creates the tools.md registry that
+/build pre-flight, /security-assessment, and /dependency-update query. Full
+tool details (check-command, install-hint, usage) are added later via
+/tool-add --company [name] — here we capture policy intent only.
+```
+
+**Q8.1** Are there tools **prohibited** for all company projects? (yes/no)
+> Compliance restrictions, licensing conflicts, or security policy.
+> If yes, list each: name + reason (e.g. `curl — policy requires wget only`)
+
+**Q8.2** Are there tools **required** on every project? (yes/no)
+> Mandatory security scanners, approved test runners, code signing tools, etc.
+> If yes, list each: name + category (e.g. `semgrep — security-scanner`)
+
+**Q8.3** Are there **approved** standard tools the team uses across projects? (yes/no)
+> Tools that are preferred but not mandatory.
+> If yes, list each: name + category (e.g. `pytest — test-runner`)
+
+All captured entries are written as skeleton rows in `tools.md` with a
+`# TODO: run /tool-add --company [name] to add full details` comment per entry.
+
+---
+
 ## Confirm Before Writing
 
 Present a full summary of all captured configuration before writing anything:
@@ -308,16 +335,32 @@ Ready to set up Forge for [Company Name].
 ~/.claude/companies/[name]/
   config.md            ← fully populated from this session
   registry.md
+  tools.md             ← required/approved/prohibited tools registry
+  projects/
+    registry.md        ← company project index
   knowledge/
+    Raw/               unprocessed source material (ingest on-ramp)
+    Wiki/              compiled concept articles
+    Outputs/           published deliverables
     company/           acronyms.md, context.md, style-guide.md
     systems/           populated by /add-system
-    projects/          populated by /add-project
+    projects/          populated by /add-project (knowledge content)
+    legal/             contracts, legal advice — Raw/ first, then Wiki/
+    technology/        Raw/ intake here — ingest classifies into sub-categories
+      technology1/ ... technology8/   ← Wiki/Outputs only; hardware/ inside each (Wiki/Outputs only)
     publish/           confluence config
-  ideas/active/ archive/
+  ideas/active/ archived/
+  instincts/           company-specific patterns and learnings (shared)
+  rules/               company rule extensions (layers on global common/)
   metrics/             cross-project metrics
   reviews/             FY reviews (private)
   retrospectives/      sprint retros (private)
   pir/                 Post Implementation Reviews (private)
+  .claude/
+    CLAUDE.md          ← repo onboarding context for Claude
+    commands/          ← 18 bundled company knowledge commands
+    skills/            ← 18 bundled company knowledge skills
+  setup.sh             ← one-time teammate setup script
 
 ─── Configuration Summary ────────────────────────────
 Company:           [Company Name]
@@ -343,6 +386,11 @@ AI policy:          [None / Active]
   [Key constraints if any]
   Monthly cap:      [$N / None]
 
+Tools:
+  Prohibited:       [N tools / None]
+  Required:         [N tools / None]
+  Approved:         [N tools / None]
+
 preferences.md will be updated: active_company: [name]
 
 This data is stored outside the Forge repo — never committed to GitHub.
@@ -360,18 +408,109 @@ On confirmation, create all directories and stub files.
 
 ```
 ~/.claude/companies/[name]/
+~/.claude/companies/[name]/projects/
 ~/.claude/companies/[name]/knowledge/
+~/.claude/companies/[name]/knowledge/Raw/
+~/.claude/companies/[name]/knowledge/Wiki/
+~/.claude/companies/[name]/knowledge/Outputs/
 ~/.claude/companies/[name]/knowledge/company/
 ~/.claude/companies/[name]/knowledge/systems/
 ~/.claude/companies/[name]/knowledge/projects/
+~/.claude/companies/[name]/knowledge/legal/
+~/.claude/companies/[name]/knowledge/legal/Raw/
+~/.claude/companies/[name]/knowledge/legal/Wiki/
+~/.claude/companies/[name]/knowledge/legal/Outputs/
+~/.claude/companies/[name]/knowledge/technology/
+~/.claude/companies/[name]/knowledge/technology/Raw/
+~/.claude/companies/[name]/knowledge/technology/Wiki/
+~/.claude/companies/[name]/knowledge/technology/Outputs/
+~/.claude/companies/[name]/knowledge/technology/technology1/
+~/.claude/companies/[name]/knowledge/technology/technology1/Wiki/
+~/.claude/companies/[name]/knowledge/technology/technology1/Outputs/
+~/.claude/companies/[name]/knowledge/technology/technology1/hardware/
+~/.claude/companies/[name]/knowledge/technology/technology1/hardware/Wiki/
+~/.claude/companies/[name]/knowledge/technology/technology1/hardware/Outputs/
+~/.claude/companies/[name]/knowledge/technology/technology2/
+~/.claude/companies/[name]/knowledge/technology/technology2/Wiki/
+~/.claude/companies/[name]/knowledge/technology/technology2/Outputs/
+~/.claude/companies/[name]/knowledge/technology/technology2/hardware/
+~/.claude/companies/[name]/knowledge/technology/technology2/hardware/Wiki/
+~/.claude/companies/[name]/knowledge/technology/technology2/hardware/Outputs/
+~/.claude/companies/[name]/knowledge/technology/technology3/
+~/.claude/companies/[name]/knowledge/technology/technology3/Wiki/
+~/.claude/companies/[name]/knowledge/technology/technology3/Outputs/
+~/.claude/companies/[name]/knowledge/technology/technology3/hardware/
+~/.claude/companies/[name]/knowledge/technology/technology3/hardware/Wiki/
+~/.claude/companies/[name]/knowledge/technology/technology3/hardware/Outputs/
+~/.claude/companies/[name]/knowledge/technology/technology4/
+~/.claude/companies/[name]/knowledge/technology/technology4/Wiki/
+~/.claude/companies/[name]/knowledge/technology/technology4/Outputs/
+~/.claude/companies/[name]/knowledge/technology/technology4/hardware/
+~/.claude/companies/[name]/knowledge/technology/technology4/hardware/Wiki/
+~/.claude/companies/[name]/knowledge/technology/technology4/hardware/Outputs/
+~/.claude/companies/[name]/knowledge/technology/technology5/
+~/.claude/companies/[name]/knowledge/technology/technology5/Wiki/
+~/.claude/companies/[name]/knowledge/technology/technology5/Outputs/
+~/.claude/companies/[name]/knowledge/technology/technology5/hardware/
+~/.claude/companies/[name]/knowledge/technology/technology5/hardware/Wiki/
+~/.claude/companies/[name]/knowledge/technology/technology5/hardware/Outputs/
+~/.claude/companies/[name]/knowledge/technology/technology6/
+~/.claude/companies/[name]/knowledge/technology/technology6/Wiki/
+~/.claude/companies/[name]/knowledge/technology/technology6/Outputs/
+~/.claude/companies/[name]/knowledge/technology/technology6/hardware/
+~/.claude/companies/[name]/knowledge/technology/technology6/hardware/Wiki/
+~/.claude/companies/[name]/knowledge/technology/technology6/hardware/Outputs/
+~/.claude/companies/[name]/knowledge/technology/technology7/
+~/.claude/companies/[name]/knowledge/technology/technology7/Wiki/
+~/.claude/companies/[name]/knowledge/technology/technology7/Outputs/
+~/.claude/companies/[name]/knowledge/technology/technology7/hardware/
+~/.claude/companies/[name]/knowledge/technology/technology7/hardware/Wiki/
+~/.claude/companies/[name]/knowledge/technology/technology7/hardware/Outputs/
+~/.claude/companies/[name]/knowledge/technology/technology8/
+~/.claude/companies/[name]/knowledge/technology/technology8/Wiki/
+~/.claude/companies/[name]/knowledge/technology/technology8/Outputs/
+~/.claude/companies/[name]/knowledge/technology/technology8/hardware/
+~/.claude/companies/[name]/knowledge/technology/technology8/hardware/Wiki/
+~/.claude/companies/[name]/knowledge/technology/technology8/hardware/Outputs/
 ~/.claude/companies/[name]/knowledge/publish/
+~/.claude/companies/[name]/.claude/
+~/.claude/companies/[name]/.claude/commands/
+~/.claude/companies/[name]/.claude/skills/
 ~/.claude/companies/[name]/ideas/
 ~/.claude/companies/[name]/ideas/active/
-~/.claude/companies/[name]/ideas/archive/
+~/.claude/companies/[name]/ideas/archived/
+~/.claude/companies/[name]/instincts/
+~/.claude/companies/[name]/rules/
 ~/.claude/companies/[name]/metrics/
 ~/.claude/companies/[name]/reviews/
 ~/.claude/companies/[name]/retrospectives/
 ~/.claude/companies/[name]/pir/
+```
+
+### `projects/registry.md`
+
+```markdown
+# [Company Name] — Project Registry
+
+All active and archived company projects. Updated by /add-project and /create-project.
+
+**Last updated:** YYYY-MM-DD
+
+---
+
+## Active Projects
+
+| ID | Project | Status | Owner | Tech Stack | Knowledge | Repo |
+|----|---------|--------|-------|-----------|-----------|------|
+| | | | | | | |
+
+---
+
+## Archived Projects
+
+| ID | Project | Archived | Notes |
+|----|---------|---------|-------|
+| | | | |
 ```
 
 ### `config.md`
@@ -472,9 +611,167 @@ ai_monthly_spend_cap_usd:
 
 ### Other stub files
 
-Create `registry.md`, `knowledge/company/acronyms.md`, `knowledge/company/context.md`,
-`knowledge/company/style-guide.md`, `knowledge/publish/confluence.example.md`,
-and `knowledge/publish/.gitignore` as before (existing content unchanged).
+Create the following stub files:
+
+- `registry.md` — company registry (same structure as `~/.claude/registry.md`, titled for the company)
+- `knowledge/company/acronyms.md`, `knowledge/company/context.md`, `knowledge/company/style-guide.md` — knowledge placeholders
+- `knowledge/publish/confluence.example.md` and `knowledge/publish/.gitignore` — publish config
+- `knowledge/legal/Raw/_compiled.log` — empty compiled log (same format as other Raw/ logs)
+- `knowledge/legal/Wiki/_index.md` — legal wiki index stub (sensitive — note that contents may be legally privileged; run `/pii-check` before sharing or publishing)
+- `knowledge/legal/Wiki/_changelog.md` — legal wiki changelog stub
+- `knowledge/technology/Raw/_compiled.log` — empty compiled log
+- `knowledge/technology/Wiki/_index.md` — technology wiki index stub; note sub-categories are placeholders — rename `technology1`–`technology8` to reflect actual domains at install (e.g. `architecture`, `infrastructure`, `security`, `data`, `cloud`, `integrations`, `devops`, `standards`)
+- `knowledge/technology/Wiki/_changelog.md` — technology wiki changelog stub
+- For each `technology1/` through `technology8/`: create `Wiki/_index.md` (titled with placeholder name + "rename at install" note) and `Wiki/_changelog.md` — no Raw/ or _compiled.log; ingest routes here from `technology/Raw/`
+- For each `technologyN/hardware/`: create `Wiki/_index.md` and `Wiki/_changelog.md` — same pattern, no Raw/
+- `tools.md` — pre-populate with skeleton entries for any prohibited/required/approved tools captured in Topic 8; each entry flagged with `# TODO: run /tool-add --company [name] to complete details`; if none captured, create an empty `tools.md` with the standard header (see `/tool-add` appendix template)
+- `projects/registry.md` — company project index stub; populated incrementally by `/add-project` and `/create-project`
+- `instincts/_template.md` — copy verbatim from `~/.claude/instincts/_template.md`
+- `instincts/registry.md` — fresh company instincts registry (same structure as global, titled "[Company Name] — Instincts Registry"; counters reset to instinct-000/instinct-001)
+- `rules/README.md` — explain that `~/.claude/rules/common/` is the universal baseline; rules in this directory are company-specific extensions and overrides; stub out sections for naming conventions, compliance gates, and deployment rules; note that projects activate rules via `.claude/rules/active.md`
+
+---
+
+### Company Skills
+
+Copy the following 18 skills from the user's global `~/.claude/` install into the company repo at the time `/company-add` runs. Each skill gets two files:
+
+- `~/.claude/companies/[name]/.claude/skills/[skill]/SKILL.md` — full skill content (copied verbatim)
+- `~/.claude/companies/[name]/.claude/commands/[skill].md` — command trigger file (copied verbatim)
+
+**Skills to bundle:**
+
+| Skill | Purpose |
+|-------|---------|
+| `ingest` | Process Raw/ → Wiki/ |
+| `knowledge-health` | Check knowledge coverage |
+| `add-system` | Document a new system |
+| `add-term` | Add a term to the glossary |
+| `summarise-system` | Create system summaries |
+| `update-context` | Update company context |
+| `lookup` | Search the knowledge base |
+| `style-check` | Validate docs against style guide |
+| `pii-check` | Check for PII exposure |
+| `learn` | Capture company instincts |
+| `company-sync` | Push/pull to company git remote |
+| `add-project` | Register a project |
+| `incident` | Log and manage incidents |
+| `pir` | Post-implementation reviews |
+| `idea` | Capture and stress-test ideas |
+| `tool-add` | Register a tool |
+| `tool-check` | Verify tool installation |
+| `knowledge-onboard` | Initial company knowledge setup |
+
+If a skill file is missing from `~/.claude/` (not yet installed), note it in the confirm output and skip — do not block setup.
+
+**Version note:** Skills are copied at install time. To update after a Forge upgrade, re-run `/company-add` or manually overwrite the `.claude/skills/[skill]/SKILL.md` files from `~/.claude/skills/`.
+
+---
+
+### `setup.sh`
+
+Write to `~/.claude/companies/[name]/setup.sh`:
+
+```bash
+#!/usr/bin/env bash
+# [Company Name] — Forge Knowledge Base Setup
+# Run once after cloning: bash setup.sh
+set -e
+
+COMPANY_NAME="[name]"
+REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+CLAUDE_DIR="$HOME/.claude"
+
+echo "Setting up Forge for [Company Name]..."
+
+# 1. Symlink company repo into Forge companies directory
+mkdir -p "$CLAUDE_DIR/companies"
+ln -sfn "$REPO_DIR" "$CLAUDE_DIR/companies/$COMPANY_NAME"
+echo "  ↳ Linked: ~/.claude/companies/$COMPANY_NAME → $REPO_DIR"
+
+# 2. Set active_company in preferences.md
+PREFS="$CLAUDE_DIR/preferences.md"
+if grep -q "^active_company:" "$PREFS" 2>/dev/null; then
+  sed -i "s|^active_company:.*|active_company: $COMPANY_NAME|" "$PREFS"
+  echo "  ↳ Updated active_company in preferences.md"
+else
+  echo "active_company: $COMPANY_NAME" >> "$PREFS"
+  echo "  ↳ Set active_company: $COMPANY_NAME in preferences.md"
+fi
+
+# 3. Install company skills and commands to ~/.claude/
+SKILLS_SRC="$REPO_DIR/.claude/skills"
+CMDS_SRC="$REPO_DIR/.claude/commands"
+
+if [ -d "$SKILLS_SRC" ]; then
+  for skill_dir in "$SKILLS_SRC"/*/; do
+    skill=$(basename "$skill_dir")
+    mkdir -p "$CLAUDE_DIR/skills/$skill"
+    cp "$skill_dir/SKILL.md" "$CLAUDE_DIR/skills/$skill/SKILL.md"
+  done
+  echo "  ↳ Installed $(ls "$SKILLS_SRC" | wc -l | tr -d ' ') company skills"
+fi
+
+if [ -d "$CMDS_SRC" ]; then
+  mkdir -p "$CLAUDE_DIR/commands"
+  cp "$CMDS_SRC"/*.md "$CLAUDE_DIR/commands/"
+  echo "  ↳ Installed $(ls "$CMDS_SRC"/*.md | wc -l | tr -d ' ') company commands"
+fi
+
+echo ""
+echo "✅ Setup complete. Restart Claude Code and run /knowledge-health to verify."
+echo "   Windows users: run this script in Git Bash or WSL."
+```
+
+---
+
+### `.claude/CLAUDE.md`
+
+Write to `~/.claude/companies/[name]/.claude/CLAUDE.md`:
+
+```markdown
+# [Company Name] — Forge Knowledge Base
+
+This repository is the shared company knowledge base for [Company Name].
+
+## First-time setup
+
+Run the setup script to connect this repo to your local Forge install:
+
+```bash
+bash setup.sh
+```
+
+This links the repo to `~/.claude/companies/[name]/`, sets `active_company`,
+and installs 18 company knowledge skills. Restart Claude Code after running.
+
+Windows: run in Git Bash or WSL.
+
+## Available commands
+
+| Command | What it does |
+|---------|-------------|
+| `/ingest` | Process Raw/ material into Wiki articles |
+| `/knowledge-health` | Check knowledge coverage and find gaps |
+| `/add-system` | Document a new system |
+| `/add-term` | Add a term to the company glossary |
+| `/lookup` | Search the knowledge base |
+| `/learn` | Capture a company pattern or instinct |
+| `/company-sync` | Push/pull knowledge updates with the team |
+| `/style-check` | Validate a document against the company style guide |
+| `/pii-check` | Check content for PII before sharing |
+| `/incident` | Log and manage an incident |
+| `/idea` | Capture and stress-test an idea |
+
+## Repository structure
+
+- `knowledge/` — company knowledge base (Raw/ → Wiki/ → Outputs/)
+- `instincts/` — company-specific patterns and learnings
+- `rules/` — company coding standard extensions
+- `config.md` — company operational configuration
+- `tools.md` — approved, required, and prohibited tools
+- `projects/registry.md` — company project index
+```
 
 ---
 
@@ -497,6 +794,13 @@ Create the file if it doesn't exist.
 
    Data location:  ~/.claude/companies/[name]/
    Config written: ~/.claude/companies/[name]/config.md
+   Knowledge:      ~/.claude/companies/[name]/knowledge/ (Raw/ → Wiki/ → Outputs/)
+   Projects:       ~/.claude/companies/[name]/projects/registry.md
+   Tools:          ~/.claude/companies/[name]/tools.md
+   Instincts:      ~/.claude/companies/[name]/instincts/
+   Rules:          ~/.claude/companies/[name]/rules/
+   Skills bundled: ~/.claude/companies/[name]/.claude/ (18 company knowledge skills)
+   Setup script:   ~/.claude/companies/[name]/setup.sh
 
    Note: the global registry at ~/.claude/registry.md is superseded by
    ~/.claude/companies/[name]/registry.md — all skills write to the company registry.
@@ -508,17 +812,23 @@ Skills that read your new config:
   /deploy          → uses configured environment chain and manual gates
   /security-assessment → mandatory frequency based on compliance tier
   /pii-check       → surfaces data restriction policy
-  /build           → adds HITL sign-off gate if ai_human_signoff_required: true
+  /build           → pre-flight checks required tools; HITL sign-off if ai_human_signoff_required
+  /tool-check      → verifies required tools are installed on this machine
   /dashboard-tokens → shows spend vs monthly cap if configured
   /fy-review       → uses fy_start and review_display_name
+  /ingest          → routes Raw/Wiki to knowledge/ (shared with team)
+  /learn           → asks whether instinct is company-specific or global Forge
 
 Next steps:
   1. Fill in config.md — domain, jira_base_url, token_cost_per_1k
-  2. Fill in knowledge/company/context.md and acronyms.md
+  2. Run /knowledge-onboard to populate style-guide, acronyms, and domain terms
   3. Run /add-system [name] to add your first system
-  4. Run /tool-add --company [name] to configure required, approved, and prohibited tools
-  5. Run /setup-confluence if publishing to Confluence
-  6. Run /company-git if you have a company-approved GitHub for this data
+  4. Drop source material into knowledge/Raw/ and run /ingest to start building the Wiki
+  5. Run /company-git to set up the shared company repository
+  6. Share the repo — teammates run: bash setup.sh
+  7. Run /tool-add --company [name] to complete tool details for entries registered during setup
+  8. Run /tool-check to verify required tools are installed
+  9. Run /setup-confluence if publishing to Confluence
 ```
 
 ---
@@ -533,6 +843,7 @@ Next steps:
 | Name normalisation produces empty string | Ask user to provide a valid name |
 | User skips a grilling topic | Record as default or blank with a `# TODO` comment in config.md — do not block setup |
 | User provides non-IANA timezone | Accept as-is but note: "Verify this is a valid IANA timezone — /standup will use it for holiday warnings." |
+| Skill missing from ~/.claude/ at bundle time | Skip it, note in confirm output: "⚠️ [skill] not found in ~/.claude/skills/ — not bundled. Install Forge first if this is needed." |
 
 ---
 
