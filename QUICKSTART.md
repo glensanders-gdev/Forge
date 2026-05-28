@@ -75,7 +75,8 @@ Work through the QA checklist, review PII findings, then type `APPROVE` to close
 
 | When | Command |
 |------|---------|
-| New idea | `/user:idea` |
+| Non-technical stakeholder submitting an idea | `/user:front-gate` |
+| New idea (developer) | `/user:idea` |
 | Create project (after idea accepted) | `/user:create-project` |
 | Design / planning phase | `/user:grill-with-docs` |
 | Ad-hoc stress-test | `/user:grill-me` |

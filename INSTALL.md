@@ -26,6 +26,10 @@ No terminal required. Everything can be done with File Explorer (Windows) or Fin
 
 ## Before You Start
 
+### Get the Forge files
+
+Download the repo as a ZIP from GitHub: click the green **Code** button on the [Forge repo page](https://github.com/glensanders-gdev/Forge), then **Download ZIP**. Unzip it somewhere on your computer (e.g. your Downloads folder).
+
 ### Show hidden files and folders
 
 Forge uses folders that start with `.` (like `.claude`), which are hidden by default.
@@ -45,9 +49,8 @@ Forge uses folders that start with `.` (like `.claude`), which are hidden by def
 
 This installs Forge's skills and commands so they're available across all your projects.
 
-1. Unzip `forge.zip` somewhere on your computer (e.g. your Downloads folder)
-2. Open the unzipped folder and navigate to `forge/global/`
-3. You'll see a `.claude` folder inside
+1. Open the unzipped folder and navigate to `forge/global/`
+2. You'll see a `.claude` folder inside
 
 **If `.claude` does not exist in your home directory yet:**
 
@@ -84,7 +87,17 @@ After this step your home directory should contain:
   backlog.md
   preferences.md
   CHANGELOG.md
+  PRINCIPLES.md
+  SOUL.md
   forge-sequence.mmd
+  decisions/
+    ADR-001-one-company-per-install.md
+  rules/
+    common/
+      coding-style.md
+      quality-checklist.md
+      research-first.md
+      security.md
 ```
 
 ---
@@ -157,20 +170,31 @@ Also update the **Key Files** table to reflect your actual working file names an
 
 Open Claude Code in your project folder. It will automatically read `CLAUDE.md` at the start of every session.
 
-To begin a new feature, type:
+**For non-technical stakeholders submitting an idea** (Phase 0 intake):
 ```
-/user:grill-me
+/user:front-gate
 ```
 
-Available commands:
+**For developers starting a new feature**:
+```
+/user:idea
+```
+
+**For existing projects** (bootstrap Forge onto a project that already exists):
+```
+/user:onboard
+```
+
+Key commands reference:
 
 | Command | What it does |
 |---------|-------------|
-| `/user:grill-me` | Stress-test a plan with relentless one-at-a-time questions |
-| `/user:grill-with-docs` | Grill against your domain model and codebase |
-| `/user:research` | Cache research findings in topic-specific files |
-| `/user:prototype` | Spike ideas in throwaway code |
-| `/user:write-prd` | Generate a structured PRD from the session so far |
+| `/user:front-gate` | Non-technical intake — grills a requestor and produces a Request Brief |
+| `/user:idea` | Structured idea capture — grill, estimate, ACCEPT/DECLINE/HOLD |
+| `/user:grill-with-docs` | Planning phase — stress-test against your domain model and codebase |
+| `/user:grill-me` | Ad-hoc stress-test of any plan or design |
+| `/user:write-prd` | Generate a structured PRD |
+| `/user:build` | Execute sprint tickets AFK with TDD |
 | `/user:diagnose` | Systematically debug a failing ticket |
 | `/user:approve` | Close and archive the current feature cycle |
 

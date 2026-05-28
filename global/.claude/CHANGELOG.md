@@ -5,9 +5,32 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 ## Conventions
 
 - Update this file whenever a skill is added, changed, or removed
-- Update `~/.claude/forge-sequence.mmd` when the pipeline sections change — new phases added, phase order changed, or major skills added to the lifecycle flow. Not required for every version bump — only when the diagram would be materially wrong without an update.
+- Update `~/.claude/forge-sequence.mmd` (installed single-file) and `docs/diagrams/framework-complete.mmd` + the relevant `docs/diagrams/phase-NN-*.mmd` file when the pipeline changes — new phases added, phase order changed, or major skills added to the lifecycle flow. Not required for every version bump — only when the diagram would be materially wrong without an update.
 - Use `/write-a-skill` checklist item as the trigger — it now includes a `CHANGELOG.md` update step
 - Version format: `MAJOR.MINOR.PATCH` — major for lifecycle changes, minor for new skills, patch for skill fixes
+
+---
+
+## v3.4.0 — 2026-05-28
+
+**Front-gate Phase 5 decision gate + sequence diagram documentation + install.sh auto-pull**
+
+### Changed
+- `/front-gate` v1.1.0 — Phase 5 revised from AFK write to HITL submission decision gate:
+  - Option 1: **Submit to Jira** — saves brief with `status: pending-jira` to `docs/requests/YYYY-MM-DD-[slug].md`; flagged for company Jira integration to pick up
+  - Option 2: **Save as draft** — saves brief with `status: draft` to `docs/requests/YYYY-MM-DD-[slug].md`
+  - Option 3: **Discard** — exits without writing anything to disk
+  - Rule added: nothing is written to disk until a Phase 5 selection is made — Phase 4 approval alone is not sufficient
+  - FORMATS.md updated: YAML frontmatter added to Request Brief template (`status: draft | pending-jira`); `status` field rule added
+  - Phase 4 cancel intent clarified: use when the brief itself is wrong; Discard in Phase 5 for a change of mind after approval
+  - Failure mode added: re-prompt on invalid Phase 5 input
+- `~/.claude/forge-sequence.mmd` — rewritten to 12-phase pipeline; Phase 0 (/front-gate) added; all phases numbered; company, framework, and new skills added to bottom notes
+
+### Added
+- `docs/diagrams/` — 13 Mermaid sequence diagrams added to the repo: individual phase diagrams for Phases 0–11 plus `framework-complete.mmd` (full pipeline). Render at [mermaid.live](https://mermaid.live) or any Mermaid-compatible tool.
+
+### Fixed
+- `install.sh` — auto-pulls latest from GitHub before installing when run inside a git clone; re-reads `forge_version` after pull so the installer banner shows the updated version; correct usage comments added
 
 ---
 
@@ -21,7 +44,7 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
   - Phase 2 [HITL]: grill — 7 questions one at a time: Problem Statement, Objective, Metrics (optional — baseline + goal), What Is Needed, Risk of Doing Nothing, Negative Impacts, Brief Summary
   - Phase 3 [AFK]: compile answers into Request Brief using `FORMATS.md` template
   - Phase 4 [HITL]: review gate — "yes / edit / cancel" before writing to disk
-  - Phase 5 [AFK]: write to `docs/requests/YYYY-MM-DD-[slug].md`, confirm with next-step suggestions
+  - Phase 5 [AFK]: write to `docs/requests/YYYY-MM-DD-[slug].md`, confirm with next-step suggestions *(revised to HITL decision gate in v3.4.0 — see above)*
   - Integration: `/idea`, `/grill-with-docs`, `/write-prd`, `/ingest`, `knowledge/systems/*/Wiki/`
 
 ---

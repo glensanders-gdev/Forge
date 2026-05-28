@@ -1,7 +1,7 @@
 # PRD: Knowledge Onboard
 
 **Date:** 2026-05-23
-**Status:** Active
+**Status:** Archived — shipped v2.5.6 (2026-05-23); tickets #2/#7/#10/#11 deferred pending api.md design
 **Sprint:** Not sprint-tracked (Forge framework build)
 **PI:** Not PI-tracked
 **Target Release:** Standalone
