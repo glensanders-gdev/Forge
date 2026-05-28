@@ -1,0 +1,42 @@
+sequenceDiagram
+    actor H as Human
+    participant QA as /qa-plan
+    participant PII as /pii-check
+    participant FS as docs/
+
+    H->>QA: /qa-plan
+
+    QA->>FS: Read PRD (user stories + Definition of Done)
+    QA->>FS: Read testplan (TC-NNN IDs for checklist items)
+    QA->>FS: Read known-issues.md (active issues affecting feature)
+    QA->>FS: Read kanban.md — confirm all tickets Done
+    alt Tickets not all Done
+        QA->>H: ⚠️ Incomplete tickets — resolve before QA
+    end
+
+    QA->>FS: Save docs/qa-plan.md
+    QA->>H: Checklist ready — work through it, then run /approve
+
+    H->>H: Execute QA checklist (manual testing)
+    H->>FS: Fill in QA Results section as items are tested
+
+    H->>PII: /pii-check
+
+    note over PII: Phase 1 — AFK Scan (no file modifications)
+    PII->>FS: Load company AI policy (ai_data_restrictions)
+    PII->>FS: Load PII categories (defaults + company/pii-categories.md)
+    PII->>FS: Load existing pii-report.md (skip already-resolved findings)
+    PII->>FS: Scan source files, test fixtures, config, env templates
+    PII->>FS: Scan docs/ (PRD, CONTEXT.md, DEVLOG.md, kanban, research/)
+    PII->>PII: Classify: Necessary (required to function) vs Incidental (should not be there)
+    PII->>PII: Assess handling gaps for Necessary findings
+
+    note over PII: Phase 2 — HITL Review (one finding at a time)
+    loop Each finding
+        PII->>H: Finding #N — type / location / classification / handling assessment / remediation
+        H->>PII: REMOVE / ACCEPT [reason] / DEFER [reason] / SKIP
+        PII->>FS: Record decision in pii-report.md
+    end
+
+    PII->>FS: Finalise pii-report.md (Clean / All Reviewed / Findings Unresolved)
+    PII->>H: Scan complete — run /approve when QA checklist is done

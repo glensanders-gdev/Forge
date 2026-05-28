@@ -1,0 +1,69 @@
+sequenceDiagram
+    actor H as Human
+    participant B as /build
+    participant KB as docs/kanban.md
+    participant Code as Codebase
+    participant Cfg as Company Config
+
+    H->>B: /build
+
+    note over B: Pre-flight checks
+    B->>KB: Read sprint tickets
+    B->>Code: Read PRD + testplan
+    B->>Cfg: Read ai_human_signoff_required + ai_data_restrictions
+    B->>Cfg: Check required tools
+    alt Required tools missing
+        B->>H: ⛔ Install missing tools — run /tool-check
+    end
+
+    alt Buffer window active
+        B->>H: ⚠️ Buffer window — BUILD-FEATURES / BUILD-FIXES / STOP
+        H->>B: Decision
+    end
+
+    B->>Code: Run pre-build health check
+    alt Health check fails
+        B->>H: ⛔ Codebase broken — fix before /build
+    end
+
+    B->>H: Present build queue (AFK + HITL + blocked tickets)
+    H->>B: CONFIRM
+
+    loop Each AFK ticket in queue
+        B->>H: ⚠️ Smart Zone check — over 100k tokens? (1: /break-down  2: proceed)
+        B->>KB: Mark ticket In Progress [>]
+
+        note over B,Code: TDD cycle
+        B->>Code: RED — write failing test for behaviour
+        B->>Code: GREEN — implement minimum to pass
+        B->>Code: REFACTOR — clean up, confirm tests still green
+
+        B->>Code: Lightweight PII hint scan on files written
+        alt PII hint found
+            B->>H: ⚠️ Possible PII at [file:line] — review before committing
+        end
+
+        alt ai_human_signoff_required: true
+            B->>H: ✋ AI policy — type APPROVED to close ticket
+            H->>B: APPROVED
+        end
+
+        B->>KB: Mark ticket Done [x] ✓
+
+        alt Every 3 completed tickets AND 3+ remain
+            B->>H: Checkpoint — CONTINUE / PAUSE
+            H->>B: Decision
+        end
+    end
+
+    alt HITL ticket in queue
+        B->>H: ⏸ HITL — complete task + type CONTINUE
+        H->>B: CONTINUE
+    end
+
+    alt Ticket fails twice
+        B-->>H: Auto-trigger /diagnose
+    end
+
+    B->>H: Build summary (✅ completed / ⏸ HITL stops / 🚧 blocked)
+    B->>Code: Record per-ticket actual token bands in kanban-archive.md

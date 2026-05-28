@@ -1,0 +1,55 @@
+sequenceDiagram
+    actor H as Human
+    participant CA as /company-add
+    participant Pref as ~/.claude/preferences.md
+    participant FS as ~/.claude/companies/[name]/
+
+    H->>CA: /company-add [name]
+
+    note over CA: Pre-checks
+    CA->>Pref: Check active_company not already set
+    CA->>CA: Check for existing knowledge data at global paths
+    alt Existing data found
+        CA->>H: ⚠️ Data exists — continue? (yes/no)
+        H->>CA: yes
+    end
+
+    note over CA: Config grilling (one topic at a time)
+    CA->>H: Topic 1 — Sprint length + release cadence
+    H->>CA: Answers
+    CA->>H: Topic 2 — Team locations + timezones
+    H->>CA: Answers
+    CA->>H: Topic 3 — Change freeze periods
+    H->>CA: Answers
+    CA->>H: Topic 4 — Compliance tier + frameworks
+    H->>CA: Answers
+    CA->>H: Topic 5 — External approval gate (CAB/RFC)
+    H->>CA: Answers
+    CA->>H: Topic 6 — Deployment environment chain
+    H->>CA: Answers
+    CA->>H: Topic 7 — AI usage policy
+    H->>CA: Answers
+    CA->>H: Topic 8 — Tools policy (prohibited/required/approved)
+    H->>CA: Answers
+
+    CA->>H: Present full config summary. Proceed? (yes/no)
+    H->>CA: yes
+
+    note over CA: Scaffold
+    CA->>FS: Create directory structure
+    CA->>FS: Write config.md (fully populated)
+    CA->>FS: Write tools.md (skeleton entries from Topic 8)
+    CA->>FS: Write registry.md + projects/registry.md
+    CA->>FS: Write knowledge/ stub files (Raw/ Wiki/ Outputs/)
+    CA->>FS: Write rules/README.md
+    CA->>FS: Write setup.sh + .claude/CLAUDE.md
+    CA->>FS: Bundle 17 company knowledge skills
+    CA->>Pref: Set active_company: [name]
+
+    CA->>H: ✅ Setup complete — next steps (fill config, /knowledge-onboard, /add-system, /company-git)
+
+    note over H,FS: Optional follow-up
+    H->>CA: /company-git [remote-url]
+    CA->>FS: git init + add remote
+    H->>CA: /company-sync
+    CA->>FS: Pull then push knowledge base with team

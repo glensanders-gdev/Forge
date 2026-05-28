@@ -1,0 +1,27 @@
+sequenceDiagram
+    actor H as Human
+    participant SE as /sprint-end
+    participant FS as docs/sprints/
+    participant Arch as docs/kanban-archive.md
+    participant Co as ~/.claude/companies/[name]/retrospectives/
+
+    H->>SE: /sprint-end
+
+    note over SE: Phase 1 — AFK Draft
+    SE->>FS: Read sprint-NN.md (goals + carry-in + deadlines)
+    SE->>Arch: Read kanban (estimated vs actual token bands)
+    SE->>FS: Draft sprint close section (velocity, completed, carry-over)
+    SE->>FS: Update HANDOFF.md (Session type: Sprint Close)
+    SE->>FS: Append velocity row to docs/metrics/metrics-log.md
+
+    note over SE: Phase 2 — HITL Retro
+    SE->>H: Present sprint summary + draft retro questions
+    H->>SE: Retro responses (what went well / delta / actions)
+    H->>SE: Confirm
+
+    SE->>Arch: Write kanban-archive.md (estimated vs actual per ticket)
+    SE->>FS: Complete sprint-NN.md (Sprint End section)
+    SE->>Co: Save retrospectives/sprint-NN-retro.md
+
+    SE->>H: Sprint token total surfaced
+    SE->>H: Suggest /sprint-start for next sprint or /go-nogo if release approaching

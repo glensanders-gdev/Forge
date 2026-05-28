@@ -1,0 +1,42 @@
+sequenceDiagram
+    actor H as Human
+    participant A as /approve
+    participant FS as docs/
+    participant Idea as ~/.claude/ideas/
+    participant Led as ~/.claude/tokens/ledger.md
+
+    H->>A: /approve
+
+    A->>FS: Read PRD name + Done tickets from kanban.md
+    A->>H: ⚠️ About to archive [feature] — type APPROVE to confirm
+    H->>A: APPROVE
+
+    note over A: PII gate
+    A->>FS: Read pii-report.md
+    alt No PII report found
+        A->>H: ⚠️ No PII report — run /pii-check or OVERRIDE [reason]
+        H->>A: OVERRIDE [reason]
+    else Unresolved PII findings
+        A->>H: ⚠️ Unresolved findings [list] — OVERRIDE [reason] or CANCEL
+        H->>A: OVERRIDE [reason]
+        A->>FS: Record override in pii-report Approve Override Log
+    else All findings resolved
+        A->>A: PII gate passed
+    end
+
+    note over A: Feature closure
+    A->>FS: Archive PRD → docs/prd/archived/ (with archived header)
+    A->>FS: Seal DEVLOG.md (APPROVED session entry)
+    A->>FS: Update kanban.md (all Done + closing comment)
+    A->>FS: Reset HANDOFF.md (clean state for next feature)
+
+    note over A: Cross-references
+    A->>Idea: Update idea diagram → diagram.mmd + diagram-v4-final.mmd
+    A->>Idea: Update idea.md status → Delivered YYYY-MM-DD
+
+    note over A: Token accounting
+    A->>FS: Read docs/tokens/[feature].md (all phases)
+    A->>Led: Roll up totals to global ledger (recalculate all sums)
+
+    A->>H: ✓ Approved — PRD archived, session sealed, tokens logged
+    A->>H: Suggest /pir [PROJ-NNN] + /update-readme

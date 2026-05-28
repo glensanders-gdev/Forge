@@ -1,0 +1,53 @@
+sequenceDiagram
+    actor H as Human
+    participant I as /idea
+    participant CP as /create-project
+    participant Reg as ~/.claude/registry.md
+    participant FS as ~/.claude/ideas/
+
+    H->>I: pitch idea (or informal "what if we..." language)
+
+    note over I: Capture
+    I->>Reg: Assign IDEA-NNN
+    I->>H: Restate idea — confirm understanding
+
+    note over I: Grill (one question at a time, AI recommends each answer)
+    loop Problem → Baseline Measurements → Destination Targets → Journey
+        I->>H: Question + recommended answer + challenge
+        H->>I: Answer
+    end
+
+    I->>H: Draft journey diagram (mid-grill, before complete)
+    H->>I: Feedback on diagram
+
+    I->>H: Impact vs Effort 2×2 — confirm position
+    H->>I: Confirm
+
+    I->>H: Feature estimate (AI token cost band + story points)
+    H->>I: Confirm estimates
+
+    note over I: Decision gate
+    I->>H: ACCEPT / DECLINE / HOLD
+
+    alt ACCEPT
+        I->>FS: Save idea.md + diagram.mmd + diagram-v1-idea.mmd
+        I->>Reg: Update registry (Active, IDEA-NNN)
+        I->>H: Suggest /create-project
+        H->>CP: /create-project
+        CP->>Pref: Read preferences.md (platform, username)
+        CP->>Reg: Assign PROJ-NNN
+        CP->>H: Confirm repo name + visibility — type CONFIRM
+        H->>CP: CONFIRM
+        CP->>FS: Scaffold Forge template + generate README.md
+        CP->>FS: git init → initial commit
+        CP->>FS: Create remote repo + push (gh/glab/bb or manual steps)
+        CP->>Reg: Update registry (PROJ-NNN ↔ IDEA-NNN cross-ref)
+        CP->>FS: Update CLAUDE.md + idea.md with cross-refs
+        CP->>H: Suggest /grill-with-docs + priority ranking + sprint/PI assignment
+    else HOLD
+        I->>FS: Save idea.md (status: Holding)
+        I->>Reg: Update registry (Holding)
+    else DECLINE
+        I->>FS: Archive idea.md + reason
+        I->>Reg: Update registry (Declined)
+    end

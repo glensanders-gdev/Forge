@@ -1,0 +1,61 @@
+sequenceDiagram
+    actor H as Human
+    participant D as /deploy
+    participant Cfg as Company Config
+    participant Stg as Staging
+    participant Prd as Production
+    participant FS as docs/releases/
+
+    H->>D: /deploy
+
+    note over D: Pre-flight
+    D->>D: Read .claude/deploy.md (staging, production, health check, rollback)
+    D->>Cfg: Cross-check deployment_chain + deployment_manual_gates
+    alt deploy.md missing
+        D->>H: ⛔ No deploy config — create .claude/deploy.md first
+    end
+    alt No rollback command configured
+        D->>H: ⚠️ No rollback — type PROCEED to continue without it
+        H->>D: PROCEED
+    end
+
+    D->>FS: Read PI-N-RN-gono.md — verify GO decision
+    alt No Go/No Go record
+        D->>H: ⛔ Run /go-nogo first — mandatory gate
+    else Decision is NO-GO
+        D->>H: ⛔ Go/No Go was NO-GO — deployment blocked
+    end
+
+    D->>H: Present deployment plan (version, environments, health check)
+    H->>D: CONFIRM
+
+    note over D: Stage 1 — Staging (if configured)
+    D->>Stg: Run staging deployment command
+    D->>Stg: Run health check
+    alt Health check fails
+        D->>H: ❌ Staging failed — ROLLBACK / INVESTIGATE / STOP
+        H->>D: Decision
+    end
+    D->>H: ✅ Staging OK — type PROMOTE to deploy to production
+    H->>D: PROMOTE
+
+    alt Manual gate before production (deployment_manual_gates)
+        D->>H: ✋ Manual gate: [gate name] — confirm before proceeding
+        H->>D: Confirmed
+    end
+
+    note over D: Stage 2 — Production
+    D->>Prd: Run production deployment command
+    D->>Prd: Run health check
+    alt Health check fails
+        D->>H: ❌ Production failed — ROLLBACK / INVESTIGATE / STOP
+        H->>D: Decision
+        alt ROLLBACK
+            D->>Prd: Run rollback command
+            D->>Prd: Verify health check
+        end
+    end
+
+    D->>FS: Append to docs/releases/deploy-log.md
+    D->>D: Update idea diagram → diagram-v5-deployed.mmd
+    D->>H: ✅ Deployment complete — suggest /pir [PROJ-NNN]

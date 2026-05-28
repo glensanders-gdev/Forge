@@ -1,0 +1,55 @@
+sequenceDiagram
+    actor H as Human
+    participant GN as /go-nogo
+    participant CL as /changelog
+    participant Cfg as Company Config
+    participant PI as ~/.claude/pi/[current-pi]/plan.md
+    participant FS as docs/releases/
+
+    H->>GN: /go-nogo
+
+    GN->>Cfg: Read freeze_periods, compliance_tier, external_approval, release_cadence
+    GN->>PI: Identify release (PI-N-RN) + deployment date
+    GN->>FS: Read kanban per active project (completed vs incomplete)
+    GN->>FS: Read sprint records for this release cycle
+    GN->>FS: Read known-issues.md (Active issues)
+
+    note over GN: Freeze period check
+    alt Deployment date inside no-deploy freeze
+        GN->>H: 🚫 FREEZE — recommends NO-GO
+    else Deployment date inside warn-only freeze
+        GN->>H: ⚠️ Freeze advisory — human decides
+    else Approaching freeze window
+        GN->>H: ⚠️ Freeze in N days — verify timeline
+    end
+
+    note over GN: Security assessment check
+    alt Security assessment overdue
+        GN->>H: ⚠️ Security assessment overdue (regulated → required)
+    end
+
+    GN->>FS: Save docs/releases/PI-N-RN-gono.md (brief)
+    GN->>H: Present Go/No Go brief. Type GO or NO-GO
+
+    alt GO
+        alt External approval configured
+            GN->>H: Has [approval-name] been obtained? (reference / confirmed)
+            H->>GN: Confirmation captured
+        end
+        H->>GN: GO
+        GN->>PI: Update release status → Approved
+        GN->>FS: Record decision in brief
+        GN->>H: Deployment date confirmed — suggest /changelog + /deploy
+
+        H->>CL: /changelog
+        CL->>FS: Read kanban + DEVLOG + git log
+        CL->>FS: Generate CHANGELOG.md + user-facing release summary
+    else NO-GO
+        H->>GN: NO-GO
+        GN->>H: Which features carry forward to next release?
+        H->>GN: Feature list
+        GN->>PI: Defer features to next release
+        GN->>FS: Update kanban.md (carry-forward flags)
+        GN->>FS: Note in DEVLOG — release deferred
+        GN->>H: Suggest /diagnose or /sprint-replan
+    end

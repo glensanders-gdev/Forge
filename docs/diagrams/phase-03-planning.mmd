@@ -1,0 +1,61 @@
+sequenceDiagram
+    actor H as Human
+    participant GD as /grill-with-docs
+    participant WP as /write-prd
+    participant TP as /testplan
+    participant KB as Knowledge Base
+    participant FS as docs/
+
+    H->>GD: /grill-with-docs
+
+    note over GD: Domain awareness (AFK)
+    GD->>FS: Read CONTEXT.md / CONTEXT-MAP.md
+    GD->>FS: Read docs/adr/ (existing decisions)
+    GD->>KB: Read relevant system overviews + known-issues
+    GD->>FS: Explore codebase patterns
+
+    note over GD: Grill loop (one question at a time)
+    loop Each design decision
+        GD->>H: Question + recommended answer
+        H->>GD: Answer
+        alt Term conflicts with CONTEXT.md
+            GD->>H: ⚠️ Glossary conflict — clarify
+            H->>GD: Resolution
+            GD->>FS: Update CONTEXT.md inline (immediately)
+        end
+        alt Decision is hard to reverse + surprising + has trade-offs
+            GD->>FS: Write docs/adr/NNNN-[slug].md
+        end
+    end
+
+    GD->>H: Shared Understanding Summary (decisions + CONTEXT.md updates + ADRs)
+    H->>GD: Confirm → suggest /write-prd
+
+    H->>WP: /write-prd
+
+    note over WP: Phase 1 — AFK Explore
+    WP->>FS: Read CONTEXT.md, DEVLOG.md, research/, prototype/
+    WP->>FS: Explore codebase (modules, layers, existing patterns)
+    WP->>WP: Identify modules (UI/DATA/LOGIC/SYNC/INFRA)
+    WP->>H: Phase 1 Summary (modules, scope boundary, open questions)
+    H->>WP: Confirm (or corrections)
+
+    note over WP: Phase 2 — Write
+    WP->>H: Module estimates (token cost band + story points per module)
+    H->>WP: Confirm estimates
+    alt XL module flagged
+        WP->>H: ⚠️ XL — requires /break-down before /build
+    end
+    WP->>FS: Save docs/prd/active/[feature].md
+    WP->>FS: Add kanban tickets to docs/kanban.md
+    WP->>FS: Update idea diagram → diagram-v3-prd.mmd
+
+    H->>TP: /testplan
+    TP->>FS: Read PRD (user stories + DoD)
+    TP->>FS: Read CONTEXT.md (domain language for test names)
+    TP->>KB: Read relevant known-issues
+    TP->>H: Draft testplan (automated + manual + not tested + critical path)
+    H->>TP: Confirm
+    TP->>FS: Assign TC-NNN IDs per test case
+    TP->>FS: Update docs/tests/registry.md
+    TP->>FS: Save docs/testplan-[feature].md

@@ -1,0 +1,57 @@
+sequenceDiagram
+    actor H as Human
+    participant SS as /sprint-start
+    participant SD as /standup
+    participant Cal as ~/.claude/sprints/calendar.md
+    participant Cfg as Company Config
+    participant FS as docs/sprints/
+
+    H->>SS: /sprint-start
+
+    SS->>Cal: Identify current sprint by today's date
+    alt No sprint in calendar
+        SS->>H: Generate dates or sync from calendar?
+        H->>SS: Choice + dates
+    end
+
+    SS->>Cfg: Read sprint_length_weeks, freeze periods, team locales
+    SS->>FS: Pull carry-in from previous sprint-NN.md
+
+    SS->>H: Surface top 5 global backlog items — include in sprint?
+    H->>SS: Decisions
+    SS->>H: Surface active High/Critical known issues — schedule as tickets?
+    H->>SS: Decisions
+
+    alt Sprint overlaps freeze period
+        SS->>H: ❄️ Freeze [dates] — plan accordingly
+    end
+    alt Public holidays in sprint window
+        SS->>H: ⚠️ [locale] holiday near [date] — verify availability
+    end
+
+    SS->>H: Gather sprint goals (1–5) + deadlines + constraints
+    H->>SS: Goals confirmed
+    SS->>H: Present full draft
+    H->>SS: Confirm
+
+    note over SS: Capacity check
+    SS->>H: Story points vs limit + token budget vs cap
+    alt Over capacity
+        SS->>H: ⚠️ Over capacity — defer or accept overload?
+        H->>SS: Decision
+    end
+    alt XL tickets present
+        SS->>H: ⚠️ #N is XL — run /break-down before /build
+    end
+
+    note over SS: Tech debt check
+    SS->>H: High priority tech debt items — schedule any this sprint?
+    H->>SS: Decisions
+
+    SS->>FS: Write docs/sprints/sprint-NN.md
+    SS->>FS: Update PRD sprint fields + docs/kanban.md
+
+    loop Every session during sprint
+        H->>SD: /standup
+        SD->>H: Daily brief — token spend + deadline flags + ❄️ freeze warnings
+    end

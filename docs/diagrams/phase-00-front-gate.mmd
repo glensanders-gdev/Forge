@@ -1,0 +1,48 @@
+sequenceDiagram
+    actor R as Requestor
+    participant FG as /front-gate
+    participant KB as Knowledge Base
+    participant FS as docs/requests/
+
+    R->>FG: /front-gate "idea"
+
+    note over FG: Phase 1 — Interpret & Orient
+    FG->>R: Restate idea in plain language. Correct?
+    R->>FG: Confirmed / corrected
+    FG->>KB: Check ~/.claude/knowledge/systems/ for named systems (silent)
+    KB-->>FG: Constraints noted — carried into Phase 2
+
+    note over FG: Phase 2 — Grill (one question at a time)
+    loop Q1–Q7
+        FG->>R: Question + plain-language example answer
+        alt System named in answer
+            FG->>R: ⚠️ Constraint on [system] — note in brief?
+            R->>FG: Acknowledged
+        end
+        R->>FG: Answer
+    end
+
+    note over FG: Phase 3 — Draft Brief
+    FG->>FG: Compile answers into Request Brief (FORMATS.md)
+
+    note over FG: Phase 4 — Review
+    FG->>R: Present full draft. (yes / edit / cancel)
+    alt edit
+        R->>FG: Revise section X
+        FG->>R: Re-present updated draft
+    else cancel
+        FG->>R: Brief discarded (brief was wrong)
+    end
+    R->>FG: yes
+
+    note over FG: Phase 5 — Submission
+    FG->>R: Submit to Jira / Save as draft / Discard?
+    alt [1] Submit to Jira
+        FG->>FS: Save brief (status: pending-jira)
+        FG->>R: ✅ Flagged for Jira submission — company integration will raise ticket
+    else [2] Save as draft
+        FG->>FS: Save brief (status: draft)
+        FG->>R: ✅ Saved — team runs /idea to explore feasibility
+    else [3] Discard
+        FG->>R: Brief discarded (changed mind)
+    end

@@ -1,0 +1,40 @@
+sequenceDiagram
+    actor H as Human
+    participant PE as /pi-end
+    participant PIR as /pir
+    participant PI as ~/.claude/pi/[current-pi]/
+    participant Co as ~/.claude/companies/[name]/
+    participant FS as docs/
+
+    H->>PE: /pi-end
+
+    note over PE: AFK prep
+    PE->>PI: Read plan.md (all features + release targets)
+    PE->>FS: Read sprint records + DEVLOG for the PI period
+    PE->>Co: Read tokens/ledger.md (PI token total)
+
+    PE->>PI: Archive PI plan
+    PE->>Co: Generate stakeholder delivery summary
+    PE->>H: PI token total surfaced from ledger
+
+    PE->>H: Present PI close summary — confirm
+    H->>PE: Confirmed
+
+    note over H,Co: Post Implementation Review
+    H->>PIR: /pir PI-N
+
+    PIR->>FS: Read all feature PRDs + /approve records for PI-N
+    PIR->>FS: Read qa-plan results + known-issues
+
+    note over PIR: HITL outcome assessment (per feature)
+    loop Each delivered feature
+        PIR->>H: Did [feature] achieve its stated goals?
+        PIR->>H: Evidence? Metrics vs targets? Assumptions validated?
+        H->>PIR: Assessment
+    end
+
+    PIR->>Co: Save pir/PI-N/pir-YYYY-MM-DD.md
+    PIR->>H: PIR gaps feed /fy-review as primary data source
+
+    note over H,Co: Optional
+    H->>Co: /fy-review — annual review across all PI outcomes
