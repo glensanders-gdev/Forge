@@ -1,0 +1,1 @@
+Invoke the caveman skill. Toggles caveman communication mode — strips articles, filler, pleasantries, and hedging to reduce output tokens by ~75% while preserving technical accuracy. HITL gate confirmations always use full language. Use /caveman --off or say "normal mode" to deactivate.
