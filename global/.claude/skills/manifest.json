@@ -1,5 +1,5 @@
 {
-  "forge_version": "2.6.0",
+  "forge_version": "3.0.0",
   "skills": {
     "tool-add": "1.0.0",
     "tool-check": "1.0.0",
@@ -85,6 +85,13 @@
     "security-assessment": "1.0.0",
     "security-resolve": "1.0.0",
     "setup-confluence": "1.0.0",
-    "tech-debt": "1.0.0"
+    "tech-debt": "1.0.0",
+    "git-guardrails": "1.0.0",
+    "jira": "1.0.0",
+    "skill-health": "1.0.0",
+    "test-coverage": "1.0.0",
+    "seo": "1.0.0",
+    "caveman": "1.0.0",
+    "front-gate": "1.0.0"
   }
 }

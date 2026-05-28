@@ -9,6 +9,8 @@ Open a new sprint for the current project. Pulls context automatically from the 
 
 ## Process
 
+**Step 0 — Resolve active company:** Read `~/.claude/preferences.md`. If `active-company:` is set, use that value in place of `[active_company]` throughout this run. If not set, skip all company-config reads and apply defaults.
+
 1. **Read the sprint calendar** — `~/.claude/sprints/calendar.md`
    - Identify the current sprint by today's date.
    - If no current sprint exists, ask the user:
@@ -25,7 +27,7 @@ Open a new sprint for the current project. Pulls context automatically from the 
    - If no previous sprint record exists, note this is the first sprint for this project.
 
 4. **Surface global backlog items** — read `~/.claude/backlog.md`:
-   - Flag any items relevant to this sprint or project
+   - Flag the top 5 items by priority that are relevant to this sprint or project
    - Ask: "These items are in the global backlog — are any worth including in this sprint's goals?"
    - Do not add them automatically — human confirms
 

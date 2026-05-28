@@ -11,6 +11,115 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
+## v3.3.0 — 2026-05-28
+
+**New skill: /front-gate**
+
+### Added
+- `/front-gate` v1.0.0 — structured intake for non-technical users submitting an idea or request for team consideration. Middle ground between `/grill-me` (no doc context) and `/grill-with-docs` (full codebase). Grills the requestor one question at a time using plain language and example answers. Checks `knowledge/systems/` for constraints on any mentioned systems and surfaces conflicts inline before continuing. Produces a Request Brief saved to `docs/requests/YYYY-MM-DD-[slug].md`.
+  - Phase 1 [AFK]: interpret — restates idea in plain language, confirms with requestor, reads knowledge base for mentioned systems (silent)
+  - Phase 2 [HITL]: grill — 7 questions one at a time: Problem Statement, Objective, Metrics (optional — baseline + goal), What Is Needed, Risk of Doing Nothing, Negative Impacts, Brief Summary
+  - Phase 3 [AFK]: compile answers into Request Brief using `FORMATS.md` template
+  - Phase 4 [HITL]: review gate — "yes / edit / cancel" before writing to disk
+  - Phase 5 [AFK]: write to `docs/requests/YYYY-MM-DD-[slug].md`, confirm with next-step suggestions
+  - Integration: `/idea`, `/grill-with-docs`, `/write-prd`, `/ingest`, `knowledge/systems/*/Wiki/`
+
+---
+
+## v3.2.0 — 2026-05-28
+
+**New skill: /caveman (assimilated from Matt Pocock / AIHero.dev)**
+
+### Added
+- `/caveman` v1.0.0 — behavioral toggle that strips articles, filler, pleasantries, and hedging from AI responses to reduce output token usage by ~75%. Technical accuracy fully preserved. State persisted in `preferences.md` (`caveman-mode: on/off`). Safety exception auto-pauses for all HITL gate confirmations and destructive action prompts. Deactivate with `/caveman --off` or "normal mode".
+  - Origin: Adapted from Matt Pocock (AIHero.dev / github.com/mattpocock/skills)
+
+---
+
+## v3.1.0 — 2026-05-28
+
+**New skill: /seo (assimilated from Affaan Mustafa / ECC)**
+
+### Added
+- `/seo` v1.0.0 — SEO audit and remediation planning. Reads source files directly (no external crawl tool required), ranks findings by severity, and produces a dated report to `docs/seo/`.
+  - Phase 1 [AFK]: orient scope — reads `CLAUDE.md`, locates `robots.txt`, `sitemap.xml`, and HTML template layer; prompts for scope if no flag passed
+  - Phase 2 [AFK]: audit against three-tier taxonomy — Critical (crawlability: robots, canonicals, redirects, broken sitemaps), High (on-page: titles, metas, headings, JSON-LD, Core Web Vitals), Medium (content: thin pages, alt text, orphans, cannibalization)
+  - Phase 3 [HITL]: presents ranked findings, confirms which severity tiers to address before creating any tickets
+  - Phase 4 [AFK]: writes `docs/seo/audit-YYYY-MM-DD.md` using `FORMATS.md` template; assigns `SEO-YYYYMMDD-NNN` IDs
+  - Phase 5 [HITL]: optional kanban ticket creation for confirmed findings — detail stays in report, kanban holds ID + one-liner only
+  - Flags: `--audit`, `--page <path>`, `--schema`, `--vitals`, `--content`, `--analyze-only`
+  - Integration: `/review` (template changes), `/build` (remediation tickets), `/qa-plan`, `/go-nogo`
+  - Origin: Adapted from Affaan Mustafa (ECC / github.com/affaan-m/ECC)
+
+---
+
+## v3.0.0 — 2026-05-28
+
+**New skill: /test-coverage (assimilated from Affaan Mustafa / ECC)**
+
+### Added
+- `/test-coverage` v1.0.0 — reactive coverage gap remediation for existing codebases. Distinct from `/tdd` (proactive, test-first): this skill analyzes what's already written and closes the gaps.
+  - Phase 1 [AFK]: detect framework via `tools/global.md` `test-runner` category, fall back to file-based detection (jest, vitest, pytest, cargo, maven/jacoco, go)
+  - Phase 2 [AFK]: run coverage command, capture output
+  - Phase 3 [AFK]: rank files below threshold worst-first; identify untested functions, missing branches, dead code
+  - Phase 4 [HITL]: show gap analysis, confirm which files to address before writing anything
+  - Phase 5 [AFK]: generate missing tests (happy path → error handling → edge cases → branch coverage); assigns TC IDs via `docs/tests/registry.md`; matches existing project test style
+  - Phase 6 [AFK]: verify full test suite passes; re-run coverage
+  - Phase 7 [AFK]: before/after comparison table; updates `preferences.md` for `/go-nogo` integration
+  - Flags: `--analyze-only`, `--file <path>`, `--threshold <N>`
+  - Threshold: reads from `CLAUDE.md`; defaults to 80% (quality-checklist.md standard)
+  - Origin: Adapted from Affaan Mustafa (ECC / github.com/affaan-m/ECC)
+
+### Version note
+Bumped to v3.0.0 — four skills added in one session (git-guardrails, jira, skill-health, test-coverage) completes a significant capability expansion.
+
+---
+
+## v2.9.0 — 2026-05-28
+
+**New skill: /skill-health (assimilated from Affaan Mustafa / ECC)**
+
+### Added
+- `/skill-health` v1.0.0 — read-only structural audit of the Forge skill portfolio. Checks every manifest.json entry for: SKILL.md directory, command stub, required sections (Failure Modes, Rules), frontmatter completeness, CHANGELOG coverage for version bumps, and attribution credit lines in assimilated skills. Saves report to `~/.claude/knowledge/skill-health-report.md`.
+  - 🔴 Critical: manifest orphans (no SKILL.md), missing frontmatter
+  - ⚠️ Amber: missing sections, missing command stubs, CHANGELOG drift, attribution gaps
+  - ℹ️ Info: directory orphans, orphaned command stubs, version mismatches
+  - Flags: `--critical`, `--skill <name>`
+  - Sprint-start integration: warns if overdue (>30 days)
+  - Completes the Forge health triad: context-health (tokens) + knowledge-health (articles) + skill-health (skills)
+  - Concept adapted from Affaan Mustafa (ECC / github.com/affaan-m/ECC); Forge-native implementation — no runtime telemetry or Node.js scripts required
+
+---
+
+## v2.8.0 — 2026-05-28
+
+**New skill: /jira (assimilated from Affaan Mustafa / ECC)**
+
+### Added
+- `/jira` v1.0.0 — live Jira API integration with four subcommands:
+  - `get <TICKET-KEY>` [AFK] — fetch ticket and produce structured analysis: requirements, acceptance criteria, test scenarios (happy/error/edge), dependencies, and recommended next steps
+  - `comment <TICKET-KEY>` [HITL] — gather session progress from DEVLOG + kanban, preview comment, post on confirmation
+  - `transition <TICKET-KEY>` [HITL] — fetch available transitions, present options, execute on selection; offers to sync `docs/kanban.md`
+  - `search <JQL>` [AFK] — run JQL query and return a summary table (max 20 results)
+  - `setup` [HITL] — guided credential configuration: MCP server (preferred) or env vars
+  - Auth: MCP server → env vars fallback; never stores credentials in source files
+  - Complements `/link-jira` (static ID mapping) with live API interaction
+  - Origin: Adapted from Affaan Mustafa (ECC / github.com/affaan-m/ECC)
+
+---
+
+## v2.7.0 — 2026-05-28
+
+**New skill: /git-guardrails (assimilated from Matt Pocock)**
+
+### Added
+- `/git-guardrails` v1.0.0 — hard-blocks dangerous git commands via a `PreToolUse` hook, enforced at the Claude Code tool level rather than the AI instruction level. Complements `rules/common/git-safety.md` (soft rules) with OS-level enforcement. Guided setup for project or global scope, with Windows/Git Bash compatibility notes. Includes deployable `block-dangerous-git.sh` hook script.
+  - Blocks: `git push`, `git reset --hard`, `git clean -f/fd`, `git branch -D`, `git checkout .`, `git restore .`
+  - Flags: `--project`, `--global`, `--verify`, `--remove`
+  - Origin: Adapted from Matt Pocock (AIHero.dev / github.com/mattpocock/skills)
+
+---
+
 ## v2.6.0 — 2026-05-25
 
 **New skill: /company-update + critic resolution (16 issues)**

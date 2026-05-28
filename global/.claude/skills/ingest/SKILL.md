@@ -54,7 +54,22 @@ For each uncompiled item:
 
 1. **Read and summarise** the item
 2. **Classify** — identify which concept(s) it belongs to
-3. **Technology sub-category routing** — if the source path is `technology/Raw/`, after
+3. **Feedback routing** — if the item is identifiably feedback content, route it directly
+   to the appropriate article rather than creating a new concept article:
+   - **Customer-sourced** (user emails, support tickets, survey responses, interview notes,
+     complaint threads) → compile into `Wiki/customer-feedback.md`
+   - **Stakeholder-sourced** (position papers, leadership memos, requirements documents,
+     meeting notes from stakeholders) → compile into `Wiki/stakeholder-feedback.md`
+
+   When compiling into a feedback article: extract the key themes, update the relevant
+   table(s), and update the Sentiment Summary or Key Concerns Raised section as appropriate.
+   Do not create a separate concept article for feedback items.
+
+   If the item contains both feedback and technical content (e.g. a paper that includes
+   requirements and architecture), split: route the feedback portions to the feedback article
+   and the technical portions to a concept article.
+
+4. **Technology sub-category routing** — if the source path is `technology/Raw/`, after
    classifying, list the available sub-categories (read from subdirectory names under
    `technology/`) and ask:
    ```
@@ -70,25 +85,25 @@ For each uncompiled item:
    Wait for a response before proceeding. Route the article to the matching
    sub-category's `Wiki/` folder. If `top` is chosen, route to `technology/Wiki/` and
    note `⚠️ No sub-category assigned` in the compile log for later review.
-4. **Check for cross-system scope** — if the concept requires two or more system names to
+5. **Check for cross-system scope** — if the concept requires two or more system names to
    explain, it belongs in global `Wiki/`. Check `cross_system_gate` in
    `~/.claude/preferences.md`:
    - `open` (or missing) → pause and confirm with the human before creating the article;
      write `cross_system_gate: confirmed` to `preferences.md` on approval
    - `confirmed` → proceed without confirmation
-5. **Create or update** the relevant concept article(s) in the appropriate `Wiki/`
-6. **Add backlinks** from the concept article to the Raw source
-7. **Update `Raw/_compiled.log`**:
+6. **Create or update** the relevant concept article(s) in the appropriate `Wiki/`
+7. **Add backlinks** from the concept article to the Raw source
+8. **Update `Raw/_compiled.log`**:
    ```
    YYYY-MM-DD | [filename] | compiled | [Wiki article(s) updated]
    ```
-8. **Update `Wiki/_changelog.md`** — log `created` or `updated` with the article path
-9. **On failure** — log `failed: [reason]` in `_compiled.log` and continue to next item
+9. **Update `Wiki/_changelog.md`** — log `created` or `updated` with the article path
+10. **On failure** — log `failed: [reason]` in `_compiled.log` and continue to next item
 
 After all items:
 
-10. **Update `Wiki/_index.md`** — refresh Recently Updated section and any new categories
-11. **Present a summary**:
+11. **Update `Wiki/_index.md`** — refresh Recently Updated section and any new categories
+12. **Present a summary**:
     - Items compiled
     - Articles created / updated
     - Cross-system articles created (if any)

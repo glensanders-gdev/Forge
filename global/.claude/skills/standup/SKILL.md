@@ -9,17 +9,18 @@ Generate a concise standup summary from the project's living documents. No input
 
 ## Process
 
+**Step 0 — Resolve active company:** Read `~/.claude/preferences.md`. If `active-company:` is set, use that value in place of `[active_company]` throughout this run. If not set, skip all company-config reads and apply defaults.
+
 1. Read `~/.claude/priorities.md` — global feature priority order.
 2. Read `~/.claude/pi/[current-pi]/plan.md` — current PI release dates and Go/No Go dates.
 3. Read `docs/DEVLOG.md` — most recent entry only.
 4. Read `docs/kanban.md` — current In Progress, Blocked, and top Backlog items.
-5. Read active PRDs — check Delivery Type and Due Dates for deadline risk.
-6. Read `docs/prd/active/` — confirm what feature is currently in flight.
-7. **Read company config** — `~/.claude/companies/[active_company]/config.md` (if set):
+5. Read `docs/prd/active/` — identify the feature currently in flight, check Delivery Type and Due Dates for deadline risk.
+6. **Read company config** — `~/.claude/companies/[active_company]/config.md` (if set):
    - `freeze_periods` — check if today or any release date in the next 14 days is near a freeze
    - `freeze_warning_days_ahead` — use configured lead time (default 14 days)
    - `teams[].timezone` and `teams[].locale` — note any team locales for holiday awareness
-8. **Run automatic checks:**
+7. **Run automatic checks:**
    - If today is within 5 days of a Go/No Go date → flag it
    - If today is within 3 days of an internal due date → flag deadline risk
    - If today is within 7 days of an external due date → flag deadline risk
@@ -27,8 +28,8 @@ Generate a concise standup summary from the project's living documents. No input
    - Run `/feature-flag check` — surface any flags past their removal date
    - If within `freeze_warning_days_ahead` of a freeze period → flag it
    - If today is a likely public holiday for any configured team locale → note it
-9. Produce the standup report.
-10. Ask: "Are these the right goals for today, or do you want to adjust?"
+8. Produce the standup report.
+9. Ask: "Are these the right goals for today, or do you want to adjust?"
 
 ## Output Format
 

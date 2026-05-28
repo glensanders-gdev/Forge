@@ -15,6 +15,8 @@ Prepare the Go/No Go brief for an upcoming monthly release. The AI assembles all
 
 ## Process
 
+**Step 0 — Resolve active company:** Read `~/.claude/preferences.md`. If `active-company:` is set, use that value in place of `[active_company]` throughout this run. If not set, skip all company-config reads and apply defaults.
+
 1. **Read company config** — read `~/.claude/companies/[active_company]/config.md` (if set) for:
    - `freeze_periods` — check if the deployment date falls within or near a freeze window
    - `compliance_tier` — determines whether security assessment is advisory or required
@@ -37,63 +39,9 @@ Prepare the Go/No Go brief for an upcoming monthly release. The AI assembles all
 
 ## Go/No Go Brief Format
 
-```markdown
-# Go/No Go Brief: PI-N Release N
+See `FORMATS.md` in this skill directory for the brief template.
 
-**Release:** PI-N-RN
-**Deployment Date:** Monday DD MMM YYYY
-**Brief Prepared:** Friday DD MMM YYYY
-**Decision Required By:** 5:00pm today
-
----
-
-## Release Summary
-
-**Features included:**
-| Feature | Stakeholder Label | Project | Status |
-|---------|------------------|---------|--------|
-| [name] | [label] | [repo] | ✅ Complete / ⚠️ Partial / ❌ Incomplete |
-
----
-
-## Ticket Status
-
-**Completed:** #N, #N, #N
-**Incomplete:** #N [reason], #N [reason]
-**Blocked:** #N [blocker]
-
----
-
-## Risk Assessment
-
-| Risk | Severity | Mitigation |
-|------|----------|-----------|
-| [risk] | High / Medium / Low | [mitigation] |
-
----
-
-## Open Issues
-
-| Issue | Severity | Recommendation |
-|-------|----------|---------------|
-| | | |
-
----
-
-## Recommendation
-
-**AI Recommendation:** GO / NO-GO
-**Reason:** [one sentence]
-
----
-
-## Decision
-
-**Decision:** GO / NO-GO
-**Decided by:** [Human name]
-**Time:** HH:MM DD MMM YYYY
-**Notes:** [any conditions or carry-forwards]
-```
+Save to `docs/releases/PI-N-RN-gono.md`.
 
 ## If NO-GO
 

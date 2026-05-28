@@ -37,6 +37,8 @@ beyond any single session.
     overview.md
     decisions.md
     known-issues.md
+    customer-feedback.md
+    stakeholder-feedback.md
   Outputs/
 ```
 
@@ -62,6 +64,10 @@ beyond any single session.
 - [Overview](overview.md) — what the project is and its current state
 - [Decisions](decisions.md) — key decisions and their rationale
 - [Known Issues](known-issues.md) — constraints, blockers, hard stops
+
+## Feedback
+- [Customer Feedback](customer-feedback.md) — distilled pain points, requests, and sentiment (read before proposing user-facing changes)
+- [Stakeholder Feedback](stakeholder-feedback.md) — requirements, constraints, and open asks from stakeholders (read before designing solutions)
 ```
 
 ## Wiki/_changelog.md
@@ -182,6 +188,92 @@ If the proposed approach conflicts with an entry here, flag it before proceeding
 |-------|----------------|---------|
 | | | |
 ```
+
+## Wiki/customer-feedback.md
+
+```markdown
+# Customer Feedback: [Project Name]
+
+**Last updated:** YYYY-MM-DD
+
+Distilled from raw feedback (emails, surveys, support tickets, user interviews) in `Raw/`.
+Read this file before proposing any user-facing changes to this project.
+
+---
+
+## Key Pain Points
+
+| Theme | Frequency | Severity | Source |
+|-------|-----------|----------|--------|
+| | | | |
+
+---
+
+## Feature Requests
+
+| Request | Count | Priority |
+|---------|-------|----------|
+| | | |
+
+---
+
+## What's Working Well
+
+-
+
+---
+
+## Sentiment Summary
+
+**Overall:** [Positive / Mixed / Negative]
+**Last assessed:** YYYY-MM-DD
+**Source count:** N items compiled
+```
+
+---
+
+## Wiki/stakeholder-feedback.md
+
+```markdown
+# Stakeholder Feedback: [Project Name]
+
+**Last updated:** YYYY-MM-DD
+
+Distilled from stakeholder communications (position papers, memos, emails, meeting notes) in `Raw/`.
+Read this file before designing solutions or making commitments about this project.
+
+---
+
+## Requirements & Expectations
+
+| Stakeholder | Requirement | Priority | Status |
+|-------------|-------------|----------|--------|
+| | | | |
+
+---
+
+## Constraints Imposed
+
+| Constraint | Source | Non-negotiable? |
+|-----------|--------|----------------|
+| | | |
+
+---
+
+## Open Asks / Pending Decisions
+
+| Ask | Stakeholder | Due | Status |
+|-----|-------------|-----|--------|
+| | | | |
+
+---
+
+## Key Concerns Raised
+
+-
+```
+
+---
 
 ## After Creating Files
 
