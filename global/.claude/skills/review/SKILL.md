@@ -11,7 +11,7 @@ Conduct a structured code review against the project's own documented standards 
 
 1. Read `docs/CONTEXT.md` — domain terminology to check against.
 2. Read `docs/adr/` — architectural decisions that code must respect.
-3. Read `.claude/STANDARDS.md` if it exists — project coding standards.
+3. Read `.claude/CODING-STANDARDS.md` if it exists — project coding standards.
 4. Read the active PRD from `docs/prd/active/` — intended behaviour to verify against.
 5. Explore the changed or relevant code.
 6. Produce a prioritised review report.
@@ -43,7 +43,7 @@ For each area, flag issues as P1 (blocking), P2 (should fix), or P3 (suggestion)
 - [ ] Silent failures have logging
 
 ### Standards
-- [ ] Matches patterns in `.claude/STANDARDS.md` (if exists)
+- [ ] Matches patterns in `.claude/CODING-STANDARDS.md` (if exists)
 - [ ] Consistent with existing codebase conventions
 
 ## Output Format

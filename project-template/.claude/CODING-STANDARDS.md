@@ -1,4 +1,4 @@
-<!-- Forge v2.3.2 — update from project template when upgrading Forge -->
+<!-- Forge project template — update this file from the Forge repo when upgrading -->
 
 # Coding Standards
 

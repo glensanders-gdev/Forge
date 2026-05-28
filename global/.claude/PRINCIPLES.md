@@ -58,6 +58,8 @@ The framework enforces structure not as overhead but as protection. A plan that 
 
 Every phase exists because its absence causes a known class of failure. When in doubt, keep the gate rather than remove it.
 
+The pipeline begins at Phase 0 (front-gate) — a non-technical stakeholder intake gate that precedes developer involvement. It ensures ideas are captured in a structured Request Brief before they reach the engineering workflow, preventing scope that was never properly articulated from entering the build pipeline.
+
 ---
 
 ## 6. Reference, Don't Duplicate

@@ -16,8 +16,8 @@ Create a new skill for Forge following the standard structure. Skills live in `~
    - Does it need supporting files (REFERENCE.md, EXAMPLES.md, scripts)?
 
 2. **Draft the skill** — create:
-   - `SKILL.md` with concise instructions (under 100 lines)
-   - Additional files if content exceeds 100 lines or has distinct domains
+   - `SKILL.md` with concise instructions — target under 100 lines; if workflow logic exceeds this, extract supporting content (reference tables, templates, examples, scripts) to additional files (`REFERENCE.md`, `FORMATS.md`, `scripts/`, etc.)
+   - Additional files for any content that would push `SKILL.md` over 100 lines or has a distinct domain
    - A command file if a `/user:skill-name` trigger is needed
 
 3. **Review with user** — present the draft and ask:
@@ -109,9 +109,9 @@ The command file is what registers `/user:skill-name` in Claude Code. Without it
 ## When to Split Files
 
 Split into separate files when:
-- `SKILL.md` workflow logic exceeds ~400 lines
-- Content has distinct domains (e.g. logic vs UI)
-- Advanced reference material (reference tables, stub templates, config schemas) is rarely needed during normal use — extract to `REFERENCE.md` so the main workflow stays readable
+- `SKILL.md` exceeds 100 lines — extract supporting content to `REFERENCE.md`, `FORMATS.md`, or other named files
+- Content has distinct domains (e.g. workflow logic vs output templates vs scripts)
+- Advanced reference material (reference tables, stub templates, config schemas) is rarely needed during normal use — keeping it out of `SKILL.md` keeps the workflow scannable
 
 ## Review Checklist
 
@@ -119,11 +119,11 @@ Before finalising, verify:
 - [ ] Read `~/.claude/PRINCIPLES.md` — does this skill follow the 8 design principles?
 - [ ] Description includes "Use when [triggers]"
 - [ ] **If adapting from an external source** — use `/user:assimilate` instead. It handles attribution, fit evaluation, and adaptation automatically.
-- [ ] Workflow steps are readable without scrolling — dense reference tables, stub templates, and rarely-needed config belong in `REFERENCE.md`, not `SKILL.md` (guide: keep workflow under ~400 lines)
+- [ ] `SKILL.md` is under 100 lines — dense reference tables, stub templates, and rarely-needed config extracted to `REFERENCE.md` or additional named files
 - [ ] No time-sensitive information included
 - [ ] Terminology consistent with `docs/CONTEXT.md`
 - [ ] `manifest.json` updated with new skill and version `"1.0.0"`
 - [ ] Command file created if slash command needed
 - [ ] **`~/.claude/skills/commands/SKILL.md` updated** — add the new command to the correct section in the command reference table. This is mandatory — never skip it.
 - [ ] **`~/.claude/CHANGELOG.md` updated** — add the new skill under the current `forge_version` entry (or create a new version entry if bumping the version). Version bump guidance: patch (x.x.N) for skill fixes, minor (x.N.0) for new skills, major (N.0.0) for lifecycle changes (new pipeline phases, fundamental workflow changes). Never let the changelog drift from the actual skill set.
-- [ ] **`~/.claude/forge-sequence.mmd` reviewed** — if a new pipeline phase was added, or the order of skills in the delivery lifecycle changed, update the diagram. Not required for every skill — only when the diagram would be materially wrong without it (e.g. a new mandatory gate between two existing phases).
+- [ ] **Diagrams reviewed** — if a new pipeline phase was added, or the delivery lifecycle changed materially, update: `~/.claude/forge-sequence.mmd` (installed single-file) and `docs/diagrams/framework-complete.mmd` + the relevant `docs/diagrams/phase-NN-*.mmd` file in the Forge repo. Not required for every skill — only when a diagram would be materially wrong without the update.

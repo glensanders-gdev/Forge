@@ -198,7 +198,7 @@ Re-read `docs/kanban.md` fresh at each checkpoint to reset effective context.
 If the human types `PAUSE`, run `/user:save-state` and stop cleanly.
 If fewer than 3 tickets remain after the checkpoint, skip it and continue without interruption.
 
-### Step 6 — Next Ticket
+### Step 7 — Next Ticket
 
 Move to the next ticket in the queue.
 

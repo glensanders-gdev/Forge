@@ -74,7 +74,7 @@ If the response is not exactly `APPROVE`, respond: "Approval cancelled. No chang
      Feature [feature-name] approved. Board cleared.
 
      ## Next Action
-     Ready to start next feature — run /user:idea or /user:grill-me.
+     Ready to start next feature — run /user:front-gate (non-technical intake), /user:idea (developer), or /user:grill-with-docs (planning phase for existing project).
 
      ## Open Decisions
      None.
@@ -84,23 +84,22 @@ If the response is not exactly `APPROVE`, respond: "Approval cancelled. No chang
      ```
 
 7. **Optionally push coding standards**
-   - Ask: "Would you like to document any new coding standards that emerged from this feature?"
-   - If yes, append to `.claude/STANDARDS.md` (create if it doesn't exist).
+   - Suggest: "Would you like to capture any new coding patterns that emerged from this feature? Run `/user:push-standards` — it will extract and document them in `.claude/CODING-STANDARDS.md`."
 
 8. **Suggest README update**
    - Prompt: "Want me to update the README to reflect this feature? Run `/user:update-readme`."
 
-8b. **Suggest PIR**
+9. **Suggest PIR**
    - Prompt: "Consider running a Post Implementation Review: `/user:pir [PROJ-NNN]`. Did this feature achieve its stated goals?"
 
-9. **Update idea diagram** — if an idea in `~/.claude/ideas/active/` is linked to this project:
+10. **Update idea diagram** — if an idea in `~/.claude/ideas/active/` is linked to this project:
    - Read `~/.claude/ideas/active/[idea-name]/diagram.mmd`
    - Update to reflect the final delivered state
    - Save as `diagram.mmd` (current) and `diagram-v4-final.mmd` (snapshot)
    - Update diagram version history in `idea.md`
    - Update idea status to `Delivered — YYYY-MM-DD`
 
-10. **Roll up token record to global ledger** — read `docs/tokens/[feature-name].md`, sum all phases, append to `~/.claude/tokens/ledger.md`:
+11. **Roll up token record to global ledger** — read `docs/tokens/[feature-name].md`, sum all phases, append to `~/.claude/tokens/ledger.md`:
 
 ```markdown
 ### [Feature Name] — [Project] — YYYY-MM-DD
@@ -129,7 +128,7 @@ Update the ledger summary totals by recalculating from all entries (not just add
 ```
 Then continue with approval normally — missing token records do not block approval.
 
-11. **Confirm closure**
+12. **Confirm closure**
     - Respond: "✓ Approved. PRD archived. Token record logged. Session sealed. Ready for next feature."
 
 ## Failure Modes
