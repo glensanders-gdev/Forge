@@ -1,11 +1,16 @@
 #!/usr/bin/env bash
 # Forge Installer
-# Usage: bash install.sh
-# Or from GitHub: bash <(curl -fsSL https://raw.githubusercontent.com/glensanders-gdev/Forge/main/install.sh)
+# Usage (fresh install):
+#   git clone https://github.com/glensanders-gdev/Forge.git ~/forge
+#   bash ~/forge/install.sh
+#
+# Usage (re-run in existing clone — pulls latest automatically):
+#   bash ~/forge/install.sh
 
 set -e
 
-GLOBAL_SRC="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/global"
+FORGE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+GLOBAL_SRC="$FORGE_DIR/global"
 FORGE_VERSION=$(grep '"forge_version"' "$GLOBAL_SRC/.claude/skills/manifest.json" 2>/dev/null | grep -o '[0-9][0-9.]*' | head -1)
 FORGE_VERSION="${FORGE_VERSION:-unknown}"
 REPO_URL="https://github.com/glensanders-gdev/Forge"
@@ -23,6 +28,16 @@ echo -e "${BLUE}╔════════════════════�
 echo -e "${BLUE}║        Forge v${FORGE_VERSION} Installer          ║${NC}"
 echo -e "${BLUE}╚════════════════════════════════════════╝${NC}"
 echo ""
+
+# ── pull latest ──────────────────────────────────────────────────────────────
+if [ -d "$FORGE_DIR/.git" ]; then
+  echo "Pulling latest from GitHub..."
+  git -C "$FORGE_DIR" pull
+  # Re-read version after pull in case it changed
+  FORGE_VERSION=$(grep '"forge_version"' "$GLOBAL_SRC/.claude/skills/manifest.json" 2>/dev/null | grep -o '[0-9][0-9.]*' | head -1)
+  FORGE_VERSION="${FORGE_VERSION:-unknown}"
+  echo ""
+fi
 
 # ── check claude code ────────────────────────────────────────────────────────
 if [ ! -d "$HOME/.claude" ] || [ ! -f "$HOME/.claude/settings.json" ] 2>/dev/null; then
