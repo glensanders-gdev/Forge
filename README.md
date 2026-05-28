@@ -1,4 +1,4 @@
-# Forge v2.5.7
+# Forge v3.4.0
 
 An AI-assisted development workflow framework for Claude Code.
 
@@ -6,12 +6,12 @@ An AI-assisted development workflow framework for Claude Code.
 
 ## What is Forge?
 
-Forge is a structured dev workflow built around composable Claude Code skills. It guides you through a repeatable pipeline from idea to deployed feature — with sprint planning, PI management, TDD, QA, PII checking, and production deployment all covered.
+Forge is a structured dev workflow built around composable Claude Code skills. It guides you through a repeatable pipeline from stakeholder intake to deployed feature — with sprint planning, PI management, TDD, QA, PII checking, and production deployment all covered.
 
 ```
-/idea → /create-project → /grill-with-docs → /write-prd → /testplan
-     → /sprint-start → /build → /qa-plan → /pii-check → /approve
-     → /go-nogo → /deploy → production
+/front-gate → /idea → /create-project → /grill-with-docs → /write-prd → /testplan
+           → /sprint-start → /build → /qa-plan → /pii-check → /approve
+           → /go-nogo → /deploy → production
 ```
 
 Each stage produces an artifact that feeds the next. The AI agent orients itself at the start of every session, tracks progress on a Kanban board, and closes cleanly on `/approve`.
@@ -20,21 +20,22 @@ Each stage produces an artifact that feeds the next. The AI agent orients itself
 
 ## What's Included
 
-**84 skills** covering the full software delivery lifecycle:
+**92 skills** covering the full software delivery lifecycle:
 
 | Category | Skills |
 |----------|--------|
+| Intake | `/front-gate` |
 | Ideation | `/idea`, `/create-project`, `/onboard` |
 | Pipeline | `/grill-with-docs`, `/grill-me`, `/research`, `/prototype`, `/write-prd`, `/testplan`, `/estimate`, `/break-down`, `/build`, `/tdd`, `/qa-plan`, `/pii-check`, `/approve` |
-| Session Management | `/continue`, `/standup`, `/handoff`, `/debrief`, `/save-state`, `/scope-check`, `/backlog-list`, `/backlog-proj`, `/backlog-add`, `/lookup` |
-| Code Quality | `/review`, `/critic`, `/write-adr`, `/push-standards`, `/lang-rules`, `/update-readme`, `/accessibility`, `/ai-first-engineering`, `/write-article`, `/security-assessment`, `/security-resolve`, `/performance-review` |
+| Session Management | `/continue`, `/standup`, `/handoff`, `/debrief`, `/save-state`, `/scope-check`, `/backlog-list`, `/backlog-proj`, `/backlog-add`, `/lookup`, `/caveman` |
+| Code Quality | `/review`, `/critic`, `/diagnose`, `/write-adr`, `/push-standards`, `/lang-rules`, `/update-readme`, `/accessibility`, `/ai-first-engineering`, `/write-article`, `/security-assessment`, `/security-resolve`, `/performance-review`, `/git-guardrails`, `/test-coverage`, `/seo` |
 | Knowledge Base | `/add-system`, `/add-project`, `/summarise-system`, `/update-context`, `/add-term`, `/knowledge-health`, `/knowledge-onboard`, `/style-check`, `/ingest`, `/publish`, `/setup-confluence` |
 | Metrics & Reporting | `/token-report`, `/dashboard-tokens`, `/context-health`, `/fy-review` |
 | PI & Release | `/piplan`, `/pi-end`, `/sprintplan`, `/go-nogo`, `/changelog`, `/deploy`, `/deploy-pi`, `/rollback`, `/rollback-pi`, `/standalone-release`, `/sprint-replan`, `/pi-replan`, `/incident` |
 | Sprint Management | `/sprint-start`, `/sprint-end`, `/pir` |
 | Maintenance | `/feature-flag`, `/tech-debt`, `/dependency-update` |
-| Company Config | `/company-add`, `/company-git`, `/company-sync`, `/tool-add`, `/tool-check` |
-| Framework | `/write-a-skill`, `/assimilate`, `/learn`, `/evolve`, `/link-jira`, `/commands` |
+| Company Config | `/company-add`, `/company-git`, `/company-sync`, `/company-update`, `/tool-add`, `/tool-check`, `/jira` |
+| Framework | `/write-a-skill`, `/assimilate`, `/learn`, `/evolve`, `/link-jira`, `/commands`, `/skill-health` |
 
 ---
 
@@ -116,6 +117,12 @@ Open Claude Code in your project and type:
 /user:idea
 ```
 
+Or if you have a non-technical idea to submit first:
+
+```
+/user:front-gate
+```
+
 Or if you have an existing project:
 
 ```
@@ -128,8 +135,8 @@ Or if you have an existing project:
 
 ```
 ~/.claude/
-  skills/              ← 84 global skills
-  commands/            ← 84 slash commands
+  skills/              ← 92 global skills
+  commands/            ← 92 slash commands
   tools/
     global.md          ← global tools registry (security scanners, perf analysers, etc.)
   knowledge/
@@ -152,7 +159,7 @@ Or if you have an existing project:
   preferences.md       ← global preferences
   PRINCIPLES.md        ← Forge design philosophy — read before writing new skills
   CHANGELOG.md         ← Forge version history
-  forge-sequence.mmd   ← framework sequence diagram
+  forge-sequence.mmd   ← full framework sequence diagram (single file)
   rules/
     common/            ← language-agnostic coding standards (always active)
     [lang]/            ← language-specific rule sets, installed via /lang-rules
@@ -185,13 +192,13 @@ Or if you have an existing project:
 
 ## Skill Versioning
 
-Skills are versioned in `~/.claude/skills/manifest.json`. The current framework version is `2.5.6`. Project-level skill overrides in `.claude/skills/[skill-name]/SKILL.md` take precedence over global skills.
+Skills are versioned in `~/.claude/skills/manifest.json`. The current framework version is `3.4.0`. Project-level skill overrides in `.claude/skills/[skill-name]/SKILL.md` take precedence over global skills.
 
 ---
 
-## Sequence Diagram
+## Sequence Diagrams
 
-The full framework lifecycle is documented in `~/.claude/forge-sequence.mmd`. Render it at [mermaid.live](https://mermaid.live) or in any Mermaid-compatible tool.
+The full framework lifecycle is documented in `~/.claude/forge-sequence.mmd` (installed to your Claude config). Individual phase diagrams are in `docs/diagrams/` in this repo (Phases 0–11 plus a complete framework diagram). Render any `.mmd` file at [mermaid.live](https://mermaid.live) or in any Mermaid-compatible tool.
 
 ---
 
@@ -199,6 +206,13 @@ The full framework lifecycle is documented in `~/.claude/forge-sequence.mmd`. Re
 
 | Version | Changes |
 |---------|---------|
+| 3.4.0 | `/front-gate` Phase 5 submission gate (Submit to Jira / Save as draft / Discard); sequence diagrams for all 12 phases added to `docs/diagrams/`; install.sh auto-pulls latest from GitHub before installing |
+| 3.3.0 | `/front-gate` — Phase 0 non-technical stakeholder intake; produces a Request Brief before `/idea` is called; supports Jira flag, local draft, or discard |
+| 3.2.0 | `/caveman` — terse communication mode for power users; persists in `preferences.md`; HITL safety exception |
+| 3.1.0 | `/seo` — SEO audit skill for web content and metadata |
+| 2.7.0 – 3.0.0 | `/git-guardrails`, `/jira`, `/skill-health`, `/test-coverage` — developer tooling layer |
+| 2.6.0 | `/company-update` skill; 16 critic fixes across skills |
+| 2.5.8 | Company structure mirrors global; `/learn` company routing; bundled skills; remove instincts from company repo |
 | 2.5.7 | Tools registry — `~/.claude/tools/global.md` + company `tools.md`; `/tool-add`, `/tool-check`; `/security-assessment` and `/performance-review` use registry; `/build` pre-flight checks required tools |
 | 2.5.6 | 19 new skills added (company config, knowledge, maintenance, metrics); company-config wired into `/build`, `/pii-check`, `/deploy`; `/approve` and `/deploy` suggest `/pir`; install.sh non-interactive fix; sequence diagram rewritten |
 | 2.5.5 | Language rules layer — `/lang-rules`, `~/.claude/rules/common/` (coding-style, quality-checklist, research-first, security), `/push-standards` baseline awareness |
