@@ -113,24 +113,54 @@ Does this accurately represent your request? (yes / edit / cancel)
 ```
 
 If "edit": ask which section to revise, apply the change, re-present the full brief.
-If "cancel": discard without writing to disk.
+If "cancel": discard without writing to disk — use this when the brief itself is wrong. For a change of mind after approval, use Discard in Phase 5.
 
 ---
 
-## Phase 5 [AFK] — Write
+## Phase 5 [HITL] — Submission
 
-Write the approved brief to `docs/requests/YYYY-MM-DD-[slug].md`.
+Present the decision gate immediately after Phase 4 approval:
+
+```
+What would you like to do with this brief?
+
+  [1] Submit to Jira  — flag for team submission via Jira
+  [2] Save as draft   — save locally to submit or refine later
+  [3] Discard         — exit without saving
+
+Enter 1, 2, or 3.
+```
+
+### Option 1 — Submit to Jira
+
+Save the brief to `docs/requests/YYYY-MM-DD-[slug].md` with `status: pending-jira` in frontmatter.
 Create `docs/requests/` if it does not exist.
 
 Confirm:
 ```
-✅ Request Brief saved to docs/requests/YYYY-MM-DD-[slug].md
+✅ Brief saved and flagged for Jira submission: docs/requests/YYYY-MM-DD-[slug].md
+
+The receiving team or company integration will raise the Jira ticket.
+```
+
+### Option 2 — Save as Draft
+
+Save the brief to `docs/requests/YYYY-MM-DD-[slug].md` with `status: draft` in frontmatter.
+Create `docs/requests/` if it does not exist.
+
+Confirm:
+```
+✅ Request Brief saved as draft: docs/requests/YYYY-MM-DD-[slug].md
 
 Next steps for the receiving team:
 - Review the brief
 - Run /idea to explore feasibility
 - Run /grill-with-docs if architectural context is needed before committing
 ```
+
+### Option 3 — Discard
+
+Exit without writing to disk. Confirm: "Brief discarded."
 
 ---
 
@@ -158,6 +188,7 @@ Next steps for the receiving team:
 | Brief reveals a hard constraint (Do Not Attempt) | Surface prominently at the top of the brief: "⚠️ This request may conflict with a known constraint on [system]. The team will need to resolve this before proceeding." |
 | `docs/requests/` cannot be created | Output the brief inline and ask the user to save it manually |
 | Requestor provides metrics for only one of baseline or goal | Record what was provided, note the other as "not provided" — do not estimate or infer |
+| Requestor does not enter 1, 2, or 3 at Phase 5 | Re-present the options once with no additional explanation |
 
 ---
 
@@ -166,7 +197,8 @@ Next steps for the receiving team:
 - Use plain, non-technical language throughout — no Forge terminology, no jargon in requestor-facing output
 - Never pre-commit to a solution during the grill — this skill captures the request, not the answer
 - Never skip the system constraint check if a system is named
-- Never write the brief to disk without Phase 4 confirmation
+- Never write the brief to disk without a Phase 5 selection — Phase 4 approval alone is not enough
+- "cancel" in Phase 4 and "Discard" in Phase 5 are distinct exits: cancel means the brief is wrong; Discard means the requestor changed their mind after approving
 - Never invent or infer constraints — only surface what is documented in the knowledge base
 - All sections except Metrics are required — a brief missing a required section is incomplete
 - Write the brief in the requestor's voice — do not rewrite their answers in AI-formal language

@@ -5,6 +5,10 @@ Used by `/front-gate` Phase 3. Write the brief in the requestor's voice — plai
 ---
 
 ```markdown
+---
+status: draft | pending-jira
+---
+
 # Request Brief — [Brief one-line title]
 
 **Submitted:** YYYY-MM-DD
@@ -65,6 +69,7 @@ Used by `/front-gate` Phase 3. Write the brief in the requestor's voice — plai
 
 ## Rules
 
+- `status` in frontmatter is always one of `draft` or `pending-jira` — set from Phase 5 selection, never omit
 - Metrics section: omit the table entirely if "Not provided" — do not show an empty table
 - System Notes section: omit entirely if no systems were named
 - Write in the requestor's voice — do not rewrite into AI-formal language
