@@ -1,0 +1,102 @@
+---
+name: forge-update
+category: framework
+description: Pull the latest Forge framework from GitHub and install updated skills, commands, and framework files. Use when user runs /forge-update, wants to sync Forge to the latest version, or asks to update Forge skills.
+---
+
+# Forge Update
+
+Pull the latest Forge framework from `https://github.com/glensanders-gdev/Forge` and install
+updated skills, commands, and framework files. User data (instincts, knowledge, preferences,
+backlog) is always preserved.
+
+**Repo:** `https://github.com/glensanders-gdev/Forge`
+**Local clone:** `~/forge`
+
+## Process
+
+### 1 — Ensure local clone [AFK]
+
+Check `~/forge/.git` and `git -C ~/forge remote get-url origin`.
+
+- **Missing:** `git clone https://github.com/glensanders-gdev/Forge ~/forge`
+- **Wrong or missing remote:**
+  ```
+  ⚠️ ~/forge exists but is not the expected Forge repo.
+     Expected: https://github.com/glensanders-gdev/Forge
+     Check ~/forge and re-run /forge-update.
+  ```
+  Stop.
+- **Correct:** skip to step 2
+
+### 2 — Fetch latest [AFK]
+
+```bash
+git -C ~/forge pull
+```
+
+On failure: show full git error verbatim and stop:
+```
+❌ git pull failed. Check your network or run:
+   git -C ~/forge status
+```
+
+### 3 — Version check [AFK]
+
+```bash
+grep '"forge_version"' ~/.claude/skills/manifest.json | grep -o '[0-9.]*'
+grep '"forge_version"' ~/forge/global/.claude/skills/manifest.json | grep -o '[0-9.]*'
+```
+
+If `~/forge/global/.claude/skills/manifest.json` is missing:
+```
+❌ Cannot read incoming version — ~/forge/global/.claude/skills/manifest.json not found.
+   The repo structure may have changed.
+```
+Stop.
+
+If versions match:
+```
+✓ Already on v[X.Y.Z] — nothing to install.
+```
+Stop.
+
+### 4 — Confirm [HITL]
+
+Extract the new version's section from `~/forge/global/.claude/CHANGELOG.md` and display:
+
+```
+Current:  v[X.Y.Z]
+Latest:   v[X.Y.Z]
+
+What's new:
+[changelog section for new version]
+
+Skills and commands will be overwritten. Your data is preserved.
+Update now? (yes/no)
+```
+
+On `no`: exit without changes.
+
+### 5 — Install [AFK]
+
+```bash
+bash ~/forge/update.sh
+```
+
+On failure: show full stderr verbatim; do not retry silently.
+
+### 6 — Report [AFK]
+
+Show the version installed and backup path from `update.sh` output. Then append:
+
+```
+⚠️ Start a new Claude Code session to load the updated skills.
+```
+
+## Rules
+
+- Never run `update.sh` without confirmation from Step 4
+- Never skip the version check — always show current vs new before installing
+- Never modify the Forge remote or force-push
+- On `update.sh` failure: show full stderr verbatim; do not retry silently

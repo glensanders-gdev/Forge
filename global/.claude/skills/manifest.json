@@ -92,6 +92,8 @@
     "test-coverage": "1.0.0",
     "seo": "1.0.0",
     "caveman": "1.0.0",
-    "front-gate": "1.0.0"
+    "front-gate": "1.0.0",
+    "forge-init": "1.0.0",
+    "forge-update": "1.0.0"
   }
 }
