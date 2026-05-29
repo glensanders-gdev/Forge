@@ -4,7 +4,7 @@ category: framework
 description: Generate ~/.claude/CLAUDE.md and ~/.claude/AGENTS.md from a single source of truth. Writes the skill-loading instruction and standing instructions (hook replacements) for both Claude Code and Codex. Overlays company-specific instructions when active_company is set. Called automatically by /company-setup; also runnable standalone to regenerate after config changes or when switching tools.
 compatibility:
   claude_code: full
-  codex: full
+  codex: unsupported
 ---
 
 # Forge Init
@@ -22,10 +22,10 @@ Running this skill again overwrites both files silently — they are generated a
 
 ## Called By
 
-`/company-setup` runs this skill silently as part of its write phase — no user prompt. Users may also run `/forge-init` standalone at any time to regenerate after:
+`/company-add` runs this skill silently as its final write step — no user prompt. Users may also run `/forge-init` standalone at any time to regenerate after:
 - Company config changes (`config.md` updated)
 - New skills added to `~/.claude/skills/`
-- Switching between Claude Code and Codex
+- Forge upgrade (`/forge-update` suggests running this afterwards)
 
 ---
 

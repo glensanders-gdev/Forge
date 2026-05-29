@@ -143,6 +143,8 @@ Print the following reference exactly:
 | `/user:evolve` | Review High confidence instincts — PROMOTE to skill, DEFER, or RETIRE. Never auto-promotes. |
 | `/user:link-jira` | Link a Forge ID (IDEA-NNN or PROJ-NNN) to a Jira ticket, epic, or capability |
 | `/user:lookup` | Find any entity by ID — IDEA-NNN, PROJ-NNN, TC-NNN, SEC-NNN, PERF-NNN, INC-NNN — returns summary and file path |
+| `/user:forge-init` | Regenerate ~/.claude/CLAUDE.md and ~/.claude/AGENTS.md — run after config changes or Forge upgrade |
+| `/user:forge-update` | Pull the latest Forge from GitHub and install updated skills, commands, and framework files |
 | `/user:commands` | Show this reference |
 
 ---

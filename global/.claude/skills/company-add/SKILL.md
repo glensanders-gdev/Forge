@@ -791,6 +791,14 @@ Create the file if it doesn't exist.
 
 ---
 
+## Regenerate Global Instructions
+
+Run `/forge-init` silently (suppress its completion output — this skill produces its own).
+This regenerates `~/.claude/CLAUDE.md` and `~/.claude/AGENTS.md` with the new company
+config overlays applied.
+
+---
+
 ## Confirm
 
 ```

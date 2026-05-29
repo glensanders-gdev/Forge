@@ -1,7 +1,7 @@
 ---
 name: ingest
 category: knowledge
-description: Compile unprocessed Raw/ items into the Wiki. Handles three intake modes — files already in Raw/, uploaded files, and pasted text. Defaults to the current system context; use --all to process all systems. Use when user runs /ingest, drops files into Raw/, uploads a file in session, or pastes content to be added to the knowledge base.
+description: Compile unprocessed Raw/ items into the Wiki. Handles three intake modes — files already in Raw/, uploaded files, and pasted text. Prompts for scope via a numbered project list when no flag is given; use --all to process all Raw/ folders. Use when user runs /ingest, drops files into Raw/, uploads a file in session, or pastes content to be added to the knowledge base.
 ---
 
 # Ingest
@@ -17,6 +17,7 @@ modes save to `Raw/` first, then flow through the same pipeline.
 
 ### Mode 1 — Raw/ folder (default)
 Material already exists in `Raw/`. Run `/ingest` to process anything not yet in `_compiled.log`.
+Before processing: run the scope prompt (see Scope section) to determine which `Raw/` folder to scan.
 
 ### Mode 2 — File upload
 User uploads a file during the session. Before processing:

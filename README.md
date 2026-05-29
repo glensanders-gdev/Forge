@@ -20,7 +20,7 @@ Each stage produces an artifact that feeds the next. The AI agent orients itself
 
 ## What's Included
 
-**92 skills** covering the full software delivery lifecycle:
+**94 skills** covering the full software delivery lifecycle:
 
 | Category | Skills |
 |----------|--------|
@@ -35,7 +35,7 @@ Each stage produces an artifact that feeds the next. The AI agent orients itself
 | Sprint Management | `/sprint-start`, `/sprint-end`, `/pir` |
 | Maintenance | `/feature-flag`, `/tech-debt`, `/dependency-update` |
 | Company Config | `/company-add`, `/company-git`, `/company-sync`, `/company-update`, `/tool-add`, `/tool-check`, `/jira` |
-| Framework | `/write-a-skill`, `/assimilate`, `/learn`, `/evolve`, `/link-jira`, `/commands`, `/skill-health` |
+| Framework | `/write-a-skill`, `/assimilate`, `/learn`, `/evolve`, `/link-jira`, `/commands`, `/skill-health`, `/forge-init`, `/forge-update` |
 
 ---
 
