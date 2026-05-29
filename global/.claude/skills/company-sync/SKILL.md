@@ -1,5 +1,6 @@
 ---
 name: company-sync
+category: company
 description: Sync the local company knowledge directory with the team GitHub remote. Pull latest changes then push local changes. Supports --pull-only and --push-only flags. Use when user runs /company-sync, after /ingest to share new wiki articles, or at the start of a session to get latest team knowledge.
 ---
 

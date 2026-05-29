@@ -1,5 +1,6 @@
 ---
 name: pir
+category: sprint
 description: Post Implementation Review. Assesses whether delivered features actually achieved their stated goals. Runs at project level (all features for PROJ-NNN) or PI level (all features across a PI). Reads archived PRDs for stated goals, collects human outcome observations, surfaces gaps for human decision, and writes a private PIR document to the company directory. Use when user runs /pir [PROJ-NNN | PI-N].
 ---
 

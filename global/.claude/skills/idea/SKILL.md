@@ -1,5 +1,6 @@
 ---
 name: idea
+category: ideation
 description: Capture and stress-test a new idea through structured grilling — problem statement, baseline measurements, destination targets, journey, impact vs effort, and assumptions. Produces idea.md and living Mermaid diagrams. Use when user runs /idea, pitches an idea formally, or uses informal idea language like "I've been thinking about..." or "what if we...".
 ---
 

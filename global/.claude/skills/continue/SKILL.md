@@ -1,5 +1,6 @@
 ---
 name: continue
+category: session
 description: Resume a session exactly where it left off. Reads docs/HANDOFF.md as the primary source, loads referenced artifacts, and presents the exact next action. Use when user runs /continue or wants to resume interrupted work without re-reading the conversation. For daily planning orientation use /standup instead.
 ---
 

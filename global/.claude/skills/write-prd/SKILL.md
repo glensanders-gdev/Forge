@@ -1,5 +1,6 @@
 ---
 name: write-prd
+category: pipeline
 version: 2.0.0
 description: Synthesize the current conversation, grill session, research, and prototype findings into a structured PRD. Executes in two phases — AFK explore then HITL write — with a confirmation gate between them. Use when user runs /write-prd or when grill-me confirms shared understanding is reached.
 ---

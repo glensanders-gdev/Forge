@@ -1,5 +1,6 @@
 ---
 name: feature-flag
+category: maintenance
 description: Track feature flags from creation to planned removal. Register flags, monitor for overdue removal dates, and create kanban tickets for cleanup. /standup surfaces overdue flags. Per-project register at docs/feature-flags.md. Use when user runs /feature-flag, a new flag is added to the codebase, or /standup surfaces overdue flags.
 ---
 

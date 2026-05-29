@@ -1,5 +1,6 @@
 ---
 name: save-state
+category: session
 description: Save current session state immediately — HANDOFF.md first, kanban.md second, DEVLOG entry last. Use when user runs /save-state, wants to pause cleanly, or context window exhaustion is imminent. Fast, predictable, no ceremony.
 ---
 

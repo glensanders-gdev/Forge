@@ -1,5 +1,6 @@
 ---
 name: fy-review
+category: metrics
 description: Generate a financial year or mid-year review. Aggregates ideas submitted, projects delivered, incidents, token spend, value observed, and discovered metrics across all Forge data for the period. Produces a manager-facing summary and an internal team retrospective. Year-over-year comparison when prior data exists. Use when user runs /fy-review at mid-year or FY end.
 ---
 

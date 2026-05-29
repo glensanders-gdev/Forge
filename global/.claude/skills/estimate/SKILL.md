@@ -1,5 +1,6 @@
 ---
 name: estimate
+category: pipeline
 description: Estimate AI token cost and development complexity for a feature, module, or ticket. Produces token cost bands (S/M/L/XL) and story points (1/2/3/5/8/13). AI suggests all estimates as a table, human confirms in aggregate. Use when user runs /estimate, scope has changed, or a planning document needs estimates updated.
 ---
 

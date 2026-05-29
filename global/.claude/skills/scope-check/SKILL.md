@@ -1,5 +1,6 @@
 ---
 name: scope-check
+category: session
 description: Mid-session gut check that compares current progress against agreed goals and flags scope creep. Use when user runs /scope-check, the session feels like it's drifting, or more than 3 tickets have been added since the session started.
 ---
 

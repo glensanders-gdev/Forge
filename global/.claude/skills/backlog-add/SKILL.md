@@ -1,5 +1,6 @@
 ---
 name: backlog-add
+category: session
 description: Add a well-defined item to the global or a project backlog. Grills the item lightly before adding — what it is, why it matters, priority. Suggests /idea or /write-prd if the item appears feature-sized. Use when user runs /backlog-add or wants to capture something for later.
 ---
 

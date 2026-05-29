@@ -1,5 +1,6 @@
 ---
 name: seo
+category: code-quality
 description: SEO audit and remediation planning — technical SEO (crawlability, canonical, redirects), on-page (titles, meta, headings), structured data (JSON-LD), Core Web Vitals, and content quality. Reads source files directly, ranks findings by severity, confirms remediation scope, writes a dated report, and optionally creates kanban tickets. Use when user runs /seo, before a major release, or when SEO regressions are suspected.
 origin: Adapted from Affaan Mustafa (ECC / github.com/affaan-m/ECC)
 ---

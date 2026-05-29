@@ -1,5 +1,6 @@
 ---
 name: commands
+category: framework
 description: Display all available Forge commands with a short description of what each does. Use when user runs /commands, wants to see available commands, or asks what skills are available.
 ---
 

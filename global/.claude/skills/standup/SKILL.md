@@ -1,5 +1,6 @@
 ---
 name: standup
+category: session
 description: Summarise the last session, state today's goals, and surface any blockers. Use when user wants a session summary, runs /standup, or wants to orient themselves at the start of a working session.
 ---
 

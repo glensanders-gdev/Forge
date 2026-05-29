@@ -1,5 +1,6 @@
 ---
 name: debrief
+category: session
 description: Thorough session close — updates HANDOFF.md, kanban, DEVLOG, and reorders the backlog. Use at the end of any partial session to save state completely. For passing work to another agent or person without the full close overhead, use /handoff instead — it compacts the session and suggests next skills.
 ---
 

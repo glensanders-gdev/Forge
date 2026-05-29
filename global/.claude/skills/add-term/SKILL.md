@@ -1,5 +1,6 @@
 ---
 name: add-term
+category: knowledge
 version: 1.0.0
 description: Add a new term to the company-level glossary. Acronyms go to ~/.claude/knowledge/company/acronyms.md. Domain concepts go to ~/.claude/knowledge/company/context.md. Lightweight — captures term + definition + avoid aliases immediately, flags for enrichment later. Use when a new company or domain term is coined or discovered during any session.
 ---

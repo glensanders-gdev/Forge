@@ -1,5 +1,6 @@
 ---
 name: rollback
+category: pi-release
 description: Roll back the current project to the last known good version or a specified version tag. No Go/No Go gate — emergency recovery action. Requires explicit ROLLBACK [version] confirmation and a mandatory reason. Use when user runs /rollback, a deployment has failed, or production needs immediate recovery.
 ---
 

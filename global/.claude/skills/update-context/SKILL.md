@@ -1,5 +1,6 @@
 ---
 name: update-context
+category: knowledge
 description: Review the current session and flush new terms, decisions, and system behaviour into CONTEXT.md and relevant knowledge files. Use when user runs /update-context, terminology has shifted during a session, or new domain concepts have emerged.
 ---
 

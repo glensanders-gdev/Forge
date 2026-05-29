@@ -1,5 +1,6 @@
 ---
 name: pi-end
+category: pi-release
 description: Formally close a Product Iteration. Summarises what was delivered, what carried forward, lessons learned, and archives the PI plan. Produces a stakeholder-facing delivery summary. Use when user runs /pi-end or a PI period is closing.
 ---
 

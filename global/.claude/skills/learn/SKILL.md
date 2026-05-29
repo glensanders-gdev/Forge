@@ -1,5 +1,6 @@
 ---
 name: learn
+category: framework
 version: 1.0.0
 description: Capture a pattern observed during a session as a Forge instinct. Accepts an optional inline description. Checks for duplicates and increments observation count if a match exists. Use when a recurring pattern, failure mode, or useful heuristic is noticed during any session phase.
 argument-hint: What pattern was observed? (optional — will ask if not provided)

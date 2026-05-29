@@ -1,5 +1,6 @@
 ---
 name: company-update
+category: company
 version: 1.0.0
 description: Update an existing company Forge install — re-run grilling topics to reconfigure operational settings, or refresh bundled skills from the global install. Use when company config needs updating after /company-add, or after a Forge upgrade to push new skill versions to the company repo.
 argument-hint: --reconfigure | --update-skills | --all

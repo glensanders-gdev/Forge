@@ -1,5 +1,6 @@
 ---
 name: changelog
+category: pi-release
 description: Generate release notes from completed kanban tickets, DEVLOG entries, ADRs, and git log. Produces a user-facing release summary and a technical CHANGELOG.md entry. Natural trigger between /go-nogo approval and /deploy. Use when user runs /changelog or before deploying a release.
 ---
 

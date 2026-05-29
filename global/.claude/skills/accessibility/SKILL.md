@@ -1,5 +1,6 @@
 ---
 name: accessibility
+category: code-quality
 version: 1.0.0
 description: Design, implement, and audit inclusive digital products using WCAG 2.2 Level AA standards. Generates semantic ARIA for Web and accessibility attributes for native platforms (iOS/Android). Use when building or reviewing any user-facing interface, running an accessibility audit, or when /qa-plan flags accessibility as a concern.
 origin: Adapted from ECC (github.com/affaan-m/ECC) by Affaan Mustafa

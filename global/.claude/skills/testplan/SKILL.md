@@ -1,5 +1,6 @@
 ---
 name: testplan
+category: pipeline
 description: Design the testing strategy for a feature — what to test, at what level, automated vs manual, and which behaviours are critical. Produces a testplan.md that feeds into /tdd and /qa-plan. Use when user runs /testplan, a PRD is written, or before implementation begins.
 ---
 

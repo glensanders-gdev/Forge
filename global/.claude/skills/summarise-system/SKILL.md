@@ -1,5 +1,6 @@
 ---
 name: summarise-system
+category: knowledge
 description: Generate a first-draft overview.md for a system from provided documentation, codebase exploration, or description. Use when user runs /summarise-system, is onboarding a new system into the knowledge base, or has documentation to process into structured knowledge.
 ---
 

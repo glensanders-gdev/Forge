@@ -1,5 +1,6 @@
 ---
 name: handoff
+category: session
 version: 1.0.0
 description: Compact the current session into a structured handoff document so the next session can continue without re-reading the conversation. Writes to docs/HANDOFF.md. References artifacts by path rather than reproducing content. Suggests skills for the next session. Use /handoff for any planned pause — same-day resume, passing to another agent, or handing to a colleague. Use /debrief for a thorough end-of-day close that updates kanban, DEVLOG, and backlog.
 argument-hint: What will the next session focus on?

@@ -1,5 +1,6 @@
 ---
 name: onboard
+category: ideation
 description: Bootstrap Forge onto an existing project that was not started with Forge. Explores the codebase, generates CONTEXT.md, DEVLOG.md, kanban.md, and other Forge documents from what already exists. Use when user runs /onboard or wants to adopt Forge on an in-flight project.
 ---
 
