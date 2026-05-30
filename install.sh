@@ -85,6 +85,15 @@ cp -r "$GLOBAL_SRC/.claude/." "$CLAUDE_DIR/"
 echo -e "${GREEN}✓  Skills installed: $(ls "$CLAUDE_DIR/skills" | grep -v manifest | wc -l | tr -d ' ') skills${NC}"
 echo -e "${GREEN}✓  Commands installed: $(ls "$CLAUDE_DIR/commands" | wc -l | tr -d ' ') commands${NC}"
 
+# ── version stamp ─────────────────────────────────────────────────────────────
+INSTALL_COMMIT=$(git -C "$FORGE_DIR" rev-parse --short HEAD 2>/dev/null || echo "unknown")
+cat > "$CLAUDE_DIR/forge-version" << EOF
+version: ${FORGE_VERSION}
+installed: $(date +%Y-%m-%d)
+commit: ${INSTALL_COMMIT}
+EOF
+echo -e "${GREEN}✓  Version stamp: v${FORGE_VERSION} (commit ${INSTALL_COMMIT})${NC}"
+
 # ── project template ─────────────────────────────────────────────────────────
 echo ""
 echo "Project template available at: $(pwd)/project-template"

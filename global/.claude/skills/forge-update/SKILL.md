@@ -31,6 +31,19 @@ Check `~/forge/.git` and `git -C ~/forge remote get-url origin`.
 
 ### 2 — Fetch latest [AFK]
 
+Check how stale the local clone is before pulling:
+
+```bash
+git -C ~/forge log -1 --format="%ci"
+```
+
+If the last local commit is more than 30 days old, note it:
+```
+ℹ️ Local clone last updated [N] days ago — pulling now.
+```
+
+Then pull:
+
 ```bash
 git -C ~/forge pull
 ```
@@ -60,6 +73,19 @@ If versions match:
 ✓ Already on v[X.Y.Z] — nothing to install.
 ```
 Stop.
+
+If versions differ, verify the incoming version is tagged:
+
+```bash
+git -C ~/forge describe --tags --exact-match 2>/dev/null || echo "untagged"
+```
+
+- Tag matches `v[incoming_version]` — continue silently.
+- Result is `untagged` — note it:
+  ```
+  ⚠️ Incoming version v[X.Y.Z] has no git tag — this may be a pre-release or work in progress.
+  ```
+  Continue to Step 4 regardless — do not block the update.
 
 ### 4 — Confirm [HITL]
 

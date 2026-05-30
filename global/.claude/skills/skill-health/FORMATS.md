@@ -76,6 +76,13 @@ Output inline and save to `~/.claude/knowledge/skill-health-report.md`:
 | Skill | SKILL.md | Manifest | Action |
 |-------|----------|----------|--------|
 
+### Forge installation
+| Item | Value | Status |
+|------|-------|--------|
+| Version | v[N.N.N] | ✅ stamp present / ℹ️ stamp missing |
+| Installed | YYYY-MM-DD | ✅ recent / ⚠️ [N] days ago — run /forge-update |
+| Commit | [sha] | |
+
 ---
 
 ## ✅ Healthy
