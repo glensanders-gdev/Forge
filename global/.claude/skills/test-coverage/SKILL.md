@@ -1,5 +1,6 @@
 ---
 name: test-coverage
+category: pipeline
 description: Analyze test coverage gaps in an existing codebase, identify under-covered files and functions, then generate missing tests to reach the project coverage threshold (default 80%). Reactive complement to /tdd (which writes tests first for new code). Use when user runs /test-coverage, coverage is below threshold before a release, or /go-nogo flags a coverage gap.
 origin: Adapted from Affaan Mustafa (ECC / github.com/affaan-m/ECC)
 ---

@@ -11,6 +11,24 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
+## v3.5.0 — 2026-05-29
+
+**New skills: /forge-init, /forge-update + /ingest scope prompt + /context-health Intent Layer + category fields**
+
+### Added
+- `/forge-init` v1.0.0 — generates `~/.claude/CLAUDE.md` and `~/.claude/AGENTS.md` from a single source of truth. Writes skill-loading instruction and standing instructions (git safety, push confirmation, HITL gates, context limit) for Claude Code. Overlays company config (ai_human_signoff_required, ai_data_restrictions, ai_monthly_spend_cap_usd) when `active_company` is set. Called automatically by `/company-add` as its final write step; runnable standalone after config changes or Forge upgrades. `compatibility: codex: unsupported` (writes to `~/.claude/` which is Claude Code's directory).
+- `/forge-update` v1.0.0 — self-update skill for Forge. Ensures `~/forge` clone exists, pulls latest, version-checks current vs incoming, surfaces the CHANGELOG section for the new version, confirms before running `update.sh`. Warns to start a new session after install.
+
+### Changed
+- `/company-add` v1.3.0 — runs `/forge-init` silently as its final write step, regenerating `~/.claude/CLAUDE.md` with company config overlays applied immediately after setup
+- `/ingest` v1.2.0 — structured scope prompt replaces open-ended "which Raw/ folder?" question for all three modes. Reads active projects from `registry.md`, presents a numbered list, pre-highlights any project matching the current working directory, falls back silently to global when no projects registered. Frontmatter description corrected to reflect actual scope behaviour.
+- `/context-health` v1.1.0 — Intent Layer child node recommendations added (adapted from Railly Hugo / Crafter Station, Tyler Brandt's Intent Layer framework). Phase 1 now scans first-level source directories (`src/`, `app/`, `lib/`, `packages/`, `services/`, `api/`, `components/`), flags subdirectories exceeding 20k tokens without an `AGENTS.md`, and adds a Child Node Recommendations section to the report with an inline `AGENTS.md` template. 3 new failure modes, 4 new rules.
+
+### Housekeeping
+- `category:` frontmatter field added to all 94 skill `SKILL.md` files — aligns with the README skill table groupings: `pipeline`, `ideation`, `session`, `code-quality`, `knowledge`, `metrics`, `pi-release`, `sprint`, `maintenance`, `company`, `framework`
+
+---
+
 ## v3.4.0 — 2026-05-28
 
 **Front-gate Phase 5 decision gate + sequence diagram documentation + install.sh auto-pull**

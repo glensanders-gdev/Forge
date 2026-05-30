@@ -1,5 +1,6 @@
 ---
 name: create-project
+category: ideation
 description: Progress an accepted idea into a new project repository. Derives repo name, scaffolds Forge template, generates README, creates local and remote git repo, and prompts for grill-me, priority ranking, and sprint/PI planning. Use when user runs /create-project or an idea is accepted via /idea.
 ---
 

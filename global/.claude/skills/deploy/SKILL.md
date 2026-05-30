@@ -1,5 +1,6 @@
 ---
 name: deploy
+category: pi-release
 description: Deploy the current project to staging and/or production. Requires a confirmed Go/No Go. Executes deployment scripts directly if available, runbook fallback if not. Supports version tag override for rollback. Use when user runs /deploy or /deploy [version-tag].
 ---
 

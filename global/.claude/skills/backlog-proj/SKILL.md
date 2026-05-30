@@ -1,5 +1,6 @@
 ---
 name: backlog-proj
+category: session
 description: Display the backlog for a specific project, grouped by priority. Prompts the user to select from known active projects. Use when user runs /backlog-proj or wants to see unstarted work for a specific project.
 ---
 

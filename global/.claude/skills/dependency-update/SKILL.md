@@ -1,5 +1,6 @@
 ---
 name: dependency-update
+category: maintenance
 description: Update project dependencies safely. --safe (default) handles patch and minor updates; --all includes major version bumps with per-package confirmation showing breaking changes. Runs tests after updating and stages changes for developer review — never auto-commits. Use when user runs /dependency-update or /security-assessment flags vulnerable dependencies.
 ---
 

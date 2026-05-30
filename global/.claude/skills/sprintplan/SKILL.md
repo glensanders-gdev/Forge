@@ -1,5 +1,6 @@
 ---
 name: sprintplan
+category: pi-release
 description: Display a timeline table of sprints, tickets, deployment dates, buffer windows, and Go/No Go gates for the current PI. Produces per-project and consolidated views. Use when user runs /sprintplan or wants to see the development timeline.
 ---
 

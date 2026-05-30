@@ -1,5 +1,6 @@
 ---
 name: backlog-list
+category: session
 description: Display the global Forge backlog grouped by priority. Use when user runs /backlog-list, wants to see pending framework items, discussion topics, or cross-project concerns.
 ---
 

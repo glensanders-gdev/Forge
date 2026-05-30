@@ -1,5 +1,6 @@
 ---
 name: write-a-skill
+category: framework
 description: Create new Forge skills with proper structure, correct file locations, and updated manifest. Use when user wants to create, write, or add a new skill to Forge, or mentions /write-a-skill.
 ---
 
@@ -43,6 +44,7 @@ Create a new skill for Forge following the standard structure. Skills live in `~
 ```markdown
 ---
 name: skill-name
+category: [pipeline|ideation|session|code-quality|knowledge|metrics|pi-release|sprint|maintenance|company|framework]
 description: What this skill does. Use when [specific triggers].
 ---
 
@@ -117,6 +119,7 @@ Split into separate files when:
 
 Before finalising, verify:
 - [ ] Read `~/.claude/PRINCIPLES.md` — does this skill follow the 8 design principles?
+- [ ] `category:` field set — valid values: `pipeline`, `ideation`, `session`, `code-quality`, `knowledge`, `metrics`, `pi-release`, `sprint`, `maintenance`, `company`, `framework`
 - [ ] Description includes "Use when [triggers]"
 - [ ] **If adapting from an external source** — use `/user:assimilate` instead. It handles attribution, fit evaluation, and adaptation automatically.
 - [ ] `SKILL.md` is under 100 lines — dense reference tables, stub templates, and rarely-needed config extracted to `REFERENCE.md` or additional named files

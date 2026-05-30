@@ -1,5 +1,6 @@
 ---
 name: push-standards
+category: code-quality
 description: Extract coding patterns from the current codebase and append them to .claude/CODING-STANDARDS.md under a Project-Specific Patterns section. Use when user runs /push-standards, patterns have emerged that should be enforced, or after /approve when new conventions were established.
 ---
 

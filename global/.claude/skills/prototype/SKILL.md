@@ -1,5 +1,6 @@
 ---
 name: prototype
+category: pipeline
 version: 1.0.0
 description: Hash out ideas in code to get early feedback before committing to a full implementation. Use when design is uncertain and early code validation would reduce risk before writing the PRD.
 ---

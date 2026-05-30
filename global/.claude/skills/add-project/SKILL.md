@@ -1,5 +1,6 @@
 ---
 name: add-project
+category: knowledge
 description: Scaffold a new project knowledge folder with Raw/Wiki/Outputs tiers and stub files inside ~/.claude/knowledge/projects/. Use when user wants to add a project to the knowledge base, runs /add-project, or starts a new project that needs a knowledge presence alongside its docs/ directory.
 ---
 

@@ -1,6 +1,7 @@
 ---
 name: ingest
-description: Compile unprocessed Raw/ items into the Wiki. Handles three intake modes — files already in Raw/, uploaded files, and pasted text. Defaults to the current system context; use --all to process all systems. Use when user runs /ingest, drops files into Raw/, uploads a file in session, or pastes content to be added to the knowledge base.
+category: knowledge
+description: Compile unprocessed Raw/ items into the Wiki. Handles three intake modes — files already in Raw/, uploaded files, and pasted text. Prompts for scope via a numbered project list when no flag is given; use --all to process all Raw/ folders. Use when user runs /ingest, drops files into Raw/, uploads a file in session, or pastes content to be added to the knowledge base.
 ---
 
 # Ingest
@@ -16,19 +17,21 @@ modes save to `Raw/` first, then flow through the same pipeline.
 
 ### Mode 1 — Raw/ folder (default)
 Material already exists in `Raw/`. Run `/ingest` to process anything not yet in `_compiled.log`.
+Before processing: run the scope prompt (see Scope section) to determine which `Raw/` folder to scan.
 
 ### Mode 2 — File upload
 User uploads a file during the session. Before processing:
-1. Determine the correct `Raw/` target (current system or global)
+1. Run the scope prompt (see Scope section) to determine the `Raw/` target
 2. Generate a filename using the naming convention: `YYYY-MM-DD_[source-slug].[ext]`
 3. Save the file to `Raw/`
 4. Proceed with the standard pipeline
 
 ### Mode 3 — Chat paste
 User pastes text content into the session. Before processing:
-1. Ask for a source name to use in the slug (e.g. "karpathy blog post")
-2. Save content as `YYYY-MM-DD_[source-slug].md` in the correct `Raw/`
-3. Proceed with the standard pipeline
+1. Run the scope prompt (see Scope section) to determine the `Raw/` target
+2. Ask for a source name to use in the slug (e.g. "karpathy blog post")
+3. Save content as `YYYY-MM-DD_[source-slug].md` in the correct `Raw/`
+4. Proceed with the standard pipeline
 
 ---
 
@@ -36,15 +39,35 @@ User pastes text content into the session. Before processing:
 
 | Invocation | Scope |
 |---|---|
-| `/ingest` | Ask user — no default (see below) |
+| `/ingest` | Run scope prompt (see below) |
 | `/ingest --all` | All `Raw/` folders across global, all systems, and all projects |
 | `/ingest [system-name]` | Named system only |
 | `/ingest projects/[name]` | Named project only |
 | `/ingest --global` | Global `knowledge/Raw/` only |
 
-If no flag or name is provided, there is no default scope — ask the user:
-> "Which Raw/ folder should I ingest? Options: --global, --all, or a system/project name."
-Do not guess based on session context.
+### Scope Prompt (no flag or name provided)
+
+When no scope is specified, run the following before doing anything else:
+
+1. Read `~/.claude/registry.md` — collect all active projects (PROJ-NNN rows with status Active).
+2. **No projects found:** default silently to global and show:
+   ```
+   ℹ️ No projects registered — ingesting to global Raw/.
+   ```
+   Proceed without asking.
+3. **Projects found:** present a numbered list. Pre-select (mark with `*`) any project whose
+   path matches the current working directory.
+   ```
+   Where should this be ingested?
+
+     0. Global   → ~/.claude/knowledge/Raw/
+     1. PROJ-001 My Project → ~/.claude/knowledge/projects/my-project/Raw/
+     2. PROJ-002 Another Project → ~/.claude/knowledge/projects/another-project/Raw/
+
+   Enter a number:
+   ```
+   Wait for the user's response before proceeding. Resolve the chosen path and use it as
+   the `Raw/` target for the rest of the session.
 
 ---
 

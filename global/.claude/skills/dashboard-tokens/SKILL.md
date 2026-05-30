@@ -1,5 +1,6 @@
 ---
 name: dashboard-tokens
+category: metrics
 description: Generate a comprehensive project health dashboard as a static HTML file with Chart.js visualisations. Five sections — Token & Cost, Quality, Pipeline & Velocity, Knowledge Base, Health. Exports to email-friendly HTML summary and CSV. Use when user runs /dashboard-tokens, or called automatically at the end of /context-health.
 ---
 

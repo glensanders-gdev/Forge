@@ -1,5 +1,6 @@
 ---
 name: build
+category: pipeline
 description: Execute the current sprint's AFK tickets in sequence, running /tdd for each. Pauses at HITL tickets and blockers with clear prompts. Updates kanban in real time. Resumable across sessions. Use when user runs /build or is ready to begin implementation work on the current sprint.
 ---
 

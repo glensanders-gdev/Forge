@@ -1,5 +1,6 @@
 ---
 name: tech-debt
+category: maintenance
 description: Track and manage technical debt in the current project. Add entries with priority and location, list by priority, and resolve items when addressed. /sprint-start surfaces High items as candidates. Per-project register at docs/tech-debt.md. Use when user runs /tech-debt, identifies debt during a session, or /sprint-start surfaces High items for the sprint.
 ---
 

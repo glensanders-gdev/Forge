@@ -1,5 +1,6 @@
 ---
 name: jira
+category: company
 description: Interact with Jira tickets — fetch and analyse, post comments, transition status, or run JQL searches. Run /jira setup on first use. Requires Jira MCP server or JIRA_URL/JIRA_EMAIL/JIRA_API_TOKEN env vars.
 origin: Adapted from Affaan Mustafa (ECC / github.com/affaan-m/ECC)
 ---

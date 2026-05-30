@@ -1,5 +1,6 @@
 ---
 name: lang-rules
+category: code-quality
 description: Install and activate language-specific coding rule sets for the current project. Detects project languages, checks ~/.claude/rules/<lang>/ for available rule sets, copies them into .claude/rules/, and writes an active.md activation file so /review, /build, and /push-standards know which baselines apply. Use when starting a project, running /onboard, or when /push-standards should reference a language baseline rather than starting from scratch.
 origin: Adapted from Affaan Mustafa (ECC / github.com/affaan-m/ECC)
 ---

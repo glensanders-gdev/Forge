@@ -1,5 +1,6 @@
 ---
 name: update-readme
+category: code-quality
 description: Review the current README.md against the active PRD, DEVLOG, and codebase, then propose updates for new features, changed behaviour, or version history. Advisory only until confirmed. Use when user runs /update-readme, a feature is approved, or README appears out of date.
 ---
 

@@ -1,5 +1,6 @@
 ---
 name: performance-review
+category: code-quality
 description: Structured performance audit of project code. AI-led static analysis and architectural review, layered with optional tool invocation (Lighthouse, webpack-bundle-analyzer, language profilers). Writes a gitignored report to docs/performance/. Findings use PERF-YYYYMMDD-NNN IDs and can be promoted to kanban tickets. Use when user runs /performance-review or before a major release.
 ---
 

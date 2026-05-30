@@ -1,5 +1,6 @@
 ---
 name: lookup
+category: framework
 description: Find any entity by ID — IDEA-NNN, PROJ-NNN, TC-NNN, SEC-YYYYMMDD-NNN, PERF-YYYYMMDD-NNN, or INC-NNN. Returns a summary of the entity, its current status, cross-references, and file path. Use when user runs /lookup [ID] or wants to find something by its ID.
 ---
 

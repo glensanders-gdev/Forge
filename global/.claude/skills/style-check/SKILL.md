@@ -1,5 +1,6 @@
 ---
 name: style-check
+category: knowledge
 description: Review any deliverable against the company style guide in ~/.claude/knowledge/company/style-guide.md. Produces a findings report with CRITICAL, HIGH, and LOW severity levels. Use when user runs /style-check, before sharing any document externally, or when /write-article or /write-prd flags a style review is recommended.
 ---
 

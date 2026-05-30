@@ -1,5 +1,6 @@
 ---
 name: sprint-end
+category: sprint
 description: Close the current sprint for this project. Can run in two modes — AFK (draft from kanban data, save for human review) or HITL (human confirms carry-over, fills retro, finalises). Use when user runs /sprint-end, or as an AFK kanban ticket at sprint close.
 ---
 

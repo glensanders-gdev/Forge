@@ -1,5 +1,6 @@
 ---
 name: link-jira
+category: framework
 description: Link a Forge ID (IDEA-NNN or PROJ-NNN) to a Jira ID (ticket, epic, or capability). Writes the mapping to the source file and updates registry.md. Keeps a full history of superseded IDs. Use when user runs /link-jira, raises a Jira ticket from an idea, or promotes a project to a Jira Epic or Capability.
 ---
 

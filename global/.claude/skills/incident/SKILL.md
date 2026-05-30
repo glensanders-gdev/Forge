@@ -1,5 +1,6 @@
 ---
 name: incident
+category: pi-release
 description: Manage the full lifecycle of a production incident — declare, investigate, resolve, and write a post-mortem. Coordinates /diagnose and /rollback as sub-steps. Records at ~/.claude/companies/[active_company]/incidents/INC-NNN/. Drafts stakeholder communications at each stage. Use when user runs /incident, a production issue is detected, or /rollback is triggered without a prior incident.
 ---
 

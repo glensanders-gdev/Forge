@@ -1,5 +1,6 @@
 ---
 name: security-assessment
+category: code-quality
 description: Structured security audit of project code. AI-led threat modelling and OWASP Top 10 review, layered with optional external tool invocation (semgrep, npm audit, bandit, trivy). Writes a gitignored report to docs/security/. Critical and High findings can be promoted to kanban tickets as SEC-NNN references. Use when user runs /security-assessment, before a major release, or when /go-nogo flags the last assessment is overdue.
 ---
 

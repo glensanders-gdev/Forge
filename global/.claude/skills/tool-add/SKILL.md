@@ -1,5 +1,6 @@
 ---
 name: tool-add
+category: company
 description: Register a new tool in the Forge tools registry — global or company-specific. Grills on name, category, check-command, install-hint, description, usage, and anti-patterns. Use when user runs /tool-add or /tool-add --company [name].
 ---
 

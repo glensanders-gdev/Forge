@@ -1,5 +1,6 @@
 ---
 name: git-guardrails
+category: code-quality
 description: Set up a PreToolUse hook that hard-blocks dangerous git commands (push, reset --hard, clean -f, branch -D, checkout ., restore .) before Claude can execute them. Complements git-safety.md (AI soft rules) with OS-level enforcement. Use when user wants to prevent Claude from running destructive git operations even if the AI ignores its own rules.
 origin: Adapted from Matt Pocock (AIHero.dev / github.com/mattpocock/skills)
 ---

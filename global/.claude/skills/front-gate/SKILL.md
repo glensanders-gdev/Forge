@@ -1,5 +1,6 @@
 ---
 name: front-gate
+category: ideation
 description: Structured intake for non-technical users submitting an idea or request for team consideration. Interprets the idea in plain language, checks relevant system knowledge and contractual obligations, then grills the requestor one question at a time to produce a complete Request Brief. Output covers problem statement, objective, metrics (optional), team ask, risk of inaction, negative impacts, and brief summary. Use when a stakeholder or non-technical user wants to formally submit an idea or request, or runs /front-gate.
 ---
 

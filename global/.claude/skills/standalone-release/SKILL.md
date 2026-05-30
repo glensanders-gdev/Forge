@@ -1,5 +1,6 @@
 ---
 name: standalone-release
+category: pi-release
 description: Prepare and execute a standalone release for urgent config changes or small fixes that cannot wait for the next monthly release. Lighter gate than monthly releases but still HITL. Use when user runs /standalone-release or a change needs to deploy outside the monthly cycle.
 ---
 
