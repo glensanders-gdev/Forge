@@ -86,7 +86,24 @@ bash ~/forge/update.sh
 
 On failure: show full stderr verbatim; do not retry silently.
 
-### 6 — Report [AFK]
+### 6 — Reconcile README [AFK]
+
+After installation, verify `README.md` in `~/forge` is consistent with the newly installed
+`~/forge/global/.claude/skills/manifest.json`:
+
+1. Count all skills in `manifest.json` (total keys under `"skills"`)
+2. Extract the skill count stated in `README.md` (search for the "**N skills**" line in "What's Included")
+3. If counts differ, update the count in `README.md`
+4. Check the file structure section of `README.md` for any inline counts (e.g. "92 global skills", "92 slash commands") — update these to match
+5. If any changes were made, report them:
+   ```
+   README.md reconciled:
+   - Skill count updated: 94 → 96
+   - Inline counts updated in file structure section
+   ```
+   If README was already current: note "README.md skill count is current." and continue.
+
+### 7 — Report [AFK]
 
 Show the version installed and backup path from `update.sh` output. Then append:
 
