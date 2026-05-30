@@ -29,6 +29,7 @@ Generate a concise standup summary from the project's living documents. No input
    - Run `/feature-flag check` — surface any flags past their removal date
    - If within `freeze_warning_days_ahead` of a freeze period → flag it
    - If today is a likely public holiday for any configured team locale → note it
+   - Read `~/.claude/forge-version`. If `installed:` date is more than 30 days ago → flag with version and age. If file is missing, skip silently.
 8. Produce the standup report.
 9. Ask: "Are these the right goals for today, or do you want to adjust?"
 
@@ -44,6 +45,7 @@ Generate a concise standup summary from the project's living documents. No input
 - 🚩 Overdue feature flags: [FF-NNN flag-name (N days overdue), ...]
 - ❄️ Freeze period approaching: [reason] — [window] ([N days away])
 - 🗓️ Public holiday check: [locale] — verify team availability for [date]
+- 🔧 Forge v[version] installed [N] days ago — run /forge-update to check for newer skills
 
 ### Yesterday
 [What was completed or progressed in the last session — from DEVLOG]

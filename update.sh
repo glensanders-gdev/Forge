@@ -54,6 +54,15 @@ fi
 echo ""
 echo -e "${GREEN}✓  Forge updated to v${NEW_VERSION}${NC}"
 echo -e "${GREEN}✓  Previous skills backed up to $BACKUP${NC}"
+
+# Write version stamp
+INSTALL_COMMIT=$(git -C "$FORGE_DIR" rev-parse --short HEAD 2>/dev/null || echo "unknown")
+cat > "$CLAUDE_DIR/forge-version" << EOF
+version: ${NEW_VERSION}
+installed: $(date +%Y-%m-%d)
+commit: ${INSTALL_COMMIT}
+EOF
+echo -e "${GREEN}✓  Version stamp updated: v${NEW_VERSION} (commit ${INSTALL_COMMIT})${NC}"
 echo ""
 echo "User data preserved:"
 echo "  ~/.claude/registry.md          (ID registry)"

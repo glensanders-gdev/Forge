@@ -38,6 +38,7 @@ covering the skills themselves.
 | `skills/<name>/` directory exists but not in `manifest.json` | ℹ️ Info |
 | `commands/<name>.md` exists but not in `manifest.json` | ℹ️ Info |
 | `SKILL.md` has `version:` in frontmatter that doesn't match `manifest.json` | ℹ️ Info |
+| `~/.claude/forge-version` missing or `installed:` date > 30 days ago | ℹ️ Info |
 
 ---
 
@@ -51,7 +52,8 @@ Do not produce output during this phase.
 2. List all directories in `~/.claude/skills/` — collect directory names.
 3. List all files in `~/.claude/commands/` — collect command stub names (strip `.md`).
 4. Read `~/.claude/CHANGELOG.md` — extract all version headings and the skills they mention.
-5. For each skill in the manifest, read its `~/.claude/skills/<name>/SKILL.md`
+5. Read `~/.claude/forge-version` (if it exists) — extract `version:`, `installed:` date, and `commit:` SHA. Calculate days since install.
+6. For each skill in the manifest, read its `~/.claude/skills/<name>/SKILL.md`
    (if it exists) and extract:
    - Frontmatter fields present (`name:`, `description:`, `version:`, `origin:`)
    - Whether a `## Failure Modes` section is present (any variant of that heading)
@@ -76,6 +78,7 @@ changelog_drift     = skills at version > 1.0.0 with no matching CHANGELOG entry
 attribution_gaps    = skills with origin: in frontmatter but no body credit line
 orphaned_commands   = command stubs with no manifest entry
 version_mismatches  = SKILL.md version field != manifest version
+forge_version_stale = forge-version file missing, or installed date > 30 days ago
 ```
 
 ---
