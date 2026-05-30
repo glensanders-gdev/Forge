@@ -91,6 +91,7 @@ Print the following reference exactly:
 | `/user:token-report` | Program-level token usage report — by feature, sprint, PI, or calibration analysis |
 | `/user:dashboard-tokens` | Generate a comprehensive project health dashboard — Token & Cost, Quality, Pipeline, Knowledge, Health sections |
 | `/user:context-health` | Audit the token load profile of context files — sizes, growth flags, trimming recommendations |
+| `/user:intent-layers` | Alias for `/context-health` — use if you think in terms of Tyler Brandt's Intent Layer pattern (directory-scoped AGENTS.md nodes) |
 | `/user:fy-review` | Generate a financial year or mid-year review — delivered value, token spend, year-on-year comparison |
 
 ### PI & Release Management
