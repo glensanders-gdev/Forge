@@ -29,7 +29,7 @@ Generate a concise standup summary from the project's living documents. No input
    - Run `/feature-flag check` — surface any flags past their removal date
    - If within `freeze_warning_days_ahead` of a freeze period → flag it
    - If today is a likely public holiday for any configured team locale → note it
-   - Read `~/.claude/forge-version`. If `installed:` date is more than 30 days ago → flag with version and age. If file is missing, skip silently.
+   - Read `~/.claude/forge-version`. Read `Forge staleness warning (days)` from `~/.claude/preferences.md` (default 30 if not set). If `updated:` date (falling back to `installed:` for older stamps) is more than that many days ago → flag with version and age. If file is missing, skip silently.
 8. Produce the standup report.
 9. Ask: "Are these the right goals for today, or do you want to adjust?"
 

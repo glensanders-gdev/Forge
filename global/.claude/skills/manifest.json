@@ -94,6 +94,8 @@
     "caveman": "1.0.0",
     "front-gate": "1.0.0",
     "forge-init": "1.0.0",
-    "forge-update": "1.0.0"
+    "forge-update": "1.0.0",
+    "forge-install": "1.0.0",
+    "intent-layers": "1.0.0"
   }
 }

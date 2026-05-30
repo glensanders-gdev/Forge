@@ -1,7 +1,7 @@
 ---
 name: forge-init
 category: framework
-description: Generate ~/.claude/CLAUDE.md and ~/.claude/AGENTS.md from a single source of truth. Writes the skill-loading instruction and standing instructions (hook replacements) for both Claude Code and Codex. Overlays company-specific instructions when active_company is set. Called automatically by /company-setup; also runnable standalone to regenerate after config changes or when switching tools.
+description: Generate ~/.claude/CLAUDE.md and ~/.claude/AGENTS.md from a single source of truth. Writes the skill-loading instruction and standing instructions (hook replacements) for both Claude Code and Codex. Overlays company-specific instructions when active_company is set. Called automatically by /company-add; also runnable standalone to regenerate after config changes or when switching tools.
 compatibility:
   claude_code: full
   codex: unsupported
@@ -202,10 +202,10 @@ Substitute `[GENERATED_DATE]` with today's date in `YYYY-MM-DD` format.
 
    Standing instructions: git safety, push confirmation, HITL gates, skill-not-found, context limit
    [If company set:]    Company: [company_name] — policy overlays applied
-   [If no company set:] No company configured — run /company-setup to add company-specific instructions.
+   [If no company set:] No company configured — run /company-add to add company-specific instructions.
 ```
 
-If called by `/company-setup`, suppress this output — `/company-setup` produces its own completion summary.
+If called by `/company-add`, suppress this output — `/company-add` produces its own completion summary.
 
 ---
 
@@ -215,7 +215,7 @@ If called by `/company-setup`, suppress this output — `/company-setup` produce
 |-----------|-----------|
 | `~/.claude/` does not exist | Create it, then proceed |
 | `preferences.md` missing | Treat as no active company — generate unconditional-only, note at completion |
-| `config.md` missing for active company | Warn: "Company '[name]' is set but config.md not found — generating unconditional instructions only. Run /company-setup to create the config." |
+| `config.md` missing for active company | Warn: "Company '[name]' is set but config.md not found — generating unconditional instructions only. Run /company-add to create the config." |
 | A config field is malformed | Skip that conditional block, note in completion output which field was skipped |
 | File write fails | Report the error with the exact path — do not silently continue |
 
@@ -227,5 +227,5 @@ If called by `/company-setup`, suppress this output — `/company-setup` produce
 - Never write company secrets, API keys, or credentials into the generated files
 - `[GENERATED_DATE]` must always be today's date — never omit it
 - The company block content is identical in both files — do not diverge
-- If called by `/company-setup`, suppress completion output
+- If called by `/company-add`, suppress completion output
 - Do not create per-project `CLAUDE.md` or `AGENTS.md` — global only

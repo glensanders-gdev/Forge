@@ -38,7 +38,7 @@ covering the skills themselves.
 | `skills/<name>/` directory exists but not in `manifest.json` | ℹ️ Info |
 | `commands/<name>.md` exists but not in `manifest.json` | ℹ️ Info |
 | `SKILL.md` has `version:` in frontmatter that doesn't match `manifest.json` | ℹ️ Info |
-| `~/.claude/forge-version` missing or `installed:` date > 30 days ago | ℹ️ Info |
+| `~/.claude/forge-version` missing or `updated:` date exceeds `Forge staleness warning (days)` from `preferences.md` (default 30) | ℹ️ Info |
 
 ---
 
@@ -78,7 +78,7 @@ changelog_drift     = skills at version > 1.0.0 with no matching CHANGELOG entry
 attribution_gaps    = skills with origin: in frontmatter but no body credit line
 orphaned_commands   = command stubs with no manifest entry
 version_mismatches  = SKILL.md version field != manifest version
-forge_version_stale = forge-version file missing, or installed date > 30 days ago
+forge_version_stale = forge-version file missing, or updated date exceeds staleness threshold from preferences.md
 ```
 
 ---

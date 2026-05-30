@@ -37,7 +37,7 @@ Check how stale the local clone is before pulling:
 git -C ~/forge log -1 --format="%ci"
 ```
 
-If the last local commit is more than 30 days old, note it:
+Read `Forge staleness warning (days)` from `~/.claude/preferences.md` (default 30). If the last local commit is older than that threshold, note it:
 ```
 ℹ️ Local clone last updated [N] days ago — pulling now.
 ```
@@ -127,6 +127,12 @@ After installation, verify `README.md` in `~/forge` is consistent with the newly
    - Skill count updated: 94 → 96
    - Inline counts updated in file structure section
    ```
+   Then commit the change:
+   ```bash
+   git -C ~/forge add README.md
+   git -C ~/forge commit -m "chore: reconcile README skill count to v[NEW_VERSION]"
+   ```
+   Report: `README.md committed.`
    If README was already current: note "README.md skill count is current." and continue.
 
 ### 7 — Report [AFK]
