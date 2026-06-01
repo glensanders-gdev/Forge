@@ -85,8 +85,9 @@ sequenceDiagram
 
     rect rgb(240, 248, 255)
         Note over H,E: PHASE 6 — QA
-        S->>A: /qa-plan → qa-plan.md (TC-NNN IDs from testplan)
+        S->>A: /qa-plan → qa-plan-[feature].md (TC-NNN IDs from testplan)
         S-->>H: work through checklist (tick TC-NNN items)
+        S->>AI: /qa-report → docs/tests/results/[feature]-YYYY-MM-DD.md
         S->>AI: /pii-check Phase 1 — AFK scan (codebase + docs)
         Note over S,AI: ai_data_restrictions from company config surfaced in report header
         AI->>A: pii-report.md (Necessary / Incidental findings + handling assessment)

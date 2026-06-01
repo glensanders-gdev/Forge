@@ -22,7 +22,18 @@ Before executing any ticket:
 
 1. Read `docs/kanban.md` — identify current sprint tickets (In Progress and Backlog)
 2. Read `docs/prd/active/` — confirm feature scope
-3. Read `docs/testplan-[feature].md` if it exists — understand what needs testing
+3. Check for `docs/testplan-[feature].md`:
+   - If found: read it — use TC IDs to guide test writing during the build loop
+   - If not found: warn before proceeding:
+     ```
+     ⚠️ No testplan found for this feature.
+
+     Without a testplan, /build cannot track test cases to TC-NNN IDs and
+     /qa-plan will have no TC registry to draw from.
+
+     Run /testplan first? (yes — stop and run /testplan / no — proceed without)
+     ```
+     Wait for response. On `yes`, stop. On `no`, note "TC tracking not available — no testplan" and continue.
 4. Read `~/.claude/sprints/calendar.md` — confirm current sprint dates
 5. Check for resumable state — any tickets already In Progress from a previous build session
 6. **Read company config** — `~/.claude/companies/[active_company]/config.md` (if set):

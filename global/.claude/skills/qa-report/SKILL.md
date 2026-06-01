@@ -15,7 +15,8 @@ Formalise the results of a completed QA session into a dated evidence artefact. 
 
 ## Process
 
-1. Read `docs/qa-plan-[feature].md` — extract all TC-NNN items and their priority.
+0. **Identify active feature** — read `docs/prd/active/` to get the current feature slug. If multiple PRDs are present, surface them and ask which is active. Store as `[active-feature]`. All file reads and saves in this skill use this slug. If the qa-plan filename or report output doesn't match `[active-feature]`, warn before saving.
+1. Read `docs/qa-plan-[active-feature].md` — extract all TC-NNN items and their priority.
 2. Read `docs/tests/registry.md` — confirm all TC IDs are registered.
 3. Prompt the human for the evidence block (see Evidence Prompt below).
 4. Present a results table pre-populated from the qa-plan TC list — human fills in Pass/Fail/Waived per item.
@@ -24,7 +25,7 @@ Formalise the results of a completed QA session into a dated evidence artefact. 
    - Any Fail entry has a Resolution field (Fixed / Deferred / Waived).
    - Any Waived entry has an approver name.
 6. Compute summary: total, passed, failed (resolved / deferred), waived, overall verdict.
-7. Save to `docs/tests/results/[feature-name]-YYYY-MM-DD.md`.
+7. Confirm save path with human: "Saving QA report as `docs/tests/results/[active-feature]-YYYY-MM-DD.md` — correct? (yes/no)". Save on confirmation.
 8. Update `docs/tests/registry.md` — set status of each TC to `Passed`, `Failed`, or `Waived`.
 9. Confirm: "QA report saved. Run `/user:approve` to close the feature."
 

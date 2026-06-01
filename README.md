@@ -1,4 +1,4 @@
-# Forge v3.5.0
+# Forge v3.7.0
 
 An AI-assisted development workflow framework for Claude Code.
 
@@ -20,12 +20,12 @@ Each stage produces an artifact that feeds the next. The AI agent orients itself
 
 ## What's Included
 
-**94 skills** covering the full software delivery lifecycle:
+**97 skills** covering the full software delivery lifecycle:
 
 | Category | Skills |
 |----------|--------|
 | Ideation | `/idea`, `/create-project`, `/front-gate`, `/onboard` |
-| Pipeline | `/grill-with-docs`, `/grill-me`, `/research`, `/prototype`, `/write-prd`, `/testplan`, `/estimate`, `/break-down`, `/build`, `/tdd`, `/test-coverage`, `/qa-plan`, `/pii-check`, `/approve` |
+| Pipeline | `/grill-with-docs`, `/grill-me`, `/research`, `/prototype`, `/write-prd`, `/testplan`, `/estimate`, `/break-down`, `/build`, `/tdd`, `/test-coverage`, `/qa-plan`, `/qa-report`, `/pii-check`, `/approve` |
 | Session Management | `/continue`, `/standup`, `/handoff`, `/debrief`, `/save-state`, `/scope-check`, `/caveman`, `/backlog-list`, `/backlog-proj`, `/backlog-add`, `/lookup` |
 | Code Quality | `/review`, `/critic`, `/diagnose`, `/write-adr`, `/push-standards`, `/lang-rules`, `/update-readme`, `/git-guardrails`, `/accessibility`, `/ai-first-engineering`, `/write-article`, `/seo`, `/security-assessment`, `/security-resolve`, `/performance-review` |
 | Knowledge Base | `/add-system`, `/add-project`, `/summarise-system`, `/update-context`, `/add-term`, `/knowledge-health`, `/knowledge-onboard`, `/style-check`, `/ingest`, `/publish`, `/setup-confluence` |
@@ -49,18 +49,26 @@ git clone https://github.com/glensanders-gdev/Forge.git ~/forge
 bash ~/forge/install.sh
 ```
 
+`install.sh` creates **junctions** (Windows) or **symlinks** (Mac/Linux) from `~/.claude/skills/`, `~/.claude/commands/`, and `~/.claude/rules/` directly into the cloned repo. Edits to skills in `~/.claude/` are immediately visible in `git status` — no copy step required. User-owned directories (`knowledge/`, `instincts/`, `tokens/`, etc.) are never touched.
+
 ### Update to latest
 
 ```bash
-cd ~/forge && git pull && bash update.sh
+cd ~/forge && git pull
+```
+
+Or from any Claude Code session:
+
+```
+/forge-update
 ```
 
 ### Remote / Web Sessions (Claude Code on Web)
 
-Each remote session runs in a fresh container — `~/.claude/skills/` resets on every new session. Re-run the installer at the start of each session:
+Each remote session runs in a fresh container — `~/.claude/skills/` resets on every new session. Re-run the installer at the start of each session to re-create junctions:
 
 ```bash
-# From the Forge repo root (non-interactive — detects no TTY and skips backup prompt automatically)
+# From the Forge repo root (non-interactive — detects no TTY automatically)
 bash install.sh
 ```
 
@@ -72,10 +80,11 @@ See `INSTALL.md` for step-by-step instructions including hidden file visibility 
 
 ### 1. Install Global Skills (One-Time)
 
-Copy the global skills to your Claude config directory:
+Run `install.sh` to create junctions/symlinks from `~/.claude/` into the cloned repo:
 
-- **Windows:** Copy `global/.claude/` to `C:\Users\YourName\`
-- **Mac:** Copy `global/.claude/` to `/Users/YourName/`
+```bash
+bash ~/forge/install.sh
+```
 
 See `INSTALL.md` for full instructions including hidden file visibility and manual steps.
 
@@ -185,7 +194,7 @@ Or if you have an existing project:
 
 ## Skill Versioning
 
-Skills are versioned in `~/.claude/skills/manifest.json`. The current framework version is `3.5.0`. Project-level skill overrides in `.claude/skills/[skill-name]/SKILL.md` take precedence over global skills.
+Skills are versioned in `~/.claude/skills/manifest.json`. The current framework version is `3.7.0`. Project-level skill overrides in `.claude/skills/[skill-name]/SKILL.md` take precedence over global skills.
 
 ---
 
@@ -199,6 +208,8 @@ The full framework lifecycle is documented in `~/.claude/forge-sequence.mmd`. Re
 
 | Version | Changes |
 |---------|---------|
+| 3.7.0 | Junction-based sync — `install.sh` rewritten to create junctions (Windows) / symlinks (Mac/Linux) for `skills/`, `commands/`, `rules/`; `/forge-install` v2.0.0 with auto-detect, migration flow, and iOS guidance; `/forge-update` v2.0.0 simplified to `git pull`; `update.sh` deprecated |
+| 3.6.0 | `/qa-report` v1.0.0 — QA evidence artefact; `/approve` v1.1.0 — QA report hard-block gate; `/qa-plan` v1.1.0 — output renamed to feature-scoped filename |
 | 3.5.0 | `/forge-init`, `/forge-update` — self-maintenance skills; `/ingest` structured scope prompt; `/context-health` Intent Layer child node recommendations; `category:` field added to all 94 skill frontmatter files |
 | 3.4.0 | `/front-gate` Phase 5 revised to HITL decision gate (submit / draft / discard); 13 Mermaid sequence diagrams added to `docs/diagrams/`; `install.sh` auto-pulls latest before installing |
 | 3.3.0 | `/front-gate` — structured intake for non-technical stakeholders; 7-question grill; Request Brief output to `docs/requests/` |

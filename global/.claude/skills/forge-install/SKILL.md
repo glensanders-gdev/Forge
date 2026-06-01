@@ -36,7 +36,23 @@ If `ln` is unavailable and `cmd` is not accessible → branch to **iOS Guidance*
 
 ```bash
 ls ~/forge/.git 2>/dev/null && echo "repo-exists" || echo "no-repo"
-[ -L ~/.claude/skills ] && echo "linked" || ([ -d ~/.claude/skills ] && echo "real-dir" || echo "missing")
+```
+
+```bash
+# Detect junction (Windows NTFS) or symlink (Mac/Linux).
+# [ -L ] returns false for NTFS junctions — must also check ReparsePoint via PowerShell.
+if [ -L ~/.claude/skills ]; then
+  echo "linked"
+elif powershell -NoProfile -Command \
+  "if ((Get-Item ([System.Environment]::GetFolderPath('UserProfile') + '\.claude\skills') \
+    -Force -ErrorAction SilentlyContinue).Attributes -match 'ReparsePoint') { 'yes' }" \
+  2>/dev/null | grep -q "yes"; then
+  echo "linked"
+elif [ -d ~/.claude/skills ]; then
+  echo "real-dir"
+else
+  echo "missing"
+fi
 ```
 
 Branch on the result.

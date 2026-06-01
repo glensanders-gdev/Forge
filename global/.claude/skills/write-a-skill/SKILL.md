@@ -104,9 +104,12 @@ The command file is what registers `/user:skill-name` in Claude Code. Without it
 
 ## After Writing Files
 
-1. Update `~/.claude/skills/manifest.json` — add the new skill with version `"1.0.0"`
-2. Confirm the files created and their locations
-3. Remind the user: project-level skills go in `.claude/skills/[skill-name]/SKILL.md` and override global skills of the same name
+1. Update `~/.claude/skills/manifest.json`:
+   - New skill: add entry with version `"1.0.0"`
+   - Updated skill: bump the existing version (`1.0.0` → `1.1.0`, `1.1.0` → `1.2.0`, etc.). Never leave the manifest at the old version after a meaningful change — a frozen version number is the same as no version number.
+2. Update `~/.claude/CHANGELOG.md` — add an entry for the new or changed skill under the current framework version.
+3. Confirm the files created/updated and their locations.
+4. Remind the user: project-level skills go in `.claude/skills/[skill-name]/SKILL.md` and override global skills of the same name.
 
 ## When to Split Files
 

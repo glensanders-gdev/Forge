@@ -11,6 +11,20 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
+## v3.7.1 — 2026-06-01
+
+**Critic fixes — correctness, completeness, consistency**
+
+### Fixed
+- `/forge-install` v2.0.1 — scenario detection script now uses PowerShell ReparsePoint check for Windows junctions; `[ -L ]` alone returns false for NTFS junctions and would misidentify an already-linked machine as needing migration
+- `forge-sequence.mmd` — added `/qa-report` step to Phase 6 pipeline (was missing since v3.6.0); fixed `qa-plan.md` filename reference to `qa-plan-[feature].md`
+- `/build` v1.1.0 — testplan pre-flight check upgraded from passive read to active warning gate; prompts to run `/testplan` first if no testplan file found
+- `/qa-report` v1.1.0 — added step 0: identify active feature from `docs/prd/active/` and validate report filename matches; confirms save path before writing
+- `/write-a-skill` v1.1.0 — "After Writing Files" now requires manifest version bump on skill updates and CHANGELOG entry; frozen version numbers explicitly called out as an error
+- `manifest.json` — corrected stale versions: `context-health` 1.0.0→1.1.0, `write-prd` 1.0.0→1.1.0, `write-article` 1.0.0→1.1.0, `knowledge-health` 1.0.0→1.1.0
+
+---
+
 ## v3.7.0 — 2026-06-01
 
 **Junction-based sync — install.sh, /forge-install, /forge-update rewritten**
