@@ -16,7 +16,8 @@ Scaffold the full three-tier knowledge structure for a new system under `~/.clau
 2. **Confirm the folder path** — state the full path before creating anything:
    `~/.claude/knowledge/systems/[system-name]/`
 3. **Create the folder structure and files** — use the templates below, replacing `[System Name]` with the provided name.
-4. **Confirm completion** — list the files created and remind the user to:
+4. **Scaffold RAID log** — run `/raid init` to create `docs/raid/` within the system folder (no separate CONFIRM needed — it follows from the system creation CONFIRM).
+5. **Confirm completion** — list the files created and remind the user to:
    - Fill in `Wiki/overview.md` first
    - Run `/ingest` after dropping source material into `Raw/`
    - Add the system to the relevant project's `CLAUDE.md` Knowledge References table

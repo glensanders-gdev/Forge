@@ -24,6 +24,8 @@ Do NOT create ADRs for routine implementation choices.
 3. Write the ADR using the template below.
 4. Save to `docs/adr/NNNN-[slug].md` (e.g. `0003-silent-device-id.md`).
 5. Note the ADR filename in the current session's DEVLOG entry under "Decisions Made."
+6. **Offer RAID log entry** — if `docs/raid/` exists, ask: "Should this decision be logged in the RAID log? (yes/no)"
+   If yes, run `/raid add decision` pre-populated with the ADR title and ADR filename in Links.
 
 ## ADR Template
 

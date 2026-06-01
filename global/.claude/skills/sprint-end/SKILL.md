@@ -68,7 +68,10 @@ Triggered when the human runs `/user:sprint-end` or picks up the HITL finalise t
    - Leave only In Progress, Blocked, and Backlog tickets in `kanban.md`
    - Keeps `kanban.md` lean for future session start reads
 9. Update `~/.claude/sprints/calendar.md` — mark sprint as Closed.
-10. Prompt (do not trigger): "Sprint-NN closed. Run `/user:sprint-start` when you're ready to open Sprint-NN+1."
+10. **Review open RAID entries** — if `docs/raid/` exists, prompt:
+    "Review open RAID entries for this sprint. Any risks mitigated, actions completed, or issues resolved?"
+    For each confirmed resolution, offer to run `/raid close [ID]` — do not close automatically.
+11. Prompt (do not trigger): "Sprint-NN closed. Run `/user:sprint-start` when you're ready to open Sprint-NN+1."
 
 ---
 

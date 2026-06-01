@@ -168,7 +168,7 @@ Effort: [High/Medium/Low]
 Type ACCEPT, DECLINE, or HOLD.
 ```
 
-**ACCEPT** → move to `~/.claude/ideas/active/[idea-name]/`, suggest `/user:create-project`
+**ACCEPT** → move to `~/.claude/ideas/active/[idea-name]/`, suggest `/user:create-project`; if a project RAID log exists (`docs/raid/`), ask: "Log this decision in the RAID log? (yes/no)" — if yes, run `/raid add decision` pre-populated with the idea name and `IDEA-NNN` in Source.
 **DECLINE** → ask for reason, archive to `~/.claude/ideas/archived/[idea-name]/`
 **HOLD** → save to `~/.claude/ideas/active/[idea-name]/` with status `Holding`
 

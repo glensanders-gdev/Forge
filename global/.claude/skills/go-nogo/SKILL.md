@@ -31,6 +31,9 @@ Prepare the Go/No Go brief for an upcoming monthly release. The AI assembles all
    - Tickets incomplete (still In Progress or Blocked)
    - Any P1 bugs or critical issues open
 3. **Read sprint records** — `docs/sprints/sprint-NN.md` for sessions in this release cycle.
+3a. **Read RAID risks** — read `docs/raid/RISKS.md` for each active project (if the file exists):
+   - Surface any `Open` or `In Progress` risks with `Impact: High` under **Open High Risks** in the brief.
+   - A risk with `Impact: High` AND `Probability: High` and status `Open` is a soft block — note it and require explicit human acknowledgment before recording GO.
 4. **Read `docs/known-issues.md` for each project** — include Active issues in the brief. Deferred issues are noted but don't block Go/No Go unless their impact is Critical.
 5. **Assess deployment readiness** — check buffer window has been respected (no new features after buffer start).
 6. **Produce the Go/No Go brief.**

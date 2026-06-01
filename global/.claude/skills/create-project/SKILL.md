@@ -71,6 +71,7 @@ Copy the Forge project template into the new repo:
 - `docs/research/`
 - `docs/sprints/`
 - `docs/releases/`
+- `docs/raid/` (scaffolded via `/raid init`)
 
 Update `CLAUDE.md`:
 - Fill in project name from stakeholder label

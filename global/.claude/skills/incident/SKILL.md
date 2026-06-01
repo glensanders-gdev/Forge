@@ -154,6 +154,13 @@ Suggested next steps:
   Any: Run /incident update INC-NNN to log timeline events as they occur
 ```
 
+**RAID log** — if `docs/raid/` exists, automatically create a linked RAID issue entry:
+- Run `/raid add issue` pre-populated with:
+  - Title: `[INC-NNN] [description]`
+  - Source: `INCIDENT-NNN`
+  - Status: `Open`
+- Confirm to user: "Linked to RAID log as I-NNN."
+
 ---
 
 ## `/incident update INC-NNN`

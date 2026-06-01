@@ -172,6 +172,7 @@ Exit without writing to disk. Confirm: "Brief discarded."
 | `/idea` | Receiving team's first step after reviewing a front-gate brief |
 | `/grill-with-docs` | Used by the technical team to stress-test the idea against codebase and domain context before committing |
 | `/write-prd` | Downstream — the brief feeds into a PRD if the idea is approved for delivery |
+| `/raid` | After saving the brief, if it surfaced risks or constraints (from system knowledge or stakeholder constraints), ask: "Log these as RAID risks? (yes/no / select)". Pre-populate each selected entry with Source `GATE-NNN` where NNN is derived from the saved brief filename. |
 | `/ingest` | Contractual documents and stakeholder comms can be ingested to populate the knowledge base that front-gate consults |
 | `knowledge/systems/*/Wiki/known-issues.md` | Primary source for system constraints surfaced during grilling |
 | `knowledge/systems/*/Wiki/stakeholder-feedback.md` | Source for contractual obligations and stakeholder constraints |

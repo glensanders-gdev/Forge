@@ -36,7 +36,17 @@ If the response is not exactly `APPROVE`, respond: "Approval cancelled. No chang
    - If the report's approve gate status is `Blocked` → hard stop: "QA report has unresolved P1 failures. Resolve or formally waive all P1 failures in the QA report, then re-run `/user:qa-report` before approving." List the blocking TC IDs from the report.
    - If the report's approve gate status is `Clear` → proceed.
 
-3. **PII check gate** — read `docs/pii-report.md`:
+3. **RAID risk gate** — if `docs/raid/RISKS.md` exists, read it:
+   - Flag any `Open` risks with `Impact: High` in the confirmation summary.
+   - These are advisory — they do not hard-block approval — but must be explicitly acknowledged.
+   - If High Impact risks are present, add to the gate display:
+     ```
+     ⚠️ Open High Impact Risks:
+       R-NNN — [title] (Probability: High/Medium/Low)
+     ```
+     The human must still type `APPROVE` to proceed — the flag is informational.
+
+4. **PII check gate** — read `docs/pii-report.md`:
    - If no report exists → warn: "No PII report found. Run `/user:pii-check` before approving. Or type OVERRIDE [reason] to proceed without a PII check."
    - If unresolved findings exist → warn with finding list and require `OVERRIDE [reason]`
    - If all findings resolved → proceed

@@ -35,6 +35,11 @@ Open a new sprint for the current project. Pulls context automatically from the 
 5. **Surface active known issues** — read `docs/known-issues.md`:
    - List any Active issues with High or Critical impact
    - Ask: "These known issues are unresolved — should any be scheduled as tickets in this sprint?"
+
+6. **Surface open RAID actions** — read `docs/raid/ACTIONS.md` (if the file exists):
+   - List all `Open` and `In Progress` actions.
+   - Ask: "These RAID actions are open — should any become sprint tickets?"
+   - Do not add automatically — human confirms.
    - Do not add them automatically — human confirms
 
 6. **Check company config** — read `~/.claude/companies/[active_company]/config.md` (if set):
