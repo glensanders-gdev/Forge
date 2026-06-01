@@ -1,4 +1,4 @@
-# Forge v3.7.0
+# Forge v3.7.1
 
 An AI-assisted development workflow framework for Claude Code.
 
