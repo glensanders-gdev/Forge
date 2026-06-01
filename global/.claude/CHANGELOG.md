@@ -11,6 +11,18 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
+## v3.7.0 — 2026-06-01
+
+**Junction-based sync — install.sh, /forge-install, /forge-update rewritten**
+
+### Changed
+- `install.sh` v2.0.0 — rewritten to create junctions (Windows: `mklink /J`) and symlinks (Mac/Linux: `ln -s`) for `skills/`, `commands/`, `rules/` dirs and 4 loose framework files (`CHANGELOG.md`, `PRINCIPLES.md`, `SOUL.md`, `forge-sequence.mmd`). Removes copy and backup steps entirely. Idempotent — skips already-linked targets. User-owned dirs (`knowledge/`, `instincts/`, `tokens/`, etc.) are never touched. Platform auto-detected via `$OSTYPE`/`uname`.
+- `/forge-install` v2.0.0 — auto-detects scenario: fresh install, legacy migration, already linked (no-op), re-link, or iOS. Migration flow moves repo from any detected location (incl. `OneDrive/Forge`) to `~/forge`, then runs `install.sh`. iOS branch provides PR-only contributor guidance. HITL confirmation required before any file system changes.
+- `/forge-update` v2.0.0 — simplified to `git pull` + version check + CHANGELOG display. Drops `update.sh` dependency entirely. Checks junctions are in place before pulling; redirects to `/forge-install` if not. Updates `forge-version` stamp preserving original `installed:` date.
+- `update.sh` — deprecated with notice at top of file. Retained for backwards compatibility with legacy copy-based installs. Not called by any skill or `install.sh` going forward.
+
+---
+
 ## v3.6.0 — 2026-06-01
 
 **New skill: /qa-report — QA execution evidence artefact**

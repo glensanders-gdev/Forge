@@ -1,5 +1,5 @@
 {
-  "forge_version": "3.6.0",
+  "forge_version": "3.7.0",
   "skills": {
     "tool-add": "1.0.0",
     "tool-check": "1.0.0",
@@ -94,8 +94,8 @@
     "caveman": "1.0.0",
     "front-gate": "1.0.0",
     "forge-init": "1.0.0",
-    "forge-update": "1.0.0",
-    "forge-install": "1.0.0",
+    "forge-update": "2.0.0",
+    "forge-install": "2.0.0",
     "intent-layers": "1.0.0",
     "qa-report": "1.0.0"
   }

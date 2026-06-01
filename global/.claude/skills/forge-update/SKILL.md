@@ -1,14 +1,14 @@
 ---
 name: forge-update
 category: framework
-description: Pull the latest Forge framework from GitHub and install updated skills, commands, and framework files. Use when user runs /forge-update, wants to sync Forge to the latest version, or asks to update Forge skills.
+description: Pull the latest Forge framework from GitHub. Since Forge v3.6.0, ~/.claude/skills/, commands/, and rules/ are junctions/symlinks — git pull is all that's needed. Use when user runs /forge-update, wants to sync Forge to the latest version, or asks to update Forge skills.
 ---
 
 # Forge Update
 
-Pull the latest Forge framework from `https://github.com/glensanders-gdev/Forge` and install
-updated skills, commands, and framework files. User data (instincts, knowledge, preferences,
-backlog) is always preserved.
+Pull the latest Forge framework from `https://github.com/glensanders-gdev/Forge`.
+
+Since Forge v3.6.0, `~/.claude/skills/`, `~/.claude/commands/`, and `~/.claude/rules/` are junctions/symlinks pointing directly into `~/forge/global/.claude/`. A `git pull` updates all framework files instantly — no copy step, no `update.sh` needed.
 
 **Repo:** `https://github.com/glensanders-gdev/Forge`
 **Local clone:** `~/forge`
@@ -17,79 +17,59 @@ backlog) is always preserved.
 
 ### 1 — Ensure local clone [AFK]
 
-Check `~/forge/.git` and `git -C ~/forge remote get-url origin`.
+```bash
+git -C ~/forge remote get-url origin 2>/dev/null || echo "missing"
+```
 
-- **Missing:** `git clone https://github.com/glensanders-gdev/Forge ~/forge`
-- **Wrong or missing remote:**
+- **Missing** → `git clone https://github.com/glensanders-gdev/Forge.git ~/forge`
+- **Wrong remote**:
   ```
   ⚠️ ~/forge exists but is not the expected Forge repo.
      Expected: https://github.com/glensanders-gdev/Forge
      Check ~/forge and re-run /forge-update.
   ```
   Stop.
-- **Correct:** skip to step 2
+- **Correct** → proceed.
 
-### 2 — Fetch latest [AFK]
+### 2 — Check junctions [AFK]
 
-Check how stale the local clone is before pulling:
+```bash
+[ -L ~/.claude/skills ] && echo "linked" || echo "not-linked"
+```
+
+If `not-linked`:
+```
+⚠️ ~/.claude/skills/ is not a junction/symlink — this install predates v3.6.0.
+   Run /forge-install to migrate to the junction-based model, then re-run /forge-update.
+```
+Stop.
+
+### 3 — Check staleness [AFK]
 
 ```bash
 git -C ~/forge log -1 --format="%ci"
 ```
 
-Read `Forge staleness warning (days)` from `~/.claude/preferences.md` (default 30). If the last local commit is older than that threshold, note it:
+Read `staleness-warning-days` from `~/.claude/preferences.md` (default 30). If older than threshold:
 ```
-ℹ️ Local clone last updated [N] days ago — pulling now.
-```
-
-Then pull:
-
-```bash
-git -C ~/forge pull
+ℹ️ Local clone last updated [N] days ago.
 ```
 
-On failure: show full git error verbatim and stop:
-```
-❌ git pull failed. Check your network or run:
-   git -C ~/forge status
-```
-
-### 3 — Version check [AFK]
+### 4 — Fetch and compare versions [AFK]
 
 ```bash
-grep '"forge_version"' ~/.claude/skills/manifest.json | grep -o '[0-9.]*'
-grep '"forge_version"' ~/forge/global/.claude/skills/manifest.json | grep -o '[0-9.]*'
+git -C ~/forge fetch origin main --quiet
 ```
 
-If `~/forge/global/.claude/skills/manifest.json` is missing:
+Compare installed vs incoming `forge_version` from `manifest.json`. If equal:
 ```
-❌ Cannot read incoming version — ~/forge/global/.claude/skills/manifest.json not found.
-   The repo structure may have changed.
+✓ Already on v[X.Y.Z] — nothing to update.
 ```
 Stop.
 
-If versions match:
-```
-✓ Already on v[X.Y.Z] — nothing to install.
-```
-Stop.
+### 5 — Confirm [HITL]
 
-If versions differ, verify the incoming version is tagged:
-
-```bash
-git -C ~/forge describe --tags --exact-match 2>/dev/null || echo "untagged"
-```
-
-- Tag matches `v[incoming_version]` — continue silently.
-- Result is `untagged` — note it:
-  ```
-  ⚠️ Incoming version v[X.Y.Z] has no git tag — this may be a pre-release or work in progress.
-  ```
-  Continue to Step 4 regardless — do not block the update.
-
-### 4 — Confirm [HITL]
-
-Extract the new version's section from `~/forge/global/.claude/CHANGELOG.md` and display:
+Show installed vs latest version and the relevant CHANGELOG section:
 
 ```
 Current:  v[X.Y.Z]
@@ -98,54 +78,48 @@ Latest:   v[X.Y.Z]
 What's new:
 [changelog section for new version]
 
-Skills and commands will be overwritten. Your data is preserved.
-Update now? (yes/no)
+Type YES to update, or anything else to cancel.
 ```
 
-On `no`: exit without changes.
-
-### 5 — Install [AFK]
+### 6 — Pull [AFK]
 
 ```bash
-bash ~/forge/update.sh
+git -C ~/forge pull origin main
 ```
 
-On failure: show full stderr verbatim; do not retry silently.
+On failure: show full git error verbatim and stop.
 
-### 6 — Reconcile README [AFK]
+### 7 — Update version stamp [AFK]
 
-After installation, verify `README.md` in `~/forge` is consistent with the newly installed
-`~/forge/global/.claude/skills/manifest.json`:
-
-1. Count all skills in `manifest.json` (total keys under `"skills"`)
-2. Extract the skill count stated in `README.md` (search for the "**N skills**" line in "What's Included")
-3. If counts differ, update the count in `README.md`
-4. Check the file structure section of `README.md` for any inline counts (e.g. "92 global skills", "92 slash commands") — update these to match
-5. If any changes were made, report them:
-   ```
-   README.md reconciled:
-   - Skill count updated: 94 → 96
-   - Inline counts updated in file structure section
-   ```
-   Then commit the change:
-   ```bash
-   git -C ~/forge add README.md
-   git -C ~/forge commit -m "chore: reconcile README skill count to v[NEW_VERSION]"
-   ```
-   Report: `README.md committed.`
-   If README was already current: note "README.md skill count is current." and continue.
-
-### 7 — Report [AFK]
-
-Show the version installed and backup path from `update.sh` output. Then append:
+Rewrite `~/.claude/forge-version` preserving the original `installed:` date:
 
 ```
-⚠️ Start a new Claude Code session to load the updated skills.
+version: [NEW_VERSION]
+installed: [original installed date]
+updated: [TODAY]
+commit: [new HEAD short SHA]
+```
+
+### 8 — Report [AFK]
+
+```
+✓ Forge updated to v[NEW_VERSION]
+  ~/.claude/skills/, commands/, rules/ updated via junction — effective immediately.
+```
+
+If the CHANGELOG entry for the new version mentions `CLAUDE.md` or `AGENTS.md` changes:
+```
+ℹ️ This release updated CLAUDE.md/AGENTS.md — run /forge-init to regenerate them.
+```
+
+Otherwise:
+```
+⚠️ Start a new Claude Code session to load any new skills.
 ```
 
 ## Rules
 
-- Never run `update.sh` without confirmation from Step 4
-- Never skip the version check — always show current vs new before installing
+- Never pull without confirmation from Step 5
 - Never modify the Forge remote or force-push
-- On `update.sh` failure: show full stderr verbatim; do not retry silently
+- If junctions are not in place, redirect to `/forge-install` — do not fall back to copy mode
+- On `git pull` failure: show full stderr verbatim; do not retry silently

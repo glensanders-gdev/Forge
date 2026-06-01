@@ -1,5 +1,19 @@
 #!/usr/bin/env bash
-# Forge Updater — pull latest skills from GitHub
+# DEPRECATED — this script is no longer needed.
+#
+# Since Forge v3.6.0, ~/.claude/skills/, commands/, and rules/ are junctions/symlinks
+# pointing directly into the repo. Updating Forge is simply:
+#
+#   cd ~/forge && git pull
+#
+# Or use the /forge-update skill in Claude Code, which handles this automatically.
+#
+# This file is retained for backwards compatibility only.
+# It will continue to work for legacy copy-based installs but will not be
+# called by install.sh or /forge-update going forward.
+#
+# ──────────────────────────────────────────────────────────────────────────────
+# Forge Updater (legacy) — pull latest skills from GitHub
 # Usage: bash update.sh
 # Or: cd ~/forge && git pull && bash update.sh
 
