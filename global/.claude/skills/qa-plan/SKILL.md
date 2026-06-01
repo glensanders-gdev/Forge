@@ -16,8 +16,8 @@ Generate a structured human QA checklist from the active PRD. This is the bridge
 4. Read `docs/kanban.md` — confirm all tickets are marked Done.
 5. Extract user stories, edge cases, and the Definition of Done from the PRD.
 6. Generate a checklist a human can follow without needing to read the PRD or testplan.
-7. Save to `docs/qa-plan.md`.
-8. Tell the user: "Work through this checklist, then run `/user:approve` when satisfied."
+7. Save to `docs/qa-plan-[feature-name].md`.
+8. Tell the user: "Work through this checklist, then run `/user:qa-report` to record results before `/user:approve`."
 
 ## Output Format
 

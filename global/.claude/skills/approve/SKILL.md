@@ -31,20 +31,25 @@ Type APPROVE to confirm, or anything else to cancel.
 
 If the response is not exactly `APPROVE`, respond: "Approval cancelled. No changes made." and stop.
 
-2. **PII check gate** — read `docs/pii-report.md`:
+2. **QA report gate** — check `docs/tests/results/` for a file matching `[feature-name]-*.md`:
+   - If no report exists → hard stop: "No QA report found for this feature. Run `/user:qa-report` to record results before approving."
+   - If the report's approve gate status is `Blocked` → hard stop: "QA report has unresolved P1 failures. Resolve or formally waive all P1 failures in the QA report, then re-run `/user:qa-report` before approving." List the blocking TC IDs from the report.
+   - If the report's approve gate status is `Clear` → proceed.
+
+3. **PII check gate** — read `docs/pii-report.md`:
    - If no report exists → warn: "No PII report found. Run `/user:pii-check` before approving. Or type OVERRIDE [reason] to proceed without a PII check."
    - If unresolved findings exist → warn with finding list and require `OVERRIDE [reason]`
    - If all findings resolved → proceed
    - Record any override in the PII report's Approve Override Log
 
-3. **Archive the PRD**
+5. **Archive the PRD**
    - Move `docs/prd/active/[feature-name].md` to `docs/prd/archived/[feature-name].md`
    - Add a header to the archived file:
      ```markdown
      > **Archived:** YYYY-MM-DD — QA passed. Do not reference this document in future sessions.
      ```
 
-4. **Seal the DEVLOG session**
+6. **Seal the DEVLOG session**
    - Append to `docs/DEVLOG.md`:
      ```markdown
      ## Session YYYY-MM-DD — APPROVED ✓
@@ -56,14 +61,14 @@ If the response is not exactly `APPROVE`, respond: "Approval cancelled. No chang
      **Status:** Approved
      ```
 
-5. **Update kanban.md**
+7. **Update kanban.md**
    - Move all remaining tickets to Done.
    - Add a closing note:
      ```markdown
      <!-- Feature approved YYYY-MM-DD. Board archived. -->
      ```
 
-6. **Reset HANDOFF.md**
+8. **Reset HANDOFF.md**
    - Overwrite `docs/HANDOFF.md` with a clean state:
      ```markdown
      # Handoff: [Project Name]
@@ -84,23 +89,23 @@ If the response is not exactly `APPROVE`, respond: "Approval cancelled. No chang
      None.
      ```
 
-7. **Optionally push coding standards**
+9. **Optionally push coding standards**
    - Suggest: "Would you like to capture any new coding patterns that emerged from this feature? Run `/user:push-standards` — it will extract and document them in `.claude/CODING-STANDARDS.md`."
 
-8. **Suggest README update**
+10. **Suggest README update**
    - Prompt: "Want me to update the README to reflect this feature? Run `/user:update-readme`."
 
-9. **Suggest PIR**
+11. **Suggest PIR**
    - Prompt: "Consider running a Post Implementation Review: `/user:pir [PROJ-NNN]`. Did this feature achieve its stated goals?"
 
-10. **Update idea diagram** — if an idea in `~/.claude/ideas/active/` is linked to this project:
+12. **Update idea diagram** — if an idea in `~/.claude/ideas/active/` is linked to this project:
    - Read `~/.claude/ideas/active/[idea-name]/diagram.mmd`
    - Update to reflect the final delivered state
    - Save as `diagram.mmd` (current) and `diagram-v4-final.mmd` (snapshot)
    - Update diagram version history in `idea.md`
    - Update idea status to `Delivered — YYYY-MM-DD`
 
-11. **Roll up token record to global ledger** — read `docs/tokens/[feature-name].md`, sum all phases, append to `~/.claude/tokens/ledger.md`:
+13. **Roll up token record to global ledger** — read `docs/tokens/[feature-name].md`, sum all phases, append to `~/.claude/tokens/ledger.md`:
 
 ```markdown
 ### [Feature Name] — [Project] — YYYY-MM-DD
@@ -129,13 +134,15 @@ Update the ledger summary totals by recalculating from all entries (not just add
 ```
 Then continue with approval normally — missing token records do not block approval.
 
-12. **Confirm closure**
+14. **Confirm closure**
     - Respond: "✓ Approved. PRD archived. Token record logged. Session sealed. Ready for next feature."
 
 ## Failure Modes
 
 | Condition | Behaviour |
 |-----------|-----------|
+| No QA report in `docs/tests/results/` | Hard stop. "No QA report found for this feature. Run `/user:qa-report` first." |
+| QA report approve gate is `Blocked` | Hard stop. List unresolved P1 TC IDs. "Resolve or waive all P1 failures, then re-run `/user:qa-report`." |
 | No active PRD found | Stop. "No active PRD found in docs/prd/active/. Nothing to approve." |
 | Kanban has incomplete P1 tickets | Stop. "There are incomplete P1 tickets. Resolve these before approving." Surface the tickets. |
 | `docs/releases/` folder missing | Create it before saving the approval record. |

@@ -37,6 +37,7 @@ Print the following reference exactly:
 | `/user:build` | Execute sprint AFK tickets in sequence with TDD — pauses at HITL and blockers, resumable |
 | `/user:tdd` | Run a single TDD cycle manually — red-green-refactor, one test at a time |
 | `/user:qa-plan` | Generate a human QA checklist from the active PRD and testplan |
+| `/user:qa-report` | Record QA results as a datestamped evidence artefact — CI link, test output, per-TC pass/fail, approve gate verdict |
 | `/user:pii-check` | Scan for PII — AFK scans codebase and docs, HITL reviews findings and confirms remediation |
 | `/user:approve` | QA passed — archive PRD, seal session, close feature cycle |
 

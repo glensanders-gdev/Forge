@@ -1,5 +1,5 @@
 {
-  "forge_version": "3.5.0",
+  "forge_version": "3.6.0",
   "skills": {
     "tool-add": "1.0.0",
     "tool-check": "1.0.0",
@@ -9,7 +9,7 @@
     "prototype": "1.0.0",
     "write-prd": "1.0.0",
     "diagnose": "1.0.0",
-    "approve": "1.0.0",
+    "approve": "1.1.0",
     "add-system": "1.0.0",
     "write-a-skill": "1.0.0",
     "standup": "1.0.0",
@@ -17,7 +17,7 @@
     "scope-check": "1.0.0",
     "write-adr": "1.0.0",
     "break-down": "1.0.0",
-    "qa-plan": "1.0.0",
+    "qa-plan": "1.1.0",
     "update-context": "1.0.0",
     "summarise-system": "1.0.0",
     "review": "1.0.0",
@@ -96,6 +96,7 @@
     "forge-init": "1.0.0",
     "forge-update": "1.0.0",
     "forge-install": "1.0.0",
-    "intent-layers": "1.0.0"
+    "intent-layers": "1.0.0",
+    "qa-report": "1.0.0"
   }
 }

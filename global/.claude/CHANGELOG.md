@@ -11,6 +11,19 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
+## v3.6.0 — 2026-06-01
+
+**New skill: /qa-report — QA execution evidence artefact**
+
+### Added
+- `/qa-report` v1.0.0 — formalises QA session results into a datestamped evidence artefact at `docs/tests/results/[feature]-YYYY-MM-DD.md`. Prompts for structured evidence (CI run link, automated test output file, screenshot folder), records pass/fail/waived per TC-NNN item, computes a summary verdict, and sets an approve gate status. Pipeline: `/testplan` → `/tdd` → `/qa-plan` → *human tests* → `/qa-report` → `/approve`.
+
+### Changed
+- `/approve` v1.1.0 — QA report hard-block gate added as step 2 (before PII check). Hard-stops if no `docs/tests/results/[feature]-*.md` exists, or if the report's approve gate status is `Blocked` (unresolved P1 failures). All subsequent steps renumbered (3–14). Two new Failure Mode rows added.
+- `/qa-plan` v1.1.0 — output renamed from `docs/qa-plan.md` to `docs/qa-plan-[feature-name].md` for naming consistency with `/testplan`. Closing prompt updated to direct user to `/qa-report` before `/approve`.
+
+---
+
 ## v3.5.0 — 2026-05-29
 
 **New skills: /forge-init, /forge-update + /ingest scope prompt + /context-health Intent Layer + category fields**
