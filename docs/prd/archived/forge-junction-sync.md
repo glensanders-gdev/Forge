@@ -1,3 +1,5 @@
+> **Archived:** 2026-06-01 — QA passed. Do not reference this document in future sessions.
+
 # PRD: Forge Junction-Based Sync
 
 **Date:** 2026-06-01

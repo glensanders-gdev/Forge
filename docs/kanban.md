@@ -2,8 +2,10 @@
 
 **Sprint:** Forge Junction Sync
 **Started:** 2026-06-01
-**Feature:** Junction-Based Sync — `docs/prd/active/forge-junction-sync.md`
-**Status:** In progress
+**Feature:** Junction-Based Sync — `docs/prd/archived/forge-junction-sync.md`
+**Status:** Approved — 2026-06-01
+
+<!-- Feature approved 2026-06-01. Board archived. -->
 
 ---
 
@@ -20,7 +22,7 @@ _None_
 - [x] [AFK]  #4 Rewrite `/forge-install` skill — auto-detect, migration flow, iOS guidance ✓
 - [x] [AFK]  #5 Simplify `/forge-update` skill — replace `update.sh` with `git pull` ✓
 - [x] [HITL] #6 Run migration on Windows — confirm junctions resolve, verify skill edits appear in repo ✓
-- [>] [AFK]  #7 Commit and push all changes to `origin/main`
+- [x] [AFK]  #7 Commit and push all changes to `origin/main` ✓
 
 ---
 
