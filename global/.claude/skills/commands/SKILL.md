@@ -74,6 +74,7 @@ Print the following reference exactly:
 ### Knowledge Base
 | Command | What it does |
 |---------|-------------|
+| `/user:ia` | Impact assessment — sharpen a proposed change, search all knowledge sources, produce a severity-tagged summary, change brief or PRD, and draft artefacts in an isolated IA folder |
 | `/user:knowledge-onboard` | Guided company knowledge setup — style guide, acronyms, domain terms, and core systems in sequence |
 | `/user:style-check` | Review any deliverable against the company style guide — CRITICAL/HIGH/LOW findings, pass/fail gate |
 | `/user:knowledge-health` | Read-only diagnostic across all knowledge layers — coverage scorecard, stale files, cross-reference conflicts, interesting connections |

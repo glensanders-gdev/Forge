@@ -1,4 +1,4 @@
-# Forge v3.7.1
+# Forge v3.8.0
 
 An AI-assisted development workflow framework for Claude Code.
 
@@ -20,7 +20,7 @@ Each stage produces an artifact that feeds the next. The AI agent orients itself
 
 ## What's Included
 
-**97 skills** covering the full software delivery lifecycle:
+**98 skills** covering the full software delivery lifecycle:
 
 | Category | Skills |
 |----------|--------|
@@ -28,7 +28,7 @@ Each stage produces an artifact that feeds the next. The AI agent orients itself
 | Pipeline | `/grill-with-docs`, `/grill-me`, `/research`, `/prototype`, `/write-prd`, `/testplan`, `/estimate`, `/break-down`, `/build`, `/tdd`, `/test-coverage`, `/qa-plan`, `/qa-report`, `/pii-check`, `/approve` |
 | Session Management | `/continue`, `/standup`, `/handoff`, `/debrief`, `/save-state`, `/scope-check`, `/caveman`, `/backlog-list`, `/backlog-proj`, `/backlog-add`, `/lookup` |
 | Code Quality | `/review`, `/critic`, `/diagnose`, `/write-adr`, `/push-standards`, `/lang-rules`, `/update-readme`, `/git-guardrails`, `/accessibility`, `/ai-first-engineering`, `/write-article`, `/seo`, `/security-assessment`, `/security-resolve`, `/performance-review` |
-| Knowledge Base | `/add-system`, `/add-project`, `/summarise-system`, `/update-context`, `/add-term`, `/knowledge-health`, `/knowledge-onboard`, `/style-check`, `/ingest`, `/publish`, `/setup-confluence` |
+| Knowledge Base | `/ia`, `/add-system`, `/add-project`, `/summarise-system`, `/update-context`, `/add-term`, `/knowledge-health`, `/knowledge-onboard`, `/style-check`, `/ingest`, `/publish`, `/setup-confluence` |
 | Metrics & Reporting | `/token-report`, `/dashboard-tokens`, `/context-health`, `/fy-review` |
 | PI & Release | `/piplan`, `/pi-end`, `/sprintplan`, `/go-nogo`, `/changelog`, `/deploy`, `/deploy-pi`, `/rollback`, `/rollback-pi`, `/standalone-release`, `/sprint-replan`, `/pi-replan`, `/incident` |
 | Sprint Management | `/sprint-start`, `/sprint-end`, `/pir` |
