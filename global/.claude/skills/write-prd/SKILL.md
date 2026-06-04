@@ -93,7 +93,9 @@ Runs after human confirms Phase 1 summary. Writes the PRD and cleans up.
    - [x] [HITL] #N+1 Confirm module list and write PRD — write-prd phase 2
    ```
 6. Clean up `/prototype` folder if it exists.
-7. Suggest moving to the Kanban stage to convert the PRD task list into tracked tickets.
+7. Suggest next steps in order:
+   - Run `/testplan` to design the testing strategy before implementation begins
+   - Then move to the Kanban stage to convert the PRD task list into tracked tickets
 
 ---
 

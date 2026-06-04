@@ -1,6 +1,7 @@
 ---
 name: critic
 category: code-quality
+version: 1.1.0
 description: Critically evaluate the current framework, plan, PRD, skill, or design. Surfaces weaknesses, risks, inconsistencies, and gaps with honest prioritised feedback. Use when user runs /critic, wants critical feedback, or asks for an honest evaluation of something.
 ---
 
@@ -17,11 +18,12 @@ Provide an honest, prioritised critical evaluation of whatever is in scope — t
 
 ## Process
 
-1. **Establish scope** — what is being critiqued? If not stated, ask once.
-2. **Read relevant context** — PRD, ADRs, CONTEXT.md, kanban, skill files, or whatever is in scope.
-3. **Evaluate across four dimensions** (see below).
-4. **Produce a prioritised critique report.**
-5. **Ask:** "Want to work through any of these?"
+1. **Establish scope** — what is being critiqued? If not stated, ask once. If scope remains unclear after one question, state your interpretation explicitly and proceed.
+2. **Read relevant context** — PRD, ADRs, CONTEXT.md, kanban, skill files, or whatever is in scope. If no context files exist, proceed with the information provided in the user's request and note what context was absent.
+3. **Check for same-session re-critique** — if this subject has already been critiqued earlier in this session, focus only on what has changed since the prior critique rather than duplicating prior findings.
+4. **Evaluate across four dimensions** (see below).
+5. **Produce a prioritised critique report.**
+6. **Ask:** "Want to work through any of these?"
 
 ## Four Dimensions of Critique
 
@@ -51,6 +53,8 @@ What could go wrong?
 - Scope that will drift without discipline
 
 ## Output Format
+
+Keep each finding to 1–2 lines. Depth over breadth — fewer precise findings beat many vague ones.
 
 ```markdown
 ## Critique — [Subject]
@@ -87,7 +91,7 @@ Create the file and the section header if they don't exist.
 |------|---------|----|----|-----|-------|
 ```
 
-**Append row:**
+**Append row — use today's date in `YYYY-MM-DD` format:**
 ```
 | YYYY-MM-DD | [brief description of subject] | N | N | N | N |
 ```
@@ -103,3 +107,4 @@ If `docs/metrics/` doesn't exist, create the directory. Log silently — do not 
 - Do not implement any fixes — this skill is advisory only. Prefix with **"Advisory only — no changes made."**
 - If the subject has no significant weaknesses, say so clearly and explain why — don't invent problems.
 - Reference specific files, sections, or decisions when calling something out.
+- Critique only the stated subject — do not expand scope to referenced files unless they directly contradict the subject.
