@@ -51,7 +51,7 @@ function Convert-ForgeText([string]$Text, [string[]]$SkillNames) {
         }
     }
 
-    return $out
+    return $out -replace "\r\n?", "`n"
 }
 
 function Normalize-CodexSkillFrontmatter([string]$Path) {
@@ -120,7 +120,11 @@ function Copy-AdaptedTree([string]$Source, [string]$Destination, [string[]]$Skil
         Ensure-Directory (Split-Path -Parent $target)
         $extension = [IO.Path]::GetExtension($_.Name).ToLowerInvariant()
 
-        if ($extension -in @(".md", ".json", ".txt", ".sh", ".ps1", ".toml", ".yaml", ".yml")) {
+        if ($_.Name -in @(".gitignore", ".gitattributes")) {
+            $text = [IO.File]::ReadAllText($_.FullName, [Text.Encoding]::UTF8)
+            $normalized = $text -replace "\r\n?", "`n"
+            [IO.File]::WriteAllText($target, $normalized, [Text.UTF8Encoding]::new($false))
+        } elseif ($extension -in @(".md", ".json", ".txt", ".sh", ".ps1", ".toml", ".yaml", ".yml")) {
             $text = [IO.File]::ReadAllText($_.FullName, [Text.Encoding]::UTF8)
             $adapted = Convert-ForgeText $text $SkillNames
             [IO.File]::WriteAllText($target, $adapted, [Text.UTF8Encoding]::new($false))
@@ -216,7 +220,12 @@ Convert-ProjectTemplate $projectTemplate
 
 $manifestSource = Join-Path $sourceSkills "manifest.json"
 if (Test-Path -LiteralPath $manifestSource) {
-    Copy-Item -LiteralPath $manifestSource -Destination (Join-Path $references "upstream-manifest.json") -Force
+    $manifestText = [IO.File]::ReadAllText($manifestSource, [Text.Encoding]::UTF8) -replace "\r\n?", "`n"
+    [IO.File]::WriteAllText(
+        (Join-Path $references "upstream-manifest.json"),
+        $manifestText,
+        [Text.UTF8Encoding]::new($false)
+    )
 }
 
 Get-ChildItem -LiteralPath $destinationSkills -Recurse -Filter "SKILL.md" -File |

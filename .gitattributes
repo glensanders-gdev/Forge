@@ -1,1 +1,3 @@
+global/.claude/** text eol=lf
+project-template/** text eol=lf
 plugins/forge-codex/** text eol=lf

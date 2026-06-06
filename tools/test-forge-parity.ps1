@@ -91,6 +91,13 @@ if (-not (Test-Path -LiteralPath (Join-Path $pluginRoot "references\project-temp
 if (Test-Path -LiteralPath (Join-Path $pluginRoot "references\project-template\.claude")) {
     $errors.Add("Codex project template must not contain .claude")
 }
+$projectGitignore = Join-Path $pluginRoot "references\project-template\.gitignore"
+if (
+    -not (Test-Path -LiteralPath $projectGitignore) -or
+    (Get-Content -LiteralPath $projectGitignore -Raw) -notmatch "(?m)^/prototype$"
+) {
+    $errors.Add("Codex project template .gitignore must preserve the /prototype rule")
+}
 
 try {
     Get-Content -LiteralPath (Join-Path $pluginRoot "hooks\hooks.json") -Raw | ConvertFrom-Json | Out-Null
