@@ -119,8 +119,26 @@ function Copy-AdaptedTree([string]$Source, [string]$Destination, [string[]]$Skil
         $target = Join-Path $Destination $relative
         Ensure-Directory (Split-Path -Parent $target)
         $extension = [IO.Path]::GetExtension($_.Name).ToLowerInvariant()
+        $relativePosix = $relative -replace "\\", "/"
 
-        if ($_.Name -in @(".gitignore", ".gitattributes")) {
+        if ($relativePosix -eq "agents/openai.yaml") {
+            $agentText = [IO.File]::ReadAllText($_.FullName, [Text.Encoding]::UTF8)
+            if ($agentText -match "(?m)^interface:\s*$") {
+                $adapted = Convert-ForgeText $agentText $SkillNames
+            } else {
+                $skillName = Split-Path -Leaf $Source
+                $defaultPrompt = "Use `$$skillName to audit this codebase and provide severity-ranked findings with fixes."
+                $adapted = @"
+interface:
+  display_name: "$skillName"
+  short_description: "Audit codebases for common security vulnerabilities."
+  default_prompt: "$defaultPrompt"
+policy:
+  allow_implicit_invocation: true
+"@
+            }
+            [IO.File]::WriteAllText($target, ($adapted -replace "\r\n?", "`n"), [Text.UTF8Encoding]::new($false))
+        } elseif ($_.Name -in @(".gitignore", ".gitattributes")) {
             $text = [IO.File]::ReadAllText($_.FullName, [Text.Encoding]::UTF8)
             $normalized = $text -replace "\r\n?", "`n"
             [IO.File]::WriteAllText($target, $normalized, [Text.UTF8Encoding]::new($false))

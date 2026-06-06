@@ -5,7 +5,7 @@
 - Canonical shared source: `global/.claude/`
 - Codex generated output: `plugins/forge-codex/`
 - Shared framework version: `3.9.0`
-- Adapted skills: `99`
+- Adapted skills: `100`
 
 Forge remains credited to Glen Sanders. Skills with an earlier upstream origin retain that attribution.
 

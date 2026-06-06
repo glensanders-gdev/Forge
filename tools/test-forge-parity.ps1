@@ -105,6 +105,14 @@ try {
     $errors.Add("Codex hook configuration is not valid JSON")
 }
 
+Get-ChildItem -LiteralPath (Join-Path $pluginRoot "skills") -Recurse -Filter "openai.yaml" -File |
+    ForEach-Object {
+        $agentText = Get-Content -LiteralPath $_.FullName -Raw
+        if ($agentText -notmatch "(?m)^interface:\s*$") {
+            $errors.Add("Codex agent manifest must use the accepted interface contract: $($_.FullName)")
+        }
+    }
+
 foreach ($property in $compatibility.nativeOverrides.PSObject.Properties) {
     $name = $property.Name
     $entry = $property.Value
