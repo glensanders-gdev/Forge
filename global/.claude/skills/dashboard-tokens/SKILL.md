@@ -265,7 +265,7 @@ Chart.js from CDN. No external dependencies beyond CDN.
       <!-- Combined bar + line per sprint.
            Bar (blue): story points done.
            Line (green dashed): rolling 3-sprint average.
-           Tooltip includes goal hit %. 
+           Tooltip includes goal hit %.
            Requires sprintData. Empty state: "Close sprints with /sprint-end to start tracking." -->
       <canvas id="c-velocity"></canvas>
     </div>

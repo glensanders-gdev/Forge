@@ -11,6 +11,25 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
+## v3.9.0 — 2026-06-06
+
+**Dual-runtime Forge — Claude Code and Codex from one repository**
+
+### Added
+- `plugins/forge-codex/` — committed Codex plugin generated from the shared `global/.claude/` workflow source, with reviewed Codex-native overrides
+- `.agents/plugins/marketplace.json` — repository marketplace entry for Codex installation
+- `tools/build-forge-codex.ps1` — deterministic Codex plugin generation
+- `tools/test-forge-parity.ps1` and `.github/workflows/forge-parity.yml` — fail when shared skills are missing, versions drift, generated output is stale, or machine-specific paths enter the plugin
+- `plugins/forge-codex/compatibility.json` and `tools/update-forge-codex-overrides.ps1` — explicit review ledger for runtime-specific overrides; parity fails when a shared source changes until its Codex override is reviewed
+- `global/.claude/commands/raid.md` — restores the missing Claude Code command stub so all 99 shared skills are invocable in both runtimes
+
+### Changed
+- Forge now supports Claude Code and Codex under one shared framework version and changelog
+- Codex project templates use `AGENTS.md`, `.agents/skills/`, and `.codex/forge/`
+- Codex runtime differences are isolated to documented native overrides instead of silently diverging
+
+---
+
 ## v3.7.1 — 2026-06-01
 
 **Critic fixes — correctness, completeness, consistency**

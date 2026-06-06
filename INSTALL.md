@@ -1,5 +1,24 @@
 # Forge — Installation Guide
 
+Forge supports Claude Code and Codex from the same repository and shared release version.
+
+## Codex Plugin
+
+The Codex implementation is committed under `plugins/forge-codex/` and exposed through `.agents/plugins/marketplace.json`.
+
+Install from GitHub:
+
+```bash
+codex plugin marketplace add glensanders-gdev/Forge
+codex plugin add forge-codex@forge
+```
+
+Start a new Codex thread after installation so the plugin skills and bundled hook are loaded. Codex invokes Forge workflows with `$skill-name`.
+
+The plugin uses `AGENTS.md` for durable guidance, `.agents/skills/` for project-specific skills, and `~/.codex/forge/` for Forge-owned user data.
+
+Claude Code installation remains below.
+
 ## Recommended: One-Command Install
 
 If you have `git` installed, this is the fastest path:

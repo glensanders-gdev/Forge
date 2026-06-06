@@ -1,0 +1,28 @@
+{
+  "name": "forge-codex",
+  "version": "3.9.0",
+  "description": "Codex-native adaptation of Forge's structured software delivery framework.",
+  "author": {
+    "name": "Glen Sanders and Codex adaptation contributors",
+    "url": "https://github.com/glensanders-gdev/Forge"
+  },
+  "homepage": "https://github.com/glensanders-gdev/Forge",
+  "repository": "https://github.com/glensanders-gdev/Forge",
+  "keywords": ["delivery", "planning", "quality", "release", "forge"],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Forge for Codex",
+    "shortDescription": "Structured delivery from idea to release.",
+    "longDescription": "A Codex-native adaptation of Forge with 99 upstream workflows, Codex paths, AGENTS.md guidance, and lifecycle guardrails.",
+    "developerName": "Glen Sanders and Codex adaptation contributors",
+    "category": "Productivity",
+    "capabilities": ["Interactive", "Write"],
+    "websiteURL": "https://github.com/glensanders-gdev/Forge",
+    "defaultPrompt": [
+      "Use $commands to show the Forge workflow.",
+      "Use $onboard to add Forge to this project.",
+      "Use $forge-codex to explain this adaptation."
+    ],
+    "brandColor": "#B45309"
+  }
+}

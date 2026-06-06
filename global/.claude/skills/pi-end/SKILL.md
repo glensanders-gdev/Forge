@@ -131,7 +131,7 @@ Present proposed changes for confirmation before writing.
 ### 9. Post-Closure Prompt
 
 ```
-✓ PI-N closed. 
+✓ PI-N closed.
 
 Delivered: N features
 Carried forward: N features
