@@ -11,6 +11,15 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
+## v3.8.2 — 2026-06-06
+
+**New skill: /codex-review**
+
+### Added
+- `/codex-review` v1.0.0 — adversarial two-model plan review loop. Claude (builder/orchestrator) and OpenAI Codex CLI (read-only critic) argue over `PLAN.md` in bounded rounds (default MAX_ROUNDS=5). Loop always terminates; human approves the converged plan before any code is written. Deadlock surfaces unresolved disagreements rather than false-approving. `PLAN-REVIEW-LOG.md` is the primary deliverable. Adapted from chaseai-yt / grill-me-codex.
+
+---
+
 ## v3.7.1 — 2026-06-01
 
 **Critic fixes — correctness, completeness, consistency**
