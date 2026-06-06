@@ -10,6 +10,18 @@ if (-not $ConfirmReview) {
 
 $root = (Resolve-Path -LiteralPath $ForgeRoot).Path
 $outputPath = Join-Path $root "plugins\forge-codex\compatibility.json"
+
+function Get-NormalizedTextSha256([string]$Path) {
+    $text = [IO.File]::ReadAllText($Path, [Text.Encoding]::UTF8) -replace "\r\n?", "`n"
+    $bytes = [Text.UTF8Encoding]::new($false).GetBytes($text)
+    $sha256 = [Security.Cryptography.SHA256]::Create()
+    try {
+        return ([BitConverter]::ToString($sha256.ComputeHash($bytes))).Replace("-", "")
+    } finally {
+        $sha256.Dispose()
+    }
+}
+
 $overrideNames = @(
     "company-add",
     "forge-init",
@@ -31,7 +43,7 @@ foreach ($name in $overrideNames) {
     $overrides[$name] = [ordered]@{
         source = "global/.claude/skills/$name/SKILL.md"
         codex = "plugins/forge-codex/skills/$name/SKILL.md"
-        reviewedSourceSha256 = (Get-FileHash -LiteralPath $sourcePath -Algorithm SHA256).Hash
+        reviewedSourceSha256 = Get-NormalizedTextSha256 $sourcePath
     }
 }
 

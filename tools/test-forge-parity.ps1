@@ -12,6 +12,17 @@ $marketplacePath = Join-Path $root ".agents\plugins\marketplace.json"
 $compatibilityPath = Join-Path $pluginRoot "compatibility.json"
 $errors = New-Object System.Collections.Generic.List[string]
 
+function Get-NormalizedTextSha256([string]$Path) {
+    $text = [IO.File]::ReadAllText($Path, [Text.Encoding]::UTF8) -replace "\r\n?", "`n"
+    $bytes = [Text.UTF8Encoding]::new($false).GetBytes($text)
+    $sha256 = [Security.Cryptography.SHA256]::Create()
+    try {
+        return ([BitConverter]::ToString($sha256.ComputeHash($bytes))).Replace("-", "")
+    } finally {
+        $sha256.Dispose()
+    }
+}
+
 $forgeManifest = Get-Content -LiteralPath $manifestPath -Raw | ConvertFrom-Json
 $pluginManifest = Get-Content -LiteralPath $pluginManifestPath -Raw | ConvertFrom-Json
 $adaptation = Get-Content -LiteralPath $adaptationPath -Raw | ConvertFrom-Json
@@ -126,7 +137,7 @@ foreach ($property in $compatibility.nativeOverrides.PSObject.Properties) {
         $errors.Add("Reviewed Codex override is missing: $name")
         continue
     }
-    $actualHash = (Get-FileHash -LiteralPath $sourcePath -Algorithm SHA256).Hash
+    $actualHash = Get-NormalizedTextSha256 $sourcePath
     if ($actualHash -ne $entry.reviewedSourceSha256) {
         $errors.Add("Codex-native override requires review because shared source changed: $name")
     }
