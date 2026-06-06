@@ -11,6 +11,18 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
+## v3.8.2 — 2026-06-06
+
+**New skill: /vibe-security**
+
+### Added
+- `/vibe-security` v1.0.0 — active security auditor for AI-generated codebases. Produces severity-ranked findings (Critical → High → Medium → Low) with before/after fixes. Loads technology-specific reference files on demand (Supabase RLS, Stripe, mobile, AI/LLM, deployment, data access). Activates proactively when writing or reviewing auth, payment, database, or API key code. Compatible with both Claude Code (`/vibe-security`) and OpenAI Codex (`$vibe-security`).
+- 9 reference files covering: secrets & env vars, database security, authentication, rate limiting, payments, mobile, AI/LLM integration, deployment, and data access.
+- `agents/openai.yaml` for Codex compatibility.
+- Adapted from [Chris Raroque / Aloa](https://github.com/raroque/vibe-security-skill) — MIT licensed.
+
+---
+
 ## v3.7.1 — 2026-06-01
 
 **Critic fixes — correctness, completeness, consistency**
