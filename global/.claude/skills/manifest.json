@@ -1,7 +1,6 @@
 {
-  "forge_version": "3.8.2",
+  "forge_version": "3.8.1",
   "skills": {
-    "codex-review": "1.0.0",
     "tool-add": "1.0.0",
     "tool-check": "1.0.0",
     "grill-me": "1.0.0",
