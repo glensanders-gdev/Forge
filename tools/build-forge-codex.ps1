@@ -18,8 +18,12 @@ function ConvertTo-StableJson([object]$Value, [switch]$Compress) {
         $Value | ConvertTo-Json -Depth 20
     }
 
-    # Windows PowerShell escapes apostrophes while PowerShell 7 does not.
-    return $json -replace "\\u0027", "'"
+    # Windows PowerShell escapes HTML-sensitive characters while PowerShell 7 does not.
+    return $json `
+        -replace "\\u0026", "&" `
+        -replace "\\u0027", "'" `
+        -replace "\\u003c", "<" `
+        -replace "\\u003e", ">"
 }
 
 function Convert-ForgeText([string]$Text, [string[]]$SkillNames) {

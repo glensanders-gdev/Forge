@@ -1,6 +1,6 @@
 ---
 name: "dashboard-tokens"
-description: "Generate a comprehensive project health dashboard as a static HTML file with Chart.js visualisations. Five sections — Token \u0026 Cost, Quality, Pipeline \u0026 Velocity, Knowledge Base, Health. Exports to email-friendly HTML summary and CSV. Use when user runs $dashboard-tokens, or called automatically at the end of $context-health."
+description: "Generate a comprehensive project health dashboard as a static HTML file with Chart.js visualisations. Five sections — Token & Cost, Quality, Pipeline & Velocity, Knowledge Base, Health. Exports to email-friendly HTML summary and CSV. Use when user runs $dashboard-tokens, or called automatically at the end of $context-health."
 metadata:
   category: metrics
   origin: Adapted from Glen Sanders (Forge / https://github.com/glensanders-gdev/Forge)
