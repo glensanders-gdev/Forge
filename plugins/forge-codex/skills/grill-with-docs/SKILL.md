@@ -1,6 +1,6 @@
 ---
 name: "grill-with-docs"
-description: "Planning phase grilling session that challenges a plan against the existing domain model, sharpens terminology, and updates CONTEXT.md and ADRs inline as decisions crystallise. The standard entry point for project planning in Forge. Use when stress-testing a plan against the project\u0027s language, codebase, and documented decisions."
+description: "Planning phase grilling session that challenges a plan against the existing domain model, sharpens terminology, and updates CONTEXT.md and ADRs inline as decisions crystallise. The standard entry point for project planning in Forge. Use when stress-testing a plan against the project's language, codebase, and documented decisions."
 metadata:
   category: pipeline
   version: 2.0.0

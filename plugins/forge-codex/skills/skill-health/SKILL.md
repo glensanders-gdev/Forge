@@ -1,6 +1,6 @@
 ---
 name: "skill-health"
-description: "Audit the Forge for Codex plugin\u0027s skills, manifest, metadata, hooks, attribution, and upstream compatibility. Use for plugin maintenance or after an update."
+description: "Audit the Forge for Codex plugin's skills, manifest, metadata, hooks, attribution, and upstream compatibility. Use for plugin maintenance or after an update."
 metadata:
   category: framework
   origin: Adapted from Affaan Mustafa (ECC / github.com/affaan-m/ECC) and Glen Sanders (Forge)

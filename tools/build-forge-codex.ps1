@@ -11,6 +11,17 @@ function Ensure-Directory([string]$Path) {
     }
 }
 
+function ConvertTo-StableJson([object]$Value, [switch]$Compress) {
+    $json = if ($Compress) {
+        $Value | ConvertTo-Json -Depth 20 -Compress
+    } else {
+        $Value | ConvertTo-Json -Depth 20
+    }
+
+    # Windows PowerShell escapes apostrophes while PowerShell 7 does not.
+    return $json -replace "\\u0027", "'"
+}
+
 function Convert-ForgeText([string]$Text, [string[]]$SkillNames) {
     $out = $Text
     $out = $out -replace "~/.claude", "~/.codex/forge"
@@ -65,7 +76,7 @@ function Normalize-CodexSkillFrontmatter([string]$Path) {
                             break
                         }
                     }
-                    $quotedValue = $plainValue | ConvertTo-Json -Compress
+                    $quotedValue = ConvertTo-StableJson $plainValue -Compress
                     $kept.Add("${key}: $quotedValue")
                 } else {
                     $kept.Add($line)
@@ -215,6 +226,11 @@ $summary = [ordered]@{
     dataRoot = "~/.codex/forge/"
     projectInstructions = "AGENTS.md"
 }
-$summary | ConvertTo-Json -Depth 6 | Set-Content -LiteralPath (Join-Path $references "adaptation-build.json") -Encoding UTF8
+$summaryJson = ConvertTo-StableJson $summary -Compress
+[IO.File]::WriteAllText(
+    (Join-Path $references "adaptation-build.json"),
+    $summaryJson + "`n",
+    [Text.UTF8Encoding]::new($false)
+)
 
-$summary | ConvertTo-Json -Depth 6
+$summaryJson

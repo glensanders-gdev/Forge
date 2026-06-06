@@ -1,6 +1,6 @@
 ---
 name: "standup"
-description: "Summarise the last session, state today\u0027s goals, and surface any blockers. Use when user wants a session summary, runs $standup, or wants to orient themselves at the start of a working session."
+description: "Summarise the last session, state today's goals, and surface any blockers. Use when user wants a session summary, runs $standup, or wants to orient themselves at the start of a working session."
 metadata:
   category: session
   origin: Adapted from Glen Sanders (Forge / https://github.com/glensanders-gdev/Forge)

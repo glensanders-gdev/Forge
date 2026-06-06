@@ -1,6 +1,6 @@
 ---
 name: "idea"
-description: "Capture and stress-test a new idea through structured grilling — problem statement, baseline measurements, destination targets, journey, impact vs effort, and assumptions. Produces idea.md and living Mermaid diagrams. Use when user runs $idea, pitches an idea formally, or uses informal idea language like \"I\u0027ve been thinking about...\" or \"what if we...\"."
+description: "Capture and stress-test a new idea through structured grilling — problem statement, baseline measurements, destination targets, journey, impact vs effort, and assumptions. Produces idea.md and living Mermaid diagrams. Use when user runs $idea, pitches an idea formally, or uses informal idea language like \"I've been thinking about...\" or \"what if we...\"."
 metadata:
   category: ideation
   origin: Adapted from Glen Sanders (Forge / https://github.com/glensanders-gdev/Forge)

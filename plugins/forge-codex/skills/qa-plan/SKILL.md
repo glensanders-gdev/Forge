@@ -1,6 +1,6 @@
 ---
 name: "qa-plan"
-description: "Generate a human QA checklist from the active PRD\u0027s user stories and definition of done. Use when user runs $qa-plan, implementation is complete, or the feature is ready for human review before $approve."
+description: "Generate a human QA checklist from the active PRD's user stories and definition of done. Use when user runs $qa-plan, implementation is complete, or the feature is ready for human review before $approve."
 metadata:
   category: pipeline
   origin: Adapted from Glen Sanders (Forge / https://github.com/glensanders-gdev/Forge)

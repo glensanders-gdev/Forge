@@ -1,6 +1,6 @@
 ---
 name: "scope-check"
-description: "Mid-session gut check that compares current progress against agreed goals and flags scope creep. Use when user runs $scope-check, the session feels like it\u0027s drifting, or more than 3 tickets have been added since the session started."
+description: "Mid-session gut check that compares current progress against agreed goals and flags scope creep. Use when user runs $scope-check, the session feels like it's drifting, or more than 3 tickets have been added since the session started."
 metadata:
   category: session
   origin: Adapted from Glen Sanders (Forge / https://github.com/glensanders-gdev/Forge)

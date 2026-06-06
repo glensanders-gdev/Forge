@@ -1,6 +1,6 @@
 ---
 name: "context-health"
-description: "Audit the token load profile of the current project\u0027s context files. Measures every file loaded into a session, estimates token cost, flags files that are growing too large, and recommends specific trimming actions. Also scans project source directories and recommends child AGENTS.md context nodes for directories exceeding the 20k token threshold. Run weekly or at sprint start. Saves a report to docs/context-health-report.md. Use when user runs $context-health or when sessions are regularly hitting context limits."
+description: "Audit the token load profile of the current project's context files. Measures every file loaded into a session, estimates token cost, flags files that are growing too large, and recommends specific trimming actions. Also scans project source directories and recommends child AGENTS.md context nodes for directories exceeding the 20k token threshold. Run weekly or at sprint start. Saves a report to docs/context-health-report.md. Use when user runs $context-health or when sessions are regularly hitting context limits."
 metadata:
   category: metrics
   origin: Child node recommendations adapted from Railly Hugo (Crafter Station / github.com/crafter-station/skills), drawing from Tyler Brandt's Intent Layer framework.

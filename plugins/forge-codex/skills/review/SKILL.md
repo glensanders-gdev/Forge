@@ -1,6 +1,6 @@
 ---
 name: "review"
-description: "Structured code review against the project\u0027s ADRs, CONTEXT.md, layer conventions, and coding standards. Use when user runs $review, wants a code review, or implementation is complete and needs quality checking before QA."
+description: "Structured code review against the project's ADRs, CONTEXT.md, layer conventions, and coding standards. Use when user runs $review, wants a code review, or implementation is complete and needs quality checking before QA."
 metadata:
   category: code-quality
   origin: Adapted from Glen Sanders (Forge / https://github.com/glensanders-gdev/Forge)

@@ -1,6 +1,6 @@
 ---
 name: "intent-layers"
-description: "Alias for $context-health. Audits token load and recommends directory-scoped AGENTS.md child nodes. Use when thinking about context structure in terms of Tyler Brandt\u0027s \"Intent Layer\" framework."
+description: "Alias for $context-health. Audits token load and recommends directory-scoped AGENTS.md child nodes. Use when thinking about context structure in terms of Tyler Brandt's \"Intent Layer\" framework."
 metadata:
   version: 1.0.0
   category: framework
