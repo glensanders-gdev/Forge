@@ -1,1 +1,3 @@
 Invoke the git-guardrails skill. Set up a PreToolUse hook that hard-blocks dangerous git commands (push, reset --hard, clean -f, branch -D, checkout ., restore .) before Claude executes them. Hard enforcement layer on top of git-safety.md soft rules. Pass --project, --global, --verify, or --remove.
+
+Skill: global/.claude/skills/git-guardrails/SKILL.md

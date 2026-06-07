@@ -66,6 +66,12 @@ Flag in the output:
 - ⚠️ Feature with no assigned release
 - 📋 Go/No Go due within 5 days
 
+## Related
+
+- `/go-nogo` — produces the **Go/No Go Gate** record checked during sprint planning
+- `/sprint-start` — opens an individual project sprint after the sprint plan is approved
+- `/piplan` — PI-level planning that sprint plans feed into
+
 ## Rules
 
 - Consolidated view uses Stakeholder Labels only

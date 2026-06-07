@@ -1,1 +1,3 @@
 Invoke the research skill. Identify topics that need investigation before implementation and create topic-specific files under docs/research/. Cache findings so they don't need to be rediscovered each session.
+
+Skill: global/.claude/skills/research/SKILL.md

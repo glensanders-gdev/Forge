@@ -8,6 +8,16 @@ description: Display all available Forge commands with a short description of wh
 
 Display the full Forge command reference. No input required.
 
+## Pipeline Position
+
+Standalone reference utility — no pipeline position. User-invoked any time.
+
+```
+/commands     ← list all available Forge skills
+```
+
+Related: `/skill-health` (validates skills are functioning), `/forge-update` (installs new skills)
+
 ## Output
 
 Print the following reference exactly:

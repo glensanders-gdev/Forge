@@ -1,1 +1,3 @@
 Invoke the piplan skill. Create or update a Product Iteration plan spanning 3 monthly releases and 6 sprints. Derives deployment dates (3rd Sunday convention), Go/No Go gates, and buffer windows automatically. Produces consolidated cross-project and stakeholder-facing views.
+
+Skill: global/.claude/skills/piplan/SKILL.md

@@ -43,6 +43,17 @@ User says: "stop caveman" / "normal mode" / `/caveman --off`
 
 Write `caveman-mode: off` to `~/.claude/preferences.md`
 
+## Pipeline Position
+
+Standalone utility — user-invoked at any time during a session. No pipeline predecessor or successor.
+
+```
+/caveman         ← toggle on (any point in session)
+/caveman --off   ← toggle off
+```
+
+Related: `/context-health` (token spend reduction), `/continue` (respects caveman-mode preference on session resume)
+
 ## Forge Integration Points
 
 | Skill / File | Relationship |

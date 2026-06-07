@@ -1,1 +1,3 @@
 Invoke the standup skill. Summarise what was completed last session, confirm today's goals from the kanban board, and surface any blockers. Draw from DEVLOG.md and kanban.md — no input needed from the user.
+
+Skill: global/.claude/skills/standup/SKILL.md

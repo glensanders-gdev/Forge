@@ -1,0 +1,1071 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GPON Mathis Performance Checker</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: #0f172a;
+      color: #e2e8f0;
+      min-height: 100vh;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 2rem 1rem;
+    }
+
+    .container { width: 100%; max-width: 800px; }
+
+    header { margin-bottom: 2rem; }
+    header h1 { font-size: 1.5rem; font-weight: 700; color: #f8fafc; }
+    header p  { margin-top: 0.4rem; font-size: 0.875rem; color: #94a3b8; }
+
+    /* ── Cards ── */
+    .card {
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 0.75rem;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .card-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 1.25rem;
+    }
+
+    .card h2 {
+      font-size: 0.875rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #94a3b8;
+    }
+
+    .optional-tag {
+      font-size: 0.6875rem;
+      font-weight: 500;
+      background: #1e3a5f;
+      border: 1px solid #1d4ed8;
+      border-radius: 0.25rem;
+      color: #93c5fd;
+      padding: 0.125rem 0.5rem;
+      letter-spacing: 0.03em;
+    }
+
+    /* ── Grids ── */
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; }
+    @media (max-width: 560px) { .grid-2, .grid-3 { grid-template-columns: 1fr; } }
+
+    /* ── Form fields ── */
+    .field { display: flex; flex-direction: column; gap: 0.375rem; }
+
+    label { font-size: 0.8125rem; font-weight: 500; color: #cbd5e1; display: flex; align-items: center; flex-wrap: wrap; gap: 0.25rem; }
+    label .unit { color: #64748b; font-weight: 400; }
+
+    input[type="number"],
+    input[type="url"],
+    input[type="text"],
+    select {
+      background: #0f172a;
+      border: 1px solid #334155;
+      border-radius: 0.5rem;
+      color: #f1f5f9;
+      font-size: 0.9375rem;
+      padding: 0.5rem 0.75rem;
+      width: 100%;
+      transition: border-color 0.15s;
+    }
+    input:focus, select:focus { outline: none; border-color: #3b82f6; }
+    input.prefilled { border-color: #1d4ed8; background: #0f1f3d; }
+
+    .field-note { font-size: 0.6875rem; color: #475569; margin-top: 0.25rem; }
+
+    /* Prefill badge */
+    .prefill-tag {
+      font-size: 0.5625rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      background: #1e3a5f;
+      border: 1px solid #1d4ed8;
+      border-radius: 0.25rem;
+      color: #93c5fd;
+      padding: 0.05rem 0.35rem;
+    }
+
+    /* ── URL loader ── */
+    .url-row { display: flex; gap: 0.5rem; margin-bottom: 0.5rem; }
+    .url-row input { flex: 1; min-width: 0; }
+
+    button.load-btn {
+      background: #0f172a;
+      border: 1px solid #334155;
+      border-radius: 0.5rem;
+      color: #94a3b8;
+      cursor: pointer;
+      font-size: 0.8125rem;
+      font-weight: 600;
+      padding: 0 1rem;
+      white-space: nowrap;
+      flex-shrink: 0;
+      transition: all 0.15s;
+    }
+    button.load-btn:hover  { border-color: #3b82f6; color: #93c5fd; }
+    button.load-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+    .status-line { font-size: 0.75rem; min-height: 1rem; margin-bottom: 0.75rem; }
+    .status-line.ok      { color: #4ade80; }
+    .status-line.err     { color: #fbbf24; }
+    .status-line.loading { color: #94a3b8; }
+
+    /* Context strip after Ookla load */
+    .meta-strip {
+      display: none;
+      background: #0f172a;
+      border: 1px solid #334155;
+      border-radius: 0.5rem;
+      padding: 0.625rem 0.875rem;
+      margin-bottom: 1rem;
+      font-size: 0.75rem;
+      color: #94a3b8;
+      line-height: 1.6;
+    }
+    .meta-strip.visible { display: block; }
+    .meta-strip strong   { color: #cbd5e1; }
+
+    /* nbn info box */
+    .info-box {
+      background: #0f172a;
+      border: 1px solid #334155;
+      border-left: 3px solid #6366f1;
+      border-radius: 0.5rem;
+      padding: 0.75rem 1rem;
+      margin-bottom: 1rem;
+      font-size: 0.75rem;
+      color: #94a3b8;
+      line-height: 1.6;
+    }
+    .info-box strong { color: #cbd5e1; }
+
+    /* ── Calculate button ── */
+    button.calculate {
+      background: #2563eb;
+      border: none;
+      border-radius: 0.5rem;
+      color: #fff;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: 600;
+      padding: 0.75rem 2rem;
+      width: 100%;
+      transition: background 0.15s;
+      margin-top: 0.5rem;
+    }
+    button.calculate:hover { background: #1d4ed8; }
+
+    /* ── Divider ── */
+    .divider { border: none; border-top: 1px solid #334155; margin: 1rem 0; }
+
+    /* ── Results hidden until calculated ── */
+    .results { display: none; }
+    .results.visible { display: block; }
+
+    /* ── Metric cards ── */
+    .direction-label {
+      font-size: 0.8125rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #94a3b8;
+      margin-bottom: 0.75rem;
+    }
+
+    .metric-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 0.75rem;
+      margin-bottom: 0.75rem;
+    }
+    @media (max-width: 560px) { .metric-row { grid-template-columns: 1fr 1fr; } }
+
+    .metric {
+      background: #0f172a;
+      border: 1px solid #334155;
+      border-radius: 0.5rem;
+      padding: 0.875rem;
+    }
+    .metric-name {
+      font-size: 0.6875rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #64748b;
+      margin-bottom: 0.25rem;
+    }
+    .metric-value { font-size: 1.25rem; font-weight: 700; color: #f1f5f9; }
+    .metric-sub   { font-size: 0.6875rem; color: #64748b; margin-top: 0.125rem; }
+
+    /* ── RAG bar ── */
+    .rag-bar-wrapper { margin-top: 0.75rem; }
+    .rag-label-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.6875rem;
+      color: #64748b;
+      margin-bottom: 0.25rem;
+    }
+    .rag-bar-track {
+      background: #0f172a;
+      border-radius: 999px;
+      height: 12px;
+      position: relative;
+      overflow: visible;
+    }
+    .rag-bar-fill { border-radius: 999px; height: 100%; transition: width 0.4s ease; max-width: 100%; }
+    .rag-bar-fill.red   { background: #ef4444; }
+    .rag-bar-fill.amber { background: #f59e0b; }
+    .rag-bar-fill.green { background: #22c55e; }
+
+    .rag-threshold { position: absolute; top: -3px; bottom: -3px; width: 2px; border-radius: 1px; }
+    .rag-threshold.t70 { background: #f59e0b; left: 70%; }
+    .rag-threshold.t80 { background: #22c55e; left: 80%; }
+
+    .rag-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.375rem;
+      font-size: 0.8125rem;
+      font-weight: 600;
+      margin-top: 0.625rem;
+      padding: 0.25rem 0.75rem;
+      border-radius: 999px;
+    }
+    .rag-status.red   { background: #450a0a; color: #fca5a5; border: 1px solid #7f1d1d; }
+    .rag-status.amber { background: #451a03; color: #fcd34d; border: 1px solid #78350f; }
+    .rag-status.green { background: #052e16; color: #86efac; border: 1px solid #14532d; }
+    .rag-dot { width: 8px; height: 8px; border-radius: 50%; }
+    .red   .rag-dot { background: #f87171; }
+    .amber .rag-dot { background: #fbbf24; }
+    .green .rag-dot { background: #4ade80; }
+
+    /* ── Diagnosis card ── */
+    .diag-card {
+      display: none;
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 0.75rem;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    .diag-card.visible { display: block; }
+
+    .diag-summary {
+      font-size: 0.875rem;
+      color: #cbd5e1;
+      line-height: 1.6;
+      margin-bottom: 1.25rem;
+    }
+
+    .diag-steps { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; }
+
+    .diag-step {
+      display: flex;
+      gap: 0.875rem;
+      align-items: flex-start;
+      background: #0f172a;
+      border: 1px solid #334155;
+      border-radius: 0.5rem;
+      padding: 0.75rem 1rem;
+      font-size: 0.8125rem;
+      line-height: 1.55;
+      color: #cbd5e1;
+    }
+
+    .step-badge {
+      flex-shrink: 0;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.625rem;
+      font-weight: 800;
+      margin-top: 0.05rem;
+    }
+    .step-badge.ok       { background: #052e16; color: #4ade80; border: 1px solid #14532d; }
+    .step-badge.info     { background: #0c1a2e; color: #60a5fa; border: 1px solid #1e40af; }
+    .step-badge.warning  { background: #451a03; color: #fbbf24; border: 1px solid #78350f; }
+    .step-badge.critical { background: #450a0a; color: #f87171; border: 1px solid #7f1d1d; }
+    .step-badge.action   { background: #1a1033; color: #c4b5fd; border: 1px solid #4c1d95; }
+
+    .diag-step.ok       { border-color: #14532d; }
+    .diag-step.info     { border-color: #1e3a5f; }
+    .diag-step.warning  { border-color: #78350f; }
+    .diag-step.critical { border-color: #7f1d1d; }
+    .diag-step.action   { border-color: #4c1d95; }
+
+    .step-content strong { color: #f1f5f9; display: block; margin-bottom: 0.2rem; }
+
+    /* ── Formula note ── */
+    .formula-note { font-size: 0.75rem; color: #475569; margin-top: 1rem; line-height: 1.5; }
+    .formula-note code {
+      background: #0f172a;
+      border-radius: 0.25rem;
+      color: #94a3b8;
+      font-family: ui-monospace, monospace;
+      font-size: 0.6875rem;
+      padding: 0.125rem 0.375rem;
+    }
+
+    .l2-note {
+      margin-top: 1rem;
+      padding: 0.75rem 1rem;
+      background: #0f172a;
+      border: 1px solid #334155;
+      border-left: 3px solid #3b82f6;
+      border-radius: 0.5rem;
+      font-size: 0.75rem;
+      color: #94a3b8;
+      line-height: 1.6;
+    }
+    .l2-note strong { color: #cbd5e1; }
+
+    /* ── Tooltips ── */
+    .tip-wrap { position: relative; display: inline-flex; align-items: center; }
+
+    .tip-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 14px; height: 14px;
+      border-radius: 50%;
+      background: #334155;
+      color: #94a3b8;
+      font-size: 0.5625rem;
+      font-weight: 700;
+      font-style: normal;
+      margin-left: 0.3rem;
+      cursor: default;
+      flex-shrink: 0;
+      line-height: 1;
+      user-select: none;
+    }
+
+    .tip-bubble {
+      display: none;
+      position: absolute;
+      bottom: calc(100% + 6px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: #1e293b;
+      border: 1px solid #475569;
+      border-radius: 0.5rem;
+      color: #cbd5e1;
+      font-size: 0.75rem;
+      font-weight: 400;
+      line-height: 1.5;
+      padding: 0.5rem 0.75rem;
+      width: 230px;
+      z-index: 100;
+      pointer-events: none;
+      text-transform: none;
+      letter-spacing: 0;
+    }
+    .tip-bubble::after {
+      content: '';
+      position: absolute;
+      top: 100%; left: 50%;
+      transform: translateX(-50%);
+      border: 5px solid transparent;
+      border-top-color: #475569;
+    }
+    .tip-wrap:hover .tip-bubble,
+    .tip-wrap:focus-within .tip-bubble { display: block; }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <header>
+    <h1>GPON Mathis Performance Checker</h1>
+    <p>Compare observed speed test results against the Mathis formula and PIR thresholds, then get guided troubleshooting steps.</p>
+  </header>
+
+  <!-- ══ 1. Service Parameters ═══════════════════════════ -->
+  <div class="card">
+    <div class="card-header"><h2>Service Parameters</h2></div>
+
+    <div class="field" style="margin-bottom:1rem;">
+      <label class="tip-wrap">NBN Speed Tier
+        <span class="tip-icon">i<span class="tip-bubble">The NBN wholesale speed tier ordered for this service. Sets the PIR — the maximum downstream and upstream speed under ideal conditions.</span></span>
+      </label>
+      <select id="tierSelect" onchange="applyTier()">
+        <optgroup label="Entry">
+          <option value="12|1">NBN 12 — 12 / 1 Mbps</option>
+          <option value="25|5">NBN 25 — 25 / 5 Mbps</option>
+          <option value="25|10">NBN 25/10 — 25 / 10 Mbps</option>
+          <option value="50|20">NBN 50 — 50 / 20 Mbps</option>
+        </optgroup>
+        <optgroup label="Higher Speed (from Sep 2025)">
+          <option value="500|50">Home Fast — 500 / 50 Mbps</option>
+          <option value="750|50">Home Superfast — 750 / 50 Mbps</option>
+          <option value="1000|100">Home Ultrafast — 1000 / 100 Mbps</option>
+        </optgroup>
+        <optgroup label="Multi-Gigabit (from Sep 2025)">
+          <option value="2000|200">Home Hyperfast FTTP — 2000 / 200 Mbps</option>
+          <option value="2000|100">Home Hyperfast HFC — 2000 / 100 Mbps</option>
+        </optgroup>
+        <optgroup label="Custom">
+          <option value="custom">Custom PIR values</option>
+        </optgroup>
+      </select>
+      <p class="field-note" id="tierNote">PIR values populated automatically from the selected tier.</p>
+    </div>
+
+    <div class="grid-2">
+      <div class="field">
+        <label class="tip-wrap">PIR Downstream <span class="unit">(Mbps)</span>
+          <span class="tip-icon">i<span class="tip-bubble">Peak Information Rate — the maximum downstream (download) speed this service can deliver at Layer 2.</span></span>
+        </label>
+        <input type="number" id="pirDs" value="12" min="1" step="1" />
+      </div>
+      <div class="field">
+        <label class="tip-wrap">PIR Upstream <span class="unit">(Mbps)</span>
+          <span class="tip-icon">i<span class="tip-bubble">Peak Information Rate — the maximum upstream (upload) speed this service can deliver at Layer 2.</span></span>
+        </label>
+        <input type="number" id="pirUs" value="1" min="1" step="1" />
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ 2. Ookla Speed Test ══════════════════════════════ -->
+  <div class="card">
+    <div class="card-header">
+      <h2>Ookla Speed Test Results</h2>
+      <span class="optional-tag">Optional</span>
+    </div>
+
+    <p style="font-size:0.8rem;color:#64748b;margin-bottom:1rem;">
+      Run a test at <strong style="color:#94a3b8;">speedtest.net</strong> then paste the result link below, or enter values manually. Ping and packet loss will pre-fill the Mathis Parameters section.
+    </p>
+
+    <div class="url-row">
+      <input type="url" id="ooklaUrl" placeholder="https://www.speedtest.net/result/19269200246" />
+      <button class="load-btn" id="ooklaLoadBtn" onclick="loadOokla()">Load</button>
+    </div>
+    <div class="status-line" id="ooklaStatus"></div>
+    <div class="meta-strip" id="ooklaMeta"></div>
+
+    <div class="grid-2" style="margin-bottom:1rem;">
+      <div class="field">
+        <label class="tip-wrap">Download <span class="unit">(Mbps)</span>
+          <span class="tip-icon">i<span class="tip-bubble">Application-layer download speed from Ookla. Expect this to read 3–7% below the Mathis estimate due to TCP overhead and connection ramp-up.</span></span>
+        </label>
+        <input type="number" id="obsDs" placeholder="e.g. 480" min="0" step="0.1" />
+      </div>
+      <div class="field">
+        <label class="tip-wrap">Upload <span class="unit">(Mbps)</span>
+          <span class="tip-icon">i<span class="tip-bubble">Application-layer upload speed from Ookla.</span></span>
+        </label>
+        <input type="number" id="obsUs" placeholder="e.g. 48" min="0" step="0.1" />
+      </div>
+    </div>
+
+    <div class="grid-3">
+      <div class="field">
+        <label class="tip-wrap">Ping <span class="unit">(ms)</span>
+          <span class="prefill-tag">→ RTT</span>
+          <span class="tip-icon">i<span class="tip-bubble">Unloaded round-trip latency measured by Ookla. Pre-fills the RTT field used by the Mathis formula.</span></span>
+        </label>
+        <input type="number" id="obsPing" placeholder="e.g. 12" min="0" step="0.1" oninput="syncPing()" />
+      </div>
+      <div class="field">
+        <label class="tip-wrap">Jitter <span class="unit">(ms)</span>
+          <span class="tip-icon">i<span class="tip-bubble">Variation in round-trip time. High jitter causes choppy voice and video. Not used directly in the Mathis formula but shown in the diagnosis.</span></span>
+        </label>
+        <input type="number" id="obsJitter" placeholder="e.g. 2" min="0" step="0.1" />
+      </div>
+      <div class="field">
+        <label class="tip-wrap">Packet Loss <span class="unit">(%)</span>
+          <span class="prefill-tag">→ Loss</span>
+          <span class="tip-icon">i<span class="tip-bubble">Packet loss measured by Ookla. Pre-fills the Loss field used by the Mathis formula.</span></span>
+        </label>
+        <input type="number" id="obsLoss" placeholder="e.g. 0" min="0" max="100" step="0.01" oninput="syncLoss()" />
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ 3. nbn Network Test ══════════════════════════════ -->
+  <div class="card">
+    <div class="card-header">
+      <h2>nbn Network Test</h2>
+      <span class="optional-tag">Optional</span>
+    </div>
+
+    <div class="info-box">
+      <strong>How to run the nbn throughput test</strong><br>
+      The nbn app (available on iOS and Android) can run a throughput test directly from your NTD — the white nbn box on your wall. This test bypasses your router and WiFi, measuring the speed delivered to your premises rather than to your device. This makes it the most reliable way to tell whether a performance issue is within the nbn network or within your home.
+      <br><br>
+      Open the nbn app &rarr; <strong>My Services</strong> &rarr; <strong>Run a speed test</strong>. Record the download and upload results below.
+    </div>
+
+    <div class="grid-2">
+      <div class="field">
+        <label class="tip-wrap">nbn Test Download <span class="unit">(Mbps)</span>
+          <span class="tip-icon">i<span class="tip-bubble">Download speed from the nbn app throughput test. Measured at the NTD — bypasses your router and WiFi. If this is good but Ookla is poor, the issue is in your home network, not the nbn network.</span></span>
+        </label>
+        <input type="number" id="nbnDs" placeholder="e.g. 495" min="0" step="0.1" />
+      </div>
+      <div class="field">
+        <label class="tip-wrap">nbn Test Upload <span class="unit">(Mbps)</span>
+          <span class="tip-icon">i<span class="tip-bubble">Upload speed from the nbn app throughput test. Measured at the NTD, bypassing home equipment.</span></span>
+        </label>
+        <input type="number" id="nbnUs" placeholder="e.g. 49" min="0" step="0.1" />
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ 4. Mathis Parameters ════════════════════════════ -->
+  <div class="card">
+    <div class="card-header"><h2>Mathis Parameters</h2></div>
+
+    <p style="font-size:0.8rem;color:#64748b;margin-bottom:1rem;">
+      Used to calculate the theoretical TCP throughput ceiling. Ping and packet loss are pre-filled from your Ookla result if entered above.
+    </p>
+
+    <div class="grid-3">
+      <div class="field">
+        <label class="tip-wrap">RTT <span class="unit">(ms)</span>
+          <span class="tip-icon">i<span class="tip-bubble">Round-Trip Time — time for a packet to travel to the server and back. Higher RTT reduces TCP throughput. Expected GPON access RTT is 2–10 ms; end-to-end (including internet) will be higher.</span></span>
+        </label>
+        <input type="number" id="rtt" value="5" min="0.1" step="0.1" />
+      </div>
+      <div class="field">
+        <label class="tip-wrap">Packet Loss <span class="unit">(%)</span>
+          <span class="tip-icon">i<span class="tip-bubble">Fraction of packets dropped. TCP treats loss as congestion and backs off. Even 0.1% loss noticeably degrades throughput on high-speed links.</span></span>
+        </label>
+        <input type="number" id="loss" value="0.1" min="0" max="100" step="0.01" />
+      </div>
+      <div class="field">
+        <label class="tip-wrap">MSS <span class="unit">(bytes)</span>
+          <span class="tip-icon">i<span class="tip-bubble">Maximum Segment Size — largest TCP payload per segment. Default 1460 assumes a 1500-byte Ethernet MTU. Use 1452 for PPPoE (NBN FTTN).</span></span>
+        </label>
+        <input type="number" id="mss" value="1460" min="64" max="9000" step="1" />
+      </div>
+    </div>
+
+    <button class="calculate" onclick="calculate()">Analyse Performance</button>
+  </div>
+
+  <!-- ══ Results ══════════════════════════════════════════ -->
+  <div class="card results" id="results">
+    <h2 style="margin-bottom:1.25rem;">Mathis Results</h2>
+
+    <div style="margin-bottom:1rem;" id="resultDs"></div>
+    <hr class="divider" />
+    <div id="resultUs"></div>
+
+    <p class="formula-note">
+      Mathis formula: <code>Throughput = (MSS / RTT) &times; (1 / &radic;p)</code> — upper bound for a single TCP flow under steady-state AIMD congestion control.
+      Thresholds: <code>&lt;70% PIR = Below threshold</code> &middot; <code>70&ndash;80% = Marginal</code> &middot; <code>&ge;80% = Acceptable</code>.
+    </p>
+    <div class="l2-note">
+      <strong>Layer 2 vs speed test — why the numbers differ</strong><br>
+      The PIR is quoted at <strong>Layer 2</strong> (Ethernet frame rate on the PON). The Mathis formula estimates throughput at the <strong>TCP layer</strong> — already ~3&ndash;5% below PIR due to IP and TCP header overhead. Ookla and the nbn app measure <strong>application-layer goodput</strong>, which sits above TCP, so they read lower again due to connection ramp-up. A customer recording 93&ndash;97% of PIR on Ookla is typically performing at or near the service ceiling. The full stack: <code>PIR (L2) &gt; Mathis (L4) &gt; Speed test (L7)</code>.
+    </div>
+  </div>
+
+  <!-- ══ Diagnosis ════════════════════════════════════════ -->
+  <div class="diag-card" id="diagCard">
+    <div class="card-header" style="margin-bottom:1rem;"><h2>Diagnosis &amp; Next Steps</h2></div>
+    <p class="diag-summary" id="diagSummary"></p>
+    <ul class="diag-steps" id="diagSteps"></ul>
+  </div>
+
+</div><!-- /container -->
+
+<script>
+  // ── Tier selector ────────────────────────────────────────
+  function applyTier() {
+    const sel = document.getElementById('tierSelect').value;
+    if (sel === 'custom') {
+      document.getElementById('tierNote').textContent = 'Enter your own downstream and upstream PIR values.';
+      return;
+    }
+    const [ds, us] = sel.split('|');
+    document.getElementById('pirDs').value = ds;
+    document.getElementById('pirUs').value = us;
+    document.getElementById('tierNote').textContent = 'PIR values populated from the selected NBN wholesale tier.';
+  }
+
+  ['pirDs','pirUs'].forEach(id => {
+    document.getElementById(id).addEventListener('input', () => {
+      document.getElementById('tierSelect').value = 'custom';
+      document.getElementById('tierNote').textContent = 'Enter your own downstream and upstream PIR values.';
+    });
+  });
+
+  applyTier();
+
+  // ── Ping / loss sync ─────────────────────────────────────
+  function syncPing() {
+    const v = document.getElementById('obsPing').value.trim();
+    const el = document.getElementById('rtt');
+    if (v !== '') { el.value = parseFloat(v); el.classList.add('prefilled'); }
+    else { el.classList.remove('prefilled'); }
+  }
+
+  function syncLoss() {
+    const v = document.getElementById('obsLoss').value.trim();
+    const el = document.getElementById('loss');
+    if (v !== '') { el.value = parseFloat(v); el.classList.add('prefilled'); }
+    else { el.classList.remove('prefilled'); }
+  }
+
+  document.getElementById('rtt').addEventListener('input',  () => document.getElementById('rtt').classList.remove('prefilled'));
+  document.getElementById('loss').addEventListener('input', () => document.getElementById('loss').classList.remove('prefilled'));
+
+  // ── Ookla loader ─────────────────────────────────────────
+  function extractResultId(url) {
+    const m = url.match(/speedtest\.net\/result\/(?:d\/)?(\d+)/i);
+    return m ? m[1] : null;
+  }
+
+  function setOoklaStatus(msg, type) {
+    const el = document.getElementById('ooklaStatus');
+    el.textContent = msg;
+    el.className = 'status-line ' + (type || '');
+  }
+
+  function esc(s) {
+    return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+
+  function populateOokla(data) {
+    if (data.download   != null) document.getElementById('obsDs').value    = data.download.toFixed(2);
+    if (data.upload     != null) document.getElementById('obsUs').value    = data.upload.toFixed(2);
+    if (data.ping       != null) { document.getElementById('obsPing').value  = data.ping;   syncPing(); }
+    if (data.jitter     != null) document.getElementById('obsJitter').value = data.jitter;
+    if (data.packetLoss != null) { document.getElementById('obsLoss').value  = data.packetLoss; syncLoss(); }
+
+    const parts = [];
+    if (data.isp)    parts.push('<strong>ISP:</strong> ' + esc(data.isp));
+    if (data.server) parts.push('<strong>Server:</strong> ' + esc(data.server));
+    if (data.date)   parts.push('<strong>Date:</strong> ' + esc(data.date));
+    const meta = document.getElementById('ooklaMeta');
+    if (parts.length) { meta.innerHTML = parts.join(' &nbsp;&middot;&nbsp; '); meta.classList.add('visible'); }
+  }
+
+  async function loadOokla() {
+    const urlVal = document.getElementById('ooklaUrl').value.trim();
+    if (!urlVal) { setOoklaStatus('Please enter a Speedtest.net result URL.', 'err'); return; }
+
+    const id = extractResultId(urlVal);
+    if (!id) { setOoklaStatus('URL not recognised — expected: speedtest.net/result/123456789', 'err'); return; }
+
+    const btn = document.getElementById('ooklaLoadBtn');
+    btn.disabled = true;
+    setOoklaStatus('Loading result ' + id + '…', 'loading');
+    document.getElementById('ooklaMeta').classList.remove('visible');
+
+    try {
+      const res = await fetch('https://www.speedtest.net/api/result/' + id, { headers: { Accept: 'application/json' } });
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      const j = await res.json();
+      const toBit = v => v > 100000 ? v / 1e6 : v;
+      populateOokla({
+        download:    j.download   != null ? toBit(j.download)   : null,
+        upload:      j.upload     != null ? toBit(j.upload)     : null,
+        ping:        j.ping?.latency ?? j.latency   ?? null,
+        jitter:      j.ping?.jitter  ?? j.jitter    ?? null,
+        packetLoss:  j.packetLoss   ?? j.packet_loss ?? null,
+        isp:         j.isp          ?? null,
+        server:      j.server ? (j.server.name + (j.server.location ? ', ' + j.server.location : '')) : null,
+        date:        j.timestamp ? new Date(j.timestamp).toLocaleString() : null,
+      });
+      setOoklaStatus('Result ' + id + ' loaded successfully.', 'ok');
+    } catch {
+      window.open('https://www.speedtest.net/result/' + id, '_blank', 'noopener');
+      setOoklaStatus('Could not load automatically (browser restriction) — the result has been opened in a new tab. Enter the values below manually.', 'err');
+    } finally {
+      btn.disabled = false;
+    }
+  }
+
+  document.getElementById('ooklaUrl').addEventListener('keydown', e => { if (e.key === 'Enter') loadOokla(); });
+
+  // ── Mathis formula ───────────────────────────────────────
+  function mathisMbps(mss, rttMs, lossFraction) {
+    if (lossFraction <= 0) return Infinity;
+    return ((mss / (rttMs / 1000)) * (1 / Math.sqrt(lossFraction)) * 8) / 1e6;
+  }
+
+  function ragClass(pct) { return pct >= 80 ? 'green' : pct >= 70 ? 'amber' : 'red'; }
+  function ragLabel(pct) {
+    return pct >= 80 ? 'Acceptable (&ge;80%)' : pct >= 70 ? 'Marginal (70&ndash;80%)' : 'Below threshold (&lt;70%)';
+  }
+  function fmt(v) { return v >= 1000 ? (v / 1000).toFixed(2) + ' Gbps' : v.toFixed(1) + ' Mbps'; }
+
+  // ── Render one direction in Results ─────────────────────
+  function renderDir(id, label, mathisMbpsVal, pirMbps, obsSpeed, nbnSpeed, jitter) {
+    const capped   = Math.min(mathisMbpsVal, pirMbps);
+    const pct      = (capped / pirMbps) * 100;
+    const rag      = ragClass(pct);
+    const barW     = Math.min(pct, 100).toFixed(2);
+    const mathDisp = isFinite(mathisMbpsVal) ? fmt(mathisMbpsVal) : 'Unconstrained';
+
+    const ragBar = (fillClass, fillPct) => `
+      <div class="rag-bar-wrapper">
+        <div class="rag-label-row"><span>0%</span><span style="color:#f59e0b">70%</span><span style="color:#22c55e">80%</span><span>100%</span></div>
+        <div class="rag-bar-track">
+          <div class="rag-bar-fill ${fillClass}" style="width:${Math.min(fillPct,100).toFixed(2)}%"></div>
+          <div class="rag-threshold t70"></div><div class="rag-threshold t80"></div>
+        </div>
+      </div>`;
+
+    const obsRow = obsSpeed !== null ? (() => {
+      const obsPct   = (obsSpeed / pirMbps) * 100;
+      const obsRag   = ragClass(obsPct);
+      const delta    = obsSpeed - capped;
+      const dSign    = delta >= 0 ? '+' : '&minus;';
+      const dColor   = delta >= 0 ? '#4ade80' : '#f87171';
+      const jitHtml  = jitter !== null ? `<div class="metric-sub">Jitter: ${jitter} ms</div>` : '';
+      return `
+        <hr style="border:none;border-top:1px dashed #334155;margin:0.875rem 0;">
+        <p style="font-size:0.6875rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:#64748b;margin-bottom:.625rem;">Observed — Ookla</p>
+        <div class="metric-row">
+          <div class="metric">
+            <div class="metric-name tip-wrap">Speed Test Result<span class="tip-icon">i<span class="tip-bubble">Application-layer goodput from Ookla. This sits above TCP so always reads slightly below the Mathis estimate.</span></span></div>
+            <div class="metric-value">${fmt(obsSpeed)}</div>
+            <div class="metric-sub">application layer</div>${jitHtml}
+          </div>
+          <div class="metric">
+            <div class="metric-name tip-wrap">vs Mathis Effective<span class="tip-icon">i<span class="tip-bubble">Gap between the Ookla result and the Mathis TCP-layer estimate. A small negative gap (3–7%) is expected and normal.</span></span></div>
+            <div class="metric-value" style="color:${dColor}">${dSign}${Math.abs(delta).toFixed(1)} Mbps</div>
+            <div class="metric-sub">vs TCP estimate</div>
+          </div>
+          <div class="metric">
+            <div class="metric-name tip-wrap">% of PIR<span class="tip-icon">i<span class="tip-bubble">Ookla result as a percentage of the PIR. 93–97% typically means the service is at or near its ceiling when accounting for L2→L7 overhead.</span></span></div>
+            <div class="metric-value">${obsPct.toFixed(1)}%</div>
+            <div class="metric-sub">&nbsp;</div>
+          </div>
+        </div>
+        ${ragBar(obsRag, obsPct)}
+        <div><span class="rag-status ${obsRag}"><span class="rag-dot"></span>Ookla: ${ragLabel(obsPct)}</span></div>`;
+    })() : '';
+
+    const nbnRow = nbnSpeed !== null ? (() => {
+      const nPct  = (nbnSpeed / pirMbps) * 100;
+      const nRag  = ragClass(nPct);
+      return `
+        <hr style="border:none;border-top:1px dashed #334155;margin:0.875rem 0;">
+        <p style="font-size:0.6875rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:#64748b;margin-bottom:.625rem;">Observed — nbn Network Test</p>
+        <div class="metric-row">
+          <div class="metric">
+            <div class="metric-name tip-wrap">nbn App Result<span class="tip-icon">i<span class="tip-bubble">Speed measured at the NTD by the nbn app, bypassing your router and WiFi. If this is acceptable but Ookla is not, the issue is in your home equipment.</span></span></div>
+            <div class="metric-value">${fmt(nbnSpeed)}</div>
+            <div class="metric-sub">at NTD — bypasses home equipment</div>
+          </div>
+          <div class="metric">
+            <div class="metric-name tip-wrap">% of PIR<span class="tip-icon">i<span class="tip-bubble">nbn test result as a percentage of the PIR.</span></span></div>
+            <div class="metric-value">${nPct.toFixed(1)}%</div>
+            <div class="metric-sub">&nbsp;</div>
+          </div>
+          <div class="metric">
+            <div class="metric-name">Gap vs Ookla</div>
+            ${obsSpeed !== null ? (() => {
+              const gap = nbnSpeed - obsSpeed;
+              const gSign = gap >= 0 ? '+' : '&minus;';
+              const gColor = gap >= 0 ? '#f1f5f9' : '#f87171';
+              return `<div class="metric-value" style="color:${gColor}">${gSign}${Math.abs(gap).toFixed(1)} Mbps</div><div class="metric-sub">nbn vs Ookla</div>`;
+            })() : '<div class="metric-value" style="color:#475569">—</div><div class="metric-sub">no Ookla data</div>'}
+          </div>
+        </div>
+        ${ragBar(nRag, nPct)}
+        <div><span class="rag-status ${nRag}"><span class="rag-dot"></span>nbn test: ${ragLabel(nPct)}</span></div>`;
+    })() : '';
+
+    document.getElementById(id).innerHTML = `
+      <div class="direction-label">${label}</div>
+      <div class="metric-row">
+        <div class="metric">
+          <div class="metric-name tip-wrap">Mathis Throughput<span class="tip-icon">i<span class="tip-bubble">Theoretical maximum TCP throughput from the Mathis formula using your RTT, packet loss, and MSS. Upper bound for a single TCP flow.</span></span></div>
+          <div class="metric-value">${mathDisp}</div>
+          <div class="metric-sub">single TCP flow</div>
+        </div>
+        <div class="metric">
+          <div class="metric-name tip-wrap">Effective vs PIR<span class="tip-icon">i<span class="tip-bubble">Mathis throughput capped at the PIR. If above PIR, the link speed is the constraint. If below, network conditions (RTT or loss) are limiting.</span></span></div>
+          <div class="metric-value">${fmt(capped)}</div>
+          <div class="metric-sub">of ${fmt(pirMbps)} PIR</div>
+        </div>
+        <div class="metric">
+          <div class="metric-name tip-wrap">% of PIR<span class="tip-icon">i<span class="tip-bubble">Mathis effective throughput as a percentage of PIR. Below 70% = below threshold; 70–80% = marginal; 80%+ = acceptable.</span></span></div>
+          <div class="metric-value">${pct.toFixed(1)}%</div>
+          <div class="metric-sub">&nbsp;</div>
+        </div>
+      </div>
+      ${ragBar(rag, pct)}
+      <div style="margin-bottom:0.25rem;"><span class="rag-status ${rag}"><span class="rag-dot"></span>Mathis: ${ragLabel(pct)}</span></div>
+      ${obsRow}${nbnRow}`;
+  }
+
+  // ── Diagnosis engine ─────────────────────────────────────
+  function buildDiagnosis(d) {
+    // d = { pirDs, pirUs, mathisDs, mathisUs, ooklaDs, ooklaUs, nbnDs, nbnUs, rtt, loss, jitter }
+    const steps   = [];
+    const hasOok  = d.ooklaDs !== null;
+    const hasNbn  = d.nbnDs   !== null;
+    const ookPct  = hasOok ? (d.ooklaDs / d.pirDs) * 100 : null;
+    const nbnPct  = hasNbn ? (d.nbnDs   / d.pirDs) * 100 : null;
+
+    // ── Network condition flags ──────────────────────────
+    if (d.loss > 2) {
+      steps.push({ level: 'critical',
+        title: 'High packet loss detected',
+        body: `Your packet loss of ${d.loss.toFixed(2)}% is significantly above acceptable levels. TCP treats every lost packet as a congestion signal and slows down sharply. This alone can account for large speed shortfalls and will also degrade voice and video calls. This is unlikely to be caused by your home equipment — report it to your ISP.`
+      });
+    } else if (d.loss > 0.5) {
+      steps.push({ level: 'warning',
+        title: 'Elevated packet loss',
+        body: `Packet loss of ${d.loss.toFixed(2)}% is above the acceptable threshold. While small amounts of loss are normal, values above 0.5% will reduce TCP throughput and may cause buffering on streaming services. Monitor this over several tests at different times of day.`
+      });
+    }
+
+    if (d.rtt > 50) {
+      steps.push({ level: 'warning',
+        title: 'High latency (RTT)',
+        body: `Your measured RTT of ${d.rtt} ms is higher than expected. For a GPON service, access latency should be under 10 ms; end-to-end to a nearby server should typically be under 30 ms. High RTT directly reduces the throughput the Mathis formula can achieve. If this test was done over WiFi, try a wired connection to separate home network latency from nbn network latency.`
+      });
+    }
+
+    if (d.jitter !== null && d.jitter > 10) {
+      steps.push({ level: 'warning',
+        title: 'High jitter',
+        body: `Jitter of ${d.jitter} ms indicates variability in your connection's latency. High jitter is particularly disruptive for real-time applications such as voice calls and video conferencing. This can be caused by WiFi interference, congestion at your router, or instability in the nbn network.`
+      });
+    }
+
+    // ── Speed analysis ───────────────────────────────────
+    if (!hasOok && !hasNbn) {
+      // No observed data at all
+      steps.push({ level: 'info',
+        title: 'No speed test results entered',
+        body: 'To get a meaningful diagnosis, run an Ookla Speedtest at speedtest.net and enter the results above. If you want to isolate whether any issue is in your home network or the nbn network, also run the nbn throughput test via the nbn app.'
+      });
+      return { summary: 'Mathis parameters have been calculated but no observed speed test data has been provided. Enter Ookla or nbn app results to receive a full diagnosis.', steps };
+    }
+
+    if (hasOok && ookPct >= 80 && (!hasNbn || nbnPct >= 80)) {
+      // All good
+      steps.push({ level: 'ok',
+        title: 'Service is performing within acceptable range',
+        body: `Your download speed (${d.ooklaDs.toFixed(1)} Mbps) is at ${ookPct.toFixed(1)}% of your PIR, which is above the 80% acceptability threshold. No action is required at this time. If speeds drop in the future, re-run this tool to compare.`
+      });
+      return { summary: 'All measured results are within the acceptable performance threshold. No issues identified.', steps };
+    }
+
+    if (hasOok && !hasNbn) {
+      // Only Ookla — can't isolate home vs network
+      if (ookPct >= 70) {
+        steps.push({ level: 'info',
+          title: 'Run the nbn throughput test',
+          body: 'Your Ookla result is in the marginal range. To determine whether this is a home network issue or an nbn network issue, run the nbn throughput test via the nbn app. This test measures speed at the NTD and bypasses your router and WiFi.'
+        });
+        steps.push({ level: 'action',
+          title: 'Test with a wired connection',
+          body: 'Connect your device directly to your router using an ethernet cable and re-run the Ookla speed test. If your speed improves significantly, the cause is likely your WiFi rather than the nbn network.'
+        });
+        steps.push({ level: 'info',
+          title: 'Monitor performance over time',
+          body: 'Run tests at different times of day (particularly during evening peak hours, 7–11 pm). If speeds are consistently below 70% of your PIR, contact your ISP with your Ookla result links.'
+        });
+      } else {
+        // Ookla <70%, no nbn test
+        steps.push({ level: 'action',
+          title: 'Test with a wired connection first',
+          body: 'Before contacting anyone, connect your device directly to your router using an ethernet cable and re-run the Ookla speed test. This rules out WiFi as the cause. If speeds remain low on ethernet, the issue is not your WiFi.'
+        });
+        steps.push({ level: 'action',
+          title: 'Run the nbn throughput test',
+          body: 'Open the nbn app and run a throughput test. This measures speed at the NTD, bypassing your home equipment. If this result is also significantly below your PIR, the issue is within the nbn network. If this result is good, the issue is within your home network (router, cabling, or WiFi).'
+        });
+        steps.push({ level: 'info',
+          title: 'Check for nbn outages',
+          body: 'Visit outages.nbn.com.au or check your ISP\'s outage page to see if there are known issues in your area before raising a fault.'
+        });
+      }
+    } else if (hasNbn && !hasOok) {
+      // Only nbn test
+      if (nbnPct >= 80) {
+        steps.push({ level: 'info',
+          title: 'nbn network is delivering acceptable speeds',
+          body: `The nbn app test shows ${d.nbnDs.toFixed(1)} Mbps at your NTD (${nbnPct.toFixed(1)}% of PIR). If you are experiencing slow speeds on your devices, the issue is likely within your home network.`
+        });
+        steps.push({ level: 'action',
+          title: 'Check your home network equipment',
+          body: 'Test your internet speed using Ookla on a device connected via ethernet cable to your router. If speeds are good on ethernet but slow over WiFi, the issue is your WiFi setup. Consider moving your router to a more central location, reducing interference, or upgrading your router.'
+        });
+      } else {
+        steps.push({ level: 'warning',
+          title: 'nbn network test shows below-threshold speeds',
+          body: `The nbn app measured ${d.nbnDs.toFixed(1)} Mbps at your NTD (${nbnPct.toFixed(1)}% of PIR). Because this test runs at the NTD and bypasses your home equipment, the issue is likely within the nbn network rather than your home.`
+        });
+        steps.push({ level: 'info',
+          title: 'Check for nbn outages',
+          body: 'Visit outages.nbn.com.au or check your ISP\'s outage page to see if there are known issues in your area before raising a fault.'
+        });
+        steps.push({ level: 'action',
+          title: 'Contact your ISP',
+          body: 'Your ISP is your first point of contact for nbn faults. Share your nbn app test results with them. Your ISP will raise a fault with nbn on your behalf if the issue is confirmed to be within the nbn network.'
+        });
+      }
+    } else if (hasOok && hasNbn) {
+      // Both tests available — full isolation possible
+      if (nbnPct >= 80 && ookPct < 80) {
+        // nbn good, Ookla poor → home equipment issue
+        steps.push({ level: 'info',
+          title: 'Issue identified: home network',
+          body: `The nbn network is delivering ${d.nbnDs.toFixed(1)} Mbps to your premises (${nbnPct.toFixed(1)}% of PIR), which is within the acceptable range. However, your Ookla result of ${d.ooklaDs.toFixed(1)} Mbps (${ookPct.toFixed(1)}%) shows a significant loss between the NTD and your device. The cause is within your home network — your router, WiFi, or internal cabling.`
+        });
+        steps.push({ level: 'action',
+          title: 'Test on a wired ethernet connection',
+          body: 'Connect your device directly to your router using an ethernet cable and re-run the Ookla speed test. If speeds improve, the issue is your WiFi. If speeds remain low, the issue is your router or the cabling between your NTD and router.'
+        });
+        steps.push({ level: 'action',
+          title: 'Check your router',
+          body: 'Ensure your router firmware is up to date. Restart your router (power off for 30 seconds, then back on). If your router is more than 4 years old or is a basic ISP-supplied unit, consider upgrading to a model capable of your plan speed.'
+        });
+        steps.push({ level: 'action',
+          title: 'Check WiFi environment',
+          body: 'If the issue is WiFi: move closer to your router, check for sources of interference (cordless phones, microwaves, neighbouring WiFi networks), and ensure your device supports the same WiFi band (5 GHz for best speeds) as your router.'
+        });
+        steps.push({ level: 'info',
+          title: 'No nbn fault required at this stage',
+          body: 'Because the nbn network test shows acceptable speeds, this is not an nbn network fault. Contacting your ISP about a network fault is unlikely to resolve a home equipment issue.'
+        });
+
+      } else if (nbnPct < 70 && ookPct < 70) {
+        // Both poor → network issue
+        steps.push({ level: 'critical',
+          title: 'Issue identified: nbn network',
+          body: `Both the nbn app test (${d.nbnDs.toFixed(1)} Mbps, ${nbnPct.toFixed(1)}% of PIR) and your Ookla result (${d.ooklaDs.toFixed(1)} Mbps, ${ookPct.toFixed(1)}%) are significantly below threshold. Because the nbn test runs at the NTD and bypasses your home equipment, this confirms the issue is within the nbn network — not your router or WiFi.`
+        });
+        steps.push({ level: 'action',
+          title: 'Check for nbn outages',
+          body: 'Before raising a fault, visit outages.nbn.com.au or check your ISP\'s service status page. If an outage is already logged in your area, it will be repaired without you needing to call.'
+        });
+        steps.push({ level: 'action',
+          title: 'Check your NTD lights',
+          body: 'Look at the lights on your NTD (the white nbn box). The Power, PON or LOS, and DATA indicators should all be solid. A flashing or red LOS/PON light indicates a loss of optical signal — this is an nbn network fault that requires a technician.'
+        });
+        steps.push({ level: 'action',
+          title: 'Contact your ISP to raise a fault',
+          body: 'Your ISP is your point of contact for nbn faults. Call or chat with your ISP and provide: your plan speed (PIR), your Ookla result link, and your nbn app test result. Your ISP will escalate to nbn if the issue is confirmed on their end. You do not call nbn directly as a residential customer.'
+        });
+
+      } else if (nbnPct >= 70 && nbnPct < 80 && ookPct >= 70) {
+        // Both marginal
+        steps.push({ level: 'warning',
+          title: 'Marginal performance across all tests',
+          body: `Both the nbn test (${nbnPct.toFixed(1)}%) and Ookla (${ookPct.toFixed(1)}%) are in the marginal range. The nbn network is not delivering full PIR, but the shortfall is not severe enough to confirm a fault.`
+        });
+        steps.push({ level: 'info',
+          title: 'Monitor performance at different times',
+          body: 'Run tests during off-peak hours (e.g. 10 am on a weekday) and during evening peak hours (7–11 pm). If speeds are consistently below 70% of PIR during peak hours only, this may indicate congestion within the nbn network or your ISP\'s backhaul — worth reporting to your ISP.'
+        });
+        steps.push({ level: 'info',
+          title: 'Contact your ISP if the issue persists',
+          body: 'If speeds remain in the marginal range across multiple tests over several days, contact your ISP with a record of your test results and times. Include both your Ookla links and nbn app results.'
+        });
+      }
+    }
+
+    // ── Loss / RTT summary context ───────────────────────
+    if (d.loss === 0 && d.rtt < 20 && steps.filter(s => s.level === 'critical' || s.level === 'warning').length === 0) {
+      steps.push({ level: 'ok',
+        title: 'Network conditions look healthy',
+        body: `Your measured latency (${d.rtt} ms) and packet loss (${d.loss}%) are within normal ranges for a GPON service. Network conditions are not limiting your throughput.`
+      });
+    }
+
+    const totalPct = hasOok ? ookPct : (hasNbn ? nbnPct : null);
+    let summary = '';
+    if (totalPct !== null) {
+      if (totalPct >= 80) summary = 'Performance is within the acceptable threshold. Review the steps below for context.';
+      else if (totalPct >= 70) summary = 'Performance is in the marginal range. Follow the steps below to investigate and monitor.';
+      else summary = 'Performance is below the acceptable threshold. Follow the steps below to identify the cause before contacting your ISP.';
+    } else {
+      summary = 'Review the steps below for guidance based on the data you have entered.';
+    }
+
+    return { summary, steps };
+  }
+
+  function renderDiagnosis(d) {
+    const { summary, steps } = buildDiagnosis(d);
+    document.getElementById('diagSummary').textContent = summary;
+
+    const badges = { ok: 'OK', info: 'i', warning: '!', critical: '!!', action: '→' };
+    const list = document.getElementById('diagSteps');
+    list.innerHTML = steps.map(s => `
+      <li class="diag-step ${s.level}">
+        <div class="step-badge ${s.level}">${badges[s.level]}</div>
+        <div class="step-content">
+          <strong>${s.title}</strong>
+          ${s.body}
+        </div>
+      </li>`).join('');
+
+    document.getElementById('diagCard').classList.add('visible');
+  }
+
+  // ── Main calculate ────────────────────────────────────────
+  function calculate() {
+    const mss   = parseFloat(document.getElementById('mss').value);
+    const rtt   = parseFloat(document.getElementById('rtt').value);
+    const loss  = parseFloat(document.getElementById('loss').value) / 100;
+    const pirDs = parseFloat(document.getElementById('pirDs').value);
+    const pirUs = parseFloat(document.getElementById('pirUs').value);
+
+    if ([mss, rtt, loss, pirDs, pirUs].some(v => isNaN(v) || v < 0)) {
+      alert('Please complete all Mathis Parameters before analysing.');
+      return;
+    }
+
+    const g = id => { const v = document.getElementById(id).value.trim(); return v !== '' ? parseFloat(v) : null; };
+    const obsDs   = g('obsDs');
+    const obsUs   = g('obsUs');
+    const nbnDs   = g('nbnDs');
+    const nbnUs   = g('nbnUs');
+    const jitter  = g('obsJitter');
+    const lossRaw = parseFloat(document.getElementById('loss').value);
+
+    const throughput = mathisMbps(mss, rtt, loss);
+
+    renderDir('resultDs', 'Downstream', throughput, pirDs, obsDs, nbnDs, jitter);
+    renderDir('resultUs', 'Upstream',   throughput, pirUs, obsUs, nbnUs, null);
+
+    document.getElementById('results').classList.add('visible');
+
+    renderDiagnosis({
+      pirDs, pirUs,
+      mathisDs: Math.min(throughput, pirDs),
+      mathisUs: Math.min(throughput, pirUs),
+      ooklaDs: obsDs, ooklaUs: obsUs,
+      nbnDs, nbnUs,
+      rtt, loss: lossRaw, jitter,
+    });
+
+    document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+</script>
+</body>
+</html>

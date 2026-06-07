@@ -1,1 +1,3 @@
 Invoke the security-resolve skill. Mark a security finding as resolved — records resolution date, resolver, and fix description in the assessment report, and closes the kanban ticket if one exists. Use after fixing a finding: /security-resolve [SEC-YYYYMMDD-NNN].
+
+Skill: global/.claude/skills/security-resolve/SKILL.md

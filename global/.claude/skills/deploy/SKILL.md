@@ -227,6 +227,13 @@ After `DONE`, run health check if configured and log the deployment.
 
 ---
 
+## Related
+
+- `/go-nogo` — produces the **Go/No Go Gate** record this skill requires before deploying
+- `/deploy-pi` — extends this skill for full PI releases (multiple projects)
+- `/rollback` — reversal path if deployment fails
+- `/sprintplan` — also references the Go/No Go Gate as a sprint planning check
+
 ## Rules
 
 - Never deploy without a confirmed Go/No Go (`GO` decision in release record)

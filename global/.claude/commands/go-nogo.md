@@ -1,1 +1,3 @@
 Invoke the go-nogo skill. Prepare the Go/No Go brief for an upcoming monthly release. AI assembles ticket status, risk assessment, and recommendation. Human types GO or NO-GO to decide. Brief saved to docs/releases/. If NO-GO, features are carried forward and plans updated.
+
+Skill: global/.claude/skills/go-nogo/SKILL.md

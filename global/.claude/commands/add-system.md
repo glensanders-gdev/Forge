@@ -1,1 +1,3 @@
 Invoke the add-system skill. Scaffold a new system knowledge folder at ~/.claude/knowledge/systems/[system-name]/ with blank overview.md, schema.md, and known-issues.md files. Ask for the system name if not provided.
+
+Skill: global/.claude/skills/add-system/SKILL.md

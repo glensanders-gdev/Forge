@@ -1,1 +1,3 @@
 Invoke the approve skill. QA has passed. Archive the active PRD from docs/prd/active/ to docs/prd/archived/. Seal the DEVLOG session entry. Mark all kanban tickets as Done. Optionally push coding standards. Never reference the archived PRD in any future session.
+
+Skill: global/.claude/skills/approve/SKILL.md

@@ -1,1 +1,3 @@
 Invoke the pi-replan skill. Handle a new project or scope change injected mid-PI. Assesses remaining releases only, flags Fixed Deadline risks as P1 before proceeding, updates PI plan in place. Requires two confirmation gates — one for the PI plan, one for the stakeholder view.
+
+Skill: global/.claude/skills/pi-replan/SKILL.md

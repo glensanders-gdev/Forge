@@ -1,1 +1,3 @@
 Invoke the skill-health skill. Read-only structural audit of the Forge skill portfolio — checks manifest.json entries for matching SKILL.md directories, command stubs, required sections (Failure Modes, Rules), CHANGELOG coverage, and attribution gaps. Saves report to ~/.claude/knowledge/skill-health-report.md. Flags 🔴 Critical (missing SKILL.md), ⚠️ Amber (incomplete sections), and ℹ️ Info findings. Flags: --critical, --skill <name>.
+
+Skill: global/.claude/skills/skill-health/SKILL.md

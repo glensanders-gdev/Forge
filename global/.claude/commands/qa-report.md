@@ -1,1 +1,3 @@
 Invoke the qa-report skill. Record the results of a completed QA session as a datestamped evidence artefact saved to docs/tests/results/[feature]-YYYY-MM-DD.md. Prompts for a structured evidence block (CI run link, test output file, screenshot folder), records pass/fail/waived per TC-NNN item, computes a summary verdict, and sets the approve gate status. Use after completing the qa-plan checklist and before running /approve.
+
+Skill: global/.claude/skills/qa-report/SKILL.md

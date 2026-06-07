@@ -1,1 +1,3 @@
 Invoke the changelog skill. Generate release notes from completed kanban tickets, DEVLOG entries, ADRs, and git log. Produces a user-facing release summary and a technical CHANGELOG.md entry. Natural trigger between /go-nogo approval and /deploy.
+
+Skill: global/.claude/skills/changelog/SKILL.md

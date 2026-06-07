@@ -1,1 +1,3 @@
 Invoke the company-add skill. Set up a company-specific file structure outside the Forge repo at ~/.claude/companies/[name]/. Grills the user on sprint cadence, team locations, freeze periods, compliance tier, external approval gates, deployment environments, and AI usage policy. Company data is never committed to GitHub. Use /company-add [name] --quick to skip grilling and apply all defaults.
+
+Skill: global/.claude/skills/company-add/SKILL.md

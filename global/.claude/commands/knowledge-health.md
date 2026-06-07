@@ -1,1 +1,3 @@
 Invoke the knowledge-health skill. Read-only diagnostic across all Forge knowledge layers — system knowledge, company glossaries, and project CONTEXT.md files. Reports coverage scorecard, P1 structural health, P2 cross-reference findings (including Do Not Attempt conflicts with active PRDs), and P3 interesting connections. Saves to ~/.claude/knowledge/health-report.md. Suggested at sprint-start if last check was more than 30 days ago.
+
+Skill: global/.claude/skills/knowledge-health/SKILL.md

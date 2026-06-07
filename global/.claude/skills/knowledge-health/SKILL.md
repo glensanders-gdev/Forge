@@ -251,6 +251,13 @@ Consider running /user:knowledge-health before this sprint begins.
 
 ---
 
+## Related
+
+- `/add-project` — scaffolds the **Three-Tier Knowledge Structure** (Raw/Wiki/Outputs) this skill audits
+- `/add-system` — creates system knowledge folders audited in Phase 1
+- `/knowledge-onboard` — populates the knowledge base content that health check evaluates
+- `/sprint-start` — triggers a health check reminder if last check > 30 days
+
 ## Rules
 
 - Never modify any file during the health check — read-only throughout

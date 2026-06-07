@@ -1,1 +1,3 @@
 Invoke the test-coverage skill. Reactive complement to /tdd — analyzes coverage gaps in existing code, ranks files below threshold (default 80%), confirms scope with user, writes missing tests (happy path, error handling, edge cases, branches), verifies all tests pass, and reports before/after. Assigns TC IDs to new tests via docs/tests/registry.md. Integrates with /go-nogo as a release gate. Flags: --analyze-only, --file <path>, --threshold <N>.
+
+Skill: global/.claude/skills/test-coverage/SKILL.md

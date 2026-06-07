@@ -71,6 +71,13 @@ Run the auth check above. Then, based on the subcommand, read the corresponding 
 
 ---
 
+## Related
+
+- **Jira MCP Server** (`JIRA_URL`, `JIRA_EMAIL`, `JIRA_API_TOKEN`) — the connection layer used by all subcommands
+- `/link-jira` — maps Forge IDs (IDEA-NNN, PROJ-NNN) to Jira issue keys
+- `/lookup` — resolves Forge entity IDs; Jira keys are one of the entity types
+- See also: `global/.claude/skills/jira/` — subcommand files: `get.md`, `search.md`, `comment.md`, `transition.md`, `setup.md`
+
 ## Rules
 
 - Never store credentials in source files, kanban, or DEVLOG — env vars or MCP only

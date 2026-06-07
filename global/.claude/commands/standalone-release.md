@@ -1,1 +1,3 @@
 Invoke the standalone-release skill. Prepare and execute a standalone release for urgent changes outside the monthly cycle. Verifies eligibility (1 week clear of monthly releases, weekday preferred), prepares a brief, and requires CONFIRM from the human before proceeding.
+
+Skill: global/.claude/skills/standalone-release/SKILL.md
