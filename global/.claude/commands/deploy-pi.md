@@ -1,1 +1,3 @@
 Invoke the deploy-pi skill. Deploy all projects in the current PI release in configured sequence (deploy-order in .claude/deploy.md). Requires Go/No Go. Stops on any failure — human decides to rollback, investigate, resume, or stop. Updates PI plan and stakeholder view automatically on full success.
+
+Skill: global/.claude/skills/deploy-pi/SKILL.md

@@ -65,6 +65,15 @@ Triggered when the human runs `sprint-end` or picks up the HITL finalise ticket.
    - What just happened: sprint summary in one sentence
    - Next action: "Run `sprint-start` to open Sprint-NN+1"
    - Open decisions or carry-forwards if any
+## Pipeline Position
+
+```
+$sprint-start → $standup (daily) → $sprint-end → $debrief
+```
+
+Precedes: `$debrief` (session close), `$sprint-start` (next sprint)
+Follows: the last `$standup` of the sprint
+
 8. **Archive completed tickets** — move all Done tickets from `docs/kanban.md` to `docs/kanban-archive.md`:
    - Append under heading: `## Sprint-NN — YYYY-MM-DD`
    - Leave only In Progress, Blocked, and Backlog tickets in `kanban.md`

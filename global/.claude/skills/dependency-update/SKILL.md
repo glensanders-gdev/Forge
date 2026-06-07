@@ -215,6 +215,18 @@ Do not stage any changes to source files — updates should only affect manifest
 
 ---
 
+## Pipeline Position
+
+Standalone maintenance utility — typically run on a schedule or when `/security-assessment` flags a vulnerable dependency.
+
+```
+/security-assessment  →  /dependency-update   (when vulnerabilities found)
+/dependency-update                             (scheduled maintenance)
+```
+
+Follows: `/security-assessment` (when flagged), or run standalone
+Produces: staged changes for developer review — no commit, no deploy
+
 ## Rules
 
 - Never auto-commit — always stage for developer review

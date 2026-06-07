@@ -1,1 +1,3 @@
 Invoke the critic skill. Critically evaluate the current framework, PRD, plan, skill, or design across four dimensions: correctness, completeness, consistency, and risk. Produces a prioritised P1/P2/P3 critique report. Advisory only — no changes made.
+
+Skill: global/.claude/skills/critic/SKILL.md

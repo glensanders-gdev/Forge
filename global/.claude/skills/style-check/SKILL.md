@@ -89,6 +89,13 @@ Ask the user how to provide the document:
 - `/user:knowledge-onboard` — populates `style-guide.md` that this skill reads
 - `/user:qa-plan` — include a style-check step for any externally shared deliverable
 
+## Related
+
+- `~/.claude/knowledge/company/style-guide.md` — canonical **Company Style Guide** this skill reads
+- `/knowledge-onboard` — populates the style-guide.md that this skill checks against
+- `/push-standards` — enforces coding standards; style-check handles prose and documentation standards
+- `/write-article` — primary consumer of style-check for external content
+
 ## Rules
 
 - Never approve a document with unresolved CRITICAL findings

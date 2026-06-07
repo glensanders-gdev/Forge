@@ -1,1 +1,3 @@
 Invoke the diagnose skill. Systematically investigate the current failure or bug. Form hypotheses before making any changes. Confirm root cause, propose fix, get confirmation if the change is significant, then implement and verify.
+
+Skill: global/.claude/skills/diagnose/SKILL.md

@@ -6,7 +6,7 @@ An AI-assisted development workflow framework for Claude Code and Codex.
 
 ## What is Forge?
 
-Forge is a structured dev workflow built around composable Claude Code skills. It guides you through a repeatable pipeline from idea to deployed feature — with sprint planning, PI management, TDD, QA, PII checking, and production deployment all covered.
+Forge is a structured dev workflow built around composable skills for Claude Code and Codex. It guides you through a repeatable pipeline from idea to deployed feature — with sprint planning, PI management, TDD, QA, PII checking, and production deployment all covered.
 
 ```
 /idea → /create-project → /grill-with-docs → /write-prd → /testplan
@@ -20,17 +20,17 @@ Each stage produces an artifact that feeds the next. The AI agent orients itself
 
 ## What's Included
 
-**100 shared skills** covering the full software delivery lifecycle, adapted for Claude Code and Codex:
+**102 shared skills** covering the full software delivery lifecycle, adapted for Claude Code and Codex:
 
 | Category | Skills |
 |----------|--------|
 | Ideation | `/idea`, `/create-project`, `/front-gate`, `/onboard` |
-| Pipeline | `/grill-with-docs`, `/grill-me`, `/research`, `/prototype`, `/write-prd`, `/testplan`, `/estimate`, `/break-down`, `/build`, `/tdd`, `/test-coverage`, `/qa-plan`, `/qa-report`, `/pii-check`, `/approve` |
-| Session Management | `/continue`, `/standup`, `/handoff`, `/debrief`, `/save-state`, `/scope-check`, `/caveman`, `/backlog-list`, `/backlog-proj`, `/backlog-add`, `/lookup` |
-| Code Quality | `/review`, `/critic`, `/diagnose`, `/write-adr`, `/push-standards`, `/lang-rules`, `/update-readme`, `/git-guardrails`, `/accessibility`, `/ai-first-engineering`, `/write-article`, `/seo`, `/security-assessment`, `/security-resolve`, `/performance-review` |
+| Pipeline | `/grill-with-docs`, `/grill-me`, `/grill-with-peer`, `/research`, `/prototype`, `/write-prd`, `/testplan`, `/estimate`, `/break-down`, `/build`, `/tdd`, `/test-coverage`, `/qa-plan`, `/qa-report`, `/pii-check`, `/approve` |
+| Session Management | `/continue`, `/standup`, `/handoff`, `/debrief`, `/save-state`, `/scope-check`, `/caveman`, `/backlog-list`, `/backlog-proj`, `/backlog-add`, `/lookup`, `/ia` |
+| Code Quality | `/review`, `/critic`, `/diagnose`, `/write-adr`, `/push-standards`, `/lang-rules`, `/update-readme`, `/git-guardrails`, `/accessibility`, `/ai-first-engineering`, `/write-article`, `/seo`, `/security-assessment`, `/security-resolve`, `/performance-review`, `/vibe-security`, `/codex-review` |
 | Knowledge Base | `/ia`, `/add-system`, `/add-project`, `/summarise-system`, `/update-context`, `/add-term`, `/knowledge-health`, `/knowledge-onboard`, `/style-check`, `/ingest`, `/publish`, `/setup-confluence` |
 | Metrics & Reporting | `/token-report`, `/dashboard-tokens`, `/context-health`, `/fy-review` |
-| PI & Release | `/piplan`, `/pi-end`, `/sprintplan`, `/go-nogo`, `/changelog`, `/deploy`, `/deploy-pi`, `/rollback`, `/rollback-pi`, `/standalone-release`, `/sprint-replan`, `/pi-replan`, `/incident` |
+| PI & Release | `/piplan`, `/pi-end`, `/sprintplan`, `/go-nogo`, `/changelog`, `/deploy`, `/deploy-pi`, `/rollback`, `/rollback-pi`, `/standalone-release`, `/sprint-replan`, `/pi-replan`, `/incident`, `/raid` |
 | Sprint Management | `/sprint-start`, `/sprint-end`, `/pir` |
 | Maintenance | `/feature-flag`, `/tech-debt`, `/dependency-update` |
 | Company Config | `/company-add`, `/company-git`, `/company-sync`, `/company-update`, `/jira`, `/tool-add`, `/tool-check` |
@@ -150,8 +150,8 @@ Or if you have an existing project:
 
 ```
 ~/.claude/
-  skills/              ← 100 shared skills
-  commands/            ← 100 Claude Code slash commands
+  skills/              ← 102 shared skills
+  commands/            ← 102 shared workflow commands + /grill-with-codex alias
   tools/
     global.md          ← global tools registry (security scanners, perf analysers, etc.)
   knowledge/
@@ -221,7 +221,9 @@ The full framework lifecycle is documented in `~/.claude/forge-sequence.mmd`. Re
 
 | Version | Changes |
 |---------|---------|
-| 3.9.0 | Dual-runtime Forge — committed Codex plugin, shared release line, deterministic generation, parity enforcement, Codex-native overrides, and repository marketplace |
+| 3.9.0 | Dual-runtime Forge — committed Codex plugin, shared release line, deterministic generation, parity enforcement, peer-model grilling, Codex-native overrides, and repository marketplace |
+| 3.8.0 | `/vibe-security` — AI-generated codebase security auditor; `/codex-review` — adversarial two-model plan review (opt-in tool); `/raid` — RAID log management; `/ia` — Impact Assessment skill |
+| 3.7.1 | Critic audit fixes (6 issues); `/write-prd` routing fix (→ `/testplan` before Kanban) |
 | 3.7.0 | Junction-based sync — `install.sh` rewritten to create junctions (Windows) / symlinks (Mac/Linux) for `skills/`, `commands/`, `rules/`; `/forge-install` v2.0.0 with auto-detect, migration flow, and iOS guidance; `/forge-update` v2.0.0 simplified to `git pull`; `update.sh` deprecated |
 | 3.6.0 | `/qa-report` v1.0.0 — QA evidence artefact; `/approve` v1.1.0 — QA report hard-block gate; `/qa-plan` v1.1.0 — output renamed to feature-scoped filename |
 | 3.5.0 | `/forge-init`, `/forge-update` — self-maintenance skills; `/ingest` structured scope prompt; `/context-health` Intent Layer child node recommendations; `category:` field added to all 94 skill frontmatter files |
@@ -261,5 +263,6 @@ Forge draws on ideas, patterns, and techniques from several excellent open-sourc
 |--------|--------|-----------------|
 | [ECC](https://github.com/affaan-m/ECC) | Affaan Mustafa | Accessibility (WCAG 2.2), AI-first engineering principles, write-article style rules, lang-rules system, common coding rules layer (coding-style, quality-checklist, research-first, security), instincts concept |
 | [skills](https://github.com/mattpocock/skills) | Matt Pocock | Foundational skill structure and composable workflow design that shaped Forge's overall architecture |
+| [vibe-security-skill](https://github.com/raroque/vibe-security-skill) | Chris Raroque | `/vibe-security` — AI-generated codebase security auditor |
 
 Every adapted skill includes an `origin:` field in its frontmatter and a credit line in the skill body. If you adapt Forge skills for your own framework, please carry the credits forward.

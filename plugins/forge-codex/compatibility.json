@@ -26,6 +26,11 @@
                                                    "codex":  "plugins/forge-codex/skills/git-guardrails/SKILL.md",
                                                    "reviewedSourceSha256":  "337A292675BB7CB8B39B7DD70931E40CB0E7635A043814BAE04A029356C1DC58"
                                                },
+                            "grill-with-peer":  {
+                                                    "source":  "global/.claude/skills/grill-with-peer/SKILL.md",
+                                                    "codex":  "plugins/forge-codex/skills/grill-with-peer/SKILL.md",
+                                                    "reviewedSourceSha256":  "DF73475FECFB66C56869760FE339B204E92B56DB2AE9523D310037EF239C8CC1"
+                                                },
                             "lang-rules":  {
                                                "source":  "global/.claude/skills/lang-rules/SKILL.md",
                                                "codex":  "plugins/forge-codex/skills/lang-rules/SKILL.md",
@@ -44,7 +49,7 @@
                             "skill-health":  {
                                                  "source":  "global/.claude/skills/skill-health/SKILL.md",
                                                  "codex":  "plugins/forge-codex/skills/skill-health/SKILL.md",
-                                                 "reviewedSourceSha256":  "F38AC781AF6DF1F4D87EE8AEBCB3BEC695FEA21F538DD6D55A87A6716017E091"
+                                                 "reviewedSourceSha256":  "1047B3595357B02AF87FD6C3BB4607F36F2C479EA8316D049BBEAD1F36A07B33"
                                              }
                         }
 }

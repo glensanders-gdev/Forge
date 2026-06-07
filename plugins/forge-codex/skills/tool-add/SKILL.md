@@ -152,6 +152,11 @@ Tools listed here override the global registry for this company's projects.
 
 ---
 
+## Related
+
+- `$tool-check` — reads the same **Forge Tools Registry** (`~/.codex/forge/tools/global.md`) to verify installations
+- `$security-assessment`, `$performance-review`, `$build` — query the registry to discover available tools
+
 ## Rules
 
 - Never register a tool without the full set of fields (except status-only quick-add)

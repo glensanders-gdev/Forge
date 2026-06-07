@@ -100,6 +100,14 @@ Run build to resume from #N [ticket name].
 
 ---
 
+## Related
+
+- `docs/HANDOFF.md` — primary output; also written by `$debrief` and `$continue` (reads it on resume)
+- `docs/kanban.md` — secondary output; also written by `$debrief`, `$sprint-end`, `$approve`
+- `docs/DEVLOG.md` — tertiary output; also written by `$standup` and `$debrief`
+- `$handoff` — dedicated end-of-session skill that calls save-state as part of its flow
+- `$continue` — reads HANDOFF.md on session start to orient itself
+
 ## Rules
 
 - Write in priority order — never skip HANDOFF to write DEVLOG first

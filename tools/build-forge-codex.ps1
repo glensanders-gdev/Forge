@@ -196,6 +196,7 @@ $codexNativeOverrides = @(
     "forge-install",
     "forge-update",
     "git-guardrails",
+    "grill-with-peer",
     "lang-rules",
     "security-assessment",
     "security-resolve",

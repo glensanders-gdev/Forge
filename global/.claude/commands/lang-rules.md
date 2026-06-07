@@ -1,1 +1,3 @@
 Invoke the lang-rules skill. Detects the current project's languages, installs matching rule sets from ~/.claude/rules/ into .claude/rules/, and writes an active.md file so /review, /build, and /push-standards know which language coding standards apply.
+
+Skill: global/.claude/skills/lang-rules/SKILL.md

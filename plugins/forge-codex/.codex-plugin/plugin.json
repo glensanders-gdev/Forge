@@ -13,7 +13,7 @@
   "interface": {
     "displayName": "Forge for Codex",
     "shortDescription": "Structured delivery from idea to release.",
-    "longDescription": "A Codex-native adaptation of Forge with 99 upstream workflows, Codex paths, AGENTS.md guidance, and lifecycle guardrails.",
+    "longDescription": "A Codex-native adaptation of Forge with shared upstream workflows, Codex paths, AGENTS.md guidance, lifecycle guardrails, and cross-model peer grilling.",
     "developerName": "Glen Sanders and Codex adaptation contributors",
     "category": "Productivity",
     "capabilities": ["Interactive", "Write"],

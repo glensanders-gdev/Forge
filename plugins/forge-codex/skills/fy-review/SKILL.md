@@ -14,6 +14,16 @@ with full technical detail.
 
 These are **private documents** — never committed to git, never published to Confluence.
 
+## Pipeline Position
+
+Standalone metrics utility — run at mid-year or financial year end.
+
+```
+$fy-review     ← standalone, user-invoked at period end
+```
+
+Related: `$token-report` (per-session cost data it aggregates), `$dashboard-tokens` (live spend view), `$pir` (per-PI retrospective that feeds into FY view)
+
 ---
 
 ## Usage

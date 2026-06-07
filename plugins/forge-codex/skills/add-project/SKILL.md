@@ -278,6 +278,13 @@ Read this file before designing solutions or making commitments about this proje
 
 ---
 
+## Related
+
+- `$knowledge-health` — audits the **Three-Tier Knowledge Structure** (Raw/Wiki/Outputs) created here
+- `$add-system` — sister skill for adding system-level (not project-level) knowledge
+- `$add-term` — adds entries to the company glossary referenced from project Wiki files
+- `$update-context` — updates an existing project's context after `$add-project` scaffolded it
+
 ## After Creating Files
 
 Remind the user to add the project to their project's `AGENTS.md` Knowledge References table:

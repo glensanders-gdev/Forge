@@ -48,13 +48,14 @@ foreach ($skill in $sourceSkills) {
         $errors.Add("Codex plugin is missing shared skill: $skill")
     }
 }
+$allowedClaudeOnly = @("grill-with-codex")
 foreach ($command in $claudeCommands) {
-    if ($sourceSkills -notcontains $command) {
+    if (($sourceSkills -notcontains $command) -and ($allowedClaudeOnly -notcontains $command)) {
         $errors.Add("Claude Code command has no shared skill: $command")
     }
 }
 
-$allowedCodexOnly = @("forge-codex")
+$allowedCodexOnly = @("forge-codex", "grill-with-claude")
 foreach ($skill in $codexSkills) {
     if (($sourceSkills -notcontains $skill) -and ($allowedCodexOnly -notcontains $skill)) {
         $errors.Add("Unreviewed Codex-only skill: $skill")

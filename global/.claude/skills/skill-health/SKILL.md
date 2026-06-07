@@ -147,6 +147,13 @@ Consider running /skill-health before this sprint begins.
 
 ---
 
+## Related
+
+- `global/.claude/skills/manifest.json` — the **Forge Skills Manifest** this skill audits
+- `/forge-update` — applies fixes identified by skill-health
+- `/commands` — lists all skills; skill-health validates they match what's in the manifest
+- `/evolve` — promotes instincts to new skills; skill-health verifies the promotion landed correctly
+
 ## Rules
 
 - Read-only throughout — never modify any skill file, manifest, or CHANGELOG during the audit

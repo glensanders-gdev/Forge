@@ -1,0 +1,1417 @@
+{
+  "C:\\Users\\User\\OneDrive\\Forge\\.claude\\settings.local.json": {
+    "mtime": 1780710442.593222,
+    "ast_hash": "781e76a0014a642c5670d3fa3d5cec8c",
+    "semantic_hash": "781e76a0014a642c5670d3fa3d5cec8c"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\git-guardrails\\scripts\\block-dangerous-git.sh": {
+    "mtime": 1780276905.0704062,
+    "ast_hash": "91600386fc3ddf5c135cda52ae648f47",
+    "semantic_hash": "91600386fc3ddf5c135cda52ae648f47"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\manifest.json": {
+    "mtime": 1780709973.4557567,
+    "ast_hash": "7272f989d1a656595e0f4722da03bc49",
+    "semantic_hash": "7272f989d1a656595e0f4722da03bc49"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\install.sh": {
+    "mtime": 1780281002.8517241,
+    "ast_hash": "88374862bb47fafda1d730442c9fa2c3",
+    "semantic_hash": "88374862bb47fafda1d730442c9fa2c3"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\update.sh": {
+    "mtime": 1780280011.5456095,
+    "ast_hash": "61d7bba7b16400bccf6ddad3c22a6b8a",
+    "semantic_hash": "61d7bba7b16400bccf6ddad3c22a6b8a"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\.claude\\CODING-STANDARDS.md": {
+    "mtime": 1780283310.042091,
+    "ast_hash": "02d0b9a2b0afcf9764947e97812c0954",
+    "semantic_hash": "02d0b9a2b0afcf9764947e97812c0954"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\INSTALL.md": {
+    "mtime": 1780276904.9363568,
+    "ast_hash": "d333bcc9c8babf719beae63affe21a67",
+    "semantic_hash": "d333bcc9c8babf719beae63affe21a67"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\QUICKSTART.md": {
+    "mtime": 1780276904.9378567,
+    "ast_hash": "27764dd06c82409ac878e261a4eb8767",
+    "semantic_hash": "27764dd06c82409ac878e261a4eb8767"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\README.md": {
+    "mtime": 1780531471.605214,
+    "ast_hash": "450bedb71781eb69a40cc580f84fc84b",
+    "semantic_hash": "450bedb71781eb69a40cc580f84fc84b"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\docs\\DEVLOG.md": {
+    "mtime": 1780282599.7862935,
+    "ast_hash": "9c3b4e466779000aeb63634fe797c784",
+    "semantic_hash": "9c3b4e466779000aeb63634fe797c784"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\docs\\HANDOFF.md": {
+    "mtime": 1780282613.9002323,
+    "ast_hash": "4a16592b5465daae56dd1245f0b565e7",
+    "semantic_hash": "4a16592b5465daae56dd1245f0b565e7"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\docs\\kanban.md": {
+    "mtime": 1780282605.7268293,
+    "ast_hash": "1cc3a7f20660367967d8599c98343ffe",
+    "semantic_hash": "1cc3a7f20660367967d8599c98343ffe"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\docs\\metrics\\metrics-log.md": {
+    "mtime": 1780283490.0533948,
+    "ast_hash": "090a5d8751be33a1bad4bc78a6913ba8",
+    "semantic_hash": "090a5d8751be33a1bad4bc78a6913ba8"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\docs\\prd\\archived\\forge-junction-sync.md": {
+    "mtime": 1780282591.0789146,
+    "ast_hash": "e455771d446a985af4183a9ea8c8b0a4",
+    "semantic_hash": "e455771d446a985af4183a9ea8c8b0a4"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\docs\\prd\\archived\\knowledge-onboard.md": {
+    "mtime": 1780276904.9563591,
+    "ast_hash": "aacadbbf0b0e6addcb16cd81d3aa6d1e",
+    "semantic_hash": "aacadbbf0b0e6addcb16cd81d3aa6d1e"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\docs\\qa-plan-forge-junction-sync.md": {
+    "mtime": 1780281603.6867151,
+    "ast_hash": "67f711e02c85345b45b2f9593a162336",
+    "semantic_hash": "67f711e02c85345b45b2f9593a162336"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\docs\\testplan-forge-junction-sync.md": {
+    "mtime": 1780282141.0864985,
+    "ast_hash": "99749196407b2c456c99c335c8a9bf22",
+    "semantic_hash": "99749196407b2c456c99c335c8a9bf22"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\docs\\tests\\registry.md": {
+    "mtime": 1780282469.5587802,
+    "ast_hash": "1aa54eedf56efb3de8a9725b8129750f",
+    "semantic_hash": "1aa54eedf56efb3de8a9725b8129750f"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\docs\\tests\\results\\forge-junction-sync-2026-06-01.md": {
+    "mtime": 1780282464.9057105,
+    "ast_hash": "1ebcb20912f9f8bc19c7a6e15a50290a",
+    "semantic_hash": "1ebcb20912f9f8bc19c7a6e15a50290a"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\docs\\tokens\\forge-junction-sync.md": {
+    "mtime": 1780282474.7535956,
+    "ast_hash": "3c7a83e3bdfaf62b01ad8c1d9eeb5c28",
+    "semantic_hash": "3c7a83e3bdfaf62b01ad8c1d9eeb5c28"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\docs\\tokens\\knowledge-onboard.md": {
+    "mtime": 1780276904.9573607,
+    "ast_hash": "1d519b20ef3c23cff87924ae199ddaaa",
+    "semantic_hash": "1d519b20ef3c23cff87924ae199ddaaa"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\CHANGELOG.md": {
+    "mtime": 1780709985.5707462,
+    "ast_hash": "48deeaa94df8ddf55a5b6e59d98e4a22",
+    "semantic_hash": "48deeaa94df8ddf55a5b6e59d98e4a22"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\PRINCIPLES.md": {
+    "mtime": 1780276904.9613607,
+    "ast_hash": "2457a90ca6ba42fe972c5f3c551a57be",
+    "semantic_hash": "2457a90ca6ba42fe972c5f3c551a57be"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\SOUL.md": {
+    "mtime": 1780276904.9623606,
+    "ast_hash": "8465b0d6453706793c3cdd6f498e7feb",
+    "semantic_hash": "8465b0d6453706793c3cdd6f498e7feb"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\commands\\accessibility.md": {
+    "mtime": 1779459576.0,
+    "ast_hash": "f85792381af82e2b985ae4a07f44f387",
+    "semantic_hash": "f85792381af82e2b985ae4a07f44f387"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\commands\\add-project.md": {
+    "mtime": 1780276904.9633605,
+    "ast_hash": "16ac03b66c079074da5346ce8c9384e5",
+    "semantic_hash": "16ac03b66c079074da5346ce8c9384e5"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\commands\\add-system.md": {
+    "mtime": 1779188486.0,
+    "ast_hash": "566997d6a2be4fa8e4f222087e9b9336",
+    "semantic_hash": "566997d6a2be4fa8e4f222087e9b9336"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\commands\\add-term.md": {
+    "mtime": 1779394700.0,
+    "ast_hash": "77002d31aa0820078f7a5c423ad7ace9",
+    "semantic_hash": "77002d31aa0820078f7a5c423ad7ace9"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\commands\\ai-first-engineering.md": {
+    "mtime": 1779459720.0,
+    "ast_hash": "fca07c6c23536a23abcdf1672f1103fd",
+    "semantic_hash": "fca07c6c23536a23abcdf1672f1103fd"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\commands\\approve.md": {
+    "mtime": 1779150042.0,
+    "ast_hash": "5b1bceb93e5d181a4c111f8d3a0a0c0d",
+    "semantic_hash": "5b1bceb93e5d181a4c111f8d3a0a0c0d"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\commands\\assimilate.md": {
+    "mtime": 1779459928.0,
+    "ast_hash": "9b0e6af9fc72daa1a8b28d27a6b5cb24",
+    "semantic_hash": "9b0e6af9fc72daa1a8b28d27a6b5cb24"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\commands\\backlog-add.md": {
+    "mtime": 1779282180.0,
+    "ast_hash": "7cff73a9e0c36ed2edd04527f488dde0",
+    "semantic_hash": "7cff73a9e0c36ed2edd04527f488dde0"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\commands\\backlog-list.md": {
+    "mtime": 1779282180.0,
+    "ast_hash": "9bacc1b77d5d068516c35549d6193cbd",
+    "semantic_hash": "9bacc1b77d5d068516c35549d6193cbd"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\commands\\backlog-proj.md": {
+    "mtime": 1779282180.0,
+    "ast_hash": "ab42cd02076acd781315a9923b44062c",
+    "semantic_hash": "ab42cd02076acd781315a9923b44062c"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\commands\\break-down.md": {
+    "mtime": 1779189448.0,
+    "ast_hash": "51b8c4d818e33a2a8b536de4c020df3f",
+    "semantic_hash": "51b8c4d818e33a2a8b536de4c020df3f"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\commands\\build.md": {
+    "mtime": 1779283412.0,
+    "ast_hash": "549d9d236ddf9591cb8825a592ee0295",
+    "semantic_hash": "549d9d236ddf9591cb8825a592ee0295"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\commands\\caveman.md": {
+    "mtime": 1780276904.964362,
+    "ast_hash": "5da0b5c44c5b151bc06a82a0d0e4f1cd",
+    "semantic_hash": "5da0b5c44c5b151bc06a82a0d0e4f1cd"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\commands\\changelog.md": {
+    "mtime": 1780276904.96486,
+    "ast_hash": "1edfb68d5ea9b915f2015ed515fb850b",
+    "semantic_hash": "1edfb68d5ea9b915f2015ed515fb850b"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\commands\\commands.md": {
+    "mtime": 1779189516.0,
+    "ast_hash": "451ecd163f780ae2ad98a36661b8e876",
+    "semantic_hash": "451ecd163f780ae2ad98a36661b8e876"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\commands\\company-add.md": {
+    "mtime": 1780276904.9658587,
+    "ast_hash": "49f07ff0267d5f724adec60f44430b3c",
+    "semantic_hash": "49f07ff0267d5f724adec60f44430b3c"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\commands\\company-git.md": {
+    "mtime": 1780276904.966859,
+    "ast_hash": "02ac2dd0e5b1686bc347ba7fd75181f9",
+    "semantic_hash": "02ac2dd0e5b1686bc347ba7fd75181f9"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\commands\\company-sync.md": {
+    "mtime": 1780276904.9673896,
+    "ast_hash": "8c7d8719e06830fc054bfaeca4e23445",
+    "semantic_hash": "8c7d8719e06830fc054bfaeca4e23445"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\commands\\company-update.md": {
+    "mtime": 1780276904.9683948,
+    "ast_hash": "8b819b8a6541e5b1d99104f5fef3e0f3",
+    "semantic_hash": "8b819b8a6541e5b1d99104f5fef3e0f3"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\commands\\context-health.md": {
+    "mtime": 1780276904.9694078,
+    "ast_hash": "811fec732b317e0d7c1c6577465e0d56",
+    "semantic_hash": "811fec732b317e0d7c1c6577465e0d56"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\commands\\continue.md": {
+    "mtime": 1780276904.9699056,
+    "ast_hash": "8cf2ea2d2a652b600e140818deace9cf",
+    "semantic_hash": "8cf2ea2d2a652b600e140818deace9cf"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\commands\\create-project.md": {
+    "mtime": 1779202554.0,
+    "ast_hash": "63174dedfff578e9fc4ced0a8510463b",
+    "semantic_hash": "63174dedfff578e9fc4ced0a8510463b"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\commands\\critic.md": {
+    "mtime": 1779191374.0,
+    "ast_hash": "bffeb81a09085a84b5bf9f8df49803a8",
+    "semantic_hash": "bffeb81a09085a84b5bf9f8df49803a8"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\commands\\debrief.md": {
+    "mtime": 1779189448.0,
+    "ast_hash": "843f4ace656b849a9f40cf7bcf9c531f",
+    "semantic_hash": "843f4ace656b849a9f40cf7bcf9c531f"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\commands\\dependency-update.md": {
+    "mtime": 1780276904.971399,
+    "ast_hash": "20cac26141b059e1df3fa92b5b102522",
+    "semantic_hash": "20cac26141b059e1df3fa92b5b102522"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\commands\\deploy-pi.md": {
+    "mtime": 1779284822.0,
+    "ast_hash": "f893d6bc1310e8d2c266cb4eb4f8e968",
+    "semantic_hash": "f893d6bc1310e8d2c266cb4eb4f8e968"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\commands\\deploy.md": {
+    "mtime": 1779284822.0,
+    "ast_hash": "794c961257a1ed4d96383bacc2e61eab",
+    "semantic_hash": "794c961257a1ed4d96383bacc2e61eab"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\commands\\diagnose.md": {
+    "mtime": 1779150038.0,
+    "ast_hash": "d1fc40a54f4d0bc8dc21ebb5814df752",
+    "semantic_hash": "d1fc40a54f4d0bc8dc21ebb5814df752"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\commands\\estimate.md": {
+    "mtime": 1779288422.0,
+    "ast_hash": "0ff578c42d77a3dd17a7d721f08d2c29",
+    "semantic_hash": "0ff578c42d77a3dd17a7d721f08d2c29"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\commands\\evolve.md": {
+    "mtime": 1779459046.0,
+    "ast_hash": "1bd216fc10b80d945da981c3dec8facd",
+    "semantic_hash": "1bd216fc10b80d945da981c3dec8facd"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\commands\\feature-flag.md": {
+    "mtime": 1780276904.972396,
+    "ast_hash": "514c3764387b3cf5915e373bd2fd4978",
+    "semantic_hash": "514c3764387b3cf5915e373bd2fd4978"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\commands\\forge-init.md": {
+    "mtime": 1780276904.9733944,
+    "ast_hash": "385523f21312ea792c89bbc8c0ed6c2c",
+    "semantic_hash": "385523f21312ea792c89bbc8c0ed6c2c"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\commands\\forge-install.md": {
+    "mtime": 1780276904.9743931,
+    "ast_hash": "f1232ce1540d9a49b4ceed11330d47e0",
+    "semantic_hash": "f1232ce1540d9a49b4ceed11330d47e0"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\commands\\forge-update.md": {
+    "mtime": 1780276904.9753945,
+    "ast_hash": "cd3c53a2cc89f1e024a88a173fb67858",
+    "semantic_hash": "cd3c53a2cc89f1e024a88a173fb67858"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\commands\\front-gate.md": {
+    "mtime": 1780276904.9758942,
+    "ast_hash": "b800a49e936f5a153f95fc8f0fcdb54f",
+    "semantic_hash": "b800a49e936f5a153f95fc8f0fcdb54f"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\commands\\fy-review.md": {
+    "mtime": 1780276904.9768927,
+    "ast_hash": "8aa08203acc521d9e4b3b22fd1497191",
+    "semantic_hash": "8aa08203acc521d9e4b3b22fd1497191"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\commands\\git-guardrails.md": {
+    "mtime": 1780276904.9778934,
+    "ast_hash": "078072714544a43cf045cbb7dcef3d2c",
+    "semantic_hash": "078072714544a43cf045cbb7dcef3d2c"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\commands\\go-nogo.md": {
+    "mtime": 1779195142.0,
+    "ast_hash": "3f005f9598df60c62237d45fd33bd6ca",
+    "semantic_hash": "3f005f9598df60c62237d45fd33bd6ca"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\commands\\grill-me.md": {
+    "mtime": 1779299624.0,
+    "ast_hash": "317ec9b99121042b2f2d5e06adb9ae6a",
+    "semantic_hash": "317ec9b99121042b2f2d5e06adb9ae6a"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\commands\\grill-with-docs.md": {
+    "mtime": 1779150024.0,
+    "ast_hash": "672bdebf114ebb8960b7699417406882",
+    "semantic_hash": "672bdebf114ebb8960b7699417406882"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\commands\\handoff.md": {
+    "mtime": 1779376936.0,
+    "ast_hash": "f9efdb0da5958b0c2f73c19b0e7b9dbb",
+    "semantic_hash": "f9efdb0da5958b0c2f73c19b0e7b9dbb"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\commands\\ia.md": {
+    "mtime": 1780531581.306058,
+    "ast_hash": "87ee1891f6b9cd5f778b983733f3fb38",
+    "semantic_hash": "87ee1891f6b9cd5f778b983733f3fb38"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\commands\\idea.md": {
+    "mtime": 1779202554.0,
+    "ast_hash": "15a259f047ad32863a7156e21b17606d",
+    "semantic_hash": "15a259f047ad32863a7156e21b17606d"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\commands\\incident.md": {
+    "mtime": 1780276904.978395,
+    "ast_hash": "26ef8a97688c72f75c203b977a229c4b",
+    "semantic_hash": "26ef8a97688c72f75c203b977a229c4b"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\commands\\ingest.md": {
+    "mtime": 1780276904.9793928,
+    "ast_hash": "373fde23f0c03969e7e37ec7663002a2",
+    "semantic_hash": "373fde23f0c03969e7e37ec7663002a2"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\commands\\intent-layers.md": {
+    "mtime": 1780276904.9798965,
+    "ast_hash": "85f2f8177e78392c400fc8bf783c208f",
+    "semantic_hash": "85f2f8177e78392c400fc8bf783c208f"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\commands\\jira.md": {
+    "mtime": 1780276904.9808931,
+    "ast_hash": "a0b073919fc4df3da5ed787f0e30e011",
+    "semantic_hash": "a0b073919fc4df3da5ed787f0e30e011"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\commands\\knowledge-health.md": {
+    "mtime": 1779455340.0,
+    "ast_hash": "6c759ec79c33565474c0c996919fb541",
+    "semantic_hash": "6c759ec79c33565474c0c996919fb541"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\commands\\knowledge-onboard.md": {
+    "mtime": 1780276904.9818928,
+    "ast_hash": "b6039f9f285e90e294cee67ed35638f5",
+    "semantic_hash": "b6039f9f285e90e294cee67ed35638f5"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\commands\\lang-rules.md": {
+    "mtime": 1780276904.9828966,
+    "ast_hash": "14d88f8bf1f3eddd406cd6fb398225f0",
+    "semantic_hash": "14d88f8bf1f3eddd406cd6fb398225f0"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\commands\\learn.md": {
+    "mtime": 1779459046.0,
+    "ast_hash": "c11d3b0630c279ad07ee01a1e4892428",
+    "semantic_hash": "c11d3b0630c279ad07ee01a1e4892428"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\commands\\link-jira.md": {
+    "mtime": 1780276904.9834013,
+    "ast_hash": "f379b747f951835614159009158c7112",
+    "semantic_hash": "f379b747f951835614159009158c7112"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\commands\\lookup.md": {
+    "mtime": 1779307324.0,
+    "ast_hash": "aaae9a26b0b02f80f8248dc6349a5ead",
+    "semantic_hash": "aaae9a26b0b02f80f8248dc6349a5ead"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\commands\\onboard.md": {
+    "mtime": 1779214934.0,
+    "ast_hash": "cc55a6d1964fde71e015b8eefd52b260",
+    "semantic_hash": "cc55a6d1964fde71e015b8eefd52b260"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\commands\\performance-review.md": {
+    "mtime": 1780276904.9844,
+    "ast_hash": "f7992ee03c98a5e3a2f00b31003f0878",
+    "semantic_hash": "f7992ee03c98a5e3a2f00b31003f0878"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\commands\\pi-end.md": {
+    "mtime": 1779214934.0,
+    "ast_hash": "5ada3c103a347736c36b0d33924ece9a",
+    "semantic_hash": "5ada3c103a347736c36b0d33924ece9a"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\commands\\pi-replan.md": {
+    "mtime": 1779212960.0,
+    "ast_hash": "fb2853db4bb29a7e397478fb336b81c1",
+    "semantic_hash": "fb2853db4bb29a7e397478fb336b81c1"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\commands\\pii-check.md": {
+    "mtime": 1779219176.0,
+    "ast_hash": "041489a654df6ed1ea28144e3f074747",
+    "semantic_hash": "041489a654df6ed1ea28144e3f074747"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\commands\\piplan.md": {
+    "mtime": 1779195142.0,
+    "ast_hash": "804e8d4debee2a882dce40555af085c4",
+    "semantic_hash": "804e8d4debee2a882dce40555af085c4"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\commands\\pir.md": {
+    "mtime": 1780276904.9854014,
+    "ast_hash": "91a243bd175a00721836a738bce5a222",
+    "semantic_hash": "91a243bd175a00721836a738bce5a222"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\commands\\prototype.md": {
+    "mtime": 1779150032.0,
+    "ast_hash": "ade032f75637764e367388cf73c28994",
+    "semantic_hash": "ade032f75637764e367388cf73c28994"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\commands\\publish.md": {
+    "mtime": 1780276904.9864001,
+    "ast_hash": "c29495c638a308b1395b68277405e7ef",
+    "semantic_hash": "c29495c638a308b1395b68277405e7ef"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\commands\\push-standards.md": {
+    "mtime": 1779385016.0,
+    "ast_hash": "233939530c274ba024a138c11ca93d39",
+    "semantic_hash": "233939530c274ba024a138c11ca93d39"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\commands\\qa-plan.md": {
+    "mtime": 1779189448.0,
+    "ast_hash": "1c20ae77a954d614d3124e5df9722475",
+    "semantic_hash": "1c20ae77a954d614d3124e5df9722475"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\commands\\qa-report.md": {
+    "mtime": 1780276941.492284,
+    "ast_hash": "da2dc58bc3bc0e1e55f032b22ef27199",
+    "semantic_hash": "da2dc58bc3bc0e1e55f032b22ef27199"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\commands\\research.md": {
+    "mtime": 1779150028.0,
+    "ast_hash": "fdc27fe3c50b2af91e4dec7528b8e8ee",
+    "semantic_hash": "fdc27fe3c50b2af91e4dec7528b8e8ee"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\commands\\review.md": {
+    "mtime": 1779189448.0,
+    "ast_hash": "0144c8681efac1756f78ed2c8197deec",
+    "semantic_hash": "0144c8681efac1756f78ed2c8197deec"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\commands\\rollback-pi.md": {
+    "mtime": 1779285818.0,
+    "ast_hash": "f5c8c8b8df24e0210fbce8f755207546",
+    "semantic_hash": "f5c8c8b8df24e0210fbce8f755207546"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\commands\\rollback.md": {
+    "mtime": 1779285818.0,
+    "ast_hash": "19c5f98170200a9be69893cedd0739df",
+    "semantic_hash": "19c5f98170200a9be69893cedd0739df"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\commands\\save-state.md": {
+    "mtime": 1779287242.0,
+    "ast_hash": "2f84a5d2a744bddec0ce1d4ed0adf00b",
+    "semantic_hash": "2f84a5d2a744bddec0ce1d4ed0adf00b"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\commands\\scope-check.md": {
+    "mtime": 1779189448.0,
+    "ast_hash": "8413390ebf175c563102e65c70049d77",
+    "semantic_hash": "8413390ebf175c563102e65c70049d77"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\commands\\security-assessment.md": {
+    "mtime": 1780276904.9869013,
+    "ast_hash": "7960858cf05952b30ccfae85c1ced0c6",
+    "semantic_hash": "7960858cf05952b30ccfae85c1ced0c6"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\commands\\security-resolve.md": {
+    "mtime": 1780276904.9879017,
+    "ast_hash": "8f0b9d995c80bffb20b091369adfac03",
+    "semantic_hash": "8f0b9d995c80bffb20b091369adfac03"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\commands\\seo.md": {
+    "mtime": 1780276904.9889054,
+    "ast_hash": "57ab2062b26fda3e477aa3128f351e3b",
+    "semantic_hash": "57ab2062b26fda3e477aa3128f351e3b"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\commands\\setup-confluence.md": {
+    "mtime": 1780276904.9899049,
+    "ast_hash": "a8d6f27dbf98b544117ce54367efed67",
+    "semantic_hash": "a8d6f27dbf98b544117ce54367efed67"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\commands\\skill-health.md": {
+    "mtime": 1780276904.990404,
+    "ast_hash": "61154d448543be9cc5cd4d888f31022a",
+    "semantic_hash": "61154d448543be9cc5cd4d888f31022a"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\commands\\sprint-end.md": {
+    "mtime": 1779190356.0,
+    "ast_hash": "dba12f8ff93acd293b2822f7a5140d16",
+    "semantic_hash": "dba12f8ff93acd293b2822f7a5140d16"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\commands\\sprint-replan.md": {
+    "mtime": 1779212960.0,
+    "ast_hash": "13bde71dbd353b1ab440bbe9480e57ff",
+    "semantic_hash": "13bde71dbd353b1ab440bbe9480e57ff"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\commands\\sprint-start.md": {
+    "mtime": 1779190164.0,
+    "ast_hash": "1d41dc90712de437911db8bb67bf7574",
+    "semantic_hash": "1d41dc90712de437911db8bb67bf7574"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\commands\\sprintplan.md": {
+    "mtime": 1779195142.0,
+    "ast_hash": "d75068bca7c9b8592a684a8877ebbf69",
+    "semantic_hash": "d75068bca7c9b8592a684a8877ebbf69"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\commands\\standalone-release.md": {
+    "mtime": 1779195142.0,
+    "ast_hash": "72136ad18ab843c528f45f1157a9e411",
+    "semantic_hash": "72136ad18ab843c528f45f1157a9e411"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\commands\\standup.md": {
+    "mtime": 1779189448.0,
+    "ast_hash": "9708a0c5e5a61fc84b51a820557e4e38",
+    "semantic_hash": "9708a0c5e5a61fc84b51a820557e4e38"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\commands\\style-check.md": {
+    "mtime": 1780276904.991401,
+    "ast_hash": "38c61f9d2a9ca688d3d7bd9480a58a89",
+    "semantic_hash": "38c61f9d2a9ca688d3d7bd9480a58a89"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\commands\\summarise-system.md": {
+    "mtime": 1779189448.0,
+    "ast_hash": "6cbe4eb94cf00915571ffa44c62ecf80",
+    "semantic_hash": "6cbe4eb94cf00915571ffa44c62ecf80"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\commands\\tdd.md": {
+    "mtime": 1779195718.0,
+    "ast_hash": "f32eaaba1b8f83740c33731fd3333984",
+    "semantic_hash": "f32eaaba1b8f83740c33731fd3333984"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\commands\\tech-debt.md": {
+    "mtime": 1780276904.9924011,
+    "ast_hash": "6d3b497f47544b18e32ef1a36033595f",
+    "semantic_hash": "6d3b497f47544b18e32ef1a36033595f"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\commands\\test-coverage.md": {
+    "mtime": 1780276904.9929023,
+    "ast_hash": "5635cb018c453ce3be1b13b8d3d9ffa9",
+    "semantic_hash": "5635cb018c453ce3be1b13b8d3d9ffa9"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\commands\\testplan.md": {
+    "mtime": 1779195718.0,
+    "ast_hash": "0f2dc9fad607e4119df80e5598df7306",
+    "semantic_hash": "0f2dc9fad607e4119df80e5598df7306"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\commands\\tool-add.md": {
+    "mtime": 1780276904.9939013,
+    "ast_hash": "ace4cccd5cf51bfb70780525055cea0f",
+    "semantic_hash": "ace4cccd5cf51bfb70780525055cea0f"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\commands\\tool-check.md": {
+    "mtime": 1780276904.9949017,
+    "ast_hash": "42161005f38114bfa553b341dbb66c7e",
+    "semantic_hash": "42161005f38114bfa553b341dbb66c7e"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\commands\\update-context.md": {
+    "mtime": 1779189448.0,
+    "ast_hash": "32fff183965e1457c28d5e9bacf84581",
+    "semantic_hash": "32fff183965e1457c28d5e9bacf84581"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\commands\\update-readme.md": {
+    "mtime": 1779286216.0,
+    "ast_hash": "fca421ac6b8aba2d69d1b665dcf41fbe",
+    "semantic_hash": "fca421ac6b8aba2d69d1b665dcf41fbe"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\commands\\write-a-skill.md": {
+    "mtime": 1779188766.0,
+    "ast_hash": "a8fd7b175ef72d024fb0baf332e39902",
+    "semantic_hash": "a8fd7b175ef72d024fb0baf332e39902"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\commands\\write-adr.md": {
+    "mtime": 1779189448.0,
+    "ast_hash": "bcfeabbd75556940ff1b8429fd683723",
+    "semantic_hash": "bcfeabbd75556940ff1b8429fd683723"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\commands\\write-article.md": {
+    "mtime": 1779460100.0,
+    "ast_hash": "8f390930648e54655684371c4cf46478",
+    "semantic_hash": "8f390930648e54655684371c4cf46478"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\commands\\write-prd.md": {
+    "mtime": 1779191264.0,
+    "ast_hash": "2b42cbf60f8b5da6b25ce8a99ca3e501",
+    "semantic_hash": "2b42cbf60f8b5da6b25ce8a99ca3e501"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\decisions\\ADR-001-one-company-per-install.md": {
+    "mtime": 1780276904.995901,
+    "ast_hash": "ed55d3911f98c77546386fa6e2059122",
+    "semantic_hash": "ed55d3911f98c77546386fa6e2059122"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\instincts\\_template.md": {
+    "mtime": 1779458980.0,
+    "ast_hash": "104654a80f63063457ba86dd28bb8ccd",
+    "semantic_hash": "104654a80f63063457ba86dd28bb8ccd"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\instincts\\registry.md": {
+    "mtime": 1779458974.0,
+    "ast_hash": "72373b2dc5a7dacf044cda4c78dc0413",
+    "semantic_hash": "72373b2dc5a7dacf044cda4c78dc0413"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\knowledge\\CLAUDE.md": {
+    "mtime": 1780276904.998903,
+    "ast_hash": "9bfda96d23729c56453a09d5c2d56889",
+    "semantic_hash": "9bfda96d23729c56453a09d5c2d56889"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\knowledge\\README.md": {
+    "mtime": 1780276905.001402,
+    "ast_hash": "64ffc6beb2ca5cca2f118c2d041c1acc",
+    "semantic_hash": "64ffc6beb2ca5cca2f118c2d041c1acc"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\knowledge\\company\\acronyms.md": {
+    "mtime": 1779188198.0,
+    "ast_hash": "6317556cf2d9cd1862f91d2a58170c44",
+    "semantic_hash": "6317556cf2d9cd1862f91d2a58170c44"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\knowledge\\company\\context.md": {
+    "mtime": 1779394666.0,
+    "ast_hash": "192bfe7ace57ee1705a168e7a90d6b71",
+    "semantic_hash": "192bfe7ace57ee1705a168e7a90d6b71"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\knowledge\\company\\framework\\example-process.md": {
+    "mtime": 1779190596.0,
+    "ast_hash": "1504edd3082e54e4808e1703c4596bb2",
+    "semantic_hash": "1504edd3082e54e4808e1703c4596bb2"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\knowledge\\company\\pii-categories.md": {
+    "mtime": 1779219158.0,
+    "ast_hash": "cb4f24f2384a1e4a24cf9d9107089a97",
+    "semantic_hash": "cb4f24f2384a1e4a24cf9d9107089a97"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\knowledge\\company\\style-guide.md": {
+    "mtime": 1780276905.0039022,
+    "ast_hash": "5985d47d64f7b07718b785ef61f11d72",
+    "semantic_hash": "5985d47d64f7b07718b785ef61f11d72"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\knowledge\\publish\\confluence.example.md": {
+    "mtime": 1780276905.0069015,
+    "ast_hash": "d5907a9efd3c15fcb9710ffe294d1b74",
+    "semantic_hash": "d5907a9efd3c15fcb9710ffe294d1b74"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\preferences.md": {
+    "mtime": 1779455346.0,
+    "ast_hash": "bcf81c155010539ea7917c13fd90cb73",
+    "semantic_hash": "bcf81c155010539ea7917c13fd90cb73"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\registry-README.md": {
+    "mtime": 1779332418.0,
+    "ast_hash": "79a4e1a1f745b11eb807e9ad95f48e3f",
+    "semantic_hash": "79a4e1a1f745b11eb807e9ad95f48e3f"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\rules\\README.md": {
+    "mtime": 1780276905.0084014,
+    "ast_hash": "d7706143d2b324f555c56b1e56c37fd1",
+    "semantic_hash": "d7706143d2b324f555c56b1e56c37fd1"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\rules\\common\\coding-style.md": {
+    "mtime": 1780276905.0094037,
+    "ast_hash": "401309f8428e0824976fcb45c2fa571b",
+    "semantic_hash": "401309f8428e0824976fcb45c2fa571b"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\rules\\common\\git-safety.md": {
+    "mtime": 1780276905.009904,
+    "ast_hash": "c2346400f227182a2a12af9cb1789dc8",
+    "semantic_hash": "c2346400f227182a2a12af9cb1789dc8"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\rules\\common\\quality-checklist.md": {
+    "mtime": 1780276905.0109012,
+    "ast_hash": "5717aed1983f1f04f99ddc747cd8ff53",
+    "semantic_hash": "5717aed1983f1f04f99ddc747cd8ff53"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\rules\\common\\research-first.md": {
+    "mtime": 1780276905.0119016,
+    "ast_hash": "6aac7d82ed322b7a2853eec35d0badac",
+    "semantic_hash": "6aac7d82ed322b7a2853eec35d0badac"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\rules\\common\\security.md": {
+    "mtime": 1780276905.012901,
+    "ast_hash": "12ed4799373a6710c3789895fd4b04e3",
+    "semantic_hash": "12ed4799373a6710c3789895fd4b04e3"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\accessibility\\SKILL.md": {
+    "mtime": 1780276905.0149014,
+    "ast_hash": "37b47b8e5fd1a0b9acf3028cb8dbe38f",
+    "semantic_hash": "37b47b8e5fd1a0b9acf3028cb8dbe38f"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\add-project\\SKILL.md": {
+    "mtime": 1780276905.0159,
+    "ast_hash": "080bb1e9c7ad6c6c549bcae337b66be7",
+    "semantic_hash": "080bb1e9c7ad6c6c549bcae337b66be7"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\add-system\\SKILL.md": {
+    "mtime": 1780288305.5614152,
+    "ast_hash": "024ca0abc3a3731ce276f5cf7b9c584e",
+    "semantic_hash": "024ca0abc3a3731ce276f5cf7b9c584e"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\add-term\\SKILL.md": {
+    "mtime": 1780276905.0189016,
+    "ast_hash": "16eb4bf5faaf15d2d3e1df3c438b5635",
+    "semantic_hash": "16eb4bf5faaf15d2d3e1df3c438b5635"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\ai-first-engineering\\SKILL.md": {
+    "mtime": 1780276905.0204012,
+    "ast_hash": "b9d3095d0fcfc87acb6d993f6169adb2",
+    "semantic_hash": "b9d3095d0fcfc87acb6d993f6169adb2"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\approve\\SKILL.md": {
+    "mtime": 1780288020.9516404,
+    "ast_hash": "ad4f967a84188b0da09c9342f1ed46ca",
+    "semantic_hash": "ad4f967a84188b0da09c9342f1ed46ca"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\assimilate\\SKILL.md": {
+    "mtime": 1780276905.0239027,
+    "ast_hash": "64c8835f18a526ee3fba8960d749be3c",
+    "semantic_hash": "64c8835f18a526ee3fba8960d749be3c"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\backlog-add\\SKILL.md": {
+    "mtime": 1780291231.4990416,
+    "ast_hash": "0014bde8f821fe521dd9de636b51d6ba",
+    "semantic_hash": "0014bde8f821fe521dd9de636b51d6ba"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\backlog-list\\SKILL.md": {
+    "mtime": 1780276905.0274017,
+    "ast_hash": "6b9d2c996a68ea581b980ba914042140",
+    "semantic_hash": "6b9d2c996a68ea581b980ba914042140"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\backlog-proj\\SKILL.md": {
+    "mtime": 1780276905.0294023,
+    "ast_hash": "e1b72bf79cc30508ae441f49897d0ae1",
+    "semantic_hash": "e1b72bf79cc30508ae441f49897d0ae1"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\break-down\\SKILL.md": {
+    "mtime": 1780276905.0309014,
+    "ast_hash": "8b9cc863c0134fd362c7fbc1ef2cd2c4",
+    "semantic_hash": "8b9cc863c0134fd362c7fbc1ef2cd2c4"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\caveman\\SKILL.md": {
+    "mtime": 1780276905.0334,
+    "ast_hash": "f97e5af38c5e789b670de343b28e606a",
+    "semantic_hash": "f97e5af38c5e789b670de343b28e606a"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\changelog\\SKILL.md": {
+    "mtime": 1780276905.0349007,
+    "ast_hash": "c345292b6f2b54d2f9680074e191deb6",
+    "semantic_hash": "c345292b6f2b54d2f9680074e191deb6"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\commands\\SKILL.md": {
+    "mtime": 1780531460.755189,
+    "ast_hash": "232e0f93e6ef00f0e49256be1d92f6d1",
+    "semantic_hash": "232e0f93e6ef00f0e49256be1d92f6d1"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\company-add\\SKILL.md": {
+    "mtime": 1780276905.0379002,
+    "ast_hash": "5aecf9bccdcba691b888965da3917f0e",
+    "semantic_hash": "5aecf9bccdcba691b888965da3917f0e"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\company-git\\SKILL.md": {
+    "mtime": 1780276905.0394034,
+    "ast_hash": "02b0bbc6d342868f355926fff9706052",
+    "semantic_hash": "02b0bbc6d342868f355926fff9706052"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\company-sync\\SKILL.md": {
+    "mtime": 1780276905.0404034,
+    "ast_hash": "71098ffe2ae146c3672d9b5261ee74d2",
+    "semantic_hash": "71098ffe2ae146c3672d9b5261ee74d2"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\company-update\\SKILL.md": {
+    "mtime": 1780276905.0419014,
+    "ast_hash": "ef261cc0ae0dd11aaefe5ad0e302e38a",
+    "semantic_hash": "ef261cc0ae0dd11aaefe5ad0e302e38a"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\context-health\\SKILL.md": {
+    "mtime": 1780276905.0429018,
+    "ast_hash": "18186a33e19c46a51a0de4791285bf94",
+    "semantic_hash": "18186a33e19c46a51a0de4791285bf94"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\continue\\SKILL.md": {
+    "mtime": 1780276905.0444002,
+    "ast_hash": "6371d5e56cb6492b95fd65db00b8559d",
+    "semantic_hash": "6371d5e56cb6492b95fd65db00b8559d"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\create-project\\SKILL.md": {
+    "mtime": 1780288294.0485733,
+    "ast_hash": "368d13184b2cfbc4e9691c52a7555375",
+    "semantic_hash": "368d13184b2cfbc4e9691c52a7555375"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\critic\\SKILL.md": {
+    "mtime": 1780536573.5637214,
+    "ast_hash": "3202dba8f07ae289c21dd4a3ea4e54ac",
+    "semantic_hash": "3202dba8f07ae289c21dd4a3ea4e54ac"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\dashboard-tokens\\SKILL.md": {
+    "mtime": 1780276905.048901,
+    "ast_hash": "477d6e0b0b65d05e64c2a37e7219c243",
+    "semantic_hash": "477d6e0b0b65d05e64c2a37e7219c243"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\debrief\\SKILL.md": {
+    "mtime": 1780276905.0504017,
+    "ast_hash": "69206ec177e4a025554acfc46eda2184",
+    "semantic_hash": "69206ec177e4a025554acfc46eda2184"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\dependency-update\\SKILL.md": {
+    "mtime": 1780276905.051401,
+    "ast_hash": "8e4d46ddf5a64c3a7ff0f794e903a130",
+    "semantic_hash": "8e4d46ddf5a64c3a7ff0f794e903a130"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\deploy-pi\\SKILL.md": {
+    "mtime": 1780276905.0529008,
+    "ast_hash": "9f9e626b62ec22fb85da8661362b98ca",
+    "semantic_hash": "9f9e626b62ec22fb85da8661362b98ca"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\deploy\\SKILL.md": {
+    "mtime": 1780276905.0549023,
+    "ast_hash": "787e06bbd3dc4a861644b29ef7ca012f",
+    "semantic_hash": "787e06bbd3dc4a861644b29ef7ca012f"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\diagnose\\SKILL.md": {
+    "mtime": 1780276905.056402,
+    "ast_hash": "878585ea64166cea80f8299062c05bd6",
+    "semantic_hash": "878585ea64166cea80f8299062c05bd6"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\estimate\\SKILL.md": {
+    "mtime": 1780276905.058401,
+    "ast_hash": "92b11e7221bff34b41964983881540d3",
+    "semantic_hash": "92b11e7221bff34b41964983881540d3"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\evolve\\SKILL.md": {
+    "mtime": 1780276905.059901,
+    "ast_hash": "d0ff51f1e856d794f3c3ab351682c130",
+    "semantic_hash": "d0ff51f1e856d794f3c3ab351682c130"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\feature-flag\\SKILL.md": {
+    "mtime": 1780276905.061401,
+    "ast_hash": "d1e88e68af434d1371cf59c2177bccaf",
+    "semantic_hash": "d1e88e68af434d1371cf59c2177bccaf"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\forge-init\\SKILL.md": {
+    "mtime": 1780276905.0624013,
+    "ast_hash": "ec20b16281b388d6658b220a61cb3761",
+    "semantic_hash": "ec20b16281b388d6658b220a61cb3761"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\forge-install\\SKILL.md": {
+    "mtime": 1780283673.8500316,
+    "ast_hash": "e4eda8c422adc73aa43b4453d9652bcd",
+    "semantic_hash": "e4eda8c422adc73aa43b4453d9652bcd"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\forge-update\\SKILL.md": {
+    "mtime": 1780280352.0270011,
+    "ast_hash": "dd64276aac488747caa45eb05d9e5d37",
+    "semantic_hash": "dd64276aac488747caa45eb05d9e5d37"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\front-gate\\FORMATS.md": {
+    "mtime": 1780276905.0659013,
+    "ast_hash": "32e0a3f58245dd7f09ced8201a455035",
+    "semantic_hash": "32e0a3f58245dd7f09ced8201a455035"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\front-gate\\SKILL.md": {
+    "mtime": 1780288178.1572924,
+    "ast_hash": "942a0cf1b36f267aba26b2c28a024179",
+    "semantic_hash": "942a0cf1b36f267aba26b2c28a024179"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\fy-review\\SKILL.md": {
+    "mtime": 1780276905.067908,
+    "ast_hash": "9a17018bb2a59de13f6a8ebc9b4e8123",
+    "semantic_hash": "9a17018bb2a59de13f6a8ebc9b4e8123"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\git-guardrails\\SKILL.md": {
+    "mtime": 1780276905.0694067,
+    "ast_hash": "1c887079b050f50a89daca17a12cc2b4",
+    "semantic_hash": "1c887079b050f50a89daca17a12cc2b4"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\go-nogo\\FORMATS.md": {
+    "mtime": 1780276905.071409,
+    "ast_hash": "62477014a7ba66d6dce2ba3464c3a7a9",
+    "semantic_hash": "62477014a7ba66d6dce2ba3464c3a7a9"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\go-nogo\\SKILL.md": {
+    "mtime": 1780287962.9610045,
+    "ast_hash": "abac0afa953c62163af1f2c2202cfb42",
+    "semantic_hash": "abac0afa953c62163af1f2c2202cfb42"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\graphify\\SKILL.md": {
+    "mtime": 1780709229.9911966,
+    "ast_hash": "c0ac08140ebbce36e6562f1a8d3a97b9",
+    "semantic_hash": "c0ac08140ebbce36e6562f1a8d3a97b9"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\graphify\\references\\add-watch.md": {
+    "mtime": 1780708358.7748272,
+    "ast_hash": "0df0589623217ca38a12bdcabfb42f4c",
+    "semantic_hash": "0df0589623217ca38a12bdcabfb42f4c"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\graphify\\references\\exports.md": {
+    "mtime": 1780708358.7758331,
+    "ast_hash": "7fb1a81aca17a462db70684a324fcfb0",
+    "semantic_hash": "7fb1a81aca17a462db70684a324fcfb0"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\graphify\\references\\extraction-spec.md": {
+    "mtime": 1780708358.7768443,
+    "ast_hash": "24808b03abfeaf5f6435bb69c0125b2c",
+    "semantic_hash": "24808b03abfeaf5f6435bb69c0125b2c"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\graphify\\references\\github-and-merge.md": {
+    "mtime": 1780708358.778438,
+    "ast_hash": "cde13df085e4c492aeb7ba298a996d0d",
+    "semantic_hash": "cde13df085e4c492aeb7ba298a996d0d"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\graphify\\references\\hooks.md": {
+    "mtime": 1780708358.7794397,
+    "ast_hash": "3f545db6ce646650bb9de588f5512a27",
+    "semantic_hash": "3f545db6ce646650bb9de588f5512a27"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\graphify\\references\\query.md": {
+    "mtime": 1780708358.7809494,
+    "ast_hash": "c2a8e798674a81b02aa9975f43023819",
+    "semantic_hash": "c2a8e798674a81b02aa9975f43023819"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\graphify\\references\\transcribe.md": {
+    "mtime": 1780708358.7850132,
+    "ast_hash": "70f6aa30d6211f3a2c7e9fc45479f50c",
+    "semantic_hash": "70f6aa30d6211f3a2c7e9fc45479f50c"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\graphify\\references\\update.md": {
+    "mtime": 1780708358.786523,
+    "ast_hash": "735932eaa4f0c8fef9566c538ae3e5f8",
+    "semantic_hash": "735932eaa4f0c8fef9566c538ae3e5f8"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\grill-me\\SKILL.md": {
+    "mtime": 1780276905.0749066,
+    "ast_hash": "c33abbb0a2bb1daf359144b8a145560a",
+    "semantic_hash": "c33abbb0a2bb1daf359144b8a145560a"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\grill-with-docs\\ADR-FORMAT.md": {
+    "mtime": 1779299870.0,
+    "ast_hash": "003eb303c5d969ac9f43d71a024520d2",
+    "semantic_hash": "003eb303c5d969ac9f43d71a024520d2"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\grill-with-docs\\CONTEXT-FORMAT.md": {
+    "mtime": 1779299894.0,
+    "ast_hash": "11face9022376f4e5c97160dc275f9ed",
+    "semantic_hash": "11face9022376f4e5c97160dc275f9ed"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\grill-with-docs\\SKILL.md": {
+    "mtime": 1780276905.0764077,
+    "ast_hash": "458811b2e65b8010e1c3cba6ee93f4e9",
+    "semantic_hash": "458811b2e65b8010e1c3cba6ee93f4e9"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\handoff\\SKILL.md": {
+    "mtime": 1780276905.0779064,
+    "ast_hash": "2022a75325b23e23f76dfa9222661b67",
+    "semantic_hash": "2022a75325b23e23f76dfa9222661b67"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\ia\\SKILL.md": {
+    "mtime": 1780532449.3029666,
+    "ast_hash": "cc2940da273d0975d02cb295d38ce4d2",
+    "semantic_hash": "cc2940da273d0975d02cb295d38ce4d2"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\idea\\SKILL.md": {
+    "mtime": 1780288027.061045,
+    "ast_hash": "2099907eaed1afc6a02980776720fd9b",
+    "semantic_hash": "2099907eaed1afc6a02980776720fd9b"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\incident\\SKILL.md": {
+    "mtime": 1780288129.7377522,
+    "ast_hash": "03c54da47a7c3f30c68dbbe18afed305",
+    "semantic_hash": "03c54da47a7c3f30c68dbbe18afed305"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\ingest\\SKILL.md": {
+    "mtime": 1780276905.0819058,
+    "ast_hash": "7d5c65f6f6ede3c30e7480de9aebaf25",
+    "semantic_hash": "7d5c65f6f6ede3c30e7480de9aebaf25"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\intent-layers\\SKILL.md": {
+    "mtime": 1780276905.0834198,
+    "ast_hash": "967cb992cfd8188543ea13a346822cc7",
+    "semantic_hash": "967cb992cfd8188543ea13a346822cc7"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\jira\\SKILL.md": {
+    "mtime": 1780276905.084417,
+    "ast_hash": "bda48ebe37a30214274e28fd8dfdd97d",
+    "semantic_hash": "bda48ebe37a30214274e28fd8dfdd97d"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\jira\\comment.md": {
+    "mtime": 1780276905.0854216,
+    "ast_hash": "5f18129a9442c0296dd86f665df4214f",
+    "semantic_hash": "5f18129a9442c0296dd86f665df4214f"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\jira\\get.md": {
+    "mtime": 1780276905.0859215,
+    "ast_hash": "3c6444c3c883844812f13b1aef4c191f",
+    "semantic_hash": "3c6444c3c883844812f13b1aef4c191f"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\jira\\search.md": {
+    "mtime": 1780276905.086921,
+    "ast_hash": "9525dfbc5da6460e432ce33a9251d1b1",
+    "semantic_hash": "9525dfbc5da6460e432ce33a9251d1b1"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\jira\\setup.md": {
+    "mtime": 1780276905.0874214,
+    "ast_hash": "80704416061a6338efcb957c67491fe1",
+    "semantic_hash": "80704416061a6338efcb957c67491fe1"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\jira\\transition.md": {
+    "mtime": 1780276905.0884209,
+    "ast_hash": "ea3d015e7791ad6b5c35f8a29a6bdaf4",
+    "semantic_hash": "ea3d015e7791ad6b5c35f8a29a6bdaf4"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\knowledge-health\\SKILL.md": {
+    "mtime": 1780276905.090419,
+    "ast_hash": "6e1ce17c72507aa74c0768de7243c8f2",
+    "semantic_hash": "6e1ce17c72507aa74c0768de7243c8f2"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\knowledge-onboard\\SKILL.md": {
+    "mtime": 1780276905.0914211,
+    "ast_hash": "4a1fa33a9fec98cb7c1529a2436777e9",
+    "semantic_hash": "4a1fa33a9fec98cb7c1529a2436777e9"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\lang-rules\\SKILL.md": {
+    "mtime": 1780276905.0929193,
+    "ast_hash": "14201790eb854c7235cbaa106e8e5018",
+    "semantic_hash": "14201790eb854c7235cbaa106e8e5018"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\learn\\SKILL.md": {
+    "mtime": 1780276905.094419,
+    "ast_hash": "df990665eef8affa3d0d6b2740bec018",
+    "semantic_hash": "df990665eef8affa3d0d6b2740bec018"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\link-jira\\SKILL.md": {
+    "mtime": 1780276905.0954196,
+    "ast_hash": "7e5e15d55788378effbb78e91d69e5ba",
+    "semantic_hash": "7e5e15d55788378effbb78e91d69e5ba"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\lookup\\SKILL.md": {
+    "mtime": 1780276905.0974183,
+    "ast_hash": "5ddd5f2d2e49b6a8cc0a8d08190f956e",
+    "semantic_hash": "5ddd5f2d2e49b6a8cc0a8d08190f956e"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\onboard\\SKILL.md": {
+    "mtime": 1780276905.1004195,
+    "ast_hash": "2930240bcfb8bd5df12d34c718a06000",
+    "semantic_hash": "2930240bcfb8bd5df12d34c718a06000"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\performance-review\\SKILL.md": {
+    "mtime": 1780276905.101421,
+    "ast_hash": "289888b8da71255220552543295da9c8",
+    "semantic_hash": "289888b8da71255220552543295da9c8"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\pi-end\\SKILL.md": {
+    "mtime": 1780276905.1029215,
+    "ast_hash": "4bc3160bdbac40a844bfcf685ac3d4bf",
+    "semantic_hash": "4bc3160bdbac40a844bfcf685ac3d4bf"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\pi-replan\\SKILL.md": {
+    "mtime": 1780276905.1049201,
+    "ast_hash": "7c836ab722fe2009d99acbbe718ae643",
+    "semantic_hash": "7c836ab722fe2009d99acbbe718ae643"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\pii-check\\SKILL.md": {
+    "mtime": 1780276905.1069496,
+    "ast_hash": "eac56ca26178d51ef921cb1adbb491d0",
+    "semantic_hash": "eac56ca26178d51ef921cb1adbb491d0"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\piplan\\SKILL.md": {
+    "mtime": 1780276905.10845,
+    "ast_hash": "a36ce536c4cf705d4c82c828dfed7f5c",
+    "semantic_hash": "a36ce536c4cf705d4c82c828dfed7f5c"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\pir\\SKILL.md": {
+    "mtime": 1780276905.1094213,
+    "ast_hash": "18585191d80233295dc90d80f34f90ec",
+    "semantic_hash": "18585191d80233295dc90d80f34f90ec"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\prototype\\SKILL.md": {
+    "mtime": 1780276905.111417,
+    "ast_hash": "7364487938f4740758e56147043eddae",
+    "semantic_hash": "7364487938f4740758e56147043eddae"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\publish\\SKILL.md": {
+    "mtime": 1780276905.11242,
+    "ast_hash": "f02a4224a809ca57c0f038810723d88d",
+    "semantic_hash": "f02a4224a809ca57c0f038810723d88d"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\push-standards\\SKILL.md": {
+    "mtime": 1780276905.1139202,
+    "ast_hash": "20ac6178eb395547013205855c9f19b2",
+    "semantic_hash": "20ac6178eb395547013205855c9f19b2"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\qa-plan\\SKILL.md": {
+    "mtime": 1780276941.2642102,
+    "ast_hash": "9ea31bf1a4c58a263df68c8947415485",
+    "semantic_hash": "9ea31bf1a4c58a263df68c8947415485"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\qa-report\\FORMATS.md": {
+    "mtime": 1780276941.461283,
+    "ast_hash": "0dfa0dc9d45f37b9c59316a4c7f80147",
+    "semantic_hash": "0dfa0dc9d45f37b9c59316a4c7f80147"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\qa-report\\SKILL.md": {
+    "mtime": 1780283721.5475118,
+    "ast_hash": "fc36688412632bd7f051f205d7471faa",
+    "semantic_hash": "fc36688412632bd7f051f205d7471faa"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\raid\\SKILL.md": {
+    "mtime": 1780287912.4197786,
+    "ast_hash": "53ee14a473307848edafb8e0623a32c6",
+    "semantic_hash": "53ee14a473307848edafb8e0623a32c6"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\research\\SKILL.md": {
+    "mtime": 1780276905.1169217,
+    "ast_hash": "bafa2c7579abedec33511fe90462e56b",
+    "semantic_hash": "bafa2c7579abedec33511fe90462e56b"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\review\\SKILL.md": {
+    "mtime": 1780276905.1184204,
+    "ast_hash": "113141b086b54431be6d474bc155cc56",
+    "semantic_hash": "113141b086b54431be6d474bc155cc56"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\rollback-pi\\SKILL.md": {
+    "mtime": 1780276905.1204205,
+    "ast_hash": "3247a741f9860e0e74ac70f0ca25af13",
+    "semantic_hash": "3247a741f9860e0e74ac70f0ca25af13"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\rollback\\SKILL.md": {
+    "mtime": 1780276905.121919,
+    "ast_hash": "f7a7a545dfc2f27b576aeb8f02111d94",
+    "semantic_hash": "f7a7a545dfc2f27b576aeb8f02111d94"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\save-state\\SKILL.md": {
+    "mtime": 1780276905.123936,
+    "ast_hash": "ae15794115fbe6aa5df40570046506f9",
+    "semantic_hash": "ae15794115fbe6aa5df40570046506f9"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\scope-check\\SKILL.md": {
+    "mtime": 1780276905.1254504,
+    "ast_hash": "e83dac2bc50645e66e037d8061a31fd2",
+    "semantic_hash": "e83dac2bc50645e66e037d8061a31fd2"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\security-assessment\\FORMATS.md": {
+    "mtime": 1780276905.12642,
+    "ast_hash": "db08654bbd52a4af482e57ad40f6d1c5",
+    "semantic_hash": "db08654bbd52a4af482e57ad40f6d1c5"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\security-assessment\\SKILL.md": {
+    "mtime": 1780276905.127419,
+    "ast_hash": "6921a38352b5e4ff86b0ff5194a7b695",
+    "semantic_hash": "6921a38352b5e4ff86b0ff5194a7b695"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\security-resolve\\SKILL.md": {
+    "mtime": 1780276905.1284184,
+    "ast_hash": "07341816bf610fc07ffde25cbca0b547",
+    "semantic_hash": "07341816bf610fc07ffde25cbca0b547"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\seo\\FORMATS.md": {
+    "mtime": 1780276905.1294177,
+    "ast_hash": "09e5e879aa76d9b24c87582cd0bb6b09",
+    "semantic_hash": "09e5e879aa76d9b24c87582cd0bb6b09"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\seo\\SKILL.md": {
+    "mtime": 1780276905.130421,
+    "ast_hash": "00baf85225bdbf28ac5026b55dd05a96",
+    "semantic_hash": "00baf85225bdbf28ac5026b55dd05a96"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\setup-confluence\\SKILL.md": {
+    "mtime": 1780276905.131421,
+    "ast_hash": "c0a47cea4fd279bf6b1825cb896212b5",
+    "semantic_hash": "c0a47cea4fd279bf6b1825cb896212b5"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\skill-health\\FORMATS.md": {
+    "mtime": 1780276905.132921,
+    "ast_hash": "2fa637121b9858395c7205688ba6d651",
+    "semantic_hash": "2fa637121b9858395c7205688ba6d651"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\skill-health\\SKILL.md": {
+    "mtime": 1780276905.133421,
+    "ast_hash": "f211be50cb0bdda549b117061c9ce893",
+    "semantic_hash": "f211be50cb0bdda549b117061c9ce893"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\sprint-end\\SKILL.md": {
+    "mtime": 1780287986.6516814,
+    "ast_hash": "dea90cb9ee5e6f9274e9aa848ec5cc49",
+    "semantic_hash": "dea90cb9ee5e6f9274e9aa848ec5cc49"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\sprint-replan\\SKILL.md": {
+    "mtime": 1780276905.1369193,
+    "ast_hash": "c891ef3188bdaa0d3173a887686c6881",
+    "semantic_hash": "c891ef3188bdaa0d3173a887686c6881"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\sprint-start\\SKILL.md": {
+    "mtime": 1780287969.9497528,
+    "ast_hash": "de9e65cd48e2a0fa19ae9b65f091335b",
+    "semantic_hash": "de9e65cd48e2a0fa19ae9b65f091335b"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\sprintplan\\SKILL.md": {
+    "mtime": 1780276905.1404495,
+    "ast_hash": "bf40bdd6da680dce0192945b9d920c2f",
+    "semantic_hash": "bf40bdd6da680dce0192945b9d920c2f"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\standalone-release\\SKILL.md": {
+    "mtime": 1780276905.1419194,
+    "ast_hash": "c3d47533da8f21486a82fea53b0bd7f0",
+    "semantic_hash": "c3d47533da8f21486a82fea53b0bd7f0"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\standup\\SKILL.md": {
+    "mtime": 1780276905.14342,
+    "ast_hash": "e78cfb77d6cfc1cb4e9f4eb8396669e4",
+    "semantic_hash": "e78cfb77d6cfc1cb4e9f4eb8396669e4"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\style-check\\SKILL.md": {
+    "mtime": 1780276905.144421,
+    "ast_hash": "7ab7e7a7a2d30a1eecdf0feb0afd4ad7",
+    "semantic_hash": "7ab7e7a7a2d30a1eecdf0feb0afd4ad7"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\summarise-system\\SKILL.md": {
+    "mtime": 1780276905.1464179,
+    "ast_hash": "531f64354eeed99c31df61f0d68b9fe9",
+    "semantic_hash": "531f64354eeed99c31df61f0d68b9fe9"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\tdd\\SKILL.md": {
+    "mtime": 1780276905.147919,
+    "ast_hash": "71054c98af5b0647c8e8195a88dde3e3",
+    "semantic_hash": "71054c98af5b0647c8e8195a88dde3e3"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\tdd\\deep-modules.md": {
+    "mtime": 1779195654.0,
+    "ast_hash": "2e702186491e7827eb9c5ecbc8b546ab",
+    "semantic_hash": "2e702186491e7827eb9c5ecbc8b546ab"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\tdd\\interface-design.md": {
+    "mtime": 1779195666.0,
+    "ast_hash": "52fdd4c380608bf2d215f0dd1ed3649f",
+    "semantic_hash": "52fdd4c380608bf2d215f0dd1ed3649f"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\tdd\\mocking.md": {
+    "mtime": 1779195676.0,
+    "ast_hash": "c8b0f6a37dca3bc112f3dccec3cb55b9",
+    "semantic_hash": "c8b0f6a37dca3bc112f3dccec3cb55b9"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\tdd\\refactoring.md": {
+    "mtime": 1779195690.0,
+    "ast_hash": "e8da0e7d147441b0cbe4d71505c6dc9d",
+    "semantic_hash": "e8da0e7d147441b0cbe4d71505c6dc9d"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\tdd\\tests.md": {
+    "mtime": 1779195644.0,
+    "ast_hash": "cd094bafdb7b97a503b5af136569e7a5",
+    "semantic_hash": "cd094bafdb7b97a503b5af136569e7a5"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\tech-debt\\SKILL.md": {
+    "mtime": 1780276905.148921,
+    "ast_hash": "94ea452178cda40b5ca2d0dbb6ae5141",
+    "semantic_hash": "94ea452178cda40b5ca2d0dbb6ae5141"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\test-coverage\\SKILL.md": {
+    "mtime": 1780276905.150421,
+    "ast_hash": "02768a6fdc9f1461316d2027e6e48ddb",
+    "semantic_hash": "02768a6fdc9f1461316d2027e6e48ddb"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\testplan\\SKILL.md": {
+    "mtime": 1780276905.1519198,
+    "ast_hash": "5721eec9600696e0643384f1f6feda94",
+    "semantic_hash": "5721eec9600696e0643384f1f6feda94"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\token-report\\SKILL.md": {
+    "mtime": 1780276905.15342,
+    "ast_hash": "88a81b3b83d53542bb7533cbc54c4d60",
+    "semantic_hash": "88a81b3b83d53542bb7533cbc54c4d60"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\tool-add\\SKILL.md": {
+    "mtime": 1780276905.1549208,
+    "ast_hash": "1e9abf33144530066440f89a3f6dee4b",
+    "semantic_hash": "1e9abf33144530066440f89a3f6dee4b"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\tool-check\\SKILL.md": {
+    "mtime": 1780276905.1559215,
+    "ast_hash": "094a896e798973cbf7f1c944bac17d70",
+    "semantic_hash": "094a896e798973cbf7f1c944bac17d70"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\update-context\\SKILL.md": {
+    "mtime": 1780276905.157917,
+    "ast_hash": "7533fc93068598c1469af235795c9e82",
+    "semantic_hash": "7533fc93068598c1469af235795c9e82"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\update-readme\\SKILL.md": {
+    "mtime": 1780276905.159421,
+    "ast_hash": "0fe5cb5f1b36022a4a990058bd0bf528",
+    "semantic_hash": "0fe5cb5f1b36022a4a990058bd0bf528"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\write-a-skill\\SKILL.md": {
+    "mtime": 1780283769.463601,
+    "ast_hash": "61abbc3e43c2feaff91b5da9cd4a14cb",
+    "semantic_hash": "61abbc3e43c2feaff91b5da9cd4a14cb"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\write-adr\\SKILL.md": {
+    "mtime": 1780287998.6369212,
+    "ast_hash": "bb2daf27da03f969b1862bc7e8d1eeb8",
+    "semantic_hash": "bb2daf27da03f969b1862bc7e8d1eeb8"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\write-article\\SKILL.md": {
+    "mtime": 1780276905.1644168,
+    "ast_hash": "0965dc786a4a68fd33bdd129235de5e9",
+    "semantic_hash": "0965dc786a4a68fd33bdd129235de5e9"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\skills\\write-prd\\SKILL.md": {
+    "mtime": 1780546026.298077,
+    "ast_hash": "97a6da04f7cb7288925b6f4e3f41f5a3",
+    "semantic_hash": "97a6da04f7cb7288925b6f4e3f41f5a3"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\tokens\\README.md": {
+    "mtime": 1779303916.0,
+    "ast_hash": "ce36f1168f57b552449d4c525879dd54",
+    "semantic_hash": "ce36f1168f57b552449d4c525879dd54"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\global\\.claude\\tools\\global.md": {
+    "mtime": 1780276905.1694243,
+    "ast_hash": "32a4f1b405e3f298e243265fb37eefe2",
+    "semantic_hash": "32a4f1b405e3f298e243265fb37eefe2"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\project-template\\.claude\\CODING-STANDARDS.md": {
+    "mtime": 1780276905.173921,
+    "ast_hash": "5afef69b5993e8927c37f64341b41aed",
+    "semantic_hash": "5afef69b5993e8927c37f64341b41aed"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\project-template\\.claude\\ERROR-HANDLING.md": {
+    "mtime": 1779332450.0,
+    "ast_hash": "223782f335c770067508ee89174df53f",
+    "semantic_hash": "223782f335c770067508ee89174df53f"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\project-template\\.claude\\SECURITY.md": {
+    "mtime": 1779332450.0,
+    "ast_hash": "9649de53b4d97aa3e7012c80e260041f",
+    "semantic_hash": "9649de53b4d97aa3e7012c80e260041f"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\project-template\\.claude\\TESTING.md": {
+    "mtime": 1779332450.0,
+    "ast_hash": "0508620c5336f9147734600a02f389f2",
+    "semantic_hash": "0508620c5336f9147734600a02f389f2"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\project-template\\.claude\\deploy.md": {
+    "mtime": 1779286402.0,
+    "ast_hash": "9bf3ab1849f7f857884bc3ddd5058a72",
+    "semantic_hash": "9bf3ab1849f7f857884bc3ddd5058a72"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\project-template\\CLAUDE.md": {
+    "mtime": 1780276905.1764216,
+    "ast_hash": "3cdff266f9a22c271d7dfc83bcb7eb5f",
+    "semantic_hash": "3cdff266f9a22c271d7dfc83bcb7eb5f"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\project-template\\docs\\CONTEXT.md": {
+    "mtime": 1779299940.0,
+    "ast_hash": "277811313afa4fbfba20e60754581537",
+    "semantic_hash": "277811313afa4fbfba20e60754581537"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\project-template\\docs\\DEVLOG.md": {
+    "mtime": 1779154838.0,
+    "ast_hash": "957a41ee190b600a1fdba46c8a3fe0b6",
+    "semantic_hash": "957a41ee190b600a1fdba46c8a3fe0b6"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\project-template\\docs\\HANDOFF.md": {
+    "mtime": 1779397426.0,
+    "ast_hash": "353f9fbced63640d3915a463a6a3ed0d",
+    "semantic_hash": "353f9fbced63640d3915a463a6a3ed0d"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\project-template\\docs\\adr\\README.md": {
+    "mtime": 1779299928.0,
+    "ast_hash": "1fb5ecd24630a9c28e03f7945cc51106",
+    "semantic_hash": "1fb5ecd24630a9c28e03f7945cc51106"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\project-template\\docs\\kanban-archive.md": {
+    "mtime": 1779288400.0,
+    "ast_hash": "41865a57940cac4d95c39e121fa3fc55",
+    "semantic_hash": "41865a57940cac4d95c39e121fa3fc55"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\project-template\\docs\\kanban.md": {
+    "mtime": 1779288394.0,
+    "ast_hash": "c57137f65043a3bf6d585af005b7e753",
+    "semantic_hash": "c57137f65043a3bf6d585af005b7e753"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\project-template\\docs\\known-issues.md": {
+    "mtime": 1779373760.0,
+    "ast_hash": "f0da3eb91a6edb32c7df58c7eac137f7",
+    "semantic_hash": "f0da3eb91a6edb32c7df58c7eac137f7"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\project-template\\docs\\releases\\deploy-log.md": {
+    "mtime": 1779286396.0,
+    "ast_hash": "50b38e3706d72083bfde764c3b9ec988",
+    "semantic_hash": "50b38e3706d72083bfde764c3b9ec988"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\project-template\\docs\\tests\\registry.md": {
+    "mtime": 1779373766.0,
+    "ast_hash": "97a7ad6894b1b962f9199ad6fda1456e",
+    "semantic_hash": "97a7ad6894b1b962f9199ad6fda1456e"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\project-template\\docs\\tokens\\_template.md": {
+    "mtime": 1779301670.0,
+    "ast_hash": "f1fb3a03c7e758ff828c86858ececf34",
+    "semantic_hash": "f1fb3a03c7e758ff828c86858ececf34"
+  },
+  "C:\\Users\\User\\OneDrive\\Forge\\tools\\gpon-mathis-checker\\index.html": {
+    "mtime": 1780542795.724659,
+    "ast_hash": "db51f5ff41a27c7d5674f584d4b6d778",
+    "semantic_hash": "db51f5ff41a27c7d5674f584d4b6d778"
+  }
+}

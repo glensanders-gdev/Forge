@@ -1,1 +1,3 @@
 Invoke the dashboard-tokens skill. Generate a comprehensive project health dashboard as a static HTML file with Chart.js visualisations. Five sections: Token & Cost, Quality, Pipeline & Velocity, Knowledge Base, and Health. Exports to email-friendly HTML summary and CSV.
+
+Skill: global/.claude/skills/dashboard-tokens/SKILL.md

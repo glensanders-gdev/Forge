@@ -62,6 +62,15 @@ Open a new sprint for the current project. Pulls context automatically from the 
 
 11. **Update** `docs/kanban.md` if relevant tickets should be flagged for this sprint.
 
+## Pipeline Position
+
+```
+$sprint-start → $standup (daily) → $sprint-end → $debrief
+```
+
+Precedes: `$standup` (daily rhythm during the sprint)
+Follows: `$sprintplan`, `$pi-replan`, or manual sprint open
+
 ## Sprint Record Template (Start Section)
 
 ```markdown

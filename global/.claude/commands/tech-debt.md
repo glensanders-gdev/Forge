@@ -1,1 +1,3 @@
 Invoke the tech-debt skill. Track and manage technical debt in the current project — add entries with priority and location, list by priority, and resolve items when addressed. Per-project register at docs/tech-debt.md. /sprint-start surfaces High priority items as sprint candidates.
+
+Skill: global/.claude/skills/tech-debt/SKILL.md

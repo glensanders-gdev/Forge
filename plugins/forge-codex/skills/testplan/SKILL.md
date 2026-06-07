@@ -37,6 +37,15 @@ Design the testing strategy for a feature before implementation begins. Establis
 9. Save to `docs/testplan-[feature-name].md`.
 10. Suggest: "Run `tdd` to implement automated tests, `qa-plan` for manual verification."
 
+## Pipeline Position
+
+```
+$write-prd → $testplan → $qa-plan → $qa-report → $approve
+```
+
+Precedes: `$tdd` (automated test implementation), `$qa-plan` (manual verification plan)
+Follows: `$write-prd`
+
 ## Test Classification
 
 ### Automated Tests (covered by `$tdd`)

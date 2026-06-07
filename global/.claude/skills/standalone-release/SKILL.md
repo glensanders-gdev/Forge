@@ -8,6 +8,18 @@ description: Prepare and execute a standalone release for urgent config changes 
 
 Deploy a small change or config update outside the monthly release cycle. Lighter process than a monthly release — but still intentional, auditable, and human-approved.
 
+## Pipeline Position
+
+Alternative to the full `/deploy` → `/go-nogo` release path for urgent out-of-cycle changes.
+
+```
+/approve  →  /standalone-release   (urgent fix, cannot wait for monthly cycle)
+```
+
+Follows: `/approve` (change must be approved before release)
+Produces: entry in `docs/releases/deploy-log.md`
+Related: `/deploy` (monthly release path), `/rollback` (revert if needed)
+
 ## Eligibility Rules
 
 Before proceeding, verify:

@@ -10,6 +10,17 @@ metadata:
 
 Keep `README.md` current with the project's actual state. Reads the current README, compares against what has been built and approved, and proposes specific updates. Advisory only — nothing is written without confirmation.
 
+## Pipeline Position
+
+Post-approval documentation step, typically run after `$approve` or `$changelog`.
+
+```
+$approve  →  $changelog  →  $update-readme
+```
+
+Follows: `$approve` (feature shipped), `$changelog` (version documented)
+Related: `$push-standards` (keeps CODING-STANDARDS.md current), `$write-prd` (source of truth for what was built)
+
 ## When to Use
 
 - A feature has been approved via `$approve`

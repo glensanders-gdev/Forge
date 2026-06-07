@@ -1,1 +1,3 @@
 Invoke the handoff skill. Compact the current session into a structured handoff document written to docs/HANDOFF.md. References Forge artifacts by path rather than reproducing them. Suggests which skills the next session should use first. Optional argument: description of what the next session will focus on (e.g. /handoff "next session: implement login flow"). Add --archive to also save a timestamped copy to docs/handoffs/.
+
+Skill: global/.claude/skills/handoff/SKILL.md

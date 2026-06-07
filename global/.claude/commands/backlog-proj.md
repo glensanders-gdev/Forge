@@ -1,1 +1,3 @@
 Invoke the backlog-proj skill. Display the backlog for a specific project. Presents a list of active projects to choose from, then shows that project's kanban.md Backlog section grouped by priority. Backlog only — not In Progress or Blocked.
+
+Skill: global/.claude/skills/backlog-proj/SKILL.md

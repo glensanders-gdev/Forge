@@ -1,1 +1,3 @@
 Invoke the idea skill. Capture and stress-test a new idea through structured grilling — problem statement, baseline measurements, destination targets, journey, impact vs effort, and assumptions to validate. Produces idea.md and living Mermaid sequence diagrams. Ends with ACCEPT, DECLINE, or HOLD decision gate.
+
+Skill: global/.claude/skills/idea/SKILL.md

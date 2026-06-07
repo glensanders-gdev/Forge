@@ -16,6 +16,9 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 **Dual-runtime Forge — Codex and Codex from one repository**
 
 ### Added
+- `$grill-with-peer` v1.0.0 — shared cross-model challenge protocol; Codex delegates to Codex and the Codex-native override delegates to Codex, with explicit consent, redaction, non-interactive execution, and transparent reconciliation
+- `/grill-with-codex` and `$grill-with-Codex` — thin runtime aliases that route to the shared peer-grilling protocol without duplicating workflow logic
+- `$graphify` Codex command stub and manifest entry — restores parity for the upstream graphify skill
 - `plugins/forge-codex/` — committed Codex plugin generated from the shared `global.codex/forge/` workflow source, with reviewed Codex-native overrides
 - `.agents/plugins/marketplace.json` — repository marketplace entry for Codex installation
 - `tools/build-forge-codex.ps1` — deterministic Codex plugin generation
