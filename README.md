@@ -249,5 +249,6 @@ Forge draws on ideas, patterns, and techniques from several excellent open-sourc
 |--------|--------|-----------------|
 | [ECC](https://github.com/affaan-m/ECC) | Affaan Mustafa | Accessibility (WCAG 2.2), AI-first engineering principles, write-article style rules, lang-rules system, common coding rules layer (coding-style, quality-checklist, research-first, security), instincts concept |
 | [skills](https://github.com/mattpocock/skills) | Matt Pocock | Foundational skill structure and composable workflow design that shaped Forge's overall architecture |
+| [vibe-security-skill](https://github.com/raroque/vibe-security-skill) | Chris Raroque | `/vibe-security` — AI-generated codebase security auditor |
 
 Every adapted skill includes an `origin:` field in its frontmatter and a credit line in the skill body. If you adapt Forge skills for your own framework, please carry the credits forward.
