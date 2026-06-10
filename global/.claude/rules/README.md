@@ -10,6 +10,7 @@ Origin: Adapted from Affaan Mustafa (ECC / github.com/affaan-m/ECC)
 rules/
 ├── common/                   # Language-agnostic baselines (always apply)
 │   ├── coding-style.md       # KISS/DRY/YAGNI, file limits, naming, error handling
+│   ├── model-selection.md    # Opus main thread, offload grunt work to cheap subagents
 │   ├── quality-checklist.md  # Pre-ship checklist
 │   ├── research-first.md     # Search-before-writing rule
 │   └── security.md           # Pre-commit security checklist
