@@ -11,6 +11,28 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
+## v3.9.0 — 2026-06-06
+
+**Dual-runtime Forge — Claude Code and Codex from one repository**
+
+### Added
+- `/grill-with-peer` v1.0.0 — shared cross-model challenge protocol; Claude delegates to Codex and the Codex-native override delegates to Claude, with explicit consent, redaction, non-interactive execution, and transparent reconciliation
+- `/grill-with-codex` and `$grill-with-claude` — thin runtime aliases that route to the shared peer-grilling protocol without duplicating workflow logic
+- `/graphify` Claude command stub and manifest entry — restores parity for the upstream graphify skill
+- `plugins/forge-codex/` — committed Codex plugin generated from the shared `global/.claude/` workflow source, with reviewed Codex-native overrides
+- `.agents/plugins/marketplace.json` — repository marketplace entry for Codex installation
+- `tools/build-forge-codex.ps1` — deterministic Codex plugin generation
+- `tools/test-forge-parity.ps1` and `.github/workflows/forge-parity.yml` — fail when shared skills are missing, versions drift, generated output is stale, or machine-specific paths enter the plugin
+- `plugins/forge-codex/compatibility.json` and `tools/update-forge-codex-overrides.ps1` — explicit review ledger for runtime-specific overrides; parity fails when a shared source changes until its Codex override is reviewed
+- `global/.claude/commands/raid.md` — restores the missing Claude Code command stub so every shared skill is invocable in both runtimes
+
+### Changed
+- Forge now supports Claude Code and Codex under one shared framework version and changelog
+- Codex project templates use `AGENTS.md`, `.agents/skills/`, and `.codex/forge/`
+- Codex runtime differences are isolated to documented native overrides instead of silently diverging
+
+---
+
 ## v3.8.2 — 2026-06-06
 
 **New skill: /vibe-security**

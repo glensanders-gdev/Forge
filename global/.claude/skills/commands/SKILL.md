@@ -38,6 +38,7 @@ Print the following reference exactly:
 |---------|-------------|
 | `/user:grill-with-docs` | Planning phase entry point — grill against domain model, codebase, and CONTEXT.md |
 | `/user:grill-me` | Ad-hoc stress-test only — one question at a time, no domain model context |
+| `/user:grill-with-peer` | Challenge a plan with an independent peer model, then reconcile both models' conclusions |
 | `/user:research` | Cache findings in topic-specific files under docs/research/ |
 | `/user:prototype` | Spike ideas in throwaway code under /prototype |
 | `/user:write-prd` | Synthesise session into a PRD — AFK explores and scopes, HITL confirms and writes |
@@ -80,6 +81,7 @@ Print the following reference exactly:
 | `/user:security-resolve` | Mark a security finding resolved — records fix in the report and closes the kanban ticket |
 | `/user:performance-review` | Performance audit — AI-led static analysis and optional tool scan (Lighthouse, bundle analyser), gitignored report |
 | `/user:update-readme` | Propose README updates for new features, changed behaviour, version history |
+| `/user:graphify` | Build or query a persistent knowledge graph for a codebase or mixed content |
 
 ### Knowledge Base
 | Command | What it does |

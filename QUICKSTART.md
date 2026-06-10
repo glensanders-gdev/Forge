@@ -4,6 +4,8 @@
 
 See `INSTALL.md` for full installation details. This guide assumes Forge is already installed.
 
+**Invocation syntax:** Claude Code uses `/user:skill-name`; Codex uses `$skill-name`. The workflow and artifacts are otherwise kept at parity.
+
 ---
 
 ## Step 1 — Start a new idea (2 min)

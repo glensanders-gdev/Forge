@@ -50,7 +50,7 @@ If yes → surface as P1 risk before proceeding:
 ⛔ P1 RISK — Fixed Deadline Impact
 
 [Feature name] has an external deadline of [date].
-This replan would push it to [release], which deploys on [date] — 
+This replan would push it to [release], which deploys on [date] —
 [N days] after its external deadline.
 
 You must acknowledge this risk before proceeding.

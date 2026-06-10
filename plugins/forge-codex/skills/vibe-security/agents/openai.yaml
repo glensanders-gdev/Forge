@@ -1,0 +1,6 @@
+interface:
+  display_name: "vibe-security"
+  short_description: "Audit codebases for common security vulnerabilities."
+  default_prompt: "Use $vibe-security to audit this codebase and provide severity-ranked findings with fixes."
+policy:
+  allow_implicit_invocation: true

@@ -1,0 +1,27 @@
+name: Forge runtime parity
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  parity:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v5
+      - name: Regenerate Codex plugin
+        shell: pwsh
+        run: ./tools/build-forge-codex.ps1
+      - name: Verify generated output is committed
+        shell: pwsh
+        run: |
+          $changes = git status --porcelain -- plugins/forge-codex
+          if ($changes) {
+            $changes
+            git diff -- plugins/forge-codex
+            throw "Codex plugin output is stale. Run tools/build-forge-codex.ps1 and commit the result."
+          }
+      - name: Verify Claude and Codex parity
+        shell: pwsh
+        run: ./tools/test-forge-parity.ps1

@@ -16,7 +16,7 @@ Active security audit skill for AI-generated codebases. AI assistants consistent
 
 ## Usage
 
-**Claude Code:** `/vibe-security` or natural language — "check my code for security issues", "audit this project", "is this safe?"  
+**Claude Code:** `/vibe-security` or natural language — "check my code for security issues", "audit this project", "is this safe?"
 **Codex:** `$vibe-security` or "review this for vulnerabilities", "check my Supabase RLS"
 
 ```

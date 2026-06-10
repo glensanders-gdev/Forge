@@ -1,12 +1,12 @@
-# Forge v3.8.0
+# Forge v3.9.0
 
-An AI-assisted development workflow framework for Claude Code.
+An AI-assisted development workflow framework for Claude Code and Codex.
 
 ---
 
 ## What is Forge?
 
-Forge is a structured dev workflow built around composable Claude Code skills. It guides you through a repeatable pipeline from idea to deployed feature — with sprint planning, PI management, TDD, QA, PII checking, and production deployment all covered.
+Forge is a structured dev workflow built around composable skills for Claude Code and Codex. It guides you through a repeatable pipeline from idea to deployed feature — with sprint planning, PI management, TDD, QA, PII checking, and production deployment all covered.
 
 ```
 /idea → /create-project → /grill-with-docs → /write-prd → /testplan
@@ -20,12 +20,12 @@ Each stage produces an artifact that feeds the next. The AI agent orients itself
 
 ## What's Included
 
-**103 skills** covering the full software delivery lifecycle:
+**102 shared skills** covering the full software delivery lifecycle, adapted for Claude Code and Codex:
 
 | Category | Skills |
 |----------|--------|
 | Ideation | `/idea`, `/create-project`, `/front-gate`, `/onboard` |
-| Pipeline | `/grill-with-docs`, `/grill-me`, `/research`, `/prototype`, `/write-prd`, `/testplan`, `/estimate`, `/break-down`, `/build`, `/tdd`, `/test-coverage`, `/qa-plan`, `/qa-report`, `/pii-check`, `/approve` |
+| Pipeline | `/grill-with-docs`, `/grill-me`, `/grill-with-peer`, `/research`, `/prototype`, `/write-prd`, `/testplan`, `/estimate`, `/break-down`, `/build`, `/tdd`, `/test-coverage`, `/qa-plan`, `/qa-report`, `/pii-check`, `/approve` |
 | Session Management | `/continue`, `/standup`, `/handoff`, `/debrief`, `/save-state`, `/scope-check`, `/caveman`, `/backlog-list`, `/backlog-proj`, `/backlog-add`, `/lookup`, `/ia` |
 | Code Quality | `/review`, `/critic`, `/diagnose`, `/write-adr`, `/push-standards`, `/lang-rules`, `/update-readme`, `/git-guardrails`, `/accessibility`, `/ai-first-engineering`, `/write-article`, `/seo`, `/security-assessment`, `/security-resolve`, `/performance-review`, `/vibe-security`, `/codex-review` |
 | Knowledge Base | `/ia`, `/add-system`, `/add-project`, `/summarise-system`, `/update-context`, `/add-term`, `/knowledge-health`, `/knowledge-onboard`, `/style-check`, `/ingest`, `/publish`, `/setup-confluence` |
@@ -50,6 +50,19 @@ bash ~/forge/install.sh
 ```
 
 `install.sh` creates **junctions** (Windows) or **symlinks** (Mac/Linux) from `~/.claude/skills/`, `~/.claude/commands/`, and `~/.claude/rules/` directly into the cloned repo. Edits to skills in `~/.claude/` are immediately visible in `git status` — no copy step required. User-owned directories (`knowledge/`, `instincts/`, `tokens/`, etc.) are never touched.
+
+### Codex Plugin
+
+Forge also ships as a Codex plugin from this repository:
+
+```text
+plugins/forge-codex/
+.agents/plugins/marketplace.json
+```
+
+Codex invokes workflows with `$skill-name`. The committed plugin is generated from `global/.claude/`, with reviewed runtime-specific overrides where Claude Code and Codex differ. Run `tools/build-forge-codex.ps1` after shared workflow changes and `tools/test-forge-parity.ps1` before committing.
+
+Codex-native overrides are guarded by reviewed source hashes. When their shared source changes, parity fails until the override is reviewed and `tools/update-forge-codex-overrides.ps1 -ConfirmReview` is run.
 
 ### Update to latest
 
@@ -137,8 +150,8 @@ Or if you have an existing project:
 
 ```
 ~/.claude/
-  skills/              ← 94 global skills
-  commands/            ← 94 slash commands
+  skills/              ← 102 shared skills
+  commands/            ← 102 shared workflow commands + /grill-with-codex alias
   tools/
     global.md          ← global tools registry (security scanners, perf analysers, etc.)
   knowledge/
@@ -194,7 +207,7 @@ Or if you have an existing project:
 
 ## Skill Versioning
 
-Skills are versioned in `~/.claude/skills/manifest.json`. The current framework version is `3.8.0`. Project-level skill overrides in `.claude/skills/[skill-name]/SKILL.md` take precedence over global skills.
+Skills are versioned in `global/.claude/skills/manifest.json`. The current framework version is `3.9.0` across Claude Code and Codex. Claude project overrides live in `.claude/skills/`; Codex project overrides live in `.agents/skills/`.
 
 ---
 
@@ -208,6 +221,7 @@ The full framework lifecycle is documented in `~/.claude/forge-sequence.mmd`. Re
 
 | Version | Changes |
 |---------|---------|
+| 3.9.0 | Dual-runtime Forge — committed Codex plugin, shared release line, deterministic generation, parity enforcement, peer-model grilling, Codex-native overrides, and repository marketplace |
 | 3.8.0 | `/vibe-security` — AI-generated codebase security auditor; `/codex-review` — adversarial two-model plan review (opt-in tool); `/raid` — RAID log management; `/ia` — Impact Assessment skill |
 | 3.7.1 | Critic audit fixes (6 issues); `/write-prd` routing fix (→ `/testplan` before Kanban) |
 | 3.7.0 | Junction-based sync — `install.sh` rewritten to create junctions (Windows) / symlinks (Mac/Linux) for `skills/`, `commands/`, `rules/`; `/forge-install` v2.0.0 with auto-detect, migration flow, and iOS guidance; `/forge-update` v2.0.0 simplified to `git pull`; `update.sh` deprecated |
