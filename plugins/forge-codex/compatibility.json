@@ -1,55 +1,55 @@
-﻿{
-    "policy":  "Codex-native overrides require explicit review when their shared source changes.",
-    "nativeOverrides":  {
-                            "company-add":  {
-                                                "source":  "global/.claude/skills/company-add/SKILL.md",
-                                                "codex":  "plugins/forge-codex/skills/company-add/SKILL.md",
-                                                "reviewedSourceSha256":  "90D82F15125DCAE1B93BB0443C95C6C7357AEC04D50FE46A6A02EE578CE6DDA2"
-                                            },
-                            "forge-init":  {
-                                               "source":  "global/.claude/skills/forge-init/SKILL.md",
-                                               "codex":  "plugins/forge-codex/skills/forge-init/SKILL.md",
-                                               "reviewedSourceSha256":  "179F29AD275FE6F50818799B864D0546551BD010D78A948F678399A14854B7A8"
-                                           },
-                            "forge-install":  {
-                                                  "source":  "global/.claude/skills/forge-install/SKILL.md",
-                                                  "codex":  "plugins/forge-codex/skills/forge-install/SKILL.md",
-                                                  "reviewedSourceSha256":  "FC3AE7D76740FA560D021C16E52F7F0E3652C9AAF2AF19755C663541B76F4673"
-                                              },
-                            "forge-update":  {
-                                                 "source":  "global/.claude/skills/forge-update/SKILL.md",
-                                                 "codex":  "plugins/forge-codex/skills/forge-update/SKILL.md",
-                                                 "reviewedSourceSha256":  "3080ED21FB61F85636C997997519CE36C10616AF6003AEF772BD286D01BE7144"
-                                             },
-                            "git-guardrails":  {
-                                                   "source":  "global/.claude/skills/git-guardrails/SKILL.md",
-                                                   "codex":  "plugins/forge-codex/skills/git-guardrails/SKILL.md",
-                                                   "reviewedSourceSha256":  "337A292675BB7CB8B39B7DD70931E40CB0E7635A043814BAE04A029356C1DC58"
-                                               },
-                            "grill-with-peer":  {
-                                                    "source":  "global/.claude/skills/grill-with-peer/SKILL.md",
-                                                    "codex":  "plugins/forge-codex/skills/grill-with-peer/SKILL.md",
-                                                    "reviewedSourceSha256":  "DF73475FECFB66C56869760FE339B204E92B56DB2AE9523D310037EF239C8CC1"
-                                                },
-                            "lang-rules":  {
-                                               "source":  "global/.claude/skills/lang-rules/SKILL.md",
-                                               "codex":  "plugins/forge-codex/skills/lang-rules/SKILL.md",
-                                               "reviewedSourceSha256":  "DA4220B5EA07E04C52C1491CDB7E3CD89733127096D1DFF5DDA9BEA46BBB872B"
-                                           },
-                            "security-assessment":  {
-                                                        "source":  "global/.claude/skills/security-assessment/SKILL.md",
-                                                        "codex":  "plugins/forge-codex/skills/security-assessment/SKILL.md",
-                                                        "reviewedSourceSha256":  "BC442B2C36AD801E82639748AAED1580B7546F357CE5AC6C7F3FFBFD134E5564"
-                                                    },
-                            "security-resolve":  {
-                                                     "source":  "global/.claude/skills/security-resolve/SKILL.md",
-                                                     "codex":  "plugins/forge-codex/skills/security-resolve/SKILL.md",
-                                                     "reviewedSourceSha256":  "3EE54D13CEFB860078DF142CB8FBCAB038737BE34AC8A8D15D20C338B86508CF"
-                                                 },
-                            "skill-health":  {
-                                                 "source":  "global/.claude/skills/skill-health/SKILL.md",
-                                                 "codex":  "plugins/forge-codex/skills/skill-health/SKILL.md",
-                                                 "reviewedSourceSha256":  "1047B3595357B02AF87FD6C3BB4607F36F2C479EA8316D049BBEAD1F36A07B33"
-                                             }
-                        }
+{
+  "policy": "Codex-native overrides require explicit review when their shared source changes.",
+  "nativeOverrides": {
+    "company-add": {
+      "source": "global/.claude/skills/company-add/SKILL.md",
+      "codex": "plugins/forge-codex/skills/company-add/SKILL.md",
+      "reviewedSourceSha256": "90D82F15125DCAE1B93BB0443C95C6C7357AEC04D50FE46A6A02EE578CE6DDA2"
+    },
+    "forge-init": {
+      "source": "global/.claude/skills/forge-init/SKILL.md",
+      "codex": "plugins/forge-codex/skills/forge-init/SKILL.md",
+      "reviewedSourceSha256": "179F29AD275FE6F50818799B864D0546551BD010D78A948F678399A14854B7A8"
+    },
+    "forge-install": {
+      "source": "global/.claude/skills/forge-install/SKILL.md",
+      "codex": "plugins/forge-codex/skills/forge-install/SKILL.md",
+      "reviewedSourceSha256": "DD30016654D77FF6FAB67EA53CA055CEAC845DC822262E9B6AA2731077B30EB8"
+    },
+    "forge-update": {
+      "source": "global/.claude/skills/forge-update/SKILL.md",
+      "codex": "plugins/forge-codex/skills/forge-update/SKILL.md",
+      "reviewedSourceSha256": "3080ED21FB61F85636C997997519CE36C10616AF6003AEF772BD286D01BE7144"
+    },
+    "git-guardrails": {
+      "source": "global/.claude/skills/git-guardrails/SKILL.md",
+      "codex": "plugins/forge-codex/skills/git-guardrails/SKILL.md",
+      "reviewedSourceSha256": "337A292675BB7CB8B39B7DD70931E40CB0E7635A043814BAE04A029356C1DC58"
+    },
+    "grill-with-peer": {
+      "source": "global/.claude/skills/grill-with-peer/SKILL.md",
+      "codex": "plugins/forge-codex/skills/grill-with-peer/SKILL.md",
+      "reviewedSourceSha256": "DF73475FECFB66C56869760FE339B204E92B56DB2AE9523D310037EF239C8CC1"
+    },
+    "lang-rules": {
+      "source": "global/.claude/skills/lang-rules/SKILL.md",
+      "codex": "plugins/forge-codex/skills/lang-rules/SKILL.md",
+      "reviewedSourceSha256": "DA4220B5EA07E04C52C1491CDB7E3CD89733127096D1DFF5DDA9BEA46BBB872B"
+    },
+    "security-assessment": {
+      "source": "global/.claude/skills/security-assessment/SKILL.md",
+      "codex": "plugins/forge-codex/skills/security-assessment/SKILL.md",
+      "reviewedSourceSha256": "BC442B2C36AD801E82639748AAED1580B7546F357CE5AC6C7F3FFBFD134E5564"
+    },
+    "security-resolve": {
+      "source": "global/.claude/skills/security-resolve/SKILL.md",
+      "codex": "plugins/forge-codex/skills/security-resolve/SKILL.md",
+      "reviewedSourceSha256": "3EE54D13CEFB860078DF142CB8FBCAB038737BE34AC8A8D15D20C338B86508CF"
+    },
+    "skill-health": {
+      "source": "global/.claude/skills/skill-health/SKILL.md",
+      "codex": "plugins/forge-codex/skills/skill-health/SKILL.md",
+      "reviewedSourceSha256": "1047B3595357B02AF87FD6C3BB4607F36F2C479EA8316D049BBEAD1F36A07B33"
+    }
+  }
 }

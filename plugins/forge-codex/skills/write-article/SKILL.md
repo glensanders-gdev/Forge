@@ -3,7 +3,7 @@ name: "write-article"
 description: "Write long-form content — Confluence pages, README sections, stakeholder summaries, Go/No Go briefs, release notes, guides, and reports — in a clear, concrete voice that sounds like a person, not an AI. Use when producing any written deliverable longer than a paragraph where voice consistency, structure, and credibility matter."
 metadata:
   category: code-quality
-  version: 1.0.0
+  version: 1.1.0
   origin: Adapted from Affaan Mustafa (ECC / github.com/affaan-m/ECC)
 ---
 
