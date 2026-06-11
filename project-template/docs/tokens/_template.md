@@ -12,24 +12,26 @@
 
 ## Phase Records
 
-_Written automatically at the end of each phase. All token counts are agent estimates._
+_Updated at each session close (`/debrief`) from ccusage actuals — see `~/.claude/skills/token-report/TOKEN-RECORDING.md`. Pipeline skills do not write here. Never fill a missing measurement with an estimate._
 
 ### Idea
 **Date range:** YYYY-MM-DD
 **Sessions:** N
-**Input:** ~Nk tokens — Read: [brief file summary]
-**Output:** ~Nk tokens
-**Total:** ~Nk (S/M/L/XL)
-**Notes:** [anything notable about this phase's cost]
+**Input:** Nk tokens
+**Output:** Nk tokens
+**Total:** Nk (S/M/L/XL)
+**Source:** ccusage actuals
+**Notes:** [optional — unusual cost drivers, attribution splits]
 
 ---
 
 ### Grill (/grill-with-docs)
 **Date range:** YYYY-MM-DD → YYYY-MM-DD
 **Sessions:** N
-**Input:** ~Nk tokens — Read: [brief file summary]
-**Output:** ~Nk tokens
-**Total:** ~Nk (S/M/L/XL)
+**Input:** Nk tokens
+**Output:** Nk tokens
+**Total:** Nk (S/M/L/XL)
+**Source:** ccusage actuals
 **Notes:**
 
 ---
@@ -37,9 +39,10 @@ _Written automatically at the end of each phase. All token counts are agent esti
 ### Research
 **Date range:** YYYY-MM-DD → YYYY-MM-DD
 **Sessions:** N
-**Input:** ~Nk tokens — Read: [brief file summary]
-**Output:** ~Nk tokens
-**Total:** ~Nk (S/M/L/XL)
+**Input:** Nk tokens
+**Output:** Nk tokens
+**Total:** Nk (S/M/L/XL)
+**Source:** ccusage actuals
 **Notes:**
 
 ---
@@ -47,9 +50,10 @@ _Written automatically at the end of each phase. All token counts are agent esti
 ### Prototype
 **Date range:** YYYY-MM-DD
 **Sessions:** N
-**Input:** ~Nk tokens — Read: [brief file summary]
-**Output:** ~Nk tokens
-**Total:** ~Nk (S/M/L/XL)
+**Input:** Nk tokens
+**Output:** Nk tokens
+**Total:** Nk (S/M/L/XL)
+**Source:** ccusage actuals
 **Notes:**
 
 ---
@@ -57,9 +61,10 @@ _Written automatically at the end of each phase. All token counts are agent esti
 ### Write PRD
 **Date range:** YYYY-MM-DD → YYYY-MM-DD
 **Sessions:** N
-**Input:** ~Nk tokens — Read: [brief file summary]
-**Output:** ~Nk tokens
-**Total:** ~Nk (S/M/L/XL)
+**Input:** Nk tokens
+**Output:** Nk tokens
+**Total:** Nk (S/M/L/XL)
+**Source:** ccusage actuals
 **Notes:**
 
 ---
@@ -67,9 +72,10 @@ _Written automatically at the end of each phase. All token counts are agent esti
 ### Estimate
 **Date range:** YYYY-MM-DD
 **Sessions:** N
-**Input:** ~Nk tokens — Read: [brief file summary]
-**Output:** ~Nk tokens
-**Total:** ~Nk (S/M/L/XL)
+**Input:** Nk tokens
+**Output:** Nk tokens
+**Total:** Nk (S/M/L/XL)
+**Source:** ccusage actuals
 **Pre-build estimate:** S/M/L/XL ([range])
 
 ---
@@ -77,9 +83,10 @@ _Written automatically at the end of each phase. All token counts are agent esti
 ### Testplan
 **Date range:** YYYY-MM-DD
 **Sessions:** N
-**Input:** ~Nk tokens — Read: [brief file summary]
-**Output:** ~Nk tokens
-**Total:** ~Nk (S/M/L/XL)
+**Input:** Nk tokens
+**Output:** Nk tokens
+**Total:** Nk (S/M/L/XL)
+**Source:** ccusage actuals
 **Notes:**
 
 ---
@@ -87,24 +94,26 @@ _Written automatically at the end of each phase. All token counts are agent esti
 ### Build
 **Date range:** YYYY-MM-DD → YYYY-MM-DD
 **Sessions:** N
-**Input:** ~Nk tokens — Read: [brief file summary]
-**Output:** ~Nk tokens
-**Total:** ~Nk (S/M/L/XL)
+**Input:** Nk tokens
+**Output:** Nk tokens
+**Total:** Nk (S/M/L/XL)
+**Source:** ccusage actuals
 
-**Per-ticket breakdown:**
-| Ticket | Estimated | Input | Output | Actual | Band |
-|--------|-----------|-------|--------|--------|------|
-| #N [name] | M | ~Nk | ~Nk | ~Nk | M ✅ |
-| #N [name] | M | ~Nk | ~Nk | ~Nk | L ⚠️ |
+**Per-ticket band calibration** (coarse band judgement — exact per-ticket counts are not measurable):
+| Ticket | Estimated | Actual Band |
+|--------|-----------|-------------|
+| #N [name] | M | M ✅ |
+| #N [name] | M | L ⚠️ over |
 
 ---
 
 ### QA (/qa-plan + /pii-check)
 **Date range:** YYYY-MM-DD → YYYY-MM-DD
 **Sessions:** N
-**Input:** ~Nk tokens — Read: [brief file summary]
-**Output:** ~Nk tokens
-**Total:** ~Nk (S/M/L/XL)
+**Input:** Nk tokens
+**Output:** Nk tokens
+**Total:** Nk (S/M/L/XL)
+**Source:** ccusage actuals
 **Notes:**
 
 ---
@@ -112,9 +121,10 @@ _Written automatically at the end of each phase. All token counts are agent esti
 ### Deploy
 **Date range:** YYYY-MM-DD
 **Sessions:** N
-**Input:** ~Nk tokens
-**Output:** ~Nk tokens
-**Total:** ~Nk (S)
+**Input:** Nk tokens
+**Output:** Nk tokens
+**Total:** Nk (S)
+**Source:** ccusage actuals
 **Notes:**
 
 ---
@@ -136,5 +146,5 @@ _Written automatically at the end of each phase. All token counts are agent esti
 | **Total** | | | | | |
 
 **Pre-build estimate:** S/M/L/XL
-**Actual:** ~Nk (S/M/L/XL)
+**Actual:** Nk (S/M/L/XL)
 **Calibration:** ✅ On band / ⚠️ Over band / ✅ Under band

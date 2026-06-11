@@ -131,19 +131,3 @@ Research | Prototype | $write-prd
 Suggest next stage and wait for human confirmation before proceeding.
 
 ---
-
-## Token Recording (Automatic)
-
-At the end of the session (before writing DEVLOG), record token usage in `docs/tokens/[feature-name].md`:
-
-```markdown
-### Grill ($grill-with-docs)
-**Date range:** [start date] → [end date]
-**Sessions:** N
-**Input:** ~Nk tokens — Read: [files read this session]
-**Output:** ~Nk tokens — [N questions, CONTEXT.md updates, N ADRs]
-**Total:** ~Nk ([band])
-**Notes:** [anything notable]
-```
-
-See `~/.codex/forge/skills/token-report/TOKEN-RECORDING.md` for estimation guidance.

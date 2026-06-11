@@ -12,3 +12,4 @@
 | Date | Subject | P1 | P2 | P3 | Total |
 |------|---------|----|----|-----|-------|
 | 2026-06-01 | Forge framework v3.7.0 | 2 | 3 | 3 | 8 |
+| 2026-06-11 | Forge framework — tiered governance, token optimisation, model selection | 4 | 5 | 4 | 13 |

@@ -46,7 +46,7 @@ At the start of every session, before anything else:
 
 1. Read `~/.codex/forge/preferences.md` — global preferences. Respect these throughout. Also load `~/.codex/forge/rules/common/git-safety.md` if present — confirm before push and before any destructive git operation.
 2. Read `~/.codex/forge/knowledge/company/acronyms.md` — company terminology.
-3. Read `docs/HANDOFF.md` if it exists — highest-signal context. If "Current phase" field shows the same phase continuing, increment the session counter in `docs/tokens/[feature].md`.
+3. Read `docs/HANDOFF.md` if it exists — highest-signal context. Note the current phase — token recording and the phase session counter are handled at session close by `$debrief`, not at session start.
 4. Read `docs/CONTEXT.md` — project domain glossary. Skip silently if the file is empty or contains only the stub template (no terms defined yet). Domain model is built progressively via `$grill-with-docs`.
 5. Read the most recent entry of `docs/DEVLOG.md` only — not the full file.
 6. Read `docs/kanban.md` — current ticket state.

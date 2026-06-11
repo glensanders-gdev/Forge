@@ -219,13 +219,18 @@ Log silently — do not mention to the user.
 
 ## Token Summary (Sprint)
 
-At sprint end, sum token records for all features worked on this sprint:
+At sprint end (HITL mode), build the sprint token summary from actuals:
 
-Read `docs/tokens/[feature].md` for each feature. Sum totals and append to the sprint record:
+1. Run `npx ccusage daily --since [sprint-start] --until [sprint-end] --json` — the measured sprint total.
+2. Read `docs/tokens/[feature].md` for each feature worked this sprint and sum their recorded totals.
+3. If the ccusage total and the sum of feature records differ materially (>20%), sessions were missed at `$debrief` — backfill the gap dates per `~/.codex/forge/skills/token-report/TOKEN-RECORDING.md` before writing the summary.
+4. Append to the sprint record:
 
 ```markdown
 ### Token Summary
-**Sprint total:** ~Nk tokens (N features, N sessions)
-**Input:** ~Nk | **Output:** ~Nk
-**Largest phase:** [phase] (~Nk)
+**Sprint total (ccusage):** Nk tokens (N features, N sessions)
+**Input:** Nk | **Output:** Nk
+**Largest phase:** [phase] (Nk)
 ```
+
+If ccusage is unavailable, sum the feature records alone and note `Source: feature records only — ccusage unavailable`. Never fill gaps with estimates.

@@ -193,7 +193,7 @@ PI token total: ~Nk across N features, N projects, N sessions
 
 ## Rules
 
-- All token counts are agent estimates — label as such in reports
+- Token counts are ccusage actuals where the record says `Source: ccusage actuals`; legacy records (`~Nk`) are agent estimates — label the two distinctly in reports, never mix unlabelled
 - Only include approved features in calibration reports — in-progress actuals are incomplete
 - Round to nearest 1k for readability
 - Never fabricate data — if a phase has no record, show "—" not a guess
