@@ -114,7 +114,8 @@ function Normalize-CodexSkillFrontmatter([string]$Path) {
 function Copy-AdaptedTree([string]$Source, [string]$Destination, [string[]]$SkillNames) {
     $Source = (Resolve-Path -LiteralPath $Source).Path
     Ensure-Directory $Destination
-    Get-ChildItem -LiteralPath $Source -Recurse -File | ForEach-Object {
+    # -Force: on Unix, dotfiles (.gitignore, .gitkeep, .agents/) are hidden and skipped without it
+    Get-ChildItem -LiteralPath $Source -Recurse -File -Force | ForEach-Object {
         $relative = $_.FullName.Substring($Source.Length).TrimStart("\", "/")
         $target = Join-Path $Destination $relative
         Ensure-Directory (Split-Path -Parent $target)

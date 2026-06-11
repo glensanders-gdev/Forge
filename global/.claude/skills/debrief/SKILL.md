@@ -31,9 +31,10 @@ Close a working session cleanly when a feature is not yet complete. Lighter than
 3. Update `docs/kanban.md` — move completed tickets to Done, update In Progress.
 4. Identify anything deferred and why.
 5. Reorder the Backlog by priority for next session.
-6. Append a structured entry to `docs/DEVLOG.md`.
-7. State the updated version number (single-file projects) or latest git tag (multi-file projects).
-8. Suggest top 1–3 goals for next session.
+6. **Record token actuals** — run `npx ccusage daily --since [today] --until [today] --json` and update the current phase's record in `docs/tokens/[feature-name].md` per `~/.claude/skills/token-report/TOKEN-RECORDING.md`. If ccusage returns no data, record `Source: no data` — never estimate token counts from memory.
+7. Append a structured entry to `docs/DEVLOG.md`.
+8. State the updated version number (single-file projects) or latest git tag (multi-file projects).
+9. Suggest top 1–3 goals for next session.
 
 ## DEVLOG Entry Format
 

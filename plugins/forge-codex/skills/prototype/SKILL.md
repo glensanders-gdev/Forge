@@ -82,19 +82,3 @@ $prototype
 Suggest moving to `$write-prd`. The prototype findings should be referenced in the PRD's Implementation Decisions section.
 
 Wait for human confirmation before proceeding. Clean up `$prototype` only after PRD is written and confirmed.
-
-## Token Recording (Automatic)
-
-After prototype findings are documented, record in `docs/tokens/[feature-name].md`:
-
-```markdown
-### Prototype
-**Date range:** YYYY-MM-DD → YYYY-MM-DD
-**Sessions:** N
-**Input:** ~Nk tokens — Read: [source files, research files]
-**Output:** ~Nk tokens — [spike code, LOGIC.md, UI.md]
-**Total:** ~Nk ([band])
-**Notes:**
-```
-
-See `~/.codex/forge/skills/token-report/TOKEN-RECORDING.md` for estimation guidance.

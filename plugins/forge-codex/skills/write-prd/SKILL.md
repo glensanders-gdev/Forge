@@ -214,19 +214,3 @@ After Phase 2 is complete and PRD is written:
 | Phase 1 exploration finds no relevant codebase | Note "Codebase appears empty or not yet scaffolded." Proceed with a greenfield assumption — state it explicitly. |
 | Sprint field cannot be determined | Set to "Not sprint-tracked" and flag for human to update. |
 | Estimate confirmation not given | Do not write PRD until estimates are confirmed — prompt once more. |
-
-## Token Recording (Automatic)
-
-After Phase 2 is complete, record token usage in `docs/tokens/[feature-name].md`:
-
-```markdown
-### Write PRD
-**Date range:** [start date] → [end date]
-**Sessions:** N
-**Input:** ~Nk tokens — Read: [files explored in Phase 1]
-**Output:** ~Nk tokens — [PRD document, module estimates]
-**Total:** ~Nk ([band])
-**Notes:** [e.g. "large codebase exploration drove input cost"]
-```
-
-See `~/.codex/forge/skills/token-report/TOKEN-RECORDING.md` for estimation guidance.

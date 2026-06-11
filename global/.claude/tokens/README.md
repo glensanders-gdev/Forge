@@ -35,10 +35,10 @@ Run `/user:token-report` for full analysis:
 
 ## Data Quality
 
-All token counts are **agent estimates** — not exact counts from the Claude API. They are useful for calibration and relative comparison, not precise billing. Label as "estimated" in any external reporting.
+Token counts are **measured actuals** sourced from `ccusage` (Claude Code's local session logs), recorded at `/debrief` and `/sprint-end`. Records created before this approach are agent estimates, marked `~Nk` — treat those as coarse signals only. Reports label the two distinctly.
 
 ---
 
 ## Correction
 
-If an estimate needs correction, edit `docs/tokens/[feature-name].md` in the project repo and note the correction. The ledger entry can be annotated manually — see `TOKEN-RECORDING.md` in the `token-report` skill folder for the correction procedure.
+If a record needs correction (e.g. misattributed feature or phase), re-run ccusage for the affected dates, edit `docs/tokens/[feature-name].md` in the project repo, and note the correction. The ledger entry can be annotated manually — see `TOKEN-RECORDING.md` in the `token-report` skill folder for the correction procedure.

@@ -1,38 +1,62 @@
-# Token Recording — Phase Guide
+# Token Recording — Actuals Guide
 
-All pipeline skills record token usage automatically at phase end. This file defines the standard recording format and estimation approach.
+Token usage is recorded from **measured actuals**, not agent estimates. The source of truth is [ccusage](https://github.com/ryoppippi/ccusage), which reads Claude Code's local session logs. Recording happens at session close (`/debrief`) and sprint close (`/sprint-end`) — individual pipeline skills do not record token usage.
 
 ---
 
 ## When to Record
 
-At the natural close of each phase — when the phase produces its artifact and suggests the next stage. Record before writing DEVLOG or HANDOFF.
+- **`/debrief`** — at every session close, record the session's actuals against the current feature and phase.
+- **`/sprint-end`** — at sprint close, cross-check the sprint-period total against the per-feature records and fill any gaps.
+
+Pipeline skills (`/idea`, `/grill-with-docs`, `/build`, `/qa-plan`, etc.) never write token records. One recording point per session prevents both duplicate entries and per-phase guessing.
 
 ---
 
-## Estimation Approach
+## How to Measure
 
-Claude Code does not expose exact token counts. Estimate as follows:
+Run ccusage for the period being recorded:
 
-### Input tokens
-Count what was loaded into context:
-- Each file read: estimate based on file type and typical size
-  - `CONTEXT.md`, `HANDOFF.md`, `kanban.md`: ~1–3k each
-  - Source files: ~2–8k each depending on size
-  - PRD: ~3–6k
-  - Research files: ~2–5k each
-- Conversation history: estimate based on session length
-  - Short session (<30 min): ~5–15k
-  - Medium session (30–90 min): ~15–40k
-  - Long session (90+ min): ~40–100k
+```bash
+# Session close — today's usage
+npx ccusage daily --since YYYYMMDD --until YYYYMMDD --json
 
-### Output tokens
-Estimate based on what was generated:
-- Q&A grill (10 questions): ~3–8k
-- PRD document: ~5–12k
-- Code written (per ticket): ~5–20k
-- Research file: ~2–5k
-- Report or plan: ~3–8k
+# Sprint close — sprint period total
+npx ccusage daily --since [sprint-start] --until [sprint-end] --json
+```
+
+Use the input and output token totals from the result. Round to the nearest 1k.
+
+**Attribution:** the day's total is attributed to the phase worked this session (from `HANDOFF.md` / the conversation). If a single day spanned two features or phases, split the total by judgement and note the split — an approximate split of a real number beats a guess.
+
+---
+
+## Fallback — Never Guess
+
+If ccusage is unavailable (no network, no npx) or returns no data for the period:
+
+- Record the entry with `**Source:** no data` and leave the token fields as `—`.
+- Never reconstruct token counts from memory or file-size heuristics. A missing number is recoverable later (ccusage logs persist); a fabricated one poisons calibration.
+- The next `/debrief` or `/sprint-end` with ccusage available should backfill missing entries using `--since`/`--until` for the gap dates.
+
+---
+
+## Recording Format
+
+Append to or update `docs/tokens/[feature-name].md`. Create the file from `_template.md` if it doesn't exist.
+
+Each phase keeps one accumulating record. At session close, add the session's actuals to the current phase's running totals and increment its session count:
+
+```markdown
+### [Phase Name]
+**Date range:** YYYY-MM-DD (→ YYYY-MM-DD if multi-session)
+**Sessions:** N
+**Input:** Nk tokens
+**Output:** Nk tokens
+**Total:** Nk ([S/M/L/XL])
+**Source:** ccusage actuals
+**Notes:** [optional — anything that drove unusual cost, or attribution splits]
+```
 
 ### Band derivation
 - S: < 20k total
@@ -42,56 +66,21 @@ Estimate based on what was generated:
 
 ---
 
-## Recording Format
-
-Append to `docs/tokens/[feature-name].md`. Create the file from _template.md if it doesn't exist.
-
-```markdown
-### [Phase Name]
-**Date range:** YYYY-MM-DD (→ YYYY-MM-DD if multi-session)
-**Sessions:** N
-**Input:** ~Nk tokens — Read: [brief summary e.g. "CONTEXT.md, kanban.md, 6 source files"]
-**Output:** ~Nk tokens
-**Total:** ~Nk ([S/M/L/XL])
-**Notes:** [optional — anything that drove unusual cost]
-```
-
----
-
-## Phase-Specific Notes
-
-| Phase | Typical input drivers | Typical output drivers |
-|-------|----------------------|----------------------|
-| Idea | Conversation only | idea.md, diagrams |
-| Grill | CONTEXT.md, ADRs, source files | Q&A, CONTEXT.md updates, ADRs |
-| Research | External content, source files | research/*.md files |
-| Prototype | Source files | Spike code, LOGIC.md, UI.md |
-| Write PRD | Codebase exploration, research files | PRD document |
-| Estimate | PRD, kanban | Estimate table |
-| Testplan | PRD, testplan | testplan-*.md |
-| Build | Source files, testplan, PRD | Code, tests |
-| QA | qa-plan, pii-report, source | QA plan, PII report |
-| Deploy | deploy.md, deploy-log | Log entries |
-
----
-
 ## File Initialisation
 
 **Feature name convention:** Derive from the PRD filename — take the filename without the `.md` extension, lowercase, hyphens preserved. Example: `prd/active/user-auth.md` → token file is `docs/tokens/user-auth.md`.
 
-When recording the first phase for a feature:
+When recording the first entry for a feature:
 1. Derive the feature name from the active PRD in `docs/prd/active/`
 2. Check if `docs/tokens/[feature-name].md` exists
 3. If not, copy from `docs/tokens/_template.md` and fill in the header fields (PRD name, project, sprint, PI)
-4. If no active PRD exists yet (e.g. recording for `/idea` phase), use the idea name slug as the feature name — it will be updated when the PRD is written
+4. If no active PRD exists yet (e.g. recording during the `/idea` phase), use the idea name slug as the feature name — it will be updated when the PRD is written
 
 ---
 
 ## Session Count
 
-Increment the session count each time the phase continues in a new Claude Code session. A single uninterrupted session = 1. A phase resumed after closing and reopening Claude Code = 2, etc.
-
-Track session count in HANDOFF.md under the current phase note so it persists across sessions:
+Increment the phase's session count at each `/debrief` that attributes work to it. Track the current phase and its session count in `HANDOFF.md` so it persists across sessions:
 ```
 ## Current Ticket
 Phase: Grill — Session 2 of current phase
@@ -112,8 +101,14 @@ When a feature spans multiple PIs (starts in PI-N, completes in PI-N+1):
 
 ## Manual Correction
 
-If an agent estimate is clearly wrong (e.g. estimated S but session was clearly L):
-1. Open `docs/tokens/[feature-name].md` directly
-2. Update the phase record with the corrected estimate and add a note: "Corrected: original estimate was [band]"
+If a recorded entry is wrong (e.g. misattributed to the wrong feature or phase):
+1. Re-run ccusage for the affected dates to get the correct figures
+2. Update the phase record in `docs/tokens/[feature-name].md` and add a note: "Corrected YYYY-MM-DD — [reason]"
 3. If the feature is already approved and in the ledger, the ledger entry is stale — note in the ledger entry: "Token record corrected post-approval — see docs/tokens/[feature-name].md for updated figures"
 4. The next `/token-report` will flag the discrepancy if ledger and file totals differ
+
+---
+
+## Legacy Records
+
+Records written before this guide (agent-estimated, marked `~Nk`) remain valid as coarse signals. Do not retrofit them. `/token-report` labels them "estimated" and ccusage-sourced entries "actual" — never mix the two without labelling.

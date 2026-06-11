@@ -254,19 +254,3 @@ After `DONE`, run health check if configured and log the deployment.
 | Health check fails | Alert, offer ROLLBACK / INVESTIGATE / STOP |
 | Rollback command missing | Alert. Provide platform-specific manual rollback steps. |
 | `deploy-log.md` missing | Create it and append the entry. |
-
-## Token Recording (Automatic)
-
-After deployment completes (success or failure), record in `docs/tokens/[feature-name].md`:
-
-```markdown
-### Deploy
-**Date range:** YYYY-MM-DD
-**Sessions:** N
-**Input:** ~Nk tokens — Read: [deploy.md, deploy-log, go-nogo brief]
-**Output:** ~Nk tokens — [deploy log entry, health check]
-**Total:** ~Nk ([band])
-**Notes:** [Success / Failed — rollback triggered]
-```
-
-See `~/.claude/skills/token-report/TOKEN-RECORDING.md` for estimation guidance.

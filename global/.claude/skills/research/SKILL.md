@@ -74,22 +74,6 @@ Suggest the next stage:
 
 Wait for human confirmation before proceeding.
 
-## Token Recording (Automatic)
-
-After research files are written, record in `docs/tokens/[feature-name].md`:
-
-```markdown
-### Research
-**Date range:** YYYY-MM-DD → YYYY-MM-DD
-**Sessions:** N
-**Input:** ~Nk tokens — Read: [external content, source files, N research topics]
-**Output:** ~Nk tokens — [N research files written]
-**Total:** ~Nk ([band])
-**Notes:** [e.g. "heavy external content loading drove input cost"]
-```
-
-See `~/.claude/skills/token-report/TOKEN-RECORDING.md` for estimation guidance.
-
 ## Knowledge Base Promotion
 
 At the end of a research session, ask:

@@ -22,90 +22,70 @@ $sprint-start → $build → $qa-plan → $pii-check → $approve
 
 Before executing any ticket:
 
-1. Read `docs/kanban.md` — identify current sprint tickets (In Progress and Backlog)
-2. Read `docs/prd/active/` — confirm feature scope
-3. Check for `docs/testplan-[feature].md`:
-   - If found: read it — use TC IDs to guide test writing during the build loop
-   - If not found: warn before proceeding:
-     ```
-     ⚠️ No testplan found for this feature.
+1. Read `docs/kanban.md` — identify current sprint tickets (In Progress and Backlog). If none found: "No sprint tickets found in kanban.md. Run `sprint-start` to open a sprint first."
+2. Read `docs/prd/active/` — confirm feature scope.
+3. Check for `docs/testplan-[feature].md`. If found, use its TC IDs to guide test writing during the build loop. If not found, warn before proceeding:
+   ```
+   ⚠️ No testplan found for this feature.
 
-     Without a testplan, $build cannot track test cases to TC-NNN IDs and
-     $qa-plan will have no TC registry to draw from.
+   Without a testplan, $build cannot track test cases to TC-NNN IDs and
+   $qa-plan will have no TC registry to draw from.
 
-     Run $testplan first? (yes — stop and run $testplan / no — proceed without)
-     ```
-     Wait for response. On `yes`, stop. On `no`, note "TC tracking not available — no testplan" and continue.
-4. Read `~/.codex/forge/sprints/calendar.md` — confirm current sprint dates
-5. Check for resumable state — any tickets already In Progress from a previous build session
-6. **Read company config** — `~/.codex/forge/companies/[active_company]/config.md` (if set):
-   - `ai_human_signoff_required` — if `true`, add a mandatory HITL sign-off gate before each ticket is marked Done (see Execution Loop Step 4)
-   - `ai_data_restrictions` — if set, note at build start: "⚠️ AI policy: [restrictions] — do not include restricted data in prompts or generated code."
+   Run $testplan first? (yes — stop and run $testplan / no — proceed without)
+   ```
+   Wait for response. On `yes`, stop. On `no`, note "TC tracking not available — no testplan" and continue.
+4. Read `~/.codex/forge/sprints/calendar.md` — confirm current sprint dates.
+5. Check for resumable state — any tickets already In Progress from a previous build session (see Resuming a Build).
+6. Read company config `~/.codex/forge/companies/[active_company]/config.md` (if set):
+   - `ai_human_signoff_required: true` → add a mandatory HITL sign-off gate before each ticket is marked Done (Execution Loop Step 4)
+   - `ai_data_restrictions` → note at build start: "⚠️ AI policy: [restrictions] — do not include restricted data in prompts or generated code."
+7. Check required tools — if a company is set, read `~/.codex/forge/companies/[active_company]/tools.md` and run the `check-command` for each tool marked `required`. If any is missing, stop:
+   ```
+   ⛔ Required tools missing — install before running $build:
 
-7. **Check required tools** — if a company is set, read `~/.codex/forge/companies/[active_company]/tools.md`:
-   - For each tool marked `required`: run its `check-command`
-   - If any required tool is missing, stop:
-     ```
-     ⛔ Required tools missing — install before running $build:
+     [tool-name] ([category])
+       Install: [install-hint from registry]
 
-       [tool-name] ([category])
-         Install: [install-hint from registry]
+   Run $tool-check for the full picture.
+   ```
+8. Check sprint buffer window — read `~/.codex/forge/sprints/calendar.md` and `~/.codex/forge/pi/[current-pi]/plan.md`. If today falls within the buffer window (Friday–Sunday before a release Monday), warn and wait for an explicit decision:
+   ```
+   ⚠️ Buffer Window Active
 
-     Run $tool-check for the full picture.
-     ```
-   - If all required tools are present, proceed silently.
+   You are in the buffer window for PI-N-RN (Release: Mon DD MMM).
+   Friday EOD is the last working day for feature tickets.
+   During the buffer window, only bug fixes [BUG] and deployment prep [PREP] should be executed.
 
-If no sprint tickets found: "No sprint tickets found in kanban.md. Run `sprint-start` to open a sprint first."
+   Tickets in queue flagged as feature work: #N, #N
+   Tickets flagged as [BUG] / [PREP]: #N, #N
 
-4. **Check sprint buffer window** — read `~/.codex/forge/sprints/calendar.md` and `~/.codex/forge/pi/[current-pi]/plan.md`:
-   - If today falls within the buffer window (Friday–Sunday before a release Monday), warn:
-     ```
-     ⚠️ Buffer Window Active
+   Type BUILD-FEATURES to proceed with all tickets (accepted risk)
+   Type BUILD-FIXES to execute [BUG] and [PREP] tickets only
+   Type STOP to cancel
+   ```
+9. Pre-build health check — if a `build-check` command is defined in `AGENTS.md` or `.codex/forge/deploy.md`, run it. On failure, stop:
+   ```
+   ⛔ Pre-build check failed
 
-     You are in the buffer window for PI-N-RN (Release: Mon DD MMM).
-     Friday EOD is the last working day for feature tickets.
-     During the buffer window, only bug fixes [BUG] and deployment prep [PREP] should be executed.
+   Command: [command]
+   Output: [error output]
 
-     Tickets in queue flagged as feature work: #N, #N
-     Tickets flagged as [BUG] / [PREP]: #N, #N
+   The codebase is in a broken state. Fix this before running $build.
+   Run diagnose for help investigating.
+   ```
+10. Present the build queue and wait for `CONFIRM` before executing anything:
+    ```
+    ## Build Queue — Sprint-NN
 
-     Type BUILD-FEATURES to proceed with all tickets (accepted risk)
-     Type BUILD-FIXES to execute [BUG] and [PREP] tickets only
-     Type STOP to cancel
-     ```
-   - Wait for explicit decision before proceeding.
+    Ready to execute:
+    - [AFK] #N [Ticket name]
 
-5. **Pre-build health check** — if a `build-check` command is defined in `AGENTS.md` or `.codex/forge/deploy.md`, run it before the build loop begins:
-   - If it passes → proceed
-   - If it fails → stop:
-     ```
-     ⛔ Pre-build check failed
+    Pausing at:
+    - [HITL] #N [Ticket name] — requires: [what's needed]
+    - [AFK] #N [Ticket name] `blocked-by: #M` — blocked until #M done
 
-     Command: [command]
-     Output: [error output]
-
-     The codebase is in a broken state. Fix this before running $build.
-     Run diagnose for help investigating.
-     ```
-
-6. **Present build queue** before starting.
-
-```
-## Build Queue — Sprint-NN
-
-Ready to execute:
-- [AFK] #N [Ticket name]
-- [AFK] #N [Ticket name]
-- [AFK] #N [Ticket name]
-
-Pausing at:
-- [HITL] #N [Ticket name] — requires: [what's needed]
-- [AFK] #N [Ticket name] `blocked-by: #M` — blocked until #M done
-
-Type CONFIRM to begin, or adjust the queue first.
-```
-
-Wait for `CONFIRM` before executing anything.
+    Type CONFIRM to begin, or adjust the queue first.
+    ```
 
 ---
 
@@ -115,45 +95,39 @@ For each ticket in the queue, in order:
 
 ### Step 1 — Smart Zone Check
 
-Before executing, estimate ticket size:
-- If the ticket appears to exceed 100k tokens of work, pause:
-  ```
-  ⚠️ Smart Zone Warning — #N [Ticket name]
+Estimate ticket size before executing. If it appears to exceed 100k tokens of work, pause and wait for a decision:
+```
+⚠️ Smart Zone Warning — #N [Ticket name]
 
-  This ticket looks larger than the smart zone limit.
-  Running it as-is risks an incomplete or low-quality result.
+This ticket looks larger than the smart zone limit.
+Running it as-is risks an incomplete or low-quality result.
 
-  Options:
-  1. Run $break-down to split it first (recommended)
-  2. Proceed anyway (accepted risk)
+Options:
+1. Run $break-down to split it first (recommended)
+2. Proceed anyway (accepted risk)
 
-  Type 1 or 2.
-  ```
-- Wait for human decision before continuing.
+Type 1 or 2.
+```
 
 ### Step 2 — Mark In Progress
 
-Update `docs/kanban.md` immediately:
-```markdown
-- [x→] [AFK] #N [Ticket name]  ← In Progress
-```
+Update `docs/kanban.md` immediately: `- [>] [AFK] #N [Ticket name]  ← In Progress`
 
 ### Step 3 — Execute with TDD
 
-For each AFK ticket, run the TDD cycle:
+Run the TDD cycle for each AFK ticket:
 
 ```
-RED:   Write test for the behaviour → confirm it fails
-GREEN: Implement minimum code to pass → confirm tests pass
+RED:      Write test for the behaviour → confirm it fails
+GREEN:    Implement minimum code to pass → confirm tests pass
 REFACTOR: Clean up — run tests again to confirm still green
 ```
 
-Reference `docs/testplan-[feature].md` for which behaviours to test.
-Follow all rules from the TDD skill — vertical slices, public interfaces only, no horizontal slicing.
+Reference `docs/testplan-[feature].md` for which behaviours to test. Follow all rules from the TDD skill — vertical slices, public interfaces only, no horizontal slicing.
 
 ### Step 4 — Human Sign-Off Gate (if ai_human_signoff_required)
 
-If `ai_human_signoff_required: true` was read from company config in pre-flight, pause before marking the ticket Done:
+If company config set `ai_human_signoff_required: true`, pause before marking the ticket Done:
 
 ```
 ✋ AI policy: human sign-off required before this ticket is marked complete.
@@ -164,32 +138,23 @@ Work completed: [brief summary of what was built and tested]
 Review the changes and type APPROVED to close this ticket, or REWORK to continue.
 ```
 
-Wait for `APPROVED` before updating kanban. Do not mark tickets Done autonomously when this policy is active.
+Wait for `APPROVED`. Do not mark tickets Done autonomously when this policy is active.
 
 ### Step 5 — Mark Done
 
-On successful completion, run a lightweight PII hint scan on files written during this ticket:
-- Check for email address patterns, phone number formats, and obvious real names in test fixtures or hardcoded values
-- If found, flag immediately: "⚠️ Possible PII in #N [file:line] — [description]. Review before committing."
-- Do not block the build — note it and continue. Full `$pii-check` runs in QA.
+On completion, run a lightweight PII hint scan on files written during this ticket (email patterns, phone formats, obvious real names in fixtures or hardcoded values). If found, flag immediately — "⚠️ Possible PII in #N [file:line] — review before committing" — but do not block; full `$pii-check` runs in QA.
 
-**Track actual token cost** — estimate the actual token band consumed building this ticket:
-- Compare against the estimate tag on the ticket (e.g. `M | 5pts`)
-- Record in `docs/kanban-archive.md` when the ticket is archived at sprint end:
-  ```
-  - [x] [AFK] #N Ticket name `estimated: M | actual: M` ✓
-  - [x] [AFK] #N Ticket name `estimated: M | actual: L` ⚠️ over
-  ```
-- Over-band actuals (e.g. estimated M, actual L) flagged ⚠️ for calibration awareness
-
-Update `docs/kanban.md` immediately:
-```markdown
-- [x] [AFK] #N [Ticket name]  ✓
+Judge the actual token band consumed (S/M/L/XL — coarse band judgement, not a count) against the ticket's estimate tag (e.g. `M | 5pts`). Recorded in `docs/kanban-archive.md` when the ticket is archived at sprint end, with over-band actuals flagged for calibration:
 ```
+- [x] [AFK] #N Ticket name `estimated: M | actual: M` ✓
+- [x] [AFK] #N Ticket name `estimated: M | actual: L` ⚠️ over
+```
+
+Update `docs/kanban.md` immediately: `- [x] [AFK] #N [Ticket name]  ✓`
 
 ### Step 6 — Context Checkpoint
 
-After every 3 completed tickets, if **3 or more tickets remain in the queue**, checkpoint before continuing:
+After every 3 completed tickets, if 3 or more remain in the queue, checkpoint:
 
 ```
 ## Build Checkpoint — Sprint-NN
@@ -203,29 +168,22 @@ Context summary:
 
 [If 6+ tickets completed this session]:
 ⚠️ Context is getting large — N tickets remain.
-Continue or PAUSE to save state?
 
 Type CONTINUE, PAUSE, or just press Enter to continue.
 ```
 
-Re-read `docs/kanban.md` fresh at each checkpoint to reset effective context.
-If the human types `PAUSE`, run `save-state` and stop cleanly.
-If fewer than 3 tickets remain after the checkpoint, skip it and continue without interruption.
+Re-read `docs/kanban.md` fresh at each checkpoint to reset effective context. On `PAUSE`, run `save-state` and stop cleanly. If fewer than 3 tickets remain, skip the checkpoint.
 
-### Step 7 — Next Ticket
-
-Move to the next ticket in the queue.
+Then move to the next ticket in the queue.
 
 ---
 
 ## HITL Pause
 
-When the queue reaches a HITL ticket:
+When the queue reaches a HITL ticket, wait indefinitely:
 
 ```
 ⏸️  HITL Required — #N [Ticket name]
-
-This ticket requires your input before it can proceed.
 
 What's needed:
 [Exact description of what the human must do, decide, or provide]
@@ -233,20 +191,14 @@ What's needed:
 When you're ready, type CONTINUE to resume the build.
 ```
 
-Wait indefinitely. Do not proceed until `CONTINUE` is received.
-
 After `CONTINUE`, execute any follow-up AFK work that was blocked by this HITL ticket, then continue the queue.
-
----
 
 ## Blocker Pause
 
 When a ticket has an unresolved `blocked-by` dependency:
 
 ```
-🚧  Blocked — #N [Ticket name]
-
-This ticket is blocked by #M [Ticket name] which is not yet complete.
+🚧  Blocked — #N [Ticket name] — blocked by #M [Ticket name], not yet complete.
 
 Options:
 1. Skip this ticket and continue with unblocked tickets
@@ -255,26 +207,9 @@ Options:
 Type 1 or 2.
 ```
 
----
-
 ## Resuming a Build
 
-When `$build` is run and tickets are already In Progress or partially done:
-
-```
-## Resuming Build — Sprint-NN
-
-Previously completed:
-- [x] #N [Ticket name] ✓
-- [x] #N [Ticket name] ✓
-
-Resuming from:
-- [AFK] #N [Ticket name] ← next in queue
-
-Type CONFIRM to resume.
-```
-
----
+When `$build` is run and tickets are already In Progress or partially done, present what was previously completed and the next ticket in the queue, then wait for `CONFIRM` to resume.
 
 ## Build Summary
 
@@ -305,8 +240,6 @@ Next steps:
 | HITL waiting | `- [⏸] [HITL] #N Ticket name — awaiting input` |
 | Blocked | `- [🚧] [AFK] #N Ticket name blocked-by: #M` |
 
----
-
 ## Scope Rules
 
 - Execute current sprint tickets only — never pull from general backlog without `$sprint-replan`
@@ -319,8 +252,8 @@ Next steps:
 - Always present the build queue and wait for `CONFIRM` before executing anything
 - Update kanban in real time — never batch updates
 - Run `$tdd` for every AFK ticket — never skip tests
-- Never deploy — build produces tested code only; deployment is handled by `$go-nogo` and future `$deploy` skills
-- DEVLOG is not updated during build — defer to `$debrief`
+- Never deploy — build produces tested code only; deployment is handled by `$go-nogo` and `$deploy`
+- DEVLOG and token records are not updated during build — defer to `$debrief`
 - Smart zone check is mandatory for every ticket — never skip it
 - Resumable by design — reading kanban state is always the first step
 
@@ -333,23 +266,3 @@ Next steps:
 | Tests fail after implementation | Run `diagnose` automatically if same test fails twice. Surface to human if still failing. |
 | Codebase in broken state at start | "Codebase has failing tests before build began. Fix these before running `$build`." Surface the failures. |
 | All tickets blocked | "All remaining tickets are blocked. Resolve blockers then resume with `build`." |
-
-## Token Recording (Automatic)
-
-At build completion (or at each checkpoint if pausing), update `docs/tokens/[feature-name].md`:
-
-```markdown
-### Build
-**Date range:** [start date] → [end date]
-**Sessions:** N
-**Input:** ~Nk tokens — Read: [source files, testplan, PRD]
-**Output:** ~Nk tokens — [code written, tests]
-**Total:** ~Nk ([band])
-
-**Per-ticket breakdown:**
-| Ticket | Estimated | Input | Output | Actual | Band |
-|--------|-----------|-------|--------|--------|------|
-| #N [name] | M | ~Nk | ~Nk | ~Nk | M ✅ |
-```
-
-See `~/.codex/forge/skills/token-report/TOKEN-RECORDING.md` for estimation guidance.
