@@ -1,6 +1,7 @@
 {
-  "forge_version": "3.9.0",
+  "forge_version": "3.10.0",
   "skills": {
+    "scan-first": "1.0.0",
     "raid": "1.0.0",
     "tool-add": "1.0.0",
     "tool-check": "1.0.0",

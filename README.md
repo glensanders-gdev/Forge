@@ -20,14 +20,14 @@ Each stage produces an artifact that feeds the next. The AI agent orients itself
 
 ## What's Included
 
-**102 shared skills** covering the full software delivery lifecycle, adapted for Claude Code and Codex:
+**103 shared skills** covering the full software delivery lifecycle, adapted for Claude Code and Codex:
 
 | Category | Skills |
 |----------|--------|
 | Ideation | `/idea`, `/create-project`, `/front-gate`, `/onboard` |
 | Pipeline | `/grill-with-docs`, `/grill-me`, `/grill-with-peer`, `/research`, `/prototype`, `/write-prd`, `/testplan`, `/estimate`, `/break-down`, `/build`, `/tdd`, `/test-coverage`, `/qa-plan`, `/qa-report`, `/pii-check`, `/approve` |
 | Session Management | `/continue`, `/standup`, `/handoff`, `/debrief`, `/save-state`, `/scope-check`, `/caveman`, `/backlog-list`, `/backlog-proj`, `/backlog-add`, `/lookup`, `/ia` |
-| Code Quality | `/review`, `/critic`, `/diagnose`, `/write-adr`, `/push-standards`, `/lang-rules`, `/update-readme`, `/git-guardrails`, `/accessibility`, `/ai-first-engineering`, `/write-article`, `/seo`, `/security-assessment`, `/security-resolve`, `/performance-review`, `/vibe-security`, `/codex-review` |
+| Code Quality | `/scan-first`, `/review`, `/critic`, `/diagnose`, `/write-adr`, `/push-standards`, `/lang-rules`, `/update-readme`, `/git-guardrails`, `/accessibility`, `/ai-first-engineering`, `/write-article`, `/seo`, `/security-assessment`, `/security-resolve`, `/performance-review`, `/vibe-security`, `/codex-review` |
 | Knowledge Base | `/ia`, `/add-system`, `/add-project`, `/summarise-system`, `/update-context`, `/add-term`, `/knowledge-health`, `/knowledge-onboard`, `/style-check`, `/ingest`, `/publish`, `/setup-confluence` |
 | Metrics & Reporting | `/token-report`, `/dashboard-tokens`, `/context-health`, `/fy-review` |
 | PI & Release | `/piplan`, `/pi-end`, `/sprintplan`, `/go-nogo`, `/changelog`, `/deploy`, `/deploy-pi`, `/rollback`, `/rollback-pi`, `/standalone-release`, `/sprint-replan`, `/pi-replan`, `/incident`, `/raid` |
@@ -150,8 +150,8 @@ Or if you have an existing project:
 
 ```
 ~/.claude/
-  skills/              ← 102 shared skills
-  commands/            ← 102 shared workflow commands + /grill-with-codex alias
+  skills/              ← 103 shared skills
+  commands/            ← 103 shared workflow commands + /grill-with-codex alias
   tools/
     global.md          ← global tools registry (security scanners, perf analysers, etc.)
   knowledge/
@@ -207,7 +207,7 @@ Or if you have an existing project:
 
 ## Skill Versioning
 
-Skills are versioned in `global/.claude/skills/manifest.json`. The current framework version is `3.9.0` across Claude Code and Codex. Claude project overrides live in `.claude/skills/`; Codex project overrides live in `.agents/skills/`.
+Skills are versioned in `global/.claude/skills/manifest.json`. The current framework version is `3.10.0` across Claude Code and Codex. Claude project overrides live in `.claude/skills/`; Codex project overrides live in `.agents/skills/`.
 
 ---
 
