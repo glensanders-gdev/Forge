@@ -11,6 +11,15 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
+## v3.10.0 — 2026-06-14
+
+**Scan-first build/spawn gate**
+
+### Added
+- `/scan-first` v1.0.0 — verify a ticket or task brief against live source before building or spawning agents on it; treats examples, counts, and "this is open" claims as hypotheses until checked, classifies each item OPEN/GHOST/PARTIAL, and gates agent spawning (not just sizing). Promoted from instinct-003 (`scan-engine-before-coverage-tickets`, 5 observations across solo TDD builds and multi-agent waves in PROJ-003).
+
+---
+
 ## v3.9.0 — 2026-06-06
 
 **Dual-runtime Forge — Claude Code and Codex from one repository**
