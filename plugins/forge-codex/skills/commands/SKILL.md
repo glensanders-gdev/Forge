@@ -70,6 +70,7 @@ Print the following reference exactly:
 ### Code Quality
 | Command | What it does |
 |---------|-------------|
+| `scan-first` | Verify a ticket or task brief against live source before building or spawning agents — examples/counts/"this is open" are hypotheses until checked; classifies each item OPEN/GHOST/PARTIAL |
 | `write-article` | Write long-form content in a concrete voice — Confluence pages, README, stakeholder summaries, Go/No Go briefs, release notes |
 | `ai-first-engineering` | Operating principles for AI-assisted delivery — process shifts, architecture, review focus, testing standards |
 | `accessibility` | Design, implement, and audit WCAG 2.2 Level AA compliance — Web/iOS/Android, QA checklist, anti-patterns |
