@@ -18,6 +18,14 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 ### Added
 - `/teach` v1.0.0 — teach a subject across sessions, grounded in the learner's real **mission** and pitched at their **zone of proximal development**; curates high-trust resources, delivers short self-contained HTML lessons, builds storage strength through desirable difficulty (spacing, interleaving, retrieval practice), and records insights as pedagogical ADRs. Workspaces live under `~/.claude/knowledge/learning/[topic-slug]/`. `SKILL.md` carries the workflow, gates, and pedagogy; `FORMATS.md` holds the MISSION / RESOURCES / learning-record / lesson / quiz formats. Reuses Forge's `/add-term` glossary convention, `/research` + research-first discipline, and the ADR/`/learn` record-everything spirit (PRINCIPLE 8) rather than duplicating them. Adapted from Matt Pocock's "teach" skill (github.com/mattpocock/skills) via `/assimilate`.
 
+### Changed
+- **All 104 skills** — added a `## Failure Modes` table and a `## Rules`/`## Never` section to every skill that lacked one, closing the P3 skill-completeness sweep (Failure Modes coverage 57% → 100%, Rules 93% → 100%). Each table is tailored to the skill's real failure conditions. Codex-native overrides `forge-update` and `grill-with-peer` updated in their own idiom; override review hashes refreshed. Documentation-only — no `forge_version` bump.
+- Body attribution credits added to `accessibility`, `ai-first-engineering`, `context-health`, and `knowledge-onboard` (their `origin:` frontmatter named a source with no in-body credit).
+- `grill-with-peer` — documented the `/grill-with-codex` (Claude) and `$grill-with-claude` (Codex) command aliases inline, clarifying the intentional orphan stubs.
+
+### Housekeeping
+- CHANGELOG version coverage reconciled: `critic` v1.1.0 (the correctness/completeness/consistency fixes shipped under v3.8.1) and `ia` v1.3.0 (the Impact Assessment skill, added under v3.8.0) were present in `manifest.json` but not previously tied to their version numbers here.
+
 ---
 
 ## v3.10.1 — 2026-06-18

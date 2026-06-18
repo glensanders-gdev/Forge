@@ -10,6 +10,8 @@ metadata:
 
 Guided end-to-end setup of `~/.codex/forge/knowledge/` for a new employer. Runs four stages in strict sequence — each stage is HITL-gated before the next begins. Nothing is written without your confirmation.
 
+> Designed for Forge — informed by ECC knowledge patterns (Affaan Mustafa / github.com/affaan-m/ECC).
+
 ## When to Use
 
 - First time installing Forge at a new employer or client

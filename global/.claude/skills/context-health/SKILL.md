@@ -15,6 +15,8 @@ message is sent. Flags bloated files early, before they cause mid-session compac
 **Token estimation:** `characters ÷ 4` throughout. This is an approximation — actual token
 count varies by content type, but is accurate enough for budgeting decisions.
 
+> Child-node recommendations adapted from Railly Hugo (Crafter Station / github.com/crafter-station/skills), drawing on Tyler Brandt's Intent Layer framework.
+
 ---
 
 ## Budget Tiers

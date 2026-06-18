@@ -11,6 +11,8 @@ metadata:
 
 Ensures digital interfaces are Perceivable, Operable, Understandable, and Robust (POUR) for all users — including those using screen readers, switch controls, or keyboard navigation. Covers WCAG 2.2 Level AA compliance for Web, iOS, and Android.
 
+> Adapted from Affaan Mustafa (ECC / github.com/affaan-m/ECC).
+
 ## When to Use
 
 - Building any user-facing UI component for Web, iOS, or Android

@@ -12,6 +12,8 @@ Operating model for teams where AI agents generate a significant share of implem
 
 Use during planning, architecture decisions, code review, and testplan design to apply AI-first thinking consistently.
 
+> Adapted from Affaan Mustafa (ECC / github.com/affaan-m/ECC).
+
 ---
 
 ## The Core Shift

@@ -9,6 +9,8 @@ description: Stress-test a plan or design with an independent peer model, then r
 
 Use Codex as an independent peer reviewer while Claude remains the facilitator. The peer challenges the plan; it does not take over the session.
 
+> **Alias:** `/grill-with-codex` invokes this skill with Codex as the requested peer. Its stub in `commands/` is an intentional alias — there is no separate `grill-with-codex` skill in the manifest.
+
 ## Process
 
 1. Define the review target, decision to make, constraints, and desired output from the conversation and project files.
