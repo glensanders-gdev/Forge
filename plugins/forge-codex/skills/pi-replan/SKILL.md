@@ -145,3 +145,14 @@ On second `CONFIRM`:
 - Displaced features go to the next release — never silently dropped
 - If no remaining capacity exists in any release, surface this clearly and ask the human to choose: defer to next PI, or explicitly remove a feature from this PI
 - Append a clearly labelled replan entry to DEVLOG after Gate 1, update it after Gate 2
+
+## Failure Modes
+
+| Condition | Behaviour |
+|-----------|-----------|
+| Injection touches a closed release | Never — assess remaining releases only. |
+| A Fixed Deadline feature would miss its external date | Surface as a P1 risk and require ACKNOWLEDGE before proceeding — never skip the check. |
+| No remaining capacity in any release | Surface it clearly and ask the human to defer to next PI or explicitly remove a feature. |
+| A feature is displaced | Move it to the next release — never silently drop it. |
+| Tempted to update `stakeholder.md` after Gate 1 | Stop — the stakeholder view needs the separate second CONFIRM. |
+| Either gate not explicitly confirmed | Don't write — both gates require a typed CONFIRM (and ACKNOWLEDGE for deadline risk). |

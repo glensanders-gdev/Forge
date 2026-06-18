@@ -168,3 +168,15 @@ Do not run `$company-sync` automatically — always offer and let the user decid
 - `_compiled.log` is append-only
 - `_changelog.md` is updated on every compile run that creates or updates an article
 - Prefer updating an existing article over creating a new one unless the concept is genuinely distinct
+
+## Failure Modes
+
+| Condition | Behaviour |
+|-----------|-----------|
+| No scope flag and no projects registered | Default silently to global `Raw/` and proceed. |
+| Content not yet in `Raw/` | Save it to `Raw/` first — never compile unsaved content. |
+| Item is feedback content | Route to `customer-feedback.md` / `stakeholder-feedback.md` — don't create a concept article. |
+| Concept spans 2+ systems | It belongs in global `Wiki/` — confirm via `cross_system_gate` before creating. |
+| A single item fails to compile | Log `failed: [reason]` in `_compiled.log` and continue — never stop mid-batch. |
+| Same item fails twice | Flag it in the summary for human review. |
+| `active_company` set with a git remote | Offer `$company-sync --push-only` after the run — never push automatically. |

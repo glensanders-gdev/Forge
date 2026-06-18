@@ -226,3 +226,15 @@ confluence.md is gitignored — it will not be committed to the repository.
 - Never delete Confluence pages automatically — flag orphans, let the human decide.
 - `last_published` is only updated after a fully successful run.
 - Credentials in `confluence.md` must never be committed or logged.
+
+## Failure Modes
+
+| Condition | Behaviour |
+|-----------|-----------|
+| Config `confluence.md` missing | Stop and show the setup instructions — never publish without a target. |
+| Connection test returns non-200 | Stop and report the error with likely causes — don't push pages blind. |
+| A single page fails | Log it to `publish-log.md` and continue — one failure doesn't stop the batch. |
+| More than 20% of pages fail in a run | Stop and report — likely a connection or auth issue. |
+| Same page fails twice | Escalate to the `## Escalated` section and stop auto-retrying it. |
+| Confluence page has no matching Wiki article (orphan) | Flag it in the summary — never delete automatically. |
+| `active_company` is set | Read config and source content from the company knowledge directory. |

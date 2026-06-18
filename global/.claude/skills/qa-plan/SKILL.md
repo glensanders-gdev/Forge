@@ -125,3 +125,14 @@ _None_ if no active or deferred issues affect this feature.
 - Deferred failures must have a reason and owner before `/approve` is run.
 - Waived items require explicit approval — never waive silently.
 - For any feature with a UI component, include the accessibility QA checklist from the `/user:accessibility` skill. Flag it as a section in the QA plan.
+
+## Failure Modes
+
+| Condition | Behaviour |
+|-----------|-----------|
+| No PRD in `docs/prd/active/` | Stop — there are no user stories to build a checklist from. |
+| No `testplan-[feature].md` | Generate the checklist from the PRD alone; note that TC IDs can't be reconciled with the registry. |
+| PRD has no Definition of Done | Flag it before generating the plan — the sign-off section depends on it. |
+| Kanban tickets not all Done | Note the incomplete tickets in Pre-QA Checks — QA may be premature. |
+| Feature has a UI component | Include the `/accessibility` QA checklist as a section — never omit it. |
+| Tempted to fill QA Results | Never pre-fill Pass/Fail — that section is the human's during testing. |

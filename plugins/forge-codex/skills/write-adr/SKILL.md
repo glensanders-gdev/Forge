@@ -62,3 +62,14 @@ What this means going forward. What becomes easier or harder as a result.
 - Keep the title short and specific — it will be referenced from DEVLOG and kanban tickets.
 - The Consequences section is mandatory — it forces honest thinking about trade-offs.
 - Reference relevant research files or prototype notes if they informed the decision.
+
+## Failure Modes
+
+| Condition | Behaviour |
+|-----------|-----------|
+| Decision fails any of the three criteria | Don't write an ADR — routine implementation choices are out of scope. |
+| `docs/adr/` doesn't exist | Create it and start numbering from 0001. |
+| Alternatives or trade-offs unclear | Ask the user what was considered before writing — Options and Consequences require real alternatives. |
+| An existing ADR is being superseded | Mark the old one `Status: Superseded by ADR-NNNN` — never delete it. |
+| Research or prototype informed the decision | Reference those files in the ADR. |
+| `docs/raid/` exists | Offer to log the decision in the RAID log — never add automatically. |

@@ -643,6 +643,24 @@ If vertical scrolling breaks in PowerShell after running graphify, this is cause
 
 ---
 
+## Rules
+
+- Follow the steps in order — never skip the corpus-size check or the empty-graph guard.
+- Semantic extraction MUST use the Agent tool with `subagent_type="general-purpose"` — never read files one-by-one, never use read-only Explore.
+- Treat an existing `graphify-out/graph.json` as a query source — don't rebuild on a natural-language question.
+- The **Honesty Rules** below (edge integrity, cost transparency) are non-negotiable.
+
+## Failure Modes
+
+| Condition | Behaviour |
+|-----------|-----------|
+| `graphify-out/graph.json` already exists and the user asks a question | Skip the build — jump straight to `$graphify query`. |
+| No supported files found | Stop with "No supported files found in [path]." |
+| Corpus > 2M words or > 500 files | Show the warning and offer to narrow to a subfolder before building. |
+| Graph is empty after extraction | Stop and report the cause — don't proceed to labeling or visualization. |
+| More than half the semantic chunks missing/failed | Stop and tell the user to re-run with `subagent_type="general-purpose"`. |
+| Graph > 5,000 nodes for HTML viz | Warn before rendering (or auto-aggregate to community view). |
+
 ## Honesty Rules
 
 - Never invent an edge. If unsure, use AMBIGUOUS.

@@ -198,3 +198,14 @@ PI token total: ~Nk across N features, N projects, N sessions
 - Round to nearest 1k for readability
 - Never fabricate data — if a phase has no record, show "—" not a guess
 - Suggest running `estimate` if calibration shows consistent over-band results
+
+## Failure Modes
+
+| Condition | Behaviour |
+|-----------|-----------|
+| Scope not specified | Ask once — feature, sprint, PI, program, or calibration. |
+| A phase has no record | Show "—" — never a guessed number. |
+| Records mix ccusage actuals and legacy estimates | Label the two distinctly — never present them unlabelled. |
+| Calibration requested with in-progress features | Use approved features only; mark in-progress ⚠️ partial and exclude from accuracy stats. |
+| Ledger or per-project token files missing | Report what's available and note the gap — don't fabricate totals. |
+| Calibration shows consistent over-band results | Suggest running `$estimate` to recalibrate future estimates. |

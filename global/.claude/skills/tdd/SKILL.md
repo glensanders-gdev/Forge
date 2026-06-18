@@ -95,3 +95,22 @@ After all tests pass — see [refactoring.md](refactoring.md):
 - TDD satisfies the automated test items from the testplan
 - `/user:qa-plan` covers the manual verification items
 - Reference the testplan's behaviour list when choosing what to test next
+
+## Rules
+
+- Never write all tests first then all implementation — run one RED→GREEN cycle at a time (see Anti-Pattern: Horizontal Slices).
+- Never refactor while RED — get to GREEN first.
+- Never test implementation details — only observable behaviour through public interfaces.
+- Never add code a current failing test doesn't require — no speculative features.
+- Never start the tracer bullet without user approval of the behaviour list.
+
+## Failure Modes
+
+| Condition | Behaviour |
+|-----------|-----------|
+| User hasn't run `/testplan` | Suggest it first; if proceeding anyway, agree the behaviour list with the user before the tracer bullet. |
+| No `docs/CONTEXT.md` | Proceed, but flag that test names can't be checked against domain language. |
+| New test passes on first run (never RED) | Stop — the test isn't proving anything; fix the test or the behaviour before writing code. |
+| Tempted to write several tests at once | Horizontal-slice anti-pattern — write one test, make it pass, then the next. |
+| A refactor turns tests RED | You're refactoring behaviour rather than structure, or refactoring while already RED — revert to GREEN first. |
+| A behaviour can't be tested through the public interface | The interface needs redesign for testability — see [interface-design.md](interface-design.md) before mocking internals. |

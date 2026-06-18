@@ -67,3 +67,13 @@ After the DEVLOG entry is written, include:
 ```
 
 This is a suggestion only — never mandatory.
+
+## Failure Modes
+
+| Condition | Behaviour |
+|-----------|-----------|
+| `docs/HANDOFF.md` missing | Create it — debrief is a canonical writer of session state. |
+| Session completed no tickets | Still write the DEVLOG entry — record what was attempted and why it didn't complete. |
+| `ccusage` returns no data | Record `Source: no data` — never estimate token counts from memory. |
+| Tempted to archive the PRD | Stop — PRD archiving is `/approve` only; debrief never closes a feature. |
+| No clear next action | Resolve it with the user before closing, so the next session can resume without confusion. |

@@ -25,3 +25,14 @@ Update through Codex plugin and marketplace mechanics.
 - Never run upstream Claude installation scripts.
 - Never discard local plugin adaptations during an update.
 - Never modify user-owned Forge data as part of an update.
+
+## Failure Modes
+
+| Condition | Behaviour |
+|-----------|-----------|
+| Installed Forge plugin or marketplace source not found | Stop and report — don't attempt an update without a known source. |
+| Marketplace source unchanged since last build | Report "already current" and stop. |
+| Local plugin adaptations present | Preserve them — never discard adaptations during an update. |
+| User-owned data under `~/.codex/forge/` | Never modify it as part of an update. |
+| Tempted to run an upstream Claude install script | Never — use Codex plugin/marketplace mechanics only. |
+| Adaptation build or plugin validation fails | Report the failure and stop — don't ship an unvalidated plugin. |

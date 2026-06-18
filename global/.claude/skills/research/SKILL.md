@@ -89,3 +89,14 @@ Type YES to review promotion candidates, or anything else to skip.
 ```
 
 Promotion is always advisory — the human confirms each entry before it is written. This ensures session findings accumulate into the knowledge base over time rather than staying isolated in docs/research/.
+
+## Failure Modes
+
+| Condition | Behaviour |
+|-----------|-----------|
+| Implementation is straightforward / domain already understood | Skip Research — don't manufacture files for known territory. |
+| A finding contradicts `docs/CONTEXT.md` | Flag it immediately rather than recording the contradiction silently. |
+| Tempted to combine unrelated topics in one file | Keep one file per topic. |
+| Findings drift into opinion | Keep findings factual; confine judgement to the Recommendation section. |
+| Research is inconclusive | Record what's known and the open question — don't force a recommendation. |
+| Findings belong in the knowledge base | Offer promotion via `/add-system` / `/add-term` — advisory, human confirms each entry. |

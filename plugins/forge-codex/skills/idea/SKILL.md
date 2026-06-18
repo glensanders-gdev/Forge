@@ -299,3 +299,14 @@ At each pipeline stage, update `diagram.mmd` and save a versioned snapshot:
 - HOLD is a valid outcome — not every idea needs an immediate decision
 - Always generate a feature-level estimate before the decision gate — never skip it
 - XL estimates must be flagged immediately with a `$break-down` requirement note
+
+## Failure Modes
+
+| Condition | Behaviour |
+|-----------|-----------|
+| User uses informal idea language without running `$idea` | Ask once whether to capture it; proceed only on yes. |
+| `~/.codex/forge/registry.md` missing | Create it and start IDEA numbering from IDEA-001 before grilling. |
+| Baseline or target is unmeasurable | Challenge it; if it stays vague, tag it as an Unvalidated assumption rather than accepting it. |
+| Feature estimates XL | Flag the `$break-down` requirement immediately at the estimate step. |
+| User wants to save mid-grill | Don't — files are written only at the decision gate. |
+| Decision is DECLINE | Archive with a reason — never delete a declined idea. |
