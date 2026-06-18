@@ -11,6 +11,15 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
+## v3.11.0 — 2026-06-18
+
+**`$teach` — stateful multi-session learning, assimilated from Matt Pocock**
+
+### Added
+- `$teach` v1.0.0 — teach a subject across sessions, grounded in the learner's real **mission** and pitched at their **zone of proximal development**; curates high-trust resources, delivers short self-contained HTML lessons, builds storage strength through desirable difficulty (spacing, interleaving, retrieval practice), and records insights as pedagogical ADRs. Workspaces live under `~/.codex/forge/knowledge/learning/[topic-slug]/`. `SKILL.md` carries the workflow, gates, and pedagogy; `FORMATS.md` holds the MISSION / RESOURCES / learning-record / lesson / quiz formats. Reuses Forge's `$add-term` glossary convention, `$research` + research-first discipline, and the ADR/`$learn` record-everything spirit (PRINCIPLE 8) rather than duplicating them. Adapted from Matt Pocock's "teach" skill (github.com/mattpocock/skills) via `$assimilate`.
+
+---
+
 ## v3.10.1 — 2026-06-18
 
 **Skill-craft guidance assimilated into `$write-a-skill`**

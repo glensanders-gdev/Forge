@@ -20,7 +20,7 @@ Each stage produces an artifact that feeds the next. The AI agent orients itself
 
 ## What's Included
 
-**103 shared skills** covering the full software delivery lifecycle, adapted for Claude Code and Codex:
+**104 shared skills** covering the full software delivery lifecycle, adapted for Claude Code and Codex:
 
 | Category | Skills |
 |----------|--------|
@@ -28,7 +28,7 @@ Each stage produces an artifact that feeds the next. The AI agent orients itself
 | Pipeline | `/grill-with-docs`, `/grill-me`, `/grill-with-peer`, `/research`, `/prototype`, `/write-prd`, `/testplan`, `/estimate`, `/break-down`, `/build`, `/tdd`, `/test-coverage`, `/qa-plan`, `/qa-report`, `/pii-check`, `/approve` |
 | Session Management | `/continue`, `/standup`, `/handoff`, `/debrief`, `/save-state`, `/scope-check`, `/caveman`, `/backlog-list`, `/backlog-proj`, `/backlog-add`, `/lookup`, `/ia` |
 | Code Quality | `/scan-first`, `/review`, `/critic`, `/diagnose`, `/write-adr`, `/push-standards`, `/lang-rules`, `/update-readme`, `/git-guardrails`, `/accessibility`, `/ai-first-engineering`, `/write-article`, `/seo`, `/security-assessment`, `/security-resolve`, `/performance-review`, `/vibe-security`, `/codex-review` |
-| Knowledge Base | `/ia`, `/add-system`, `/add-project`, `/summarise-system`, `/update-context`, `/add-term`, `/knowledge-health`, `/knowledge-onboard`, `/style-check`, `/ingest`, `/publish`, `/setup-confluence` |
+| Knowledge Base | `/ia`, `/add-system`, `/add-project`, `/teach`, `/summarise-system`, `/update-context`, `/add-term`, `/knowledge-health`, `/knowledge-onboard`, `/style-check`, `/ingest`, `/publish`, `/setup-confluence` |
 | Metrics & Reporting | `/token-report`, `/dashboard-tokens`, `/context-health`, `/fy-review` |
 | PI & Release | `/piplan`, `/pi-end`, `/sprintplan`, `/go-nogo`, `/changelog`, `/deploy`, `/deploy-pi`, `/rollback`, `/rollback-pi`, `/standalone-release`, `/sprint-replan`, `/pi-replan`, `/incident`, `/raid` |
 | Sprint Management | `/sprint-start`, `/sprint-end`, `/pir` |
@@ -150,8 +150,8 @@ Or if you have an existing project:
 
 ```
 ~/.claude/
-  skills/              ← 103 shared skills
-  commands/            ← 103 shared workflow commands + /grill-with-codex alias
+  skills/              ← 104 shared skills
+  commands/            ← 104 shared workflow commands + /grill-with-codex alias
   tools/
     global.md          ← global tools registry (security scanners, perf analysers, etc.)
   knowledge/
@@ -262,7 +262,7 @@ Forge draws on ideas, patterns, and techniques from several excellent open-sourc
 | Source | Author | What was adapted |
 |--------|--------|-----------------|
 | [ECC](https://github.com/affaan-m/ECC) | Affaan Mustafa | Accessibility (WCAG 2.2), AI-first engineering principles, write-article style rules, lang-rules system, common coding rules layer (coding-style, quality-checklist, research-first, security), instincts concept |
-| [skills](https://github.com/mattpocock/skills) | Matt Pocock | Foundational skill structure and composable workflow design that shaped Forge's overall architecture |
+| [skills](https://github.com/mattpocock/skills) | Matt Pocock | Foundational skill structure and composable workflow design that shaped Forge's overall architecture; `write-a-skill` craft guidance (`CRAFT.md` — leading words, completion criteria, pruning); `/teach` — stateful, mission-grounded multi-session learning |
 | [vibe-security-skill](https://github.com/raroque/vibe-security-skill) | Chris Raroque | `/vibe-security` — AI-generated codebase security auditor |
 
 Every adapted skill includes an `origin:` field in its frontmatter and a credit line in the skill body. If you adapt Forge skills for your own framework, please carry the credits forward.

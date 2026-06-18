@@ -95,6 +95,7 @@ Print the following reference exactly:
 | `knowledge-health` | Read-only diagnostic across all knowledge layers — coverage scorecard, stale files, cross-reference conflicts, interesting connections |
 | `add-term` | Add a term to the company-level glossary — acronyms or domain concepts, lightweight quick-add |
 | `add-system` | Scaffold a new system folder in ~/.codex/forge/knowledge/systems/ |
+| `teach` | Teach a subject across sessions — mission-grounded, ZPD-pitched HTML lessons with curated resources, spaced practice, and learning records under ~/.codex/forge/knowledge/learning/ |
 | `add-project` | Scaffold a new project knowledge folder under ~/.codex/forge/knowledge/projects/ with Raw/Wiki/Outputs tiers |
 | `summarise-system` | Draft overview.md for a system from docs or description |
 | `update-context` | Flush session discoveries into CONTEXT.md and knowledge files |
