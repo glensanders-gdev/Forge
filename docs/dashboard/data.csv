@@ -1,0 +1,22 @@
+# Token Spend
+feature,total_tokens,band,estimate_band,calibration
+Forge Junction-Based Sync,32000,M,,
+Knowledge Onboard,23000,M,,
+
+# Context Load
+date,auto_load,on_demand,total,status
+2026-06-11,8070,0,8070,Green
+
+# Critic Sessions
+date,subject,p1,p2,p3,total
+2026-05-24,Forge v2.5.6 (third critic pass),3,2,3,8
+2026-05-24,Forge framework (post-resolution state),0,5,5,10
+2026-05-28,Forge v3.4.0 — duplication/staleness audit,3,5,4,12
+2026-06-01,Forge framework v3.7.0,2,3,3,8
+2026-06-11,Tiered governance token optimisation model selection,4,5,4,13
+
+# Sprint Velocity
+sprint,closed,points_done,points_carried,carry_over_pct,goals_met,goals_total,goal_pct
+
+# Security Assessments
+date,critical,high,medium,low,resolved,total
