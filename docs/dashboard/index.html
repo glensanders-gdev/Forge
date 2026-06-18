@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Forge Dashboard — Forge</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@3"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+           background: #f5f5f5; color: #333; }
+    header { background: #1a1a2e; color: #fff; padding: 20px 24px; }
+    header h1 { font-size: 1.3rem; }
+    header .meta { font-size: 0.8rem; color: #aaa; margin-top: 4px; }
+    nav.sections { background: #fff; border-bottom: 1px solid #e0e0e0;
+                   display: flex; gap: 0; overflow-x: auto; }
+    nav.sections a { padding: 12px 20px; text-decoration: none; color: #555;
+                     font-size: 0.85rem; white-space: nowrap; border-bottom: 3px solid transparent; }
+    nav.sections a:hover, nav.sections a.active { color: #1565c0; border-bottom-color: #1565c0; }
+    section { padding: 24px; }
+    section h2 { font-size: 1rem; font-weight: 600; color: #444;
+                 margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid #e0e0e0; }
+    .panels { display: grid; grid-template-columns: repeat(auto-fit, minmax(440px, 1fr)); gap: 20px; }
+    .panel { background: #fff; border-radius: 8px; padding: 18px;
+             box-shadow: 0 1px 4px rgba(0,0,0,.08); }
+    .panel h3 { font-size: 0.9rem; color: #555; margin-bottom: 14px; }
+    .panel canvas { max-height: 260px; }
+    .panel .empty { font-size: 0.82rem; color: #999; padding: 32px 0; text-align: center; }
+    .badge { display: inline-block; padding: 2px 8px; border-radius: 10px;
+             font-size: 0.75rem; font-weight: 600; }
+    .badge-green { background: #e8f5e9; color: #2e7d32; }
+    .badge-amber { background: #fff3e0; color: #e65100; }
+    .badge-red   { background: #ffebee; color: #c62828; }
+    .exports { padding: 16px 24px; display: flex; gap: 12px; border-top: 1px solid #e0e0e0; }
+    .btn { padding: 8px 14px; border: 1px solid #ccc; border-radius: 4px;
+           background: #fff; cursor: pointer; font-size: 0.82rem; }
+    .btn:hover { background: #f5f5f5; }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Forge Dashboard — Forge</h1>
+  <div class="meta">
+    Generated: 2026-06-11 &nbsp;|&nbsp; Forge framework repo &nbsp;|&nbsp;
+    Context: <span class="badge badge-green">✅ Green</span>
+  </div>
+</header>
+
+<nav class="sections">
+  <a href="#s-tokens" class="active">Token &amp; Cost</a>
+  <a href="#s-quality">Quality</a>
+  <a href="#s-velocity">Pipeline &amp; Velocity</a>
+  <a href="#s-kb">Knowledge Base</a>
+  <a href="#s-health">Health</a>
+</nav>
+
+<section id="s-tokens">
+  <h2>Token &amp; Cost</h2>
+  <div class="panels">
+    <div class="panel">
+      <h3>Spend by Feature</h3>
+      <canvas id="c-spend"></canvas>
+    </div>
+    <div class="panel">
+      <h3>Estimate vs Actual</h3>
+      <canvas id="c-estimate"></canvas>
+    </div>
+  </div>
+</section>
+
+<section id="s-quality">
+  <h2>Quality</h2>
+  <div class="panels">
+    <div class="panel">
+      <h3>Critic Findings Trend</h3>
+      <canvas id="c-critic"></canvas>
+    </div>
+    <div class="panel">
+      <h3>Diagnose Event Rate</h3>
+      <canvas id="c-diagnose"></canvas>
+    </div>
+    <div class="panel">
+      <h3>Security Findings per Assessment</h3>
+      <canvas id="c-security"></canvas>
+    </div>
+  </div>
+</section>
+
+<section id="s-velocity">
+  <h2>Pipeline &amp; Velocity</h2>
+  <div class="panels">
+    <div class="panel">
+      <h3>Sprint Velocity</h3>
+      <canvas id="c-velocity"></canvas>
+    </div>
+    <div class="panel">
+      <h3>Carry-Over Rate</h3>
+      <canvas id="c-carryover"></canvas>
+    </div>
+    <div class="panel">
+      <h3>Context Load Trend</h3>
+      <canvas id="c-context"></canvas>
+    </div>
+  </div>
+</section>
+
+<section id="s-kb">
+  <h2>Knowledge Base</h2>
+  <div class="panels">
+    <div class="panel">
+      <h3>Token Efficiency Trend</h3>
+      <canvas id="c-efficiency"></canvas>
+    </div>
+    <div class="panel">
+      <h3>Lookup Frequency</h3>
+      <canvas id="c-lookup"></canvas>
+    </div>
+    <div class="panel">
+      <h3>Sprint Goal Hit Rate</h3>
+      <canvas id="c-goals"></canvas>
+    </div>
+  </div>
+</section>
+
+<section id="s-health">
+  <h2>Health</h2>
+  <div class="panels">
+    <div class="panel">
+      <h3>Tech Debt Distribution</h3>
+      <canvas id="c-debt"></canvas>
+    </div>
+    <div class="panel">
+      <h3>Feature Flag Ages</h3>
+      <canvas id="c-flags"></canvas>
+    </div>
+  </div>
+</section>
+
+<div class="exports">
+  <button class="btn" onclick="exportCSV()">⬇ Export CSV</button>
+  <button class="btn" onclick="window.open('summary.html')">✉ Email Summary</button>
+</div>
+
+<script>
+  // ── Injected data — generated 2026-06-11 by /dashboard-tokens ──
+  // Token totals are legacy agent estimates; ccusage actuals begin accruing from 2026-06-11 (PR #9).
+  const spendData       = [
+    { feature: 'Forge Junction-Based Sync', total: 32000, band: 'M' },
+    { feature: 'Knowledge Onboard', total: 23000, band: 'M' }
+  ];
+  const calibrationData = []; // no pre-build estimate bands recorded for either feature
+  const trendData       = [
+    { date: '2026-06-11', autoLoad: 8070, onDemand: 0, total: 8070, status: 'Green' }
+  ];
+  const criticData      = [
+    { date: '2026-05-24', subject: 'Forge v2.5.6 (third critic pass)', p1: 3, p2: 2, p3: 3, total: 8 },
+    { date: '2026-05-24', subject: 'Forge framework (post-resolution state)', p1: 0, p2: 5, p3: 5, total: 10 },
+    { date: '2026-05-28', subject: 'Forge v3.4.0 — duplication/staleness audit', p1: 3, p2: 5, p3: 4, total: 12 },
+    { date: '2026-06-01', subject: 'Forge framework v3.7.0', p1: 2, p2: 3, p3: 3, total: 8 },
+    { date: '2026-06-11', subject: 'Tiered governance, token optimisation, model selection', p1: 4, p2: 5, p3: 4, total: 13 }
+  ];
+  const diagnoseData    = [];
+  const lookupData      = [];
+  const sprintData      = [];
+  const securityData    = [];
+  const debtData        = { high: 0, medium: 0, low: 0 };
+  const flagData        = [];
+  const efficiencyData  = [];
+  const costPerPoint    = [];
+  const tokenCostPer1k  = null; // no active company configured
+
+  // ── Colour palettes ──
+  const bandColour  = { S: '#2e7d32', M: '#1565c0', L: '#e65100', XL: '#c62828' };
+  const severityCol = { critical: '#c62828', high: '#e65100', medium: '#f9a825', low: '#2e7d32' };
+  const green = '#2e7d32', amber = '#e65100', red = '#c62828', blue = '#1565c0';
+
+  function colourForPct(pct, invert) {
+    if (invert) return pct < 15 ? green : pct < 30 ? amber : red;
+    return pct >= 80 ? green : pct >= 50 ? amber : red;
+  }
+
+  function emptyPanel(canvasId, msg) {
+    const canvas = document.getElementById(canvasId);
+    if (!canvas) return;
+    canvas.style.display = 'none';
+    const div = document.createElement('div');
+    div.className = 'empty';
+    div.textContent = msg;
+    canvas.parentElement.appendChild(div);
+  }
+
+  // ── Section 1: Token & Cost ──
+
+  if (spendData.length) {
+    new Chart(document.getElementById('c-spend'), {
+      type: 'bar',
+      data: {
+        labels: spendData.map(d => d.feature),
+        datasets: [{ label: 'Total tokens', data: spendData.map(d => d.total),
+          backgroundColor: spendData.map(d => bandColour[d.band] + 'cc'),
+          borderColor: spendData.map(d => bandColour[d.band]), borderWidth: 1 }]
+      },
+      options: { indexAxis: 'y', responsive: true,
+        plugins: { legend: { display: false },
+          tooltip: { callbacks: { label: ctx =>
+            `${(ctx.raw/1000).toFixed(0)}k tokens (${spendData[ctx.dataIndex].band}) — legacy estimate` }}},
+        scales: { x: { title: { display: true, text: 'Tokens (agent-estimated, pre-ccusage)' } } } }
+    });
+  } else { emptyPanel('c-spend', 'No token data yet — run a feature through /build to start tracking.'); }
+
+  if (calibrationData.length) {
+    new Chart(document.getElementById('c-estimate'), {
+      type: 'bar',
+      data: {
+        labels: calibrationData.map(d => d.feature),
+        datasets: [
+          { label: 'Estimate', data: calibrationData.map(d => d.estimateTokens),
+            backgroundColor: blue + '99' },
+          { label: 'Actual',   data: calibrationData.map(d => d.actual),
+            backgroundColor: calibrationData.map(d => (d.over ? red : green) + '99') }
+        ]
+      },
+      options: { responsive: true,
+        scales: { y: { title: { display: true, text: 'Tokens' } } } }
+    });
+  } else { emptyPanel('c-estimate', 'No calibration data yet — neither tracked feature recorded a pre-build estimate band.'); }
+
+  // ── Section 2: Quality ──
+
+  if (criticData.length) {
+    new Chart(document.getElementById('c-critic'), {
+      type: 'bar',
+      data: {
+        labels: criticData.map(d => d.date + ' ' + d.subject.slice(0, 20)),
+        datasets: [
+          { label: 'P1', data: criticData.map(d => d.p1), backgroundColor: red + 'cc' },
+          { label: 'P2', data: criticData.map(d => d.p2), backgroundColor: amber + 'cc' },
+          { label: 'P3', data: criticData.map(d => d.p3), backgroundColor: '#f9a825cc' }
+        ]
+      },
+      options: { responsive: true, scales: {
+        x: { stacked: true }, y: { stacked: true, title: { display: true, text: 'Findings' } }
+      }}
+    });
+  } else { emptyPanel('c-critic', 'Run /critic to start tracking quality findings.'); }
+
+  if (diagnoseData.length && sprintData.length) { /* populated when data exists */ }
+  else { emptyPanel('c-diagnose', 'No diagnose events recorded yet.'); }
+
+  if (securityData.length) { /* populated when data exists */ }
+  else { emptyPanel('c-security', 'Run /security-assessment to start tracking.'); }
+
+  // ── Section 3: Pipeline & Velocity ──
+
+  if (sprintData.length) { /* populated when data exists */ }
+  else {
+    ['c-velocity','c-carryover','c-goals'].forEach(id =>
+      emptyPanel(id, 'Close sprints with /sprint-end to start tracking.'));
+  }
+
+  if (trendData.length) {
+    new Chart(document.getElementById('c-context'), {
+      type: 'line',
+      data: {
+        labels: trendData.map(d => d.date),
+        datasets: [
+          { label: 'Total', data: trendData.map(d => d.total),
+            borderColor: blue, backgroundColor: blue + '22', fill: true, tension: 0.3 },
+          { label: 'Auto-loaded', data: trendData.map(d => d.autoLoad),
+            borderColor: green, borderDash: [4,4], fill: false },
+          { label: 'On-demand',   data: trendData.map(d => d.onDemand),
+            borderColor: amber, borderDash: [4,4], fill: false }
+        ]
+      },
+      options: { responsive: true,
+        plugins: { annotation: { annotations: {
+          amber: { type: 'line', yMin: 30000, yMax: 30000, borderColor: amber, borderDash: [4,4] },
+          red:   { type: 'line', yMin: 60000, yMax: 60000, borderColor: red,   borderDash: [4,4] }
+        }}},
+        scales: { y: { title: { display: true, text: 'Tokens' }, min: 0 } } }
+    });
+  } else { emptyPanel('c-context', 'Run /context-health to populate the context load trend.'); }
+
+  // ── Section 4: Knowledge Base ──
+
+  if (efficiencyData.length) { /* populated when data exists */ }
+  else { emptyPanel('c-efficiency', 'Token efficiency populates after 2+ sprints with token data.'); }
+
+  if (lookupData.length && sprintData.length) { /* populated when data exists */ }
+  else { emptyPanel('c-lookup', 'Lookup activity appears after /lookup usage is recorded.'); }
+
+  // ── Section 5: Health ──
+
+  if (debtData.high + debtData.medium + debtData.low > 0) { /* populated when data exists */ }
+  else { emptyPanel('c-debt', 'No tech debt registered — use /tech-debt add to start tracking.'); }
+
+  if (flagData.length) { /* populated when data exists */ }
+  else { emptyPanel('c-flags', 'No active feature flags.'); }
+
+  // ── Section nav scroll spy ──
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks  = document.querySelectorAll('nav.sections a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => { if (window.scrollY >= s.offsetTop - 80) current = s.id; });
+    navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + current));
+  });
+
+  // ── CSV export ──
+  function exportCSV() {
+    const rows = [
+      ['Section','Metric','Label','Value'],
+      ...spendData.map(d => ['Tokens','Spend',d.feature, d.total]),
+      ...criticData.map(d => ['Quality','Critic',d.date + ' ' + d.subject,
+        `P1:${d.p1} P2:${d.p2} P3:${d.p3}`]),
+      ...trendData.map(d => ['Context','Load',d.date,
+        `Auto:${d.autoLoad} OnDemand:${d.onDemand} Total:${d.total} ${d.status}`])
+    ];
+    const csv = rows.map(r => r.map(v => `"${v}"`).join(',')).join('\n');
+    const a = document.createElement('a');
+    a.href = 'data:text/csv,' + encodeURIComponent(csv);
+    a.download = 'forge-dashboard.csv';
+    a.click();
+  }
+</script>
+</body>
+</html>
