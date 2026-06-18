@@ -29,7 +29,7 @@
     "grill-with-peer": {
       "source": "global/.claude/skills/grill-with-peer/SKILL.md",
       "codex": "plugins/forge-codex/skills/grill-with-peer/SKILL.md",
-      "reviewedSourceSha256": "CC12F27E5F5F320BE0BDADE3F340C649F59750D96B38172AC58A3826C24F6FCE"
+      "reviewedSourceSha256": "46B5F74CC117317A95B811DF5865CEE7D02E0B9D027545F1FA0AF46944BCC7C0"
     },
     "lang-rules": {
       "source": "global/.claude/skills/lang-rules/SKILL.md",
