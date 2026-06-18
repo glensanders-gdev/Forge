@@ -8,6 +8,11 @@ description: Create new Forge skills with proper structure, correct file locatio
 
 Create a new skill for Forge following the standard structure. Skills live in `~/.claude/skills/` (global) or `.claude/skills/` (project-level override).
 
+> **Writing well** — this file covers *structure* (which files, what to update). For the
+> *craft* of the prose inside them — **leading words**, checkable **completion criteria**,
+> information hierarchy, and pruning out **no-ops** — read [CRAFT.md](CRAFT.md) before
+> drafting a description or step. Predictability (same process every run) is the goal.
+
 ## Process
 
 1. **Gather requirements** — ask the user:
@@ -73,9 +78,10 @@ Brief description of what this skill does and when to use it.
 The description is the primary signal the agent uses to select the right skill. Write it carefully:
 
 - Max 1024 characters
-- First sentence: what it does
-- Second sentence: "Use when [specific triggers]"
+- First sentence: what it does — front-load the skill's **leading word** (see [CRAFT.md](CRAFT.md))
+- Second sentence: "Use when [specific triggers]" — one trigger per genuine branch; collapse synonyms that just rename the same branch
 - Be specific — vague descriptions cause the wrong skill to be selected
+- Prune harder than the body: a description is paid for on every turn, so cut any identity already stated in the skill body
 
 **Good:**
 ```
@@ -122,6 +128,7 @@ Split into separate files when:
 
 Before finalising, verify:
 - [ ] Read `~/.claude/PRINCIPLES.md` — does this skill follow the 8 design principles?
+- [ ] Read [CRAFT.md](CRAFT.md) — description front-loads a **leading word**, every step has a **checkable completion criterion**, and the prose survives the **no-op test** (no line that changes nothing versus the agent's default)
 - [ ] `category:` field set — valid values: `pipeline`, `ideation`, `session`, `code-quality`, `knowledge`, `metrics`, `pi-release`, `sprint`, `maintenance`, `company`, `framework`
 - [ ] Description includes "Use when [triggers]"
 - [ ] **If adapting from an external source** — use `/user:assimilate` instead. It handles attribution, fit evaluation, and adaptation automatically.
@@ -135,3 +142,16 @@ Before finalising, verify:
 - [ ] **`README.md` updated** — increment the skill count in the "What's Included" intro line (e.g. "**94 skills**"), add the new skill to the correct category row in the table, and update any other inline counts (e.g. the file structure section).
 - [ ] **Git tag and GitHub Release created** — after merging to `main`: (1) push the tag: `git tag v[forge_version] <main-sha> && git push origin v[forge_version]`; (2) create a GitHub Release at `github.com/glensanders-gdev/Forge/releases/new` using that tag, pasting the relevant CHANGELOG section as the release body. Tags anchor version strings to specific commits; Releases surface them in the repo UI and enable future API-based version checks in `/forge-update`.
 - [ ] **Diagrams reviewed** — if a new pipeline phase was added, or the delivery lifecycle changed materially, update: `~/.claude/forge-sequence.mmd` (installed single-file) and `docs/diagrams/framework-complete.mmd` + the relevant `docs/diagrams/phase-NN-*.mmd` file in the Forge repo. Not required for every skill — only when a diagram would be materially wrong without the update.
+
+## Failure Modes
+
+When the skill you just wrote misbehaves, the cause is usually one of these. Full diagnosis and cures in [CRAFT.md](CRAFT.md#failure-modes-of-skill-prose).
+
+| Condition | Behaviour |
+|-----------|-----------|
+| Agent stops a step before it's genuinely done | **Premature completion** — sharpen the step's completion criterion first; only split by sequence if it stays fuzzy in practice |
+| Same instruction restated in two places, now drifting | **Duplication** — keep one authoritative copy, reference it from the other |
+| Skill keeps growing; nobody dares delete | **Sediment** — run the relevance test on every edit and cut dead lines |
+| Skill is too long though every line is live | **Sprawl** — disclose tier-3 reference behind context pointers in a sibling file |
+| A line that changes nothing versus the agent's default | **No-op** — delete it, or replace a weak leading word with a stronger one |
+| Source is an external skill/article | Stop — use `/user:assimilate`, which handles fit evaluation and attribution |

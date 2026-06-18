@@ -11,6 +11,18 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
+## v3.10.1 — 2026-06-18
+
+**Skill-craft guidance assimilated into `/write-a-skill`**
+
+### Added
+- `write-a-skill` v1.2.0 — new `CRAFT.md` reference covering the craft of skill prose: **leading words**, checkable **completion criteria**, the 3-tier **information hierarchy**, the invocation-load tradeoff (adapted to Forge's dual-invocation convention), pruning discipline (**no-op / sediment / sprawl** tests), a failure-modes table, and a vocabulary table. Adapted from Matt Pocock's "Writing Great Skills" (github.com/mattpocock/skills) via `/assimilate`.
+
+### Changed
+- `write-a-skill` `SKILL.md` — added a "Writing well" pointer to `CRAFT.md`, sharpened Description Requirements (front-load the leading word, one trigger per branch, prune the description harder than the body), added a craft item to the Review Checklist, and added a Failure Modes table (the skill previously had none).
+
+---
+
 ## v3.10.0 — 2026-06-14
 
 **Scan-first build/spawn gate**

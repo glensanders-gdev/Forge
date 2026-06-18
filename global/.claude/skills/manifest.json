@@ -1,5 +1,5 @@
 {
-  "forge_version": "3.10.0",
+  "forge_version": "3.10.1",
   "skills": {
     "scan-first": "1.0.0",
     "raid": "1.0.0",
@@ -15,7 +15,7 @@
     "diagnose": "1.0.0",
     "approve": "1.1.0",
     "add-system": "1.0.0",
-    "write-a-skill": "1.1.0",
+    "write-a-skill": "1.2.0",
     "standup": "1.0.0",
     "debrief": "1.0.0",
     "scope-check": "1.0.0",
