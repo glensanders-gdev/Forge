@@ -93,6 +93,7 @@ Print the following reference exactly:
 | `/user:knowledge-health` | Read-only diagnostic across all knowledge layers — coverage scorecard, stale files, cross-reference conflicts, interesting connections |
 | `/user:add-term` | Add a term to the company-level glossary — acronyms or domain concepts, lightweight quick-add |
 | `/user:add-system` | Scaffold a new system folder in ~/.claude/knowledge/systems/ |
+| `/user:teach` | Teach a subject across sessions — mission-grounded, ZPD-pitched HTML lessons with curated resources, spaced practice, and learning records under ~/.claude/knowledge/learning/ |
 | `/user:add-project` | Scaffold a new project knowledge folder under ~/.claude/knowledge/projects/ with Raw/Wiki/Outputs tiers |
 | `/user:summarise-system` | Draft overview.md for a system from docs or description |
 | `/user:update-context` | Flush session discoveries into CONTEXT.md and knowledge files |
