@@ -129,3 +129,16 @@ Research | Prototype | /write-prd
 Suggest next stage and wait for human confirmation before proceeding.
 
 ---
+
+## Failure Modes
+
+| Condition | Behaviour |
+|-----------|-----------|
+| Neither `CONTEXT-MAP.md` nor `CONTEXT.md` exists | Create `docs/CONTEXT.md` lazily when the first term resolves — don't block the session on it. |
+| A question is answerable from the codebase | Explore the code and answer it yourself rather than asking the user. |
+| User's term conflicts with the glossary | Flag the conflict immediately — never silently adopt a clashing term. |
+| Decision is hard to reverse, surprising, and a real trade-off | Offer an ADR; if not all three hold, don't write one. |
+| Tempted to batch CONTEXT.md updates | Update inline the moment a term resolves — never batch. |
+| Open questions remain at session end | Record them in the Shared Understanding Summary — don't force a premature next stage. |
+
+---

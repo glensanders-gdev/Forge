@@ -73,3 +73,14 @@ When unplanned work is added or scope changes are confirmed, check for stale est
    Run /user:estimate to update before the next /sprint-start.
    ```
 4. Never auto-update estimates — flag only.
+
+## Failure Modes
+
+| Condition | Behaviour |
+|-----------|-----------|
+| No session goals recorded in DEVLOG or at start | Reconstruct the agreed goals with the user before comparing — don't invent them. |
+| An unplanned item has no decision | Force an explicit Keep / Defer / Drop — never leave it ambiguous. |
+| Tempted to keep building mid-check | Stop — implement nothing new until the scope decision is made. |
+| All goals done with capacity left | Unplanned work may be promoted, but only with explicit confirmation. |
+| Scope changed and estimates are `Current` | Mark them `Stale` in the PRD and flag — never auto-update estimates. |
+| User expands scope | Log the decision in DEVLOG under "Decisions Made." |

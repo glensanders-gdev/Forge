@@ -234,3 +234,16 @@ At sprint end (HITL mode), build the sprint token summary from actuals:
 ```
 
 If ccusage is unavailable, sum the feature records alone and note `Source: feature records only — ccusage unavailable`. Never fill gaps with estimates.
+
+---
+
+## Failure Modes
+
+| Condition | Behaviour |
+|-----------|-----------|
+| Run unattended (AFK mode) | Write a draft only and create a HITL finalise ticket — never prompt or finalise. |
+| Run with human present (HITL mode) | Finalise only after the human confirms carry-over and completes the retro. |
+| A carry-over item has no reason | Prompt for one — don't carry over vaguely. |
+| Retro fields left blank in HITL mode | Prompt once for all three before finalising. |
+| ccusage total and feature-record sum differ >20% | Sessions were missed at `$debrief` — backfill before writing the token summary; never estimate. |
+| Tempted to mark the sprint Closed early | Don't update the calendar to Closed until HITL finalisation completes. |

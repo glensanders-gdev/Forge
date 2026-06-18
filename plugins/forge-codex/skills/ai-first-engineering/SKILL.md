@@ -135,3 +135,21 @@ Every Forge phase embodies an AI-first principle:
 | `$review` + `$pii-check` | Behaviour and data integrity over syntax |
 | `$go-nogo` | Rollout safety gate — human decides |
 | `kanban-archive.md` actuals | Eval coverage — did the estimates hold? |
+
+## Rules
+
+- This is an operating lens applied within other skills — it shapes decisions, it doesn't produce an artefact of its own.
+- Never let execution speed override planning quality — front-load the pipeline.
+- Treat AI-generated code as code to be reviewed, not trusted — never rubber-stamp.
+- Never run `$build` on a vaguely specified PRD, and never deploy without the `$go-nogo` gate.
+
+## Failure Modes
+
+| Condition | Behaviour |
+|-----------|-----------|
+| Tempted to skip `$grill-with-docs` or `$testplan` | Don't — planning quality is the bottleneck; skipping it ships regressions. |
+| PRD has vague acceptance criteria | Sharpen them into measurable TC-NNN entries before build — vague specs produce vague code. |
+| Review focuses on style/syntax | Shift focus to behaviour, security, data integrity, failure handling, and rollout safety. |
+| An XL ticket is about to be built in one pass | Break it down first — context overrun degrades generated code quality. |
+| "It worked when I tried it" offered as the quality signal | Insufficient — require regression and edge-case coverage. |
+| Asked to produce a standalone deliverable from this skill | It's a lens, not a generator — apply it within another skill rather than emitting a document. |

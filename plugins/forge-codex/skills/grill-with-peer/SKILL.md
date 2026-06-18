@@ -33,3 +33,14 @@ Use Claude as an independent peer reviewer while Codex remains the facilitator. 
 ## Output
 
 Report the context sent, each model's view, agreements, disagreements, final recommendation, and unresolved questions.
+
+## Failure Modes
+
+| Condition | Behaviour |
+|-----------|-----------|
+| User consent not given | Don't invoke the peer — offer `$critic` as the single-model fallback. |
+| Claude CLI unavailable or unauthenticated | Explain the limitation and fall back to `$critic`; never fake a peer review. |
+| Brief contains secrets / PII / proprietary material | Redact before sending — never transmit unredacted context to another provider. |
+| Peer invocation fails mid-run | Report it honestly — never claim an independent review occurred when it didn't. |
+| Peer and host disagree on a fact | Resolve from project evidence where possible; flag what stays unresolved. |
+| Tempted to open an interactive Claude session | Use non-interactive execution only — never nest an interactive agent. |

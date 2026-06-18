@@ -168,3 +168,14 @@ At PI end, read `~/.codex/forge/tokens/ledger.md` and filter for features in thi
 ```
 
 Suggest running `token-report` for full calibration analysis.
+
+## Failure Modes
+
+| Condition | Behaviour |
+|-----------|-----------|
+| A release still has an open Go/No Go | Warn and require `$go-nogo` before closing the PI. |
+| Tempted to write before confirmation | Present the full PI end draft first; the stakeholder summary needs an explicit CONFIRM. |
+| Retro fields left blank | Prompt once for all three before writing the record. |
+| Carry-forward features present | Re-rank them in priorities — never silently inherit old ranking. |
+| Stakeholder summary inaccurate per human | Edit and re-present — never save without CONFIRM. |
+| Tempted to delete the archived PI plan | Don't — archived PI plans are historical records. |

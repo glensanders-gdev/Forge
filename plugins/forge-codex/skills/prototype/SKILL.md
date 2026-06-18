@@ -82,3 +82,14 @@ $prototype
 Suggest moving to `$write-prd`. The prototype findings should be referenced in the PRD's Implementation Decisions section.
 
 Wait for human confirmation before proceeding. Clean up `$prototype` only after PRD is written and confirmed.
+
+## Failure Modes
+
+| Condition | Behaviour |
+|-----------|-----------|
+| Approach already well understood | Skip Prototype — go straight to `$write-prd`. |
+| Tempted to write spike code in `src/` | Stop — all prototype code lives in `$prototype`, never `src/`. |
+| Spike code looks production-ready | It still doesn't carry over silently — any promoted code is moved explicitly during Implementation. |
+| Adding tests/polish to spike code | Don't — prototypes are explicitly not production quality. |
+| `$write-prd` not yet complete | Don't delete `$prototype` — clean up only after the PRD is written and confirmed. |
+| Findings unclear after the spike | Present what was learned and the open question before recommending a next stage. |

@@ -51,3 +51,14 @@ Confirm to update kanban.md?
 - Never write to `kanban.md` without user confirmation.
 - Keep the original ticket number visible in the breakdown — prefix sub-tickets as `#N.1`, `#N.2` etc.
 - If a ticket cannot be broken down further without losing coherence, note that and suggest the smart zone limit be accepted as a known risk for that ticket.
+
+## Failure Modes
+
+| Condition | Behaviour |
+|-----------|-----------|
+| Target ticket not found in `docs/kanban.md` | Ask the user to describe it rather than guessing scope. |
+| No PRD in `docs/prd/active/` | Proceed from the ticket and user input; note the breakdown lacks PRD context. |
+| Ticket can't be split without losing coherence | Say so and recommend accepting the smart-zone limit as a known risk — don't force an artificial split. |
+| A sub-ticket still exceeds the smart zone | Break it down further before writing — every ticket must fit one focused run. |
+| A sub-ticket touches multiple layers | Flag it and consider splitting further by layer. |
+| Tempted to write to kanban directly | Present the breakdown and get confirmation first — never write unconfirmed. |

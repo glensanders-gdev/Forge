@@ -46,3 +46,9 @@ Display the global backlog from `~/.claude/backlog.md`, grouped by priority. Thi
 | `backlog.md` missing | "No global backlog found. Run `/user:backlog-add` to create one." |
 | Backlog is empty | "Global backlog is empty." Offer `/user:backlog-add`. |
 | Items have no priority | Group under Unranked. Offer to run `/user:backlog-add` to triage them. |
+
+## Rules
+
+- This is a read-only display — never modify `backlog.md`; adding items is `/backlog-add`.
+- Preserve priority grouping and date-added order within groups — never reorder by inference.
+- This shows the global backlog only — direct project-level requests to `/backlog-proj`.

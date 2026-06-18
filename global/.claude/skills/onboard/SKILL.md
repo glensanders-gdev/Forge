@@ -137,3 +137,14 @@ During Phase 2 scaffolding, assign a PROJ ID:
    ```markdown
    | PROJ-NNN | [project name] | [repo URL] | None | Active |
    ```
+
+## Failure Modes
+
+| Condition | Behaviour |
+|-----------|-----------|
+| `CLAUDE.md` already exists | Stop and ask whether to re-onboard or update — Forge may already be set up. |
+| Tempted to write during Phase 1 | Phase 1 is AFK exploration only — never write files until Phase 2. |
+| Phase 1 summary not yet confirmed | Don't scaffold — Phase 2 requires human confirmation first. |
+| A target file already exists | Never overwrite — create only missing files; preserve `README.md` and existing docs. |
+| Decisions/tickets inferred from code or git | Label them as drafts; migrated ADRs need human confirmation — inferences may be wrong. |
+| No git history available | Infer current state from code and docs alone, and note that git context was unavailable. |

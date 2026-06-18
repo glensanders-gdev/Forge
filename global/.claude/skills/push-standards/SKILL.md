@@ -69,3 +69,14 @@ Append under `## Project-Specific Patterns` at the bottom of `.claude/CODING-STA
 - Keep standards concise — a standard needing a long explanation needs simplifying.
 - After writing, confirm the file location and list what was added.
 - If `.claude/CODING-STANDARDS.md` doesn't exist, create it with just the Project-Specific Patterns section and warn: "Forge defaults not found — reinstall from project template."
+
+## Failure Modes
+
+| Condition | Behaviour |
+|-----------|-----------|
+| `.claude/CODING-STANDARDS.md` doesn't exist | Create it with just the Project-Specific Patterns section and warn that the Forge defaults are missing. |
+| A pattern is already covered by active language rules | Don't re-document it — extract only what extends the baseline. |
+| Pattern is generic best practice, not codebase-grounded | Don't add it — standards must come from the actual code. |
+| A proposed standard has no "Reason" | It's not a standard yet — drop it or sharpen it. |
+| A standard is being superseded | Mark the old one `~~strikethrough~~` with a note — never delete project standards. |
+| Tempted to edit the Forge defaults | Never — append only to the Project-Specific Patterns section. |

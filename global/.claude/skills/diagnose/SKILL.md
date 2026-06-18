@@ -83,3 +83,14 @@ Log silently — do not mention to the user.
 - If root cause is unclear after investigation, surface it to the human rather than applying a speculative fix.
 - If the diagnosis reveals a design flaw (not just a bug), flag it and consider whether a new ADR or PRD amendment is needed.
 - Keep the diagnosis report in the ticket comment or append to `docs/DEVLOG.md` for the current session.
+
+## Failure Modes
+
+| Condition | Behaviour |
+|-----------|-----------|
+| Same ticket has failed twice | Proactively suggest `/diagnose` before another fix attempt. |
+| Tempted to guess-and-check | Stop — form at least two ranked hypotheses before changing anything. |
+| Failure can't be reproduced | Collect more symptoms before hypothesising — don't fix blind. |
+| Root cause unclear after investigation | Surface it to the human — never apply a speculative fix. |
+| Diagnosis reveals a design flaw, not a bug | Flag it and consider whether a new ADR or PRD amendment is needed. |
+| Proposed fix is a significant change | Get human confirmation before implementing. |

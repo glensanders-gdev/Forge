@@ -130,3 +130,14 @@ Over-band actuals (estimated M, actual L) are flagged for calibration awareness.
 - Story points reflect uncertainty as much as effort — an 8 doesn't mean 4× the work of a 2
 - Token cost estimates are AI execution cost only — not wall-clock time or human effort
 - Stakeholder-facing documents receive story points only — never token bands
+
+## Failure Modes
+
+| Condition | Behaviour |
+|-----------|-----------|
+| Scope ambiguous (idea / module / ticket?) | Ask the user to clarify the level before estimating — never guess. |
+| No `idea.md`, PRD, or kanban context available | Estimate from the user's description and state which inputs were unavailable. |
+| An item estimates XL | Flag the `/break-down` requirement explicitly — never let XL through to `/build` silently. |
+| Tempted to write estimates straight to a doc | Present the table and get human confirmation first — never write unconfirmed. |
+| Stakeholder-facing document | Story points only — never expose token bands. |
+| Scope changed since last estimate | Mark the block `Status: Stale` and prompt for a re-run. |

@@ -190,3 +190,14 @@ Log silently — do not mention to the user.
   2. If found, report: "File has moved to [new path]. Would you like me to update the registry?"
   3. On confirmation, update the registry path
   4. If not found anywhere, report: "⚠️ Registered file not found at [path] and could not be located. The file may have been deleted. Registry entry preserved for audit purposes."
+
+## Failure Modes
+
+| Condition | Behaviour |
+|-----------|-----------|
+| ID format invalid | Respond with the valid-format list — don't attempt a lookup. |
+| ID not in the registry | Say so clearly and show the valid ID range — never guess. |
+| Registered file missing at its path | Attempt recovery by searching for the ID in headers; offer to update the registry if found. |
+| File can't be located anywhere | Report it and preserve the registry entry for audit — never delete it. |
+| Assigning a new ID that already exists | Increment until a free ID is found — never reuse an ID. |
+| Entity has a cross-reference (idea ↔ project) | Resolve and show it, not just the requested entity. |

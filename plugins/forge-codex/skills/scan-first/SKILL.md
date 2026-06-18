@@ -43,6 +43,17 @@ build — or a cold agent rebuilding existing infra — is not.
 - Stop a mis-scoped lane the moment the scan reveals it.
 - Scan-first gates spawning, not just sizing.
 
+## Failure Modes
+
+| Condition | Behaviour |
+|-----------|-----------|
+| Brief asserts a file/function/location exists | Grep for it before building — treat the location as a hypothesis. |
+| Item turns out to be a GHOST (already implemented) | Close by verification — record where it's handled, write no code. |
+| Item is PARTIAL | Size only the missing shape, not the whole feature. |
+| A running lane's premise breaks under the scan | Stop it (`TaskStop`) immediately — don't let it rebuild existing infra. |
+| Whole backlog looks suspect | Run one read-only reconciliation sweep (cheap model) before spawning lane-by-lane. |
+| Tempted to spawn before scanning | Don't — scan-first gates spawning, not just sizing. |
+
 ## Output
 
 A verdict line per item: `#N — OPEN|GHOST|PARTIAL — <evidence: file:line / real count> — <real size>`. For a wave: a ranked, file-disjoint set of scan-verified-open lanes.

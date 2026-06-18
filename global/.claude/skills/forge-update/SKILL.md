@@ -123,3 +123,14 @@ Otherwise:
 - Never modify the Forge remote or force-push
 - If junctions are not in place, redirect to `/forge-install` — do not fall back to copy mode
 - On `git pull` failure: show full stderr verbatim; do not retry silently
+
+## Failure Modes
+
+| Condition | Behaviour |
+|-----------|-----------|
+| `~/forge` clone missing | Clone it from the expected remote before pulling. |
+| `~/forge` points at the wrong remote | Stop — surface the mismatch; never modify the remote. |
+| `~/.claude/skills/` is not a junction | Redirect to `/forge-install` — never fall back to copy mode. |
+| Installed version already equals latest | Report "already on vX.Y.Z" and stop. |
+| `git pull` fails | Show full stderr verbatim and stop — never retry silently. |
+| CHANGELOG mentions `CLAUDE.md`/`AGENTS.md` changes | Prompt to run `/forge-init`; otherwise prompt to restart the session. |

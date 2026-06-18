@@ -169,3 +169,18 @@ Print the following reference exactly:
 **Tip:** Project-level commands use `/project:command-name` instead of `/user:command-name`.
 
 > **Maintainer note:** Update this reference whenever a new skill is added to `global/.claude/skills/manifest.json`. Skills not listed here are not discoverable via `/commands`.
+
+## Rules
+
+- Print the reference exactly — never paraphrase, reorder, or summarise entries.
+- Never invent commands — list only skills present in `manifest.json`.
+- Keep this reference in sync with the manifest; a skill missing here is not discoverable via `/commands`.
+
+## Failure Modes
+
+| Condition | Behaviour |
+|-----------|-----------|
+| A skill in `manifest.json` is missing from this reference | Surface the gap — it won't be discoverable; flag the reference for update rather than silently omitting it. |
+| A listed command no longer exists in the manifest | Flag it as stale rather than printing a dead entry. |
+| User asks what a specific command does | Answer from this reference — never fabricate behaviour for an unlisted command. |
+| User asks about a project-level command | Note that project commands use `/project:` rather than `/user:`. |

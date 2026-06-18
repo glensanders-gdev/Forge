@@ -164,6 +164,17 @@ Include this section in the QA plan for any UI-bearing feature:
 - Known accessibility gaps that are deferred must be recorded in `docs/known-issues.md` with impact noted
 - Screen reader testing is the only reliable way to verify — automated tools catch ~30% of issues
 
+## Failure Modes
+
+| Condition | Behaviour |
+|-----------|-----------|
+| Tempted to build a custom ARIA widget | Prefer a semantic native element first — fall back to custom roles only when none fits. |
+| Status or error shown by colour alone | Add a text or icon alternative — colour-only meaning fails WCAG. |
+| Accessibility raised only at QA | Too late — flag concerns during grill and PRD phases too. |
+| Relying on automated tooling alone | Tools catch ~30% — verify with a real screen reader (VoiceOver / TalkBack / NVDA). |
+| A modal doesn't trap focus | Contain focus while open and make it escapable via `Escape` or a close button. |
+| An accessibility gap must be deferred | Record it in `docs/known-issues.md` with impact noted — never drop it silently. |
+
 ## References
 
 - [WCAG 2.2 Guidelines](https://www.w3.org/TR/WCAG22/)

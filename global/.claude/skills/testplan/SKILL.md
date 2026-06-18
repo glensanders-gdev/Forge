@@ -139,3 +139,14 @@ Behaviours that must pass at Go/No Go:
 - Critical path behaviours must be identified before implementation begins
 - Do not write tests during testplan — this is design only
 - The testplan is a living document — update it if PRD scope changes
+
+## Failure Modes
+
+| Condition | Behaviour |
+|-----------|-----------|
+| No PRD in `docs/prd/active/` | Stop — behaviours are derived from the PRD's user stories and Definition of Done. |
+| `docs/tests/registry.md` missing | Create it and start numbering from TC-001 — never assign TC IDs ad hoc. |
+| A user story has no test item | Add one — every story needs at least one test before the plan is saved. |
+| "Not Tested" section left empty | Fill it — silence on exclusions is not acceptable; state what's excluded and why. |
+| Tempted to write tests now | Stop — testplan is design only; tests are written in `/tdd`. |
+| PRD scope changes later | Update the testplan — it's a living document, not a one-shot artefact. |

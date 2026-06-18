@@ -88,3 +88,14 @@ At any PI plan update, surface:
 - Always confirm feature-to-release mapping before writing
 - Stakeholder view uses Stakeholder Labels only — never internal PRD names
 - Go/No Go dates are fixed once set — flag if anything would require changing them
+
+## Failure Modes
+
+| Condition | Behaviour |
+|-----------|-----------|
+| PI already created | Update in place — never regenerate the full plan. |
+| Feature-to-release mapping not confirmed | Present it and confirm before writing any files. |
+| A Fixed Deadline falls before its target release | Flag the feature as at risk before confirmation. |
+| Standalone release within 1 week of a monthly release | Flag it (unless marked Critical) and confirm. |
+| Standalone release lands on a weekend | Flag and ask for confirmation before adding. |
+| A change would move a Go/No Go date | Flag it — Go/No Go dates are fixed once set; never silently shift them. |

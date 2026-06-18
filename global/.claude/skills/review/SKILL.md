@@ -71,3 +71,13 @@ For each area, flag issues as P1 (blocking), P2 (should fix), or P3 (suggestion)
 - Reference the specific ADR, CONTEXT term, or standard being violated.
 - Do not fix anything without explicit instruction — this is advisory by default.
 - Prefix the response with **"Advisory only — no changes made"** unless the user asks for fixes.
+
+## Failure Modes
+
+| Condition | Behaviour |
+|-----------|-----------|
+| No PRD in `docs/prd/active/` | Review against CONTEXT.md, ADRs, and standards; note that intended-behaviour verification was skipped for lack of a PRD. |
+| No ADRs, CONTEXT.md, or coding standards exist | Review against general correctness and the codebase's own conventions; state that no project standards were available to check against. |
+| No changed code identified | Ask which files or diff to review — never review the whole codebase blind. |
+| User asks for fixes mid-review | Leave advisory mode only on explicit instruction; apply fixes for the named findings only. |
+| Nothing is wrong | Say so plainly under "Passed" — never manufacture P3s to look thorough. |

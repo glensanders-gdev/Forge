@@ -182,3 +182,16 @@ Consider running /context-health before this sprint begins to avoid mid-session 
 ```
 
 Do not block sprint start — this is advisory only.
+
+---
+
+## Failure Modes
+
+| Condition | Behaviour |
+|-----------|-----------|
+| No matching entry in `~/.claude/sprints/calendar.md` | Resolve the calendar first — offer to generate dates or sync; never write a record without one. |
+| Project not listed for this sprint | Offer to add it before proceeding. |
+| No previous sprint record | Treat as the project's first sprint and note there's no carry-in. |
+| Sprint overlaps a `no-deploy` freeze window | Flag it as a planning note — never silently schedule into a freeze. |
+| Sprint over capacity or contains XL tickets | Warn (never block); flag XL tickets for `/break-down` and let the human decide. |
+| Tempted to write the record unconfirmed | Present the full draft and wait for confirmation before writing to `docs/sprints/`. |

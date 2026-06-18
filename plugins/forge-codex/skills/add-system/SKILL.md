@@ -311,3 +311,20 @@ Remind the user to add the system to their project's `AGENTS.md` Knowledge Refer
 | [System Name] | `~/.codex/forge/knowledge/systems/[system-name]/Wiki/overview.md` |
 |               | `~/.codex/forge/knowledge/systems/[system-name]/Wiki/known-issues.md` |
 ```
+
+## Rules
+
+- Never overwrite an existing system knowledge folder — if `[system-name]/` already exists, stop and ask.
+- Confirm the full folder path before creating anything.
+- Scaffold stubs only — never fabricate system content; the user fills `overview.md` and `schema.md`.
+- When `active_company` is set, scaffold under the company knowledge path, not the personal one.
+
+## Failure Modes
+
+| Condition | Behaviour |
+|-----------|-----------|
+| `[system-name]/` already exists | Stop and ask before touching it — never overwrite an existing knowledge folder. |
+| System name not provided | Ask for it; normalise to lowercase-hyphenated before creating. |
+| `active_company` is set | Scaffold under `~/.codex/forge/companies/[active_company]/knowledge/systems/` instead. |
+| Tempted to pre-fill schema or domain content | Scaffold stubs only — the user fills them and runs `$ingest`. |
+| `$raid init` fails or `docs/raid/` already exists | Note it and continue — don't block system creation on the RAID scaffold. |

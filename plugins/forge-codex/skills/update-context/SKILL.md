@@ -46,3 +46,14 @@ Review the session and flush any new or refined understanding into the project's
 - If a term conflicts with an existing definition, flag it and ask the user to resolve before updating.
 - Do not remove existing terms — update or annotate them.
 - After updating, confirm which files were changed and what was added.
+
+## Failure Modes
+
+| Condition | Behaviour |
+|-----------|-----------|
+| No new terms or decisions surfaced this session | Say there's nothing to flush — don't manufacture updates. |
+| A term conflicts with an existing CONTEXT.md definition | Flag it and ask the user to resolve before updating. |
+| Tempted to add implementation detail to CONTEXT.md | Domain language only — keep implementation out. |
+| Tempted to remove an existing term | Update or annotate — never remove. |
+| Discovery belongs to a system, not the project | Route it to the system's `known-issues.md` / `overview.md` / `schema.md`, not CONTEXT.md. |
+| Tempted to write without review | Present all proposed changes first — never update silently. |

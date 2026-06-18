@@ -121,3 +121,14 @@ After a confirmed standalone release, append to `docs/releases/deploy-log.md`:
 **Stakeholder description:** [one-line stakeholder description from brief]
 **Notes:** [any relevant notes]
 ```
+
+## Failure Modes
+
+| Condition | Behaviour |
+|-----------|-----------|
+| Change not yet approved | Stop — `$approve` must precede a standalone release. |
+| Within 1 week of a monthly release and not Critical | Stop and ask whether it should wait or proceed as a critical override. |
+| Deployment falls on a weekend | Flag and require explicit confirmation. |
+| Change is really a feature | Recommend PI planning instead — standalone is for small, self-contained changes. |
+| Human can't state a rollback plan | Flag it as a risk before proceeding — the rollback plan is mandatory. |
+| `CONFIRM` not typed | Don't deploy; save the brief and record the decision as CANCELLED. |

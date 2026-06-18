@@ -42,3 +42,14 @@ From the source material, extract:
 - If source material is ambiguous, note the uncertainty in the draft rather than guessing.
 - Do not overwrite an existing `overview.md` without user confirmation.
 - Mark the draft with `**Status: Draft — needs review**` at the top until the user confirms it.
+
+## Failure Modes
+
+| Condition | Behaviour |
+|-----------|-----------|
+| `~/.codex/forge/knowledge/systems/[name]/` doesn't exist | Suggest `$add-system` first — don't write into a missing folder. |
+| `overview.md` already exists | Don't overwrite without user confirmation. |
+| No source material available | Ask for docs, a description, or codebase access before drafting. |
+| Source material is ambiguous | Note the uncertainty in the draft rather than guessing. |
+| Drafting the AI-cannot / Do-Not-Attempt sections | Be explicit and conservative — these are the most important sections. |
+| Draft not yet confirmed | Mark it `Status: Draft — needs review` until the user confirms. |

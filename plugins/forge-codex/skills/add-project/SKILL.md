@@ -293,3 +293,20 @@ Remind the user to add the project to their project's `AGENTS.md` Knowledge Refe
 | [Project Name] | `~/.codex/forge/knowledge/projects/[project-name]/Wiki/overview.md` |
 |                | `~/.codex/forge/knowledge/projects/[project-name]/Wiki/known-issues.md` |
 ```
+
+## Rules
+
+- Never overwrite an existing project knowledge folder — if `[project-name]/` already exists, stop and ask.
+- Confirm the full folder path before creating anything.
+- Scaffold stubs only — never fabricate project content; the user fills `overview.md`.
+- When `active_company` is set, scaffold under the company knowledge path, not the personal one.
+
+## Failure Modes
+
+| Condition | Behaviour |
+|-----------|-----------|
+| `[project-name]/` already exists | Stop and ask before touching it — never overwrite an existing knowledge folder. |
+| Project name not provided | Ask for it; normalise to lowercase-hyphenated before creating. |
+| `active_company` is set | Scaffold under `~/.codex/forge/companies/[active_company]/knowledge/projects/` instead. |
+| Tempted to pre-fill domain content | Scaffold stubs only — the user fills `overview.md` and runs `$ingest`. |
+| Confused with the project's `docs/` directory | This holds durable knowledge, not session state — keep them distinct; never scaffold into `docs/`. |

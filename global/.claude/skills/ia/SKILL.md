@@ -101,3 +101,14 @@ Do not suggest next steps. The user decides whether to act on the assessment.
 - Ask grill questions one at a time, always provide the recommended answer first
 - Use the actual assigned ID in all file paths — never the placeholder `IA-YYYYMMDD-NNNN`
 - The IA ID must appear in the folder name, `summary.md` header, and PRD/change brief title
+
+## Failure Modes
+
+| Condition | Behaviour |
+|-----------|-----------|
+| `docs/ia/` doesn't exist | Create it before assigning the ID. |
+| No impacted sources found | Write `summary.md` with a "No impacts identified" verdict and omit `.proposed.md` files. |
+| Input is vague | Don't skip the grill — a vague input produces a vague assessment. |
+| A term conflicts with `docs/CONTEXT.md` | Flag the conflict during the grill before continuing. |
+| Grill summary not yet confirmed | Wait for explicit confirmation before writing artefacts. |
+| Tempted to edit live knowledge files | Never — all output is isolated to the IA folder as advisory `.proposed.md` drafts. |

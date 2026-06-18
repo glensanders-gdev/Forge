@@ -160,3 +160,15 @@ Run /publish --all to do your first full publish.
 - Never commit or log credentials
 - Always test the connection before writing the file
 - If the user cancels at any step, do not write a partial config
+
+## Failure Modes
+
+| Condition | Behaviour |
+|-----------|-----------|
+| `confluence.md` already exists | Warn and require CONFIRM before overwriting. |
+| Connection test returns 401 | Credentials rejected — return to Step 5 and re-enter. |
+| Connection test returns 403 | Authenticated but no space access — check space key and permissions. |
+| Connection test returns 404 | Space not found — verify the space key. |
+| Connection test fails before write | Never write the config — fix the connection first. |
+| User cancels mid-setup | Don't write a partial config. |
+| `active_company` is set | Write to the company publish directory instead. |

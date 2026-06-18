@@ -115,3 +115,14 @@ When an ID is superseded, the registry shows the current ID only. Full history l
 - Always confirm the mapping and display full ID history after writing
 - If the Forge ID is not found in registry.md, stop and report — do not guess file paths
 - `external_ids` block is optional — entities without Jira links simply omit it
+
+## Failure Modes
+
+| Condition | Behaviour |
+|-----------|-----------|
+| Forge ID not in registry | Stop and report — never guess the file path. |
+| `--type` omitted | Ask once before writing — never infer type from the Jira ID prefix. |
+| Superseding an existing Jira ID without `--reason` | Ask for the reason first — never overwrite without a dated superseded entry. |
+| `external_ids` block absent in the source file | Create it fresh with the new ID as `current`. |
+| Source file missing at the registered path | Stop and report — don't write to a guessed location. |
+| `active_company` is set | Resolve files and registry from the company directory instead. |

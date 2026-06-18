@@ -81,3 +81,14 @@ Flag in the output:
 - Buffer windows shown explicitly — no tickets scheduled in buffer
 - Go/No Go dates always shown — never omit them
 - Standalone releases always shown in a separate section
+
+## Failure Modes
+
+| Condition | Behaviour |
+|-----------|-----------|
+| No PI plan at `~/.codex/forge/pi/[current-pi]/plan.md` | Note no active PI is set; suggest `$piplan` before a sprint plan can be shown. |
+| No sprint calendar entries | Report that dates are unavailable and recommend `$sprint-start` or `$piplan` first. |
+| A feature has no assigned release | Flag it ⚠️ — never silently omit it from the view. |
+| A Go/No Go date is missing for a release | Surface the gap — Go/No Go dates are never omitted. |
+| A sprint appears over capacity | Flag 🟡 — this is display only; never reschedule automatically. |
+| Stakeholder (consolidated) view requested | Use Stakeholder Labels only — never expose internal ticket names. |

@@ -63,3 +63,14 @@ See `FORMATS.md` for the full report template.
 - Waived items require an approver — never auto-waived.
 - The report file is immutable once saved — do not overwrite; create a new dated file for re-runs.
 - `/approve` must hard-block if: (a) no report exists for the active feature, or (b) the report contains unresolved P1 failures (status Fail with no Resolution of Fixed or Waived).
+
+## Failure Modes
+
+| Condition | Behaviour |
+|-----------|-----------|
+| No `qa-plan-[active-feature].md` exists | Stop — `/qa-plan` must run first; there are no TC items to record results against. |
+| Multiple PRDs in `docs/prd/active/` | Surface them and ask which is active before reading or saving anything. |
+| A P1 TC has no result | Block the save — every P1 must be Pass, Fail, or Waived first. |
+| Fail entry has no Resolution, or Waived has no approver | Reject the entry and prompt for the missing field — never save an unresolved or unapproved result. |
+| A report already exists for today's date | Do not overwrite — create a new dated file for the re-run; saved reports are immutable. |
+| CI link absent but feature has automated TCs | Warn that automated evidence will be marked unverified and confirm before proceeding. |
