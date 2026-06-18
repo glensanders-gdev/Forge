@@ -6,6 +6,8 @@
 **Status:** Approved — 2026-06-01
 
 <!-- Feature approved 2026-06-01. Board archived. -->
+<!-- 2026-06-11: ad-hoc maintenance — PR #9, #10 (no kanban tickets). -->
+<!-- 2026-06-18: ad-hoc assimilation — PR #12 (write-a-skill CRAFT.md, v3.10.1), PR #13 (/teach, v3.11.0). No kanban tickets. -->
 
 ---
 
