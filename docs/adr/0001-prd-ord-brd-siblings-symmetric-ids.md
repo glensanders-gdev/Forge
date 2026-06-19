@@ -83,8 +83,11 @@ rather than a second skill.
   shipped as v2.1.1) and any documents already authored with `US-NN` IDs are now on the old
   scheme. The full bidirectional `BRD ↔ PRD ↔ ORD` traceability is deferred until `/write-reqs`
   exists — standalone documents trace only to the BRD (PRD column in the ORD matrix is `—`).
-- **Open dependency:** `/write-reqs` design hinges on whether a Forge skill can cleanly invoke
-  another skill (orchestrate vs inline) — unresolved, captured in the backlog.
+- **Open dependency — RESOLVED (v3.13.0):** `/write-reqs` shipped as an **orchestrator**. A Forge
+  skill can cleanly invoke another via the handoff-with-brief pattern (precedent: `/evolve` →
+  `/write-a-skill`, `/build` → `/tdd`); inlining was rejected as it violates PRINCIPLE 6 and drifts.
+  `/write-reqs` keeps both sibling gates (one per document) and owns only the joint front
+  (functional/operational routing) and back (the bidirectional cross-link pass).
 
 Shipped in Forge v3.12.0 (`/write-ord` v1.1.0, `/write-prd` v2.1.1) via
 [PR #19](https://github.com/glensanders-gdev/Forge/pull/19). Design grilled and recorded in

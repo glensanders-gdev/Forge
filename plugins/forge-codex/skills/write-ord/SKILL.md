@@ -30,7 +30,7 @@ Runs unattended. Extracts and classifies all operational requirements from sourc
 ### Phase 1 Process
 
 1. Read all provided source material in full.
-2. Read the BRD if one exists (`docs/brd/`) — capture the business objectives this ORD must trace up to. If absent, note it; requirements will trace to their proximate operational source (the source quote or named stakeholder) instead. **Do not read the PRD** — a standalone ORD is a *sibling* of the PRD, not its child; both derive from the BRD. Joint PRD+ORD authoring is the separate `/write-reqs` workflow.
+2. Read the BRD if one exists (`docs/brd/`) — capture the business objectives this ORD must trace up to. If absent, note it; requirements will trace to their proximate operational source (the source quote or named stakeholder) instead. **Do not read the PRD** — a standalone ORD is a *sibling* of the PRD, not its child; both derive from the BRD. Joint PRD+ORD authoring is the separate `$write-reqs` workflow.
 3. Extract every statement that implies an operational need — performance, availability, support, staffing, recovery, compliance, interfaces, security.
 4. **Tag provenance as you extract.** For every operational need, record its origin — the BRD objective ID if a BRD exists, otherwise the source quote or named stakeholder. This feeds the BRD Objective and Source columns of the traceability matrix in Phase 2 — capture it now rather than reconstructing it later.
 5. Classify each extracted statement against the ISO/IEC 25010:2023 nine characteristics (see [REFERENCE.md](REFERENCE.md)). Flag statements that are too vague to classify.
@@ -106,7 +106,7 @@ Runs after human confirms Phase 1 summary. Writes the ORD using the template in 
 - Never omit the KPP designation — at least one KPP must be identified or the ORD must note "KPPs not yet designated."
 - Never write a requirement without a stable `ORD-NNN` ID, and never reuse a retired ID.
 - Never leave the traceability matrix unpopulated — every requirement gets a row; flag orphan requirements and BRD coverage gaps rather than hiding them.
-- Never read or trace to a PRD — a standalone ORD is a sibling of the PRD, both deriving from the BRD. Joint PRD+ORD authoring is the `/write-reqs` workflow.
+- Never read or trace to a PRD — a standalone ORD is a sibling of the PRD, both deriving from the BRD. Joint PRD+ORD authoring is the `$write-reqs` workflow.
 - Never ask the user questions during Phase 1 — extract, classify, then present.
 - If no system name can be determined from the source material, flag it in Phase 1 Summary and use `[SYSTEM-NAME-TBD]` in the draft.
 

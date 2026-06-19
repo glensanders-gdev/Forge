@@ -11,12 +11,24 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
+## v3.13.0 — 2026-06-19
+
+**`$write-reqs` — joint PRD + ORD authoring from a single source**
+
+### Added
+- `$write-reqs` v1.0.0 — authors a PRD and an ORD together from one source, per ADR-0001 (BRD is the single origin; PRD and ORD are siblings). Phase 1 (AFK) reads the BRD and source material once and classifies every need by nature — functional ("what the system does") → PRD, operational/NFR ("how it runs") → ORD — splitting dual-nature needs into a linked pair; this phase is ungated routing only. Phase 2 (HITL) delegates authoring end-to-end to `$write-prd` then `$write-ord`, each keeping its own confirmation gate, then runs a cross-link pass that fills the bidirectional BRD↔PRD↔ORD traceability columns neither sibling can complete standalone (PRD's `ORD NFR Ref`, ORD's `PRD Req`) and enforces the reciprocal NFR-home rule (PRD cites, ORD owns). Orchestrates the two sibling skills — never reproduces their templates or quality rules — resolving the orchestrate-vs-inline question left open in ADR-0001.
+
+### Fixed
+- Command reference (`$commands`) and README were missing `$write-ord` (shipped in v3.12.0 but never listed) — added both `$write-ord` and `$write-reqs` to the Pipeline rows; corrected the README skill count 104 → 106.
+
+---
+
 ## v3.12.0 — 2026-06-19
 
 **`$write-ord` — Operational Requirements Document generator; `$write-prd` ID scheme aligned**
 
 ### Added
-- `$write-ord` v1.1.0 — ingests a call transcript, meeting notes, document, or conversation context and synthesizes a structured ORD organized by ISO/IEC 25010:2023 quality characteristics (Performance Efficiency, Reliability, Security, Compatibility, Flexibility, Maintainability, Interaction Capability, Functional Suitability, Safety). Two-phase AFK ingest → HITL write with mandatory confirmation gate. Phase 1 reads the BRD if present (the ORD's origin), extracts and classifies operational requirements, tags provenance, identifies KPPs, flags vague statements, and surfaces coverage gaps. Phase 2 assigns stable flat `ORD-001` requirement IDs, writes testable quantified requirements, and populates a BRD-anchored Requirements Traceability Matrix (ORD req → 25010 characteristic → BRD objective → source), flagging orphan scope and BRD coverage gaps. Saves to `docs/ord/[system-name]-ORD.md`. The standalone ORD is a sibling of the PRD — both derive from the BRD; joint authoring is the planned `/write-reqs`. Full template and ISO/IEC 25010:2023 taxonomy (including 2011→2023 delta) in `REFERENCE.md`.
+- `$write-ord` v1.1.0 — ingests a call transcript, meeting notes, document, or conversation context and synthesizes a structured ORD organized by ISO/IEC 25010:2023 quality characteristics (Performance Efficiency, Reliability, Security, Compatibility, Flexibility, Maintainability, Interaction Capability, Functional Suitability, Safety). Two-phase AFK ingest → HITL write with mandatory confirmation gate. Phase 1 reads the BRD if present (the ORD's origin), extracts and classifies operational requirements, tags provenance, identifies KPPs, flags vague statements, and surfaces coverage gaps. Phase 2 assigns stable flat `ORD-001` requirement IDs, writes testable quantified requirements, and populates a BRD-anchored Requirements Traceability Matrix (ORD req → 25010 characteristic → BRD objective → source), flagging orphan scope and BRD coverage gaps. Saves to `docs/ord/[system-name]-ORD.md`. The standalone ORD is a sibling of the PRD — both derive from the BRD; joint authoring is the planned `$write-reqs`. Full template and ISO/IEC 25010:2023 taxonomy (including 2011→2023 delta) in `REFERENCE.md`.
 
 ### Changed
 - `$write-prd` v2.1.1 — renamed user-story IDs `US-NN` → `PRD-001` (flat, sequential) for symmetry with `$write-ord`'s `ORD-001` scheme; the PRD↔ORD traceability matrix now references `PRD-NNN`/`ORD-NNN` across both documents. Story concept unchanged (still canonical user stories). `manifest.json` write-prd entry corrected to 2.1.1 (was stale at 2.0.0 after PR #18).

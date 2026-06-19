@@ -11,6 +11,18 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
+## v3.13.0 — 2026-06-19
+
+**`/write-reqs` — joint PRD + ORD authoring from a single source**
+
+### Added
+- `/write-reqs` v1.0.0 — authors a PRD and an ORD together from one source, per ADR-0001 (BRD is the single origin; PRD and ORD are siblings). Phase 1 (AFK) reads the BRD and source material once and classifies every need by nature — functional ("what the system does") → PRD, operational/NFR ("how it runs") → ORD — splitting dual-nature needs into a linked pair; this phase is ungated routing only. Phase 2 (HITL) delegates authoring end-to-end to `/write-prd` then `/write-ord`, each keeping its own confirmation gate, then runs a cross-link pass that fills the bidirectional BRD↔PRD↔ORD traceability columns neither sibling can complete standalone (PRD's `ORD NFR Ref`, ORD's `PRD Req`) and enforces the reciprocal NFR-home rule (PRD cites, ORD owns). Orchestrates the two sibling skills — never reproduces their templates or quality rules — resolving the orchestrate-vs-inline question left open in ADR-0001.
+
+### Fixed
+- Command reference (`/commands`) and README were missing `/write-ord` (shipped in v3.12.0 but never listed) — added both `/write-ord` and `/write-reqs` to the Pipeline rows; corrected the README skill count 104 → 106.
+
+---
+
 ## v3.12.0 — 2026-06-19
 
 **`/write-ord` — Operational Requirements Document generator; `/write-prd` ID scheme aligned**

@@ -392,7 +392,7 @@ Save output to `docs/ord/[system-name]-ORD.md`.
 ### A. Acronyms and Abbreviations
 ### B. Requirements Traceability Matrix
 
-One row per requirement. Anchored on the BRD (the ORD's origin). The PRD column is `—` for a standalone ORD; it is populated only when the ORD is authored jointly with a PRD via `/write-reqs`.
+One row per requirement. Anchored on the BRD (the ORD's origin). The PRD column is `—` for a standalone ORD; it is populated only when the ORD is authored jointly with a PRD via `$write-reqs`.
 
 | ORD Req ID | ISO/IEC 25010 Characteristic | BRD Objective | Provenance / Source | PRD Ref |
 |---|---|---|---|---|
