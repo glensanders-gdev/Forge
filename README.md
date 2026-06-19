@@ -20,12 +20,12 @@ Each stage produces an artifact that feeds the next. The AI agent orients itself
 
 ## What's Included
 
-**106 shared skills** covering the full software delivery lifecycle, adapted for Claude Code and Codex:
+**107 shared skills** covering the full software delivery lifecycle, adapted for Claude Code and Codex:
 
 | Category | Skills |
 |----------|--------|
 | Ideation | `/idea`, `/create-project`, `/front-gate`, `/onboard` |
-| Pipeline | `/grill-with-docs`, `/grill-me`, `/grill-with-peer`, `/research`, `/prototype`, `/write-prd`, `/write-ord`, `/write-reqs`, `/testplan`, `/estimate`, `/break-down`, `/build`, `/tdd`, `/test-coverage`, `/qa-plan`, `/qa-report`, `/pii-check`, `/approve` |
+| Pipeline | `/grill-with-docs`, `/grill-me`, `/grill-with-peer`, `/research`, `/prototype`, `/write-prd`, `/write-ord`, `/write-reqs`, `/write-ac`, `/testplan`, `/estimate`, `/break-down`, `/build`, `/tdd`, `/test-coverage`, `/qa-plan`, `/qa-report`, `/pii-check`, `/approve` |
 | Session Management | `/continue`, `/standup`, `/handoff`, `/debrief`, `/save-state`, `/scope-check`, `/caveman`, `/backlog-list`, `/backlog-proj`, `/backlog-add`, `/lookup`, `/ia` |
 | Code Quality | `/scan-first`, `/review`, `/critic`, `/diagnose`, `/write-adr`, `/push-standards`, `/lang-rules`, `/update-readme`, `/git-guardrails`, `/accessibility`, `/ai-first-engineering`, `/write-article`, `/seo`, `/security-assessment`, `/security-resolve`, `/performance-review`, `/vibe-security`, `/codex-review` |
 | Knowledge Base | `/ia`, `/add-system`, `/add-project`, `/teach`, `/summarise-system`, `/update-context`, `/add-term`, `/knowledge-health`, `/knowledge-onboard`, `/style-check`, `/ingest`, `/publish`, `/setup-confluence` |
@@ -150,7 +150,7 @@ Or if you have an existing project:
 
 ```
 ~/.claude/
-  skills/              ← 106 shared skills
+  skills/              ← 107 shared skills
   commands/            ← 104 shared workflow commands + /grill-with-codex alias
   tools/
     global.md          ← global tools registry (security scanners, perf analysers, etc.)

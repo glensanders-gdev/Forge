@@ -252,6 +252,24 @@ Get-ChildItem -LiteralPath $destinationSkills -Recurse -Filter "SKILL.md" -File 
     ForEach-Object { Normalize-CodexSkillFrontmatter $_.FullName }
 
 $forgeManifest = Get-Content -LiteralPath $manifestSource -Raw | ConvertFrom-Json
+
+# Stamp the shared framework version into the Codex plugin manifest so the build
+# owns the version field. test-forge-parity.ps1 fails if plugin.json's version
+# drifts from forge_version, and ConvertFrom/ConvertTo-Json would reflow the whole
+# file — so patch only the version token, preserving formatting byte-for-byte.
+$pluginManifestPath = Join-Path $PluginRoot ".codex-plugin\plugin.json"
+if (Test-Path -LiteralPath $pluginManifestPath) {
+    $pluginManifestText = [IO.File]::ReadAllText($pluginManifestPath, [Text.Encoding]::UTF8)
+    $stampedManifest = [regex]::Replace(
+        $pluginManifestText,
+        '("name":\s*"forge-codex",\s*\r?\n\s*"version":\s*)"[^"]*"',
+        ('${1}"' + $forgeManifest.forge_version + '"')
+    )
+    if ($stampedManifest -ne $pluginManifestText) {
+        [IO.File]::WriteAllText($pluginManifestPath, ($stampedManifest -replace "\r\n?", "`n"), [Text.UTF8Encoding]::new($false))
+    }
+}
+
 $summary = [ordered]@{
     source = "global/.claude/"
     forgeVersion = $forgeManifest.forge_version
