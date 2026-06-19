@@ -1,44 +1,76 @@
 # Handoff: Forge Framework
 
-**Last updated:** 2026-06-18
-**Session type:** Ad Hoc (framework maintenance — assimilation)
+**Last updated:** 2026-06-19
+**Session type:** Ad Hoc (requirements-document skill alignment — shipped)
+**Prepared by:** /debrief
 
 ---
 
 ## Current Ticket
 
-No active feature — kanban clear since forge-junction-sync approval (2026-06-01). Today was assimilation-driven maintenance: two `/assimilate` runs of Matt Pocock material, both delivered and merged (PR #12, PR #13). `forge_version` now **3.11.0**.
+No kanban ticket — ad-hoc, backlog-driven. **v3.12.0 shipped and merged to `main`**
+([PR #19](https://github.com/glensanders-gdev/Forge/pull/19) → `fadcfaf`, tag `v3.12.0` pushed, CI green).
+`forge_version` is now **3.12.0**.
 
 ---
 
-## What Was Just Done
+## What Just Happened
 
-Assimilated two Matt Pocock skills into Forge:
-1. **"Writing Great Skills"** → enhanced `/write-a-skill` with a new `CRAFT.md` (leading words, completion criteria, information hierarchy, pruning/no-op discipline, failure-modes lens). `write-a-skill` 1.1.0→1.2.0, v3.10.0→3.10.1. **PR #12 merged.**
-2. **"teach"** → new `/teach` skill (knowledge category): mission-grounded, ZPD-pitched multi-session learning with consolidated `FORMATS.md`; workspaces under `~/.claude/knowledge/learning/`. Reuses `/add-term`, `/research`, ADR conventions. `teach` 1.0.0, v3.10.1→3.11.0. **PR #13 merged.**
+Resumed from the previous handoff to run the standards review on `/write-ord`. Grilled the
+gaps to a shared model — **BRD is the single origin; PRD and ORD are siblings** (each standalone
+after the BRD), not a chain — then implemented and released:
 
-Both included Codex plugin regen + `plugin.json` bump; parity passed on each (104 shared skills at close).
+- **`/write-ord` v1.1.0** released publicly (was private WIP): BRD-anchored Phase 1 + provenance,
+  flat `ORD-001` requirement IDs, operationalised BRD→ORD traceability matrix (orphan + coverage-gap flagging).
+- **`/write-prd` v2.1.1**: renamed `US-NN` → `PRD-001` for symmetry; stale manifest entry corrected.
+- **ADR-0001** (`docs/adr/0001-prd-ord-brd-siblings-symmetric-ids.md`) records the model + ID scheme.
+- Codex plugin regenerated, parity passes (105 shared skills).
 
 ---
 
 ## Next Action
 
-Pick up the still-open **P3 backlog item**: skill completeness sweep — add `## Failure Modes` to 43 skills (pipeline-core first: grill-with-docs, qa-plan, qa-report, review, tdd, testplan, estimate, sprint-start, sprint-end, debrief, idea, critic) and `## Rules` to 7 skills. Source: `~/.claude/knowledge/skill-health-report.md`. Note: `/teach` and `write-a-skill` now both carry Failure Modes sections — usable as reference exemplars.
+No forced next action — the release is complete. Pick up when ready:
 
-Alternative: dashboard-tokens template extraction to `references/` (top recommendation in `docs/skill-size-audit.md`) — not yet on the backlog; add via `/backlog-add` if pursuing.
+1. **`/write-reqs`** (P3 in `~/.claude/backlog.md`) — the composite PRD+ORD skill. **First resolve
+   the open design question:** can a Forge skill cleanly invoke another skill (orchestrate `/write-prd`
+   then `/write-ord`), or must it inline? That decision shapes the whole skill.
+2. Otherwise greenfield — kanban is clear, no active feature.
+
+---
+
+## Context the Next Session Will Need
+
+- **`/write-ord` is now PUBLIC** (released this session at user instruction) — this reverses the prior
+  "private WIP" note. Any older guidance assuming write-ord is private is void.
+- **Paired-standard model is settled (ADR-0001):** BRD → {PRD, ORD} siblings; IDs `PRD-001` / `ORD-001`;
+  joint authoring is the separate `/write-reqs`. Read the ADR before touching either skill or building `/write-reqs`.
+- Mission + decision records live in `~/.claude/knowledge/learning/requirements-documents/` (LR-0001…LR-0006).
+- **Uncommitted session-state docs on `main`:** this debrief's edits to `HANDOFF.md`, `kanban.md`,
+  `DEVLOG.md`, `tokens/forge-maintenance.md` are working-tree only (not yet committed — see Open Decisions).
 
 ---
 
 ## Open Decisions
 
-- **Uncommitted session docs** — this debrief's edits to `docs/HANDOFF.md`, `docs/DEVLOG.md`, `docs/kanban.md`, `docs/tokens/forge-maintenance.md` are in the working tree only. They sit alongside *pre-existing* uncommitted 2026-06-11 edits to DEVLOG/HANDOFF that were never committed. Decide whether to commit the docs trail.
-- **Untracked files** awaiting a commit decision (carried from 2026-06-11): repo-root `CLAUDE.md`, `docs/context-health-report.md`, `docs/dashboard/`, `docs/tokens/forge-maintenance.md`. My `CLAUDE.md` skill-count edit (103→104) only lands if `CLAUDE.md` is tracked.
-- **Git tags lag** — latest pushed tag is `v3.10.0`; tags for `v3.10.1` and `v3.11.0` not yet created/pushed (write-a-skill checklist step). Create them if treating these as releases.
-- Deferred QA cycle: TC-001–TC-010 for forge-junction-sync still waived (carried from 2026-06-01).
-- Repo move off OneDrive (Windows machine) still pending — re-run install.sh after moving.
+- **Commit the debrief docs.** HANDOFF/kanban/DEVLOG/tokens edits sit uncommitted on `main`. Per the
+  repo's git-safety convention (no direct pushes to main), commit them via a small docs PR, or let them
+  accumulate and sweep later (the prior pattern). Not yet actioned.
+- **`/write-reqs` skill-invocation question** — orchestrate vs inline (see Next Action).
 
 ---
 
 ## Blockers
 
 None.
+
+---
+
+## Suggested Skills for Next Session
+
+1. `/standup` — fresh orientation if returning after a gap.
+2. `/write-a-skill` — when building `/write-reqs` (resolve the orchestration question first).
+3. `/learn` — if the grill→ship→ADR flow this session is a pattern worth capturing.
+
+💡 Did anything this session produce a pattern worth capturing?
+   Run /user:learn to capture it before it's forgotten.
