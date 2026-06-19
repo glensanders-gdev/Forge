@@ -11,6 +11,15 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
+## v3.14.0 — 2026-06-19
+
+**`$write-ac` — PRD + ORD → Jira Capability acceptance criteria**
+
+### Added
+- `$write-ac` v1.0.0 — transforms an authored PRD and ORD into testable Jira acceptance criteria positioned by altitude. Phase 1 (AFK) reads the PRD (`PRD-NNN` stories), the ORD (`ORD-NNN` requirements, `[KPP]` tags), and the joined cross-link matrix, resolves the linked Jira Capability from `external_ids.jira`, and sorts every requirement — KPPs and headline functional outcomes promote to Capability-level AC; detailed story criteria, edge and error cases flow to child Epics/Stories — presenting the split for confirmation. Phase 2 (HITL) translates each requirement into a testable AC (functional → Given/When/Then; operational → threshold + measurement method, kept verbatim), carries the `PRD-NNN`/`ORD-NNN` source ID into each criterion, assigns stable `AC-NNN` IDs, and writes `docs/ac/[capability]-AC.md`. Jira push is optional and gated behind a typed `PUSH` confirmation; child issues that do not yet exist are listed for the human to create, never auto-created. Consumes requirements — never authors them, and never resolves BRD↔PRD↔ORD traceability (that stays in `$write-prd`, `$write-ord`, `$write-reqs`). Handles PRD-only or ORD-only inputs. Sits downstream of `$write-reqs` and feeds `$jira` and `$link-jira`.
+
+---
+
 ## v3.13.0 — 2026-06-19
 
 **`$write-reqs` — joint PRD + ORD authoring from a single source**
