@@ -1,8 +1,8 @@
 ---
 name: write-prd
 category: pipeline
-version: 2.0.0
-description: Synthesize the current conversation, grill session, research, and prototype findings into a structured PRD. Executes in two phases — AFK explore then HITL write — with a confirmation gate between them. Use when user runs /write-prd or when grill-me confirms shared understanding is reached.
+version: 2.1.0
+description: Synthesize the current conversation, grill session, research, and prototype findings into a structured PRD aligned with ISO/IEC/IEEE 29148:2018. Executes in two phases — AFK explore then HITL write — with a confirmation gate between them. Use when user runs /write-prd or when grill-me confirms shared understanding is reached.
 ---
 
 # Write PRD
@@ -21,12 +21,14 @@ Runs unattended. Gathers all context needed to write the PRD without asking the 
 2. Read grill session summary from the current conversation or `docs/DEVLOG.md`.
 3. Read any `docs/research/*.md` files relevant to this feature.
 4. Read `/prototype/LOGIC.md` and `/prototype/UI.md` if they exist.
-5. Explore the codebase — understand current structure, existing patterns, and what will need to change.
-6. Identify the major modules to build or modify. Look for:
+5. Read the BRD if one exists (`docs/brd/`) — capture the business objectives this feature must trace up to. If absent, note it; PRD requirements will trace to their proximate input (grill / research / prototype) instead.
+6. **Tag provenance as you extract.** For every need or capability you identify, record its source (BRD objective ID, grill-session decision, `docs/research/*.md §`, prototype finding, or named stakeholder). This feeds the upstream Origin column of the traceability matrix in Phase 2 — capture it now rather than reconstructing it later.
+7. Explore the codebase — understand current structure, existing patterns, and what will need to change.
+8. Identify the major modules to build or modify. Look for:
    - Deep modules: simple interfaces, rich internals, independently testable
    - Existing modules that need extension vs new modules to create
    - Layer boundaries: what is UI, DATA, LOGIC, SYNC, INFRA
-7. Produce a **Phase 1 Summary** and pause for human confirmation.
+9. Produce a **Phase 1 Summary** and pause for human confirmation.
 
 ### Phase 1 Summary Format
 
@@ -34,7 +36,17 @@ Runs unattended. Gathers all context needed to write the PRD without asking the 
 ## PRD Explore Summary — [Feature Name]
 
 ### Source Material Read
-- [List of files read]
+- [List of files read, including the BRD if found]
+
+### BRD Objectives (origin of scope)
+| BRD Objective ID | Business need | Covered by this PRD? |
+|------------------|---------------|----------------------|
+| [BRD-NN or "no BRD found"] | [need] | Yes / Partial / N/A |
+
+### Extracted Needs by Source (provenance)
+| Need / capability | Source | Proposed story |
+|-------------------|--------|----------------|
+| [need] | [BRD-NN / grill / research § / prototype / stakeholder] | [US-NN] |
 
 ### Codebase State
 [Brief description of relevant existing code]
@@ -65,7 +77,11 @@ Runs after human confirms Phase 1 summary. Writes the PRD and cleans up.
 
 1. Incorporate any corrections from the human's Phase 1 confirmation.
 2. Check `~/.claude/knowledge/company/style-guide.md` — if populated, apply its tone, terminology, and formatting standards when writing the PRD. If it is a placeholder, proceed without it.
-3. Write the PRD using the template below.
+3. Write the PRD using the template below. **Enforce the requirements-quality gates before finalising:**
+   - **Success Metrics present** — at least one measurable metric (Metric / Baseline / Target / Measurement), with one marked **primary**. If none genuinely apply, write `Success Metrics: none — [reason]` explicitly; never omit the section.
+   - **Every user story has ≥1 acceptance criterion** — block finalisation if any story has none. Warn (do not block) if a story has only a happy-path criterion with no edge or error case.
+   - **Every story has a stable ID** (`US-NN`) and traces to a source in the matrix.
+   Each requirement should meet the ISO/IEC/IEEE 29148:2018 characteristics — necessary, unambiguous, singular, verifiable, feasible. Rewrite vague requirements ("fast", "intuitive") into testable form or flag them.
 3. **Generate per-module estimates** — for each module identified in Phase 1:
    - Estimate AI token cost band (S/M/L/XL) and story points (1/2/3/5/8/13)
    - Present as a table for human confirmation before writing to the PRD:
@@ -94,7 +110,7 @@ Runs after human confirms Phase 1 summary. Writes the PRD and cleans up.
    ```
 6. Clean up `/prototype` folder if it exists.
 7. Suggest next steps in order:
-   - Run `/testplan` to design the testing strategy before implementation begins
+   - Run `/testplan` to design the testing strategy before implementation begins — this also **back-fills the `TBD` Test column** in the PRD's Traceability Matrix.
    - Then move to the Kanban stage to convert the PRD task list into tracked tickets
 
 ---
@@ -131,11 +147,38 @@ Runs after human confirms Phase 1 summary. Writes the PRD and cleans up.
 
 [The solution from the user's perspective. What will exist when this is done?]
 
-## User Stories
+## Success Metrics
 
-1. As a [role], I want [capability], so that [outcome].
-2. As a [role], I want [capability], so that [outcome].
-[Be exhaustive. Cover happy paths, edge cases, error states, and admin flows.]
+[Measurable targets that define success. Mark one as primary; others are secondary/guardrail (must not regress). If none genuinely apply, write "none — [reason]".]
+
+| Metric | Baseline | Target | Measurement method | Type |
+|--------|----------|--------|--------------------|------|
+| [e.g. checkout abandonment] | [23%] | [≤ 14%] | [funnel analytics, 30-day] | Primary |
+| [e.g. checkout errors] | [0.4%] | [no regression] | [error telemetry] | Guardrail |
+
+## Users & Stakeholders
+
+[Each actor referenced in a story below. May be a user segment, job title/role, or stakeholder.]
+
+| Actor | Description | Type |
+|-------|-------------|------|
+| [e.g. Returning shopper] | [one line: who they are, what they need] | Primary |
+| [e.g. Compliance officer] | [one line] | Stakeholder |
+
+## User Stories & Acceptance Criteria
+
+Each story keeps the canonical form and carries a stable ID and at least one acceptance criterion. Keep stories at capability granularity; push detail into the criteria. Cover happy path + key edge case + error state.
+
+**US-01 — [short title]**
+As a [role], I want [capability], so that [outcome].
+- **Given** [context] **When** [action] **Then** [observable, testable outcome]
+- **Given** [edge/error context] **When** [action] **Then** [outcome]
+
+**US-02 — [short title]**
+As a [role], I want [capability], so that [outcome].
+- **Given** … **When** … **Then** …
+
+[A bulleted testable checklist is an accepted lighter alternative to Given/When/Then, provided each item is observable and testable. IDs are retired when a story is dropped — never reused.]
 
 ## Implementation Decisions
 
@@ -176,9 +219,26 @@ Tasks the AI agent can execute autonomously.
 
 [Explicitly list what is NOT being built in this PRD.]
 
+## Assumptions & Dependencies
+
+**Assumptions:** [What must hold true for this PRD to be valid. "None" if empty.]
+
+**Dependencies:** [What this depends on. Cite the companion ORD for non-functional behaviour rather than restating it — e.g. "availability, encryption, PCI scope defined in [System] ORD §3.3". "None" if empty.]
+
 ## Further Notes
 
 [Anything else relevant — links, references, open questions for later.]
+
+## Appendix: Traceability Matrix
+
+Full-chain, bidirectional. Spans BRD → PRD → ORD. The Test column is scaffolded `TBD` and back-filled when `/testplan` runs.
+
+| BRD Objective | Proximate Source | Story ID | Acceptance Criteria (summary) | Test | ORD NFR Ref |
+|---------------|------------------|----------|-------------------------------|------|-------------|
+| [BRD-NN or —] | [grill / research § / prototype / stakeholder] | [US-NN] | [one line] | [TBD / T-NN] | [ORD §x.y or —] |
+
+- A story with no BRD objective and no proximate source is **orphan scope** — flag it.
+- A BRD objective with no resulting story is a **coverage gap** — flag it.
 ```
 
 ---
@@ -187,6 +247,11 @@ Tasks the AI agent can execute autonomously.
 
 - Never write the PRD without Phase 1 confirmation — the gate is mandatory.
 - Never ask the user questions during Phase 1 — gather, then present.
+- Never finalise a PRD with an empty Success Metrics section — require at least one measurable metric, or an explicit `none — [reason]`.
+- Never finalise a PRD with a user story that has no acceptance criterion.
+- Never write a requirement in unverifiable form ("fast", "intuitive", "robust") — quantify it or flag it as `[TBD — needs measurable criterion]`.
+- Never reuse a retired story ID — retire and move on.
+- Never restate non-functional requirements that belong in the ORD — cite the ORD section instead (reference, don't duplicate).
 - If Phase 1 uncovers a significant unknown that blocks scoping, surface it in Open Questions and wait.
 - Do not clean up `/prototype` until Phase 2 is complete and confirmed.
 - The `Sprint:` field in the PRD must be filled — check `~/.claude/sprints/calendar.md` for the current sprint.
@@ -208,6 +273,10 @@ After Phase 2 is complete and PRD is written:
 |-----------|-----------|
 | No grill session summary found | Note it. Proceed using current conversation context only. Flag in PRD: "No prior grill session — scope may need validation via `/critic`." |
 | `CONTEXT.md` missing | Note it. Proceed — flag any terms used in PRD that should be added to CONTEXT.md. |
+| No BRD found | Note "No BRD found." Proceed — trace each story to its proximate source (grill / research / prototype / stakeholder) in the matrix instead of a BRD objective. |
+| Feature has no measurable success metric | Do not silently omit. Write `Success Metrics: none — [reason]` and flag for the human to confirm the feature is genuinely unmeasurable. |
+| A user story has no acceptance criterion | Block finalisation. Prompt for criteria; do not write the PRD until every story has at least one. |
+| A BRD objective produces no story, or a story has no source | Flag in the Traceability Matrix as a coverage gap (orphaned objective) or orphan scope (sourceless story). Do not silently resolve. |
 | Active PRD already exists | Stop. "An active PRD already exists at docs/prd/active/. Complete or archive it before writing a new one." |
 | Phase 1 exploration finds no relevant codebase | Note "Codebase appears empty or not yet scaffolded." Proceed with a greenfield assumption — state it explicitly. |
 | Sprint field cannot be determined | Set to "Not sprint-tracked" and flag for human to update. |
