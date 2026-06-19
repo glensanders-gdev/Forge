@@ -1,7 +1,7 @@
 ---
 name: write-prd
 category: pipeline
-version: 2.1.0
+version: 2.1.1
 description: Synthesize the current conversation, grill session, research, and prototype findings into a structured PRD aligned with ISO/IEC/IEEE 29148:2018. Executes in two phases — AFK explore then HITL write — with a confirmation gate between them. Use when user runs /write-prd or when grill-me confirms shared understanding is reached.
 ---
 
@@ -46,7 +46,7 @@ Runs unattended. Gathers all context needed to write the PRD without asking the 
 ### Extracted Needs by Source (provenance)
 | Need / capability | Source | Proposed story |
 |-------------------|--------|----------------|
-| [need] | [BRD-NN / grill / research § / prototype / stakeholder] | [US-NN] |
+| [need] | [BRD-NN / grill / research § / prototype / stakeholder] | [PRD-NNN] |
 
 ### Codebase State
 [Brief description of relevant existing code]
@@ -80,7 +80,7 @@ Runs after human confirms Phase 1 summary. Writes the PRD and cleans up.
 3. Write the PRD using the template below. **Enforce the requirements-quality gates before finalising:**
    - **Success Metrics present** — at least one measurable metric (Metric / Baseline / Target / Measurement), with one marked **primary**. If none genuinely apply, write `Success Metrics: none — [reason]` explicitly; never omit the section.
    - **Every user story has ≥1 acceptance criterion** — block finalisation if any story has none. Warn (do not block) if a story has only a happy-path criterion with no edge or error case.
-   - **Every story has a stable ID** (`US-NN`) and traces to a source in the matrix.
+   - **Every story has a stable ID** (`PRD-NNN`) and traces to a source in the matrix.
    Each requirement should meet the ISO/IEC/IEEE 29148:2018 characteristics — necessary, unambiguous, singular, verifiable, feasible. Rewrite vague requirements ("fast", "intuitive") into testable form or flag them.
 3. **Generate per-module estimates** — for each module identified in Phase 1:
    - Estimate AI token cost band (S/M/L/XL) and story points (1/2/3/5/8/13)
@@ -169,16 +169,16 @@ Runs after human confirms Phase 1 summary. Writes the PRD and cleans up.
 
 Each story keeps the canonical form and carries a stable ID and at least one acceptance criterion. Keep stories at capability granularity; push detail into the criteria. Cover happy path + key edge case + error state.
 
-**US-01 — [short title]**
+**PRD-001 — [short title]**
 As a [role], I want [capability], so that [outcome].
 - **Given** [context] **When** [action] **Then** [observable, testable outcome]
 - **Given** [edge/error context] **When** [action] **Then** [outcome]
 
-**US-02 — [short title]**
+**PRD-002 — [short title]**
 As a [role], I want [capability], so that [outcome].
 - **Given** … **When** … **Then** …
 
-[A bulleted testable checklist is an accepted lighter alternative to Given/When/Then, provided each item is observable and testable. IDs are retired when a story is dropped — never reused.]
+[IDs are flat and sequential — `PRD-001`, `PRD-002`, … assigned in order of first appearance; they do not encode the story's theme. A bulleted testable checklist is an accepted lighter alternative to Given/When/Then, provided each item is observable and testable. IDs are retired when a story is dropped — never reused.]
 
 ## Implementation Decisions
 
@@ -233,9 +233,9 @@ Tasks the AI agent can execute autonomously.
 
 Full-chain, bidirectional. Spans BRD → PRD → ORD. The Test column is scaffolded `TBD` and back-filled when `/testplan` runs.
 
-| BRD Objective | Proximate Source | Story ID | Acceptance Criteria (summary) | Test | ORD NFR Ref |
-|---------------|------------------|----------|-------------------------------|------|-------------|
-| [BRD-NN or —] | [grill / research § / prototype / stakeholder] | [US-NN] | [one line] | [TBD / T-NN] | [ORD §x.y or —] |
+| BRD Objective | Proximate Source | PRD Req ID | Acceptance Criteria (summary) | Test | ORD NFR Ref |
+|---------------|------------------|------------|-------------------------------|------|-------------|
+| [BRD-NN or —] | [grill / research § / prototype / stakeholder] | [PRD-NNN] | [one line] | [TBD / T-NN] | [ORD-NNN / —] |
 
 - A story with no BRD objective and no proximate source is **orphan scope** — flag it.
 - A BRD objective with no resulting story is a **coverage gap** — flag it.

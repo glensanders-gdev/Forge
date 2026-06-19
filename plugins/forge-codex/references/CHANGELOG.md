@@ -11,6 +11,18 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
+## v3.12.0 — 2026-06-19
+
+**`$write-ord` — Operational Requirements Document generator; `$write-prd` ID scheme aligned**
+
+### Added
+- `$write-ord` v1.1.0 — ingests a call transcript, meeting notes, document, or conversation context and synthesizes a structured ORD organized by ISO/IEC 25010:2023 quality characteristics (Performance Efficiency, Reliability, Security, Compatibility, Flexibility, Maintainability, Interaction Capability, Functional Suitability, Safety). Two-phase AFK ingest → HITL write with mandatory confirmation gate. Phase 1 reads the BRD if present (the ORD's origin), extracts and classifies operational requirements, tags provenance, identifies KPPs, flags vague statements, and surfaces coverage gaps. Phase 2 assigns stable flat `ORD-001` requirement IDs, writes testable quantified requirements, and populates a BRD-anchored Requirements Traceability Matrix (ORD req → 25010 characteristic → BRD objective → source), flagging orphan scope and BRD coverage gaps. Saves to `docs/ord/[system-name]-ORD.md`. The standalone ORD is a sibling of the PRD — both derive from the BRD; joint authoring is the planned `/write-reqs`. Full template and ISO/IEC 25010:2023 taxonomy (including 2011→2023 delta) in `REFERENCE.md`.
+
+### Changed
+- `$write-prd` v2.1.1 — renamed user-story IDs `US-NN` → `PRD-001` (flat, sequential) for symmetry with `$write-ord`'s `ORD-001` scheme; the PRD↔ORD traceability matrix now references `PRD-NNN`/`ORD-NNN` across both documents. Story concept unchanged (still canonical user stories). `manifest.json` write-prd entry corrected to 2.1.1 (was stale at 2.0.0 after PR #18).
+
+---
+
 ## v3.11.0 — 2026-06-18
 
 **`$teach` — stateful multi-session learning, assimilated from Matt Pocock**
