@@ -4,14 +4,14 @@
 
 ## Session 2026-06-19 — requirements-document skill alignment
 
-**Version range:** 3.11.0 → 3.12.0 ([PR #19](https://github.com/glensanders-gdev/Forge/pull/19), branch `claude/forge-v3.12.0-ord-release`, commit `80e4d39` — open, CI running)
+**Version range:** 3.11.0 → 3.12.0 ([PR #19](https://github.com/glensanders-gdev/Forge/pull/19) squash-merged to main as `fadcfaf`; tag `v3.12.0` pushed; CI parity green)
 **Goals this session:** Resume from HANDOFF — run the write-prd standards review on `/write-ord`; grill the gaps; implement and release.
 **Tickets Completed:** None on kanban — ad-hoc standards-alignment.
 **Decisions Made:** (1) **ADR-0001** (`docs/adr/0001-prd-ord-brd-siblings-symmetric-ids.md`) — BRD is the single origin; PRD and ORD are **siblings** (each standalone after the BRD), not a chain; requirement IDs are flat + symmetric (`PRD-001` / `ORD-001`); joint PRD+ORD authoring is a separate skill `/write-reqs` (backlogged P3). (2) Released `/write-ord` v1.1.0 publicly (was private WIP) — BRD-anchored Phase 1 + provenance, `ORD-001` IDs, operationalised BRD→ORD traceability matrix with orphan/coverage-gap flagging. (3) `/write-prd` v2.1.1 — renamed `US-NN` → `PRD-001` for symmetry; corrected stale manifest entry (2.0.0 → 2.1.1). (4) Released as one v3.12.0 commit on a branch (never to main directly); excluded prior-session `docs/*` edits from the focused release commit.
 **Assumptions Made:** write-ord's privacy reversal (private → public) was an explicit user decision this session, overriding the prior "private WIP" handoff/memory note. Codex `plugin.json` version hand-bumped to 3.12.0 (build does not bump it).
 **Blockers:** None
-**Next Up:** Confirm PR #19 CI green and merge; tag v3.12.0 on merge (matching convention); finalise this DEVLOG entry + HANDOFF + kanban via `/debrief`; `/write-reqs` remains P3 backlog.
-**Status:** In Progress
+**Next Up:** `/write-reqs` (P3 backlog) — composite PRD+ORD skill; first resolve whether a Forge skill can invoke another skill (orchestrate vs inline). Otherwise greenfield — kanban clear, no active feature.
+**Status:** Complete (v3.12.0 shipped — PR #19 merged, tag pushed, CI green)
 
 ---
 
