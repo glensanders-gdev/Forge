@@ -44,6 +44,8 @@ Print the following reference exactly:
 | `research` | Cache findings in topic-specific files under docs/research/ |
 | `prototype` | Spike ideas in throwaway code under $prototype |
 | `write-prd` | Synthesise session into a PRD — AFK explores and scopes, HITL confirms and writes |
+| `write-ord` | Synthesise a transcript/document into an Operational Requirements Document (ISO/IEC 25010:2023) — AFK ingests and classifies, HITL writes |
+| `write-reqs` | Author a PRD and ORD together from one source — AFK classifies functional vs operational, delegates each to $write-prd and $write-ord, then cross-links the BRD↔PRD↔ORD traceability |
 | `testplan` | Design the testing strategy — automated vs manual, critical path, what's not tested |
 | `estimate` | Estimate token cost bands and story points — table of estimates, human confirms, XL flags $break-down |
 | `break-down` | Split a large ticket into smaller smart-zone tickets |
