@@ -3,7 +3,7 @@ name: "grill-with-docs"
 description: "Planning phase grilling session that challenges a plan against the existing domain model, sharpens terminology, and updates CONTEXT.md and ADRs inline as decisions crystallise. The standard entry point for project planning in Forge. Use when stress-testing a plan against the project's language, codebase, and documented decisions."
 metadata:
   category: pipeline
-  version: 2.0.0
+  version: 2.1.0
   origin: Adapted from Glen Sanders (Forge / https://github.com/glensanders-gdev/Forge)
 ---
 
@@ -18,9 +18,9 @@ See [ADR-FORMAT.md](ADR-FORMAT.md) for when and how to write ADRs.
 
 ## Rules
 
-- Ask questions **one at a time**.
+- Ask questions **one at a time** — asking several at once is bewildering and buries the decision.
 - Provide your recommended answer before waiting for the user's response.
-- If a question can be answered by exploring the codebase, explore it instead.
+- **Facts you look up; decisions you put to the human.** If a question can be answered by exploring the codebase, explore it and answer it yourself. But a *decision* is theirs — put each one to them and wait; never decide on the human's behalf to keep the session moving.
 - Never use a term that conflicts with `docs/CONTEXT.md` without flagging it first.
 
 ## Domain Awareness

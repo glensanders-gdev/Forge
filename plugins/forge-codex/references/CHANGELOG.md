@@ -11,6 +11,21 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
+## v3.17.2 — 2026-07-10
+
+**Grilling skills sharpen the fact-vs-decision boundary** — assimilated from Matt Pocock's `grilling` skill (github.com/mattpocock/skills)
+
+### Changed
+- `$grill-me` 1.0.0 → 1.1.0 — the codebase-lookup rule is rewritten into an explicit **fact-vs-decision boundary**: *facts you look up; decisions you put to the human* — explore and answer any question the code can settle, but never decide on the human's behalf to keep the session moving. Added the rationale behind one-question-at-a-time (asking several at once is bewildering and buries the decision) and a first-time inline credit to Matt Pocock.
+- `$grill-with-docs` 2.0.0 → 2.1.0 — same fact-vs-decision sharpening and one-at-a-time rationale applied to its Rules, so both grilling entry points give one consistent answer. (Matt Pocock was already credited inline.)
+
+### Assimilation notes
+- **Kept:** the crisp *look-up-facts / decide-nothing-for-the-human* split — it maps directly onto Forge Principle 1 ("The AI Executes. The Human Decides.") and hardens the existing lookup rule.
+- **Changed:** phrased the decision half as an explicit Forge negative-space rule (*never decide on the human's behalf*); applied to both grilling skills for consistency.
+- **Dropped:** the rest of the source — already covered, and more richly, by the existing grilling skills (CONTEXT.md grounding, term-conflict callouts, Shared Understanding Summary, next-stage routing, ADR offering). No new skill created.
+
+---
+
 ## v3.17.1 — 2026-07-10
 
 **`$build` gains an explicit test-execution cadence** — assimilated from Matt Pocock's `implement` skill (github.com/mattpocock/skills)

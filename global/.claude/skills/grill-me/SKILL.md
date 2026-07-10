@@ -1,7 +1,7 @@
 ---
 name: grill-me
 category: pipeline
-version: 1.0.0
+version: 1.1.0
 description: Ad-hoc stress-test of a plan or design outside the standard planning phase. Use when user wants to pressure-test an idea, approach, or decision without domain model context. For project planning, use /grill-with-docs instead — it checks CONTEXT.md and the codebase during grilling.
 ---
 
@@ -11,11 +11,13 @@ Ad-hoc stress-test of a plan or design. For the standard project planning phase,
 
 Interview the user relentlessly about every aspect of their plan until a shared understanding is reached. Walk down each branch of the design tree, resolving dependencies between decisions one by one.
 
+> Adapted from techniques and skills by Matt Pocock (AIHero.dev / github.com/mattpocock/skills).
+
 ## Rules
 
-- Ask questions **one at a time**. Never batch questions.
+- Ask questions **one at a time**. Never batch questions — asking several at once is bewildering and buries the decision.
 - For each question, provide your **recommended answer** before waiting for the user's response.
-- If a question can be answered by exploring the codebase, explore it instead of asking.
+- **Facts you look up; decisions you put to the human.** If a question can be answered by exploring the codebase, explore it and answer it yourself — never make the user look up what you can. But a *decision* is theirs: put each one to them and wait for the answer. Never decide on the human's behalf to keep the session moving.
 - If a term conflicts with `docs/CONTEXT.md`, call it out immediately before continuing.
 - No coding or file creation occurs until the user explicitly confirms shared understanding.
 
