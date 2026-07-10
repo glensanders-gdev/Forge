@@ -125,6 +125,11 @@ REFACTOR: Clean up — run tests again to confirm still green
 
 Reference `docs/testplan-[feature].md` for which behaviours to test. Follow all rules from the TDD skill — vertical slices, public interfaces only, no horizontal slicing.
 
+**Test-execution cadence** — keep the feedback loop tight without paying for the full suite on every change (adapted from Matt Pocock's `implement` skill, github.com/mattpocock/skills):
+- **Typecheck regularly** as you write — catch type breaks the moment they appear, not at the end.
+- **Run single test files regularly** — the RED/GREEN cycle drives the file under change; do not run the whole suite to confirm one behaviour.
+- **Run the full suite once, at the end of the ticket** — the whole-project pass is the final gate before Step 4 review, not a per-edit habit. If the full suite is red at ticket end, the ticket is not done.
+
 ### Step 4 — Post-Build Review
 
 Once the ticket's tests are green, run `review` on **this ticket's diff** (the files written during this ticket) — the two-axis review: Spec (does the diff fulfil the ticket's requirement) and Standards (project docs + smell baseline). This is AFK and advisory — it does not auto-fix.
@@ -274,6 +279,7 @@ Next steps:
 - Always present the build queue and wait for `CONFIRM` before executing anything
 - Update kanban in real time — never batch updates
 - Run `$tdd` for every AFK ticket — never skip tests
+- Never run the full test suite after every change — single test files and typechecks as you go, full suite once at ticket end (see Step 3 cadence)
 - Run `$review` on every ticket's diff once tests are green — never skip the post-build review, and never auto-fix or silently pass a P1 finding
 - Never deploy — build produces tested code only; deployment is handled by `$go-nogo` and `$deploy`
 - DEVLOG and token records are not updated during build — defer to `$debrief`

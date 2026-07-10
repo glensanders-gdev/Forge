@@ -11,6 +11,20 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
+## v3.17.1 — 2026-07-10
+
+**`$build` gains an explicit test-execution cadence** — assimilated from Matt Pocock's `implement` skill (github.com/mattpocock/skills)
+
+### Changed
+- `$build` 1.2.0 → 1.2.1 — Step 3 (Execute with TDD) now states an explicit **test-execution cadence**: typecheck regularly and run single test files regularly during the RED/GREEN cycle, and run the **full suite once at ticket end** as the final gate before Step 4 review (a red full suite means the ticket is not done). Added a matching negative-space rule — *never run the full test suite after every change*. Credit noted inline in Step 3.
+
+### Assimilation notes
+- **Kept:** the tight-loop test rhythm — typecheck often, single files often, whole suite once at the end.
+- **Changed:** attached the cadence to `$build`'s existing per-ticket TDD loop and phrased the whole-suite pass as the gate into Forge's `$review` step; expressed the "not every change" half as an explicit Forge negative-space rule.
+- **Dropped:** "commit to the current branch" (per human decision — `$build` produces tested code only; committing stays out of its scope) and the rest of the source, already covered by `$build`'s existing TDD + `$review` wiring. No new skill created; Matt Pocock is already credited framework-wide in `PRINCIPLES.md`.
+
+---
+
 ## v3.17.0 — 2026-07-10
 
 **`$to-tickets` — plan/PRD → vertical-slice kanban tickets** — assimilated from Matt Pocock's `to-tickets` skill (github.com/mattpocock/skills)

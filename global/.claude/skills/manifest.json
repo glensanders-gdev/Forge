@@ -1,5 +1,5 @@
 {
-  "forge_version": "3.17.0",
+  "forge_version": "3.17.1",
   "skills": {
     "scan-first": "1.0.0",
     "raid": "1.0.0",
@@ -48,7 +48,7 @@
     "backlog-list": "1.0.0",
     "backlog-proj": "1.0.0",
     "backlog-add": "1.0.0",
-    "build": "1.2.0",
+    "build": "1.2.1",
     "deploy": "1.0.0",
     "deploy-pi": "1.0.0",
     "rollback": "1.0.0",
