@@ -113,7 +113,7 @@ Runs after human confirms Phase 1 summary. Writes the PRD and cleans up.
 6. Preserve, then clean up `$prototype` if it exists. Do **not** delete the spike outright — first commit it to a throwaway branch `prototype/[feature-name]` so the exploration survives as primary-source evidence (Principle 8), and record a pointer to that branch in the PRD's Implementation Decisions section. Only then remove `$prototype` from the working tree. If a git branch can't be created (e.g. not a git repo), leave `$prototype` in place and note it — never destroy the only copy.
 7. Suggest next steps in order:
    - Run `$testplan` to design the testing strategy before implementation begins — this also **back-fills the `TBD` Test column** in the PRD's Traceability Matrix.
-   - Then move to the Kanban stage to convert the PRD task list into tracked tickets
+   - Then run `$to-tickets` (the Kanban stage) to convert the PRD task list into tracked vertical-slice tickets in `docs/kanban.md`
 
 ---
 

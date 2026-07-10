@@ -11,6 +11,25 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
+## v3.17.0 — 2026-07-10
+
+**`/to-tickets` — plan/PRD → vertical-slice kanban tickets** — assimilated from Matt Pocock's `to-tickets` skill (github.com/mattpocock/skills)
+
+### Added
+- `/to-tickets` v1.0.0 — the missing "Kanban stage" that `/write-prd` hands off to. Converts a plan, PRD, spec, or conversation into a set of **vertical-slice tickets** (tracer bullets — each a narrow but complete path through every layer, independently demoable), sized to the **smart zone (<100k tokens)**, with **genuine, minimal blocking edges** and `[HITL]`/`[AFK]` tags. HITL by design: drafts autonomously, then **quizzes the human on granularity and blocking edges before writing** to `docs/kanban.md` in dependency order. Wide refactors are sequenced via **expand–contract** (one batch per ticket, CI green after each) rather than forced into a tracer bullet. "What to build" describes end-to-end user behaviour, never a layer-by-layer list. Delegates oversized slices to `/break-down`, sizing bands to `/estimate`, and external export to `/jira`.
+
+### Changed
+- `/break-down` 1.0.0 → 1.1.0 — reoriented toward **vertical-slice-first** to align with `/to-tickets`: a ticket touching several layers is now treated as a healthy tracer bullet, and **layer-based splitting is an explicit last resort** used only when a vertical slice still exceeds the smart zone (the old "touches multiple layers → split further" advice is gone). Cross-references `/to-tickets` as the plan→tickets entry point.
+- `/write-prd` 2.1.2 → 2.1.3 — Phase 2 next-steps now names `/to-tickets` as the Kanban stage instead of describing it abstractly.
+- `/commands` reference and README pipeline row/flow updated; README skill count 107 → 108; CLAUDE.md registry count corrected to 108.
+
+### Assimilation notes
+- **Kept:** vertical-slice/tracer-bullet discipline, quiz-before-publish, minimal genuine blocking edges, topological ordering, expand–contract for wide refactors, "end-to-end behaviour not layer lists", domain-vocabulary + ADR grounding.
+- **Changed:** `.scratch/` files and GitHub/native issue publishing → Forge's `docs/kanban.md`; "one context window" → the smart zone; `/implement` + "work the frontier" → Forge's `/build`; oversized-slice handling → `/break-down`.
+- **Resolved the layer-vs-vertical tension:** adopted vertical-first everywhere and nudged `/break-down` to match, so the two ticket-shaping skills give one consistent answer.
+
+---
+
 ## v3.16.0 — 2026-07-10
 
 **`/review` two-axis overhaul + per-ticket wiring into `/build`** — assimilated from Matt Pocock's `code-review` skill (github.com/mattpocock/skills)
