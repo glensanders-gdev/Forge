@@ -11,11 +11,24 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
+## v3.16.0 — 2026-07-10
+
+**`$review` two-axis overhaul + per-ticket wiring into `$build`** — assimilated from Matt Pocock's `code-review` skill (github.com/mattpocock/skills)
+
+### Changed
+- `$review` 1.0.0 → 2.0.0 — rebuilt around a **two-axis** methodology adapted from Matt Pocock's `code-review`. A **Spec axis** (does the diff fulfil its originating requirement — missing behaviour, scope creep, incorrect implementation, checked against the active PRD/ticket) and a **Standards axis** (project ADRs/CONTEXT/coding standards plus an immutable Fowler code-smell baseline) are now judged by **isolated parallel sub-agents** so neither contaminates the other, then reported separately without merging or re-ranking. Adds **fixed-point diff pinning** (never review the codebase blind), the **"repo overrides"** doctrine (documented standards beat the baseline; tooling-enforced rules skipped; smells are judgment calls, never hard P1s), and a new supporting reference `review/smell-baseline.md` holding the twelve smells. Retains Forge's P1/P2/P3 severities, advisory-by-default stance, and ADR/CONTEXT/PRD sources of truth. Attribution recorded in frontmatter `origin:` and the skill body.
+- `$build` 1.1.0 → 1.2.0 — added **Step 4 — Post-Build Review** to the per-ticket execution loop: once a ticket's `$tdd` cycle is green, `$review` runs on that ticket's diff before the next ticket. AFK and advisory; a **P1 finding pauses** the loop for a human decision (fix now / defer to backlog / stop) — never auto-fixed, never silently passed. Subsequent loop steps renumbered (sign-off → 5, mark-done → 6, checkpoint → 7); Rules, Pipeline Position, and Failure Modes updated.
+
+### Assimilation notes
+- **Kept:** two-axis isolation via parallel sub-agents, fixed-point diff scoping, the Fowler smell baseline, the repo-overrides doctrine, aggregate-without-merging.
+- **Changed:** git plumbing → Forge's kanban-driven ticket diffs; source's categories → Forge P1/P2/P3; standards sources → Forge ADR/CONTEXT/coding-rules; `general-purpose` agents → Forge sub-agent + model-selection routing.
+- **Dropped:** a second standalone `/code-review` command (Forge already owns this slot with `$review` — Principle 6, Reference Don't Duplicate).
+
+---
+
 ## v3.15.0 — 2026-07-10
 
 **`$prototype` gains the Logic + UI Prototype methods and a pick-a-branch decision** — assimilated from Matt Pocock's `prototype` skill (github.com/mattpocock/skills)
-
-> Note: developed in parallel with the `$review` two-axis branch, which also targets v3.15.0. Whichever merges second must reconcile the `forge_version` line and this CHANGELOG (the later one bumps to 3.16.0).
 
 ### Changed
 - `$prototype` 1.0.0 → 2.0.0 — reframed around **answering one named design question**, with a new **"Pick a branch"** decision (logic/state question → Logic Prototype; visual/UX question → UI Prototype) and a mandatory **Step 0: name the question** before coding. Adds two methodology references:
