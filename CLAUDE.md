@@ -38,7 +38,7 @@ global/.claude/         ← source of truth for all shared skills
   commands/             ← one .md per skill, command entry points
   rules/common/         ← language-agnostic coding standards (always active)
   rules/[lang]/         ← language-specific rule sets, installed via /lang-rules
-  manifest.json         ← version registry for all 104 skills
+  manifest.json         ← version registry for all 108 skills
   SOUL.md               ← agent identity and behavioural constraints
   PRINCIPLES.md         ← design philosophy; read before writing a new skill
 

@@ -3,12 +3,15 @@ name: "break-down"
 description: "Split a large ticket or feature into smaller tickets within the smart zone limit, with HITL/AFK tags and blocking relationships. Use when user runs $break-down, a ticket is too large, or a task exceeds the smart zone of 100k tokens."
 metadata:
   category: pipeline
+  version: 1.1.0
   origin: Adapted from Glen Sanders (Forge / https://github.com/glensanders-gdev/Forge)
 ---
 
 # Break Down
 
 Split a large ticket or vague task into concrete, well-scoped tickets that each stay within the smart zone (<100k tokens). Add HITL/AFK tags and blocking relationships automatically.
+
+> Splitting one existing ticket is this skill's job. To turn a whole plan or PRD into a fresh ticket set, use [`$to-tickets`](../to-tickets/SKILL.md) — it drafts the vertical slices and delegates here when a slice is still too big.
 
 ## When to Use
 
@@ -27,10 +30,11 @@ Split a large ticket or vague task into concrete, well-scoped tickets that each 
 ## Splitting Rules
 
 - Each ticket should be completable in one focused agent run.
-- Prefer splitting by dependency order — foundational work first.
+- **Prefer vertical slices** — each split should cut a narrow but complete path through the layers it needs, independently demoable. A ticket touching several layers is normal and good; that's a tracer bullet, not a problem to split away.
+- Split by dependency order — foundational work first.
 - Tag each ticket `[HITL]` or `[AFK]`.
 - Add `blocked-by: #N` notation where a ticket cannot start until another completes.
-- If a ticket touches more than one layer, flag it — consider splitting further.
+- **Split by layer only as a last resort** — when a single vertical slice still exceeds the smart zone, carve it by layer (`[UI]`/`[DATA]`/`[LOGIC]`/`[SYNC]`/`[INFRA]`); otherwise keep slices vertical.
 
 ## Output Format
 
@@ -62,5 +66,5 @@ Confirm to update kanban.md?
 | No PRD in `docs/prd/active/` | Proceed from the ticket and user input; note the breakdown lacks PRD context. |
 | Ticket can't be split without losing coherence | Say so and recommend accepting the smart-zone limit as a known risk — don't force an artificial split. |
 | A sub-ticket still exceeds the smart zone | Break it down further before writing — every ticket must fit one focused run. |
-| A sub-ticket touches multiple layers | Flag it and consider splitting further by layer. |
+| A sub-ticket touches multiple layers | Fine — a vertical slice cuts through layers. Only split by layer if it *also* exceeds the smart zone. |
 | Tempted to write to kanban directly | Present the breakdown and get confirmation first — never write unconfirmed. |

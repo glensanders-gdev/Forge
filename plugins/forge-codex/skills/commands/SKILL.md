@@ -50,6 +50,7 @@ Print the following reference exactly:
 | `testplan` | Design the testing strategy — automated vs manual, critical path, what's not tested |
 | `estimate` | Estimate token cost bands and story points — table of estimates, human confirms, XL flags $break-down |
 | `break-down` | Split a large ticket into smaller smart-zone tickets |
+| `to-tickets` | Convert a plan/PRD into vertical-slice kanban tickets — tracer bullets sized to the smart zone with genuine blocking edges, quiz-before-publish |
 | `build` | Execute sprint AFK tickets in sequence with TDD — pauses at HITL and blockers, resumable |
 | `tdd` | Run a single TDD cycle manually — red-green-refactor, one test at a time |
 | `qa-plan` | Generate a human QA checklist from the active PRD and testplan |
