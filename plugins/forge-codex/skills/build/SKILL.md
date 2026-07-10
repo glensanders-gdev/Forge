@@ -13,7 +13,7 @@ Execute the current sprint's tickets. The human signals `$build` once — the ag
 ## Pipeline Position
 
 ```
-$sprint-start → $build → $qa-plan → $pii-check → $approve
+$sprint-start → $build (per ticket: $tdd → $review) → $qa-plan → $pii-check → $approve
 ```
 
 ## Pre-Flight Checks
@@ -125,7 +125,29 @@ REFACTOR: Clean up — run tests again to confirm still green
 
 Reference `docs/testplan-[feature].md` for which behaviours to test. Follow all rules from the TDD skill — vertical slices, public interfaces only, no horizontal slicing.
 
-### Step 4 — Human Sign-Off Gate (if ai_human_signoff_required)
+### Step 4 — Post-Build Review
+
+Once the ticket's tests are green, run `review` on **this ticket's diff** (the files written during this ticket) — the two-axis review: Spec (does the diff fulfil the ticket's requirement) and Standards (project docs + smell baseline). This is AFK and advisory — it does not auto-fix.
+
+Surface the result inline, then handle by severity:
+- **P1 findings (Spec miss or documented-standard/ADR breach):** pause before the ticket can be marked Done:
+  ```
+  🔎 Review — #N [Ticket name] — P1 findings
+
+  [Axis]: [finding] — [file:line] — [why blocking]
+
+  Options:
+  1. Fix now (stay on this ticket, re-run $tdd + $review)
+  2. Defer to backlog ($backlog-add) and mark ticket Done anyway (accepted risk)
+  3. Stop the build here
+
+  Type 1, 2, or 3.
+  ```
+  Wait for the decision. Never auto-fix and never silently pass a P1.
+- **P2 / P3 findings:** record them in the review output and continue — do not block. Note them for `$qa-plan`.
+- **Both axes clean:** note "Review clean" and continue.
+
+### Step 5 — Human Sign-Off Gate (if ai_human_signoff_required)
 
 If company config set `ai_human_signoff_required: true`, pause before marking the ticket Done:
 
@@ -140,7 +162,7 @@ Review the changes and type APPROVED to close this ticket, or REWORK to continue
 
 Wait for `APPROVED`. Do not mark tickets Done autonomously when this policy is active.
 
-### Step 5 — Mark Done
+### Step 6 — Mark Done
 
 On completion, run a lightweight PII hint scan on files written during this ticket (email patterns, phone formats, obvious real names in fixtures or hardcoded values). If found, flag immediately — "⚠️ Possible PII in #N [file:line] — review before committing" — but do not block; full `$pii-check` runs in QA.
 
@@ -152,7 +174,7 @@ Judge the actual token band consumed (S/M/L/XL — coarse band judgement, not a 
 
 Update `docs/kanban.md` immediately: `- [x] [AFK] #N [Ticket name]  ✓`
 
-### Step 6 — Context Checkpoint
+### Step 7 — Context Checkpoint
 
 After every 3 completed tickets, if 3 or more remain in the queue, checkpoint:
 
@@ -252,6 +274,7 @@ Next steps:
 - Always present the build queue and wait for `CONFIRM` before executing anything
 - Update kanban in real time — never batch updates
 - Run `$tdd` for every AFK ticket — never skip tests
+- Run `$review` on every ticket's diff once tests are green — never skip the post-build review, and never auto-fix or silently pass a P1 finding
 - Never deploy — build produces tested code only; deployment is handled by `$go-nogo` and `$deploy`
 - DEVLOG and token records are not updated during build — defer to `$debrief`
 - Smart zone check is mandatory for every ticket — never skip it
@@ -264,5 +287,6 @@ Next steps:
 | No kanban found | "No kanban.md found. Run `sprint-start` to open a sprint first." |
 | No sprint tickets | "No sprint tickets found. Add tickets via `backlog-add` or `write-prd`." |
 | Tests fail after implementation | Run `diagnose` automatically if same test fails twice. Surface to human if still failing. |
+| Review returns a P1 finding | Pause per Step 4 — fix now, defer to backlog, or stop. Never auto-fix, never mark the ticket Done with an unresolved P1. |
 | Codebase in broken state at start | "Codebase has failing tests before build began. Fix these before running `$build`." Surface the failures. |
 | All tickets blocked | "All remaining tickets are blocked. Resolve blockers then resume with `build`." |
