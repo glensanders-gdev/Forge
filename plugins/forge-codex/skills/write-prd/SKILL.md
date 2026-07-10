@@ -110,7 +110,7 @@ Runs after human confirms Phase 1 summary. Writes the PRD and cleans up.
    - [ ] [AFK]  #N   Explore codebase for PRD — write-prd phase 1
    - [x] [HITL] #N+1 Confirm module list and write PRD — write-prd phase 2
    ```
-6. Clean up `$prototype` folder if it exists.
+6. Preserve, then clean up `$prototype` if it exists. Do **not** delete the spike outright — first commit it to a throwaway branch `prototype/[feature-name]` so the exploration survives as primary-source evidence (Principle 8), and record a pointer to that branch in the PRD's Implementation Decisions section. Only then remove `$prototype` from the working tree. If a git branch can't be created (e.g. not a git repo), leave `$prototype` in place and note it — never destroy the only copy.
 7. Suggest next steps in order:
    - Run `$testplan` to design the testing strategy before implementation begins — this also **back-fills the `TBD` Test column** in the PRD's Traceability Matrix.
    - Then move to the Kanban stage to convert the PRD task list into tracked tickets
@@ -255,7 +255,7 @@ Full-chain, bidirectional. Spans BRD → PRD → ORD. The Test column is scaffol
 - Never reuse a retired story ID — retire and move on.
 - Never restate non-functional requirements that belong in the ORD — cite the ORD section instead (reference, don't duplicate).
 - If Phase 1 uncovers a significant unknown that blocks scoping, surface it in Open Questions and wait.
-- Do not clean up `$prototype` until Phase 2 is complete and confirmed.
+- Do not clean up `$prototype` until Phase 2 is complete and confirmed — and never before it is preserved on its `prototype/[feature-name]` throwaway branch with a pointer recorded in the PRD.
 - The `Sprint:` field in the PRD must be filled — check `~/.codex/forge/sprints/calendar.md` for the current sprint.
 
 ## Idea Diagram Update

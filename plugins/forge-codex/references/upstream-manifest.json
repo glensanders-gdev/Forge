@@ -1,5 +1,5 @@
 {
-  "forge_version": "3.14.0",
+  "forge_version": "3.15.0",
   "skills": {
     "scan-first": "1.0.0",
     "raid": "1.0.0",
@@ -10,8 +10,8 @@
     "grill-with-peer": "1.0.0",
     "graphify": "1.0.0",
     "research": "1.0.0",
-    "prototype": "1.0.0",
-    "write-prd": "2.1.1",
+    "prototype": "2.0.0",
+    "write-prd": "2.1.2",
     "diagnose": "1.0.0",
     "approve": "1.1.0",
     "add-system": "1.0.0",

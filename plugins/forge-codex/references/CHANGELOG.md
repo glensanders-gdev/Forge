@@ -11,6 +11,26 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
+## v3.15.0 — 2026-07-10
+
+**`$prototype` gains the Logic + UI Prototype methods and a pick-a-branch decision** — assimilated from Matt Pocock's `prototype` skill (github.com/mattpocock/skills)
+
+> Note: developed in parallel with the `$review` two-axis branch, which also targets v3.15.0. Whichever merges second must reconcile the `forge_version` line and this CHANGELOG (the later one bumps to 3.16.0).
+
+### Changed
+- `$prototype` 1.0.0 → 2.0.0 — reframed around **answering one named design question**, with a new **"Pick a branch"** decision (logic/state question → Logic Prototype; visual/UX question → UI Prototype) and a mandatory **Step 0: name the question** before coding. Adds two methodology references:
+  - `prototype/logic-prototype.md` — build the logic as a **pure, liftable module** behind a **throwaway interactive harness** (TUI that clears each tick, renders current-state + keyboard shortcuts, loops init→keystroke→dispatch→re-render), with a module-shape heuristic (pure reducer / state machine / pure-function-set / stateful class), purity rules (logic imports nothing from the harness; nothing flows backward; no I/O or control-flow logging in the logic), one-command run via the project task runner, and "surface the state after every action".
+  - `prototype/ui-prototype.md` — build **3–5 structurally different variants** (distinct layout/hierarchy/primary action, never cosmetic) behind a **dev-only switcher** (URL-driven, keyboard nav, gated out of production), read-only with stubbed mutations, reusing existing data-fetching and the project's component library. Two sub-shapes: **A** (variants inside the existing page, preferred) and **B** (throwaway route, last resort). Winning variant is rebuilt under real constraints; losers + switcher go to the throwaway branch. Web/React patterns framed as the concrete case, generalised for other platforms.
+  Keeps Forge's `$prototype` folder convention (never `src/`), `LOGIC.md`/`UI.md` findings notes, and the no-tests/no-reuse/no-silent-carryover rules.
+- `$write-prd` 2.1.1 → 2.1.2 — the `$prototype` cleanup step now **preserves before it deletes**: the spike is committed to a throwaway branch `prototype/[feature-name]` with a pointer recorded in the PRD's Implementation Decisions before `$prototype` is removed from the working tree (Principle 8, Every Decision Gets Recorded). If no git branch can be created, the spike is left in place rather than destroyed.
+
+### Assimilation notes
+- **Kept:** question-first framing, the logic-vs-UI branch decision, both prototype methods (Logic: pure-module-behind-throwaway-harness + module-shape heuristic + purity rules; UI: structurally-different variants behind a dev-only switcher, sub-shapes A/B, read-only), surface-the-state, one-command run, no-tests/no-reuse anti-patterns.
+- **Changed:** "place spike adjacent to target" → Forge's single `$prototype` folder; UI method's React/Next specifics (`?variant=`, `NODE_ENV`, shadcn) generalised to "the web case, adapt per platform"; findings wired into Forge's `LOGIC.md`/`UI.md` notes and `$write-prd` handoff.
+- **Adapted the preservation conflict:** Pocock preserves the spike on a throwaway branch; Forge previously deleted `$prototype` outright — adopted preserve-on-branch so the code survives as recorded evidence while Forge keeps its clean-working-tree convention. (This also matches Pocock's UI cleanup: losers + switcher to the throwaway branch, winner rebuilt in `src/`.)
+
+---
+
 ## v3.14.0 — 2026-06-19
 
 **`$write-ac` — PRD + ORD → Jira Capability acceptance criteria**
