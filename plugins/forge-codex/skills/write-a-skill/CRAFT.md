@@ -126,6 +126,30 @@ Run these tests sentence by sentence. Be aggressive — most prose that fails sh
 
 ---
 
+## Negation: Prohibition vs Guardrail
+
+Pocock's sharpest warning: **steering by prohibition backfires.** "Never be verbose" primes
+verbosity rather than suppressing it — the forbidden behaviour is the loudest word in the
+sentence. A prohibition used to shape the *happy path* is weaker than the positive leading
+word that would steer it: don't write "never be verbose", write **terse**.
+
+This looks like it contradicts Forge PRINCIPLE 2 (*Negative Space Programming* — explicit
+"never" rules). It doesn't; it sharpens it. The two kinds of "never" are different tools:
+
+- **Steering prohibition** (weak — reframe it) — a "never" standing in for craft direction on
+  the main path: "never write sloppy code", "never be vague". Replace with a positive leading
+  word that does the steering. This is the negation Pocock warns against.
+- **Guardrail prohibition** (strong — keep it) — a "never" fencing off a *consequential or
+  irreversible* action: "never deploy without `CONFIRM`", "never commit secrets", "never skip
+  the review". This is a boundary, not steering — exactly the negative space PRINCIPLE 2 exists
+  to protect. The forbidden action is rare and costly, so naming it explicitly is correct.
+
+Test before writing a "never": *is the forbidden thing a guardrail (rare, consequential, a
+boundary) or am I really steering the happy path?* If the latter, delete the prohibition and
+reach for a leading word instead.
+
+---
+
 ## Failure Modes (of skill prose)
 
 | Mode | Symptom | Cure |
@@ -135,6 +159,7 @@ Run these tests sentence by sentence. Be aggressive — most prose that fails sh
 | **Sediment** | Stale layers pile up because adding feels safe and removing feels risky | Apply the relevance test on every edit; delete dead lines. |
 | **Sprawl** | Skill is too long even though every line is live and unique | Disclose tier-3 reference behind pointers; split by branch or sequence. |
 | **No-op** | A line that changes nothing versus defaults | Delete it, or replace a weak leading word with a stronger one. |
+| **Negation** | A "never" that's really steering the happy path primes the forbidden behaviour | Reframe as a positive leading word. Keep "never" only for guardrails on consequential/irreversible actions (see Negation: Prohibition vs Guardrail). |
 
 ---
 
@@ -145,6 +170,7 @@ Run these tests sentence by sentence. Be aggressive — most prose that fails sh
 - Never duplicate a meaning across files to "make it easier to find" — pointer to it instead.
 - Never leave a no-op line in because deleting feels risky — sediment is how skills rot.
 - Never split a skill for tidiness alone — split only by invocation or by sequence.
+- Never use a prohibition to steer the happy path where a positive leading word would work — reserve "never" for guardrails on consequential or irreversible actions.
 
 ---
 
@@ -170,3 +196,4 @@ Compact reference for the terms above (adapted from Pocock's GLOSSARY).
 | No-op | A line that changes nothing versus default behaviour |
 | Sediment | Stale layers accumulating because removal feels risky |
 | Sprawl | Excessive length despite every line being live |
+| Negation | Steering by prohibition, which primes the forbidden behaviour — reframe positively; keep "never" only for guardrails |
