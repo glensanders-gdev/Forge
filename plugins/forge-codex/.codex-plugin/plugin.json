@@ -1,6 +1,6 @@
 {
   "name": "forge-codex",
-  "version": "3.17.1",
+  "version": "3.17.2",
   "description": "Codex-native adaptation of Forge's structured software delivery framework.",
   "author": {
     "name": "Glen Sanders and Codex adaptation contributors",
