@@ -11,6 +11,20 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
+## v3.17.4 — 2026-07-10
+
+**`write-a-skill` craft guidance gains the Negation failure mode** — assimilated from Matt Pocock's `writing-great-skills` skill + GLOSSARY (github.com/mattpocock/skills)
+
+### Changed
+- `$write-a-skill` 1.2.0 → 1.3.0 — added **Negation** to the skill-prose failure modes, the one substantive concept its `CRAFT.md` adaptation was missing. `CRAFT.md` gains a new **"Negation: Prohibition vs Guardrail"** section, a Failure Modes row, a Vocabulary entry, and a "Never" rule; the `SKILL.md` failure-modes quick-reference gets a matching row. (`CRAFT.md` was already origin-credited to this same source.)
+
+### Assimilation notes
+- **Resolved a real conflict, didn't just import it.** Pocock's Negation ("steering by prohibition backfires — frame positively") appears to contradict Forge PRINCIPLE 2 (*Negative Space Programming* — explicit "never" rules). The adaptation reconciles them by splitting "never" into two tools: **steering prohibitions** on the happy path (weak — reframe as a positive leading word) vs **guardrail prohibitions** on consequential/irreversible actions (strong — keep them; this is the negative space PRINCIPLE 2 protects). Net effect sharpens PRINCIPLE 2 rather than weakening it. No `PRINCIPLES.md` edit.
+- **Already covered:** predictability, leading words, completion criteria, information hierarchy, split-by-invocation/sequence, pruning tests, invocation-load tradeoff, and ~16 GLOSSARY terms — all present in `CRAFT.md` from the original assimilation. No new skill created.
+- **Dropped:** low-value GLOSSARY labels (Steering, Granularity, Post-Completion Steps) whose concepts `CRAFT.md` already conveys — adding the bare terms would fail CRAFT's own no-op test.
+
+---
+
 ## v3.17.3 — 2026-07-10
 
 **`$handoff` gains a secret-redaction rule** — assimilated from Matt Pocock's `handoff` skill (github.com/mattpocock/skills)

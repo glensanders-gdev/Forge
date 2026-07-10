@@ -156,4 +156,5 @@ When the skill you just wrote misbehaves, the cause is usually one of these. Ful
 | Skill keeps growing; nobody dares delete | **Sediment** — run the relevance test on every edit and cut dead lines |
 | Skill is too long though every line is live | **Sprawl** — disclose tier-3 reference behind context pointers in a sibling file |
 | A line that changes nothing versus the agent's default | **No-op** — delete it, or replace a weak leading word with a stronger one |
+| A "never" rule that's really steering the happy path | **Negation** — reframe as a positive leading word; keep "never" only for guardrails on consequential/irreversible actions |
 | Source is an external skill/article | Stop — use `assimilate`, which handles fit evaluation and attribution |
