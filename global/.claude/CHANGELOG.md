@@ -11,6 +11,20 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
+## v3.17.3 — 2026-07-10
+
+**`/handoff` gains a secret-redaction rule** — assimilated from Matt Pocock's `handoff` skill (github.com/mattpocock/skills)
+
+### Changed
+- `/handoff` 1.0.0 → 1.1.0 — added an explicit **never-carry-secrets** rule: `HANDOFF.md` is a tracked workspace file read by `/continue`, so anything written to it is persisted. Never reproduce API keys, passwords, tokens, or PII surfaced during the session — reference where the value lives (env var, secrets manager, ticket) and redact anything sensitive that must be mentioned. Added a matching Failure Modes row. (Matt Pocock was already credited inline; the Forge `handoff` skill was originally adapted from this same source.)
+
+### Assimilation notes
+- **Kept:** the source's redaction instruction — the one point not already present in Forge's richer `handoff` skill; aligns with the security baseline ("never log raw bodies that may contain credentials or PII") and matters more in Forge because the handoff is a *persisted* artifact, not ephemeral scratch.
+- **Dropped:** "save to the OS temp directory, not the workspace" — conflicts with Forge convention (Principle 6). Forge deliberately writes `docs/HANDOFF.md` in-workspace so `/continue` reads it and `--archive` snapshots it; the source treats the handoff as ephemeral. Forge's model is intentional and retained.
+- **Already covered:** handoff summary, suggested-skills section, reference-don't-duplicate, argument tailoring. No new skill created.
+
+---
+
 ## v3.17.2 — 2026-07-10
 
 **Grilling skills sharpen the fact-vs-decision boundary** — assimilated from Matt Pocock's `grilling` skill (github.com/mattpocock/skills)

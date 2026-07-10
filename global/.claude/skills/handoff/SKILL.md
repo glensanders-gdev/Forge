@@ -1,7 +1,7 @@
 ---
 name: handoff
 category: session
-version: 1.0.0
+version: 1.1.0
 description: Compact the current session into a structured handoff document so the next session can continue without re-reading the conversation. Writes to docs/HANDOFF.md. References artifacts by path rather than reproducing content. Suggests skills for the next session. Use /handoff for any planned pause — same-day resume, passing to another agent, or handing to a colleague. Use /debrief for a thorough end-of-day close that updates kanban, DEVLOG, and backlog.
 argument-hint: What will the next session focus on?
 ---
@@ -20,6 +20,7 @@ Adapted from techniques and skills by Matt Pocock (AIHero.dev / github.com/mattp
 - **Forge-first.** The handoff writes to `docs/HANDOFF.md` — read by `/continue` at the next session start.
 - **Tailored.** If the user provides an argument (e.g. `/handoff "next session: implement the login flow"`), use it to shape the focus of the handoff — what to prioritise, what context is most relevant.
 - **Suggest skills.** At the end, suggest which Forge skills the next session should use first.
+- **Never carry secrets across the handoff.** `HANDOFF.md` is a tracked workspace file read by `/continue` — anything written to it is persisted. Never reproduce API keys, passwords, tokens, or PII surfaced during the session. Reference where the value lives (env var, secrets manager, ticket) rather than the value itself; redact anything sensitive that must be mentioned.
 - **`/handoff` vs `/debrief` vs `/save-state`:** `/handoff` is for any planned pause — same-day resume, passing to another agent, or handing to a colleague. It writes HANDOFF.md only. `/debrief` is for end-of-day full close — it also updates kanban, DEVLOG, and reorders the backlog. `/save-state` is for emergencies when context limit is imminent.
 
 ---
@@ -141,3 +142,4 @@ Always suggest `/standup` if the next session is starting fresh (first action of
 | No active PRD | Note "No active PRD — next session should run /grill-with-docs or /write-prd." |
 | Argument provided but vague | Use it as directional context, not a precise instruction. |
 | `docs/handoffs/` doesn't exist (archive mode) | Create it silently before writing. |
+| Session surfaced a secret or PII value | Never write it into `HANDOFF.md` — reference its location (env var, secrets manager, ticket) and redact the value. |
