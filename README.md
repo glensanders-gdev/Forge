@@ -20,7 +20,7 @@ Each stage produces an artifact that feeds the next. The AI agent orients itself
 
 ## What's Included
 
-**108 shared skills** covering the full software delivery lifecycle, adapted for Claude Code and Codex:
+**109 shared skills** covering the full software delivery lifecycle, adapted for Claude Code and Codex:
 
 | Category | Skills |
 |----------|--------|
@@ -150,7 +150,7 @@ Or if you have an existing project:
 
 ```
 ~/.claude/
-  skills/              ← 108 shared skills
+  skills/              ← 109 shared skills
   commands/            ← 104 shared workflow commands + /grill-with-codex alias
   tools/
     global.md          ← global tools registry (security scanners, perf analysers, etc.)

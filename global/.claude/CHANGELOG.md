@@ -11,6 +11,19 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
+## v3.18.0 — 2026-07-13
+
+**New skill `/brain-setup`** — scaffold and audit the Karpathy second-brain knowledge model across three tiers
+
+### Added
+- `/brain-setup` 1.0.0 — sets up or audits the three-tier Raw/Wiki model (global `~/.claude/knowledge/`, company `~/.claude/companies/[name]/knowledge/`, and per-project folders), enforces a **mandatory human-declared scope** for every project (`personal` stays under the global tier permanently, whatever company context is active; `company` stays segregated under the company tier until deployment), and establishes the company `Wiki/pending-changes.md` ledger of potential/confirmed knowledge changes from in-flight company projects. Scope's sole source of truth is the `_scope.md` marker in the project's knowledge folder — **absence means company-restricted** (never shared, moved, or compiled into the global tier), so company information cannot leak global by omission and nothing is ever written to record restriction. `scope: company` must name an existing company install; scope change `company` → `personal` is forbidden in-skill (git history/team remote — manual action only); folder moves are typed-`CONFIRM`-gated per project with a git-sync warning. Design grilled via /grill-me and hardened via /critic (1 P1, 4 P2, 5 P3 — all resolved). Templates in `FORMATS.md`.
+
+### Deferred (backlog 2026-07-13)
+- **P2** — scope enforcement in `/ingest` and `/add-project` (read `_scope.md`, treat absence as restricted, ask scope at creation, pending-changes prompt): until it lands the scope model is only binding while `/brain-setup` runs.
+- **P3** — merge-on-deploy: `/deploy` first needs a post-deployment cleanup hook, then fold a deployed company project's Wiki into the company Wiki and resolve its pending-changes rows; personal projects permanently exempt.
+
+---
+
 ## v3.17.4 — 2026-07-10
 
 **`write-a-skill` craft guidance gains the Negation failure mode** — assimilated from Matt Pocock's `writing-great-skills` skill + GLOSSARY (github.com/mattpocock/skills)
