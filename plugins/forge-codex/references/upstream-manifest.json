@@ -1,6 +1,7 @@
 {
-  "forge_version": "3.17.4",
+  "forge_version": "3.18.0",
   "skills": {
+    "brain-setup": "1.0.0",
     "scan-first": "1.0.0",
     "raid": "1.0.0",
     "tool-add": "1.0.0",

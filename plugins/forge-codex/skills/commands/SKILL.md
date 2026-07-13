@@ -101,6 +101,7 @@ Print the following reference exactly:
 | `add-system` | Scaffold a new system folder in ~/.codex/forge/knowledge/systems/ |
 | `teach` | Teach a subject across sessions — mission-grounded, ZPD-pitched HTML lessons with curated resources, spaced practice, and learning records under ~/.codex/forge/knowledge/learning/ |
 | `add-project` | Scaffold a new project knowledge folder under ~/.codex/forge/knowledge/projects/ with Raw/Wiki/Outputs tiers |
+| `brain-setup` | Scaffold or audit the three-tier second-brain model (global/company/project Raw+Wiki) — enforce per-project personal-or-company scope, establish the company pending-changes record |
 | `summarise-system` | Draft overview.md for a system from docs or description |
 | `update-context` | Flush session discoveries into CONTEXT.md and knowledge files |
 | `ingest` | Compile Raw/ items into Wiki articles — handles files in Raw/, uploaded files, and pasted text |

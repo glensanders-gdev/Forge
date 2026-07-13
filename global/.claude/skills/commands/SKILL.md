@@ -99,6 +99,7 @@ Print the following reference exactly:
 | `/user:add-system` | Scaffold a new system folder in ~/.claude/knowledge/systems/ |
 | `/user:teach` | Teach a subject across sessions — mission-grounded, ZPD-pitched HTML lessons with curated resources, spaced practice, and learning records under ~/.claude/knowledge/learning/ |
 | `/user:add-project` | Scaffold a new project knowledge folder under ~/.claude/knowledge/projects/ with Raw/Wiki/Outputs tiers |
+| `/user:brain-setup` | Scaffold or audit the three-tier second-brain model (global/company/project Raw+Wiki) — enforce per-project personal-or-company scope, establish the company pending-changes record |
 | `/user:summarise-system` | Draft overview.md for a system from docs or description |
 | `/user:update-context` | Flush session discoveries into CONTEXT.md and knowledge files |
 | `/user:ingest` | Compile Raw/ items into Wiki articles — handles files in Raw/, uploaded files, and pasted text |
