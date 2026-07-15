@@ -28,7 +28,7 @@ Each stage produces an artifact that feeds the next. The AI agent orients itself
 | Pipeline | `/grill-with-docs`, `/grill-me`, `/grill-with-peer`, `/research`, `/prototype`, `/write-prd`, `/write-ord`, `/write-reqs`, `/write-ac`, `/testplan`, `/estimate`, `/break-down`, `/to-tickets`, `/build`, `/tdd`, `/test-coverage`, `/qa-plan`, `/qa-report`, `/pii-check`, `/approve` |
 | Session Management | `/continue`, `/standup`, `/handoff`, `/debrief`, `/save-state`, `/scope-check`, `/caveman`, `/backlog-list`, `/backlog-proj`, `/backlog-add`, `/lookup`, `/ia` |
 | Code Quality | `/scan-first`, `/review`, `/critic`, `/diagnose`, `/write-adr`, `/push-standards`, `/lang-rules`, `/update-readme`, `/git-guardrails`, `/accessibility`, `/ai-first-engineering`, `/write-article`, `/seo`, `/security-assessment`, `/security-resolve`, `/performance-review`, `/vibe-security`, `/codex-review` |
-| Knowledge Base | `/ia`, `/add-system`, `/add-project`, `/teach`, `/summarise-system`, `/update-context`, `/add-term`, `/knowledge-health`, `/knowledge-onboard`, `/style-check`, `/ingest`, `/publish`, `/setup-confluence` |
+| Knowledge Base | `/ia`, `/add-system`, `/add-project`, `/brain-setup`, `/teach`, `/summarise-system`, `/update-context`, `/add-term`, `/knowledge-health`, `/knowledge-onboard`, `/style-check`, `/ingest`, `/publish`, `/setup-confluence` |
 | Metrics & Reporting | `/token-report`, `/dashboard-tokens`, `/context-health`, `/fy-review` |
 | PI & Release | `/piplan`, `/pi-end`, `/sprintplan`, `/go-nogo`, `/changelog`, `/deploy`, `/deploy-pi`, `/rollback`, `/rollback-pi`, `/standalone-release`, `/sprint-replan`, `/pi-replan`, `/incident`, `/raid` |
 | Sprint Management | `/sprint-start`, `/sprint-end`, `/pir` |
@@ -207,7 +207,7 @@ Or if you have an existing project:
 
 ## Skill Versioning
 
-Skills are versioned in `global/.claude/skills/manifest.json`. The current framework version is `3.10.0` across Claude Code and Codex. Claude project overrides live in `.claude/skills/`; Codex project overrides live in `.agents/skills/`.
+Skills are versioned in `global/.claude/skills/manifest.json`. The current framework version is `3.18.0` across Claude Code and Codex. Claude project overrides live in `.claude/skills/`; Codex project overrides live in `.agents/skills/`.
 
 ---
 
@@ -221,6 +221,16 @@ The full framework lifecycle is documented in `~/.claude/forge-sequence.mmd`. Re
 
 | Version | Changes |
 |---------|---------|
+| 3.18.0 | `/brain-setup` — three-tier second-brain knowledge model |
+| 3.17.0 | Assimilation batch — `/to-tickets` vertical-slice tickets; `/build` test-execution cadence; grill fact-vs-decision boundary; `/handoff` secret redaction; `/write-a-skill` Negation failure mode |
+| 3.16.0 | Two-axis code review assimilated into `/review`, wired into `/build` |
+| 3.15.0 | Prototype method (Logic + UI) assimilated into `/prototype` |
+| 3.14.0 | `/write-ac` — acceptance-criteria authoring; Codex plugin auto-stamps version during build |
+| 3.13.0 | `/write-reqs` — joint PRD+ORD authoring orchestrator |
+| 3.12.0 | `/write-ord` public release (BRD-anchored, ORD-001 IDs); `/write-prd` US-NN → PRD-001 ID scheme; ADR-0001 |
+| 3.11.0 | `/teach` — stateful, mission-grounded multi-session learning |
+| 3.10.1 | Skill-craft guidance assimilated into `/write-a-skill` |
+| 3.10.0 | `/scan-first` — build/spawn verification gate against live source |
 | 3.9.0 | Dual-runtime Forge — committed Codex plugin, shared release line, deterministic generation, parity enforcement, peer-model grilling, Codex-native overrides, and repository marketplace |
 | 3.8.0 | `/vibe-security` — AI-generated codebase security auditor; `/codex-review` — adversarial two-model plan review (opt-in tool); `/raid` — RAID log management; `/ia` — Impact Assessment skill |
 | 3.7.1 | Critic audit fixes (6 issues); `/write-prd` routing fix (→ `/testplan` before Kanban) |
