@@ -23,16 +23,23 @@ function Get-NormalizedTextSha256([string]$Path) {
 }
 
 $overrideNames = @(
+    "assimilate",
     "company-add",
+    "company-update",
+    "debrief",
     "forge-init",
     "forge-install",
     "forge-update",
     "git-guardrails",
     "grill-with-peer",
+    "jira",
     "lang-rules",
     "security-assessment",
     "security-resolve",
-    "skill-health"
+    "skill-health",
+    "sprint-end",
+    "token-report",
+    "write-a-skill"
 )
 
 $overrides = [ordered]@{}

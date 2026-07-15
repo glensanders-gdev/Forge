@@ -2,7 +2,7 @@
 
 [One or two sentence description of what this project/context is and why it exists.]
 
-See `~/.codex/forge/skills/grill-with-docs/CONTEXT-FORMAT.md` for the full format guide.
+See `~/.agents/skills/grill-with-docs/CONTEXT-FORMAT.md` for the full format guide.
 
 ---
 

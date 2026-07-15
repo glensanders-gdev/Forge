@@ -36,7 +36,7 @@ Never hardcode credentials — use env vars or a secrets manager.
 
 ## Subcommand Routing
 
-Run the auth check above. Then, based on the subcommand, read the corresponding file in `~/.codex/forge/skills/jira/` and follow its instructions:
+Run the auth check above. Then read the corresponding companion file bundled beside this `SKILL.md` and follow it:
 
 | Subcommand | File | Mode |
 |------------|------|------|
@@ -77,7 +77,7 @@ Run the auth check above. Then, based on the subcommand, read the corresponding 
 - **Jira MCP Server** (`JIRA_URL`, `JIRA_EMAIL`, `JIRA_API_TOKEN`) — the connection layer used by all subcommands
 - `$link-jira` — maps Forge IDs (IDEA-NNN, PROJ-NNN) to Jira issue keys
 - `$lookup` — resolves Forge entity IDs; Jira keys are one of the entity types
-- See also: `global.codex/forge/skills/jira/` — subcommand files: `get.md`, `search.md`, `comment.md`, `transition.md`, `setup.md`
+- Bundled companions: [get.md](get.md), [search.md](search.md), [comment.md](comment.md), [transition.md](transition.md), and [setup.md](setup.md)
 
 ## Rules
 

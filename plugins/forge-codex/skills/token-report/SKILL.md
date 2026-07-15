@@ -193,7 +193,8 @@ PI token total: ~Nk across N features, N projects, N sessions
 
 ## Rules
 
-- Token counts are ccusage actuals where the record says `Source: ccusage actuals`; legacy records (`~Nk`) are agent estimates — label the two distinctly in reports, never mix unlabelled
+- Treat only exact Codex exports or user-provided measurements as actuals. `ccusage` is Claude Code-only and is never a Codex source.
+- Keep legacy estimates labelled as estimates and `Source: unavailable` rows blank; never mix them with actuals.
 - Only include approved features in calibration reports — in-progress actuals are incomplete
 - Round to nearest 1k for readability
 - Never fabricate data — if a phase has no record, show "—" not a guess
@@ -205,7 +206,7 @@ PI token total: ~Nk across N features, N projects, N sessions
 |-----------|-----------|
 | Scope not specified | Ask once — feature, sprint, PI, program, or calibration. |
 | A phase has no record | Show "—" — never a guessed number. |
-| Records mix ccusage actuals and legacy estimates | Label the two distinctly — never present them unlabelled. |
+| Records mix exact Codex measurements and legacy estimates | Label the sources distinctly — never present them unlabelled. |
 | Calibration requested with in-progress features | Use approved features only; mark in-progress ⚠️ partial and exclude from accuracy stats. |
 | Ledger or per-project token files missing | Report what's available and note the gap — don't fabricate totals. |
 | Calibration shows consistent over-band results | Suggest running `$estimate` to recalibrate future estimates. |

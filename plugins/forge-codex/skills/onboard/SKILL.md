@@ -86,7 +86,7 @@ After human confirms Phase 1 summary:
    - `docs/adr/README.md`
    - `docs/prd/active/` and `docs/prd/archived/`
    - `docs/research/`, `docs/sprints/`, `docs/releases/`
-   - `.codex/forge/skills/` and `.codex/forge/commands/`
+   - `.agents/skills/`
    - `.gitignore` — add `$prototype` if not already present
 
 2. **Migrate existing decisions** — if `DECISIONS.md` exists, convert entries to ADR format in `docs/adr/`

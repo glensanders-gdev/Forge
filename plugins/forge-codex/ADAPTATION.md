@@ -4,8 +4,8 @@
 
 - Canonical shared source: `global/.claude/`
 - Codex generated output: `plugins/forge-codex/`
-- Shared framework version: `3.9.0`
-- Adapted skills: `100`
+- Shared framework version: `3.18.0`
+- Adapted shared skills: `109` (plus 2 Codex-only routing skills)
 
 Forge remains credited to Glen Sanders. Skills with an earlier upstream origin retain that attribution.
 
@@ -37,6 +37,10 @@ The planning, delivery, QA, release, knowledge, reporting, and maintenance skill
 - `forge-init`: generate concise `~/.codex/AGENTS.md` guidance and keep Forge data separate.
 - `skill-health`: audit plugin skills and Codex metadata instead of Claude command stubs.
 - `lang-rules`: use nested `AGENTS.md` files for coding guidance; Codex rules are command policies.
+- `write-a-skill` and `assimilate`: author Forge source under `global/.claude/`, generate the plugin, and use `.agents/skills/` for Codex-only skills.
+- `company-update`: update the Codex marketplace/plugin instead of copying skills into Forge data directories.
+- `jira`: resolve bundled subcommand references relative to the installed skill.
+- `debrief`, `sprint-end`, and `token-report`: never use Claude-only `ccusage`; accept exact Codex evidence or mark usage unavailable.
 
 ### Delegation preferred
 

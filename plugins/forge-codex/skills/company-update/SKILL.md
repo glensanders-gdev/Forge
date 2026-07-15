@@ -128,56 +128,13 @@ Update `config.md` with the new values. Fields from non-selected topics are unto
 
 ## Mode: --update-skills
 
-Refresh the 17 bundled company knowledge skills in the company repo from the live
-`~/.codex/forge/skills/` install. Use after a Forge upgrade to propagate fixes and
-new skill versions to the company repo.
+Codex plugins own shared Forge skills; company data directories do not contain copied skill trees.
 
-### Step 1 — Inventory current vs available
-
-For each of the 17 bundled skills, compare the `version:` field in:
-- `~/.codex/forge/companies/[active_company].codex/forge/skills/[skill]/SKILL.md` (current)
-- `~/.codex/forge/skills/[skill]/SKILL.md` (available)
-
-Present a summary:
-
-```
-Skill version check — 17 bundled skills
-
-  Skill              Current    Available  Status
-  ─────────────────────────────────────────────────
-  ingest             1.0.0      1.2.0      ⬆ update available
-  knowledge-health   1.0.0      1.0.0      ✓ current
-  pii-check          1.0.0      1.1.0      ⬆ update available
-  ...
-
-Updates available: N skills
-Already current:   N skills
-Missing from ~/.codex/forge/ (cannot update): N skills
-
-Refresh all available updates? (yes/no)
-```
-
-Wait for confirmation before copying any files.
-
-### Step 2 — Copy updated skills
-
-For each skill with an update available:
-1. Copy `~/.codex/forge/skills/[skill]/SKILL.md` → `~/.codex/forge/companies/[active_company].codex/forge/skills/[skill]/SKILL.md`
-2. Copy `~/.codex/forge/commands/[skill].md` → `~/.codex/forge/companies/[active_company].codex/forge/commands/[skill].md`
-
-For skills missing from `~/.codex/forge/` (not installed): note and skip — do not remove the existing bundled copy.
-
-### Step 3 — Confirm
-
-```
-✅ Skills refreshed — ~/.codex/forge/companies/[active_company].codex/forge/
-
-   Updated: [N skills — list]
-   Skipped (already current): N skills
-   Skipped (not in ~/.codex/forge/): [list if any]
-
-   Run $company-sync to push updated skills to the team repo.
-```
+1. Run `codex plugin marketplace list` and identify the Forge marketplace.
+2. Run `codex plugin marketplace upgrade [marketplace-name]`.
+3. Reinstall or upgrade `forge-codex` through the configured marketplace when a newer version is available.
+4. Report the installed plugin version and ask the user to open a new Codex task so the refreshed skills are loaded.
+5. Leave `~/.codex/forge/companies/[active_company]/` untouched. Repository-specific overrides, when genuinely needed, belong in that repository's `.agents/skills/` and are never overwritten automatically.
 
 ---
 
@@ -193,8 +150,8 @@ Run `--reconfigure` first (full session), then `--update-skills` automatically o
 |-----------|-----------|
 | `active_company` not set | Exit with $company-add message |
 | Config file missing | Exit with rebuild instruction |
-| Skill missing from `~/.codex/forge/` | Skip it, note in output — do not block |
-| No version field in SKILL.md | Treat as `0.0.0` — always offer update |
+| Forge marketplace not configured | Stop and direct the user to `$forge-install`; do not copy skills into the data directory. |
+| Repository-specific `.agents/skills/` overrides exist | Preserve them and report that they may need a manual compatibility review. |
 | User cancels mid-reconfigure | Write only topics that were completed and confirmed |
 
 ---
@@ -203,5 +160,5 @@ Run `--reconfigure` first (full session), then `--update-skills` automatically o
 
 - Never overwrite config fields that weren't covered in the selected topics
 - Never write config changes without presenting a diff and receiving confirmation
-- Never remove skills from the company repo — only update or skip
+- Never copy plugin skills into the company data directory or overwrite repository `.agents/skills/` overrides
 - Reconfigure and update-skills are independent — either can run without the other

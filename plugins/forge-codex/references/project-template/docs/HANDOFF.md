@@ -19,11 +19,11 @@ Status: In Progress — no single active ticket, framework-level iteration
 Extended the Forge framework across a long session covering: P2/P3 critic fixes, new skills ($pii-check, $onboard, $pi-end, $build, $deploy, $deploy-pi, $rollback, $rollback-pi, $save-state, $estimate, $token-report, $lookup, $handoff, $add-term), AGENTS.md split into reference files, known-issues.md, unique ID system (IDEA/PROJ/TC-NNN), token recording across all 11 phases, sequence diagram updates, Confluence documentation, and PRINCIPLES.md.
 
 Key artifacts updated this session:
-- `forge/global.codex/forge/skills/manifest.json` — v2.3.7, 51 skills
-- `forge/global.codex/forge/CHANGELOG.md` — full version history v1.0.0 through v2.3.7
-- `forge/global.codex/forge/PRINCIPLES.md` — 8 Forge design principles (new)
-- `forge/global.codex/forge/registry.md` — global ID registry (new)
-- `forge/global.codex/forge/tokens/ledger.md` — global token ledger (new)
+- `forge/global/.claude/skills/manifest.json` — shared Forge skill manifest
+- `forge/global/.claude/CHANGELOG.md` — full version history v1.0.0 through v2.3.7
+- `forge/global/.claude/PRINCIPLES.md` — 8 Forge design principles (new)
+- `forge/global/.claude/registry.md` — global ID registry (new)
+- `forge/global/.claude/tokens/ledger.md` — global token ledger (new)
 - `forge/project-template/AGENTS.md` — split to ~186 lines, references 4 on-demand files
 - `forge/project-template.codex/forge/CODING-STANDARDS.md` — extracted from AGENTS.md (new)
 - `forge/project-template.codex/forge/ERROR-HANDLING.md` — extracted from AGENTS.md (new)
@@ -32,7 +32,7 @@ Key artifacts updated this session:
 - `forge/project-template/docs/known-issues.md` — project-level issue tracking (new)
 - `forge/project-template/docs/tests/registry.md` — TC-NNN + KI-NNN registry (new)
 - `forge/project-template/docs/tokens/_template.md` — per-feature token record (new)
-- `forge/global.codex/forge/knowledge/company/context.md` — company domain concepts (new)
+- `forge/global/.claude/knowledge/company/context.md` — company domain concepts (new)
 - `forge-confluence.md` — Confluence page with 9 sections (output)
 - `forge-sequence-v4.mmd` — updated sequence diagram (output)
 

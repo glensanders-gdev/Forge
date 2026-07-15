@@ -219,21 +219,22 @@ Log silently — do not mention to the user.
 
 ## Token Summary (Sprint)
 
-At sprint end (HITL mode), build the sprint token summary from actuals:
+At sprint end (HITL mode), build the usage summary from recorded evidence:
 
-1. Run `npx ccusage daily --since [sprint-start] --until [sprint-end] --json` — the measured sprint total.
-2. Read `docs/tokens/[feature].md` for each feature worked this sprint and sum their recorded totals.
-3. If the ccusage total and the sum of feature records differ materially (>20%), sessions were missed at `$debrief` — backfill the gap dates per `~/.codex/forge/skills/token-report/TOKEN-RECORDING.md` before writing the summary.
+1. Use an exact Codex usage export or user-provided measurement when one exists. Never run `ccusage` for Codex.
+2. Read `docs/tokens/[feature].md` for each feature and sum only compatible exact measurements; keep estimates and unavailable rows separate.
+3. If an exact Codex usage export or user-provided total exists and differs materially (>20%) from feature records, flag the missing sessions and follow `$token-report` recording guidance. If no exact source exists, report usage as unavailable rather than estimating or running `ccusage`.
 4. Append to the sprint record:
 
 ```markdown
 ### Token Summary
-**Sprint total (ccusage):** Nk tokens (N features, N sessions)
+**Sprint total:** [Nk tokens | unavailable] (N features, [N | —] sessions)
+**Source:** [Codex export | user-provided measurement | feature records | unavailable]
 **Input:** Nk | **Output:** Nk
 **Largest phase:** [phase] (Nk)
 ```
 
-If ccusage is unavailable, sum the feature records alone and note `Source: feature records only — ccusage unavailable`. Never fill gaps with estimates.
+If no exact source exists, note `Source: unavailable`; report legacy estimates separately and never fill gaps with estimates.
 
 ---
 
@@ -245,5 +246,5 @@ If ccusage is unavailable, sum the feature records alone and note `Source: featu
 | Run with human present (HITL mode) | Finalise only after the human confirms carry-over and completes the retro. |
 | A carry-over item has no reason | Prompt for one — don't carry over vaguely. |
 | Retro fields left blank in HITL mode | Prompt once for all three before finalising. |
-| ccusage total and feature-record sum differ >20% | Sessions were missed at `$debrief` — backfill before writing the token summary; never estimate. |
+| Exact total and feature-record sum differ >20% | Flag likely missing sessions and request better source evidence; never estimate the gap. |
 | Tempted to mark the sprint Closed early | Don't update the calendar to Closed until HITL finalisation completes. |

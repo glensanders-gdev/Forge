@@ -173,9 +173,7 @@ Print the following reference exactly:
 
 ---
 
-**Tip:** Project-level commands use `/project:command-name` instead of `command-name`.
-
-> **Maintainer note:** Update this reference whenever a new skill is added to `global.codex/forge/skills/manifest.json`. Skills not listed here are not discoverable via `$commands`.
+> **Maintainer note:** Update this reference whenever a new skill is added to `global/.claude/skills/manifest.json`. Skills not listed here are not discoverable via `$commands`.
 
 ## Rules
 

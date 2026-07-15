@@ -62,8 +62,7 @@ git branch -M main
 Copy the Forge project template into the new repo:
 - `AGENTS.md`
 - `.gitignore`
-- `.codex/forge/skills/` (empty, ready for overrides)
-- `.codex/forge/commands/` (empty, ready for overrides)
+- `.agents/skills/` (empty, ready for overrides)
 - `docs/CONTEXT.md`
 - `docs/DEVLOG.md`
 - `docs/kanban.md`

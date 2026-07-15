@@ -133,7 +133,8 @@ When assimilation is complete:
 
 Source: [URL or description]
 Credit: [Author / Source]
-Added to: ~/.codex/forge/skills/[skill-name]/SKILL.md
+Added to the Forge source: global/.claude/skills/[skill-name]/SKILL.md
+Codex adaptation: plugins/forge-codex/skills/[skill-name]/SKILL.md (generated or reviewed override)
 
 Forge integration points:
 - [Which existing skills reference or are affected]

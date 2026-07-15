@@ -12,7 +12,7 @@
 
 ## Phase Records
 
-_Updated at each session close (`$debrief`) from ccusage actuals — see `~/.codex/forge/skills/token-report/TOKEN-RECORDING.md`. Pipeline skills do not write here. Never fill a missing measurement with an estimate._
+_Updated at each session close (`$debrief`) from exact Codex measurements when available — see `~/.agents/skills/token-report/TOKEN-RECORDING.md`. Pipeline skills do not write here. Never fill a missing measurement with an estimate._
 
 ### Idea
 **Date range:** YYYY-MM-DD
@@ -20,7 +20,7 @@ _Updated at each session close (`$debrief`) from ccusage actuals — see `~/.cod
 **Input:** Nk tokens
 **Output:** Nk tokens
 **Total:** Nk (S/M/L/XL)
-**Source:** ccusage actuals
+**Source:** [Codex export | user-provided measurement | unavailable]
 **Notes:** [optional — unusual cost drivers, attribution splits]
 
 ---
@@ -31,7 +31,7 @@ _Updated at each session close (`$debrief`) from ccusage actuals — see `~/.cod
 **Input:** Nk tokens
 **Output:** Nk tokens
 **Total:** Nk (S/M/L/XL)
-**Source:** ccusage actuals
+**Source:** [Codex export | user-provided measurement | unavailable]
 **Notes:**
 
 ---
@@ -42,7 +42,7 @@ _Updated at each session close (`$debrief`) from ccusage actuals — see `~/.cod
 **Input:** Nk tokens
 **Output:** Nk tokens
 **Total:** Nk (S/M/L/XL)
-**Source:** ccusage actuals
+**Source:** [Codex export | user-provided measurement | unavailable]
 **Notes:**
 
 ---
@@ -53,7 +53,7 @@ _Updated at each session close (`$debrief`) from ccusage actuals — see `~/.cod
 **Input:** Nk tokens
 **Output:** Nk tokens
 **Total:** Nk (S/M/L/XL)
-**Source:** ccusage actuals
+**Source:** [Codex export | user-provided measurement | unavailable]
 **Notes:**
 
 ---
@@ -64,7 +64,7 @@ _Updated at each session close (`$debrief`) from ccusage actuals — see `~/.cod
 **Input:** Nk tokens
 **Output:** Nk tokens
 **Total:** Nk (S/M/L/XL)
-**Source:** ccusage actuals
+**Source:** [Codex export | user-provided measurement | unavailable]
 **Notes:**
 
 ---
@@ -75,7 +75,7 @@ _Updated at each session close (`$debrief`) from ccusage actuals — see `~/.cod
 **Input:** Nk tokens
 **Output:** Nk tokens
 **Total:** Nk (S/M/L/XL)
-**Source:** ccusage actuals
+**Source:** [Codex export | user-provided measurement | unavailable]
 **Pre-build estimate:** S/M/L/XL ([range])
 
 ---
@@ -86,7 +86,7 @@ _Updated at each session close (`$debrief`) from ccusage actuals — see `~/.cod
 **Input:** Nk tokens
 **Output:** Nk tokens
 **Total:** Nk (S/M/L/XL)
-**Source:** ccusage actuals
+**Source:** [Codex export | user-provided measurement | unavailable]
 **Notes:**
 
 ---
@@ -97,7 +97,7 @@ _Updated at each session close (`$debrief`) from ccusage actuals — see `~/.cod
 **Input:** Nk tokens
 **Output:** Nk tokens
 **Total:** Nk (S/M/L/XL)
-**Source:** ccusage actuals
+**Source:** [Codex export | user-provided measurement | unavailable]
 
 **Per-ticket band calibration** (coarse band judgement — exact per-ticket counts are not measurable):
 | Ticket | Estimated | Actual Band |
@@ -113,7 +113,7 @@ _Updated at each session close (`$debrief`) from ccusage actuals — see `~/.cod
 **Input:** Nk tokens
 **Output:** Nk tokens
 **Total:** Nk (S/M/L/XL)
-**Source:** ccusage actuals
+**Source:** [Codex export | user-provided measurement | unavailable]
 **Notes:**
 
 ---
@@ -124,7 +124,7 @@ _Updated at each session close (`$debrief`) from ccusage actuals — see `~/.cod
 **Input:** Nk tokens
 **Output:** Nk tokens
 **Total:** Nk (S)
-**Source:** ccusage actuals
+**Source:** [Codex export | user-provided measurement | unavailable]
 **Notes:**
 
 ---

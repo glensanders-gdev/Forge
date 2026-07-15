@@ -143,6 +143,22 @@ foreach ($property in $compatibility.nativeOverrides.PSObject.Properties) {
         $errors.Add("Codex-native override requires review because shared source changed: $name")
     }
 }
+
+$obsoleteCodexSkillPaths = @(
+    "~/.codex/forge/skills/",
+    ".codex/forge/skills/",
+    "global.codex/forge/commands/",
+    "global.codex/forge/skills/"
+)
+Get-ChildItem -LiteralPath (Join-Path $pluginRoot "skills") -Recurse -File | ForEach-Object {
+    if ($_.Extension.ToLowerInvariant() -notin @(".md", ".json", ".yaml", ".yml")) { return }
+    $text = [IO.File]::ReadAllText($_.FullName)
+    foreach ($obsoletePath in $obsoleteCodexSkillPaths) {
+        if ($text.Contains($obsoletePath)) {
+            $errors.Add("Obsolete Codex skill path '$obsoletePath' found in $($_.FullName.Substring($root.Length + 1))")
+        }
+    }
+}
 if ($adaptation.forgeVersion -ne $forgeManifest.forge_version) {
     $errors.Add("Adaptation metadata version mismatch: Forge=$($forgeManifest.forge_version), adaptation=$($adaptation.forgeVersion)")
 }

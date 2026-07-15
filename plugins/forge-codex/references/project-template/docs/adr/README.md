@@ -2,7 +2,7 @@
 
 Significant architecture and design decisions, recorded as they are made. Never delete an entry — mark superseded ones with `Status: superseded by ADR-NNNN`.
 
-See `~/.codex/forge/skills/grill-with-docs/ADR-FORMAT.md` for the full format guide and "when to create" rules.
+See `~/.agents/skills/grill-with-docs/ADR-FORMAT.md` for the full format guide and "when to create" rules.
 
 ---
 

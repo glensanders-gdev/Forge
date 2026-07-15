@@ -33,7 +33,7 @@ Close a working session cleanly when a feature is not yet complete. Lighter than
 3. Update `docs/kanban.md` — move completed tickets to Done, update In Progress.
 4. Identify anything deferred and why.
 5. Reorder the Backlog by priority for next session.
-6. **Record token actuals** — run `npx ccusage daily --since [today] --until [today] --json` and update the current phase's record in `docs/tokens/[feature-name].md` per `~/.codex/forge/skills/token-report/TOKEN-RECORDING.md`. If ccusage returns no data, record `Source: no data` — never estimate token counts from memory.
+6. **Record usage evidence** — update the current phase record in `docs/tokens/[feature-name].md` using [TOKEN-RECORDING.md](../token-report/TOKEN-RECORDING.md). Use an exact Codex usage export or user-provided measurement when available. Otherwise record `Source: unavailable` and leave token counts blank; `ccusage` is Claude Code-only and must not be used for Codex sessions.
 7. Append a structured entry to `docs/DEVLOG.md`.
 8. State the updated version number (single-file projects) or latest git tag (multi-file projects).
 9. Suggest top 1–3 goals for next session.
@@ -76,6 +76,6 @@ This is a suggestion only — never mandatory.
 |-----------|-----------|
 | `docs/HANDOFF.md` missing | Create it — debrief is a canonical writer of session state. |
 | Session completed no tickets | Still write the DEVLOG entry — record what was attempted and why it didn't complete. |
-| `ccusage` returns no data | Record `Source: no data` — never estimate token counts from memory. |
+| No exact Codex usage source is available | Record `Source: unavailable`, leave counts blank, and never estimate. |
 | Tempted to archive the PRD | Stop — PRD archiving is `$approve` only; debrief never closes a feature. |
 | No clear next action | Resolve it with the user before closing, so the next session can resume without confusion. |

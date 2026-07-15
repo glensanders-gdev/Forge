@@ -2,7 +2,7 @@
 
 Codex-native adaptation of [glensanders-gdev/Forge](https://github.com/glensanders-gdev/Forge).
 
-This plugin packages the complete Forge `3.9.0` skill portfolio from this repository and adapts it for Codex:
+This plugin packages the complete Forge `3.18.0` skill portfolio from this repository and adapts it for Codex:
 
 - reusable workflows are invoked as `$skill-name`
 - global Forge data lives under `~/.codex/forge/`

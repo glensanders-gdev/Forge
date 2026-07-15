@@ -28,6 +28,12 @@ function ConvertTo-StableJson([object]$Value, [switch]$Compress) {
 
 function Convert-ForgeText([string]$Text, [string[]]$SkillNames) {
     $out = $Text
+    $out = $out.Replace("global/.claude/", "__FORGE_SOURCE__/")
+    $out = $out.Replace("global\.claude\", "__FORGE_SOURCE__\")
+    # Repository-scoped skills use the cross-agent discovery directory. Keep
+    # this conversion ahead of the generic .claude -> .codex/forge data rewrite.
+    $out = $out -replace "(?<!~)/?\.claude/skills/", ".agents/skills/"
+    $out = $out -replace "(?<!~)\\?\.claude\\skills\\", ".agents\skills\"
     $out = $out -replace "~/.claude", "~/.codex/forge"
     $out = $out -replace "~\\.claude", "~\.codex\forge"
     $out = $out -replace "(?<!~)/?\.claude/", ".codex/forge/"
@@ -37,6 +43,12 @@ function Convert-ForgeText([string]$Text, [string[]]$SkillNames) {
     $out = $out -replace "\bClaude Desktop\b", "Codex app"
     $out = $out -replace "\bClaude\b", "Codex"
     $out = $out -replace "/user:", ""
+    $out = $out.Replace("__FORGE_SOURCE__/", "global/.claude/")
+    $out = $out.Replace("__FORGE_SOURCE__\", "global\.claude\")
+    # Codex discovers SKILL.md directly and has no project command-stub tree.
+    $out = $out.Replace(' and `.codex/forge/commands/`', '')
+    $out = $out -replace "(?m)^.*\.codex/forge/commands/.*\r?\n", ""
+    $out = $out -replace "(?m)^.*Project-level commands use.*\r?\n", ""
 
     foreach ($name in $SkillNames) {
         $escaped = [regex]::Escape($name)
@@ -192,16 +204,23 @@ $skillNames = Get-ChildItem -LiteralPath $sourceSkills -Directory |
     Select-Object -ExpandProperty Name |
     Sort-Object
 $codexNativeOverrides = @(
+    "assimilate",
     "company-add",
+    "company-update",
+    "debrief",
     "forge-init",
     "forge-install",
     "forge-update",
     "git-guardrails",
     "grill-with-peer",
+    "jira",
     "lang-rules",
     "security-assessment",
     "security-resolve",
-    "skill-health"
+    "skill-health",
+    "sprint-end",
+    "token-report",
+    "write-a-skill"
 )
 
 Ensure-Directory $destinationSkills
@@ -237,6 +256,25 @@ foreach ($generatedReference in @($codingGuidance, $projectTemplate)) {
 Copy-AdaptedTree (Join-Path $ForgeRoot "global\.claude\rules") $codingGuidance $skillNames
 Copy-AdaptedTree (Join-Path $ForgeRoot "project-template") $projectTemplate $skillNames
 Convert-ProjectTemplate $projectTemplate
+
+# Project templates cannot link to files inside the installed plugin cache by a
+# stable absolute path. Point users at the owning skill, which can resolve its
+# bundled sibling references wherever Codex installed the plugin.
+$templateReferenceRewrites = [ordered]@{
+    'See `~/.codex/forge/skills/grill-with-docs/CONTEXT-FORMAT.md` for the full format guide.' = 'Run `$grill-with-docs` for the authoritative bundled CONTEXT format.'
+    'See `~/.codex/forge/skills/grill-with-docs/ADR-FORMAT.md` for the full format guide and "when to create" rules.' = 'Run `$grill-with-docs` for the authoritative bundled ADR format and creation rules.'
+    'see `~/.codex/forge/skills/token-report/TOKEN-RECORDING.md`' = 'use `$token-report` for the recording rules'
+    'from ccusage actuals' = 'from exact Codex measurements when available'
+    '**Source:** ccusage actuals' = '**Source:** [Codex export | user-provided measurement | unavailable]'
+    '`forge/global/.claude/skills/manifest.json` — v2.3.7, 51 skills' = '`forge/global/.claude/skills/manifest.json` — shared Forge skill manifest'
+}
+Get-ChildItem -LiteralPath $projectTemplate -Recurse -File -Filter "*.md" | ForEach-Object {
+    $text = [IO.File]::ReadAllText($_.FullName, [Text.Encoding]::UTF8)
+    foreach ($entry in $templateReferenceRewrites.GetEnumerator()) {
+        $text = $text.Replace($entry.Key, $entry.Value)
+    }
+    [IO.File]::WriteAllText($_.FullName, $text, [Text.UTF8Encoding]::new($false))
+}
 
 $manifestSource = Join-Path $sourceSkills "manifest.json"
 if (Test-Path -LiteralPath $manifestSource) {

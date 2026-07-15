@@ -1,4 +1,4 @@
-# Forge v3.9.0
+# Forge v3.18.0
 
 An AI-assisted development workflow framework for Claude Code and Codex.
 
@@ -151,7 +151,7 @@ Or if you have an existing project:
 ```
 ~/.claude/
   skills/              ← 109 shared skills
-  commands/            ← 104 shared workflow commands + /grill-with-codex alias
+  commands/            ← 110 Claude command entries including /grill-with-codex
   tools/
     global.md          ← global tools registry (security scanners, perf analysers, etc.)
   knowledge/
