@@ -56,7 +56,7 @@ Append under `## Project-Specific Patterns` at the bottom of `.codex/forge/CODIN
 ## Related
 
 - `.codex/forge/CODING-STANDARDS.md` — canonical standards file this skill reads and updates
-- `global.codex/forge/rules/common/coding-style.md` — universal baseline rules that inform the standards
+- `global/.claude/rules/common/coding-style.md` — universal baseline rules that inform the standards
 - `$lang-rules` — installs language-specific rules that push-standards incorporates
 - `$review` — applies the standards produced here during code review
 - `$style-check` — sister skill for prose/documentation standards (push-standards handles code)
