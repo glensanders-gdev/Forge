@@ -107,7 +107,7 @@
     "qa-report": "1.1.0",
     "ia": "1.3.0",
     "vibe-security": "1.0.0",
-    "write-ord": "1.1.0",
+    "write-ord": "1.2.0",
     "write-reqs": "1.0.0",
     "write-ac": "1.0.0"
   }

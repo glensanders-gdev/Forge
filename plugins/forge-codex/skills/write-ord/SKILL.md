@@ -3,7 +3,7 @@ name: "write-ord"
 description: "Synthesize a call transcript, document, conversation context, or structured notes into a compliant Operational Requirements Document (ORD) organised by ISO/IEC 25010:2023 quality characteristics. Use when the user runs $write-ord, provides a transcript or document to convert into an ORD, or wants to formalise operational requirements from a conversation."
 metadata:
   category: pipeline
-  version: 1.1.0
+  version: 1.2.0
   origin: Adapted from Glen Sanders (Forge / https://github.com/glensanders-gdev/Forge)
 ---
 
@@ -86,6 +86,7 @@ Runs after human confirms Phase 1 summary. Writes the ORD using the template in 
 2. Write the ORD following the structure in [REFERENCE.md](REFERENCE.md), populating each section from classified requirements.
 3. **Assign every requirement a stable ID** — `ORD-001`, `ORD-002`, … flat and sequential in order of first appearance. The ID never encodes the 25010 characteristic (that lives in the matrix), so re-classifying a requirement never churns its ID. IDs are retired when a requirement is dropped — never reused.
 4. For every requirement, write it in testable form: quantified threshold + measurement method. If source material only gives a vague statement, write the requirement with a `[TBD — source: "quoted vague statement"]` placeholder.
+   - **Every requirement in Section 3 is a row in the standard requirement table** (`ID | Requirement | Threshold | Objective | Measurement`) defined in [REFERENCE.md](REFERENCE.md) — never free-text prose. This holds even for a single requirement or a lone TBD. The only exception is Compatibility → Interoperability, which uses the wider interface-register table. Mark KPPs by prefixing the Requirement cell with **[KPP]**.
 5. Mark KPPs explicitly in Section 3 with a **[KPP]** tag.
 6. **Populate the Requirements Traceability Matrix (Appendix B)** — one row per `ORD-NNN`: requirement ID → ISO/IEC 25010 characteristic → BRD objective (or `—` if no BRD) → provenance source. Flag any requirement with no BRD objective and no source as **orphan scope**, and any BRD objective with no resulting requirement as a **coverage gap**. Do not silently resolve either.
 7. Save to `docs/ord/[system-name]-ORD.md`.
@@ -103,6 +104,7 @@ Runs after human confirms Phase 1 summary. Writes the ORD using the template in 
 - Never write the ORD without Phase 1 confirmation — the gate is mandatory.
 - Never invent requirements not present in or inferable from the source material — use TBD placeholders instead.
 - Never leave a requirement in vague form ("should be reliable") — either quantify it or mark it TBD with the source quote.
+- Never express a Section 3 requirement as free-text prose — every requirement is a row in the standard requirement table (Interoperability excepted, which uses the interface-register table). A subsection with no requirement still gets its table with a single `TBD — coverage gap` row.
 - Never omit the KPP designation — at least one KPP must be identified or the ORD must note "KPPs not yet designated."
 - Never write a requirement without a stable `ORD-NNN` ID, and never reuse a retired ID.
 - Never leave the traceability matrix unpopulated — every requirement gets a row; flag orphan requirements and BRD coverage gaps rather than hiding them.

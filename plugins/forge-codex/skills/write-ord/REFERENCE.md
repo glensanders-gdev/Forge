@@ -177,131 +177,216 @@ Save output to `docs/ord/[system-name]-ORD.md`.
 
 > Requirements in this section are organized by ISO/IEC 25010:2023 characteristics.  
 > **[KPP]** = Key Performance Parameter — failure constitutes program/system failure.  
-> Every requirement carries a stable ID — `ORD-001`, `ORD-002`, … flat and sequential, assigned in order of first appearance. In tables use the ID column; in prose subsections prefix the requirement with its bold ID (e.g. **ORD-007**). IDs never encode the characteristic and are never reused once retired.
+> Every requirement carries a stable ID — `ORD-001`, `ORD-002`, … flat and sequential, assigned in order of first appearance. IDs never encode the characteristic and are never reused once retired.
+
+#### Standard requirement table
+
+**Every operational requirement in Section 3 is a row in a table — never free-text prose.** Every subsection below uses this one schema:
+
+| ID | Requirement | Threshold | Objective | Measurement |
+|---|---|---|---|---|
+| ORD-NNN | [testable statement] | [must-meet value] | [target value] | [how verified] |
+
+- **Threshold** is the must-meet (fail-below) value; **Objective** is the aspirational target. Use `—` where a column does not apply.
+- Mark a Key Performance Parameter by prefixing the Requirement cell with **[KPP]**.
+- Where source material gives no value, write the row with `[TBD — source: "quoted vague statement"]` rather than dropping to prose.
+- If a characteristic has **no** requirement at all, keep its heading and a single-row table reading `TBD — coverage gap, no source material` so the gap is visible in tabular form.
+- **One exception:** Compatibility → Interoperability uses the wider interface-register table below (it captures per-interface attributes a five-column table cannot). Every other subsection uses the standard schema above.
 
 ### 3.1 Performance Efficiency
 
-**3.1.1 Time Behavior**
+**3.1.1 Time Behavior** — response and processing times, throughput rates.
 
 | ID | Requirement | Threshold | Objective | Measurement |
 |---|---|---|---|---|
 | ORD-001 | [e.g. API response time] | [e.g. ≤ 3s P95] | [e.g. ≤ 1s P95] | [e.g. APM tool, monthly report] |
 
-**3.1.2 Resource Utilization**
-[CPU, memory, storage, network constraints under defined load.]
+**3.1.2 Resource Utilization** — CPU, memory, storage, network constraints under defined load.
 
-**3.1.3 Capacity** **[KPP candidate]**
-[Peak concurrent users, transaction throughput, data volume limits, growth projections.]
+| ID | Requirement | Threshold | Objective | Measurement |
+|---|---|---|---|---|
+| ORD-NNN | [e.g. peak memory per node] | [e.g. ≤ 80% of 32GB] | [e.g. ≤ 60%] | [e.g. host metrics, rolling 30d] |
+
+**3.1.3 Capacity** — peak concurrent users, transaction throughput, data volume, growth.
+
+| ID | Requirement | Threshold | Objective | Measurement |
+|---|---|---|---|---|
+| ORD-NNN | [**[KPP]** e.g. peak concurrent users] | [e.g. 10,000] | [e.g. 25,000] | [e.g. load test + prod telemetry] |
 
 ---
 
 ### 3.2 Reliability
 
-**3.2.1 Availability** **[KPP]**
-- **ORD-NNN** Uptime target: [e.g. 99.9% per calendar month]
-- Measurement period: [calendar month / rolling 30 days]
-- Permitted maintenance windows: [e.g. 4 hours/month, 02:00–06:00 local]
+**3.2.1 Availability** — uptime, measurement window, permitted maintenance.
 
-**3.2.2 Fault Tolerance**
-[Behavior under partial failure — what the system must continue to do.]
+| ID | Requirement | Threshold | Objective | Measurement |
+|---|---|---|---|---|
+| ORD-NNN | [**[KPP]** e.g. service uptime] | [e.g. 99.9% / calendar month] | [e.g. 99.95%] | [e.g. monitoring tool, calendar month] |
+| ORD-NNN | [e.g. permitted maintenance window] | [e.g. ≤ 4h/month, 02:00–06:00 local] | [e.g. ≤ 2h/month] | [e.g. change log] |
 
-**3.2.3 Recoverability**
-- Recovery Time Objective (RTO): [e.g. 4 hours]
-- Recovery Point Objective (RPO): [e.g. 1 hour]
-- Maximum Tolerable Period of Disruption (MTPD): [e.g. 8 hours]
+**3.2.2 Fault Tolerance** — behaviour under partial failure; what must keep running.
 
-**3.2.4 Faultlessness**
-[Defect rate targets in production, MTBF, MTTR.]
+| ID | Requirement | Threshold | Objective | Measurement |
+|---|---|---|---|---|
+| ORD-NNN | [e.g. survive single-node loss] | [e.g. no request loss] | [e.g. no latency impact] | [e.g. chaos test] |
+
+**3.2.3 Recoverability** — recovery targets after interruption or failure.
+
+| ID | Requirement | Threshold | Objective | Measurement |
+|---|---|---|---|---|
+| ORD-NNN | Recovery Time Objective (RTO) | [e.g. 4 hours] | [e.g. 1 hour] | [e.g. DR drill] |
+| ORD-NNN | Recovery Point Objective (RPO) | [e.g. 1 hour] | [e.g. 15 min] | [e.g. DR drill] |
+| ORD-NNN | Maximum Tolerable Period of Disruption (MTPD) | [e.g. 8 hours] | — | [e.g. BIA] |
+
+**3.2.4 Faultlessness** — production defect rate, MTBF, MTTR.
+
+| ID | Requirement | Threshold | Objective | Measurement |
+|---|---|---|---|---|
+| ORD-NNN | [e.g. MTTR for Sev-1] | [e.g. < 2 hours] | [e.g. < 1 hour] | [e.g. ITSM tool, rolling 3m] |
 
 ---
 
 ### 3.3 Security
 
-**3.3.1 Confidentiality**
-[Data classification, encryption at rest and in transit, access control model.]
+**3.3.1 Confidentiality** — data classification, encryption at rest and in transit, access control model.
 
-**3.3.2 Integrity**
-[Data integrity controls, audit logging requirements.]
+| ID | Requirement | Threshold | Objective | Measurement |
+|---|---|---|---|---|
+| ORD-NNN | [e.g. encryption in transit] | [e.g. TLS 1.2+] | [e.g. TLS 1.3] | [e.g. scan / config audit] |
 
-**3.3.3 Non-repudiation and Accountability**
-[Audit trail requirements, log retention periods.]
+**3.3.2 Integrity** — integrity controls, audit logging.
 
-**3.3.4 Authenticity**
-[Authentication standards — MFA, SSO, certificate requirements.]
+| ID | Requirement | Threshold | Objective | Measurement |
+|---|---|---|---|---|
+| ORD-NNN | [e.g. tamper-evident audit log] | [e.g. all writes logged] | — | [e.g. log review] |
 
-**3.3.5 Resistance**
-[Penetration test cadence, vulnerability SLA (e.g. critical patched within 24h).]
+**3.3.3 Non-repudiation and Accountability** — audit trail, log retention.
 
-**3.3.6 Compliance Frameworks**
-[FedRAMP / HIPAA / PCI-DSS / ISO 27001 / SOC 2 / other applicable frameworks.]
+| ID | Requirement | Threshold | Objective | Measurement |
+|---|---|---|---|---|
+| ORD-NNN | [e.g. audit log retention] | [e.g. ≥ 12 months] | [e.g. 7 years] | [e.g. retention policy audit] |
+
+**3.3.4 Authenticity** — authentication standards (MFA, SSO, certificates).
+
+| ID | Requirement | Threshold | Objective | Measurement |
+|---|---|---|---|---|
+| ORD-NNN | [e.g. MFA on privileged access] | [e.g. 100% of admins] | — | [e.g. IAM report] |
+
+**3.3.5 Resistance** — penetration test cadence, vulnerability remediation SLA.
+
+| ID | Requirement | Threshold | Objective | Measurement |
+|---|---|---|---|---|
+| ORD-NNN | [e.g. critical-vuln remediation] | [e.g. ≤ 24h] | [e.g. ≤ 8h] | [e.g. scanner + ticket log] |
+
+**3.3.6 Compliance Frameworks** — applicable frameworks and the operational obligations they impose.
+
+| ID | Requirement | Threshold | Objective | Measurement |
+|---|---|---|---|---|
+| ORD-NNN | [e.g. SOC 2 Type II] | [e.g. clean annual report] | — | [e.g. external audit] |
 
 ---
 
 ### 3.4 Compatibility
 
-**3.4.1 Interoperability**
+**3.4.1 Interoperability** — interface register (wider schema; see the exception note above).
 
 | ID | Integrated System | Interface Type | Protocol | Data Exchanged | Direction | Failure Behavior |
 |---|---|---|---|---|---|---|
 | ORD-NNN | [System name] | [REST/SFTP/etc.] | [HTTPS/SFTP/etc.] | [Description] | [In/Out/Bidirectional] | [Queue / alert / degrade] |
 
-**3.4.2 Coexistence**
-[Shared infrastructure constraints — no degradation of co-hosted systems.]
+**3.4.2 Coexistence** — shared-infrastructure constraints; no degradation of co-hosted systems.
+
+| ID | Requirement | Threshold | Objective | Measurement |
+|---|---|---|---|---|
+| ORD-NNN | [e.g. no CPU starvation of co-host] | [e.g. ≤ 50% shared CPU] | — | [e.g. host metrics] |
 
 ---
 
 ### 3.5 Flexibility
 
-**3.5.1 Scalability**
-[Horizontal/vertical scaling requirements, elasticity targets, growth projections 1/3/5 year.]
+**3.5.1 Scalability** — horizontal/vertical scaling, elasticity, growth projections.
 
-**3.5.2 Adaptability**
-[Multi-environment requirements — cloud regions, hosting models.]
+| ID | Requirement | Threshold | Objective | Measurement |
+|---|---|---|---|---|
+| ORD-NNN | [e.g. scale-out under load] | [e.g. 2× capacity in ≤ 5 min] | [e.g. ≤ 2 min] | [e.g. autoscale test] |
 
-**3.5.3 Installability**
-[Deployment and upgrade requirements, rollback capability.]
+**3.5.2 Adaptability** — multi-environment requirements (cloud regions, hosting models).
+
+| ID | Requirement | Threshold | Objective | Measurement |
+|---|---|---|---|---|
+| ORD-NNN | [e.g. multi-region deploy] | [e.g. 2 regions active-passive] | [e.g. active-active] | [e.g. deployment audit] |
+
+**3.5.3 Installability** — deployment, upgrade, rollback capability.
+
+| ID | Requirement | Threshold | Objective | Measurement |
+|---|---|---|---|---|
+| ORD-NNN | [e.g. rollback time] | [e.g. ≤ 15 min] | [e.g. ≤ 5 min] | [e.g. release drill] |
 
 ---
 
 ### 3.6 Maintainability
 
-**3.6.1 Modifiability**
-[Change window requirements, change management process obligations.]
+**3.6.1 Modifiability** — change window and change-management obligations.
 
-**3.6.2 Analyzability**
-[Monitoring and observability requirements — what must be instrumented.]
+| ID | Requirement | Threshold | Objective | Measurement |
+|---|---|---|---|---|
+| ORD-NNN | [e.g. standard change lead time] | [e.g. ≤ 2 business days] | — | [e.g. CAB records] |
+
+**3.6.2 Analyzability** — monitoring and observability; what must be instrumented.
+
+| ID | Requirement | Threshold | Objective | Measurement |
+|---|---|---|---|---|
+| ORD-NNN | [e.g. request tracing coverage] | [e.g. 100% of endpoints] | — | [e.g. tracing dashboard] |
 
 ---
 
 ### 3.7 Interaction Capability
 
-**3.7.1 Accessibility**
-[WCAG level, assistive technology support requirements.]
+**3.7.1 Accessibility** — WCAG level, assistive-technology support.
 
-**3.7.2 Learnability**
-[Operator training requirements, time-to-competency targets.]
+| ID | Requirement | Threshold | Objective | Measurement |
+|---|---|---|---|---|
+| ORD-NNN | [e.g. WCAG conformance] | [e.g. 2.2 AA] | [e.g. 2.2 AAA] | [e.g. audit / axe scan] |
 
-**3.7.3 Self-Descriptiveness**
-[Documentation requirements, in-system help, runbook obligations.]
+**3.7.2 Learnability** — operator training, time-to-competency.
+
+| ID | Requirement | Threshold | Objective | Measurement |
+|---|---|---|---|---|
+| ORD-NNN | [e.g. operator time-to-competency] | [e.g. ≤ 5 days] | [e.g. ≤ 2 days] | [e.g. onboarding record] |
+
+**3.7.3 Self-Descriptiveness** — documentation, in-system help, runbook obligations.
+
+| ID | Requirement | Threshold | Objective | Measurement |
+|---|---|---|---|---|
+| ORD-NNN | [e.g. runbook coverage] | [e.g. all Sev-1/2 paths] | — | [e.g. runbook review] |
 
 ---
 
 ### 3.8 Functional Suitability
 
-**3.8.1 Functional Completeness**
-[What operational functions must be present at go-live; what can be phased.]
+**3.8.1 Functional Completeness** — operational functions required at go-live; what can be phased.
+
+| ID | Requirement | Threshold | Objective | Measurement |
+|---|---|---|---|---|
+| ORD-NNN | [e.g. function present at go-live] | [e.g. mandatory] | [e.g. phase 1] | [e.g. acceptance test] |
 
 ---
 
 ### 3.9 Safety *(if applicable)*
 
-**3.9.1 Fail Safe**
-[System behavior on failure — safe state definition.]
+**3.9.1 Fail Safe** — safe-state definition and behaviour on failure.
 
-**3.9.2 Hazard Warning**
-[Alerting requirements for hazardous conditions.]
+| ID | Requirement | Threshold | Objective | Measurement |
+|---|---|---|---|---|
+| ORD-NNN | [e.g. reach safe state on fault] | [e.g. ≤ 2s] | — | [e.g. fault-injection test] |
 
-> If Safety is not applicable: "This system is not classified as safety-critical. Safety characteristic requirements are not applicable."
+**3.9.2 Hazard Warning** — alerting for hazardous conditions.
+
+| ID | Requirement | Threshold | Objective | Measurement |
+|---|---|---|---|---|
+| ORD-NNN | [e.g. hazard alert latency] | [e.g. ≤ 10s] | — | [e.g. alert test] |
+
+> If Safety is not applicable: "This system is not classified as safety-critical. Safety characteristic requirements are not applicable." — state this in place of the tables above.
 
 ---
 
