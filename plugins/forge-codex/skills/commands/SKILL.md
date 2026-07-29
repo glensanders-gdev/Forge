@@ -173,6 +173,7 @@ Print the following reference exactly:
 
 ---
 
+
 > **Maintainer note:** Update this reference whenever a new skill is added to `global/.claude/skills/manifest.json`. Skills not listed here are not discoverable via `$commands`.
 
 ## Rules

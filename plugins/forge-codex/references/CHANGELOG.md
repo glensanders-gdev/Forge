@@ -212,12 +212,12 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 - `$grill-with-peer` v1.0.0 — shared cross-model challenge protocol; Codex delegates to Codex and the Codex-native override delegates to Codex, with explicit consent, redaction, non-interactive execution, and transparent reconciliation
 - `/grill-with-codex` and `$grill-with-Codex` — thin runtime aliases that route to the shared peer-grilling protocol without duplicating workflow logic
 - `$graphify` Codex command stub and manifest entry — restores parity for the upstream graphify skill
-- `plugins/forge-codex/` — committed Codex plugin generated from the shared `global.codex/forge/` workflow source, with reviewed Codex-native overrides
+- `plugins/forge-codex/` — committed Codex plugin generated from the shared `global/.claude/` workflow source, with reviewed Codex-native overrides
 - `.agents/plugins/marketplace.json` — repository marketplace entry for Codex installation
 - `tools/build-forge-codex.ps1` — deterministic Codex plugin generation
 - `tools/test-forge-parity.ps1` and `.github/workflows/forge-parity.yml` — fail when shared skills are missing, versions drift, generated output is stale, or machine-specific paths enter the plugin
 - `plugins/forge-codex/compatibility.json` and `tools/update-forge-codex-overrides.ps1` — explicit review ledger for runtime-specific overrides; parity fails when a shared source changes until its Codex override is reviewed
-- `global.codex/forge/commands/raid.md` — restores the missing Codex command stub so every shared skill is invocable in both runtimes
+- `global/.claude/commands/raid.md` — restores the missing Codex command stub so every shared skill is invocable in both runtimes
 
 ### Changed
 - Forge now supports Codex and Codex under one shared framework version and changelog
@@ -434,7 +434,7 @@ Bumped to v3.0.0 — four skills added in one session (git-guardrails, jira, ski
 ### Added
 - `$company-update` v1.0.0 — post-install maintenance for company repos. Two modes:
   - `--reconfigure`: re-run any of the 8 grilling topics from `$company-add` against the existing config; shows a diff of changes before writing; fields from unselected topics are untouched
-  - `--update-skills`: compare version fields of the 17 bundled skills against `~/.codex/forge/skills/`; show an update inventory; copy newer versions on confirmation
+  - `--update-skills`: compare version fields of the 17 bundled skills against `~/.agents/skills/`; show an update inventory; copy newer versions on confirmation
   - `--all`: reconfigure then update-skills in sequence
 - `decisions/ADR-001-one-company-per-install.md` — formal ADR documenting the one-company-per-install constraint: rationale (unambiguous path resolution, knowledge contamination risk, config conflicts), alternatives considered, and revisit criteria
 
@@ -803,7 +803,7 @@ LLM knowledge base pattern: raw data → compiled wiki → health checks → con
 - `$token-report` — program-level token usage analysis by feature, sprint, PI, or calibration. Reads from per-project token files and global ledger.
 - `~/.codex/forge/tokens/ledger.md` — global cross-project token ledger, updated at `$approve`
 - `docs/tokens/template.md` — per-feature token record template (project template)
-- `~/.codex/forge/skills/token-report/TOKEN-RECORDING.md` — estimation guide and phase recording format reference
+- `~/.agents/skills/token-report/TOKEN-RECORDING.md` — estimation guide and phase recording format reference
 
 ### Changed
 - `$idea` — records token usage after decision gate
