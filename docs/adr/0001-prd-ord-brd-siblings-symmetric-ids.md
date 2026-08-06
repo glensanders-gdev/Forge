@@ -89,6 +89,28 @@ rather than a second skill.
   `/write-reqs` keeps both sibling gates (one per document) and owns only the joint front
   (functional/operational routing) and back (the bidirectional cross-link pass).
 
+## Amendment — 2026-08-06: namespace extended, schemas given a home
+
+The decision above authorised `PRD-NNN` and `ORD-NNN` only, both defined as *requirements*.
+A subsequent directive — every binding statement is a table row with a stable ID — put
+assumptions and dependencies in scope, which the original namespace could not carry.
+
+- **Namespace extended** to `ASM-NNN` (assumptions) and `DEP-NNN` (dependencies), keeping the
+  flat-sequential, never-reused, never-theme-encoding properties of the original scheme.
+  `AC-NNN` (already in use by `/write-ac`) is recorded here for completeness.
+- **Single-letter prefixes are excluded.** `/raid` owns `R-`, `A-`, `I-`, `D-` for Risks,
+  Actions, Issues and Decisions, so `A-NNN` for assumptions would collide with Actions.
+- **Assumptions are not a RAID quadrant.** Forge's RAID is Risks/Actions/Issues/Decisions, so a
+  falsified assumption has no quadrant to move to and is escalated as a risk (`/raid add risk`),
+  with the resulting `R-NNN` recorded against the assumption.
+- **Wording and table schemas now live in `global/.claude/rules/requirements/`**, cited by path
+  from `/write-prd`, `/write-ord`, `/write-reqs` and `/write-ac`. Neither sibling could own them
+  without the other drifting, and `/write-reqs` is barred from owning templates — so a shared
+  ruleset was the only placement consistent with PRINCIPLE 6.
+
+Unchanged by this amendment: the sibling model, the flat symmetric requirement IDs, and the rule
+that `/write-ord` does not read or trace to a PRD.
+
 Shipped in Forge v3.12.0 (`/write-ord` v1.1.0, `/write-prd` v2.1.1) via
 [PR #19](https://github.com/glensanders-gdev/Forge/pull/19). Design grilled and recorded in
 `~/.claude/knowledge/learning/requirements-documents/` (LR-0005, LR-0006).

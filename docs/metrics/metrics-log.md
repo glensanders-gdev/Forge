@@ -14,3 +14,6 @@
 | 2026-06-01 | Forge framework v3.7.0 | 2 | 3 | 3 | 8 |
 | 2026-06-11 | Forge framework — tiered governance, token optimisation, model selection | 4 | 5 | 4 | 13 |
 | 2026-07-13 | New skill /brain-setup v1.0.0 (three-tier second-brain model) | 1 | 4 | 5 | 10 |
+| 2026-08-06 | /write-ord v1.2.0 + /write-reqs v1.0.0 — requirements language, structure, orchestration | 4 | 5 | 4 | 13 |
+| 2026-08-06 | /write-ord + /write-reqs — delta critique: all-requirements-in-tables directive | 3 | 3 | 3 | 9 |
+| 2026-08-06 | /write-ac v1.2.0 — language rules, ORD register schema, Capability/Epic write-back | 3 | 4 | 3 | 10 |

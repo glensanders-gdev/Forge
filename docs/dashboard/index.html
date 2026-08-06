@@ -14,7 +14,7 @@
     header h1 { font-size: 1.3rem; }
     header .meta { font-size: 0.8rem; color: #aaa; margin-top: 4px; }
     nav.sections { background: #fff; border-bottom: 1px solid #e0e0e0;
-                   display: flex; gap: 0; overflow-x: auto; }
+                   display: flex; gap: 0; overflow-x: auto; position: sticky; top: 0; z-index: 5; }
     nav.sections a { padding: 12px 20px; text-decoration: none; color: #555;
                      font-size: 0.85rem; white-space: nowrap; border-bottom: 3px solid transparent; }
     nav.sections a:hover, nav.sections a.active { color: #1565c0; border-bottom-color: #1565c0; }
@@ -43,8 +43,8 @@
 <header>
   <h1>Forge Dashboard — Forge</h1>
   <div class="meta">
-    Generated: 2026-06-11 &nbsp;|&nbsp; Forge framework repo &nbsp;|&nbsp;
-    Context: <span class="badge badge-green">✅ Green</span>
+    Generated: 2026-07-13 &nbsp;|&nbsp; Forge framework repo &nbsp;|&nbsp;
+    Context: <span class="badge badge-green">✅ Green — 22.5k / 100k</span>
   </div>
 </header>
 
@@ -67,6 +67,7 @@
       <h3>Estimate vs Actual</h3>
       <canvas id="c-estimate"></canvas>
     </div>
+    <!-- Cost per Story Point panel omitted — token_cost_per_1k not configured in nbn company config -->
   </div>
 </section>
 
@@ -144,42 +145,38 @@
 </div>
 
 <script>
-  // ── Injected data — generated 2026-06-11 by /dashboard-tokens ──
-  // Token totals are legacy agent estimates; ccusage actuals begin accruing from 2026-06-11 (PR #9).
-  const spendData       = [
+  // ── Injected data — parsed 2026-07-13 from docs/tokens/, docs/metrics/, docs/context-health-report.md ──
+  const spendData = [
+    { feature: 'Forge Maintenance (Jun 2026, ccusage actuals)', total: 4530000, band: 'XL' },
     { feature: 'Forge Junction-Based Sync', total: 32000, band: 'M' },
     { feature: 'Knowledge Onboard', total: 23000, band: 'M' }
   ];
-  const calibrationData = []; // no pre-build estimate bands recorded for either feature
-  const trendData       = [
-    { date: '2026-06-11', autoLoad: 8070, onDemand: 0, total: 8070, status: 'Green' }
+  const calibrationData = []; // no pre-build estimate bands recorded in docs/tokens/
+  const trendData = [
+    { date: '2026-06-11', autoLoad: 8070,  onDemand: 0,    total: 8070,  status: 'Green' },
+    { date: '2026-07-13', autoLoad: 14168, onDemand: 8335, total: 22503, status: 'Green' }
   ];
-  const criticData      = [
+  const criticData = [
     { date: '2026-05-24', subject: 'Forge v2.5.6 (third critic pass)', p1: 3, p2: 2, p3: 3, total: 8 },
     { date: '2026-05-24', subject: 'Forge framework (post-resolution state)', p1: 0, p2: 5, p3: 5, total: 10 },
     { date: '2026-05-28', subject: 'Forge v3.4.0 — duplication/staleness audit', p1: 3, p2: 5, p3: 4, total: 12 },
     { date: '2026-06-01', subject: 'Forge framework v3.7.0', p1: 2, p2: 3, p3: 3, total: 8 },
-    { date: '2026-06-11', subject: 'Tiered governance, token optimisation, model selection', p1: 4, p2: 5, p3: 4, total: 13 }
+    { date: '2026-06-11', subject: 'Tiered governance, token optimisation, model selection', p1: 4, p2: 5, p3: 4, total: 13 },
+    { date: '2026-07-13', subject: '/brain-setup v1.0.0 (three-tier second-brain model)', p1: 1, p2: 4, p3: 5, total: 10 }
   ];
-  const diagnoseData    = [];
-  const lookupData      = [];
-  const sprintData      = [];
-  const securityData    = [];
-  const debtData        = { high: 0, medium: 0, low: 0 };
-  const flagData        = [];
-  const efficiencyData  = [];
-  const costPerPoint    = [];
-  const tokenCostPer1k  = null; // no active company configured
+  const diagnoseData   = []; // no Diagnose Events table in metrics-log.md
+  const lookupData     = []; // no Lookup Activity table in metrics-log.md
+  const sprintData     = []; // no Sprint Velocity table in metrics-log.md
+  const securityData   = []; // no docs/security/ assessments
+  const debtData       = { high: 0, medium: 0, low: 0 }; // no docs/tech-debt.md
+  const flagData       = []; // no docs/feature-flags.md
+  const efficiencyData = []; // requires sprint + token correlation
+  const costPerPoint   = [];
+  const tokenCostPer1k = null; // commented out in nbn company config
 
   // ── Colour palettes ──
-  const bandColour  = { S: '#2e7d32', M: '#1565c0', L: '#e65100', XL: '#c62828' };
-  const severityCol = { critical: '#c62828', high: '#e65100', medium: '#f9a825', low: '#2e7d32' };
+  const bandColour = { S: '#2e7d32', M: '#1565c0', L: '#e65100', XL: '#c62828' };
   const green = '#2e7d32', amber = '#e65100', red = '#c62828', blue = '#1565c0';
-
-  function colourForPct(pct, invert) {
-    if (invert) return pct < 15 ? green : pct < 30 ? amber : red;
-    return pct >= 80 ? green : pct >= 50 ? amber : red;
-  }
 
   function emptyPanel(canvasId, msg) {
     const canvas = document.getElementById(canvasId);
@@ -193,111 +190,79 @@
 
   // ── Section 1: Token & Cost ──
 
-  if (spendData.length) {
-    new Chart(document.getElementById('c-spend'), {
-      type: 'bar',
-      data: {
-        labels: spendData.map(d => d.feature),
-        datasets: [{ label: 'Total tokens', data: spendData.map(d => d.total),
-          backgroundColor: spendData.map(d => bandColour[d.band] + 'cc'),
-          borderColor: spendData.map(d => bandColour[d.band]), borderWidth: 1 }]
-      },
-      options: { indexAxis: 'y', responsive: true,
-        plugins: { legend: { display: false },
-          tooltip: { callbacks: { label: ctx =>
-            `${(ctx.raw/1000).toFixed(0)}k tokens (${spendData[ctx.dataIndex].band}) — legacy estimate` }}},
-        scales: { x: { title: { display: true, text: 'Tokens (agent-estimated, pre-ccusage)' } } } }
-    });
-  } else { emptyPanel('c-spend', 'No token data yet — run a feature through /build to start tracking.'); }
+  new Chart(document.getElementById('c-spend'), {
+    type: 'bar',
+    data: {
+      labels: spendData.map(d => d.feature),
+      datasets: [{ label: 'Total tokens', data: spendData.map(d => d.total),
+        backgroundColor: spendData.map(d => bandColour[d.band] + 'cc'),
+        borderColor: spendData.map(d => bandColour[d.band]), borderWidth: 1 }]
+    },
+    options: { indexAxis: 'y', responsive: true,
+      plugins: { legend: { display: false },
+        tooltip: { callbacks: { label: ctx =>
+          `${(ctx.raw/1000).toFixed(0)}k tokens (${spendData[ctx.dataIndex].band})` }}},
+      scales: { x: { type: 'logarithmic',
+        title: { display: true, text: 'Tokens (log scale — maintenance actuals dwarf feature estimates)' } } } }
+  });
 
-  if (calibrationData.length) {
-    new Chart(document.getElementById('c-estimate'), {
-      type: 'bar',
-      data: {
-        labels: calibrationData.map(d => d.feature),
-        datasets: [
-          { label: 'Estimate', data: calibrationData.map(d => d.estimateTokens),
-            backgroundColor: blue + '99' },
-          { label: 'Actual',   data: calibrationData.map(d => d.actual),
-            backgroundColor: calibrationData.map(d => (d.over ? red : green) + '99') }
-        ]
-      },
-      options: { responsive: true,
-        scales: { y: { title: { display: true, text: 'Tokens' } } } }
-    });
-  } else { emptyPanel('c-estimate', 'No calibration data yet — neither tracked feature recorded a pre-build estimate band.'); }
+  emptyPanel('c-estimate', 'No calibration data — token records have no pre-build estimate bands. Run /estimate before building to enable this panel.');
 
   // ── Section 2: Quality ──
 
-  if (criticData.length) {
-    new Chart(document.getElementById('c-critic'), {
-      type: 'bar',
-      data: {
-        labels: criticData.map(d => d.date + ' ' + d.subject.slice(0, 20)),
-        datasets: [
-          { label: 'P1', data: criticData.map(d => d.p1), backgroundColor: red + 'cc' },
-          { label: 'P2', data: criticData.map(d => d.p2), backgroundColor: amber + 'cc' },
-          { label: 'P3', data: criticData.map(d => d.p3), backgroundColor: '#f9a825cc' }
-        ]
-      },
-      options: { responsive: true, scales: {
-        x: { stacked: true }, y: { stacked: true, title: { display: true, text: 'Findings' } }
-      }}
-    });
-  } else { emptyPanel('c-critic', 'Run /critic to start tracking quality findings.'); }
+  new Chart(document.getElementById('c-critic'), {
+    type: 'bar',
+    data: {
+      labels: criticData.map(d => d.date + ' ' + d.subject.slice(0, 20)),
+      datasets: [
+        { label: 'P1', data: criticData.map(d => d.p1), backgroundColor: red + 'cc' },
+        { label: 'P2', data: criticData.map(d => d.p2), backgroundColor: amber + 'cc' },
+        { label: 'P3', data: criticData.map(d => d.p3), backgroundColor: '#f9a825cc' }
+      ]
+    },
+    options: { responsive: true, scales: {
+      x: { stacked: true }, y: { stacked: true, title: { display: true, text: 'Findings' } }
+    }}
+  });
 
-  if (diagnoseData.length && sprintData.length) { /* populated when data exists */ }
-  else { emptyPanel('c-diagnose', 'No diagnose events recorded yet.'); }
-
-  if (securityData.length) { /* populated when data exists */ }
-  else { emptyPanel('c-security', 'Run /security-assessment to start tracking.'); }
+  emptyPanel('c-diagnose', 'No diagnose events recorded yet.');
+  emptyPanel('c-security', 'Run /security-assessment to start tracking.');
 
   // ── Section 3: Pipeline & Velocity ──
 
-  if (sprintData.length) { /* populated when data exists */ }
-  else {
-    ['c-velocity','c-carryover','c-goals'].forEach(id =>
-      emptyPanel(id, 'Close sprints with /sprint-end to start tracking.'));
-  }
+  ['c-velocity','c-carryover','c-goals'].forEach(id =>
+    emptyPanel(id, 'Close sprints with /sprint-end to start tracking.'));
 
-  if (trendData.length) {
-    new Chart(document.getElementById('c-context'), {
-      type: 'line',
-      data: {
-        labels: trendData.map(d => d.date),
-        datasets: [
-          { label: 'Total', data: trendData.map(d => d.total),
-            borderColor: blue, backgroundColor: blue + '22', fill: true, tension: 0.3 },
-          { label: 'Auto-loaded', data: trendData.map(d => d.autoLoad),
-            borderColor: green, borderDash: [4,4], fill: false },
-          { label: 'On-demand',   data: trendData.map(d => d.onDemand),
-            borderColor: amber, borderDash: [4,4], fill: false }
-        ]
-      },
-      options: { responsive: true,
-        plugins: { annotation: { annotations: {
-          amber: { type: 'line', yMin: 30000, yMax: 30000, borderColor: amber, borderDash: [4,4] },
-          red:   { type: 'line', yMin: 60000, yMax: 60000, borderColor: red,   borderDash: [4,4] }
-        }}},
-        scales: { y: { title: { display: true, text: 'Tokens' }, min: 0 } } }
-    });
-  } else { emptyPanel('c-context', 'Run /context-health to populate the context load trend.'); }
+  new Chart(document.getElementById('c-context'), {
+    type: 'line',
+    data: {
+      labels: trendData.map(d => d.date),
+      datasets: [
+        { label: 'Total', data: trendData.map(d => d.total),
+          borderColor: blue, backgroundColor: blue + '22', fill: true, tension: 0.3 },
+        { label: 'Auto-loaded', data: trendData.map(d => d.autoLoad),
+          borderColor: green, borderDash: [4,4], fill: false },
+        { label: 'On-demand',   data: trendData.map(d => d.onDemand),
+          borderColor: amber, borderDash: [4,4], fill: false }
+      ]
+    },
+    options: { responsive: true,
+      plugins: { annotation: { annotations: {
+        amber: { type: 'line', yMin: 30000, yMax: 30000, borderColor: amber, borderDash: [4,4] },
+        red:   { type: 'line', yMin: 60000, yMax: 60000, borderColor: red,   borderDash: [4,4] }
+      }}},
+      scales: { y: { title: { display: true, text: 'Tokens' }, min: 0 } } }
+  });
 
   // ── Section 4: Knowledge Base ──
 
-  if (efficiencyData.length) { /* populated when data exists */ }
-  else { emptyPanel('c-efficiency', 'Token efficiency populates after 2+ sprints with token data.'); }
-
-  if (lookupData.length && sprintData.length) { /* populated when data exists */ }
-  else { emptyPanel('c-lookup', 'Lookup activity appears after /lookup usage is recorded.'); }
+  emptyPanel('c-efficiency', 'Token efficiency populates after 2+ sprints with token data.');
+  emptyPanel('c-lookup', 'Lookup activity appears after /lookup usage is recorded.');
 
   // ── Section 5: Health ──
 
-  if (debtData.high + debtData.medium + debtData.low > 0) { /* populated when data exists */ }
-  else { emptyPanel('c-debt', 'No tech debt registered — use /tech-debt add to start tracking.'); }
-
-  if (flagData.length) { /* populated when data exists */ }
-  else { emptyPanel('c-flags', 'No active feature flags.'); }
+  emptyPanel('c-debt', 'No tech debt registered — use /tech-debt add to start tracking.');
+  emptyPanel('c-flags', 'No active feature flags.');
 
   // ── Section nav scroll spy ──
   const sections = document.querySelectorAll('section[id]');
@@ -313,10 +278,10 @@
     const rows = [
       ['Section','Metric','Label','Value'],
       ...spendData.map(d => ['Tokens','Spend',d.feature, d.total]),
-      ...criticData.map(d => ['Quality','Critic',d.date + ' ' + d.subject,
-        `P1:${d.p1} P2:${d.p2} P3:${d.p3}`]),
       ...trendData.map(d => ['Context','Load',d.date,
-        `Auto:${d.autoLoad} OnDemand:${d.onDemand} Total:${d.total} ${d.status}`])
+        `Auto:${d.autoLoad} OnDemand:${d.onDemand} Total:${d.total} ${d.status}`]),
+      ...criticData.map(d => ['Quality','Critic',d.date + ' ' + d.subject,
+        `P1:${d.p1} P2:${d.p2} P3:${d.p3}`])
     ];
     const csv = rows.map(r => r.map(v => `"${v}"`).join(',')).join('\n');
     const a = document.createElement('a');

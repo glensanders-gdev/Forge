@@ -177,41 +177,66 @@ Save output to `docs/ord/[system-name]-ORD.md`.
 
 > Requirements in this section are organized by ISO/IEC 25010:2023 characteristics.  
 > **[KPP]** = Key Performance Parameter — failure constitutes program/system failure.  
-> Every requirement carries a stable ID — `ORD-001`, `ORD-002`, … flat and sequential, assigned in order of first appearance. IDs never encode the characteristic and are never reused once retired.
+> Wording follows `rules/requirements/language.md`; presentation, schemas and IDs follow
+> `rules/requirements/tables.md`. Both are authoritative — the tables below show the shape only.
 
-#### Standard requirement table
+Every requirement is one row in the register schema below. The subsection heading supplies the
+25010 characteristic, so no characteristic column is needed.
 
-**Every operational requirement in Section 3 is a row in a table — never free-text prose.** Every subsection below uses this one schema:
+**Worked example** — the threshold lives *inside* the Requirement Description as a declarative
+end state, never in a separate column:
 
-| ID | Requirement | Threshold | Objective | Measurement |
-|---|---|---|---|---|
-| ORD-NNN | [testable statement] | [must-meet value] | [target value] | [how verified] |
+| BRD# | ORD# | Requirement Description | MoSCoW | Timing | Source | Delivery Agent | Verification | Capability | Epic | Comments |
+|---|---|---|---|---|---|---|---|---|---|---|
+| BRD-04 | ORD-001 | Search results are returned within 3 seconds at P95 under normal load | Must | Q3 FY26 | Digital, Service Ops, A. Patel | Platform Engineering | APM tool, monthly report | CAP-12 | EPIC-31 | Threshold agreed at 12 Jun workshop |
 
-- **Threshold** is the must-meet (fail-below) value; **Objective** is the aspirational target. Use `—` where a column does not apply.
-- Mark a Key Performance Parameter by prefixing the Requirement cell with **[KPP]**.
-- Where source material gives no value, write the row with `[TBD — source: "quoted vague statement"]` rather than dropping to prose.
-- If a characteristic has **no** requirement at all, keep its heading and a single-row table reading `TBD — coverage gap, no source material` so the gap is visible in tabular form.
-- **One exception:** Compatibility → Interoperability uses the wider interface-register table below (it captures per-interface attributes a five-column table cannot). Every other subsection uses the standard schema above.
+| Column | Holds |
+|---|---|
+| `BRD#` | Originating BRD requirement. `—` where no BRD exists — then `Source` carries provenance alone. |
+| `ORD#` | `ORD-NNN`, flat and sequential, never reused. |
+| `Requirement Description` | The declarative end state, carrying its own quantified value. Prefix **[KPP]** where failure constitutes program failure. |
+| `MoSCoW` | `Must` / `Should` / `Could` / `Won't`. |
+| `Timing` | When the requirement needs to be live — release, quarter, or date. |
+| `Source` | Business Unit, Function, Name. |
+| `Delivery Agent` | The department accountable for delivering it. |
+| `Verification` | How it is proven — load test, monitoring tool, audit, DR drill. Required; `/write-ac` rejects an operational criterion without one. |
+| `Capability` | The Jira Capability whose AC covers it. Written back by `/write-ac`. |
+| `Epic` | The Epic under that Capability delivering it. Written back by `/write-ac`. |
+| `Comments` | Free text during refinement. Never the home of a commitment — if it binds, it belongs in the Description. |
+
+**MoSCoW and [KPP] are orthogonal and both are kept.** A KPP is a program-failure threshold; a
+Must is required for this release. Most KPPs are Musts; most Musts are not KPPs.
+
+**`Should` and `Could` as MoSCoW values do not violate `language.md`.** That rule bans hedging
+verbs inside requirement *text*. A controlled enum in a priority column is unambiguous.
+
+Where source material gives no value, write the Description as `[TBD — source: "quoted vague
+statement"]` — never drop to prose, and never invent a value.
+
+**Subsections with no requirement are omitted from the body** and listed once in the Coverage
+Gaps table at the end of this section. Check against the full sub-characteristic set in the
+taxonomy above — all nine characteristics and every sub-characteristic — not only the
+subsections pre-scaffolded below.
 
 ### 3.1 Performance Efficiency
 
 **3.1.1 Time Behavior** — response and processing times, throughput rates.
 
-| ID | Requirement | Threshold | Objective | Measurement |
-|---|---|---|---|---|
-| ORD-001 | [e.g. API response time] | [e.g. ≤ 3s P95] | [e.g. ≤ 1s P95] | [e.g. APM tool, monthly report] |
+| BRD# | ORD# | Requirement Description | MoSCoW | Timing | Source | Delivery Agent | Verification | Capability | Epic | Comments |
+|---|---|---|---|---|---|---|---|---|---|---|
+| [BRD-NN or —] | ORD-NNN | [declarative statement carrying the value] | Must | [when live] | [BU, Function, Name] | [Department] | [how proven] | [CAP-NN or —] | [EPIC-NN or —] | |
 
 **3.1.2 Resource Utilization** — CPU, memory, storage, network constraints under defined load.
 
-| ID | Requirement | Threshold | Objective | Measurement |
-|---|---|---|---|---|
-| ORD-NNN | [e.g. peak memory per node] | [e.g. ≤ 80% of 32GB] | [e.g. ≤ 60%] | [e.g. host metrics, rolling 30d] |
+| BRD# | ORD# | Requirement Description | MoSCoW | Timing | Source | Delivery Agent | Verification | Capability | Epic | Comments |
+|---|---|---|---|---|---|---|---|---|---|---|
+| [BRD-NN or —] | ORD-NNN | [declarative statement carrying the value] | Must | [when live] | [BU, Function, Name] | [Department] | [how proven] | [CAP-NN or —] | [EPIC-NN or —] | |
 
 **3.1.3 Capacity** — peak concurrent users, transaction throughput, data volume, growth.
 
-| ID | Requirement | Threshold | Objective | Measurement |
-|---|---|---|---|---|
-| ORD-NNN | [**[KPP]** e.g. peak concurrent users] | [e.g. 10,000] | [e.g. 25,000] | [e.g. load test + prod telemetry] |
+| BRD# | ORD# | Requirement Description | MoSCoW | Timing | Source | Delivery Agent | Verification | Capability | Epic | Comments |
+|---|---|---|---|---|---|---|---|---|---|---|
+| [BRD-NN or —] | ORD-NNN | [declarative statement carrying the value] | Must | [when live] | [BU, Function, Name] | [Department] | [how proven] | [CAP-NN or —] | [EPIC-NN or —] | |
 
 ---
 
@@ -219,30 +244,27 @@ Save output to `docs/ord/[system-name]-ORD.md`.
 
 **3.2.1 Availability** — uptime, measurement window, permitted maintenance.
 
-| ID | Requirement | Threshold | Objective | Measurement |
-|---|---|---|---|---|
-| ORD-NNN | [**[KPP]** e.g. service uptime] | [e.g. 99.9% / calendar month] | [e.g. 99.95%] | [e.g. monitoring tool, calendar month] |
-| ORD-NNN | [e.g. permitted maintenance window] | [e.g. ≤ 4h/month, 02:00–06:00 local] | [e.g. ≤ 2h/month] | [e.g. change log] |
+| BRD# | ORD# | Requirement Description | MoSCoW | Timing | Source | Delivery Agent | Verification | Capability | Epic | Comments |
+|---|---|---|---|---|---|---|---|---|---|---|
+| [BRD-NN or —] | ORD-NNN | [declarative statement carrying the value] | Must | [when live] | [BU, Function, Name] | [Department] | [how proven] | [CAP-NN or —] | [EPIC-NN or —] | |
 
 **3.2.2 Fault Tolerance** — behaviour under partial failure; what must keep running.
 
-| ID | Requirement | Threshold | Objective | Measurement |
-|---|---|---|---|---|
-| ORD-NNN | [e.g. survive single-node loss] | [e.g. no request loss] | [e.g. no latency impact] | [e.g. chaos test] |
+| BRD# | ORD# | Requirement Description | MoSCoW | Timing | Source | Delivery Agent | Verification | Capability | Epic | Comments |
+|---|---|---|---|---|---|---|---|---|---|---|
+| [BRD-NN or —] | ORD-NNN | [declarative statement carrying the value] | Must | [when live] | [BU, Function, Name] | [Department] | [how proven] | [CAP-NN or —] | [EPIC-NN or —] | |
 
 **3.2.3 Recoverability** — recovery targets after interruption or failure.
 
-| ID | Requirement | Threshold | Objective | Measurement |
-|---|---|---|---|---|
-| ORD-NNN | Recovery Time Objective (RTO) | [e.g. 4 hours] | [e.g. 1 hour] | [e.g. DR drill] |
-| ORD-NNN | Recovery Point Objective (RPO) | [e.g. 1 hour] | [e.g. 15 min] | [e.g. DR drill] |
-| ORD-NNN | Maximum Tolerable Period of Disruption (MTPD) | [e.g. 8 hours] | — | [e.g. BIA] |
+| BRD# | ORD# | Requirement Description | MoSCoW | Timing | Source | Delivery Agent | Verification | Capability | Epic | Comments |
+|---|---|---|---|---|---|---|---|---|---|---|
+| [BRD-NN or —] | ORD-NNN | [declarative statement carrying the value] | Must | [when live] | [BU, Function, Name] | [Department] | [how proven] | [CAP-NN or —] | [EPIC-NN or —] | |
 
 **3.2.4 Faultlessness** — production defect rate, MTBF, MTTR.
 
-| ID | Requirement | Threshold | Objective | Measurement |
-|---|---|---|---|---|
-| ORD-NNN | [e.g. MTTR for Sev-1] | [e.g. < 2 hours] | [e.g. < 1 hour] | [e.g. ITSM tool, rolling 3m] |
+| BRD# | ORD# | Requirement Description | MoSCoW | Timing | Source | Delivery Agent | Verification | Capability | Epic | Comments |
+|---|---|---|---|---|---|---|---|---|---|---|
+| [BRD-NN or —] | ORD-NNN | [declarative statement carrying the value] | Must | [when live] | [BU, Function, Name] | [Department] | [how proven] | [CAP-NN or —] | [EPIC-NN or —] | |
 
 ---
 
@@ -250,55 +272,56 @@ Save output to `docs/ord/[system-name]-ORD.md`.
 
 **3.3.1 Confidentiality** — data classification, encryption at rest and in transit, access control model.
 
-| ID | Requirement | Threshold | Objective | Measurement |
-|---|---|---|---|---|
-| ORD-NNN | [e.g. encryption in transit] | [e.g. TLS 1.2+] | [e.g. TLS 1.3] | [e.g. scan / config audit] |
+| BRD# | ORD# | Requirement Description | MoSCoW | Timing | Source | Delivery Agent | Verification | Capability | Epic | Comments |
+|---|---|---|---|---|---|---|---|---|---|---|
+| [BRD-NN or —] | ORD-NNN | [declarative statement carrying the value] | Must | [when live] | [BU, Function, Name] | [Department] | [how proven] | [CAP-NN or —] | [EPIC-NN or —] | |
 
 **3.3.2 Integrity** — integrity controls, audit logging.
 
-| ID | Requirement | Threshold | Objective | Measurement |
-|---|---|---|---|---|
-| ORD-NNN | [e.g. tamper-evident audit log] | [e.g. all writes logged] | — | [e.g. log review] |
+| BRD# | ORD# | Requirement Description | MoSCoW | Timing | Source | Delivery Agent | Verification | Capability | Epic | Comments |
+|---|---|---|---|---|---|---|---|---|---|---|
+| [BRD-NN or —] | ORD-NNN | [declarative statement carrying the value] | Must | [when live] | [BU, Function, Name] | [Department] | [how proven] | [CAP-NN or —] | [EPIC-NN or —] | |
 
 **3.3.3 Non-repudiation and Accountability** — audit trail, log retention.
 
-| ID | Requirement | Threshold | Objective | Measurement |
-|---|---|---|---|---|
-| ORD-NNN | [e.g. audit log retention] | [e.g. ≥ 12 months] | [e.g. 7 years] | [e.g. retention policy audit] |
+| BRD# | ORD# | Requirement Description | MoSCoW | Timing | Source | Delivery Agent | Verification | Capability | Epic | Comments |
+|---|---|---|---|---|---|---|---|---|---|---|
+| [BRD-NN or —] | ORD-NNN | [declarative statement carrying the value] | Must | [when live] | [BU, Function, Name] | [Department] | [how proven] | [CAP-NN or —] | [EPIC-NN or —] | |
 
 **3.3.4 Authenticity** — authentication standards (MFA, SSO, certificates).
 
-| ID | Requirement | Threshold | Objective | Measurement |
-|---|---|---|---|---|
-| ORD-NNN | [e.g. MFA on privileged access] | [e.g. 100% of admins] | — | [e.g. IAM report] |
+| BRD# | ORD# | Requirement Description | MoSCoW | Timing | Source | Delivery Agent | Verification | Capability | Epic | Comments |
+|---|---|---|---|---|---|---|---|---|---|---|
+| [BRD-NN or —] | ORD-NNN | [declarative statement carrying the value] | Must | [when live] | [BU, Function, Name] | [Department] | [how proven] | [CAP-NN or —] | [EPIC-NN or —] | |
 
 **3.3.5 Resistance** — penetration test cadence, vulnerability remediation SLA.
 
-| ID | Requirement | Threshold | Objective | Measurement |
-|---|---|---|---|---|
-| ORD-NNN | [e.g. critical-vuln remediation] | [e.g. ≤ 24h] | [e.g. ≤ 8h] | [e.g. scanner + ticket log] |
+| BRD# | ORD# | Requirement Description | MoSCoW | Timing | Source | Delivery Agent | Verification | Capability | Epic | Comments |
+|---|---|---|---|---|---|---|---|---|---|---|
+| [BRD-NN or —] | ORD-NNN | [declarative statement carrying the value] | Must | [when live] | [BU, Function, Name] | [Department] | [how proven] | [CAP-NN or —] | [EPIC-NN or —] | |
 
 **3.3.6 Compliance Frameworks** — applicable frameworks and the operational obligations they impose.
 
-| ID | Requirement | Threshold | Objective | Measurement |
-|---|---|---|---|---|
-| ORD-NNN | [e.g. SOC 2 Type II] | [e.g. clean annual report] | — | [e.g. external audit] |
+| BRD# | ORD# | Requirement Description | MoSCoW | Timing | Source | Delivery Agent | Verification | Capability | Epic | Comments |
+|---|---|---|---|---|---|---|---|---|---|---|
+| [BRD-NN or —] | ORD-NNN | [declarative statement carrying the value] | Must | [when live] | [BU, Function, Name] | [Department] | [how proven] | [CAP-NN or —] | [EPIC-NN or —] | |
 
 ---
 
 ### 3.4 Compatibility
 
-**3.4.1 Interoperability** — interface register (wider schema; see the exception note above).
+**3.4.1 Interoperability** — one register row per interface, as normal. Per-interface technical
+detail lives in Appendix E, keyed by `ORD#`, so the register keeps one schema throughout.
 
-| ID | Integrated System | Interface Type | Protocol | Data Exchanged | Direction | Failure Behavior |
-|---|---|---|---|---|---|---|
-| ORD-NNN | [System name] | [REST/SFTP/etc.] | [HTTPS/SFTP/etc.] | [Description] | [In/Out/Bidirectional] | [Queue / alert / degrade] |
+| BRD# | ORD# | Requirement Description | MoSCoW | Timing | Source | Delivery Agent | Verification | Capability | Epic | Comments |
+|---|---|---|---|---|---|---|---|---|---|---|
+| [BRD-NN or —] | ORD-NNN | [e.g. Consignment status is exchanged with [System] over HTTPS, queued on failure] | Must | [when live] | [BU, Function, Name] | [Department] | [e.g. integration test] | [CAP-NN or —] | [EPIC-NN or —] | see Appendix E |
 
 **3.4.2 Coexistence** — shared-infrastructure constraints; no degradation of co-hosted systems.
 
-| ID | Requirement | Threshold | Objective | Measurement |
-|---|---|---|---|---|
-| ORD-NNN | [e.g. no CPU starvation of co-host] | [e.g. ≤ 50% shared CPU] | — | [e.g. host metrics] |
+| BRD# | ORD# | Requirement Description | MoSCoW | Timing | Source | Delivery Agent | Verification | Capability | Epic | Comments |
+|---|---|---|---|---|---|---|---|---|---|---|
+| [BRD-NN or —] | ORD-NNN | [declarative statement carrying the value] | Must | [when live] | [BU, Function, Name] | [Department] | [how proven] | [CAP-NN or —] | [EPIC-NN or —] | |
 
 ---
 
@@ -306,21 +329,21 @@ Save output to `docs/ord/[system-name]-ORD.md`.
 
 **3.5.1 Scalability** — horizontal/vertical scaling, elasticity, growth projections.
 
-| ID | Requirement | Threshold | Objective | Measurement |
-|---|---|---|---|---|
-| ORD-NNN | [e.g. scale-out under load] | [e.g. 2× capacity in ≤ 5 min] | [e.g. ≤ 2 min] | [e.g. autoscale test] |
+| BRD# | ORD# | Requirement Description | MoSCoW | Timing | Source | Delivery Agent | Verification | Capability | Epic | Comments |
+|---|---|---|---|---|---|---|---|---|---|---|
+| [BRD-NN or —] | ORD-NNN | [declarative statement carrying the value] | Must | [when live] | [BU, Function, Name] | [Department] | [how proven] | [CAP-NN or —] | [EPIC-NN or —] | |
 
 **3.5.2 Adaptability** — multi-environment requirements (cloud regions, hosting models).
 
-| ID | Requirement | Threshold | Objective | Measurement |
-|---|---|---|---|---|
-| ORD-NNN | [e.g. multi-region deploy] | [e.g. 2 regions active-passive] | [e.g. active-active] | [e.g. deployment audit] |
+| BRD# | ORD# | Requirement Description | MoSCoW | Timing | Source | Delivery Agent | Verification | Capability | Epic | Comments |
+|---|---|---|---|---|---|---|---|---|---|---|
+| [BRD-NN or —] | ORD-NNN | [declarative statement carrying the value] | Must | [when live] | [BU, Function, Name] | [Department] | [how proven] | [CAP-NN or —] | [EPIC-NN or —] | |
 
 **3.5.3 Installability** — deployment, upgrade, rollback capability.
 
-| ID | Requirement | Threshold | Objective | Measurement |
-|---|---|---|---|---|
-| ORD-NNN | [e.g. rollback time] | [e.g. ≤ 15 min] | [e.g. ≤ 5 min] | [e.g. release drill] |
+| BRD# | ORD# | Requirement Description | MoSCoW | Timing | Source | Delivery Agent | Verification | Capability | Epic | Comments |
+|---|---|---|---|---|---|---|---|---|---|---|
+| [BRD-NN or —] | ORD-NNN | [declarative statement carrying the value] | Must | [when live] | [BU, Function, Name] | [Department] | [how proven] | [CAP-NN or —] | [EPIC-NN or —] | |
 
 ---
 
@@ -328,15 +351,15 @@ Save output to `docs/ord/[system-name]-ORD.md`.
 
 **3.6.1 Modifiability** — change window and change-management obligations.
 
-| ID | Requirement | Threshold | Objective | Measurement |
-|---|---|---|---|---|
-| ORD-NNN | [e.g. standard change lead time] | [e.g. ≤ 2 business days] | — | [e.g. CAB records] |
+| BRD# | ORD# | Requirement Description | MoSCoW | Timing | Source | Delivery Agent | Verification | Capability | Epic | Comments |
+|---|---|---|---|---|---|---|---|---|---|---|
+| [BRD-NN or —] | ORD-NNN | [declarative statement carrying the value] | Must | [when live] | [BU, Function, Name] | [Department] | [how proven] | [CAP-NN or —] | [EPIC-NN or —] | |
 
 **3.6.2 Analyzability** — monitoring and observability; what must be instrumented.
 
-| ID | Requirement | Threshold | Objective | Measurement |
-|---|---|---|---|---|
-| ORD-NNN | [e.g. request tracing coverage] | [e.g. 100% of endpoints] | — | [e.g. tracing dashboard] |
+| BRD# | ORD# | Requirement Description | MoSCoW | Timing | Source | Delivery Agent | Verification | Capability | Epic | Comments |
+|---|---|---|---|---|---|---|---|---|---|---|
+| [BRD-NN or —] | ORD-NNN | [declarative statement carrying the value] | Must | [when live] | [BU, Function, Name] | [Department] | [how proven] | [CAP-NN or —] | [EPIC-NN or —] | |
 
 ---
 
@@ -344,21 +367,21 @@ Save output to `docs/ord/[system-name]-ORD.md`.
 
 **3.7.1 Accessibility** — WCAG level, assistive-technology support.
 
-| ID | Requirement | Threshold | Objective | Measurement |
-|---|---|---|---|---|
-| ORD-NNN | [e.g. WCAG conformance] | [e.g. 2.2 AA] | [e.g. 2.2 AAA] | [e.g. audit / axe scan] |
+| BRD# | ORD# | Requirement Description | MoSCoW | Timing | Source | Delivery Agent | Verification | Capability | Epic | Comments |
+|---|---|---|---|---|---|---|---|---|---|---|
+| [BRD-NN or —] | ORD-NNN | [declarative statement carrying the value] | Must | [when live] | [BU, Function, Name] | [Department] | [how proven] | [CAP-NN or —] | [EPIC-NN or —] | |
 
 **3.7.2 Learnability** — operator training, time-to-competency.
 
-| ID | Requirement | Threshold | Objective | Measurement |
-|---|---|---|---|---|
-| ORD-NNN | [e.g. operator time-to-competency] | [e.g. ≤ 5 days] | [e.g. ≤ 2 days] | [e.g. onboarding record] |
+| BRD# | ORD# | Requirement Description | MoSCoW | Timing | Source | Delivery Agent | Verification | Capability | Epic | Comments |
+|---|---|---|---|---|---|---|---|---|---|---|
+| [BRD-NN or —] | ORD-NNN | [declarative statement carrying the value] | Must | [when live] | [BU, Function, Name] | [Department] | [how proven] | [CAP-NN or —] | [EPIC-NN or —] | |
 
 **3.7.3 Self-Descriptiveness** — documentation, in-system help, runbook obligations.
 
-| ID | Requirement | Threshold | Objective | Measurement |
-|---|---|---|---|---|
-| ORD-NNN | [e.g. runbook coverage] | [e.g. all Sev-1/2 paths] | — | [e.g. runbook review] |
+| BRD# | ORD# | Requirement Description | MoSCoW | Timing | Source | Delivery Agent | Verification | Capability | Epic | Comments |
+|---|---|---|---|---|---|---|---|---|---|---|
+| [BRD-NN or —] | ORD-NNN | [declarative statement carrying the value] | Must | [when live] | [BU, Function, Name] | [Department] | [how proven] | [CAP-NN or —] | [EPIC-NN or —] | |
 
 ---
 
@@ -366,9 +389,9 @@ Save output to `docs/ord/[system-name]-ORD.md`.
 
 **3.8.1 Functional Completeness** — operational functions required at go-live; what can be phased.
 
-| ID | Requirement | Threshold | Objective | Measurement |
-|---|---|---|---|---|
-| ORD-NNN | [e.g. function present at go-live] | [e.g. mandatory] | [e.g. phase 1] | [e.g. acceptance test] |
+| BRD# | ORD# | Requirement Description | MoSCoW | Timing | Source | Delivery Agent | Verification | Capability | Epic | Comments |
+|---|---|---|---|---|---|---|---|---|---|---|
+| [BRD-NN or —] | ORD-NNN | [declarative statement carrying the value] | Must | [when live] | [BU, Function, Name] | [Department] | [how proven] | [CAP-NN or —] | [EPIC-NN or —] | |
 
 ---
 
@@ -376,30 +399,64 @@ Save output to `docs/ord/[system-name]-ORD.md`.
 
 **3.9.1 Fail Safe** — safe-state definition and behaviour on failure.
 
-| ID | Requirement | Threshold | Objective | Measurement |
-|---|---|---|---|---|
-| ORD-NNN | [e.g. reach safe state on fault] | [e.g. ≤ 2s] | — | [e.g. fault-injection test] |
+| BRD# | ORD# | Requirement Description | MoSCoW | Timing | Source | Delivery Agent | Verification | Capability | Epic | Comments |
+|---|---|---|---|---|---|---|---|---|---|---|
+| [BRD-NN or —] | ORD-NNN | [declarative statement carrying the value] | Must | [when live] | [BU, Function, Name] | [Department] | [how proven] | [CAP-NN or —] | [EPIC-NN or —] | |
 
 **3.9.2 Hazard Warning** — alerting for hazardous conditions.
 
-| ID | Requirement | Threshold | Objective | Measurement |
-|---|---|---|---|---|
-| ORD-NNN | [e.g. hazard alert latency] | [e.g. ≤ 10s] | — | [e.g. alert test] |
+| BRD# | ORD# | Requirement Description | MoSCoW | Timing | Source | Delivery Agent | Verification | Capability | Epic | Comments |
+|---|---|---|---|---|---|---|---|---|---|---|
+| [BRD-NN or —] | ORD-NNN | [declarative statement carrying the value] | Must | [when live] | [BU, Function, Name] | [Department] | [how proven] | [CAP-NN or —] | [EPIC-NN or —] | |
 
-> If Safety is not applicable: "This system is not classified as safety-critical. Safety characteristic requirements are not applicable." — state this in place of the tables above.
+> If Safety is not applicable, state in place of the tables above: "[System name] is not
+> classified as safety-critical. Safety characteristic requirements are not applicable."
+
+### 3.10 Coverage Gaps
+
+Every ISO/IEC 25010:2023 sub-characteristic with no requirement, listed once. Subsections with no
+requirement do not appear in the body above — they appear here.
+
+| Absent subsection | Reason | Action |
+|---|---|---|
+| [e.g. 3.5 Flexibility → Replaceability] | [e.g. no source material] | [e.g. stakeholder workshop] |
+
+A requirement that exists but is unquantified is **not** a gap — it stays in its own table as a
+`[TBD — source: "…"]` row.
 
 ---
 
 ## 4. Operating Environment and Constraints
 
+Environment and regulatory statements are binding, so they are requirements and carry IDs. Prose
+belongs in §2.2 System Overview, not here.
+
 ### 4.1 Physical Environment
-[Data center, cloud, edge, geographic locations, power and cooling constraints.]
+Hosting model, geographic locations, data residency, power and cooling.
+
+| BRD# | ORD# | Requirement Description | MoSCoW | Timing | Source | Delivery Agent | Verification | Capability | Epic | Comments |
+|---|---|---|---|---|---|---|---|---|---|---|
+| [BRD-NN or —] | ORD-NNN | [declarative statement carrying the value] | Must | [when live] | [BU, Function, Name] | [Department] | [how proven] | [CAP-NN or —] | [EPIC-NN or —] | |
 
 ### 4.2 Network and Connectivity
-[Bandwidth, latency bounds, protocol requirements, VPN, air-gap constraints.]
+Bandwidth, latency bounds, protocol and connectivity constraints.
+
+| BRD# | ORD# | Requirement Description | MoSCoW | Timing | Source | Delivery Agent | Verification | Capability | Epic | Comments |
+|---|---|---|---|---|---|---|---|---|---|---|
+| [BRD-NN or —] | ORD-NNN | [declarative statement carrying the value] | Must | [when live] | [BU, Function, Name] | [Department] | [how proven] | [CAP-NN or —] | [EPIC-NN or —] | |
+
+> Network latency that affects user-facing response time belongs in §3.1.1 Time Behavior. Record
+> it once — cite the ID here as a view rather than restating the value.
 
 ### 4.3 Regulatory and Compliance Constraints
-[All applicable regulations and the specific operational obligations they impose.]
+Each regulation and the specific operational obligation it imposes.
+
+| BRD# | ORD# | Requirement Description | MoSCoW | Timing | Source | Delivery Agent | Verification | Capability | Epic | Comments |
+|---|---|---|---|---|---|---|---|---|---|---|
+| [BRD-NN or —] | ORD-NNN | [declarative statement carrying the value] | Must | [when live] | [BU, Function, Name] | [Department] | [how proven] | [CAP-NN or —] | [EPIC-NN or —] | |
+
+> Certification and audit obligations belong in §3.3.6 Compliance Frameworks. This subsection
+> carries operational obligations imposed *by* regulation, not the frameworks themselves.
 
 ---
 
@@ -414,77 +471,138 @@ Save output to `docs/ord/[system-name]-ORD.md`.
 | Tier 3 | Development / vendor escalation | [Team / Vendor] | [SLA-driven] |
 
 ### 5.2 Incident Management
-| Severity | Definition | Response Target | Resolution Target |
-|---|---|---|---|
-| P1 Critical | [definition] | [e.g. 15 min] | [e.g. 2 hours] |
-| P2 High | [definition] | [e.g. 1 hour] | [e.g. 8 hours] |
-| P3 Medium | [definition] | [e.g. 4 hours] | [e.g. 2 days] |
-| P4 Low | [definition] | [e.g. next business day] | [e.g. 5 days] |
+
+Severity definitions are context (prose); the response and resolution commitments are register rows.
+
+| Severity | Definition |
+|---|---|
+| P1 Critical | [definition] |
+| P2 High | [definition] |
+| P3 Medium | [definition] |
+| P4 Low | [definition] |
+
+| BRD# | ORD# | Requirement Description | MoSCoW | Timing | Source | Delivery Agent | Verification | Capability | Epic | Comments |
+|---|---|---|---|---|---|---|---|---|---|---|
+| [BRD-NN or —] | ORD-NNN | [e.g. P1 incident response is initiated within 15 minutes of raise] | Must | [when live] | [BU, Function, Name] | [Department] | [e.g. ITSM report] | [CAP-NN or —] | [EPIC-NN or —] | |
+| [BRD-NN or —] | ORD-NNN | [e.g. P1 incident resolution is achieved within 2 hours of raise] | Must | [when live] | [BU, Function, Name] | [Department] | [e.g. ITSM report] | [CAP-NN or —] | [EPIC-NN or —] | |
 
 ### 5.3 Change and Patch Management
-[Change windows, emergency change process, patch SLAs by severity.]
+Change windows, emergency change path, patch SLAs by severity.
+
+| BRD# | ORD# | Requirement Description | MoSCoW | Timing | Source | Delivery Agent | Verification | Capability | Epic | Comments |
+|---|---|---|---|---|---|---|---|---|---|---|
+| [BRD-NN or —] | ORD-NNN | [declarative statement carrying the value] | Must | [when live] | [BU, Function, Name] | [Department] | [how proven] | [CAP-NN or —] | [EPIC-NN or —] | |
 
 ### 5.4 Monitoring and Alerting
-[What must be monitored, alert thresholds, on-call model, tooling.]
+Instrumentation coverage, alert thresholds, on-call routing.
+
+| BRD# | ORD# | Requirement Description | MoSCoW | Timing | Source | Delivery Agent | Verification | Capability | Epic | Comments |
+|---|---|---|---|---|---|---|---|---|---|---|
+| [BRD-NN or —] | ORD-NNN | [declarative statement carrying the value] | Must | [when live] | [BU, Function, Name] | [Department] | [how proven] | [CAP-NN or —] | [EPIC-NN or —] | |
 
 ---
 
 ## 6. Staffing and Organizational Requirements
 
+Role roster — context, not commitments. The binding staffing requirements are register rows below.
+
 | Role | Responsibilities | Skills / Certifications | FTE |
 |---|---|---|---|
 | [Role] | [Description] | [Requirements] | [Count] |
 
-**On-call model:** [24/7 / business hours + on-call / other]  
-**Training requirements:** [Mandatory training per role, refresh cadence]  
-**Handover criteria:** [What must be true before project team hands to operations]
+**Operating commitments** — on-call, training, handover, and the FTE establishment itself are
+binding, so they are rows.
+
+| BRD# | ORD# | Requirement Description | MoSCoW | Timing | Source | Delivery Agent | Verification | Capability | Epic | Comments |
+|---|---|---|---|---|---|---|---|---|---|---|
+| [BRD-NN or —] | ORD-NNN | [declarative statement carrying the value] | Must | [when live] | [BU, Function, Name] | [Department] | [how proven] | [CAP-NN or —] | [EPIC-NN or —] | |
 
 ---
 
 ## 7. Service Level Requirements
 
-| Metric | Target | Measurement Period | Data Source |
-|---|---|---|---|
-| Availability | [e.g. 99.9%] | Calendar month | [Monitoring tool] |
-| P1 Response | [e.g. 15 min] | Per incident | [ITSM tool] |
-| P1 Resolution | [e.g. 2 hours] | Per incident | [ITSM tool] |
-| MTTR | [e.g. < 2 hours] | Rolling 3 months | [ITSM tool] |
+> *View of Sections 3 and 5. Values are authoritative in the referenced rows; this table adds no
+> new commitments.* Externally-facing SLA summary — every row cites an existing `ORD-NNN`.
 
-**SLA review cadence:** [e.g. quarterly]  
-**Breach reporting:** [How and to whom breaches are reported]
+| ORD# | Section | Metric | Agreed value | Measurement Period | Data Source |
+|---|---|---|---|---|---|
+| ORD-NNN | §3.2.1 | Availability | [as registered] | Calendar month | [Monitoring tool] |
+| ORD-NNN | §5.2 | P1 Response | [as registered] | Per incident | [ITSM tool] |
+| ORD-NNN | §3.2.4 | MTTR | [as registered] | Rolling 3 months | [ITSM tool] |
+
+**SLA governance** — review cadence and breach reporting are themselves commitments.
+
+| BRD# | ORD# | Requirement Description | MoSCoW | Timing | Source | Delivery Agent | Verification | Capability | Epic | Comments |
+|---|---|---|---|---|---|---|---|---|---|---|
+| [BRD-NN or —] | ORD-NNN | [declarative statement carrying the value] | Must | [when live] | [BU, Function, Name] | [Department] | [how proven] | [CAP-NN or —] | [EPIC-NN or —] | |
 
 ---
 
 ## 8. Infrastructure and Facilities
 
-[Hosting model, hardware requirements, storage, network infrastructure, physical security of operational infrastructure.]
+Hosting model, compute, storage, network, and physical security of operational infrastructure.
+
+| BRD# | ORD# | Requirement Description | MoSCoW | Timing | Source | Delivery Agent | Verification | Capability | Epic | Comments |
+|---|---|---|---|---|---|---|---|---|---|---|
+| [BRD-NN or —] | ORD-NNN | [declarative statement carrying the value] | Must | [when live] | [BU, Function, Name] | [Department] | [how proven] | [CAP-NN or —] | [EPIC-NN or —] | |
 
 ---
 
-## 9. Trade-offs and Risk
+## 9. Trade-offs, Risk, Assumptions and Dependencies
 
-| Trade-off / Risk | Description | Accepted? | Mitigation |
+### 9.1 Accepted Trade-offs and Risks
+
+Risks are owned by the RAID log — cite the `R-NNN` rather than duplicating the risk record.
+
+| RAID Ref | Trade-off / Risk | Accepted? | Mitigation |
 |---|---|---|---|
-| [e.g. Cost vs availability] | [Description] | Yes / No | [Mitigation] |
+| [R-NNN or —] | [e.g. cost vs availability] | Yes / No | [Mitigation] |
 
-**Assumptions:**  
-**Dependencies:**
+### 9.2 Assumptions
+
+Carries forward the assumptions table from `/idea`. `If false` is mandatory. On falsification set
+`Status: Falsified`, run `/raid add risk`, and record the `R-NNN` in `If false`.
+
+| ID | Assumption | Status | If false | Owner |
+|---|---|---|---|---|
+| ASM-NNN | [declarative statement] | Unvalidated / Validated / Falsified | [consequence] | [role] |
+
+### 9.3 Dependencies
+
+| ID | Depends on | Type | Owner | Needed by | Status |
+|---|---|---|---|---|---|
+| DEP-NNN | [named system, team, or deliverable] | Internal / External / Vendor | [role] | [date or milestone] | Open / Met / At risk |
 
 ---
 
 ## Appendices
 
 ### A. Acronyms and Abbreviations
-### B. Requirements Traceability Matrix
+### B. PRD Cross-Link
 
-One row per requirement. Anchored on the BRD (the ORD's origin). The PRD column is `—` for a standalone ORD; it is populated only when the ORD is authored jointly with a PRD via `/write-reqs`.
+> *View. The register in §§3–8 is the source of truth — `BRD#` and `Source` already live in each
+> row, so they are not restated here.*
 
-| ORD Req ID | ISO/IEC 25010 Characteristic | BRD Objective | Provenance / Source | PRD Ref |
-|---|---|---|---|---|
-| ORD-001 | [Characteristic] | [BRD-NN or —] | [source quote / stakeholder] | [— or PRD-NNN] |
+This appendix exists only for the one link the register cannot hold: the sibling PRD. Omit it
+entirely for a standalone ORD. It is populated by `/write-reqs`, which owns the cross-link pass.
 
-- A requirement with no BRD objective and no source is **orphan scope** — flag it.
-- A BRD objective with no resulting requirement is a **coverage gap** — flag it.
+| ORD# | Section | PRD# |
+|---|---|---|
+| ORD-001 | [e.g. 3.2.1] | [PRD-NNN] |
+
+Flag rather than resolve, against the register itself:
+- A row with `BRD#` = `—` **and** no `Source` is **orphan scope**.
+- A BRD requirement with no resulting register row is a **coverage gap**.
+- `ASM-NNN` and `DEP-NNN` are not requirements and never appear here — they live in §9.
+
+### E. Interface Detail
+
+Per-interface technical detail, keyed to the §3.4.1 register rows. Specification, not commitment —
+the binding statement is the register row.
+
+| ORD# | Integrated System | Interface Type | Protocol | Data Exchanged | Direction | Failure Behavior |
+|---|---|---|---|---|---|---|
+| ORD-NNN | [System name] | [REST/SFTP/etc.] | [HTTPS/SFTP/etc.] | [Description] | [In/Out/Bidirectional] | [Queue / alert / degrade] |
 
 ### C. Contacts
 ### D. Change History

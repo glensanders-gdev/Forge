@@ -1,13 +1,19 @@
 ---
 name: write-prd
 category: pipeline
-version: 2.1.1
+version: 2.2.0
 description: Synthesize the current conversation, grill session, research, and prototype findings into a structured PRD aligned with ISO/IEC/IEEE 29148:2018. Executes in two phases — AFK explore then HITL write — with a confirmation gate between them. Use when user runs /write-prd or when grill-me confirms shared understanding is reached.
 ---
 
 # Write PRD
 
 Synthesize everything known into a structured PRD. Runs in two phases with a mandatory confirmation gate. The user runs `/user:write-prd` once — the skill manages both phases internally.
+
+**Authoring standards — read before writing any requirement:**
+- `~/.claude/rules/requirements/language.md` — wording, voice, banned modals and constructions
+- `~/.claude/rules/requirements/tables.md` — presentation, canonical schemas, ID namespaces
+
+These are authoritative and shared with `/write-ord`, `/write-reqs` and `/write-ac`. Never restate them here.
 
 ---
 
@@ -17,6 +23,7 @@ Runs unattended. Gathers all context needed to write the PRD without asking the 
 
 ### Phase 1 Process
 
+0. **Check for a joint-authoring brief.** When invoked by `/write-reqs`, a brief accompanies the invocation carrying the PRD-bound half of the classified source plus the operational needs routed to the ORD. Treat the brief's half as the **extraction scope** — not a hint — and do not re-extract operational needs already routed to the sibling; cite them rather than restating them. Suppress the standalone next-steps block at the end of Phase 2; `/write-reqs` owns sequencing. Absent a brief, this is a standalone run; proceed from step 1 as normal.
 1. Read `docs/CONTEXT.md` — domain glossary and terminology.
 2. Read grill session summary from the current conversation or `docs/DEVLOG.md`.
 3. Read any `docs/research/*.md` files relevant to this feature.
@@ -221,9 +228,22 @@ Tasks the AI agent can execute autonomously.
 
 ## Assumptions & Dependencies
 
-**Assumptions:** [What must hold true for this PRD to be valid. "None" if empty.]
+Carries forward the assumptions table from `/idea` with its Status — never collapse it to prose.
+`If false` is mandatory. On falsification set `Status: Falsified`, run `/raid add risk`, and record
+the `R-NNN` in `If false` (Forge's RAID has no Assumptions quadrant).
 
-**Dependencies:** [What this depends on. Cite the companion ORD for non-functional behaviour rather than restating it — e.g. "availability, encryption, PCI scope defined in [System] ORD §3.3". "None" if empty.]
+| ID | Assumption | Status | If false | Owner |
+|----|-----------|--------|----------|-------|
+| ASM-NNN | [declarative statement] | Unvalidated / Validated / Falsified | [consequence] | [role] |
+
+Cite the companion ORD for non-functional behaviour rather than restating it — e.g. "availability,
+encryption, PCI scope defined in [System] ORD §3.3".
+
+| ID | Depends on | Type | Owner | Needed by | Status |
+|----|-----------|------|-------|-----------|--------|
+| DEP-NNN | [named system, team, or deliverable] | Internal / External / Vendor | [role] | [date or milestone] | Open / Met / At risk |
+
+Write `None` in place of a table only when genuinely empty.
 
 ## Further Notes
 
@@ -249,7 +269,9 @@ Full-chain, bidirectional. Spans BRD → PRD → ORD. The Test column is scaffol
 - Never ask the user questions during Phase 1 — gather, then present.
 - Never finalise a PRD with an empty Success Metrics section — require at least one measurable metric, or an explicit `none — [reason]`.
 - Never finalise a PRD with a user story that has no acceptance criterion.
-- Never write a requirement in unverifiable form ("fast", "intuitive", "robust") — quantify it or flag it as `[TBD — needs measurable criterion]`.
+- Never write a requirement in unverifiable or hedged form — see `rules/requirements/language.md`. Quantification alone is not enough: a quantified requirement carrying `should` or `can` still fails. Quantify, write it as a declarative end state, or flag it as `[TBD — needs measurable criterion]`.
+- Never record an assumption without an `If false` consequence, and never leave a falsified assumption unescalated — set `Status: Falsified` and raise it via `/raid add risk`.
+- Never emit the standalone next-steps block when invoked with a `/write-reqs` brief — sequencing is owned there, once.
 - Never reuse a retired story ID — retire and move on.
 - Never restate non-functional requirements that belong in the ORD — cite the ORD section instead (reference, don't duplicate).
 - If Phase 1 uncovers a significant unknown that blocks scoping, surface it in Open Questions and wait.
