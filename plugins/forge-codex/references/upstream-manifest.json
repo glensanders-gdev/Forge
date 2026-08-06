@@ -1,5 +1,5 @@
 {
-  "forge_version": "3.18.0",
+  "forge_version": "3.19.0",
   "skills": {
     "brain-setup": "1.0.0",
     "scan-first": "1.0.0",
@@ -109,6 +109,7 @@
     "vibe-security": "1.0.0",
     "write-ord": "1.4.0",
     "write-reqs": "1.1.0",
-    "write-ac": "1.4.0"
+    "write-ac": "1.4.0",
+    "roap": "1.0.0"
   }
 }

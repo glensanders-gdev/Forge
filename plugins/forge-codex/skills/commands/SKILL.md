@@ -157,6 +157,7 @@ Print the following reference exactly:
 | `company-update` | Post-install maintenance — re-run grilling topics to update config (--reconfigure) or refresh bundled skills after a Forge upgrade (--update-skills) |
 | `tool-add` | Register a tool in the global or company tools registry — grills on category, usage, and anti-patterns |
 | `tool-check` | Verify which registered tools are installed — full matrix by category with company classifications |
+| `roap` | Grill out a Role on a Page — nine questions covering purpose, accountabilities, measures, activity allocation, development focus, and relationships; writes docs/roles/[role]-roap.md |
 
 ### Framework
 | Command | What it does |
