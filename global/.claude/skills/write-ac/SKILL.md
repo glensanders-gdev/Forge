@@ -1,7 +1,7 @@
 ---
 name: write-ac
 category: pipeline
-version: 1.3.0
+version: 1.4.0
 description: Transform a PRD and ORD into Jira acceptance criteria — promote KPPs and headline outcomes to Capability-level AC, flow story detail to child Epics/Stories, carry PRD-NNN/ORD-NNN traceability into each criterion, and optionally push to the linked Jira Capability behind a confirmation gate. Use when the user runs /write-ac, has a PRD and/or ORD ready to turn into Jira acceptance criteria, or is promoting a project to a Jira Capability.
 ---
 
@@ -22,7 +22,7 @@ copied through. Never restate these rules here.
 
 Runs unattended. Reads the source requirements and sorts them by altitude — no authoring, no questions.
 
-1. Read the PRD at `docs/prd/active/*.md` if present — stories (`PRD-NNN`) and their acceptance criteria.
+1. Read the PRD at `docs/prd/active/*.md` if present — stories (`PRD-NNN`), their `MoSCoW` priority, and their acceptance-criteria rows (`PRD-NNN.N`, each with a `Type` of Happy path / Edge / Error).
 2. Read the ORD at `docs/ord/*.md` if present — the requirement register in §§3–8. Each row carries `ORD#`, a declarative `Requirement Description` holding its own value, a `Verification` method, `MoSCoW`, and any **[KPP]** tag. Note which rows already carry a `Capability` / `Epic` — those are prior mappings, not gaps.
 3. Read the PRD↔ORD cross-links if present — the PRD's traceability matrix and the ORD's Appendix B. Reuse them rather than re-deriving. A standalone ORD has no Appendix B; that is expected, not a gap.
 4. Resolve the target Jira Capability — read `external_ids.jira` (type `capability`) from the linked idea/project file. If none, note it; the run still produces the AC document.
@@ -64,7 +64,7 @@ Runs after the human confirms the split.
 
 1. Incorporate altitude re-assignments from the confirmation.
 2. Translate each selected requirement into a testable AC (see REFERENCE.md § Translation):
-   - **Functional (PRD)** → the PRD still stores criteria as Given/When/Then pending that conversion, so **this skill is the boundary where they become declarative**. Extract the testable condition from the `Then` clause, rewrite it to the end-state form, and carry the `PRD-NNN` ID. Do not copy the Given/When scaffolding into the AC.
+   - **Functional (PRD)** → the criterion is already a declarative row. Carry it across verbatim with its `PRD-NNN.N` ID. Do not carry the story's "As a… I want…" narrative — that is context, not a criterion.
    - **Operational (ORD)** → the register row's `Requirement Description` + its `Verification`, carrying the `ORD-NNN` ID and keeping the verification method verbatim.
 3. Assign each AC a stable `AC-NNN` ID with a Source column tracing to its `PRD-NNN`/`ORD-NNN`.
 4. Write the AC document to `docs/ac/[capability-name]-AC.md` using the template in REFERENCE.md.
