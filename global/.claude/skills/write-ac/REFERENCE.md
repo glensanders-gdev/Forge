@@ -14,13 +14,15 @@ A Jira Capability is a portfolio-level container. Its acceptance criteria are **
 
 **Flow to child Epic/Story AC:**
 - Detailed story-level criteria — happy-path variations, edge cases, error states.
-- Per-story conditions beyond the headline outcome — each rewritten to declarative form, not left as Given/When/Then.
+- Per-story criteria beyond the headline outcome — the `Edge` and `Error` rows, and any `Happy path` row that is detail rather than the defining outcome.
 
 Rule of thumb: if removing the criterion would not make a stakeholder say "then the Capability isn't delivered," it belongs on a child issue, not the Capability.
 
 ### MoSCoW gate
 
-The ORD register carries a `MoSCoW` column. It gates altitude **before** the tests above are applied:
+**Both** sources carry MoSCoW — the ORD register as a column, the PRD as a per-story field. The gate
+applies to each equally; a functional story is not exempt because its priority sits in a different
+place. It runs **before** the tests above:
 
 | MoSCoW | Outcome |
 |---|---|
@@ -51,16 +53,19 @@ genuine Capability AC; a §6 training commitment is not.
 
 ### Functional (PRD story → AC)
 
-Carry the **testable condition** across verbatim; drop the "As a… I want…" narrative — that is context, not a criterion. Rewrite the condition into the declarative end-state form of `rules/requirements/language.md`: a criterion inherits a requirement's *meaning*, never its defects.
+A PRD acceptance criterion is already a declarative row. Carry it across verbatim with its
+`PRD-NNN.N` ID; drop the "As a… I want…" narrative — that is context, not a criterion.
 
-PRD-002 story →
+PRD-001.1 →
 ```
-AC-001 (PRD-002): Checkout for a returning customer with a saved payment
+AC-001 (PRD-001.1): Checkout for a returning customer with a saved payment
   method completes without card re-entry.
 ```
 
-> Not *"then they can complete the purchase"* — `can [verb]` is banned by `language.md`, and a
-> criterion that says a customer *can* do something cannot fail a test. State the outcome as a fact.
+> If a criterion arrives hedged — *"then they can complete the purchase"* — rewrite it to the
+> declarative end-state form rather than carrying it through. `can [verb]` is banned by
+> `language.md`, and a criterion saying a customer *can* do something cannot fail a test. A
+> criterion inherits a requirement's meaning, never its defects.
 
 ### Operational (ORD requirement → AC)
 

@@ -1,7 +1,7 @@
 ---
 name: write-prd
 category: pipeline
-version: 2.2.0
+version: 2.3.0
 description: Synthesize the current conversation, grill session, research, and prototype findings into a structured PRD aligned with ISO/IEC/IEEE 29148:2018. Executes in two phases — AFK explore then HITL write — with a confirmation gate between them. Use when user runs /write-prd or when grill-me confirms shared understanding is reached.
 ---
 
@@ -84,11 +84,6 @@ Runs after human confirms Phase 1 summary. Writes the PRD and cleans up.
 
 1. Incorporate any corrections from the human's Phase 1 confirmation.
 2. Check `~/.claude/knowledge/company/style-guide.md` — if populated, apply its tone, terminology, and formatting standards when writing the PRD. If it is a placeholder, proceed without it.
-3. Write the PRD using the template below. **Enforce the requirements-quality gates before finalising:**
-   - **Success Metrics present** — at least one measurable metric (Metric / Baseline / Target / Measurement), with one marked **primary**. If none genuinely apply, write `Success Metrics: none — [reason]` explicitly; never omit the section.
-   - **Every user story has ≥1 acceptance criterion** — block finalisation if any story has none. Warn (do not block) if a story has only a happy-path criterion with no edge or error case.
-   - **Every story has a stable ID** (`PRD-NNN`) and traces to a source in the matrix.
-   Each requirement should meet the ISO/IEC/IEEE 29148:2018 characteristics — necessary, unambiguous, singular, verifiable, feasible. Rewrite vague requirements ("fast", "intuitive") into testable form or flag them.
 3. **Generate per-module estimates** — for each module identified in Phase 1:
    - Estimate AI token cost band (S/M/L/XL) and story points (1/2/3/5/8/13)
    - Present as a table for human confirmation before writing to the PRD:
@@ -106,17 +101,34 @@ Runs after human confirms Phase 1 summary. Writes the PRD and cleans up.
 
      Confirm or adjust before I write the PRD.
      ```
-   - On confirmation, add estimates to Implementation Decisions section and PRD header
-   - Add story points to stakeholder label for PI planning (token bands internal only)
    - Flag any XL modules — they require `/break-down` before `/build` can execute them
-4. Save to `docs/prd/active/[feature-name].md`.
-5. Add Phase 2 kanban tickets to `docs/kanban.md` with estimate tags:
+   - **Do not proceed to step 4 without confirmation** — the estimates land in the PRD header and Implementation Decisions, so they must be settled before the document is written, not patched in afterwards.
+4. **Write the PRD** using the template below, incorporating the confirmed estimates. Add story points to the stakeholder label for PI planning (token bands stay internal). **Enforce the requirements-quality gates before finalising:**
+   - **Success Metrics present** — at least one measurable metric (Metric / Baseline / Target / Measurement), with one marked **primary**. If none genuinely apply, write `Success Metrics: none — [reason]` explicitly; never omit the section.
+   - **Every user story has ≥1 acceptance criterion** — block finalisation if any story has none. Warn (do not block) if a story has only a happy-path criterion with no edge or error case.
+   - **Every story has a stable ID** (`PRD-NNN`), a MoSCoW priority, and traces to a source in the matrix.
+   Each requirement meets the ISO/IEC/IEEE 29148:2018 characteristics — necessary, unambiguous, singular, verifiable, feasible — as modified by the two deviations recorded in `rules/requirements/language.md`. Rewrite vague requirements ("fast", "intuitive") into testable form or flag them.
+5. Save to `docs/prd/active/[feature-name].md`.
+6. Add Phase 2 kanban tickets to `docs/kanban.md` with estimate tags:
    ```
    - [ ] [AFK]  #N   Explore codebase for PRD — write-prd phase 1
    - [x] [HITL] #N+1 Confirm module list and write PRD — write-prd phase 2
    ```
-6. Preserve, then clean up `/prototype` if it exists. Do **not** delete the spike outright — first commit it to a throwaway branch `prototype/[feature-name]` so the exploration survives as primary-source evidence (Principle 8), and record a pointer to that branch in the PRD's Implementation Decisions section. Only then remove `/prototype` from the working tree. If a git branch can't be created (e.g. not a git repo), leave `/prototype` in place and note it — never destroy the only copy.
-7. Suggest next steps in order:
+7. **Preserve, then clean up `/prototype`** if it exists. Do **not** delete the spike outright — first commit it to a throwaway branch `prototype/[feature-name]` so the exploration survives as primary-source evidence (Principle 8), and record a pointer to that branch in the PRD's Implementation Decisions section.
+
+   Removing `/prototype` deletes files from the working tree, so it is gated:
+
+   ```
+   ## Prototype cleanup — [feature-name]
+   Preserved on branch: prototype/[feature-name]  (commit [sha])
+   Pointer recorded in: docs/prd/active/[feature-name].md § Implementation Decisions
+   To delete from working tree: [N files]
+
+   Type CONFIRM to remove /prototype, or SKIP to leave it in place.
+   ```
+
+   If a git branch can't be created (e.g. not a git repo), leave `/prototype` in place and note it — never destroy the only copy, and never present this gate when preservation failed.
+8. Suggest next steps in order:
    - Run `/testplan` to design the testing strategy before implementation begins — this also **back-fills the `TBD` Test column** in the PRD's Traceability Matrix.
    - Then run `/to-tickets` (the Kanban stage) to convert the PRD task list into tracked vertical-slice tickets in `docs/kanban.md`
 
@@ -174,18 +186,36 @@ Runs after human confirms Phase 1 summary. Writes the PRD and cleans up.
 
 ## User Stories & Acceptance Criteria
 
-Each story keeps the canonical form and carries a stable ID and at least one acceptance criterion. Keep stories at capability granularity; push detail into the criteria. Cover happy path + key edge case + error state.
+The **story** is narrative — it carries intent, and the "so that" is the business outcome.
+The **criteria** are declarative rows — they carry what is true once the story is delivered.
+Keep stories at capability granularity; push detail into the criteria.
 
-**PRD-001 — [short title]**
-As a [role], I want [capability], so that [outcome].
-- **Given** [context] **When** [action] **Then** [observable, testable outcome]
-- **Given** [edge/error context] **When** [action] **Then** [outcome]
+**PRD-001 — Reuse saved payment details at checkout**
+**MoSCoW:** Must
+As a returning customer, I want to pay without re-entering my card, so that checkout completes in fewer steps.
+
+| ID | Acceptance Criterion | Type |
+|----|---------------------|------|
+| PRD-001.1 | Checkout for a returning customer with a saved payment method completes without card re-entry. | Happy path |
+| PRD-001.2 | A saved card past its expiry date is rejected at checkout and re-entry is requested. | Edge |
+| PRD-001.3 | Payment-service timeout leaves the basket intact and the customer on the checkout page. | Error |
+
+> Criteria are **noun-first declarative statements** per `rules/requirements/language.md` — state
+> what is true, not what a user *can* do. Not *"Then they can complete the purchase"*: `can [verb]`
+> is banned, and a criterion saying a customer *can* do something cannot fail a test.
 
 **PRD-002 — [short title]**
+**MoSCoW:** Must | Should | Could | Won't
 As a [role], I want [capability], so that [outcome].
-- **Given** … **When** … **Then** …
 
-[IDs are flat and sequential — `PRD-001`, `PRD-002`, … assigned in order of first appearance; they do not encode the story's theme. A bulleted testable checklist is an accepted lighter alternative to Given/When/Then, provided each item is observable and testable. IDs are retired when a story is dropped — never reused.]
+| ID | Acceptance Criterion | Type |
+|----|---------------------|------|
+| PRD-002.1 | [declarative statement of what is true once delivered] | Happy path |
+
+- Story IDs are flat and sequential — `PRD-001`, `PRD-002`, … in order of first appearance, never encoding the story's theme. Criterion IDs are `PRD-NNN.N` within their story, so `/write-ac` maps each `AC-NNN` to a precise criterion rather than a whole story.
+- `Type` is `Happy path` / `Edge` / `Error`. A story with only `Happy path` rows triggers the coverage warning at finalisation.
+- `MoSCoW` gates altitude in `/write-ac`: `Won't` produces no AC at all, `Could` never reaches Capability level. It is a per-story scope decision, distinct from the document-level `Priority:` field, which ranks this whole feature against other features for PI planning. Never collapse the two.
+- IDs are retired when a story or criterion is dropped — never reused.
 
 ## Implementation Decisions
 
@@ -224,7 +254,12 @@ Tasks the AI agent can execute autonomously.
 
 ## Out of Scope
 
-[Explicitly list what is NOT being built in this PRD.]
+Exclusions are binding — they get cited in scope disputes — so they are rows, not prose. They carry
+no ID: nothing traces *to* an exclusion, so an ID would never be referenced.
+
+| Excluded | Reason | Revisit when |
+|----------|--------|--------------|
+| [what is not being built] | [why it is out] | [trigger, or "not planned"] |
 
 ## Assumptions & Dependencies
 
@@ -253,6 +288,9 @@ Write `None` in place of a table only when genuinely empty.
 
 Full-chain, bidirectional. Spans BRD → PRD → ORD. The Test column is scaffolded `TBD` and back-filled when `/testplan` runs.
 
+Unlike the ORD — whose register carries `BRD#` and `Source` in each requirement row — a PRD story
+is narrative, so provenance has no row to live in. This matrix is that home, not a duplicate of it.
+
 | BRD Objective | Proximate Source | PRD Req ID | Acceptance Criteria (summary) | Test | ORD NFR Ref |
 |---------------|------------------|------------|-------------------------------|------|-------------|
 | [BRD-NN or —] | [grill / research § / prototype / stakeholder] | [PRD-NNN] | [one line] | [TBD / T-NN] | [ORD-NNN / —] |
@@ -269,7 +307,9 @@ Full-chain, bidirectional. Spans BRD → PRD → ORD. The Test column is scaffol
 - Never ask the user questions during Phase 1 — gather, then present.
 - Never finalise a PRD with an empty Success Metrics section — require at least one measurable metric, or an explicit `none — [reason]`.
 - Never finalise a PRD with a user story that has no acceptance criterion.
-- Never write a requirement in unverifiable or hedged form — see `rules/requirements/language.md`. Quantification alone is not enough: a quantified requirement carrying `should` or `can` still fails. Quantify, write it as a declarative end state, or flag it as `[TBD — needs measurable criterion]`.
+- Never write a requirement in unverifiable or hedged form — see `rules/requirements/language.md`. Quantification alone is not enough: a quantified requirement carrying `should` or `can` still fails. Quantify, write it as a declarative end state, or flag it as `[TBD — source: "quoted vague statement"]`.
+- Never delete `/prototype` from the working tree without a typed `CONFIRM`, and never present that gate unless preservation to the throwaway branch already succeeded.
+- Never write a story without a MoSCoW priority — `/write-ac` gates altitude on it, and an unset priority silently bypasses that gate.
 - Never record an assumption without an `If false` consequence, and never leave a falsified assumption unescalated — set `Status: Falsified` and raise it via `/raid add risk`.
 - Never emit the standalone next-steps block when invoked with a `/write-reqs` brief — sequencing is owned there, once.
 - Never reuse a retired story ID — retire and move on.
@@ -303,3 +343,7 @@ After Phase 2 is complete and PRD is written:
 | Phase 1 exploration finds no relevant codebase | Note "Codebase appears empty or not yet scaffolded." Proceed with a greenfield assumption — state it explicitly. |
 | Sprint field cannot be determined | Set to "Not sprint-tracked" and flag for human to update. |
 | Estimate confirmation not given | Do not write PRD until estimates are confirmed — prompt once more. |
+| Invoked by `/write-reqs` with a joint-authoring brief | Treat the brief's PRD-bound half as the extraction scope. Cite the operational needs routed to the ORD rather than restating them. Suppress the standalone next-steps block; `/write-reqs` owns sequencing. |
+| Brief received but a listed need cannot be placed in a story | Stop before writing. Report it to `/write-reqs` as unclassified — do not silently drop it or invent a story for it. |
+| Source states no MoSCoW for a story | Write `TBD` and surface it at the Phase 1 gate. Never default to `Must`. |
+| `/prototype` cleanup `CONFIRM` declined or answered `SKIP` | Leave `/prototype` in place. The PRD still stands; note in Implementation Decisions that the spike remains in the working tree. |

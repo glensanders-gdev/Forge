@@ -48,10 +48,30 @@ this release. Most KPPs are Musts; most Musts are not KPPs. Keep both.
 verbs inside requirement *text*; a controlled enum in a priority column is unambiguous. Do not
 "correct" it.
 
-> **PRD requirements do not yet use this schema.** `$write-prd` keeps user stories with
-> Given/When/Then criteria pending a decision on that form. Until then the PRD's requirement store
-> is the exception to the table-first rule, and it is a known gap — not a licence for free text
-> elsewhere.
+### PRD story criteria
+
+A PRD story is deliberately narrative — "As a … I want … so that …" carries intent and the business
+outcome, which a register row cannot. Its **acceptance criteria** are rows:
+
+| ID | Acceptance Criterion | Type |
+|---|---|---|
+| PRD-NNN.N | [declarative statement of what is true once delivered] | Happy path / Edge / Error |
+
+- Criterion IDs are `PRD-NNN.N` within their story, so `$write-ac` maps each `AC-NNN` to a precise
+  criterion rather than a whole story.
+- The story carries a `MoSCoW` priority; `$write-ac` gates altitude on it exactly as it does for
+  ORD register rows.
+- `Type` makes the happy-path-only coverage warning mechanically checkable.
+
+### Statements that carry no ID
+
+Two kinds of binding row are deliberately ID-less, because nothing ever traces *to* them:
+
+- **Exclusions** (PRD § Out of Scope) — cited in scope disputes, never referenced by another row.
+- **Coverage gaps** (ORD § 3.10) — a record of absence; the ID would belong to a requirement that
+  does not exist.
+
+Everything else that binds carries an ID. Do not extend this list to avoid assigning one.
 
 ### Interface detail
 
