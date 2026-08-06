@@ -11,6 +11,15 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
+## v3.19.0 — 2026-08-06
+
+**New skill `/roap`** — grill a role definition into a single-page Role on a Page
+
+### Added
+- `/roap` 1.0.0 — fully HITL intake that produces `docs/roles/[role-slug]-roap.md`. Branches on **design** (role does not exist yet — answers are intent) or **document** (someone does the job today — answers are evidence), then asks nine questions one at a time: Role Title, Team, Reports To, Role Purpose, Key Accountabilities, Success Measures, Typical Activities & Allocation, Development Focus Areas, Key Relationships. The leading constraint is the page — capped sections (4–6 accountabilities, 3–5 measures, 4–7 activities, 2–3 development areas), allocation totalling exactly 100%, every success measure carrying a metric or named evidence source, and a ≤ 600-word page-fit check before review. Success measures follow `rules/requirements/language.md` (declarative present, no modals). Positions only — the skill never names an individual or records personal data, so a ROAP stays a role artefact rather than a performance record. Questions and probes in `GRILL.md`; section schemas, page template, and the soft-measure worked example in `FORMATS.md`.
+
+---
+
 ## v3.18.0 — 2026-07-13
 
 **New skill `/brain-setup`** — scaffold and audit the Karpathy second-brain knowledge model across three tiers

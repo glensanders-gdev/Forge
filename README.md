@@ -1,4 +1,4 @@
-# Forge v3.18.0
+# Forge v3.19.0
 
 An AI-assisted development workflow framework for Claude Code and Codex.
 
@@ -20,7 +20,7 @@ Each stage produces an artifact that feeds the next. The AI agent orients itself
 
 ## What's Included
 
-**109 shared skills** covering the full software delivery lifecycle, adapted for Claude Code and Codex:
+**110 shared skills** covering the full software delivery lifecycle, adapted for Claude Code and Codex:
 
 | Category | Skills |
 |----------|--------|
@@ -33,7 +33,7 @@ Each stage produces an artifact that feeds the next. The AI agent orients itself
 | PI & Release | `/piplan`, `/pi-end`, `/sprintplan`, `/go-nogo`, `/changelog`, `/deploy`, `/deploy-pi`, `/rollback`, `/rollback-pi`, `/standalone-release`, `/sprint-replan`, `/pi-replan`, `/incident`, `/raid` |
 | Sprint Management | `/sprint-start`, `/sprint-end`, `/pir` |
 | Maintenance | `/feature-flag`, `/tech-debt`, `/dependency-update` |
-| Company Config | `/company-add`, `/company-git`, `/company-sync`, `/company-update`, `/jira`, `/tool-add`, `/tool-check` |
+| Company Config | `/company-add`, `/company-git`, `/company-sync`, `/company-update`, `/jira`, `/roap`, `/tool-add`, `/tool-check` |
 | Framework | `/write-a-skill`, `/assimilate`, `/learn`, `/evolve`, `/forge-init`, `/forge-install`, `/forge-update`, `/skill-health`, `/intent-layers`, `/link-jira`, `/commands` |
 
 ---
@@ -150,8 +150,8 @@ Or if you have an existing project:
 
 ```
 ~/.claude/
-  skills/              ← 109 shared skills
-  commands/            ← 110 Claude command entries including /grill-with-codex
+  skills/              ← 110 shared skills
+  commands/            ← 111 Claude command entries including /grill-with-codex
   tools/
     global.md          ← global tools registry (security scanners, perf analysers, etc.)
   knowledge/
