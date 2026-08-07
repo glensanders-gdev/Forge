@@ -11,6 +11,60 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
+## v3.21.0 — 2026-08-08
+
+**Grilling moves from depth-first single questions to bounded frontier rounds** — assimilated from the rewritten upstream
+
+### Added
+
+- `global/.claude/skills/grill-me/FRONTIER.md` — the traversal protocol shared by `$grill-me` and
+  `$grill-with-docs`. Defines the **design tree**, the **frontier** (every decision whose
+  prerequisites are settled), the round, the `❓`/`➡️` question format, the facts-vs-decisions
+  boundary, and the stop condition. Both skills reference it; neither restates it, per PRINCIPLE 6.
+  The previous arrangement had the same rules written out twice in two skills and already showing
+  drift, which is the defect this file removes.
+
+### Changed
+
+- `$grill-me` 1.1.0 → 1.2.0 and `$grill-with-docs` 2.1.0 → 2.2.0 — **the `never batch questions`
+  rule is replaced.** Both skills now ask the frontier in rounds of up to 5 numbered questions,
+  each carrying its recommended answer, then wait. The rule that replaces it is narrower and
+  mechanically checkable: *never place a question in the same round as the question its answer
+  depends on.* That dependency, not the count, is what the original rule was reaching for — two
+  questions asked together are only confusing when one presupposes the other's answer.
+- **Traversal is now dependency-driven, not order-driven.** The prior instruction was "walk each
+  branch depth-first, resolving dependencies before moving to siblings", which allows a constraint
+  discovered on branch 4 to invalidate branch 1. Working the frontier makes that impossible: a
+  question is only asked once everything it depends on is settled.
+- **The session has a hard stop condition.** "After all branches are resolved" becomes *the frontier
+  is empty* — every branch visited, nothing silently assumed. A satisfied-sounding human no longer
+  ends the session; a new failure-mode row makes the skill name what is still open instead.
+- **Environment facts are delegated, non-blocking.** A frontier question needing a fact from the
+  codebase or filesystem dispatches a subagent (Haiku per `rules/common/model-selection.md`) rather
+  than asking the human. A running exploration is an unsettled prerequisite, so only the questions
+  downstream of it wait — the rest of the round is asked immediately.
+- Round cap and subagent routing are Forge additions, not upstream. Upstream asks the whole frontier
+  with no ceiling; the cap of 5 keeps a round inside a human's working memory and preserves the HITL
+  gate that PRINCIPLE 1 requires. Both skills now declare `[HITL]` explicitly, which neither did.
+- Command stubs, the `grill-me` row in the command reference, and the `origin:` frontmatter on
+  both skills updated. `origin:` now credits Matt Pocock directly rather than relying on the body
+  credit line alone.
+
+### Source
+
+Assimilated from Matt Pocock's `grilling` skill
+(`github.com/mattpocock/skills` · `skills/productivity/grilling/SKILL.md`) via `$assimilate`.
+The upstream skill has been rewritten since Forge first adapted it — Forge's `one question at a
+time` rule was a faithful copy of the earlier version, which upstream has since reversed.
+
+### Known gap
+
+- `$ia` carries its own `ask questions one at a time` rule (`SKILL.md` lines 38 and 101) while
+  delegating to `$grill-with-docs`. Left unchanged in this release and recorded here rather than
+  silently reconciled.
+
+---
+
 ## v3.20.0 — 2026-08-07
 
 **New skills `$brd-review` and `$ord-review`** — the requirements pack's own Tier 1 control, mechanised

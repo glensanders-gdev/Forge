@@ -221,6 +221,7 @@ The full framework lifecycle is documented in `~/.claude/forge-sequence.mmd`. Re
 
 | Version | Changes |
 |---------|---------|
+| 3.21.0 | Grilling moves to bounded frontier rounds — shared `FRONTIER.md` protocol for `/grill-me` and `/grill-with-docs` |
 | 3.18.0 | `/brain-setup` — three-tier second-brain knowledge model |
 | 3.17.0 | Assimilation batch — `/to-tickets` vertical-slice tickets; `/build` test-execution cadence; grill fact-vs-decision boundary; `/handoff` secret redaction; `/write-a-skill` Negation failure mode |
 | 3.16.0 | Two-axis code review assimilated into `/review`, wired into `/build` |

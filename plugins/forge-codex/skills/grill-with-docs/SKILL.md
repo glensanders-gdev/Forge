@@ -3,24 +3,26 @@ name: "grill-with-docs"
 description: "Planning phase grilling session that challenges a plan against the existing domain model, sharpens terminology, and updates CONTEXT.md and ADRs inline as decisions crystallise. The standard entry point for project planning in Forge. Use when stress-testing a plan against the project's language, codebase, and documented decisions."
 metadata:
   category: pipeline
-  version: 2.1.0
-  origin: Adapted from Glen Sanders (Forge / https://github.com/glensanders-gdev/Forge)
+  version: 2.2.0
+  origin: Adapted from Matt Pocock (grilling / github.com/mattpocock/skills)
 ---
 
 # Grill With Docs
 
 The planning phase entry point. Like `$grill-me` but domain-aware — challenges the plan against `docs/CONTEXT.md`, the codebase, and existing ADRs. Updates living documents inline as decisions are made.
 
+See [FRONTIER.md](../grill-me/FRONTIER.md) for the traversal protocol — design tree, bounded rounds, question format, and stop condition. It is shared with `$grill-me` and is not restated here.
 See [CONTEXT-FORMAT.md](CONTEXT-FORMAT.md) for how to write and structure `CONTEXT.md`.
 See [ADR-FORMAT.md](ADR-FORMAT.md) for when and how to write ADRs.
 
-> Adapted from techniques and skills by Matt Pocock (AIHero.dev / github.com/mattpocock/skills).
+**Execution mode:** `[HITL]` throughout. Every round is a gate; the session cannot advance on the AI's own answers.
+
+> Adapted from Matt Pocock's `grilling` skill (AIHero.dev / github.com/mattpocock/skills).
 
 ## Rules
 
-- Ask questions **one at a time** — asking several at once is bewildering and buries the decision.
-- Provide your recommended answer before waiting for the user's response.
-- **Facts you look up; decisions you put to the human.** If a question can be answered by exploring the codebase, explore it and answer it yourself. But a *decision* is theirs — put each one to them and wait; never decide on the human's behalf to keep the session moving.
+- Work the design tree in **bounded frontier rounds** — up to 5 numbered questions per round, each carrying your recommended answer, then wait ([FRONTIER.md](../grill-me/FRONTIER.md)).
+- **Facts you look up; decisions you put to the human.** Dispatch a subagent for codebase and environment facts rather than asking. A *decision* is theirs — put each one to them and wait; never decide on the human's behalf to keep the session moving.
 - Never use a term that conflicts with `docs/CONTEXT.md` without flagging it first.
 
 ## Domain Awareness
@@ -105,7 +107,7 @@ Reference the ADR filename in the session's DEVLOG "Decisions Made" entry.
 
 ## After Session
 
-Produce a Shared Understanding Summary:
+When the frontier is empty, produce a Shared Understanding Summary:
 
 ```markdown
 ## Shared Understanding — [Feature/Plan Name]
@@ -137,7 +139,9 @@ Suggest next stage and wait for human confirmation before proceeding.
 | Condition | Behaviour |
 |-----------|-----------|
 | Neither `CONTEXT-MAP.md` nor `CONTEXT.md` exists | Create `docs/CONTEXT.md` lazily when the first term resolves — don't block the session on it. |
-| A question is answerable from the codebase | Explore the code and answer it yourself rather than asking the user. |
+| A question is answerable from the codebase | Dispatch a subagent to answer it rather than asking the user — and ask the rest of the round now instead of blocking on the subagent. |
+| Frontier is wider than 5 questions | Ask the highest-leverage subset and state how many are held back and what they cover — never dump the whole frontier, never truncate silently. |
+| User answers some questions in a round but not others | The unanswered ones stay on the frontier and go into the next round — never read silence as agreement with your recommendation. |
 | User's term conflicts with the glossary | Flag the conflict immediately — never silently adopt a clashing term. |
 | Decision is hard to reverse, surprising, and a real trade-off | Offer an ADR; if not all three hold, don't write one. |
 | Tempted to batch CONTEXT.md updates | Update inline the moment a term resolves — never batch. |
