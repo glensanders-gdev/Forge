@@ -47,6 +47,8 @@ Print the following reference exactly:
 | `write-ord` | Synthesise a transcript/document into an Operational Requirements Document (ISO/IEC 25010:2023) — AFK ingests and classifies, HITL writes |
 | `write-reqs` | Author a PRD and ORD together from one source — AFK classifies functional vs operational, delegates each to $write-prd and $write-ord, then cross-links the BRD↔PRD↔ORD traceability |
 | `write-ac` | Transform a PRD and ORD into Jira acceptance criteria — AFK sorts KPPs/headline outcomes to Capability AC and detail to child issues, HITL writes docs/ac/ and optionally pushes to the linked Jira Capability behind a PUSH gate |
+| `brd-review` | Assess a BRD against the published handoff gate (BH-1 – BH-10, the `[TBD]` rule) — AFK advisory, per-item verdicts with evidence and one of four outcomes derived from them, no score |
+| `ord-review` | Assess an ORD against the §7.1 gate (OH-1 – OH-13) plus the §7.3 defect scan and the §5 tier rule — AFK advisory, per-item verdicts with evidence and one of four outcomes derived from them, no score |
 | `testplan` | Design the testing strategy — automated vs manual, critical path, what's not tested |
 | `estimate` | Estimate token cost bands and story points — table of estimates, human confirms, XL flags $break-down |
 | `break-down` | Split a large ticket into smaller smart-zone tickets |
