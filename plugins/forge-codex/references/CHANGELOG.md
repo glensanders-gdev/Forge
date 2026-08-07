@@ -11,6 +11,55 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
+## v3.20.0 — 2026-08-07
+
+**New skills `$brd-review` and `$ord-review`** — the requirements pack's own Tier 1 control, mechanised
+
+### Added
+
+- `$brd-review` 1.0.0 and `$ord-review` 1.0.0 — `[AFK]` advisory conformance reviews against the two
+  handoff gates published in the `requirements-documents` pack. `$brd-review` applies the BRD gate
+  (bar BH-1 – BH-4, supporting BH-5 – BH-10, the `[TBD]` treatment rule and its two limits);
+  `$ord-review` applies §7.1 (bar OH-1 – OH-7, supporting OH-8 – OH-13) and adds three checks only
+  the downstream hop can make: the §7.3 scan, where content the ORD must refuse to produce is
+  reported as a **defect rather than a gap** because gaps drive the maturity tier and defects do not;
+  the §5 tier rule, where the tier is the weakest status carried by any **KPP-bearing** requirement
+  rather than the weakest anywhere; and §2.1, where a technical target is an antipattern **regardless
+  of how well it traces**. Both derive one of the gate's four outcomes mechanically from the verdicts
+  and emit no score — a percentage is trusted more than a conformance review earns.
+- **Why these two, and why now.** §8 of the ORD Intake and Maturity Standard names *"a named
+  independent reviewer on every ORD, who did not author it"* as its highest-value Tier 1 control and
+  states that its absence causes **silent defect survival**. Every pass over that pack — including
+  both `$critic` passes at pack v1.3 — has been its own author's, which the v1.3 critique named as
+  the unfixed root cause behind three P1s. These skills are that control, mechanised.
+- **The criteria are read from the pack at review time, never recalled**, and a review that cannot
+  locate the pack stops rather than proceeding from memory. This is the load-bearing constraint: a
+  criterion copied into a skill drifts from the standard silently, and the drift is invisible in the
+  output. No BH or OH item, no outcome and no threshold is restated in either skill.
+- `brd-review/GATE-PROTOCOL.md` — the protocol both gates share, cited by `$ord-review` by path
+  rather than duplicated: the four-verdict vocabulary, the evidence rule (a verdict with no citation
+  is an assertion), outcome derivation with its precedence order, refusal-and-authority handling, and
+  the report format. It carries **no criterion** — protocol is tooling and has no home in the pack,
+  which is barred from referencing Forge skills.
+- **Refusal is recorded, not exercised.** The refusal outcome at both gates depends on the Tier 1
+  control *"right to declare an ORD not-ready and refuse handoff"*, which the standard states is not
+  currently held. Both skills report it as recorded, name the absent bar items, and state that the
+  accumulation of those records is the evidence for establishing the control.
+
+### Found while writing, and fixed in the pack
+
+- **Both gates' second outcome had a hole**, and writing the derivation table is what exposed it.
+  *Accepted with recorded gaps* / *Handed off with recorded gaps* was conditioned on an item in the
+  **supporting** range being outstanding, so a document whose only gap was a declared one on a **bar**
+  item matched no outcome row — met for the bar, not gap-free, and clear of the refusal. Neither gate
+  stated which outcome wins when several apply, either; the precedence was being inferred from the
+  worked assessment rather than stated. **Fixed at both gates in pack v1.4**, so `GATE-PROTOCOL.md`
+  now quotes the precedence rather than reading it in. Same shape as the v1.3 defect where the worked
+  example fell through all three outcomes — surfaced this time by mechanising the gate rather than by
+  reading it, which is the argument for these two skills in one line.
+
+---
+
 ## v3.19.0 — 2026-08-06
 
 **New skill `$roap`** — grill a role definition into a single-page Role on a Page
