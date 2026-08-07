@@ -5,7 +5,8 @@
 > item, outcome and threshold below. Editing this file puts it out of step with the
 > pack; regenerate instead.
 
-**Pack version:** v1.4 · **Generated:** 2026-08-07 · **Content hash:** `397b4a4489d959ef`
+**Pack version:** v1.4 · **Pack commit:** `9d0128aa6a27` (tag `v1.4`)
+**Generated:** 2026-08-07 · **Content hash:** `397b4a4489d959ef`
 
 **Quote the version in every review this extract is used for.** A reviewer needs to
 know which revision of the gate was applied — a verdict is only meaningful against a

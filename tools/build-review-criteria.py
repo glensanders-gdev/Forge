@@ -69,6 +69,49 @@ def pack_version(reference: Path) -> str:
     raise SystemExit(f"FAIL: no version heading found in {changelog}")
 
 
+def pack_provenance(reference: Path) -> str:
+    """Describe the exact pack state this extract came from.
+
+    A version string alone is a claim; a commit is a state you can return to. Where
+    the pack's working tree is dirty the extract came from something uncommitted, so
+    it cannot be reproduced — say so rather than implying a clean provenance.
+    """
+    import subprocess
+
+    root = reference.parent
+
+    def git(*args: str) -> str | None:
+        try:
+            done = subprocess.run(
+                ["git", "-C", str(root), *args],
+                capture_output=True, text=True, check=True,
+            )
+        except (OSError, subprocess.CalledProcessError):
+            return None
+        return done.stdout.strip()
+
+    if git("rev-parse", "--is-inside-work-tree") != "true":
+        return (
+            "**not version-controlled** — this extract cannot be traced to a pack state, "
+            "and the state it came from may no longer exist"
+        )
+
+    sha = git("rev-parse", "--short=12", "HEAD") or "unknown"
+    dirty = bool(git("status", "--porcelain"))
+    described = git("describe", "--tags", "--exact-match", "HEAD")
+
+    provenance = f"`{sha}`"
+    if described:
+        provenance += f" (tag `{described}`)"
+    if dirty:
+        provenance += (
+            " — ⚠️ **generated from a dirty working tree.** Uncommitted pack changes were "
+            "present, so this extract does not correspond to any committed state and cannot "
+            "be reproduced. Commit the pack and regenerate."
+        )
+    return provenance
+
+
 def slice_section(text: str, start: str, end) -> str:
     """Return the section from the line starting with `start` up to `end`.
 
@@ -136,7 +179,8 @@ PREAMBLE = """\
 > item, outcome and threshold below. Editing this file puts it out of step with the
 > pack; regenerate instead.
 
-**Pack version:** {version} · **Generated:** {date} · **Content hash:** `{digest}`
+**Pack version:** {version} · **Pack commit:** {provenance}
+**Generated:** {date} · **Content hash:** `{digest}`
 
 **Quote the version in every review this extract is used for.** A reviewer needs to
 know which revision of the gate was applied — a verdict is only meaningful against a
@@ -167,9 +211,11 @@ def build_body(reference: Path) -> dict[str, str]:
     return out
 
 
-def render(skill: str, body: str, version: str, date: str) -> str:
+def render(skill: str, body: str, version: str, date: str, provenance: str) -> str:
     digest = hashlib.sha256(body.encode("utf-8")).hexdigest()[:16]
-    return PREAMBLE.format(skill=skill, version=version, date=date, digest=digest) + body
+    return PREAMBLE.format(
+        skill=skill, version=version, date=date, digest=digest, provenance=provenance
+    ) + body
 
 
 def main() -> int:
@@ -188,6 +234,7 @@ def main() -> int:
         return 1
 
     version = pack_version(reference)
+    provenance = pack_provenance(reference)
     bodies = build_body(reference)
     today = _dt.date.today().isoformat()
 
@@ -210,8 +257,9 @@ def main() -> int:
                 stale.append(f"{skill}: extract differs from pack {version}")
             continue
 
-        target.write_text(render(skill, body, version, today), encoding="utf-8")
-        size = len(render(skill, body, version, today).encode("utf-8")) / 1024
+        rendered = render(skill, body, version, today, provenance)
+        target.write_text(rendered, encoding="utf-8")
+        size = len(rendered.encode("utf-8")) / 1024
         print(f"  wrote {target.relative_to(REPO_ROOT)}  ({size:.1f} KB, pack {version})")
 
     if check:
@@ -227,7 +275,7 @@ def main() -> int:
         print(f"Review criteria are current against pack {version}.")
         return 0
 
-    print(f"Generated review criteria from pack {version}.")
+    print(f"Generated review criteria from pack {version} {provenance.split(chr(10))[0][:60]}")
     return 0
 
 
