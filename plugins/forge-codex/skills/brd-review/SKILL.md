@@ -27,17 +27,11 @@ author's. This skill is that control, mechanised at the upstream hop.
 
 ---
 
-## Step 1 — Read the standard, never recall it
+## Step 1 — Read the criteria, never recall them
 
-Resolve `reference/brd-standard.md` in the requirements-documents pack, in order:
-
-1. `$FORGE_REQ_PACK/reference/brd-standard.md`
-2. `requirements-documents/reference/brd-standard.md`, searching up from the working directory
-3. `~/Documents/Forge/requirements-documents/reference/brd-standard.md`
-
-**Where none resolves, stop and ask for the path.** A gate applied from recollection drifts from
-the published one silently, and the drift is invisible in the output — the exact failure the pack
-exists to catch.
+Source them per [GATE-PROTOCOL.md](GATE-PROTOCOL.md) § *Sourcing the criteria* — the live pack's
+`reference/brd-standard.md` and `reference/traceability-matrix.md` where held, otherwise the
+stamped extract in [CRITERIA.md](CRITERIA.md). Name the pack version in the report.
 
 Read in full: § *The handoff gate*, § *How a `[TBD]` is treated*, the bar (BH-1 – BH-4), the
 supporting items (BH-5 – BH-10), § *The four outcomes*, and § *The handoff gate, applied to this
@@ -92,9 +86,9 @@ protocol's refusal-and-authority handling before emitting it.
 
 ## Rules
 
-- **Never restate a criterion inside this skill.** The pack is the source of truth; a criterion
-  copied here drifts from it and the pack stops being authoritative.
-- **Never review from memory of the gate.** Where the standard is unreadable, stop.
+- **Never restate a criterion in this skill's own prose.** The pack is the source of truth.
+  `CRITERIA.md` is a generated extract of it, not a second copy to edit — hand-editing that file is
+  how the pack stops being authoritative.
 - **Never emit a score or a percentage.** The gate's currency is a per-item verdict and one of four
   outcomes. A number invites more trust than a conformance review earns.
 - Report an assessment; the sign-off is the author's and the approvers'. This skill declares.

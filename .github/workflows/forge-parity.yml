@@ -25,3 +25,10 @@ jobs:
       - name: Verify Claude and Codex parity
         shell: pwsh
         run: ./tools/test-forge-parity.ps1
+
+      # Skips here by design: the requirements-documents pack is held locally and is
+      # not in this repo, so CI cannot compare the extracts against it. The check runs
+      # for whoever holds the pack, which is the only party who can regenerate.
+      - name: Verify review criteria are current
+        shell: pwsh
+        run: python tools/build-review-criteria.py --check
