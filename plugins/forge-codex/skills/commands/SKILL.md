@@ -39,7 +39,7 @@ Print the following reference exactly:
 | Command | What it does |
 |---------|-------------|
 | `grill-with-docs` | Planning phase entry point — grill against domain model, codebase, and CONTEXT.md |
-| `grill-me` | Ad-hoc stress-test only — one question at a time, no domain model context |
+| `grill-me` | Ad-hoc stress-test only — bounded frontier rounds, no domain model context |
 | `grill-with-peer` | Challenge a plan with an independent peer model, then reconcile both models' conclusions |
 | `research` | Cache findings in topic-specific files under docs/research/ |
 | `prototype` | Spike ideas in throwaway code under $prototype |
