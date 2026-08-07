@@ -32,10 +32,27 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
   states that its absence causes **silent defect survival**. Every pass over that pack — including
   both `/critic` passes at pack v1.3 — has been its own author's, which the v1.3 critique named as
   the unfixed root cause behind three P1s. These skills are that control, mechanised.
-- **The criteria are read from the pack at review time, never recalled**, and a review that cannot
-  locate the pack stops rather than proceeding from memory. This is the load-bearing constraint: a
+- **The criteria are read at review time, never recalled.** This is the load-bearing constraint: a
   criterion copied into a skill drifts from the standard silently, and the drift is invisible in the
-  output. No BH or OH item, no outcome and no threshold is restated in either skill.
+  output. No BH or OH item, no outcome and no threshold is restated in either skill's own prose.
+- `tools/build-review-criteria.py` and a `CRITERIA.md` per skill — **the fix for a defect in the
+  first cut of these skills.** They resolved the pack by path and stopped where it was absent; the
+  pack is held locally and is not in this repo, so both skills were inert for everyone who cloned
+  Forge and worked only on the author's machine. The generator now reads the pack and emits a
+  stamped extract into each skill, committed like `build-forge-codex.ps1`'s output and never
+  hand-edited. Sourcing order is the live pack first (authoritative), then the extract; where both
+  are present and disagree, the pack wins and the extract is stale.
+  - **Every report names the pack version it applied.** A verdict is only meaningful against a named
+    bar — the pack's own thesis, applied to the review of it.
+  - **`--check` fails the build on divergence and skips where no pack is held**, which is the CI
+    case and is correct: only the pack's custodian can regenerate. Verified against all four states
+    — current, drifted, restored, and pack-absent.
+  - The generator **fails loudly on a missing section marker** rather than emitting a partial
+    extract. A silently truncated criterion is worse than a failed build: the review still runs, and
+    applies a criterion that lost half its text.
+  - Extract sizes are 16 KB (BRD) and 63 KB (ORD, including the worked example ORD and the three
+    desk references). The gate criteria themselves are ~15 KB — the earlier judgement that bundling
+    was infeasible rested on measuring whole source files rather than the sections actually applied.
 - `brd-review/GATE-PROTOCOL.md` — the protocol both gates share, cited by `/ord-review` by path
   rather than duplicated: the four-verdict vocabulary, the evidence rule (a verdict with no citation
   is an assertion), outcome derivation with its precedence order, refusal-and-authority handling, and

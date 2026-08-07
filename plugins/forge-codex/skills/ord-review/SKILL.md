@@ -24,16 +24,11 @@ Every pass over that pack to date has been its own author's. This skill is that 
 
 ---
 
-## Step 1 — Read the standard, never recall it
+## Step 1 — Read the criteria, never recall them
 
-Resolve `reference/ord-intake-standard.md` in the requirements-documents pack, in order:
-
-1. `$FORGE_REQ_PACK/reference/ord-intake-standard.md`
-2. `requirements-documents/reference/ord-intake-standard.md`, searching up from the working directory
-3. `~/Documents/Forge/requirements-documents/reference/ord-intake-standard.md`
-
-**Where none resolves, stop and ask for the path.** A gate applied from recollection drifts from the
-published one silently, and the drift is invisible in the output.
+Source them per [GATE-PROTOCOL.md](../brd-review/GATE-PROTOCOL.md) § *Sourcing the criteria* — the
+live pack's `reference/` where held, otherwise the stamped extract in [CRITERIA.md](CRITERIA.md),
+which carries every file named below. Name the pack version in the report.
 
 Read in full: **§7.1** (the bar OH-1 – OH-7, the supporting items OH-8 – OH-13, the four outcomes,
 and *What the ORD does not supply*), **§7.3**, **§5** with its tier rule, **§5.2** on KPPs, and
@@ -98,8 +93,8 @@ from gaps, and each of the five checks is answered or explicitly marked not-yet-
 
 ## Rules
 
-- **Never restate a criterion inside this skill.** The pack is the source of truth.
-- **Never review from memory of the gate.** Where the standard is unreadable, stop.
+- **Never restate a criterion in this skill's own prose.** The pack is the source of truth, and
+  `CRITERIA.md` is a generated extract of it — never a second copy to hand-edit.
 - **Never emit a score or a percentage** — thirteen verdicts and one of four outcomes.
 - **Never report a §7.3 item as a gap.** It is a defect, and folding it into the tier hides it.
 - Report an assessment; approval is the General Managers'. This skill declares.
