@@ -11,6 +11,47 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
+## v3.21.1 — 2026-08-08
+
+**`$handoff` becomes user-invoked only** — the model can no longer overwrite the next session's entry point
+
+### Changed
+
+- `$handoff` 1.1.0 → 1.2.0 — `disable-model-invocation: true` added to frontmatter, with an explicit
+  `[HITL]` execution-mode line stating why it is load-bearing. `$handoff` **overwrites**
+  `docs/HANDOFF.md`, and `$continue` treats that file as its primary source at the next session start.
+  A model that ran handoff on its own initiative destroyed the next session's entry point, and the
+  loss was silent — the file still existed and still looked valid. The frontmatter field enforces
+  PRINCIPLE 1 as a mechanism rather than as prose the model may or may not honour. The `$handoff`
+  slash command is unaffected; no skill chains into handoff programmatically, so nothing else breaks.
+- **First use of `disable-model-invocation` anywhere in Forge.** Other skills that silently overwrite
+  a file another skill depends on are candidates for the same treatment; none are changed here.
+- New failure-mode row: when the session merely *looks* like it is ending, say so and let the human
+  call it. `$save-state` remains the human's move for imminent context exhaustion.
+- The secret-redaction failure-mode row now states the reason it exists: `docs/HANDOFF.md` is tracked
+  — `project-template/.gitignore` excludes only `$prototype` — so every handoff is committed and
+  pushed, and that rule is the only control between a session secret and the remote.
+- `origin:` frontmatter added, crediting Matt Pocock directly rather than relying on the body line.
+
+### Source
+
+Assimilated from Matt Pocock's `handoff` skill
+(`github.com/mattpocock/skills` · `skills/productivity/handoff/SKILL.md`) via `$assimilate`.
+Five of the source's seven instructions were already in Forge, in most cases more specifically —
+suggested skills, reference-don't-duplicate, redaction, `argument-hint`, and tailoring to a stated
+next focus. Only the invocation gate was new.
+
+### Deliberately not adopted
+
+- **"Save to the temporary directory of the OS — not the current workspace."** Upstream keeps the
+  handoff out of the repo, which makes a leaked secret structurally impossible. Forge writes
+  `docs/HANDOFF.md` because six skills read or write that path — `$continue`, `$debrief`,
+  `$save-state`, `$sprint-end`, `$approve`, `$context-health` — it ships in `project-template/docs/`,
+  and a tmpdir file cannot be handed to a colleague, which the skill's own description covers.
+  Recorded here as a known residual: Forge trades a mechanism for a rule on this one.
+
+---
+
 ## v3.21.0 — 2026-08-08
 
 **Grilling moves from depth-first single questions to bounded frontier rounds** — assimilated from the rewritten upstream
