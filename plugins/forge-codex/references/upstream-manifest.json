@@ -1,5 +1,5 @@
 {
-  "forge_version": "3.21.0",
+  "forge_version": "3.21.1",
   "skills": {
     "brain-setup": "1.0.0",
     "scan-first": "1.0.0",
@@ -59,7 +59,7 @@
     "estimate": "1.0.0",
     "token-report": "1.0.0",
     "lookup": "1.0.0",
-    "handoff": "1.1.0",
+    "handoff": "1.2.0",
     "continue": "1.0.0",
     "pir": "1.0.0",
     "add-term": "1.0.0",

@@ -3,16 +3,19 @@ name: "handoff"
 description: "Compact the current session into a structured handoff document so the next session can continue without re-reading the conversation. Writes to docs/HANDOFF.md. References artifacts by path rather than reproducing content. Suggests skills for the next session. Use $handoff for any planned pause — same-day resume, passing to another agent, or handing to a colleague. Use $debrief for a thorough end-of-day close that updates kanban, DEVLOG, and backlog."
 metadata:
   category: session
-  version: 1.1.0
+  version: 1.2.0
+  origin: Adapted from Matt Pocock (handoff / github.com/mattpocock/skills)
   argument_hint: What will the next session focus on?
-  origin: Adapted from Glen Sanders (Forge / https://github.com/glensanders-gdev/Forge)
+  disable_model_invocation: true
 ---
 
 # Handoff
 
 Compact the current conversation into a clean handoff so the next session — whether a fresh agent instance or a human picking up the work — can continue without replaying the entire conversation history.
 
-Adapted from techniques and skills by Matt Pocock (AIHero.dev / github.com/mattpocock/skills), extended for the Forge framework's session and pipeline conventions.
+**Execution mode:** `[HITL]` — **user-invoked only.** `disable-model-invocation: true` is load-bearing, not decoration: this skill *overwrites* `docs/HANDOFF.md`, which `$continue` treats as its primary source at the next session start. A model that runs handoff on its own initiative destroys the next session's entry point, and the loss is silent — the file still exists and still looks valid. The human decides when the session is at a pause worth recording.
+
+Adapted from Matt Pocock's `handoff` skill (AIHero.dev / github.com/mattpocock/skills), extended for the Forge framework's session and pipeline conventions.
 
 ---
 
@@ -144,4 +147,5 @@ Always suggest `$standup` if the next session is starting fresh (first action of
 | No active PRD | Note "No active PRD — next session should run $grill-with-docs or $write-prd." |
 | Argument provided but vague | Use it as directional context, not a precise instruction. |
 | `docs/handoffs/` doesn't exist (archive mode) | Create it silently before writing. |
-| Session surfaced a secret or PII value | Never write it into `HANDOFF.md` — reference its location (env var, secrets manager, ticket) and redact the value. |
+| Session surfaced a secret or PII value | Never write it into `HANDOFF.md` — reference its location (env var, secrets manager, ticket) and redact the value. `docs/HANDOFF.md` is tracked and gets committed, so this rule is the only control standing between a session secret and the remote. |
+| Tempted to run `$handoff` unprompted — session looks like it's ending, context looks tight | Don't. The write overwrites `docs/HANDOFF.md` silently and takes the next session's entry point with it. Say the session looks like a pause point and let the human call it. For imminent context exhaustion the human runs `$save-state`. |
