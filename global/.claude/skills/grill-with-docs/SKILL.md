@@ -1,7 +1,7 @@
 ---
 name: grill-with-docs
 category: pipeline
-version: 2.2.0
+version: 2.2.1
 origin: Adapted from Matt Pocock (grilling / github.com/mattpocock/skills)
 description: Planning phase grilling session that challenges a plan against the existing domain model, sharpens terminology, and updates CONTEXT.md and ADRs inline as decisions crystallise. The standard entry point for project planning in Forge. Use when stress-testing a plan against the project's language, codebase, and documented decisions.
 ---
@@ -139,6 +139,7 @@ Suggest next stage and wait for human confirmation before proceeding.
 |-----------|-----------|
 | Neither `CONTEXT-MAP.md` nor `CONTEXT.md` exists | Create `docs/CONTEXT.md` lazily when the first term resolves — don't block the session on it. |
 | A question is answerable from the codebase | Dispatch a subagent to answer it rather than asking the user — and ask the rest of the round now instead of blocking on the subagent. |
+| Round presented with no closing prompt | The human cannot tell a gate from a report and the session stalls. Close it: name **change / discuss / accept**, and say how many questions are held back. |
 | Frontier is wider than 5 questions | Ask the highest-leverage subset and state how many are held back and what they cover — never dump the whole frontier, never truncate silently. |
 | User answers some questions in a round but not others | The unanswered ones stay on the frontier and go into the next round — never read silence as agreement with your recommendation. |
 | User's term conflicts with the glossary | Flag the conflict immediately — never silently adopt a clashing term. |

@@ -34,6 +34,20 @@ Unanswered questions from a round stay on the frontier. Carry them into the next
 
 The `➡️` line is mandatory on every question. A question with no recommendation makes the human do your thinking.
 
+## Closing the Round
+
+**Every round ends with an explicit prompt.** A list of questions and recommendations with no closing line reads as a report rather than a gate — the human is left guessing whether to answer all of them, argue with one, or wait for you to continue.
+
+Close by naming the three moves available:
+
+```
+Answer any or all — **change** an answer, **discuss** one before deciding, or **accept** the ➡️ recommendations as they stand. [N] questions are held back until these settle.
+```
+
+Adapt the wording to the round; keep all three moves. **Discuss** is the one that gets dropped and the one most worth keeping — a recommendation the human half-agrees with is where the design actually gets decided, and a human who only has accept-or-rewrite will take the recommendation to avoid the friction.
+
+An explicit "accept all" **is** an answer and settles those decisions. Silence is not — see The Round.
+
 ## Facts vs Decisions
 
 **Facts you find. Decisions the human makes.**
@@ -51,6 +65,7 @@ Questions that cannot be settled in-session are recorded under **Open Questions*
 ## Never
 
 - Never ask more than 5 questions in a single round.
+- Never present a round without its closing prompt — a round the human doesn't recognise as a gate isn't one.
 - Never place a question in the same round as the question its answer depends on.
 - Never ask the human for a fact you can look up.
 - Never proceed past a round on your own recommendations because the human didn't answer.

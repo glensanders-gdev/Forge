@@ -1,7 +1,7 @@
 ---
 name: grill-me
 category: pipeline
-version: 1.2.0
+version: 1.2.1
 origin: Adapted from Matt Pocock (grilling / github.com/mattpocock/skills)
 description: Ad-hoc stress-test of a plan or design outside the standard planning phase. Use when user wants to pressure-test an idea, approach, or decision without domain model context. For project planning, use /grill-with-docs instead — it checks CONTEXT.md and the codebase during grilling.
 ---
@@ -62,6 +62,7 @@ Wait for human confirmation before proceeding.
 |-----------|-----------|
 | `CONTEXT.md` missing | Note "No domain glossary found." Proceed — flag any terms that should be added as session progresses. |
 | No plan or design provided | Ask once: "What would you like to be grilled on?" If no response, stop gracefully. |
+| Round presented with no closing prompt | The human cannot tell a gate from a report and the session stalls. Close it: name **change / discuss / accept**, and say how many questions are held back. |
 | Frontier is wider than 5 questions | Ask the highest-leverage subset and state how many are held back and what they cover — never dump the whole frontier, never truncate silently. |
 | A frontier question needs an environment fact | Dispatch a subagent for it and ask the rest of the round now — only the questions downstream of that fact wait. |
 | User answers some questions in a round but not others | The unanswered ones stay on the frontier and go into the next round — never read silence as agreement with your recommendation. |

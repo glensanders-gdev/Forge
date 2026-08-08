@@ -1,13 +1,13 @@
 {
-  "forge_version": "3.21.1",
+  "forge_version": "3.21.2",
   "skills": {
     "brain-setup": "1.0.0",
     "scan-first": "1.0.0",
     "raid": "1.0.0",
     "tool-add": "1.0.0",
     "tool-check": "1.0.0",
-    "grill-me": "1.2.0",
-    "grill-with-docs": "2.2.0",
+    "grill-me": "1.2.1",
+    "grill-with-docs": "2.2.1",
     "grill-with-peer": "1.0.0",
     "graphify": "1.0.0",
     "research": "1.0.0",

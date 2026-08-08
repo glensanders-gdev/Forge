@@ -11,6 +11,29 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
+## v3.21.2 — 2026-08-09
+
+**Every grilling round now closes with a prompt** — a round the human doesn't recognise as a gate isn't one
+
+### Changed
+
+- `FRONTIER.md` gains a **Closing the Round** section, and `/grill-me` 1.2.0 → 1.2.1 and
+  `/grill-with-docs` 2.2.0 → 2.2.1 pick it up by reference. Reported from live use of v3.21.0: the
+  round rendered its five numbered questions and recommendations correctly and then simply stopped,
+  leaving the human to guess whether to answer all five, argue with one, or wait for the session to
+  continue. The frontier model made the round a HITL gate; nothing in the output said so.
+- **The close names three moves — change, discuss, accept — and the count held back.** `discuss` is
+  called out as the one that gets dropped and the one most worth keeping: a recommendation the human
+  half-agrees with is where the design actually gets decided, and a human offered only
+  accept-or-rewrite takes the recommendation to avoid the friction. That failure is invisible in the
+  transcript, which is why it is a rule rather than a matter of style.
+- **An explicit "accept all" is an answer** and settles those decisions. Silence still is not — the
+  v3.21.0 rule that unanswered questions stay on the frontier is unchanged, and the two cases are now
+  stated next to each other so they cannot be conflated.
+- New `never` rule and a failure-mode row in both skills.
+
+---
+
 ## v3.21.1 — 2026-08-08
 
 **`/handoff` becomes user-invoked only** — the model can no longer overwrite the next session's entry point
