@@ -1,18 +1,19 @@
 # ord-review — criteria extract
 
 > **Generated file. Never hand-edit.** Produced by `tools/build-review-criteria.py`
-> from the requirements-documents pack, which is the single source of truth for every
-> item, outcome and threshold below. Editing this file puts it out of step with the
-> pack; regenerate instead.
+> from the requirements-documents pack, which is the single source of truth for
+> everything below. Editing this file puts it out of step with the pack; regenerate
+> instead.
 
 **Pack version:** v1.4 · **Pack commit:** `9d0128aa6a27` (tag `v1.4`)
-**Generated:** 2026-08-07 · **Content hash:** `af290c6f8c5a25f8`
+**Generated:** 2026-08-10 · **Content hash:** `af290c6f8c5a25f8`
 
-**Quote the version in every review this extract is used for.** A reviewer needs to
-know which revision of the gate was applied — a verdict is only meaningful against a
-named bar, and that is the pack's own thesis applied to itself.
+**Quote the version in every review this extract is used for.**
+A reader needs to know which revision was applied — a verdict, and a document
+authored to a bar, are only meaningful against a named one, and that is the pack's
+own thesis applied to itself.
 
-**Where the live pack is present, it wins.** This extract exists so the review runs
+**Where the live pack is present, it wins.** This extract exists so the skill runs
 for someone who does not hold the pack. It is a pinned copy, not an authority: where
 it and the pack disagree, the pack is right and this file is stale.
 

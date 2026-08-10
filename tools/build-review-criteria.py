@@ -1,15 +1,15 @@
 #!/usr/bin/env python3
-"""Generate the self-contained criteria extracts that /brd-review and /ord-review ship.
+"""Generate the self-contained pack extracts that the requirements skills ship.
 
 The requirements-documents pack is the single source of truth for every gate item,
 outcome and threshold. The pack is held locally and is not in this repo, so a skill
 that only referenced it by path would resolve nothing for anyone who cloned Forge.
 
-This generator reads the pack and emits one CRITERIA.md per review skill, carrying
-the criteria those skills apply. The output is a build artefact in exactly the sense
-build-forge-codex.ps1's output is: committed, never hand-edited, regenerated from
-source. Editing a CRITERIA.md directly puts it out of step with the pack, and
---check exists to catch that.
+This generator reads the pack and emits one extract per skill — the criteria the two
+review skills apply, and the standard /write-brd authors against. The output is a
+build artefact in exactly the sense build-forge-codex.ps1's output is: committed,
+never hand-edited, regenerated from source. Editing an extract directly puts it out
+of step with the pack, and --check exists to catch that.
 
 Only someone holding the pack can regenerate. That is correct: the pack's custodian
 owns the criteria, and everyone else consumes a stamped extract.
@@ -157,6 +157,11 @@ SPECS: dict[str, list[tuple[str, str | None, object]]] = {
         ("brd-standard.md", "### The handoff gate, applied to this document", TO_RULE),
         ("traceability-matrix.md", "## The five checks a matrix makes visible", None),
     ],
+    "write-brd": [
+        ("brd-standard.md", None, None),
+        ("ord-intake-standard.md", "**Step 1 — size the change from the BRD.**",
+         "**Step 2 — read the lead time.**"),
+    ],
     "ord-review": [
         ("ord-intake-standard.md", "### 7.1 Must produce", "### 7.2 Referred"),
         ("ord-intake-standard.md", "### 7.3 Must refuse", "### 7.4 Acceptance criteria"),
@@ -171,22 +176,35 @@ SPECS: dict[str, list[tuple[str, str | None, object]]] = {
     ],
 }
 
+# What each skill ships: the filename, the noun for the heading, and what quoting the
+# version buys. A generator that called the BRD standard a set of criteria would
+# misdescribe the one skill that authors from the pack rather than judging against it.
+OUTPUTS: dict[str, tuple[str, str, str]] = {
+    "brd-review": ("CRITERIA.md", "criteria extract",
+                   "Quote the version in every review this extract is used for."),
+    "ord-review": ("CRITERIA.md", "criteria extract",
+                   "Quote the version in every review this extract is used for."),
+    "write-brd": ("STANDARD.md", "standard extract",
+                  "Quote the version in every BRD authored from this extract."),
+}
+
 PREAMBLE = """\
-# {skill} — criteria extract
+# {skill} — {noun}
 
 > **Generated file. Never hand-edit.** Produced by `tools/build-review-criteria.py`
-> from the requirements-documents pack, which is the single source of truth for every
-> item, outcome and threshold below. Editing this file puts it out of step with the
-> pack; regenerate instead.
+> from the requirements-documents pack, which is the single source of truth for
+> everything below. Editing this file puts it out of step with the pack; regenerate
+> instead.
 
 **Pack version:** {version} · **Pack commit:** {provenance}
 **Generated:** {date} · **Content hash:** `{digest}`
 
-**Quote the version in every review this extract is used for.** A reviewer needs to
-know which revision of the gate was applied — a verdict is only meaningful against a
-named bar, and that is the pack's own thesis applied to itself.
+**{usage}**
+A reader needs to know which revision was applied — a verdict, and a document
+authored to a bar, are only meaningful against a named one, and that is the pack's
+own thesis applied to itself.
 
-**Where the live pack is present, it wins.** This extract exists so the review runs
+**Where the live pack is present, it wins.** This extract exists so the skill runs
 for someone who does not hold the pack. It is a pinned copy, not an authority: where
 it and the pack disagree, the pack is right and this file is stale.
 
@@ -213,8 +231,10 @@ def build_body(reference: Path) -> dict[str, str]:
 
 def render(skill: str, body: str, version: str, date: str, provenance: str) -> str:
     digest = hashlib.sha256(body.encode("utf-8")).hexdigest()[:16]
+    _, noun, usage = OUTPUTS[skill]
     return PREAMBLE.format(
-        skill=skill, version=version, date=date, digest=digest, provenance=provenance
+        skill=skill, noun=noun, usage=usage,
+        version=version, date=date, digest=digest, provenance=provenance,
     ) + body
 
 
@@ -240,13 +260,14 @@ def main() -> int:
 
     stale: list[str] = []
     for skill, body in bodies.items():
-        target = SKILLS / skill / "CRITERIA.md"
+        filename = OUTPUTS[skill][0]
+        target = SKILLS / skill / filename
         if not target.parent.is_dir():
             raise SystemExit(f"FAIL: skill directory missing: {target.parent}")
 
         if check:
             if not target.is_file():
-                stale.append(f"{skill}: CRITERIA.md missing")
+                stale.append(f"{skill}: {filename} missing")
                 continue
             current = target.read_text(encoding="utf-8")
             # Compare the body only — the date line moves on every run and is not

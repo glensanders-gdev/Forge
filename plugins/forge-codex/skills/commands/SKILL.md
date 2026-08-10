@@ -43,6 +43,7 @@ Print the following reference exactly:
 | `grill-with-peer` | Challenge a plan with an independent peer model, then reconcile both models' conclusions |
 | `research` | Cache findings in topic-specific files under docs/research/ |
 | `prototype` | Spike ideas in throwaway code under $prototype |
+| `write-brd` | Author a Business Requirements Document to BABOK v3 — AFK ingests and classifies, HITL writes, then AFK self-assesses against the BH-1 – BH-10 handoff gate that decides whether ORD development can start |
 | `write-prd` | Synthesise session into a PRD — AFK explores and scopes, HITL confirms and writes |
 | `write-ord` | Synthesise a transcript/document into an Operational Requirements Document (ISO/IEC 25010:2023) — AFK ingests and classifies, HITL writes |
 | `write-reqs` | Author a PRD and ORD together from one source — AFK classifies functional vs operational, delegates each to $write-prd and $write-ord, then cross-links the BRD↔PRD↔ORD traceability |

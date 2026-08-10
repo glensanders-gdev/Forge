@@ -11,6 +11,47 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
+## v3.22.0 — 2026-08-10
+
+**`/write-brd`** — the chain gains its first hop, and it ends by testing its own exit criterion
+
+### Added
+
+- **`/write-brd` 1.0.0** authors a Business Requirements Document to the requirements-documents
+  pack's BABOK v3 standard — the twelve-section anatomy and Appendix A, SMART objectives carrying
+  baseline, target and date, the solution-vs-outcome test, a cost-of-failure case for each objective
+  carrying operational exposure, and a §12 traceability skeleton. Three phases: **[AFK]** ingest and
+  classify by the BABOK taxonomy, **[HITL]** write behind a confirmation gate, **[AFK]** run the
+  gate. `/write-ord` already read `docs/brd/` and `/brd-review` already judged what arrived there;
+  nothing wrote it.
+- **Phase 3 is the handoff gate, self-assessed.** BH-1 – BH-10 with a verdict and an evidence
+  citation each, and one of the four outcomes derived by precedence rather than judged. The standard
+  puts this gate in the author's hands — a document's readiness is its author's to establish — so the
+  skill runs it on its own output and then names `/brd-review` as the independent pass it **does
+  not** replace. §8 names a reviewer who did not author the document as the highest-value Tier 1
+  control, and a self-assessment cannot be one.
+- **A refusal at Phase 3 needs no authority, and the skill says so.** `GATE-PROTOCOL.md`'s
+  refusal-and-authority handling exists because declaring *someone else's* document not-ready
+  requires a right the standard states is not yet held. Refusing your own does not: an absent bar
+  item is the author's to fix, so the outcome returns to Phase 2 rather than being recorded and
+  overridden.
+- **Where the shared authoring rules meet the pack, the pack wins on BRD-specific forms.** A `[TBD]`
+  carries **a named owner and a date** rather than `language.md`'s source quote — the gate reads both
+  and a `[TBD]` missing either is a hole that fails the bar, so the generic form would have failed
+  BH-1 on a document that looked correctly written.
+
+### Changed
+
+- **`tools/build-review-criteria.py` generates a third extract.** `write-brd/STANDARD.md` carries
+  `brd-standard.md` whole plus the size table `/write-brd` reads Appendix A against, so the skill
+  authors to a stamped standard on a machine that does not hold the pack — the same reason the two
+  review skills ship `CRITERIA.md`. Per-skill output filename and heading noun are now a table:
+  calling the BRD standard a set of *criteria* misdescribes the one skill that authors from the pack
+  rather than judging against it. `brd-review/CRITERIA.md` and `ord-review/CRITERIA.md` are
+  regenerated; their preambles reword, their bodies are unchanged.
+
+---
+
 ## v3.21.2 — 2026-08-09
 
 **Every grilling round now closes with a prompt** — a round the human doesn't recognise as a gate isn't one
