@@ -1,7 +1,7 @@
 ---
 name: write-prd
 category: pipeline
-version: 2.4.0
+version: 2.5.0
 description: Synthesize the current conversation, grill session, research, and prototype findings into a structured PRD aligned with ISO/IEC/IEEE 29148:2018 — the functional demand document sitting between the BRD and the SOAP, stating what is built and for whom and carrying no technical figure. Executes in two phases — AFK explore then HITL write — with a confirmation gate between them. Use when user runs /write-prd or when grill-me confirms shared understanding is reached.
 ---
 
@@ -77,7 +77,12 @@ Runs unattended. Gathers all context needed to write the PRD without asking the 
 7. **Read the referred requirements register** if one exists. Functional rows held there are rows that were elicited with nowhere to go — under this chain the PRD is their home, so pull them into extraction scope and mark them as register intake in the provenance table.
 8. **Tag provenance as you extract.** For every need or capability, record its source (`BO-N` / `BR-N`, register row, grill-session decision, `docs/research/*.md §`, prototype finding, or named stakeholder). This feeds the traceability matrix in Phase 2 — capture it now rather than reconstructing it later.
 9. **Explore the codebase for feasibility only.** 29148 requires each requirement to be *Feasible*; reading the code is how that judgement is evidenced. It is **not** design work, and none of it lands in the PRD as architecture — module decomposition, interface shape and schema are the SOAP's, one hop downstream. Record what makes a story infeasible or costly, not how it will be built.
-10. Produce a **Phase 1 Summary** and pause for human confirmation.
+10. **Determine the delivery mode**, and record the evidence for it. This decides whether the PRD carries an AI token estimate at all.
+    - **AI-assisted** — the solution is built with AI-generated code. Token cost is a real budget line, the smart-zone limit applies, and the T-shirt band drives `/break-down`.
+    - **Conventional** — the solution is built by people, bought, configured, or delivered by a vendor or another team. **Token cost is meaningless here and is not estimated.** Story points still apply: they size the work for PI planning regardless of who or what writes the code.
+
+    Read the mode from evidence, in this order: an explicit statement in the source or BRD; the delivery agent named for this work (a vendor or non-engineering department implies conventional); whether this repository is Forge-driven and the feature will run through `/build`. **Never assume it silently** — state the mode, the evidence, and where the evidence is thin, put it in Open Questions so the human settles it at the gate.
+11. Produce a **Phase 1 Summary** and pause for human confirmation.
 
 ### Phase 1 Summary Format
 
@@ -114,6 +119,11 @@ and risks only — no module decomposition, no interface or schema design. Those
 **In:** [What will be built]
 **Out:** [What will not be built]
 
+### Delivery Mode
+**Mode:** AI-assisted | Conventional
+**Evidence:** [what established it — source statement, named delivery agent, Forge-driven repo]
+**Estimates to be produced:** [token band + story points | story points only — token cost does not apply]
+
 ### Open Questions
 [Anything that needs human input before writing the PRD]
 
@@ -132,10 +142,12 @@ Runs after human confirms Phase 1 summary. Writes the PRD and cleans up.
 1. Incorporate any corrections from the human's Phase 1 confirmation.
 2. Check `~/.claude/knowledge/company/style-guide.md` — if populated, apply its tone, terminology, and formatting standards when writing the PRD. If it is a placeholder, proceed without it.
 3. **Generate per-story estimates** — one row per story, not per module. Sizing by module would require a module decomposition, and that decomposition is the SOAP's; a story is estimable under INVEST without one.
-   - Estimate AI token cost band (S/M/L/XL) and story points (1/2/3/5/8/13)
-   - Present as a table for human confirmation before writing to the PRD:
+
+   **The delivery mode confirmed at the Phase 1 gate decides which table is produced.**
+
+   **AI-assisted** — token cost band (S/M/L/XL) and story points (1/2/3/5/8/13):
      ```
-     ## Story Estimates — [Feature Name]
+     ## Story Estimates — [Feature Name]   ·   Delivery mode: AI-assisted
 
      | Story | Token Cost | Story Points | Reasoning |
      |-------|-----------|-------------|-----------|
@@ -149,8 +161,25 @@ Runs after human confirms Phase 1 summary. Writes the PRD and cleans up.
      Confirm or adjust before I write the PRD.
      ```
    - Flag any XL stories — they require `/break-down` before `/build` can execute them
-   - **Do not proceed to step 4 without confirmation** — the totals land in the PRD header, so they must be settled before the document is written, not patched in afterwards.
-4. **Write the PRD** using the template below, incorporating the confirmed estimates. Add story points to the stakeholder label for PI planning (token bands stay internal). **Enforce the pack's three ★ sections before finalising** — they are the gaps the standard exists to close:
+
+   **Conventional** — story points only. **No token band, no T-shirt size, no XL/`/break-down` flag.** Token cost measures what it costs an AI to write the code; where people, a vendor or a configuration change deliver the work, the number measures nothing and a band printed anyway reads as a budget someone will plan against:
+     ```
+     ## Story Estimates — [Feature Name]   ·   Delivery mode: Conventional
+
+     | Story | Story Points | Reasoning |
+     |-------|-------------|-----------|
+     | PRD-001 [short title] | 5 | [one sentence] |
+     | PRD-002 [short title] | 2 | [one sentence] |
+     | **Total** | **7pts** | |
+
+     Token cost not estimated — not an AI-assisted delivery.
+
+     Confirm or adjust before I write the PRD.
+     ```
+   - The smart-zone limit is a token-budget rule, so it does not apply. A story that is simply too large is still flagged for `/break-down` on story points alone — say which it is, and never present it as an XL token band.
+
+   **Do not proceed to step 4 without confirmation** — the totals land in the PRD header, so they must be settled before the document is written, not patched in afterwards.
+4. **Write the PRD** using the template below, incorporating the confirmed estimates. Add story points to the stakeholder label for PI planning — they apply under either delivery mode; token bands, where they exist at all, stay internal. **Enforce the pack's three ★ sections before finalising** — they are the gaps the standard exists to close:
    - **★ Success Metrics present** — at least one measurable metric (Metric / Baseline / Target / Measurement), with one marked **primary**. These are **product outcome metrics, not operational targets**: a metric measuring whether the feature achieved its purpose belongs here; the latency or availability figure that makes it attainable is the SOAP's. If none genuinely apply, write `Success Metrics: none — [reason]` explicitly; never omit the section.
    - **★ Every user story has ≥1 acceptance criterion** — block finalisation if any story has none. Warn (do not block) if a story has only a happy-path criterion with no edge or error case.
    - **★ Traceability populated** — every story has a stable ID (`PRD-NNN`), a MoSCoW priority, and traces up to a `BO-N` / `BR-N` or a named proximate source.
@@ -199,13 +228,18 @@ Runs after human confirms Phase 1 summary. Writes the PRD and cleans up.
 
 **Stakeholder Label:** [External-facing feature name for stakeholder communication]
 **Delivery Type:** Iterative | Fixed Scope | Fixed Deadline | Fixed Both
+**Delivery Mode:** AI-assisted | Conventional
 **Priority:** P1 Critical | P2 High | P3 Normal | P4 Low
 **Due Date (Internal):** YYYY-MM-DD (or "None")
 **Due Date (External):** YYYY-MM-DD (or "None")
-**Estimate (AI Token Cost):** S | M | L | XL (or "Not estimated")
+**Estimate (AI Token Cost):** S | M | L | XL — *omit this line entirely when Delivery Mode is Conventional*
 **Estimate (Story Points):** N pts (or "Not estimated")
 **Estimate Status:** Current | Stale | Not estimated
 **Last estimated:** YYYY-MM-DD
+
+> `Delivery Type` and `Delivery Mode` are different axes and neither substitutes for the other.
+> Type is how scope and date are held (Iterative, Fixed Deadline…); Mode is who or what builds it.
+> A Fixed Deadline feature delivered by a vendor is `Fixed Deadline` + `Conventional`.
 
 ---
 
@@ -413,6 +447,8 @@ narrative, so provenance has no row to live in. This matrix is that home, not a 
 - **Never diverge from the pack silently.** The two divergences are declared in *Sourcing the PRD standard* and restated where they bite. A third one found mid-authoring is declared at the Phase 1 gate, not absorbed.
 - **Never claim a pack version that was not read.** Where the pack is unreadable, say so in the summary and in the PRD header.
 - Never size by module — a module decomposition is the SOAP's. Estimate per story.
+- **Never produce a token estimate or a T-shirt band for a conventionally-delivered solution.** Token cost measures what it costs an AI to write the code; where people, a vendor or a configuration change deliver it, the band measures nothing and will be planned against as though it did. Omit the header line rather than writing `N/A` into it.
+- **Never assume the delivery mode.** State it with its evidence at the Phase 1 gate; where the evidence is thin, raise it in Open Questions and let the human settle it. A silently-assumed mode decides whether a whole estimate column exists.
 - If Phase 1 uncovers a significant unknown that blocks scoping, surface it in Open Questions and wait.
 - Do not clean up `/prototype` until Phase 2 is complete and confirmed — and never before it is preserved on its `prototype/[feature-name]` throwaway branch with a pointer recorded in the PRD.
 - The `Sprint:` field in the PRD must be filled — check `~/.claude/sprints/calendar.md` for the current sprint.
@@ -447,6 +483,10 @@ After Phase 2 is complete and PRD is written:
 | Phase 1 exploration finds no relevant codebase | Note "Codebase appears empty or not yet scaffolded." Proceed with a greenfield assumption — state it explicitly. |
 | Sprint field cannot be determined | Set to "Not sprint-tracked" and flag for human to update. |
 | Estimate confirmation not given | Do not write PRD until estimates are confirmed — prompt once more. |
+| Delivery mode not determinable from any evidence | Do not guess and do not default to AI-assisted because the repository is Forge-driven. Put it in Open Questions at the Phase 1 gate and wait — it decides whether the token estimate exists at all. |
+| Delivery mode is Conventional | Produce story points only. Omit the `Estimate (AI Token Cost)` header line and the token column, and drop the XL/`/break-down` flag — the smart zone is a token-budget rule. A story too large on points alone is still flagged, named as such. |
+| Mode is Conventional but the source quotes a token or AI-cost figure | Do not carry it into the PRD. Note it in Open Questions — a token figure against non-AI delivery is either a mis-stated mode or a number nobody can act on. |
+| Mode changes after the PRD is written (e.g. work moves to a vendor) | Re-run the estimate step for the new mode and replace the header block wholesale. Never leave a stale token band beside a conventional delivery. |
 | Invoked by `/write-reqs` with a joint-authoring brief | Treat the brief's PRD-bound half as the extraction scope. Route its operational statements to the BRD's cost-of-failure and name the destination — do not treat them as a sibling ORD's half. Suppress the standalone next-steps block; `/write-reqs` owns sequencing. **`/write-reqs` still describes PRD and ORD as co-authored siblings and has not been reworked for this chain — say so when a brief arrives.** |
 | Brief received but a listed need cannot be placed in a story | Stop before writing. Report it to `/write-reqs` as unclassified — do not silently drop it or invent a story for it. |
 | Source states no MoSCoW for a story | Write `TBD` and surface it at the Phase 1 gate. Never default to `Must`. |
