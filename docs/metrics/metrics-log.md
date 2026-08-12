@@ -18,3 +18,4 @@
 | 2026-08-06 | /write-ord + /write-reqs — delta critique: all-requirements-in-tables directive | 3 | 3 | 3 | 9 |
 | 2026-08-06 | /write-ac v1.2.0 — language rules, ORD register schema, Capability/Epic write-back | 3 | 4 | 3 | 10 |
 | 2026-08-06 | /write-prd v2.2.0 — step ordering, story priority, story form, gates | 2 | 5 | 2 | 9 |
+| 2026-08-12 | /write-prd v2.5.0 — SOAP-chain realignment + delivery-mode branch | 2 | 5 | 6 | 13 |

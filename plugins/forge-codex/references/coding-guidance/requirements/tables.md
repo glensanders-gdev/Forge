@@ -115,6 +115,7 @@ Authorised prefixes. See ADR-0001 for the requirement prefixes and their extensi
 | `BO-N` | Business objectives | `$write-brd` |
 | `BR-N` | Business requirements | `$write-brd` |
 | `PRD-NNN` | Functional requirements / user stories | `$write-prd` |
+| `CON-NNN` | Solution constraints — demand-side givens (regulatory, contractual, mandated integration) | `$write-prd` |
 | `ORD-NNN` | Operational requirements | `$write-ord` |
 | `AC-NNN` | Acceptance criteria | `$write-ac` |
 | `ASM-NNN` | Assumptions | whichever document records it |
