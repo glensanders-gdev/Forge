@@ -192,7 +192,7 @@ end state, never in a separate column:
 
 | Column | Holds |
 |---|---|
-| `BRD#` | Originating BRD requirement. `—` where no BRD exists — then `Source` carries provenance alone. |
+| `BRD#` | Originating BRD item — `BO-N` for an objective, `BR-N` for a business requirement, which are the IDs `$write-brd` emits. Never `BRD-NN`; nothing produces that form. `—` where no BRD exists — then `Source` carries provenance alone. |
 | `ORD#` | `ORD-NNN`, flat and sequential, never reused. |
 | `Requirement Description` | The declarative end state, carrying its own quantified value. Prefix **[KPP]** where failure constitutes program failure. |
 | `MoSCoW` | `Must` / `Should` / `Could` / `Won't`. |
@@ -224,19 +224,19 @@ subsections pre-scaffolded below.
 
 | BRD# | ORD# | Requirement Description | MoSCoW | Timing | Source | Delivery Agent | Verification | Capability | Epic | Comments |
 |---|---|---|---|---|---|---|---|---|---|---|
-| [BRD-NN or —] | ORD-NNN | [declarative statement carrying the value] | Must | [when live] | [BU, Function, Name] | [Department] | [how proven] | [CAP-NN or —] | [EPIC-NN or —] | |
+| [BO-N / BR-N or —] | ORD-NNN | [declarative statement carrying the value] | Must | [when live] | [BU, Function, Name] | [Department] | [how proven] | [CAP-NN or —] | [EPIC-NN or —] | |
 
 **3.1.2 Resource Utilization** — CPU, memory, storage, network constraints under defined load.
 
 | BRD# | ORD# | Requirement Description | MoSCoW | Timing | Source | Delivery Agent | Verification | Capability | Epic | Comments |
 |---|---|---|---|---|---|---|---|---|---|---|
-| [BRD-NN or —] | ORD-NNN | [declarative statement carrying the value] | Must | [when live] | [BU, Function, Name] | [Department] | [how proven] | [CAP-NN or —] | [EPIC-NN or —] | |
+| [BO-N / BR-N or —] | ORD-NNN | [declarative statement carrying the value] | Must | [when live] | [BU, Function, Name] | [Department] | [how proven] | [CAP-NN or —] | [EPIC-NN or —] | |
 
 **3.1.3 Capacity** — peak concurrent users, transaction throughput, data volume, growth.
 
 | BRD# | ORD# | Requirement Description | MoSCoW | Timing | Source | Delivery Agent | Verification | Capability | Epic | Comments |
 |---|---|---|---|---|---|---|---|---|---|---|
-| [BRD-NN or —] | ORD-NNN | [declarative statement carrying the value] | Must | [when live] | [BU, Function, Name] | [Department] | [how proven] | [CAP-NN or —] | [EPIC-NN or —] | |
+| [BO-N / BR-N or —] | ORD-NNN | [declarative statement carrying the value] | Must | [when live] | [BU, Function, Name] | [Department] | [how proven] | [CAP-NN or —] | [EPIC-NN or —] | |
 
 ---
 
@@ -246,25 +246,25 @@ subsections pre-scaffolded below.
 
 | BRD# | ORD# | Requirement Description | MoSCoW | Timing | Source | Delivery Agent | Verification | Capability | Epic | Comments |
 |---|---|---|---|---|---|---|---|---|---|---|
-| [BRD-NN or —] | ORD-NNN | [declarative statement carrying the value] | Must | [when live] | [BU, Function, Name] | [Department] | [how proven] | [CAP-NN or —] | [EPIC-NN or —] | |
+| [BO-N / BR-N or —] | ORD-NNN | [declarative statement carrying the value] | Must | [when live] | [BU, Function, Name] | [Department] | [how proven] | [CAP-NN or —] | [EPIC-NN or —] | |
 
 **3.2.2 Fault Tolerance** — behaviour under partial failure; what must keep running.
 
 | BRD# | ORD# | Requirement Description | MoSCoW | Timing | Source | Delivery Agent | Verification | Capability | Epic | Comments |
 |---|---|---|---|---|---|---|---|---|---|---|
-| [BRD-NN or —] | ORD-NNN | [declarative statement carrying the value] | Must | [when live] | [BU, Function, Name] | [Department] | [how proven] | [CAP-NN or —] | [EPIC-NN or —] | |
+| [BO-N / BR-N or —] | ORD-NNN | [declarative statement carrying the value] | Must | [when live] | [BU, Function, Name] | [Department] | [how proven] | [CAP-NN or —] | [EPIC-NN or —] | |
 
 **3.2.3 Recoverability** — recovery targets after interruption or failure.
 
 | BRD# | ORD# | Requirement Description | MoSCoW | Timing | Source | Delivery Agent | Verification | Capability | Epic | Comments |
 |---|---|---|---|---|---|---|---|---|---|---|
-| [BRD-NN or —] | ORD-NNN | [declarative statement carrying the value] | Must | [when live] | [BU, Function, Name] | [Department] | [how proven] | [CAP-NN or —] | [EPIC-NN or —] | |
+| [BO-N / BR-N or —] | ORD-NNN | [declarative statement carrying the value] | Must | [when live] | [BU, Function, Name] | [Department] | [how proven] | [CAP-NN or —] | [EPIC-NN or —] | |
 
 **3.2.4 Faultlessness** — production defect rate, MTBF, MTTR.
 
 | BRD# | ORD# | Requirement Description | MoSCoW | Timing | Source | Delivery Agent | Verification | Capability | Epic | Comments |
 |---|---|---|---|---|---|---|---|---|---|---|
-| [BRD-NN or —] | ORD-NNN | [declarative statement carrying the value] | Must | [when live] | [BU, Function, Name] | [Department] | [how proven] | [CAP-NN or —] | [EPIC-NN or —] | |
+| [BO-N / BR-N or —] | ORD-NNN | [declarative statement carrying the value] | Must | [when live] | [BU, Function, Name] | [Department] | [how proven] | [CAP-NN or —] | [EPIC-NN or —] | |
 
 ---
 
@@ -274,37 +274,37 @@ subsections pre-scaffolded below.
 
 | BRD# | ORD# | Requirement Description | MoSCoW | Timing | Source | Delivery Agent | Verification | Capability | Epic | Comments |
 |---|---|---|---|---|---|---|---|---|---|---|
-| [BRD-NN or —] | ORD-NNN | [declarative statement carrying the value] | Must | [when live] | [BU, Function, Name] | [Department] | [how proven] | [CAP-NN or —] | [EPIC-NN or —] | |
+| [BO-N / BR-N or —] | ORD-NNN | [declarative statement carrying the value] | Must | [when live] | [BU, Function, Name] | [Department] | [how proven] | [CAP-NN or —] | [EPIC-NN or —] | |
 
 **3.3.2 Integrity** — integrity controls, audit logging.
 
 | BRD# | ORD# | Requirement Description | MoSCoW | Timing | Source | Delivery Agent | Verification | Capability | Epic | Comments |
 |---|---|---|---|---|---|---|---|---|---|---|
-| [BRD-NN or —] | ORD-NNN | [declarative statement carrying the value] | Must | [when live] | [BU, Function, Name] | [Department] | [how proven] | [CAP-NN or —] | [EPIC-NN or —] | |
+| [BO-N / BR-N or —] | ORD-NNN | [declarative statement carrying the value] | Must | [when live] | [BU, Function, Name] | [Department] | [how proven] | [CAP-NN or —] | [EPIC-NN or —] | |
 
 **3.3.3 Non-repudiation and Accountability** — audit trail, log retention.
 
 | BRD# | ORD# | Requirement Description | MoSCoW | Timing | Source | Delivery Agent | Verification | Capability | Epic | Comments |
 |---|---|---|---|---|---|---|---|---|---|---|
-| [BRD-NN or —] | ORD-NNN | [declarative statement carrying the value] | Must | [when live] | [BU, Function, Name] | [Department] | [how proven] | [CAP-NN or —] | [EPIC-NN or —] | |
+| [BO-N / BR-N or —] | ORD-NNN | [declarative statement carrying the value] | Must | [when live] | [BU, Function, Name] | [Department] | [how proven] | [CAP-NN or —] | [EPIC-NN or —] | |
 
 **3.3.4 Authenticity** — authentication standards (MFA, SSO, certificates).
 
 | BRD# | ORD# | Requirement Description | MoSCoW | Timing | Source | Delivery Agent | Verification | Capability | Epic | Comments |
 |---|---|---|---|---|---|---|---|---|---|---|
-| [BRD-NN or —] | ORD-NNN | [declarative statement carrying the value] | Must | [when live] | [BU, Function, Name] | [Department] | [how proven] | [CAP-NN or —] | [EPIC-NN or —] | |
+| [BO-N / BR-N or —] | ORD-NNN | [declarative statement carrying the value] | Must | [when live] | [BU, Function, Name] | [Department] | [how proven] | [CAP-NN or —] | [EPIC-NN or —] | |
 
 **3.3.5 Resistance** — penetration test cadence, vulnerability remediation SLA.
 
 | BRD# | ORD# | Requirement Description | MoSCoW | Timing | Source | Delivery Agent | Verification | Capability | Epic | Comments |
 |---|---|---|---|---|---|---|---|---|---|---|
-| [BRD-NN or —] | ORD-NNN | [declarative statement carrying the value] | Must | [when live] | [BU, Function, Name] | [Department] | [how proven] | [CAP-NN or —] | [EPIC-NN or —] | |
+| [BO-N / BR-N or —] | ORD-NNN | [declarative statement carrying the value] | Must | [when live] | [BU, Function, Name] | [Department] | [how proven] | [CAP-NN or —] | [EPIC-NN or —] | |
 
 **3.3.6 Compliance Frameworks** — applicable frameworks and the operational obligations they impose.
 
 | BRD# | ORD# | Requirement Description | MoSCoW | Timing | Source | Delivery Agent | Verification | Capability | Epic | Comments |
 |---|---|---|---|---|---|---|---|---|---|---|
-| [BRD-NN or —] | ORD-NNN | [declarative statement carrying the value] | Must | [when live] | [BU, Function, Name] | [Department] | [how proven] | [CAP-NN or —] | [EPIC-NN or —] | |
+| [BO-N / BR-N or —] | ORD-NNN | [declarative statement carrying the value] | Must | [when live] | [BU, Function, Name] | [Department] | [how proven] | [CAP-NN or —] | [EPIC-NN or —] | |
 
 ---
 
@@ -315,13 +315,13 @@ detail lives in Appendix E, keyed by `ORD#`, so the register keeps one schema th
 
 | BRD# | ORD# | Requirement Description | MoSCoW | Timing | Source | Delivery Agent | Verification | Capability | Epic | Comments |
 |---|---|---|---|---|---|---|---|---|---|---|
-| [BRD-NN or —] | ORD-NNN | [e.g. Consignment status is exchanged with [System] over HTTPS, queued on failure] | Must | [when live] | [BU, Function, Name] | [Department] | [e.g. integration test] | [CAP-NN or —] | [EPIC-NN or —] | see Appendix E |
+| [BO-N / BR-N or —] | ORD-NNN | [e.g. Consignment status is exchanged with [System] over HTTPS, queued on failure] | Must | [when live] | [BU, Function, Name] | [Department] | [e.g. integration test] | [CAP-NN or —] | [EPIC-NN or —] | see Appendix E |
 
 **3.4.2 Coexistence** — shared-infrastructure constraints; no degradation of co-hosted systems.
 
 | BRD# | ORD# | Requirement Description | MoSCoW | Timing | Source | Delivery Agent | Verification | Capability | Epic | Comments |
 |---|---|---|---|---|---|---|---|---|---|---|
-| [BRD-NN or —] | ORD-NNN | [declarative statement carrying the value] | Must | [when live] | [BU, Function, Name] | [Department] | [how proven] | [CAP-NN or —] | [EPIC-NN or —] | |
+| [BO-N / BR-N or —] | ORD-NNN | [declarative statement carrying the value] | Must | [when live] | [BU, Function, Name] | [Department] | [how proven] | [CAP-NN or —] | [EPIC-NN or —] | |
 
 ---
 
@@ -331,19 +331,19 @@ detail lives in Appendix E, keyed by `ORD#`, so the register keeps one schema th
 
 | BRD# | ORD# | Requirement Description | MoSCoW | Timing | Source | Delivery Agent | Verification | Capability | Epic | Comments |
 |---|---|---|---|---|---|---|---|---|---|---|
-| [BRD-NN or —] | ORD-NNN | [declarative statement carrying the value] | Must | [when live] | [BU, Function, Name] | [Department] | [how proven] | [CAP-NN or —] | [EPIC-NN or —] | |
+| [BO-N / BR-N or —] | ORD-NNN | [declarative statement carrying the value] | Must | [when live] | [BU, Function, Name] | [Department] | [how proven] | [CAP-NN or —] | [EPIC-NN or —] | |
 
 **3.5.2 Adaptability** — multi-environment requirements (cloud regions, hosting models).
 
 | BRD# | ORD# | Requirement Description | MoSCoW | Timing | Source | Delivery Agent | Verification | Capability | Epic | Comments |
 |---|---|---|---|---|---|---|---|---|---|---|
-| [BRD-NN or —] | ORD-NNN | [declarative statement carrying the value] | Must | [when live] | [BU, Function, Name] | [Department] | [how proven] | [CAP-NN or —] | [EPIC-NN or —] | |
+| [BO-N / BR-N or —] | ORD-NNN | [declarative statement carrying the value] | Must | [when live] | [BU, Function, Name] | [Department] | [how proven] | [CAP-NN or —] | [EPIC-NN or —] | |
 
 **3.5.3 Installability** — deployment, upgrade, rollback capability.
 
 | BRD# | ORD# | Requirement Description | MoSCoW | Timing | Source | Delivery Agent | Verification | Capability | Epic | Comments |
 |---|---|---|---|---|---|---|---|---|---|---|
-| [BRD-NN or —] | ORD-NNN | [declarative statement carrying the value] | Must | [when live] | [BU, Function, Name] | [Department] | [how proven] | [CAP-NN or —] | [EPIC-NN or —] | |
+| [BO-N / BR-N or —] | ORD-NNN | [declarative statement carrying the value] | Must | [when live] | [BU, Function, Name] | [Department] | [how proven] | [CAP-NN or —] | [EPIC-NN or —] | |
 
 ---
 
@@ -353,13 +353,13 @@ detail lives in Appendix E, keyed by `ORD#`, so the register keeps one schema th
 
 | BRD# | ORD# | Requirement Description | MoSCoW | Timing | Source | Delivery Agent | Verification | Capability | Epic | Comments |
 |---|---|---|---|---|---|---|---|---|---|---|
-| [BRD-NN or —] | ORD-NNN | [declarative statement carrying the value] | Must | [when live] | [BU, Function, Name] | [Department] | [how proven] | [CAP-NN or —] | [EPIC-NN or —] | |
+| [BO-N / BR-N or —] | ORD-NNN | [declarative statement carrying the value] | Must | [when live] | [BU, Function, Name] | [Department] | [how proven] | [CAP-NN or —] | [EPIC-NN or —] | |
 
 **3.6.2 Analyzability** — monitoring and observability; what must be instrumented.
 
 | BRD# | ORD# | Requirement Description | MoSCoW | Timing | Source | Delivery Agent | Verification | Capability | Epic | Comments |
 |---|---|---|---|---|---|---|---|---|---|---|
-| [BRD-NN or —] | ORD-NNN | [declarative statement carrying the value] | Must | [when live] | [BU, Function, Name] | [Department] | [how proven] | [CAP-NN or —] | [EPIC-NN or —] | |
+| [BO-N / BR-N or —] | ORD-NNN | [declarative statement carrying the value] | Must | [when live] | [BU, Function, Name] | [Department] | [how proven] | [CAP-NN or —] | [EPIC-NN or —] | |
 
 ---
 
@@ -369,19 +369,19 @@ detail lives in Appendix E, keyed by `ORD#`, so the register keeps one schema th
 
 | BRD# | ORD# | Requirement Description | MoSCoW | Timing | Source | Delivery Agent | Verification | Capability | Epic | Comments |
 |---|---|---|---|---|---|---|---|---|---|---|
-| [BRD-NN or —] | ORD-NNN | [declarative statement carrying the value] | Must | [when live] | [BU, Function, Name] | [Department] | [how proven] | [CAP-NN or —] | [EPIC-NN or —] | |
+| [BO-N / BR-N or —] | ORD-NNN | [declarative statement carrying the value] | Must | [when live] | [BU, Function, Name] | [Department] | [how proven] | [CAP-NN or —] | [EPIC-NN or —] | |
 
 **3.7.2 Learnability** — operator training, time-to-competency.
 
 | BRD# | ORD# | Requirement Description | MoSCoW | Timing | Source | Delivery Agent | Verification | Capability | Epic | Comments |
 |---|---|---|---|---|---|---|---|---|---|---|
-| [BRD-NN or —] | ORD-NNN | [declarative statement carrying the value] | Must | [when live] | [BU, Function, Name] | [Department] | [how proven] | [CAP-NN or —] | [EPIC-NN or —] | |
+| [BO-N / BR-N or —] | ORD-NNN | [declarative statement carrying the value] | Must | [when live] | [BU, Function, Name] | [Department] | [how proven] | [CAP-NN or —] | [EPIC-NN or —] | |
 
 **3.7.3 Self-Descriptiveness** — documentation, in-system help, runbook obligations.
 
 | BRD# | ORD# | Requirement Description | MoSCoW | Timing | Source | Delivery Agent | Verification | Capability | Epic | Comments |
 |---|---|---|---|---|---|---|---|---|---|---|
-| [BRD-NN or —] | ORD-NNN | [declarative statement carrying the value] | Must | [when live] | [BU, Function, Name] | [Department] | [how proven] | [CAP-NN or —] | [EPIC-NN or —] | |
+| [BO-N / BR-N or —] | ORD-NNN | [declarative statement carrying the value] | Must | [when live] | [BU, Function, Name] | [Department] | [how proven] | [CAP-NN or —] | [EPIC-NN or —] | |
 
 ---
 
@@ -391,7 +391,7 @@ detail lives in Appendix E, keyed by `ORD#`, so the register keeps one schema th
 
 | BRD# | ORD# | Requirement Description | MoSCoW | Timing | Source | Delivery Agent | Verification | Capability | Epic | Comments |
 |---|---|---|---|---|---|---|---|---|---|---|
-| [BRD-NN or —] | ORD-NNN | [declarative statement carrying the value] | Must | [when live] | [BU, Function, Name] | [Department] | [how proven] | [CAP-NN or —] | [EPIC-NN or —] | |
+| [BO-N / BR-N or —] | ORD-NNN | [declarative statement carrying the value] | Must | [when live] | [BU, Function, Name] | [Department] | [how proven] | [CAP-NN or —] | [EPIC-NN or —] | |
 
 ---
 
@@ -401,13 +401,13 @@ detail lives in Appendix E, keyed by `ORD#`, so the register keeps one schema th
 
 | BRD# | ORD# | Requirement Description | MoSCoW | Timing | Source | Delivery Agent | Verification | Capability | Epic | Comments |
 |---|---|---|---|---|---|---|---|---|---|---|
-| [BRD-NN or —] | ORD-NNN | [declarative statement carrying the value] | Must | [when live] | [BU, Function, Name] | [Department] | [how proven] | [CAP-NN or —] | [EPIC-NN or —] | |
+| [BO-N / BR-N or —] | ORD-NNN | [declarative statement carrying the value] | Must | [when live] | [BU, Function, Name] | [Department] | [how proven] | [CAP-NN or —] | [EPIC-NN or —] | |
 
 **3.9.2 Hazard Warning** — alerting for hazardous conditions.
 
 | BRD# | ORD# | Requirement Description | MoSCoW | Timing | Source | Delivery Agent | Verification | Capability | Epic | Comments |
 |---|---|---|---|---|---|---|---|---|---|---|
-| [BRD-NN or —] | ORD-NNN | [declarative statement carrying the value] | Must | [when live] | [BU, Function, Name] | [Department] | [how proven] | [CAP-NN or —] | [EPIC-NN or —] | |
+| [BO-N / BR-N or —] | ORD-NNN | [declarative statement carrying the value] | Must | [when live] | [BU, Function, Name] | [Department] | [how proven] | [CAP-NN or —] | [EPIC-NN or —] | |
 
 > If Safety is not applicable, state in place of the tables above: "[System name] is not
 > classified as safety-critical. Safety characteristic requirements are not applicable."
@@ -436,14 +436,14 @@ Hosting model, geographic locations, data residency, power and cooling.
 
 | BRD# | ORD# | Requirement Description | MoSCoW | Timing | Source | Delivery Agent | Verification | Capability | Epic | Comments |
 |---|---|---|---|---|---|---|---|---|---|---|
-| [BRD-NN or —] | ORD-NNN | [declarative statement carrying the value] | Must | [when live] | [BU, Function, Name] | [Department] | [how proven] | [CAP-NN or —] | [EPIC-NN or —] | |
+| [BO-N / BR-N or —] | ORD-NNN | [declarative statement carrying the value] | Must | [when live] | [BU, Function, Name] | [Department] | [how proven] | [CAP-NN or —] | [EPIC-NN or —] | |
 
 ### 4.2 Network and Connectivity
 Bandwidth, latency bounds, protocol and connectivity constraints.
 
 | BRD# | ORD# | Requirement Description | MoSCoW | Timing | Source | Delivery Agent | Verification | Capability | Epic | Comments |
 |---|---|---|---|---|---|---|---|---|---|---|
-| [BRD-NN or —] | ORD-NNN | [declarative statement carrying the value] | Must | [when live] | [BU, Function, Name] | [Department] | [how proven] | [CAP-NN or —] | [EPIC-NN or —] | |
+| [BO-N / BR-N or —] | ORD-NNN | [declarative statement carrying the value] | Must | [when live] | [BU, Function, Name] | [Department] | [how proven] | [CAP-NN or —] | [EPIC-NN or —] | |
 
 > Network latency that affects user-facing response time belongs in §3.1.1 Time Behavior. Record
 > it once — cite the ID here as a view rather than restating the value.
@@ -453,7 +453,7 @@ Each regulation and the specific operational obligation it imposes.
 
 | BRD# | ORD# | Requirement Description | MoSCoW | Timing | Source | Delivery Agent | Verification | Capability | Epic | Comments |
 |---|---|---|---|---|---|---|---|---|---|---|
-| [BRD-NN or —] | ORD-NNN | [declarative statement carrying the value] | Must | [when live] | [BU, Function, Name] | [Department] | [how proven] | [CAP-NN or —] | [EPIC-NN or —] | |
+| [BO-N / BR-N or —] | ORD-NNN | [declarative statement carrying the value] | Must | [when live] | [BU, Function, Name] | [Department] | [how proven] | [CAP-NN or —] | [EPIC-NN or —] | |
 
 > Certification and audit obligations belong in §3.3.6 Compliance Frameworks. This subsection
 > carries operational obligations imposed *by* regulation, not the frameworks themselves.
@@ -483,22 +483,22 @@ Severity definitions are context (prose); the response and resolution commitment
 
 | BRD# | ORD# | Requirement Description | MoSCoW | Timing | Source | Delivery Agent | Verification | Capability | Epic | Comments |
 |---|---|---|---|---|---|---|---|---|---|---|
-| [BRD-NN or —] | ORD-NNN | [e.g. P1 incident response is initiated within 15 minutes of raise] | Must | [when live] | [BU, Function, Name] | [Department] | [e.g. ITSM report] | [CAP-NN or —] | [EPIC-NN or —] | |
-| [BRD-NN or —] | ORD-NNN | [e.g. P1 incident resolution is achieved within 2 hours of raise] | Must | [when live] | [BU, Function, Name] | [Department] | [e.g. ITSM report] | [CAP-NN or —] | [EPIC-NN or —] | |
+| [BO-N / BR-N or —] | ORD-NNN | [e.g. P1 incident response is initiated within 15 minutes of raise] | Must | [when live] | [BU, Function, Name] | [Department] | [e.g. ITSM report] | [CAP-NN or —] | [EPIC-NN or —] | |
+| [BO-N / BR-N or —] | ORD-NNN | [e.g. P1 incident resolution is achieved within 2 hours of raise] | Must | [when live] | [BU, Function, Name] | [Department] | [e.g. ITSM report] | [CAP-NN or —] | [EPIC-NN or —] | |
 
 ### 5.3 Change and Patch Management
 Change windows, emergency change path, patch SLAs by severity.
 
 | BRD# | ORD# | Requirement Description | MoSCoW | Timing | Source | Delivery Agent | Verification | Capability | Epic | Comments |
 |---|---|---|---|---|---|---|---|---|---|---|
-| [BRD-NN or —] | ORD-NNN | [declarative statement carrying the value] | Must | [when live] | [BU, Function, Name] | [Department] | [how proven] | [CAP-NN or —] | [EPIC-NN or —] | |
+| [BO-N / BR-N or —] | ORD-NNN | [declarative statement carrying the value] | Must | [when live] | [BU, Function, Name] | [Department] | [how proven] | [CAP-NN or —] | [EPIC-NN or —] | |
 
 ### 5.4 Monitoring and Alerting
 Instrumentation coverage, alert thresholds, on-call routing.
 
 | BRD# | ORD# | Requirement Description | MoSCoW | Timing | Source | Delivery Agent | Verification | Capability | Epic | Comments |
 |---|---|---|---|---|---|---|---|---|---|---|
-| [BRD-NN or —] | ORD-NNN | [declarative statement carrying the value] | Must | [when live] | [BU, Function, Name] | [Department] | [how proven] | [CAP-NN or —] | [EPIC-NN or —] | |
+| [BO-N / BR-N or —] | ORD-NNN | [declarative statement carrying the value] | Must | [when live] | [BU, Function, Name] | [Department] | [how proven] | [CAP-NN or —] | [EPIC-NN or —] | |
 
 ---
 
@@ -515,7 +515,7 @@ binding, so they are rows.
 
 | BRD# | ORD# | Requirement Description | MoSCoW | Timing | Source | Delivery Agent | Verification | Capability | Epic | Comments |
 |---|---|---|---|---|---|---|---|---|---|---|
-| [BRD-NN or —] | ORD-NNN | [declarative statement carrying the value] | Must | [when live] | [BU, Function, Name] | [Department] | [how proven] | [CAP-NN or —] | [EPIC-NN or —] | |
+| [BO-N / BR-N or —] | ORD-NNN | [declarative statement carrying the value] | Must | [when live] | [BU, Function, Name] | [Department] | [how proven] | [CAP-NN or —] | [EPIC-NN or —] | |
 
 ---
 
@@ -534,7 +534,7 @@ binding, so they are rows.
 
 | BRD# | ORD# | Requirement Description | MoSCoW | Timing | Source | Delivery Agent | Verification | Capability | Epic | Comments |
 |---|---|---|---|---|---|---|---|---|---|---|
-| [BRD-NN or —] | ORD-NNN | [declarative statement carrying the value] | Must | [when live] | [BU, Function, Name] | [Department] | [how proven] | [CAP-NN or —] | [EPIC-NN or —] | |
+| [BO-N / BR-N or —] | ORD-NNN | [declarative statement carrying the value] | Must | [when live] | [BU, Function, Name] | [Department] | [how proven] | [CAP-NN or —] | [EPIC-NN or —] | |
 
 ---
 
@@ -544,7 +544,7 @@ Hosting model, compute, storage, network, and physical security of operational i
 
 | BRD# | ORD# | Requirement Description | MoSCoW | Timing | Source | Delivery Agent | Verification | Capability | Epic | Comments |
 |---|---|---|---|---|---|---|---|---|---|---|
-| [BRD-NN or —] | ORD-NNN | [declarative statement carrying the value] | Must | [when live] | [BU, Function, Name] | [Department] | [how proven] | [CAP-NN or —] | [EPIC-NN or —] | |
+| [BO-N / BR-N or —] | ORD-NNN | [declarative statement carrying the value] | Must | [when live] | [BU, Function, Name] | [Department] | [how proven] | [CAP-NN or —] | [EPIC-NN or —] | |
 
 ---
 
