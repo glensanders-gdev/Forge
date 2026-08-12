@@ -3,7 +3,7 @@ name: "write-ord"
 description: "Synthesize a call transcript, document, conversation context, or structured notes into a compliant Operational Requirements Document (ORD) organised by ISO/IEC 25010:2023 quality characteristics. Use when the user runs $write-ord, provides a transcript or document to convert into an ORD, or wants to formalise operational requirements from a conversation."
 metadata:
   category: pipeline
-  version: 1.4.0
+  version: 1.4.1
   origin: Adapted from Glen Sanders (Forge / https://github.com/glensanders-gdev/Forge)
 ---
 
@@ -39,7 +39,7 @@ Runs unattended. Extracts and classifies all operational requirements from sourc
 1. Read all provided source material in full.
 2. Read the BRD if one exists (`docs/brd/`) — capture the business objectives this ORD must trace up to. If absent, note it; requirements will trace to their proximate operational source (the source quote or named stakeholder) instead. **Do not read the PRD** — a standalone ORD is a *sibling* of the PRD, not its child; both derive from the BRD. Joint PRD+ORD authoring is the separate `$write-reqs` workflow, which supplies PRD NFR citations via the brief rather than by having this skill read the PRD.
 3. Extract every statement that implies an operational need — performance, availability, support, staffing, recovery, compliance, interfaces, security.
-4. **Tag provenance as you extract.** For every operational need, record its origin — the BRD requirement ID if a BRD exists, plus the source as Business Unit, Function and Name. These become the `BRD#` and `Source` columns of the register itself, so capture them now rather than reconstructing them later. Also capture, where the source states it: MoSCoW priority, required live date, and the department accountable for delivery.
+4. **Tag provenance as you extract.** For every operational need, record its origin — the BRD item ID if a BRD exists (`BO-N` for an objective, `BR-N` for a business requirement, which are the IDs `$write-brd` emits; never `BRD-NN`), plus the source as Business Unit, Function and Name. These become the `BRD#` and `Source` columns of the register itself, so capture them now rather than reconstructing them later. Also capture, where the source states it: MoSCoW priority, required live date, and the department accountable for delivery.
 5. Classify each extracted statement against the ISO/IEC 25010:2023 nine characteristics (see [REFERENCE.md](REFERENCE.md)). Flag statements that are too vague to classify.
 6. Identify gaps at **sub-characteristic** level — check every sub-characteristic in the REFERENCE.md taxonomy, not only the subsections pre-scaffolded in the template. Characteristic-level checking hides gaps inside a partially-covered characteristic. If a BRD exists, also identify BRD objectives with no resulting operational requirement.
 7. Extract **assumptions and dependencies** as first-class items. If an idea file exists at `~/.codex/forge/ideas/active/`, carry its `Assumptions to Validate` rows forward with their Status rather than restating them as prose — they keep their identity into this document.
@@ -57,7 +57,7 @@ Runs unattended. Extracts and classifies all operational requirements from sourc
 ### BRD Objectives (origin of scope)
 | BRD Objective ID | Business need | Covered by this ORD? |
 |---|---|---|
-| [BRD-NN or "no BRD found"] | [need] | Yes / Partial / N/A |
+| [BO-N / BR-N, or "no BRD found"] | [need] | Yes / Partial / N/A |
 
 ### Extracted Requirements by ISO/IEC 25010 Characteristic
 | Characteristic | Requirements Found | KPP Candidates | Vague / Needs Clarification |

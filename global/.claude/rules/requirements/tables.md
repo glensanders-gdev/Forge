@@ -27,8 +27,12 @@ characteristic, so there is no characteristic column.
 
 | BRD# | ORD# | Requirement Description | MoSCoW | Timing | Source | Delivery Agent | Verification | Capability | Epic | Comments |
 |---|---|---|---|---|---|---|---|---|---|---|
-| [BRD-NN or —] | ORD-NNN | [declarative end state, carrying its own value] | Must | [when live] | [BU, Function, Name] | [Department] | [how proven] | [CAP-NN or —] | [EPIC-NN or —] | |
+| [BO-N / BR-N or —] | ORD-NNN | [declarative end state, carrying its own value] | Must | [when live] | [BU, Function, Name] | [Department] | [how proven] | [CAP-NN or —] | [EPIC-NN or —] | |
 
+- **`BRD#` holds the IDs the BRD actually emits** — `BO-N` for a business objective, `BR-N` for a
+  business requirement, per the namespace table below. **Never `BRD-NN`**: no skill produces that
+  form, so a row carrying it traces to nothing. `BRD-NNNN` remains valid as a *document* reference
+  (e.g. `BRD-2026-041`) and is not an item ID.
 - **The threshold lives inside `Requirement Description`, not in its own column.** Under
   [language.md](language.md) the requirement is a declarative end state, so the number is part of
   the sentence: *"Service availability is 99.9% per calendar month."* A separate Threshold column
@@ -108,6 +112,8 @@ Authorised prefixes. See ADR-0001 for the requirement prefixes and their extensi
 
 | Prefix | Owns | Assigned by |
 |---|---|---|
+| `BO-N` | Business objectives | `/write-brd` |
+| `BR-N` | Business requirements | `/write-brd` |
 | `PRD-NNN` | Functional requirements / user stories | `/write-prd` |
 | `ORD-NNN` | Operational requirements | `/write-ord` |
 | `AC-NNN` | Acceptance criteria | `/write-ac` |
@@ -115,7 +121,8 @@ Authorised prefixes. See ADR-0001 for the requirement prefixes and their extensi
 | `DEP-NNN` | Dependencies | whichever document records it |
 
 All are flat and sequential in order of first appearance, never encode a theme or characteristic,
-and are never reused once retired.
+and are never reused once retired. `BO-N` and `BR-N` are single-digit-sequential per BRD, matching
+the form `/write-brd` emits — do not re-pad them to three digits.
 
 **Do not use single-letter prefixes.** `/raid` owns `R-`, `A-`, `I-`, `D-` for Risks, Actions,
 Issues and Decisions — `A-NNN` for assumptions would collide with Actions.
