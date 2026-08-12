@@ -1,13 +1,17 @@
 ---
 name: write-prd
 category: pipeline
-version: 2.5.0
+version: 2.5.1
 description: Synthesize the current conversation, grill session, research, and prototype findings into a structured PRD aligned with ISO/IEC/IEEE 29148:2018 — the functional demand document sitting between the BRD and the SOAP, stating what is built and for whom and carrying no technical figure. Executes in two phases — AFK explore then HITL write — with a confirmation gate between them. Use when user runs /write-prd or when grill-me confirms shared understanding is reached.
 ---
 
 # Write PRD
 
-Synthesize everything known into a structured PRD. Runs in two phases with a mandatory confirmation gate. The user runs `/user:write-prd` once — the skill manages both phases internally.
+Synthesize everything known into a structured PRD. The user runs `/user:write-prd` once — the skill manages both phases internally.
+
+Execution mode: Phase 1 **[AFK]** · Phase 2 **[HITL]**. There are **three** human gates, and none of
+them is optional: the Phase 1 summary confirmation, the estimate confirmation before the document is
+written, and the typed `CONFIRM` before `/prototype` is removed from the working tree.
 
 ## Where this document sits
 
@@ -23,6 +27,10 @@ SOAP, which is where the technical design lives. Two consequences govern everyth
   statements, which `/write-brd` makes mandatory and from which every downstream tolerance derives.
   The ORD sits two hops downstream, after the SOAP, so **it does not exist when this PRD is written**
   and cannot be cited at authoring time.
+
+**SAR closes the chain but takes nothing from this document.** It is an architecture review gate: it
+reviews the solution, not the demand, so the PRD carries no SAR reference and the traceability matrix
+has no SAR column. Verification of the stories themselves is the `Test` column's job.
 
 **Authoring standards — read before writing any requirement:**
 - `~/.claude/rules/requirements/language.md` — wording, voice, banned modals and constructions
@@ -57,7 +65,7 @@ would ship a standard that contradicts the skill shipping it.
 
 ---
 
-## Phase 1 — AFK Explore
+## Phase 1 — Explore [AFK]
 
 Runs unattended. Gathers all context needed to write the PRD without asking the user anything.
 
@@ -77,11 +85,15 @@ Runs unattended. Gathers all context needed to write the PRD without asking the 
 7. **Read the referred requirements register** if one exists. Functional rows held there are rows that were elicited with nowhere to go — under this chain the PRD is their home, so pull them into extraction scope and mark them as register intake in the provenance table.
 8. **Tag provenance as you extract.** For every need or capability, record its source (`BO-N` / `BR-N`, register row, grill-session decision, `docs/research/*.md §`, prototype finding, or named stakeholder). This feeds the traceability matrix in Phase 2 — capture it now rather than reconstructing it later.
 9. **Explore the codebase for feasibility only.** 29148 requires each requirement to be *Feasible*; reading the code is how that judgement is evidenced. It is **not** design work, and none of it lands in the PRD as architecture — module decomposition, interface shape and schema are the SOAP's, one hop downstream. Record what makes a story infeasible or costly, not how it will be built.
-10. **Determine the delivery mode**, and record the evidence for it. This decides whether the PRD carries an AI token estimate at all.
+10. **Determine the delivery mode**, and name the **delivery route** beneath it. The mode decides whether the PRD carries an AI token estimate at all; the route is what makes the mode checkable.
     - **AI-assisted** — the solution is built with AI-generated code. Token cost is a real budget line, the smart-zone limit applies, and the T-shirt band drives `/break-down`.
-    - **Conventional** — the solution is built by people, bought, configured, or delivered by a vendor or another team. **Token cost is meaningless here and is not estimated.** Story points still apply: they size the work for PI planning regardless of who or what writes the code.
+    - **Conventional** — routes: **in-house team**, **vendor**, **bought**, or **configured**. **Token cost is meaningless here and is not estimated.** Story points still apply: they size the work for PI planning regardless of who or what writes the code. Name the route — sizing a bought product is a different conversation from sizing in-house build effort, and the mode alone hides that.
 
-    Read the mode from evidence, in this order: an explicit statement in the source or BRD; the delivery agent named for this work (a vendor or non-engineering department implies conventional); whether this repository is Forge-driven and the feature will run through `/build`. **Never assume it silently** — state the mode, the evidence, and where the evidence is thin, put it in Open Questions so the human settles it at the gate.
+    **Two determining signals only, in this order:**
+    1. An explicit statement in the source or the BRD.
+    2. The delivery agent named for this work — a vendor or a non-engineering department determines *Conventional*.
+
+    Where neither fires, the mode is **not determined**. Repository context is **not** a determining signal: almost every repo this skill runs in is Forge-driven, so treating that as evidence would make the mode auto-resolve to AI-assisted every time and the human would never see the question. Offer it as a *suggestion* in Open Questions — "no statement found; this repo is Forge-driven, so AI-assisted is likely — confirm" — and let the human settle it at the gate.
 11. Produce a **Phase 1 Summary** and pause for human confirmation.
 
 ### Phase 1 Summary Format
@@ -120,9 +132,11 @@ and risks only — no module decomposition, no interface or schema design. Those
 **Out:** [What will not be built]
 
 ### Delivery Mode
-**Mode:** AI-assisted | Conventional
-**Evidence:** [what established it — source statement, named delivery agent, Forge-driven repo]
+**Mode:** AI-assisted | Conventional | **Not determined — settle at this gate**
+**Route:** [in-house team / vendor / bought / configured — Conventional only]
+**Evidence:** [the source statement or the named delivery agent, quoted. "Neither found" where the mode is undetermined — repository context is not evidence.]
 **Estimates to be produced:** [token band + story points | story points only — token cost does not apply]
+**Sections this decides:** [Task List form, Definition of Done rows, and the next-steps block, as well as the estimate table]
 
 ### Open Questions
 [Anything that needs human input before writing the PRD]
@@ -133,7 +147,7 @@ Confirm this scope to proceed to Phase 2, or provide corrections.
 
 ---
 
-## Phase 2 — HITL Write
+## Phase 2 — Write [HITL]
 
 Runs after human confirms Phase 1 summary. Writes the PRD and cleans up.
 
@@ -186,7 +200,7 @@ Runs after human confirms Phase 1 summary. Writes the PRD and cleans up.
    Each requirement meets the ISO/IEC/IEEE 29148:2018 characteristics — necessary, appropriate, unambiguous, complete, singular, feasible, verifiable, correct, conforming — as modified by the two deviations recorded in `rules/requirements/language.md`. Rewrite vague requirements ("fast", "intuitive") into testable form or flag them.
    **Scan the draft for pre-empted SOAP content before saving.** Any latency figure, availability percentage, RTO/RPO, module decomposition, interface contract or schema is a boundary breach — remove it, and where the demand behind it is real, restate it as observable behaviour or route it to the BRD's cost-of-failure.
 5. Save to `docs/prd/active/[feature-name].md`.
-6. Add Phase 2 kanban tickets to `docs/kanban.md` with estimate tags:
+6. Add Phase 2 kanban tickets to `docs/kanban.md`. These track **this skill's own authoring work**, which is AI-run under either delivery mode — do not branch them on `Delivery Mode`, and carry an estimate tag only where one was produced:
    ```
    - [ ] [AFK]  #N   Explore sources and feasibility for PRD — write-prd phase 1
    - [x] [HITL] #N+1 Confirm scope and estimates, write PRD — write-prd phase 2
@@ -205,14 +219,21 @@ Runs after human confirms Phase 1 summary. Writes the PRD and cleans up.
    ```
 
    If a git branch can't be created (e.g. not a git repo), leave `/prototype` in place and note it — never destroy the only copy, and never present this gate when preservation failed.
-8. Suggest next steps in order:
+8. Suggest next steps in order. **The first applies under either delivery mode; the rest are the Forge build path and apply under `AI-assisted` only.**
    - Hand the PRD to the **SOAP** hop — it is the document that answers this one, and every `SOAP Ref` cell in the traceability matrix stays `TBD` until it does.
-   - Run `/testplan` to design the testing strategy before implementation begins — this also **back-fills the `TBD` Test column** in the PRD's Traceability Matrix.
-   - Then run `/to-tickets` (the Kanban stage) to convert the PRD task list into tracked vertical-slice tickets in `docs/kanban.md`
+   - Run `/testplan` to design the testing strategy before implementation begins — this also **back-fills the `TBD` Test column** in the PRD's Traceability Matrix. Under `Conventional` this is still worth running for the Test column, but its output describes verification the delivering party performs, not tests this repo will write.
+   - Then run `/to-tickets` (the Kanban stage) to convert the PRD task list into tracked vertical-slice tickets in `docs/kanban.md`. **`AI-assisted` only** — under `Conventional` the delivering party owns its own plan.
+
+   **State the downstream limitation when the mode is `Conventional`.** `/estimate`, `/break-down`, `/to-tickets` and `/build` do not yet read `Delivery Mode` and assume AI-assisted delivery — `/break-down` in particular is built on the 100k-token smart zone. Say so when handing off, so the mode is carried by a human rather than silently lost at the next skill.
 
 ---
 
 ## PRD Template
+
+**Two lines are conditional and must not be emitted as written.** `Estimate (AI Token Cost)` is
+omitted entirely when `Delivery Mode` is `Conventional` — omitted, not filled with `N/A`, because a
+populated-looking field gets planned against. `Route` is present under `Conventional` only. Resolve
+both before saving; never copy this instruction into the document.
 
 ```markdown
 # PRD: [Feature Name]
@@ -229,10 +250,11 @@ Runs after human confirms Phase 1 summary. Writes the PRD and cleans up.
 **Stakeholder Label:** [External-facing feature name for stakeholder communication]
 **Delivery Type:** Iterative | Fixed Scope | Fixed Deadline | Fixed Both
 **Delivery Mode:** AI-assisted | Conventional
+**Route:** in-house team | vendor | bought | configured
 **Priority:** P1 Critical | P2 High | P3 Normal | P4 Low
 **Due Date (Internal):** YYYY-MM-DD (or "None")
 **Due Date (External):** YYYY-MM-DD (or "None")
-**Estimate (AI Token Cost):** S | M | L | XL — *omit this line entirely when Delivery Mode is Conventional*
+**Estimate (AI Token Cost):** S | M | L | XL
 **Estimate (Story Points):** N pts (or "Not estimated")
 **Estimate Status:** Current | Stale | Not estimated
 **Last estimated:** YYYY-MM-DD
@@ -275,11 +297,13 @@ Runs after human confirms Phase 1 summary. Writes the PRD and cleans up.
 
 ## Scope Boundary
 
-Both halves are stated. The negative space is as binding as the positive, and a PRD carrying only
-an exclusions table leaves "in" to be inferred from the stories.
+States what is in. A PRD carrying only an exclusions table leaves "in" to be inferred from the
+stories, which is how scope creeps without anyone editing a document.
 
 **In:** [what is being built, in user terms]
-**Out:** [what is deliberately not being built — expanded in § Out of Scope below]
+
+**Out:** see § Out of Scope. Exclusions are binding, so they live in one place as rows — restating
+them here would put the same commitment in two independently editable spots.
 
 ## User Stories & Acceptance Criteria ★
 
@@ -297,19 +321,16 @@ As a returning customer, I want to pay without re-entering my card, so that chec
 | PRD-001.2 | A saved card past its expiry date is rejected at checkout and re-entry is requested. | Edge |
 | PRD-001.3 | Payment-service timeout leaves the basket intact and the customer on the checkout page. | Error |
 
-> Criteria are **noun-first declarative statements** per `rules/requirements/language.md` — state
-> what is true, not what a user *can* do. Not *"Then they can complete the purchase"*: `can [verb]`
-> is banned, and a criterion saying a customer *can* do something cannot fail a test.
+> **Criteria are noun-first declarative statements** per `rules/requirements/language.md` — state what
+> is true, not what a user *can* do. Not *"Then they can complete the purchase"*: `can [verb]` is
+> banned, and a criterion saying a customer *can* do something cannot fail a test. This is a
+> **declared divergence from the pack**, which writes criteria as Given/When/Then: the rules win on
+> form because the modal ban is unenforceable inside a `Then` clause, and the pack wins on everything
+> the criterion must *do* — testable, singular, covering happy path, edge and error.
 >
-> **This is a declared divergence from the pack**, which writes criteria as Given/When/Then. The
-> rules win on form because the modal ban is unenforceable inside a `Then` clause; the pack wins on
-> everything the criterion must do — testable, singular, covering happy path, edge and error. Say so
-> where a reader would otherwise read the difference as an error.
-
-> **Criteria state observable behaviour and cite the rest.** A criterion never carries a latency
-> figure, an availability percentage, an encryption mechanism or a recovery target. Where a story
-> depends on one, cite the BRD cost-of-failure statement that establishes the tolerance — the figure
-> answering it is the SOAP's, and the ORD that specifies its operation is two hops downstream.
+> **They state observable behaviour and cite the rest.** No latency figure, availability percentage,
+> encryption mechanism or recovery target. Where a story depends on one, cite the BRD cost-of-failure
+> statement that establishes the tolerance — the figure answering it is the SOAP's.
 
 **PRD-002 — [short title]**
 **MoSCoW:** Must | Should | Could | Won't
@@ -329,14 +350,15 @@ As a [role], I want [capability], so that [outcome].
 **Not a design section.** Module decomposition, interface contracts, schemas and technical figures
 belong to the SOAP, which answers this document. Two things only live here:
 
-| Constraint or reference | Type | Why it binds the solution |
-|-------------------------|------|---------------------------|
-| [e.g. must integrate with [named system] — mandated by contract] | Demand-side given | [regulatory / contractual / business mandate, with its source] |
-| [e.g. [System] SOAP §N answers PRD-001's tolerance] | SOAP reference | [an answer that already exists and is cited, not restated] |
+| ID | Constraint or reference | Type | Why it binds the solution |
+|----|-------------------------|------|---------------------------|
+| CON-NNN | [e.g. must integrate with [named system] — mandated by contract] | Demand-side given | [regulatory / contractual / business mandate, with its source] |
+| — | [e.g. [System] SOAP §N answers PRD-001's tolerance] | SOAP reference | [an answer that already exists and is cited, not restated] |
 
 - A **demand-side given** is a constraint the business imposes regardless of design — a named system
   that must be integrated with, a regulatory obligation, a contractual commitment. It states the
-  constraint and its source, never how it is met.
+  constraint and its source, never how it is met. It **binds**, so it carries a `CON-NNN` ID per
+  `rules/requirements/tables.md`; a SOAP reference is a citation, not a commitment, and carries `—`.
 - A **SOAP reference** is only valid where the SOAP already exists. Apply the existence test: where
   architecture's answer does not yet exist, the figure is not this document's to invent.
 - Where neither applies, write `None` and let the SOAP hop do its work.
@@ -344,6 +366,11 @@ belong to the SOAP, which answers this document. Two things only live here:
 Do NOT include file paths or code snippets — these go stale quickly, and they are not demand.
 
 ## Task List
+
+**This section takes its form from `Delivery Mode`.** `[AFK]` means an AI agent executes it
+unattended, so the tag is meaningless where no AI is building the solution.
+
+**Under `AI-assisted`:**
 
 ### HITL Tasks (Human-in-the-Loop)
 Tasks that require a human to be present.
@@ -355,19 +382,37 @@ Tasks the AI agent can execute autonomously.
 
 - [ ] [AFK] #2 [Task description] `blocked-by: #1`
 
+**Under `Conventional`:** drop the HITL/AFK split — every task has a human owner. The delivering
+party owns its own plan; this list is the demand side's view of it, not a substitute for it.
+
+| # | Task | Owner | Blocked by |
+|---|------|-------|------------|
+| 1 | [task description] | [role or named party] | — |
+
 ## Testing Decisions
 
 - What makes a good test for this feature (test external behaviour, not implementation details)
-- Which modules will have tests written
+- Which stories carry automated coverage, and which are verified by demonstration or inspection
 - Any prior art in the codebase to reference
 
 ## Definition of Done
+
+Always:
+
+- [ ] Every story's acceptance criteria verified
+- [ ] Success-metric instrumentation live before launch (or explicitly waived)
+- [ ] All human sign-offs obtained
+
+**Under `AI-assisted`, add:**
 
 - [ ] All tasks on the Kanban board marked complete
 - [ ] All HITL tasks signed off by human
 - [ ] Tests passing
 - [ ] README updated if user-facing behaviour changed
 - [ ] `/approve` issued by human after QA
+
+**Under `Conventional`, add:** the delivering party's own completion evidence — acceptance test
+results, a vendor sign-off, or a configuration record — named explicitly rather than assumed.
 
 ## Out of Scope
 
@@ -448,7 +493,8 @@ narrative, so provenance has no row to live in. This matrix is that home, not a 
 - **Never claim a pack version that was not read.** Where the pack is unreadable, say so in the summary and in the PRD header.
 - Never size by module — a module decomposition is the SOAP's. Estimate per story.
 - **Never produce a token estimate or a T-shirt band for a conventionally-delivered solution.** Token cost measures what it costs an AI to write the code; where people, a vendor or a configuration change deliver it, the band measures nothing and will be planned against as though it did. Omit the header line rather than writing `N/A` into it.
-- **Never assume the delivery mode.** State it with its evidence at the Phase 1 gate; where the evidence is thin, raise it in Open Questions and let the human settle it. A silently-assumed mode decides whether a whole estimate column exists.
+- **Never assume the delivery mode, and never read it off repository context.** Only an explicit statement or a named delivery agent determines it; a Forge-driven repo is a suggestion to confirm, not evidence. Absent both, write `Not determined` and let the human settle it at the gate — the mode decides the estimate table, the Task List form, the Definition of Done rows and the next-steps block.
+- **Never emit a conditional instruction into the document.** The template's conditional lines are resolved before saving — an emitted `omit this line when…` or an unresolved `Route:` under AI-assisted is a template artefact, not a PRD.
 - If Phase 1 uncovers a significant unknown that blocks scoping, surface it in Open Questions and wait.
 - Do not clean up `/prototype` until Phase 2 is complete and confirmed — and never before it is preserved on its `prototype/[feature-name]` throwaway branch with a pointer recorded in the PRD.
 - The `Sprint:` field in the PRD must be filled — check `~/.claude/sprints/calendar.md` for the current sprint.
@@ -475,7 +521,7 @@ After Phase 2 is complete and PRD is written:
 | A source supplies a technical figure (latency, availability, RTO, throughput) | Do not carry it into the PRD. Restate the demand behind it as observable behaviour, and route the tolerance to the BRD's cost-of-failure. Where the figure is genuinely already decided, cite the existing SOAP instead of copying the number. |
 | A story needs a tolerance and no BRD cost-of-failure covers it | Record a dependency with `Status: Open` naming the BRD as the destination, and surface it at the Phase 1 gate. Never invent the tolerance and never state it as a PRD figure. |
 | Referred requirements register holds functional rows for this feature | Pull them into extraction scope and mark them as register intake in the provenance table. They are rows that were elicited with nowhere to go; this document is their home. |
-| Source material only supports a design, not a demand | Stop before writing. A PRD that is a restatement of a chosen solution has skipped the hop it exists to feed — report it and ask what user-facing outcome is wanted. |
+| Source material only supports a design, not a demand | Stop before writing. A PRD that is a restatement of a chosen solution has skipped the hop it exists to feed. Report it in Open Questions and put the missing user-facing outcome to the human at the Phase 1 gate — do not interrupt Phase 1 to ask. |
 | Feature has no measurable success metric | Do not silently omit. Write `Success Metrics: none — [reason]` and flag for the human to confirm the feature is genuinely unmeasurable. |
 | A user story has no acceptance criterion | Block finalisation. Prompt for criteria; do not write the PRD until every story has at least one. |
 | A BRD objective produces no story, or a story has no source | Flag in the Traceability Matrix as a coverage gap (orphaned objective) or orphan scope (sourceless story). Do not silently resolve. |
@@ -483,8 +529,9 @@ After Phase 2 is complete and PRD is written:
 | Phase 1 exploration finds no relevant codebase | Note "Codebase appears empty or not yet scaffolded." Proceed with a greenfield assumption — state it explicitly. |
 | Sprint field cannot be determined | Set to "Not sprint-tracked" and flag for human to update. |
 | Estimate confirmation not given | Do not write PRD until estimates are confirmed — prompt once more. |
-| Delivery mode not determinable from any evidence | Do not guess and do not default to AI-assisted because the repository is Forge-driven. Put it in Open Questions at the Phase 1 gate and wait — it decides whether the token estimate exists at all. |
-| Delivery mode is Conventional | Produce story points only. Omit the `Estimate (AI Token Cost)` header line and the token column, and drop the XL/`/break-down` flag — the smart zone is a token-budget rule. A story too large on points alone is still flagged, named as such. |
+| Neither determining signal fires — no statement, no named delivery agent | Record `Mode: Not determined` and put it in Open Questions. Repository context is not a determining signal, so offer it as a suggestion ("this repo is Forge-driven, so AI-assisted is likely — confirm") and wait for the human. It decides four sections, not just the estimate. |
+| Delivery mode is Conventional | Produce story points only, and name the route. Omit the `Estimate (AI Token Cost)` header line and the token column, drop the XL/`/break-down` flag (the smart zone is a token-budget rule), use the owner-tagged Task List, add the delivering party's completion evidence to the Definition of Done, and mark `/to-tickets` as not applicable. A story too large on points alone is still flagged, named as such. |
+| `Delivery Mode` is `Conventional` and the PRD is handed downstream | State that `/estimate`, `/break-down`, `/to-tickets` and `/build` do not read the mode and assume AI-assisted delivery. The mode is carried by a human until they do — say so rather than letting it be lost silently. |
 | Mode is Conventional but the source quotes a token or AI-cost figure | Do not carry it into the PRD. Note it in Open Questions — a token figure against non-AI delivery is either a mis-stated mode or a number nobody can act on. |
 | Mode changes after the PRD is written (e.g. work moves to a vendor) | Re-run the estimate step for the new mode and replace the header block wholesale. Never leave a stale token band beside a conventional delivery. |
 | Invoked by `/write-reqs` with a joint-authoring brief | Treat the brief's PRD-bound half as the extraction scope. Route its operational statements to the BRD's cost-of-failure and name the destination — do not treat them as a sibling ORD's half. Suppress the standalone next-steps block; `/write-reqs` owns sequencing. **`/write-reqs` still describes PRD and ORD as co-authored siblings and has not been reworked for this chain — say so when a brief arrives.** |
