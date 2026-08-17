@@ -11,6 +11,84 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
+## v3.22.1 — 2026-08-14
+
+**`/write-prd`** — acceptance criteria say which weather they describe
+
+### Changed
+
+- **`/write-prd` 2.6.0** renames the acceptance-criteria column from `Type` to **`Scenario`** and its
+  values from `Happy path` / `Edge` / `Error` to **`Sunny Day` / `Rainy Day` / `Edge Case`**. The
+  column heading was the actual defect: `Type` invites the question "what type of criterion is this?",
+  whose answer is always "an acceptance criterion" — the column was never naming a kind of row, it was
+  naming the condition the requirement is put through. Each criteria table now carries a one-line
+  lead-in saying so, and the template stub ships all three scenario rows rather than a lone happy path,
+  so the shape of full coverage is visible before anything is filled in. Reported from repeated
+  confusion in live showcases.
+- Coverage warning at finalisation now names the missing scenario rather than reporting a count —
+  *"PRD-003 is Sunny Day only"* — and states the consequence: specified for the demo, not production.
+- **`rules/requirements/tables.md`** carries the canonical schema change and a definition table for the
+  three values, plus an explicit note that the labels describe the *condition*, never the certainty —
+  the `language.md` modal ban applies to a Rainy Day criterion exactly as to a Sunny Day one.
+- **`/write-ac` 1.4.1** reads the new column and maps the pre-2.6.0 heading on sight
+  (Happy path → Sunny Day, Error → Rainy Day, Edge → Edge Case) without rewriting the source PRD, so
+  PRDs already in `docs/prd/active/` keep working.
+
+### Changed — the pack and the rest of the portfolio
+
+- **The requirements-documents pack now carries the naming**, so the skills read it rather than
+  declaring a divergence from it. `reference/prd-standard.md` gains a § *The three scenarios* with the
+  definition table and the demo-not-production warning; its INVEST coverage rule now reads "Cover
+  Sunny Day, Rainy Day and Edge Case — at minimum"; the worked example's US-03 is retitled
+  *(Rainy Day / Edge Case)*. A naming note records the one-to-one mapping from the pre-2026-08 wording
+  so a reader holding an older copy is never stranded. `prd-standard-pack.html` carries the same
+  content; `ord-standard-wiki.html` and `confluence-export/` regenerated from source; the
+  `~/.claude/knowledge/learning` copy and both `_export` bundles rebuilt.
+- **The naming is now portfolio-wide.** `/test-coverage` 1.0.1 (generation priority order and the
+  0%-coverage failure mode), `/jira` 1.0.1 (ticket test-scenario template), `/testplan` (automated-test
+  classification) and `project-template/.claude/TESTING.md` all use Sunny Day / Rainy Day / Edge Case.
+- **`/write-a-skill` 1.3.1** drops the term without adopting the scenario labels. Its four uses were
+  the English idiom — *"a 'never' that's really steering the happy path"* — describing a skill's
+  intended instruction flow, not a requirement under a condition. Rewritten as "intended behaviour",
+  which is what the sentences meant. Renaming these to Sunny Day would have produced prose that reads
+  as a category error.
+
+### Fixed
+
+- **`/write-reqs` 1.2.0** cross-linked into columns that do not exist. Phase 3 targeted a PRD matrix
+  `ORD NFR Ref` column — the PRD matrix ends at `SOAP Ref` and has never had an ORD column — and an
+  ORD matrix `PRD Ref` column, whose real name is `PRD#`. Both now target the ORD template's
+  **Appendix B — PRD Cross-Link** (`ORD#` · `Section` · `PRD#`), which the ORD template already
+  describes as the one link its register cannot hold and already names `/write-reqs` as populating.
+  The skill was writing into a table it had misremembered rather than one it had read.
+- The Phase 1 ORD brief now **requires Appendix B be retained**. The ORD template omits that appendix
+  for a standalone ORD, so joint authoring has to ask for it explicitly or Phase 3 has nowhere to
+  write. Two failure modes added: an authored ORD with no Appendix B, and one whose column headings
+  differ from the template — both stop before the cross-link pass rather than improvising a column.
+- The reciprocal NFR-home rule told the PRD to cite an ORD section. `/write-prd` forbids carrying a
+  technical figure at all and cites the BRD cost-of-failure instead, so the rule now resolves a
+  duplicated NFR by deletion at source rather than by rewriting it into a citation this chain does
+  not support.
+- Intro states plainly that **the two halves keep their own schemas** — a PRD story is narrative with
+  criteria rows, an ORD requirement is a register row; they are never merged or reconciled, and
+  Appendix B is held once and read both ways rather than mirrored as a column in each document.
+
+### Notes
+
+- `/write-reqs` still runs the ADR-0001 model in which the PRD and ORD are siblings, while
+  `/write-prd` has been reworked onto a chain placing the ORD downstream of the SOAP. This release
+  fixes the mechanical break only — every column named now exists and matches its template. The
+  underlying question of which chain model is correct is **unresolved**, and `/write-prd`'s failure
+  mode still says so when a joint-authoring brief arrives. Settling it needs an ADR, not an edit.
+- `happy path` survives in exactly three places, all deliberate: the back-compat mapping lines in
+  `/write-ac` and `/write-prd`, and the pack's naming note. Historical `CHANGELOG.md` entries are
+  left as written — they are a record.
+- `/testplan` is **not version-bumped here**. It carries unrelated in-flight work (operational mode
+  against the ORD register) that is uncommitted at the time of writing; whoever lands that should bump
+  it once, covering both changes.
+
+---
+
 ## v3.22.0 — 2026-08-10
 
 **`/write-brd`** — the chain gains its first hop, and it ends by testing its own exit criterion

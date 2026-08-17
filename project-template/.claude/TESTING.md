@@ -50,6 +50,6 @@ Never skip red. A test written after the code it tests has no value as a safety 
 
 - Every user story in the PRD must have at least one test
 - Every critical path behaviour (from testplan) must be covered
-- Edge cases and error states are as important as happy paths
+- Rainy Day and Edge Case behaviour is as important as Sunny Day
 - Tests should test behaviour, not implementation — test public interfaces only
 - Mocks should be minimal — only mock what crosses a process boundary

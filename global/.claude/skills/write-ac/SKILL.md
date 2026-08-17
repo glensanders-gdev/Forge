@@ -22,7 +22,7 @@ copied through. Never restate these rules here.
 
 Runs unattended. Reads the source requirements and sorts them by altitude — no authoring, no questions.
 
-1. Read the PRD at `docs/prd/active/*.md` if present — stories (`PRD-NNN`), their `MoSCoW` priority, and their acceptance-criteria rows (`PRD-NNN.N`, each with a `Type` of Happy path / Edge / Error).
+1. Read the PRD at `docs/prd/active/*.md` if present — stories (`PRD-NNN`), their `MoSCoW` priority, and their acceptance-criteria rows (`PRD-NNN.N`, each with a `Scenario` of Sunny Day / Rainy Day / Edge Case). A PRD authored before v2.6.0 carries the earlier column heading `Type` with the values `Happy path` / `Edge` / `Error` — read it as the same three scenarios (Happy path → Sunny Day, Error → Rainy Day, Edge → Edge Case) and do not rewrite the source document.
 2. Read the ORD at `docs/ord/*.md` if present — the requirement register in §§3–8. Each row carries `ORD#`, a declarative `Requirement Description` holding its own value, a `Verification` method, `MoSCoW`, and any **[KPP]** tag. Note which rows already carry a `Capability` / `Epic` — those are prior mappings, not gaps.
 3. Read the PRD↔ORD cross-links if present — the PRD's traceability matrix and the ORD's Appendix B. Reuse them rather than re-deriving. A standalone ORD has no Appendix B; that is expected, not a gap.
 4. Resolve the target Jira Capability — read `external_ids.jira` (type `capability`) from the linked idea/project file. If none, note it; the run still produces the AC document.

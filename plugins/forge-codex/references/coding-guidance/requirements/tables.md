@@ -57,15 +57,30 @@ verbs inside requirement *text*; a controlled enum in a priority column is unamb
 A PRD story is deliberately narrative — "As a … I want … so that …" carries intent and the business
 outcome, which a register row cannot. Its **acceptance criteria** are rows:
 
-| ID | Acceptance Criterion | Type |
+| ID | Acceptance Criterion | Scenario |
 |---|---|---|
-| PRD-NNN.N | [declarative statement of what is true once delivered] | Happy path / Edge / Error |
+| PRD-NNN.N | [declarative statement of what is true once delivered] | Sunny Day / Rainy Day / Edge Case |
 
 - Criterion IDs are `PRD-NNN.N` within their story, so `$write-ac` maps each `AC-NNN` to a precise
   criterion rather than a whole story.
 - The story carries a `MoSCoW` priority; `$write-ac` gates altitude on it exactly as it does for
   ORD register rows.
-- `Type` makes the happy-path-only coverage warning mechanically checkable.
+- **`Scenario` names the weather the requirement is being put through**, not a category of criterion.
+  The three values are the same requirement examined under three conditions, which is why the column
+  is `Scenario` and not `Type` — a reader who sees `Type` asks what kind of criterion this is, and
+  the answer is always "an acceptance criterion".
+
+| Value | The requirement under | Answers |
+|---|---|---|
+| **Sunny Day** | Everything available and behaving | What is true when it works |
+| **Rainy Day** | Something failing — dependency down, timeout, refusal | What is true when it breaks |
+| **Edge Case** | A valid but boundary condition — empty, maximum, expired, first, last | What is true at the limits |
+
+- `Scenario` makes the Sunny-Day-only coverage warning mechanically checkable: a story whose criteria
+  are all `Sunny Day` has been specified for the demo, not for production.
+- **These are labels for the condition, not a licence to hedge.** Each row stays a declarative
+  statement under [language.md](language.md) — a Rainy Day criterion states what *is* true when the
+  dependency fails, never what *might* happen.
 
 ### Statements that carry no ID
 

@@ -24,9 +24,9 @@ Acceptance Criteria:
 - [ ] <criterion>
 
 Test Scenarios:
-- Happy Path: <what success looks like>
-- Error Case: <what failure looks like and expected handling>
-- Edge Case:  <boundary conditions, unusual inputs>
+- Sunny Day: <what success looks like>
+- Rainy Day: <what failure looks like and expected handling>
+- Edge Case: <boundary conditions, unusual inputs>
 
 Dependencies:
 - <linked issues, external APIs, services, teams>

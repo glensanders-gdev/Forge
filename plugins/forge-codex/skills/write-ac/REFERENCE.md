@@ -13,8 +13,8 @@ A Jira Capability is a portfolio-level container. Its acceptance criteria are **
 - Each *headline* functional outcome — the few PRD stories that define "this Capability is done" (typically the primary user outcome per BRD objective).
 
 **Flow to child Epic/Story AC:**
-- Detailed story-level criteria — happy-path variations, edge cases, error states.
-- Per-story criteria beyond the headline outcome — the `Edge` and `Error` rows, and any `Happy path` row that is detail rather than the defining outcome.
+- Detailed story-level criteria — Sunny Day variations, Rainy Day states, Edge Cases.
+- Per-story criteria beyond the headline outcome — the `Rainy Day` and `Edge Case` rows, and any `Sunny Day` row that is detail rather than the defining outcome.
 
 Rule of thumb: if removing the criterion would not make a stakeholder say "then the Capability isn't delivered," it belongs on a child issue, not the Capability.
 
