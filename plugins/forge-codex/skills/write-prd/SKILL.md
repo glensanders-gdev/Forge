@@ -197,7 +197,7 @@ Runs after human confirms Phase 1 summary. Writes the PRD and cleans up.
    **Do not proceed to step 4 without confirmation** — the totals land in the PRD header, so they must be settled before the document is written, not patched in afterwards.
 4. **Write the PRD** using the template below, incorporating the confirmed estimates. Add story points to the stakeholder label for PI planning — they apply under either delivery mode; token bands, where they exist at all, stay internal. **Enforce the pack's three ★ sections before finalising** — they are the gaps the standard exists to close:
    - **★ Success Metrics present** — at least one measurable metric (Metric / Baseline / Target / Measurement), with one marked **primary**. These are **product outcome metrics, not operational targets**: a metric measuring whether the feature achieved its purpose belongs here; the latency or availability figure that makes it attainable is the SOAP's. If none genuinely apply, write `Success Metrics: none — [reason]` explicitly; never omit the section.
-   - **★ Every user story has ≥1 acceptance criterion** — block finalisation if any story has none. Warn (do not block) if a story has only a happy-path criterion with no edge or error case.
+   - **★ Every user story has ≥1 acceptance criterion** — block finalisation if any story has none. Warn (do not block) if a story carries only `Sunny Day` criteria with no `Rainy Day` or `Edge Case` row, and name the missing scenario: *"PRD-003 is Sunny Day only — no Rainy Day criterion states what is true when the payment service is unavailable."* A story specified for fair weather alone is specified for the demo, not for production.
    - **★ Traceability populated** — every story has a stable ID (`PRD-NNN`), a MoSCoW priority, and traces up to a `BO-N` / `BR-N` or a named proximate source.
    Each requirement meets the ISO/IEC/IEEE 29148:2018 characteristics — necessary, appropriate, unambiguous, complete, singular, feasible, verifiable, correct, conforming — as modified by the two deviations recorded in `rules/requirements/language.md`. Rewrite vague requirements ("fast", "intuitive") into testable form or flag them.
    **Scan the draft for pre-empted SOAP content before saving.** Any latency figure, availability percentage, RTO/RPO, module decomposition, interface contract or schema is a boundary breach — remove it, and where the demand behind it is real, restate it as observable behaviour or route it to the BRD's cost-of-failure.
@@ -317,18 +317,26 @@ Keep stories at capability granularity; push detail into the criteria.
 **MoSCoW:** Must
 As a returning customer, I want to pay without re-entering my card, so that checkout completes in fewer steps.
 
-| ID | Acceptance Criterion | Type |
-|----|---------------------|------|
-| PRD-001.1 | Checkout for a returning customer with a saved payment method completes without card re-entry. | Happy path |
-| PRD-001.2 | A saved card past its expiry date is rejected at checkout and re-entry is requested. | Edge |
-| PRD-001.3 | Payment-service timeout leaves the basket intact and the customer on the checkout page. | Error |
+*Each criterion below states what is true for PRD-001 under one condition — fair weather, foul
+weather, and the boundaries.*
+
+| ID | Acceptance Criterion | Scenario |
+|----|---------------------|----------|
+| PRD-001.1 | Checkout for a returning customer with a saved payment method completes without card re-entry. | Sunny Day |
+| PRD-001.2 | Payment-service timeout leaves the basket intact and the customer on the checkout page. | Rainy Day |
+| PRD-001.3 | A saved card past its expiry date is rejected at checkout and re-entry is requested. | Edge Case |
 
 > **Criteria are noun-first declarative statements** per `rules/requirements/language.md` — state what
 > is true, not what a user *can* do. Not *"Then they can complete the purchase"*: `can [verb]` is
 > banned, and a criterion saying a customer *can* do something cannot fail a test. This is a
 > **declared divergence from the pack**, which writes criteria as Given/When/Then: the rules win on
 > form because the modal ban is unenforceable inside a `Then` clause, and the pack wins on everything
-> the criterion must *do* — testable, singular, covering happy path, edge and error.
+> the criterion must *do* — testable, singular, covering Sunny Day, Rainy Day and Edge Case.
+>
+> **The three scenario labels come from the pack**, whose coverage rule reads "cover Sunny Day, Rainy
+> Day and Edge Case — at minimum" and whose § *The three scenarios* defines each one. This skill does
+> not name them independently; read the pack. A PRD or reader carrying the pre-2026-08 wording maps
+> one-to-one — Sunny Day = happy path, Rainy Day = error state, Edge Case = edge case.
 >
 > **They state observable behaviour and cite the rest.** No latency figure, availability percentage,
 > encryption mechanism or recovery target. Where a story depends on one, cite the BRD cost-of-failure
@@ -338,12 +346,19 @@ As a returning customer, I want to pay without re-entering my card, so that chec
 **MoSCoW:** Must | Should | Could | Won't
 As a [role], I want [capability], so that [outcome].
 
-| ID | Acceptance Criterion | Type |
-|----|---------------------|------|
-| PRD-002.1 | [declarative statement of what is true once delivered] | Happy path |
+*Each criterion below states what is true for PRD-002 under one condition — fair weather, foul
+weather, and the boundaries.*
+
+| ID | Acceptance Criterion | Scenario |
+|----|---------------------|----------|
+| PRD-002.1 | [what is true when everything works] | Sunny Day |
+| PRD-002.2 | [what is true when a dependency fails, times out, or refuses] | Rainy Day |
+| PRD-002.3 | [what is true at a boundary — empty, maximum, expired, first, last] | Edge Case |
 
 - Story IDs are flat and sequential — `PRD-001`, `PRD-002`, … in order of first appearance, never encoding the story's theme. Criterion IDs are `PRD-NNN.N` within their story, so `$write-ac` maps each `AC-NNN` to a precise criterion rather than a whole story.
-- `Type` is `Happy path` / `Edge` / `Error`. A story with only `Happy path` rows triggers the coverage warning at finalisation.
+- `Scenario` is `Sunny Day` / `Rainy Day` / `Edge Case` — **the same requirement examined under three conditions**, not three kinds of criterion. Sunny Day: everything available and behaving. Rainy Day: something failing — dependency down, timeout, refusal. Edge Case: a valid but boundary condition — empty, maximum, expired, first, last. The column is `Scenario`, never `Type`: a reader who sees `Type` asks what kind of criterion this is, and the answer is always "an acceptance criterion".
+- A story with only `Sunny Day` rows triggers the coverage warning at finalisation — it has been specified for the demo, not for production. Name the missing weather in the warning rather than reporting a count.
+- The labels describe the condition, never the certainty. A `Rainy Day` criterion states what *is* true when the dependency fails — the modal ban in `rules/requirements/language.md` applies to all three scenarios equally.
 - `MoSCoW` gates altitude in `$write-ac`: `Won't` produces no AC at all, `Could` never reaches Capability level. It is a per-story scope decision, distinct from the document-level `Priority:` field, which ranks this whole feature against other features for PI planning. Never collapse the two.
 - IDs are retired when a story or criterion is dropped — never reused.
 

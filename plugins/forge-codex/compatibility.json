@@ -84,7 +84,7 @@
     "write-a-skill": {
       "source": "global/.claude/skills/write-a-skill/SKILL.md",
       "codex": "plugins/forge-codex/skills/write-a-skill/SKILL.md",
-      "reviewedSourceSha256": "59A8DF4DA3F9A05D7B360594A9E4FE3E6E9AB98AE0A9031A255A7457C1D3D9FB"
+      "reviewedSourceSha256": "21A07FCF50763DBA4A83ADAA0CE9E8D851E2EC23B604C82AF348CDA608BD0024"
     }
   }
 }

@@ -131,9 +131,9 @@ handing off, so the handoff is carried by a person rather than silently lost at 
 
 ### Automated Tests (covered by `/tdd`)
 Behaviours that can be verified programmatically through public interfaces:
-- Happy path through public API
-- Known edge cases with deterministic outcomes
-- Error states that can be triggered programmatically
+- Sunny Day through public API
+- Edge Cases with deterministic outcomes
+- Rainy Day states that can be triggered programmatically
 - Data transformations and calculations
 
 ### Manual Tests (covered by `/qa-plan`)

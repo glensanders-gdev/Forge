@@ -137,9 +137,9 @@ If `--file` was passed, pre-select that file and confirm with the user before wr
 
 For each confirmed file, generate tests in this priority order:
 
-1. **Happy path** — core functionality with valid inputs producing expected output
-2. **Error handling** — invalid inputs, missing data, network failures, unexpected nulls
-3. **Edge cases** — empty arrays, null/undefined, boundary values (0, -1, MAX_INT, empty string)
+1. **Sunny Day** — core functionality with valid inputs producing expected output
+2. **Rainy Day** — invalid inputs, missing data, network failures, unexpected nulls
+3. **Edge Case** — empty arrays, null/undefined, boundary values (0, -1, MAX_INT, empty string)
 4. **Branch coverage** — each if/else arm, switch case, ternary, and try/catch path
 
 ### Test generation rules
@@ -239,7 +239,7 @@ test-coverage-overall: N%
 | No test framework detected | Ask user to specify the coverage command — do not guess |
 | Coverage command fails or exits non-zero | Show the error verbatim; stop — do not attempt gap analysis on a broken test suite |
 | Existing tests break after writing new tests | Stop immediately, report the failing test and error — do not commit new tests |
-| File has 0% coverage (no tests at all) | Flag as highest priority — start with a single happy-path test to establish the pattern |
+| File has 0% coverage (no tests at all) | Flag as highest priority — start with a single Sunny Day test to establish the pattern |
 | Generated test placement is ambiguous | Ask the user for the correct test directory/naming convention before writing |
 | `docs/tests/registry.md` not found | Note it, skip TC assignment, continue with test generation |
 | Coverage output format unrecognised | Show raw output and ask the user to identify the coverage percentage manually |
