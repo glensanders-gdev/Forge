@@ -11,7 +11,32 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
-## v3.22.1 — 2026-08-14
+## v3.22.2 — 2026-08-18
+
+**Scenario naming gains negative space** — describing a rename does not enforce it
+
+### Fixed
+
+- A `$write-reqs` run still produced `Happy Path` in its output the day after v3.22.1 shipped. The
+  source was correct everywhere — pack, rules, skills, no stale copy, `FORGE_REQ_PACK` unset — but
+  **no rule anywhere forbade the old terms.** v3.22.1 described the new naming in the schema, the
+  definition table and the template, and left the previous labels merely unused. Nothing stopped a
+  revert to habit mid-document, which is exactly what a rename without a prohibition invites.
+- `rules/requirements/tables.md` § Never now bans `Happy path`, `Happy Path`, `Error`, `Error Case`
+  and `Edge` as scenario values and bans `Type` as the column heading, in tables *and* in prose.
+- **`$write-prd` 2.6.1** carries the same rule as its first Never, scoped to every place the terms
+  can surface — criteria tables, the Phase 1 summary, the coverage warning, the traceability
+  matrix's criteria summaries — and requires a check of the finished document before presenting it.
+- **`$write-reqs` 1.2.1** scans the returned PRD for the old terms before the Phase 3 gate and
+  reports any found in the change set. Delegation does not transfer the check.
+- **`$write-ac` 1.4.2** may read the pre-2.6.0 wording but never writes it back out — mapping on
+  read is not licence to reproduce the old term on write.
+
+### Notes
+
+- Forge's own `PRINCIPLES.md` requires every skill to declare explicit negative space. v3.22.1
+  changed positive instruction only and shipped without it; this is that omission, found in use
+  rather than in review.
 
 **`$write-prd`** — acceptance criteria say which weather they describe
 

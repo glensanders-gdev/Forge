@@ -3,7 +3,7 @@ name: "write-reqs"
 description: "Author a PRD and an ORD together from one source — classify needs into functional (PRD) and operational (ORD), delegate each document end-to-end to $write-prd and $write-ord via a binding authoring brief (each keeping its own confirmation gate), then own the bidirectional BRD↔PRD↔ORD cross-link neither sibling can complete alone. Use when the user runs $write-reqs, or wants both a PRD and an ORD from a single grill, transcript, or BRD rather than authoring either standalone."
 metadata:
   category: pipeline
-  version: 1.2.0
+  version: 1.2.1
   origin: Adapted from Glen Sanders (Forge / https://github.com/glensanders-gdev/Forge)
 ---
 
@@ -142,6 +142,10 @@ Type CONFIRM to apply, or list the changes to drop.
 
 ## Rules
 
+- Never let `Happy path`, `Error` or `Edge` reach the joint output as a scenario value, and never
+  head that column `Type` — the values are `Sunny Day`, `Rainy Day` and `Edge Case`, the column is
+  `Scenario`. Delegation does not transfer this check: scan the returned PRD for the old terms
+  before the Phase 3 gate and report any found, in the change set, as a defect to correct.
 - Never inline or reproduce the `$write-prd` or `$write-ord` templates, gates, or quality rules —
   invoke the skills; a copy drifts the moment a sibling changes.
 - Never invoke a sibling without a brief — an unbriefed sibling re-extracts from the full source

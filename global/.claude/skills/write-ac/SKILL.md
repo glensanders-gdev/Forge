@@ -96,6 +96,7 @@ Runs after the human confirms the split.
 
 ## Rules
 
+- Never emit `Happy path`, `Error` or `Edge` as a scenario label. Where a source PRD carries the pre-2.6.0 wording, read it and write `Sunny Day`, `Rainy Day` or `Edge Case` in the AC — mapping on read never means reproducing the old term on write.
 - Never author or invent requirements — every AC traces to an existing `PRD-NNN` or `ORD-NNN`. A need with no source is out of scope for this skill; flag it.
 - Never write a non-functional AC without its verification method — an ORD requirement with no way to prove it is not an acceptance criterion.
 - Never push to Jira without a typed `PUSH` confirmation showing the exact target Capability and payload.
