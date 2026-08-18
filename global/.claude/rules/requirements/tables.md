@@ -178,6 +178,11 @@ prevents.
 
 ## Never
 
+- Never write `Happy path`, `Happy Path`, `Error`, `Error Case` or `Edge` as a scenario value, and
+  never head the column `Type`. The three values are `Sunny Day`, `Rainy Day` and `Edge Case`, and
+  the column is `Scenario` — written exactly so, capitalised so, in every document and in every
+  sentence of prose that names them. These are the words a stakeholder reads aloud; reverting one
+  of them mid-document is the failure this rule exists to prevent.
 - Never write a binding statement as free-text prose, in any section.
 - Never give a table row a commitment without a stable ID.
 - Never invent a column set where a canonical schema exists.

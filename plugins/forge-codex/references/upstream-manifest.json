@@ -1,5 +1,5 @@
 {
-  "forge_version": "3.22.1",
+  "forge_version": "3.22.2",
   "skills": {
     "brain-setup": "1.0.0",
     "scan-first": "1.0.0",
@@ -12,7 +12,7 @@
     "graphify": "1.0.0",
     "research": "1.0.0",
     "prototype": "2.0.0",
-    "write-prd": "2.6.0",
+    "write-prd": "2.6.1",
     "diagnose": "1.0.0",
     "approve": "1.1.0",
     "add-system": "1.0.0",
@@ -109,8 +109,8 @@
     "vibe-security": "1.0.0",
     "write-brd": "1.0.0",
     "write-ord": "1.4.1",
-    "write-reqs": "1.2.0",
-    "write-ac": "1.4.1",
+    "write-reqs": "1.2.1",
+    "write-ac": "1.4.2",
     "roap": "1.0.0",
     "brd-review": "1.0.0",
     "ord-review": "1.0.0"

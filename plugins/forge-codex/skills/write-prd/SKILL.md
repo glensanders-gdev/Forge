@@ -493,6 +493,7 @@ narrative, so provenance has no row to live in. This matrix is that home, not a 
 
 ## Rules
 
+- Never write `Happy path`, `Happy Path`, `Error`, `Error Case` or `Edge` as a scenario value, and never head that column `Type`. The values are `Sunny Day`, `Rainy Day` and `Edge Case`; the column is `Scenario`. This holds in the criteria tables, in the Phase 1 summary, in the coverage warning, in the traceability matrix's criteria summaries, and in any sentence of prose naming them — a stakeholder reads these words aloud, and one reverted label undoes the reason the naming exists. Check the finished document for the old terms before presenting it.
 - Never write the PRD without Phase 1 confirmation — the gate is mandatory.
 - Never ask the user questions during Phase 1 — gather, then present.
 - Never finalise a PRD with an empty Success Metrics section — require at least one measurable metric, or an explicit `none — [reason]`.
