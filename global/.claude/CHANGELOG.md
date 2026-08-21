@@ -11,6 +11,64 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
+## v4.2.0 — 2026-08-23
+
+**AI as the *subject* of a requirement** — not AI as the author of the code
+
+`ai-first-engineering` governs AI writing the solution. Nothing governed AI *being* the solution:
+no coverage of non-determinism, drift, evaluation sets, model dependency, or the EU AI Act anywhere
+in the requirements pack or the rules. Researched in
+`docs/research/requirements-for-ai-solutions.md`; decided in **ADR-0003**.
+
+### Added
+
+- **`rules/requirements/ai.md`** — the third shared ruleset, and the first **conditional** one. It
+  applies on top of `language.md` and `tables.md` when a delivered component's behaviour is learned
+  or generated rather than specified, and relaxes neither. Carries the trigger test, the evaluative
+  criterion form, the class map assigning all 15 AI requirement classes to existing BRD/PRD/ORD
+  sections, the `EVL-NNN` and `MDL-NNN` schemas, the shelf-life rule, and the scenario triad read
+  for AI.
+- **ID namespace extended** to `EVL-NNN` (evaluation sets) and `MDL-NNN` (model / provider
+  dependencies), under ADR-0001's rules — flat, sequential, never reused, never theme-encoding, no
+  single-letter prefixes.
+- **`tools/build-reqs-bundle.py`** carries `ai.md` in its PARTS list. The bundle's own thesis is that
+  omitting a part makes the model invent the missing rule; the new file is subject to that thesis.
+
+### Changed
+
+- **`/write-prd` 2.7.0** cites `ai.md`, and owns the **intended purpose** and **prohibited uses** of
+  an AI component — intended purpose in the scope boundary, prohibited uses in Out of Scope.
+- **`/write-ord` 1.5.0** cites `ai.md`. Where triggered, §3 carries the ISO/IEC 25059:2023
+  sub-characteristics on top of the ISO/IEC 25010:2023 nine. **§3 is not restructured and nothing is
+  renumbered** — every existing §3.x reference still resolves.
+- **`/write-ac` 1.5.0** — an eval threshold tagged **[KPP]** promotes to Capability AC with its
+  `EVL-NNN` set named in the criterion.
+- **`/write-reqs` 1.3.0** and **`/write-brd` 1.1.0** cite `ai.md`; the BRD records the risk
+  classification decision once, for the chain below it.
+- **`rules/requirements/README.md`** states the conditional-vs-unconditional split, and the boundary
+  `ai.md` adds: AI as the *subject* of a requirement here, AI as the *author* in
+  `ai-first-engineering`.
+
+### Notes
+
+- **No new document type, deliberately.** ISO/IEC 25059:2023 extends ISO/IEC 25010:2023 rather than
+  replacing it — the body that could have defined a separate AI quality model chose not to. A peer
+  "AI requirements document" would have duplicated most of the ORD template to carry a small delta
+  and fragmented the ID namespace. Reasoning in ADR-0003.
+- **Non-determinism is not licence to hedge.** The modal ban applies to evaluative criteria
+  unchanged, and `ai.md` says so explicitly: variability belongs in the threshold, never in the verb.
+- **Version drift note superseded.** This work was authored before v4.1.0 and originally corrected
+  `SKILL.md` frontmatter versions by hand. v4.1.0 removed that field entirely — every skill version
+  here is set in `manifest.json` alone. README carried `v4.0.0` in its title and `4.0.0` under Skill
+  Versioning against a manifest of 4.1.2; both now read 4.2.0.
+- **ISO/IEC 25059 second edition is under member-body vote** after its DIS enquiry closed March 2026.
+  Its AI *service* quality model is the part most relevant to AI consumed as a third-party API.
+  Recorded as a watch item in ADR-0003 — re-check before the §3 guidance is treated as stable.
+- **Deferred:** a data-as-subject schema per the ISO/IEC 5259 series. Dead weight for inference-only
+  work against a consumed service, and the series warrants proper reading first.
+
+---
+
 ## v4.1.2 — 2026-08-23
 
 **`/skill-health` reads frontmatter, not the whole file** — scoping the version check
@@ -439,9 +497,6 @@ fix — logged rather than built here.
 ## v3.24.0 — 2026-08-22
 
 **One handoff per stream of work** — session state stops being a single file
-
-> Version 3.23.0 is reserved for the in-flight `rules/requirements/ai.md` work on its own branch;
-> this release takes 3.24.0 so the two cannot collide on merge.
 
 `docs/HANDOFF.md` was one fixed path with overwrite semantics and three writers (`/handoff`,
 `/save-state`, `/debrief`). A project running two threads of work at once had one entry point, so
