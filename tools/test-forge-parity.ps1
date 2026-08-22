@@ -186,7 +186,12 @@ Get-ChildItem -LiteralPath $pluginRoot -Recurse -File | ForEach-Object {
 }
 
 if ($errors.Count -gt 0) {
-    $errors | ForEach-Object { Write-Error $_ }
+    # -ErrorAction Continue is required: $ErrorActionPreference is Stop, so a bare
+    # Write-Error terminates on the first failure and hides the rest of the list.
+    Write-Error "Forge parity failed with $($errors.Count) error(s):" -ErrorAction Continue
+    foreach ($message in $errors) {
+        Write-Error $message -ErrorAction Continue
+    }
     exit 1
 }
 
