@@ -1,7 +1,7 @@
 ---
 name: pickup
 category: session
-version: 3.0.0
+version: 3.0.1
 description: Resume a session exactly where it left off. Reads the stream register at docs/HANDOFF.md, picks a stream, loads its handoff and referenced artifacts, and presents the exact next action. Use when user runs /pickup or wants to resume interrupted work without re-reading the conversation. For daily planning orientation use /standup instead.
 argument-hint: "[stream-slug]"
 ---
@@ -17,7 +17,7 @@ The register and stream schemas, and the stream lifecycle, are specified in
 **`~/.claude/skills/handoff/STREAMS.md`**.
 
 Named for its pair: `/handoff` puts a stream down, `/pickup` takes it up. (Renamed from
-`/continue` in v3.25.0 — that name is shadowed by a Claude Code built-in.)
+<!--no-adapt-->`/continue` in v3.25.0 — that name is shadowed by a Claude Code built-in.<!--/no-adapt-->)
 
 This skill is focused and fast: pick a stream, load its state, confirm the next action, start
 working. For broader daily orientation across all streams (priorities, deadlines, PI plan) use

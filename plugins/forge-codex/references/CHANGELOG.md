@@ -18,24 +18,24 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 > Version 3.26.0 is reserved for the in-flight `rules/requirements/ai.md` work on its own branch,
 > which is already renumbered to it. This release takes 3.27.0 so neither has to move again.
 
-v3.25.0 renamed two skills that Codex built-ins were shadowing and noted that a check at
+v3.25.0 renamed two skills that Claude Code built-ins were shadowing and noted that a check at
 authoring time was the durable fix. This is that check. The failure it prevents is silent: a
 shadowed skill loads nothing and reports nothing, so the only signal is a skill that mysteriously
 never runs.
 
 ### Added
 
-- **`skills/write-a-skill/RESERVED-NAMES.md`** — the names Codex claims, in one file read by
+- **`skills/write-a-skill/RESERVED-NAMES.md`** — the names Claude Code claims, in one file read by
   two skills and restated by neither (PRINCIPLE 6). Carries the bundled-skill names, the built-in
   slash commands, an **At Risk** watch list (`build`, `deploy`, `publish`, `research`, `commands`,
   `learn`, `teach`), a **Deliberately Avoided** register so a later tidy-up cannot walk back into a
   collision Forge already steers around, and a **Withdrawn** section for names the vendor releases.
 - **A verification stamp and a written refresh procedure.** There is no API that emits the vendor's
   reserved names, so the list is hand-maintained and stale by construction. The stamp records the
-  date, the Codex version, and whether each row was *confirmed* in a live session or
+  date, the Claude Code version, and whether each row was *confirmed* in a live session or
   *recalled* — the two carry different weight, and collapsing them would be the whole defect. The
   procedure says how to move the date rather than leaving it to age quietly.
-- **The Codex version is recorded as not determined.** `Codex` is not on `PATH` on the
+- **The Claude Code version is recorded as not determined.** `claude` is not on `PATH` on the
   authoring machine, so the stamp says so instead of guessing. The next refresh fills it in.
 
 ### Changed
@@ -60,6 +60,55 @@ never runs.
 Zero of Forge's 113 skill names are reserved today — the two known collisions were fixed in
 v3.25.0. Recommending no rename is the correct output of this release, and the check exists for
 the names the vendor claims next.
+---
+
+## v3.25.1 — 2026-08-22
+
+**Host names stop being rewritten into lies** — a substitution exemption for the Codex build
+
+`tools/build-forge-codex.ps1` rewrote `Claude Code` → `Codex` and `Claude` →
+`Codex` on every adapted file, unconditionally. That is correct where the text means
+*the host*, and false where it names Claude Code as a distinct
+product. The shipped plugin therefore claimed "Codex ships built-in commands called `/continue` and
+`/review`" — they are Claude Code's — "Dual-runtime Forge — Codex and
+Codex", and that `~/.codex/forge/` "is Codex's directory" in an entry describing a
+Claude-Code-only skill. Nothing failed; the statements just became
+untrue.
+
+The v3.25.0 name-collision work makes this sharper over time, because distinguishing which host
+claims which name is the whole point of it.
+
+### Added
+
+- **`no-adapt` fences** — a marker pair (`<!--` `no-adapt` `-->` … `<!--` `/no-adapt` `-->`) in any
+  adapted source withholds the fenced span from every substitution and restores it verbatim,
+  stripping the markers. Fences wrap a phrase or a block, so a sentence can name
+  Claude Code while its surrounding paths and skill names still
+  adapt. Documented in `CLAUDE.md` § Naming a host product and
+  `plugins/forge-codex/ADAPTATION.md` § Substitution Exemptions.
+- **Two guards, because a silent exemption is the failure it replaces.** The build throws on an
+  unbalanced fence; parity fails on a marker surviving into `plugins/forge-codex/skills/` or
+  `references/` — either means the file was never adapted.
+
+### Fixed
+
+- **`references/CHANGELOG.md`** — the v3.25.0, v3.11.0, v3.9.0, v3.8.2, v3.5.0 and v2.7.0 entries no
+  longer attribute Claude Code's built-in command namespace, command stubs,
+  `~/.claude/` data directory, or the `$grill-with-claude` alias to Codex.
+- **`pickup` 3.0.1** — "shadowed by a Claude Code built-in" survives
+  as written. It was the sole non-override skill asserting a fact about another host's namespace,
+  and it shipped false.
+- **`vibe-security` 1.0.1** — the Usage block listed `**Codex:**` twice, having collapsed the
+  Claude Code line into a duplicate of the Codex one.
+- **`graphify` 1.0.1** — `references/exports.md` told Codex users to configure MCP in "Codex app"
+  via `claude_desktop_config.json`, which is Claude Desktop's file.
+
+### Note
+
+Fences are needed only where a *non-override* skill names a host product. Codex-native overrides
+(`write-a-skill` and the rest of `compatibility.json`) skip adaptation entirely, so their files are
+safe by that route rather than by fencing — a protection that disappears the moment an override is
+retired.
 
 ---
 
@@ -67,7 +116,7 @@ the names the vendor claims next.
 
 **`/continue` → `$pickup`, `/review` → `$diff-review`** — two skill names were being shadowed
 
-Codex ships built-in commands called `/continue` and `/review`. A built-in wins the name, so
+Claude Code ships built-in commands called `/continue` and `/review`. A built-in wins the name, so
 invoking `/continue` ran the built-in rather than the Forge skill — quietly, with no error to
 explain why the skill never appeared. `/review` had the same collision and had not yet been noticed.
 
@@ -88,7 +137,7 @@ A deprecation stub is not available as a mitigation: the old name is shadowed, s
 
 ### Note
 
-Only these two of Forge's 113 skill names collide with a Codex built-in today. The vendor's
+Only these two of Forge's 113 skill names collide with a Claude Code built-in today. The vendor's
 command namespace keeps growing, so a name check against built-ins at authoring time is the durable
 fix — logged rather than built here.
 
@@ -665,7 +714,7 @@ time` rule was a faithful copy of the earlier version, which upstream has since 
 ### Changed
 - **All 104 skills** — added a `## Failure Modes` table and a `## Rules`/`## Never` section to every skill that lacked one, closing the P3 skill-completeness sweep (Failure Modes coverage 57% → 100%, Rules 93% → 100%). Each table is tailored to the skill's real failure conditions. Codex-native overrides `forge-update` and `grill-with-peer` updated in their own idiom; override review hashes refreshed. Documentation-only — no `forge_version` bump.
 - Body attribution credits added to `accessibility`, `ai-first-engineering`, `context-health`, and `knowledge-onboard` (their `origin:` frontmatter named a source with no in-body credit).
-- `grill-with-peer` — documented the `/grill-with-codex` (Codex) and `$grill-with-Codex` (Codex) command aliases inline, clarifying the intentional orphan stubs.
+- `grill-with-peer` — documented the `/grill-with-codex` (Claude) and `$grill-with-claude` (Codex) command aliases inline, clarifying the intentional orphan stubs.
 
 ### Housekeeping
 - CHANGELOG version coverage reconciled: `critic` v1.1.0 (the correctness/completeness/consistency fixes shipped under v3.8.1) and `ia` v1.3.0 (the Impact Assessment skill, added under v3.8.0) were present in `manifest.json` but not previously tied to their version numbers here.
@@ -695,21 +744,21 @@ time` rule was a faithful copy of the earlier version, which upstream has since 
 
 ## v3.9.0 — 2026-06-06
 
-**Dual-runtime Forge — Codex and Codex from one repository**
+**Dual-runtime Forge — Claude Code and Codex from one repository**
 
 ### Added
-- `$grill-with-peer` v1.0.0 — shared cross-model challenge protocol; Codex delegates to Codex and the Codex-native override delegates to Codex, with explicit consent, redaction, non-interactive execution, and transparent reconciliation
-- `/grill-with-codex` and `$grill-with-Codex` — thin runtime aliases that route to the shared peer-grilling protocol without duplicating workflow logic
-- `$graphify` Codex command stub and manifest entry — restores parity for the upstream graphify skill
+- `$grill-with-peer` v1.0.0 — shared cross-model challenge protocol; Claude delegates to Codex and the Codex-native override delegates to Claude, with explicit consent, redaction, non-interactive execution, and transparent reconciliation
+- `/grill-with-codex` and `$grill-with-claude` — thin runtime aliases that route to the shared peer-grilling protocol without duplicating workflow logic
+- `$graphify` Claude command stub and manifest entry — restores parity for the upstream graphify skill
 - `plugins/forge-codex/` — committed Codex plugin generated from the shared `global/.claude/` workflow source, with reviewed Codex-native overrides
 - `.agents/plugins/marketplace.json` — repository marketplace entry for Codex installation
 - `tools/build-forge-codex.ps1` — deterministic Codex plugin generation
 - `tools/test-forge-parity.ps1` and `.github/workflows/forge-parity.yml` — fail when shared skills are missing, versions drift, generated output is stale, or machine-specific paths enter the plugin
 - `plugins/forge-codex/compatibility.json` and `tools/update-forge-codex-overrides.ps1` — explicit review ledger for runtime-specific overrides; parity fails when a shared source changes until its Codex override is reviewed
-- `global/.claude/commands/raid.md` — restores the missing Codex command stub so every shared skill is invocable in both runtimes
+- `global/.claude/commands/raid.md` — restores the missing Claude Code command stub so every shared skill is invocable in both runtimes
 
 ### Changed
-- Forge now supports Codex and Codex under one shared framework version and changelog
+- Forge now supports Claude Code and Codex under one shared framework version and changelog
 - Codex project templates use `AGENTS.md`, `.agents/skills/`, and `.codex/forge/`
 - Codex runtime differences are isolated to documented native overrides instead of silently diverging
 
@@ -720,7 +769,7 @@ time` rule was a faithful copy of the earlier version, which upstream has since 
 **New skill: $vibe-security**
 
 ### Added
-- `$vibe-security` v1.0.0 — active security auditor for AI-generated codebases. Produces severity-ranked findings (Critical → High → Medium → Low) with before/after fixes. Loads technology-specific reference files on demand (Supabase RLS, Stripe, mobile, AI/LLM, deployment, data access). Activates proactively when writing or reviewing auth, payment, database, or API key code. Compatible with both Codex (`$vibe-security`) and OpenAI Codex (`$vibe-security`).
+- `$vibe-security` v1.0.0 — active security auditor for AI-generated codebases. Produces severity-ranked findings (Critical → High → Medium → Low) with before/after fixes. Loads technology-specific reference files on demand (Supabase RLS, Stripe, mobile, AI/LLM, deployment, data access). Activates proactively when writing or reviewing auth, payment, database, or API key code. Compatible with both Claude Code (`/vibe-security`) and OpenAI Codex (`$vibe-security`).
 - 9 reference files covering: secrets & env vars, database security, authentication, rate limiting, payments, mobile, AI/LLM integration, deployment, and data access.
 - `agents/openai.yaml` for Codex compatibility.
 - Adapted from [Chris Raroque / Aloa](https://github.com/raroque/vibe-security-skill) — MIT licensed.
@@ -771,7 +820,7 @@ time` rule was a faithful copy of the earlier version, which upstream has since 
 **New skills: $forge-init, $forge-update + $ingest scope prompt + $context-health Intent Layer + category fields**
 
 ### Added
-- `$forge-init` v1.0.0 — generates `~/.codex/forge/AGENTS.md` and `~/.codex/forge/AGENTS.md` from a single source of truth. Writes skill-loading instruction and standing instructions (git safety, push confirmation, HITL gates, context limit) for Codex. Overlays company config (ai_human_signoff_required, ai_data_restrictions, ai_monthly_spend_cap_usd) when `active_company` is set. Called automatically by `$company-add` as its final write step; runnable standalone after config changes or Forge upgrades. `compatibility: codex: unsupported` (writes to `~/.codex/forge/` which is Codex's directory).
+- `$forge-init` v1.0.0 — generates `~/.claude/CLAUDE.md` and `~/.claude/AGENTS.md` from a single source of truth. Writes skill-loading instruction and standing instructions (git safety, push confirmation, HITL gates, context limit) for Claude Code. Overlays company config (ai_human_signoff_required, ai_data_restrictions, ai_monthly_spend_cap_usd) when `active_company` is set. Called automatically by `$company-add` as its final write step; runnable standalone after config changes or Forge upgrades. `compatibility: codex: unsupported` (writes to `~/.claude/` which is Claude Code's directory).
 - `$forge-update` v1.0.0 — self-update skill for Forge. Ensures `~/forge` clone exists, pulls latest, version-checks current vs incoming, surfaces the CHANGELOG section for the new version, confirms before running `update.sh`. Warns to start a new session after install.
 
 ### Changed
@@ -909,7 +958,7 @@ Bumped to v3.0.0 — four skills added in one session (git-guardrails, jira, ski
 **New skill: $git-guardrails (assimilated from Matt Pocock)**
 
 ### Added
-- `$git-guardrails` v1.0.0 — hard-blocks dangerous git commands via a `PreToolUse` hook, enforced at the Codex tool level rather than the AI instruction level. Complements `rules/common/git-safety.md` (soft rules) with OS-level enforcement. Guided setup for project or global scope, with Windows/Git Bash compatibility notes. Includes deployable `block-dangerous-git.sh` hook script.
+- `$git-guardrails` v1.0.0 — hard-blocks dangerous git commands via a `PreToolUse` hook, enforced at the Claude Code tool level rather than the AI instruction level. Complements `rules/common/git-safety.md` (soft rules) with OS-level enforcement. Guided setup for project or global scope, with Windows/Git Bash compatibility notes. Includes deployable `block-dangerous-git.sh` hook script.
   - Blocks: `git push`, `git reset --hard`, `git clean -f/fd`, `git branch -D`, `git checkout .`, `git restore .`
   - Flags: `--project`, `--global`, `--verify`, `--remove`
   - Origin: Adapted from Matt Pocock (AIHero.dev / github.com/mattpocock/skills)
