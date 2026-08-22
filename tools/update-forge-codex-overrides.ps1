@@ -43,16 +43,36 @@ $overrideNames = @(
 )
 
 $overrides = [ordered]@{}
+$errors = New-Object System.Collections.Generic.List[string]
 foreach ($name in $overrideNames) {
     $sourcePath = Join-Path $root "global\.claude\skills\$name\SKILL.md"
     $codexPath = Join-Path $root "plugins\forge-codex\skills\$name\SKILL.md"
-    if (-not (Test-Path -LiteralPath $sourcePath)) { throw "Missing shared source skill: $name" }
-    if (-not (Test-Path -LiteralPath $codexPath)) { throw "Missing Codex override skill: $name" }
+    $missing = $false
+    if (-not (Test-Path -LiteralPath $sourcePath)) {
+        $errors.Add("Missing shared source skill: $name")
+        $missing = $true
+    }
+    if (-not (Test-Path -LiteralPath $codexPath)) {
+        $errors.Add("Missing Codex override skill: $name")
+        $missing = $true
+    }
+    if ($missing) { continue }
     $overrides[$name] = [ordered]@{
         source = "global/.claude/skills/$name/SKILL.md"
         codex = "plugins/forge-codex/skills/$name/SKILL.md"
         reviewedSourceSha256 = Get-NormalizedTextSha256 $sourcePath
     }
+}
+
+if ($errors.Count -gt 0) {
+    # Report every missing override, not just the first: a per-item throw under
+    # $ErrorActionPreference = Stop hides the rest and forces a fix-one-rerun loop.
+    # -ErrorAction Continue keeps the list intact; the exit below still fails CI.
+    Write-Error "Refusing to update override hashes: $($errors.Count) error(s):" -ErrorAction Continue
+    foreach ($message in $errors) {
+        Write-Error $message -ErrorAction Continue
+    }
+    exit 1
 }
 
 $payload = [ordered]@{
