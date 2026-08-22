@@ -26,7 +26,7 @@ hole that fails the bar.
 
 ## Phase 1 — Ingest and classify [AFK]
 
-1. **Source the standard, never recall it.** Per [GATE-PROTOCOL.md](../brd-review/GATE-PROTOCOL.md)
+1. **Source the standard, never recall it.** Per [GATE-PROTOCOL.md](../review-brd/GATE-PROTOCOL.md)
    § *Sourcing the criteria* — the live pack's `reference/brd-standard.md` where held, otherwise the
    stamped extract in [STANDARD.md](STANDARD.md). Name the pack version in the summary. Read the
    anatomy and its five **★** sections, both forms, the solution-vs-outcome test, the gate, and
@@ -78,13 +78,13 @@ no cell holds a figure the source did not supply.
 ## Phase 3 — Run the gate [AFK]
 
 Assess the document just written against **BH-1 – BH-10**, applying the verdict vocabulary, the
-evidence rule and the outcome derivation in [GATE-PROTOCOL.md](../brd-review/GATE-PROTOCOL.md), and
+evidence rule and the outcome derivation in [GATE-PROTOCOL.md](../review-brd/GATE-PROTOCOL.md), and
 emit the protocol's report format adapted per [REFERENCE.md](REFERENCE.md).
 
 **The standard puts this gate in the author's hands** — a document's readiness is its author's to
 establish, not its recipient's to adjudicate afterwards. It is **not** the independent review: §8
 names a reviewer who did not author the document as its highest-value Tier 1 control, and a
-self-assessment cannot be one. Name `$brd-review` as the pass this one does not replace.
+self-assessment cannot be one. Name `$review-brd` as the pass this one does not replace.
 
 **Completion:** all ten items carry a verdict citing the section it was read from or naming what is
 absent, one of the four outcomes is derived by precedence, and every declared gap names where it must

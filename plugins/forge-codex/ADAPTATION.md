@@ -43,19 +43,19 @@ The planning, delivery, QA, release, knowledge, reporting, and maintenance skill
 
 ### Codex-native overrides
 
-- `forge-install`: install the plugin from a marketplace; do not create Claude junctions.
-- `forge-update`: update the marketplace/plugin source; do not run upstream `install.sh`.
-- `forge-init`: generate concise `~/.codex/AGENTS.md` guidance and keep Forge data separate.
+- `install-forge`: install the plugin from a marketplace; do not create Claude junctions.
+- `update-forge`: update the marketplace/plugin source; do not run upstream `install.sh`.
+- `init-forge`: generate concise `~/.codex/AGENTS.md` guidance and keep Forge data separate.
 - `skill-health`: audit plugin skills and Codex metadata instead of Claude command stubs.
 - `lang-rules`: use nested `AGENTS.md` files for coding guidance; Codex rules are command policies.
 - `write-a-skill` and `assimilate`: author Forge source under `global/.claude/`, generate the plugin, and use `.agents/skills/` for Codex-only skills.
-- `company-update`: update the Codex marketplace/plugin instead of copying skills into Forge data directories.
+- `update-company`: update the Codex marketplace/plugin instead of copying skills into Forge data directories.
 - `jira`: resolve bundled subcommand references relative to the installed skill.
-- `debrief`, `sprint-end`, and `token-report`: never use Claude-only `ccusage`; accept exact Codex evidence or mark usage unavailable.
+- `debrief`, `end-sprint`, and `token-report`: never use Claude-only `ccusage`; accept exact Codex evidence or mark usage unavailable.
 
 ### Delegation preferred
 
-- `security-assessment` and `security-resolve` remain Forge governance workflows, but should delegate repository scanning and finding validation to the Codex Security plugin when available.
+- `security-assessment` and `resolve-findings` remain Forge governance workflows, but should delegate repository scanning and finding validation to the Codex Security plugin when available.
 - Jira, Confluence, GitHub, and other live systems should use installed MCP servers or app connectors. Never invent an unavailable integration.
 
 ## Known Limitations
@@ -63,4 +63,4 @@ The planning, delivery, QA, release, knowledge, reporting, and maintenance skill
 - Bulk-adapted prose may still describe upstream operating assumptions that require human judgment.
 - The bundled hook is path-independent. Its hook commands are self-contained so the plugin can be installed at different paths on different devices.
 - Upstream standalone `codex-review`, `grill-me-codex`, and `grill-with-docs-codex` tools are not bundled. In Codex, prefer explicit parallel read-only subagents for adversarial review.
-- Forge data is not automatically initialized. Run `$forge-init` or `$onboard`.
+- Forge data is not automatically initialized. Run `$init-forge` or `$onboard`.

@@ -99,13 +99,13 @@ Base the skill suggestions on the resolved stream's pipeline position — not th
 | Current state | Suggest |
 |--------------|---------|
 | PRD written, no testplan | `$testplan` then `$estimate` |
-| Testplan done, no build | `$sprint-start` then `$build` |
+| Testplan done, no build | `$start-sprint` then `$build` |
 | Build in progress | `$build` (resume) |
-| Build complete, no QA | `$qa-plan` then `$pii-check` |
+| Build complete, no QA | `$qa-plan` then `$check-pii` |
 | QA complete | `$approve` |
 | Feature approved, no next PRD | `$grill-with-docs` or `$idea` |
 | Known issues flagged | `$diagnose` |
-| Scope has changed | `$scope-check` then `$estimate` |
+| Scope has changed | `$check-scope` then `$estimate` |
 | Buffer window active | `$build` with `BUILD-FIXES` only |
 
 Always suggest `$standup` if the next session is starting fresh (first action of a new day or after

@@ -24,20 +24,20 @@ function Get-NormalizedTextSha256([string]$Path) {
 
 $overrideNames = @(
     "assimilate",
-    "company-add",
-    "company-update",
+    "add-company",
+    "update-company",
     "debrief",
-    "forge-init",
-    "forge-install",
-    "forge-update",
+    "init-forge",
+    "install-forge",
+    "update-forge",
     "git-guardrails",
     "grill-with-peer",
     "jira",
     "lang-rules",
     "security-assessment",
-    "security-resolve",
+    "resolve-findings",
     "skill-health",
-    "sprint-end",
+    "end-sprint",
     "token-report",
     "write-a-skill"
 )

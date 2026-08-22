@@ -8,7 +8,7 @@ metadata:
 
 # Setup Confluence
 
-> **Company-aware:** When `active_company` is set in `~/.codex/forge/preferences.md` (configured by `$company-add`), `confluence.md` is written to `~/.codex/forge/companies/[active_company]/knowledge/publish/` instead of `~/.codex/forge/knowledge/publish/`.
+> **Company-aware:** When `active_company` is set in `~/.codex/forge/preferences.md` (configured by `$add-company`), `confluence.md` is written to `~/.codex/forge/companies/[active_company]/knowledge/publish/` instead of `~/.codex/forge/knowledge/publish/`.
 
 Guided interactive setup for Confluence publishing. Asks one question at a time, validates
 the connection before writing anything, and produces a ready-to-use `confluence.md`.

@@ -4,7 +4,7 @@ Completed tickets archived at the end of each sprint. Kept separate from `kanban
 
 ---
 
-_No archived tickets yet. Archives are written by `$sprint-end`._
+_No archived tickets yet. Archives are written by `$end-sprint`._
 
 <!--
 Archive format:

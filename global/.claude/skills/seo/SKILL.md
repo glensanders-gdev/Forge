@@ -135,7 +135,7 @@ Full finding detail stays in `docs/seo/audit-YYYY-MM-DD.md` only — do not repr
 
 | Skill | Relationship |
 |-------|-------------|
-| `/diff-review` | Run `/diff-review` on HTML/template changes made during SEO remediation |
+| `/review-diff` | Run `/review-diff` on HTML/template changes made during SEO remediation |
 | `/build` | SEO remediation tickets flow through the standard build loop |
 | `/qa-plan` | Add SEO regressions to the QA checklist before release |
 | `/go-nogo` | Critical SEO findings should be noted in the Go/No Go risk assessment |

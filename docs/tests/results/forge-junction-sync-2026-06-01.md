@@ -18,7 +18,7 @@
 | TC-002 | Edit in `~/.claude/skills/` reflects in `git status` | P1 | ⏭ Waived | Deferred to future QA cycle. Verified informally during build session |
 | TC-003 | Migration preserves user data dirs | P1 | ⏭ Waived | Deferred to future QA cycle. Migration ran successfully on Windows 2026-06-01 with no data loss reported |
 | TC-004 | Migration flow end-to-end — legacy copy → junction | P1 | ⏭ Waived | Deferred to future QA cycle. Migration executed during build session (commit 1993e30) |
-| TC-005 | `/forge-update` uses `git pull`, no `update.sh` | P1 | ⏭ Waived | Deferred to future QA cycle |
+| TC-005 | `/update-forge` uses `git pull`, no `update.sh` | P1 | ⏭ Waived | Deferred to future QA cycle |
 | TC-006 | iOS guidance branch — no junction attempted | P2 | ⏭ Waived | Deferred — iOS device out of scope |
 | TC-007 | Idempotency — re-run `install.sh` → Already linked | P2 | ⏭ Waived | Deferred to future QA cycle |
 | TC-008 | Wrong remote guard — stops with warning | P2 | ⏭ Waived | Deferred to future QA cycle |

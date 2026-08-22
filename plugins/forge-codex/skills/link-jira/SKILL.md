@@ -8,7 +8,7 @@ metadata:
 
 # Link Jira
 
-> **Company-aware:** When `active_company` is set in `~/.codex/forge/preferences.md` (configured by `$company-add`), `registry.md` updates are written to `~/.codex/forge/companies/[active_company]/registry.md` and idea/project files are resolved from the company directory.
+> **Company-aware:** When `active_company` is set in `~/.codex/forge/preferences.md` (configured by `$add-company`), `registry.md` updates are written to `~/.codex/forge/companies/[active_company]/registry.md` and idea/project files are resolved from the company directory.
 
 Map a Forge ID to a Jira ID. Keeps the full history of external ID changes — never overwrites.
 

@@ -162,7 +162,7 @@
     { date: '2026-05-28', subject: 'Forge v3.4.0 — duplication/staleness audit', p1: 3, p2: 5, p3: 4, total: 12 },
     { date: '2026-06-01', subject: 'Forge framework v3.7.0', p1: 2, p2: 3, p3: 3, total: 8 },
     { date: '2026-06-11', subject: 'Tiered governance, token optimisation, model selection', p1: 4, p2: 5, p3: 4, total: 13 },
-    { date: '2026-07-13', subject: '/brain-setup v1.0.0 (three-tier second-brain model)', p1: 1, p2: 4, p3: 5, total: 10 }
+    { date: '2026-07-13', subject: '/setup-brain v1.0.0 (three-tier second-brain model)', p1: 1, p2: 4, p3: 5, total: 10 }
   ];
   const diagnoseData   = []; // no Diagnose Events table in metrics-log.md
   const lookupData     = []; // no Lookup Activity table in metrics-log.md
@@ -231,7 +231,7 @@
   // ── Section 3: Pipeline & Velocity ──
 
   ['c-velocity','c-carryover','c-goals'].forEach(id =>
-    emptyPanel(id, 'Close sprints with /sprint-end to start tracking.'));
+    emptyPanel(id, 'Close sprints with /end-sprint to start tracking.'));
 
   new Chart(document.getElementById('c-context'), {
     type: 'line',

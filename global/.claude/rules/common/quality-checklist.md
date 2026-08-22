@@ -1,6 +1,6 @@
 # Pre-Ship Quality Checklist
 
-Run before marking any ticket complete. Referenced by `/user:diff-review` and `/user:qa-plan`.
+Run before marking any ticket complete. Referenced by `/user:review-diff` and `/user:qa-plan`.
 
 Origin: Adapted from Affaan Mustafa (ECC / github.com/affaan-m/ECC)
 

@@ -41,7 +41,7 @@ Create or update a Product Iteration (PI) plan. A PI spans one quarter — 3 mon
    - `~/.claude/pi/PI-N-[name]/stakeholder.md` — external-facing view
    - Update `~/.claude/sprints/calendar.md` with sprint dates
 
-5. **Update sprint-start** — add PI reference to the sprint calendar entries.
+5. **Update start-sprint** — add PI reference to the sprint calendar entries.
 
 ### Updating an Existing PI
 

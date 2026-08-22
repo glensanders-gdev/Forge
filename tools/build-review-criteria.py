@@ -152,7 +152,7 @@ def slice_section(text: str, start: str, end) -> str:
 # What each skill needs. (source file, start marker, end marker) or (file, None, None)
 # for a whole file. Order is the order it appears in the output.
 SPECS: dict[str, list[tuple[str, str | None, object]]] = {
-    "brd-review": [
+    "review-brd": [
         ("brd-standard.md", "## The handoff gate — is this BRD ready", "## Worked example"),
         ("brd-standard.md", "### The handoff gate, applied to this document", TO_RULE),
         ("traceability-matrix.md", "## The five checks a matrix makes visible", None),
@@ -162,7 +162,7 @@ SPECS: dict[str, list[tuple[str, str | None, object]]] = {
         ("ord-intake-standard.md", "**Step 1 — size the change from the BRD.**",
          "**Step 2 — read the lead time.**"),
     ],
-    "ord-review": [
+    "review-ord": [
         ("ord-intake-standard.md", "### 7.1 Must produce", "### 7.2 Referred"),
         ("ord-intake-standard.md", "### 7.3 Must refuse", "### 7.4 Acceptance criteria"),
         ("ord-intake-standard.md", "## 5. Requirement status taxonomy", "### 5.1 Approval"),
@@ -180,9 +180,9 @@ SPECS: dict[str, list[tuple[str, str | None, object]]] = {
 # version buys. A generator that called the BRD standard a set of criteria would
 # misdescribe the one skill that authors from the pack rather than judging against it.
 OUTPUTS: dict[str, tuple[str, str, str]] = {
-    "brd-review": ("CRITERIA.md", "criteria extract",
+    "review-brd": ("CRITERIA.md", "criteria extract",
                    "Quote the version in every review this extract is used for."),
-    "ord-review": ("CRITERIA.md", "criteria extract",
+    "review-ord": ("CRITERIA.md", "criteria extract",
                    "Quote the version in every review this extract is used for."),
     "write-brd": ("STANDARD.md", "standard extract",
                   "Quote the version in every BRD authored from this extract."),

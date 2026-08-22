@@ -1,0 +1,3 @@
+Invoke the review-fy skill. Generate a financial year or mid-year review aggregating ideas submitted, projects delivered, incidents, token spend, value observed, and AI assistance metrics across all Forge data for the period. Produces a manager-facing summary and internal team retrospective with year-over-year comparison.
+
+Skill: global/.claude/skills/review-fy/SKILL.md

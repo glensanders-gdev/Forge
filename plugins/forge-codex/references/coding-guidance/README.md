@@ -22,7 +22,7 @@ rules/
 
 ## How Rules Are Used
 
-- `diff-review` — reads common + active language rules as review baseline
+- `review-diff` — reads common + active language rules as review baseline
 - `build` — applies common + active language rules during TDD cycles
 - `push-standards` — uses active rules as baseline; only documents project-specific additions
 - `lang-rules` — installs and activates language rule sets per project
@@ -34,9 +34,9 @@ If no activation file exists, only common rules apply.
 
 ## Rules vs Skills
 
-**Rules** define standards, conventions, and checklists that apply broadly — what the code must meet (e.g. "80% test coverage", "no hardcoded secrets", "functions under 50 lines"). They are reference documents the AI consults during `$diff-review`, `$build`, and `$push-standards`.
+**Rules** define standards, conventions, and checklists that apply broadly — what the code must meet (e.g. "80% test coverage", "no hardcoded secrets", "functions under 50 lines"). They are reference documents the AI consults during `$review-diff`, `$build`, and `$push-standards`.
 
-**Skills** provide deep, actionable instruction for specific tasks — how to do something (e.g. `$tdd`, `$diff-review`, `/security-review`). Skills may reference rules as the standard to enforce.
+**Skills** provide deep, actionable instruction for specific tasks — how to do something (e.g. `$tdd`, `$review-diff`, `/security-review`). Skills may reference rules as the standard to enforce.
 
 Language-specific rule files reference relevant Forge skills where appropriate. Rules tell you *what* to do; skills tell you *how* to do it.
 

@@ -8,7 +8,7 @@ metadata:
 
 # Add Project
 
-> **Company-aware:** When `active_company` is set in `~/.codex/forge/preferences.md` (configured by `$company-add`), projects are scaffolded under `~/.codex/forge/companies/[active_company]/knowledge/projects/` instead of `~/.codex/forge/knowledge/projects/`.
+> **Company-aware:** When `active_company` is set in `~/.codex/forge/preferences.md` (configured by `$add-company`), projects are scaffolded under `~/.codex/forge/companies/[active_company]/knowledge/projects/` instead of `~/.codex/forge/knowledge/projects/`.
 
 Scaffold the full three-tier knowledge structure for a new project under `~/.codex/forge/knowledge/projects/`.
 

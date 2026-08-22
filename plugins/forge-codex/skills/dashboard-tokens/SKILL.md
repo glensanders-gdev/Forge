@@ -268,7 +268,7 @@ Chart.js from CDN. No external dependencies beyond CDN.
            Bar (blue): story points done.
            Line (green dashed): rolling 3-sprint average.
            Tooltip includes goal hit %.
-           Requires sprintData. Empty state: "Close sprints with $sprint-end to start tracking." -->
+           Requires sprintData. Empty state: "Close sprints with $end-sprint to start tracking." -->
       <canvas id="c-velocity"></canvas>
     </div>
 
@@ -585,7 +585,7 @@ Chart.js from CDN. No external dependencies beyond CDN.
     });
   } else {
     ['c-velocity','c-carryover','c-goals'].forEach(id =>
-      emptyPanel(id, 'Close sprints with $sprint-end to start tracking.'));
+      emptyPanel(id, 'Close sprints with $end-sprint to start tracking.'));
   }
 
   if (trendData.length) {

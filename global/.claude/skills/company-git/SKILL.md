@@ -1,7 +1,7 @@
 ---
 name: company-git
 category: company
-description: Connect the local company knowledge directory to a company-approved GitHub remote. One-time setup — initialises a git repo in ~/.claude/companies/[name]/, adds the remote, and either pushes initial stubs (empty remote) or pulls existing team content (populated remote). Use when user runs /company-git [remote-url] after /company-add.
+description: Connect the local company knowledge directory to a company-approved GitHub remote. One-time setup — initialises a git repo in ~/.claude/companies/[name]/, adds the remote, and either pushes initial stubs (empty remote) or pulls existing team content (populated remote). Use when user runs /company-git [remote-url] after /add-company.
 ---
 
 # Company Git
@@ -10,7 +10,7 @@ Connect the company knowledge directory at `~/.claude/companies/[active_company]
 company-approved GitHub remote. This is a one-time setup step — it wires the local
 directory to an existing remote repo that an admin has already created.
 
-Ongoing push/pull operations are handled by `/company-sync` (separate skill).
+Ongoing push/pull operations are handled by `/sync-company` (separate skill).
 
 ---
 
@@ -21,7 +21,7 @@ Ongoing push/pull operations are handled by `/company-sync` (separate skill).
 Read `~/.claude/preferences.md`. If `active_company` is not set:
 
 ```
-❌ No company configured. Run /company-add [name] first.
+❌ No company configured. Run /add-company [name] first.
 ```
 
 Exit.
@@ -32,7 +32,7 @@ Check `~/.claude/companies/[active_company]/` exists. If not:
 
 ```
 ❌ Company directory not found at ~/.claude/companies/[active_company]/.
-   Run /company-add [name] to create it.
+   Run /add-company [name] to create it.
 ```
 
 Exit.
@@ -116,7 +116,7 @@ knowledge/publish/confluence.md
 knowledge/publish/publish-log.md
 ```
 
-This complements the `.gitignore` already written by `/company-add` inside
+This complements the `.gitignore` already written by `/add-company` inside
 `knowledge/publish/`. The root-level entry ensures protection even if the
 subdirectory file is accidentally removed.
 
@@ -147,7 +147,7 @@ Warn the user before pulling:
 
 ```
 ⚠️ The remote repository already has content.
-   Pulling will replace stub files created by /company-add with the team's
+   Pulling will replace stub files created by /add-company with the team's
    existing knowledge base. Local stubs that don't conflict will be kept.
 
    Proceed? (yes/no)
@@ -190,12 +190,12 @@ Do not proceed to the confirmation step until conflicts are resolved.
 
 Pull-before-push convention:
    Always pull before pushing knowledge changes to avoid conflicts.
-   Run /company-sync to share future changes with your team.
-   (/company-sync not yet available — use the following manually until it is:
+   Run /sync-company to share future changes with your team.
+   (/sync-company not yet available — use the following manually until it is:
     git -C ~/.claude/companies/[active_company] pull && git -C ~/.claude/companies/[active_company] push)
 
 Next steps:
-  1. Share [url] with team members — they run /company-add then /company-git [url]
+  1. Share [url] with team members — they run /add-company then /company-git [url]
   2. Fill in config.md, context.md, and acronyms.md with company details
   3. Run /add-system to add your first system
 ```
@@ -214,8 +214,8 @@ Next steps:
 
 Pull-before-push convention:
    Always pull before pushing knowledge changes to avoid conflicts.
-   Run /company-sync to share future changes with your team.
-   (/company-sync not yet available — use the following manually until it is:
+   Run /sync-company to share future changes with your team.
+   (/sync-company not yet available — use the following manually until it is:
     git -C ~/.claude/companies/[active_company] pull && git -C ~/.claude/companies/[active_company] push)
 ```
 
@@ -225,8 +225,8 @@ Pull-before-push convention:
 
 | Condition | Behaviour |
 |-----------|-----------|
-| `active_company` not set | Exit with message to run `/company-add` first |
-| Company directory missing | Exit with message to run `/company-add` first |
+| `active_company` not set | Exit with message to run `/add-company` first |
+| Company directory missing | Exit with message to run `/add-company` first |
 | Remote unreachable | Exit with credential troubleshooting guidance — no local changes made |
 | Merge conflict on pull | Stop and list conflicting files — never auto-resolve |
 | Already a git repo | Warn and require CONFIRM before replacing remote |
@@ -240,4 +240,4 @@ Pull-before-push convention:
 - Never auto-resolve merge conflicts in knowledge content
 - The `.gitignore` must be written before the initial commit — credentials must never enter the history
 - Do not create the remote repository — that is an admin step outside Forge
-- This skill is setup only — push/pull for daily use belongs to `/company-sync`
+- This skill is setup only — push/pull for daily use belongs to `/sync-company`

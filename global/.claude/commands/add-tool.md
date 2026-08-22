@@ -1,0 +1,2 @@
+Invoke the add-tool skill. Register a new tool in the Forge tools registry — global or company-specific. Grills on name, category, check-command, install-hint, description, usage, and anti-patterns. Use /add-tool for global registration or /add-tool --company [name] for a company registry. Quick-add a status-only override with /add-tool --company [name] [tool] [required|approved|prohibited].
+Skill: global/.claude/skills/add-tool/SKILL.md

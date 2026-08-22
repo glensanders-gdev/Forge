@@ -26,7 +26,7 @@ Before writing any code that handles user data:
 - Check `~/.codex/forge/knowledge/company/pii-categories.md` for the full list of PII categories
 - Never log PII to the console or error output
 - Never hardcode real user data in tests or fixtures — use synthetic data
-- Run `pii-check` before QA if the feature handles any user-identifiable data
+- Run `check-pii` before QA if the feature handles any user-identifiable data
 
 ---
 

@@ -1,7 +1,7 @@
 # Session Streams — the handoff register
 
 The shared specification for multi-stream session state. Owned by `$handoff`; read by
-`$pickup`, `$save-state`, `$debrief`, `$approve`, `$sprint-end` and `$context-health`.
+`$pickup`, `$save-state`, `$debrief`, `$approve`, `$end-sprint` and `$context-health`.
 Cite this file by path — never restate its rules inside a skill (PRINCIPLE 6).
 
 Introduced in Forge v3.24.0. Replaces the single-document `docs/HANDOFF.md`.
@@ -26,7 +26,7 @@ overwrite another's.
 | Path | Holds | Written by |
 |---|---|---|
 | `docs/HANDOFF.md` | The **register** — one row per open stream. Pointers only, never content. | every session writer, one row at a time |
-| `docs/handoffs/<slug>.md` | The live handoff for one stream. **Authoritative.** | `$handoff`, `$save-state`, `$debrief`, `$sprint-end` |
+| `docs/handoffs/<slug>.md` | The live handoff for one stream. **Authoritative.** | `$handoff`, `$save-state`, `$debrief`, `$end-sprint` |
 | `docs/handoffs/archive/YYYY-MM-DD-<slug>.md` | Closed or superseded streams. Never read on resume. | `$handoff --archive`, stream close, `$approve` |
 | `docs/handoffs/unassigned-YYYY-MM-DD-HHMM.md` | Emergency save with no resolvable stream. | `$save-state` only |
 

@@ -1,12 +1,12 @@
 sequenceDiagram
     actor H as Human
-    participant PE as /pi-end
+    participant PE as /end-pi
     participant PIR as /pir
     participant PI as ~/.claude/pi/[current-pi]/
     participant Co as ~/.claude/companies/[name]/
     participant FS as docs/
 
-    H->>PE: /pi-end
+    H->>PE: /end-pi
 
     note over PE: AFK prep
     PE->>PI: Read plan.md (all features + release targets)
@@ -34,7 +34,7 @@ sequenceDiagram
     end
 
     PIR->>Co: Save pir/PI-N/pir-YYYY-MM-DD.md
-    PIR->>H: PIR gaps feed /fy-review as primary data source
+    PIR->>H: PIR gaps feed /review-fy as primary data source
 
     note over H,Co: Optional
-    H->>Co: /fy-review — annual review across all PI outcomes
+    H->>Co: /review-fy — annual review across all PI outcomes

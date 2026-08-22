@@ -53,11 +53,11 @@ The agent explores the codebase (AFK), presents a scope summary, you confirm, it
 ## Step 5 — Open a sprint and build
 
 ```
-/user:sprint-start
+/user:start-sprint
 /user:build
 ```
 
-`/sprint-start` captures your goals. `/build` executes the AFK tickets in sequence — running TDD for each, pausing at HITL tickets.
+`/start-sprint` captures your goals. `/build` executes the AFK tickets in sequence — running TDD for each, pausing at HITL tickets.
 
 ---
 
@@ -65,7 +65,7 @@ The agent explores the codebase (AFK), presents a scope summary, you confirm, it
 
 ```
 /user:qa-plan
-/user:pii-check
+/user:check-pii
 /user:approve
 ```
 
@@ -83,9 +83,9 @@ Work through the QA checklist, review PII findings, then type `APPROVE` to close
 | Design / planning phase | `/user:grill-with-docs` |
 | Ad-hoc stress-test | `/user:grill-me` |
 | Plan | `/user:write-prd` |
-| Start sprint | `/user:sprint-start` |
+| Start sprint | `/user:start-sprint` |
 | Build | `/user:build` |
-| QA | `/user:qa-plan` + `/user:pii-check` |
+| QA | `/user:qa-plan` + `/user:check-pii` |
 | Ship | `/user:approve` |
 | Forgot a command | `/user:commands` |
 
@@ -95,6 +95,6 @@ Work through the QA checklist, review PII findings, then type `APPROVE` to close
 
 - **Stuck mid-session?** Run `/user:handoff` to save state and pause cleanly. For end-of-day full close (updates kanban + DEVLOG), use `/user:debrief`.
 - **Something broken?** Run `/user:diagnose` — the agent forms a hypothesis before touching anything.
-- **Scope creeping?** Run `/user:scope-check` to force an explicit decision.
+- **Scope creeping?** Run `/user:check-scope` to force an explicit decision.
 - **Existing project?** Skip steps 1–2 and run `/user:onboard` instead.
-- **Setting up for a company?** Run `/user:company-add [name]` to configure sprint cadence, holidays, freeze periods, compliance tier, and AI policy. Add `--quick` to apply all defaults in under 30 seconds.
+- **Setting up for a company?** Run `/user:add-company [name]` to configure sprint cadence, holidays, freeze periods, compliance tier, and AI policy. Add `--quick` to apply all defaults in under 30 seconds.

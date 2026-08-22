@@ -6,11 +6,11 @@
 #
 #   cd ~/forge && git pull
 #
-# Or use the /forge-update skill in Claude Code, which handles this automatically.
+# Or use the /update-forge skill in Claude Code, which handles this automatically.
 #
 # This file is retained for backwards compatibility only.
 # It will continue to work for legacy copy-based installs but will not be
-# called by install.sh or /forge-update going forward.
+# called by install.sh or /update-forge going forward.
 #
 # ──────────────────────────────────────────────────────────────────────────────
 # Forge Updater (legacy) — pull latest skills from GitHub

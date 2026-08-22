@@ -8,7 +8,7 @@ metadata:
 
 # Idea
 
-> **Company-aware:** When `active_company` is set in `~/.codex/forge/preferences.md` (configured by `$company-add`), ideas are written to `~/.codex/forge/companies/[active_company]/ideas/active/` and the company registry is updated instead of `~/.codex/forge/ideas/` and `~/.codex/forge/registry.md`.
+> **Company-aware:** When `active_company` is set in `~/.codex/forge/preferences.md` (configured by `$add-company`), ideas are written to `~/.codex/forge/companies/[active_company]/ideas/active/` and the company registry is updated instead of `~/.codex/forge/ideas/` and `~/.codex/forge/registry.md`.
 
 Capture a raw idea and stress-test it into a well-framed problem worth solving. Produces a structured `idea.md` and living sequence diagrams that evolve through the project lifecycle.
 

@@ -49,7 +49,7 @@ If the response is not exactly `APPROVE`, respond: "Approval cancelled. No chang
      The human must still type `APPROVE` to proceed — the flag is informational.
 
 4. **PII check gate** — read `docs/pii-report.md`:
-   - If no report exists → warn: "No PII report found. Run `pii-check` before approving. Or type OVERRIDE [reason] to proceed without a PII check."
+   - If no report exists → warn: "No PII report found. Run `check-pii` before approving. Or type OVERRIDE [reason] to proceed without a PII check."
    - If unresolved findings exist → warn with finding list and require `OVERRIDE [reason]`
    - If all findings resolved → proceed
    - Record any override in the PII report's Approve Override Log

@@ -61,7 +61,7 @@ When human types `NO-GO`:
 
    Suggested next steps:
    - Run /user:diagnose to investigate any blocking bugs
-   - Run /user:sprint-replan to adjust scope for the remaining buffer window
+   - Run /user:replan-sprint to adjust scope for the remaining buffer window
    - Run /user:go-nogo again when issues are resolved
    ```
 
@@ -163,7 +163,7 @@ If overdue, include in the Risk Assessment table and surface at the top of the b
 |-----------|-----------|
 | No active PI plan found | Stop. "No active PI plan found at ~/.claude/pi/. Run `/piplan` to create one before running Go/No Go." |
 | No release date found for current sprint | Stop. "Cannot determine release date. Check ~/.claude/pi/[pi]/plan.md and confirm the release calendar." |
-| release_cadence = end-of-sprint and no sprint calendar found | Stop. "Release cadence is end-of-sprint but no sprint calendar found at ~/.claude/sprints/calendar.md. Run /sprint-start to set up the sprint calendar before running Go/No Go." |
+| release_cadence = end-of-sprint and no sprint calendar found | Stop. "Release cadence is end-of-sprint but no sprint calendar found at ~/.claude/sprints/calendar.md. Run /start-sprint to set up the sprint calendar before running Go/No Go." |
 | `kanban.md` missing for a project | Note the project as "kanban unavailable — status unknown" in the brief. Flag as risk. |
 | No active PRD for a feature | Note feature as "PRD unavailable — cannot assess completion" in the brief. Flag as risk. |
 | Brief cannot be saved (no `docs/releases/` folder) | Create the folder and save. Note it was created. |

@@ -141,7 +141,7 @@ out:
 | `/evolve` | Recommended action for Amber skills missing sections — evolve instincts into proper skills |
 | `/context-health` | Family sibling — token load audit. Run together for a complete framework health picture. |
 | `/knowledge-health` | Family sibling — knowledge article audit. Third panel of the same health picture. |
-| `/sprint-start` | Checks `skill-health-last-run` in `preferences.md` — warns if overdue (>30 days) |
+| `/start-sprint` | Checks `skill-health-last-run` in `preferences.md` — warns if overdue (>30 days) |
 | `manifest.json` | Primary inventory source — ground truth for what skills should exist |
 | `CHANGELOG.md` | Checked for version coverage — every version bump should have a corresponding entry |
 
@@ -149,7 +149,7 @@ out:
 
 ## Sprint-Start Integration
 
-`/sprint-start` checks `skill-health-last-run` in `preferences.md`. If more than 30 days ago:
+`/start-sprint` checks `skill-health-last-run` in `preferences.md`. If more than 30 days ago:
 
 ```
 ⚠️ Skill health check overdue (last run: N days ago).
@@ -179,7 +179,7 @@ Consider running /skill-health before this sprint begins.
 ## Related
 
 - `global/.claude/skills/manifest.json` — the **Forge Skills Manifest** this skill audits
-- `/forge-update` — applies fixes identified by skill-health
+- `/update-forge` — applies fixes identified by skill-health
 - `/commands` — lists all skills; skill-health validates they match what's in the manifest
 - `/evolve` — promotes instincts to new skills; skill-health verifies the promotion landed correctly
 

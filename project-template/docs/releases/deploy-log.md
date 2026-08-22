@@ -2,7 +2,7 @@
 
 Deployment history for this project. Appended automatically by `/deploy`, `/deploy-pi`, `/rollback`, `/rollback-pi`, and `/standalone-release`.
 
-**Archiving convention:** Entries older than 6 months move to `docs/releases/deploy-log-archive.md` during `/sprint-end` or manually. The active log covers the current PI period only.
+**Archiving convention:** Entries older than 6 months move to `docs/releases/deploy-log-archive.md` during `/end-sprint` or manually. The active log covers the current PI period only.
 
 ---
 

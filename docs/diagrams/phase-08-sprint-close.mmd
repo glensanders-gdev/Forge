@@ -1,11 +1,11 @@
 sequenceDiagram
     actor H as Human
-    participant SE as /sprint-end
+    participant SE as /end-sprint
     participant FS as docs/sprints/
     participant Arch as docs/kanban-archive.md
     participant Co as ~/.claude/companies/[name]/retrospectives/
 
-    H->>SE: /sprint-end
+    H->>SE: /end-sprint
 
     note over SE: Phase 1 — AFK Draft
     SE->>FS: Read sprint-NN.md (goals + carry-in + deadlines)
@@ -24,4 +24,4 @@ sequenceDiagram
     SE->>Co: Save retrospectives/sprint-NN-retro.md
 
     SE->>H: Sprint token total surfaced
-    SE->>H: Suggest /sprint-start for next sprint or /go-nogo if release approaching
+    SE->>H: Suggest /start-sprint for next sprint or /go-nogo if release approaching

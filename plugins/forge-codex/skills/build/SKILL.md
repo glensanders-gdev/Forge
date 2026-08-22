@@ -13,7 +13,7 @@ Execute the current sprint's tickets. The human signals `$build` once — the ag
 ## Pipeline Position
 
 ```
-$sprint-start → $build (per ticket: $tdd → $diff-review) → $qa-plan → $pii-check → $approve
+$start-sprint → $build (per ticket: $tdd → $review-diff) → $qa-plan → $check-pii → $approve
 ```
 
 ## Pre-Flight Checks
@@ -22,7 +22,7 @@ $sprint-start → $build (per ticket: $tdd → $diff-review) → $qa-plan → $p
 
 Before executing any ticket:
 
-1. Read `docs/kanban.md` — identify current sprint tickets (In Progress and Backlog). If none found: "No sprint tickets found in kanban.md. Run `sprint-start` to open a sprint first."
+1. Read `docs/kanban.md` — identify current sprint tickets (In Progress and Backlog). If none found: "No sprint tickets found in kanban.md. Run `start-sprint` to open a sprint first."
 2. Read `docs/prd/active/` — confirm feature scope.
 3. Check for `docs/testplan-[feature].md`. If found, use its TC IDs to guide test writing during the build loop. If not found, warn before proceeding:
    ```
@@ -46,7 +46,7 @@ Before executing any ticket:
      [tool-name] ([category])
        Install: [install-hint from registry]
 
-   Run $tool-check for the full picture.
+   Run $check-tools for the full picture.
    ```
 8. Check sprint buffer window — read `~/.codex/forge/sprints/calendar.md` and `~/.codex/forge/pi/[current-pi]/plan.md`. If today falls within the buffer window (Friday–Sunday before a release Monday), warn and wait for an explicit decision:
    ```
@@ -132,7 +132,7 @@ Reference `docs/testplan-[feature].md` for which behaviours to test. Follow all 
 
 ### Step 4 — Post-Build Review
 
-Once the ticket's tests are green, run `diff-review` on **this ticket's diff** (the files written during this ticket) — the two-axis review: Spec (does the diff fulfil the ticket's requirement) and Standards (project docs + smell baseline). This is AFK and advisory — it does not auto-fix.
+Once the ticket's tests are green, run `review-diff` on **this ticket's diff** (the files written during this ticket) — the two-axis review: Spec (does the diff fulfil the ticket's requirement) and Standards (project docs + smell baseline). This is AFK and advisory — it does not auto-fix.
 
 Surface the result inline, then handle by severity:
 - **P1 findings (Spec miss or documented-standard/ADR breach):** pause before the ticket can be marked Done:
@@ -142,8 +142,8 @@ Surface the result inline, then handle by severity:
   [Axis]: [finding] — [file:line] — [why blocking]
 
   Options:
-  1. Fix now (stay on this ticket, re-run $tdd + $diff-review)
-  2. Defer to backlog ($backlog-add) and mark ticket Done anyway (accepted risk)
+  1. Fix now (stay on this ticket, re-run $tdd + $review-diff)
+  2. Defer to backlog ($add-backlog-item) and mark ticket Done anyway (accepted risk)
   3. Stop the build here
 
   Type 1, 2, or 3.
@@ -169,7 +169,7 @@ Wait for `APPROVED`. Do not mark tickets Done autonomously when this policy is a
 
 ### Step 6 — Mark Done
 
-On completion, run a lightweight PII hint scan on files written during this ticket (email patterns, phone formats, obvious real names in fixtures or hardcoded values). If found, flag immediately — "⚠️ Possible PII in #N [file:line] — review before committing" — but do not block; full `$pii-check` runs in QA.
+On completion, run a lightweight PII hint scan on files written during this ticket (email patterns, phone formats, obvious real names in fixtures or hardcoded values). If found, flag immediately — "⚠️ Possible PII in #N [file:line] — review before committing" — but do not block; full `$check-pii` runs in QA.
 
 Judge the actual token band consumed (S/M/L/XL — coarse band judgement, not a count) against the ticket's estimate tag (e.g. `M | 5pts`). Recorded in `docs/kanban-archive.md` when the ticket is archived at sprint end, with over-band actuals flagged for calibration:
 ```
@@ -269,10 +269,10 @@ Next steps:
 
 ## Scope Rules
 
-- Execute current sprint tickets only — never pull from general backlog without `$sprint-replan`
+- Execute current sprint tickets only — never pull from general backlog without `$replan-sprint`
 - If a ticket is not in the current sprint, flag it and skip
 - Never create new tickets during build — surface gaps to the human after the loop completes
-- If scope appears to have grown mid-build, flag it and suggest `$scope-check`
+- If scope appears to have grown mid-build, flag it and suggest `$check-scope`
 
 ## Rules
 
@@ -280,7 +280,7 @@ Next steps:
 - Update kanban in real time — never batch updates
 - Run `$tdd` for every AFK ticket — never skip tests
 - Never run the full test suite after every change — single test files and typechecks as you go, full suite once at ticket end (see Step 3 cadence)
-- Run `$diff-review` on every ticket's diff once tests are green — never skip the post-build review, and never auto-fix or silently pass a P1 finding
+- Run `$review-diff` on every ticket's diff once tests are green — never skip the post-build review, and never auto-fix or silently pass a P1 finding
 - Never deploy — build produces tested code only; deployment is handled by `$go-nogo` and `$deploy`
 - DEVLOG and token records are not updated during build — defer to `$debrief`
 - Smart zone check is mandatory for every ticket — never skip it
@@ -290,8 +290,8 @@ Next steps:
 
 | Condition | Behaviour |
 |-----------|-----------|
-| No kanban found | "No kanban.md found. Run `sprint-start` to open a sprint first." |
-| No sprint tickets | "No sprint tickets found. Add tickets via `backlog-add` or `write-prd`." |
+| No kanban found | "No kanban.md found. Run `start-sprint` to open a sprint first." |
+| No sprint tickets | "No sprint tickets found. Add tickets via `add-backlog-item` or `write-prd`." |
 | Tests fail after implementation | Run `diagnose` automatically if same test fails twice. Surface to human if still failing. |
 | Review returns a P1 finding | Pause per Step 4 — fix now, defer to backlog, or stop. Never auto-fix, never mark the ticket Done with an unresolved P1. |
 | Codebase in broken state at start | "Codebase has failing tests before build began. Fix these before running `$build`." Surface the failures. |

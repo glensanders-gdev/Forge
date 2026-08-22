@@ -91,7 +91,7 @@ On confirmation, each becomes a kanban entry:
 | Condition | Behaviour |
 |-----------|-----------|
 | No PRD/plan/spec found | Ask the human to point to the source (PRD path, issue, or a described plan) — never invent scope. |
-| No `docs/kanban.md` | Say a board is needed first — run `/sprint-start` to open one, then re-run. |
+| No `docs/kanban.md` | Say a board is needed first — run `/start-sprint` to open one, then re-run. |
 | A drafted slice exceeds the smart zone | Split it further or run `/break-down` before publishing — every ticket must fit one focused run. |
 | The work is a wide refactor | Sequence it as expand–contract batches, not a single tracer bullet. |
 | Blocking edges form a deep/tangled graph | Flag it, prefer linear chains, and re-check each edge is genuine before publishing. |

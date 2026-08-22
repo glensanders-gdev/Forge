@@ -35,7 +35,7 @@ Run `/user:token-report` for full analysis:
 
 ## Data Quality
 
-Token counts are **measured actuals** sourced from `ccusage` (Claude Code's local session logs), recorded at `/debrief` and `/sprint-end`. Records created before this approach are agent estimates, marked `~Nk` — treat those as coarse signals only. Reports label the two distinctly.
+Token counts are **measured actuals** sourced from `ccusage` (Claude Code's local session logs), recorded at `/debrief` and `/end-sprint`. Records created before this approach are agent estimates, marked `~Nk` — treat those as coarse signals only. Reports label the two distinctly.
 
 ---
 

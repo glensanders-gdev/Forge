@@ -66,7 +66,7 @@ is shadowed.
 | `artifact-design` | |
 | `artifact-diagramming` | |
 | `claude-api` | |
-| `code-review` | The reason `/review` became `diff-review` rather than `code-review` (v3.25.0) |
+| `code-review` | The reason `/review` became `review-diff` rather than `code-review` (v3.25.0) |
 | `dataviz` | |
 | `design` | |
 | `fewer-permission-prompts` | |
@@ -168,10 +168,10 @@ Collisions Forge already steers around. Recorded so a later tidy-up does not wal
 
 | Forge name | Avoided name | Why |
 |---|---|---|
-| `diff-review` | `code-review`, `review` | Both reserved. Names the pinned diff it reviews (v3.25.0) |
+| `review-diff` | `code-review`, `review` | Both reserved. Names the pinned diff it reviews (v3.25.0) |
 | `pickup` | `continue` | Reserved. Pairs with `/handoff` (v3.25.0) |
 | `security-assessment` | `security-review` | Bundled skill name. The `*-review` family stops short of this one on purpose |
-| `forge-init` | `init` | Reserved as both a built-in and a bundled skill |
+| `init-forge` | `init` | Reserved as both a built-in and a bundled skill |
 | `context-health` | `context` | Near-miss only — distinct names, no collision. Keep the suffix |
 
 ---

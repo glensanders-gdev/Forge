@@ -54,11 +54,11 @@ Run the auth check above. Then read the corresponding companion file bundled bes
 |-------|------------------------|
 | `$link-jira` | Companion — record the Forge→Jira ID mapping after `$jira get` |
 | `$sprintplan` | Feed `$jira get` output (requirements, AC) into sprint planning |
-| `$sprint-start` | Call `$jira transition` to move tickets to In Progress when sprint begins |
-| `$sprint-end` | Call `$jira transition` to move completed tickets to Done; `$jira comment` to post a summary |
+| `$start-sprint` | Call `$jira transition` to move tickets to In Progress when sprint begins |
+| `$end-sprint` | Call `$jira transition` to move completed tickets to Done; `$jira comment` to post a summary |
 | `$standup` | Call `$jira comment` to post standup notes back to the active ticket |
 | `$tdd` | After `$jira get`, the structured AC and test scenarios feed directly into TDD |
-| `$diff-review` | Run `$diff-review` before `$jira comment` — post the review outcome to the ticket |
+| `$review-diff` | Run `$review-diff` before `$jira comment` — post the review outcome to the ticket |
 
 ---
 

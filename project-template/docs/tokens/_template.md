@@ -107,7 +107,7 @@ _Updated at each session close (`/debrief`) from ccusage actuals — see `~/.cla
 
 ---
 
-### QA (/qa-plan + /pii-check)
+### QA (/qa-plan + /check-pii)
 **Date range:** YYYY-MM-DD → YYYY-MM-DD
 **Sessions:** N
 **Input:** Nk tokens

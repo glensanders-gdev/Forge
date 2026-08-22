@@ -215,9 +215,9 @@ On confirmation, update `~/.claude/priorities.md`.
 **3. Sprint/PI prompt:**
 ```
 To add this project to sprint planning:
-- If starting fresh: run /user:sprint-start
-- If injecting into an active sprint: run /user:sprint-replan
-- If it affects the current PI plan: run /user:pi-replan
+- If starting fresh: run /user:start-sprint
+- If injecting into an active sprint: run /user:replan-sprint
+- If it affects the current PI plan: run /user:replan-pi
 ```
 
 ---

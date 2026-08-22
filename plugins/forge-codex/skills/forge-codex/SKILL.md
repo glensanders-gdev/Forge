@@ -14,7 +14,7 @@ Orient the user to the Codex adaptation without modifying project files unless t
 
 1. Identify whether the user needs orientation, global initialization, project onboarding, or a specific workflow.
 2. For orientation, summarize the Forge lifecycle and recommend the smallest relevant skill.
-3. For global initialization, use `$forge-init`.
+3. For global initialization, use `$init-forge`.
 4. For an existing repository, use `$onboard`.
 5. For a new initiative, start with `$idea` or `$front-gate`.
 6. For the complete portfolio, use `$commands`.
