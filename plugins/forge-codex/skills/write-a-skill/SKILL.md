@@ -126,7 +126,7 @@ Codex registers skills from `SKILL.md`; users invoke them as `$skill-name`. Do n
    - New skill: add entry with version `"1.0.0"`
    - Updated skill: bump the existing version (`1.0.0` → `1.1.0`, `1.1.0` → `1.2.0`, etc.). Never leave the manifest at the old version after a meaningful change — a frozen version number is the same as no version number.
 2. Update `global/.claude/CHANGELOG.md` and the repository README.
-3. Run `tools/build-forge-codex.ps1` and review the generated Codex copy.
+3. Run `tools/build-forge-codex.ps1` and review the generated Codex copy. Read it for host names, not just structure: the build rewrites `Claude Code` and `Claude` to `Codex` unconditionally, so a shared-source sentence naming one host as a distinct product arrives here false. Fence the span at source with a `no-adapt` marker pair — see `plugins/forge-codex/ADAPTATION.md` § Substitution Exemptions.
 4. If Codex behavior differs, add the skill to both override lists, retain the tailored plugin copy, refresh `compatibility.json`, and run parity validation.
 5. Confirm the source and Codex paths created or updated.
 
@@ -150,6 +150,7 @@ Before finalising, verify:
 - [ ] Terminology consistent with `docs/CONTEXT.md`
 - [ ] `manifest.json` updated with new skill and version `"1.0.0"`
 - [ ] Claude command stub updated for the shared runtime; no Codex command stub created
+- [ ] **Host names fenced at source** — every shared-source sentence naming a host as a specific product is fenced, so it survives adaptation intact. Never write a `no-adapt` marker into a file under `plugins/forge-codex/` itself: these are hand-maintained, never adapted, and parity fails on a marker found here
 - [ ] **`global/.claude/skills/commands/SKILL.md` updated** — add the skill to the command reference.
 - [ ] **`global/.claude/CHANGELOG.md` updated** — add the skill under the current `forge_version` entry.
 - [ ] **`README.md` updated** — increment the skill count in the "What's Included" intro line (e.g. "**94 skills**"), add the new skill to the correct category row in the table, and update any other inline counts (e.g. the file structure section).
