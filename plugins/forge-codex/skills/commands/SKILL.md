@@ -64,11 +64,11 @@ Print the following reference exactly:
 ### Session Management
 | Command | What it does |
 |---------|-------------|
-| `continue` | Resume a session exactly where it left off — reads HANDOFF.md, loads referenced artifacts, presents exact next action |
+| `continue [stream]` | Resume a stream of work exactly where it left off — reads the stream register, loads that stream's handoff and artifacts, presents exact next action |
 | `standup` | Summarise last session, confirm today's goals, surface blockers |
-| `handoff` | Compact session into a structured handoff for the next agent or human — references artifacts, suggests next skills |
-| `debrief` | Close a partial session — update kanban, write DEVLOG, reorder backlog |
-| `save-state` | Save state immediately — HANDOFF.md → kanban.md → DEVLOG. Use to pause or on context exhaustion |
+| `handoff [stream]` | Compact the session into a handoff for one stream of work — writes `docs/handoffs/[stream].md`, updates the register, suggests next skills. `--close` retires a finished stream |
+| `debrief [stream]` | Close a partial session — update the stream handoff, sweep the register for stale or colliding streams, update kanban, write DEVLOG, reorder backlog |
+| `save-state [stream]` | Save state immediately — stream handoff → register → kanban.md → DEVLOG. Never asks a question. Use to pause or on context exhaustion |
 | `scope-check` | Flag scope creep and force a decision on each unplanned item |
 | `backlog-list` | Display global backlog grouped by priority |
 | `backlog-proj` | Display a project's backlog — select from known projects, grouped by priority |

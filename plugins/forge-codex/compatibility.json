@@ -19,7 +19,7 @@
     "debrief": {
       "source": "global/.claude/skills/debrief/SKILL.md",
       "codex": "plugins/forge-codex/skills/debrief/SKILL.md",
-      "reviewedSourceSha256": "3CCA2F99A9D1456513317A7A60E4F41C23977D32A39FADA5750C33BAE4E36D6B"
+      "reviewedSourceSha256": "E6A7ED80BE12B2A91678F6835E4226246D07BA40D760B32AF1921474AAA300D5"
     },
     "forge-init": {
       "source": "global/.claude/skills/forge-init/SKILL.md",
@@ -74,7 +74,7 @@
     "sprint-end": {
       "source": "global/.claude/skills/sprint-end/SKILL.md",
       "codex": "plugins/forge-codex/skills/sprint-end/SKILL.md",
-      "reviewedSourceSha256": "7CD0087199870CC7197AFA02C3BBBB8C4427C89C43A9A7E5D9D14E5655F026FD"
+      "reviewedSourceSha256": "46690E029AD188574E499524196EF2FCC70A949BAC7F17648904F2775B78561C"
     },
     "token-report": {
       "source": "global/.claude/skills/token-report/SKILL.md",
@@ -84,7 +84,7 @@
     "write-a-skill": {
       "source": "global/.claude/skills/write-a-skill/SKILL.md",
       "codex": "plugins/forge-codex/skills/write-a-skill/SKILL.md",
-      "reviewedSourceSha256": "21A07FCF50763DBA4A83ADAA0CE9E8D851E2EC23B604C82AF348CDA608BD0024"
+      "reviewedSourceSha256": "11EF06F52185B318871EAB029272369D8E6B7B5C925425FD9A92312C9EF128CF"
     }
   }
 }

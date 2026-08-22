@@ -62,11 +62,11 @@ Print the following reference exactly:
 ### Session Management
 | Command | What it does |
 |---------|-------------|
-| `/user:continue` | Resume a session exactly where it left off — reads HANDOFF.md, loads referenced artifacts, presents exact next action |
+| `/user:continue [stream]` | Resume a stream of work exactly where it left off — reads the stream register, loads that stream's handoff and artifacts, presents exact next action |
 | `/user:standup` | Summarise last session, confirm today's goals, surface blockers |
-| `/user:handoff` | Compact session into a structured handoff for the next agent or human — references artifacts, suggests next skills |
-| `/user:debrief` | Close a partial session — update kanban, write DEVLOG, reorder backlog |
-| `/user:save-state` | Save state immediately — HANDOFF.md → kanban.md → DEVLOG. Use to pause or on context exhaustion |
+| `/user:handoff [stream]` | Compact the session into a handoff for one stream of work — writes `docs/handoffs/[stream].md`, updates the register, suggests next skills. `--close` retires a finished stream |
+| `/user:debrief [stream]` | Close a partial session — update the stream handoff, sweep the register for stale or colliding streams, update kanban, write DEVLOG, reorder backlog |
+| `/user:save-state [stream]` | Save state immediately — stream handoff → register → kanban.md → DEVLOG. Never asks a question. Use to pause or on context exhaustion |
 | `/user:scope-check` | Flag scope creep and force a decision on each unplanned item |
 | `/user:backlog-list` | Display global backlog grouped by priority |
 | `/user:backlog-proj` | Display a project's backlog — select from known projects, grouped by priority |

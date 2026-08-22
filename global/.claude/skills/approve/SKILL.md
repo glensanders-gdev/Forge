@@ -78,26 +78,20 @@ If the response is not exactly `APPROVE`, respond: "Approval cancelled. No chang
      <!-- Feature approved YYYY-MM-DD. Board archived. -->
      ```
 
-8. **Reset HANDOFF.md**
-   - Overwrite `docs/HANDOFF.md` with a clean state:
-     ```markdown
-     # Handoff: [Project Name]
-
-     **Last updated:** YYYY-MM-DD HH:MM
-     **Session type:** QA
-
-     ## Current Ticket
-     Feature [feature-name] approved. Board cleared.
-
-     ## Next Action
-     Ready to start next feature — run /user:front-gate (non-technical intake), /user:idea (developer), or /user:grill-with-docs (planning phase for existing project).
-
-     ## Open Decisions
-     None.
-
-     ## Blockers
-     None.
-     ```
+8. **Close the feature's stream**
+   - The feature's work stream is finished, so retire it rather than resetting it — see
+     `~/.claude/skills/handoff/STREAMS.md`:
+     - Move `docs/handoffs/<slug>.md` to `docs/handoffs/archive/YYYY-MM-DD-<slug>.md`
+     - Remove that stream's row from the register at `docs/HANDOFF.md`
+     - Report the archive path
+   - **Close only this feature's stream.** Other streams keep running; never clear the register.
+   - If no stream matches the feature, say so and leave the register untouched — never guess which
+     stream to retire.
+   - If the register is now empty, leave it in place with its table header and note:
+     "No open streams. Start the next feature with /user:front-gate (non-technical intake),
+     /user:idea (developer), or /user:grill-with-docs (planning phase for an existing project)."
+   - If `docs/HANDOFF.md` is still a legacy single-document handoff, archive it to
+     `docs/handoffs/archive/YYYY-MM-DD-<feature>.md` and write an empty register in its place.
 
 9. **Optionally push coding standards**
    - Suggest: "Would you like to capture any new coding patterns that emerged from this feature? Run `/user:push-standards` — it will extract and document them in `.claude/CODING-STANDARDS.md`."

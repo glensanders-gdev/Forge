@@ -38,7 +38,8 @@ system knowledge, invoked skills). Conversation history is excluded — it is th
 
 | File | Amber | Red | Default action |
 |------|-------|-----|----------------|
-| `docs/HANDOFF.md` | 1,200 | 2,500 | Recompact via `/save-state` |
+| `docs/HANDOFF.md` (stream register) | 300 | 400 | Close or archive streams — the register is pointers only |
+| `docs/handoffs/<slug>.md` (per stream loaded) | 1,200 | 2,500 | Recompact via `/handoff` on that stream |
 | `docs/DEVLOG.md` | 1,500 | 3,000 | Archive entries older than 3 sessions |
 | `docs/kanban.md` | 800 | 1,500 | Archive completed tickets to `kanban-archive.md` |
 | `docs/CONTEXT.md` | 2,000 | 4,000 | Review for redundancy; merge near-duplicate terms |
@@ -66,7 +67,7 @@ Read and measure every file below. Do not produce output during this phase.
 
 **Auto-loaded files:**
 1. `CLAUDE.md` in the current project root
-2. `docs/HANDOFF.md`
+2. `docs/HANDOFF.md` (the stream register) and the stream handoff loaded this session
 3. `docs/DEVLOG.md`
 4. `docs/kanban.md`
 5. `docs/CONTEXT.md`
@@ -150,7 +151,8 @@ Assign overall session budget status using the Budget Tiers table.
 ### ✅ Green — Within Budget
 | File | Tokens |
 |------|--------|
-| docs/HANDOFF.md | 910 |
+| docs/HANDOFF.md (register) | 210 |
+| docs/handoffs/login-flow.md | 910 |
 | docs/kanban.md | 230 |
 
 ---
