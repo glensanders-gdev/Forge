@@ -15,6 +15,7 @@ Run a read-only structural audit of the installed Forge plugin.
 - `.codex-plugin/plugin.json` is valid.
 - Every directory under `skills/` has a `SKILL.md`.
 - Every skill has `name`, `description`, and `origin` frontmatter.
+- Every skill's `name` frontmatter equals the directory it sits in, compared as a literal string with no case, hyphen, or underscore normalisation. A skill that declares a different name registers under the declared name or not at all, and reports nothing, so report a mismatch as critical. Name the directory, the frontmatter and the manifest entry together — whichever one is in the minority is the one to correct.
 - Skill names are unique.
 - No skill name matches a Reserved row in `skills/write-a-skill/RESERVED-NAMES.md`. A shadowed name never loads and reports nothing, so report a match as critical and lead with it. The list covers Claude Code; Codex's own reserved surface has no equivalent list, so report a clear name as unchecked there rather than clear.
 - The `RESERVED-NAMES.md` verification stamp carries a date and a version, and the date is within the staleness threshold.
@@ -31,4 +32,5 @@ Save the report to `~/.codex/forge/knowledge/skill-health-report.md` only after 
 
 - Never modify files during the audit.
 - Never require Claude command stubs.
+- Never resolve a name mismatch by assuming the frontmatter is right — check what the directory and manifest agree on first.
 - Never treat Forge's upstream manifest as the Codex plugin manifest.

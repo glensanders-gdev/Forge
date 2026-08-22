@@ -57,6 +57,26 @@ did.
   accepted deliberately and reasoned in ADR-0002.
 - **`forge_version` 3.27.0 → 4.0.0.** A lifecycle change across a quarter of the portfolio.
 
+### Fixed
+
+- **`$graphify` declared the wrong name.** Its `SKILL.md` frontmatter read
+  `name: graphify-windows` while its directory, its manifest key, its command stub and its own
+  `trigger:` all read `graphify`. No Windows-specific variant ever existed — the name arrived
+  wrong in 8c54d2f, the commit that added the skill, and survived every audit since. Frontmatter
+  corrected to `graphify`; skill version 1.0.1 → 1.0.2.
+- **`$skill-health` now checks that a skill's declared name is its directory name.** It checked
+  that `name:` was *present*, and separately that a `version:` matched the manifest, but never
+  that `name:` matched the folder it sat in — which is why the `graphify` mismatch survived. A
+  skill that declares a different name registers under the declared name or not at all, and
+  reports nothing: the same silent-failure class as the shadowed names in v3.27.0, so it carries
+  the same 🔴 Critical severity and leads the summary warning alongside them. The comparison is
+  literal — no case, hyphen or underscore normalisation, because the loader does not normalise
+  either. Mirrored into the Codex-native override. Skill version 1.1.0 → 1.2.0.
+
+Running the new check across all 113 skills found `graphify` and nothing else. The count was
+unknown rather than one until it ran: the check had never existed, and it was verified against
+the post-rename directory names above, not remembered ones.
+
 ### Unchanged
 
 - **Seven state skills keep their noun shape** — `skill-health`, `context-health`,

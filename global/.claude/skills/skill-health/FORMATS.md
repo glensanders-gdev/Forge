@@ -22,6 +22,7 @@ Output inline and save to `~/.claude/knowledge/skill-health-report.md`:
 | Have Failure Modes section | N | N% |
 | Have Rules section | N | N% |
 | Name clear of the reserved list | N | N% |
+| Frontmatter name matches directory | N | N% |
 
 **Overall completeness:** N% (↑ improved / ↓ declined / — first check vs previous report)
 
@@ -34,6 +35,10 @@ Output inline and save to `~/.claude/knowledge/skill-health-report.md`:
 |-------|-------------|--------|--------|
 
 *Reserved list last verified YYYY-MM-DD against Claude Code [version / not recorded].*
+
+### Name mismatches (frontmatter name is not the directory name — the skill registers under the declared name or not at all)
+| Directory | Frontmatter `name:` | Manifest key | Command stub | Action |
+|-----------|---------------------|--------------|--------------|--------|
 
 ### Manifest orphans (in manifest.json, no SKILL.md directory)
 | Skill | Version | Action |
