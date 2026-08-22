@@ -32,7 +32,7 @@ $tool-add --company [name] trivy prohibited   ← quick-add: mark an existing gl
 | `performance-analyser` | `$performance-review` |
 | `dependency-auditor` | `$dependency-update`, `$security-assessment` |
 | `test-runner` | `$tdd` |
-| `linter` | `$review`, `$push-standards` |
+| `linter` | `$diff-review`, `$push-standards` |
 
 Custom categories are allowed — use any descriptive string.
 

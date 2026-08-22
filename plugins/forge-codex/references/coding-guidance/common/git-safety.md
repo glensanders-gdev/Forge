@@ -16,7 +16,7 @@ Before executing any `git push`, always:
 **Do this:**
 ```
 Ready to push to origin/Codex/forge-learning-on-go-STAq0. 2 commits:
-  - Add $continue skill for session resumption
+  - Add /continue skill for session resumption
   - Clarify $handoff vs $debrief hierarchy
 
 Push now? (yes/no)

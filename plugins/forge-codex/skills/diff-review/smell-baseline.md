@@ -1,6 +1,6 @@
 # Standards Axis — Code Smell Baseline
 
-The immutable floor for the Standards axis of `$review`. Adapted from Martin Fowler's _Refactoring_ smell catalogue, via Matt Pocock's `code-review` skill (github.com/mattpocock/skills).
+The immutable floor for the Standards axis of `$diff-review`. Adapted from Martin Fowler's _Refactoring_ smell catalogue, via Matt Pocock's `code-review` skill (github.com/mattpocock/skills).
 
 ## How to use this baseline
 

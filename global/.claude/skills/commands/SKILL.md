@@ -62,7 +62,7 @@ Print the following reference exactly:
 ### Session Management
 | Command | What it does |
 |---------|-------------|
-| `/user:continue [stream]` | Resume a stream of work exactly where it left off — reads the stream register, loads that stream's handoff and artifacts, presents exact next action |
+| `/user:pickup [stream]` | Resume a stream of work exactly where it left off — reads the stream register, loads that stream's handoff and artifacts, presents exact next action |
 | `/user:standup` | Summarise last session, confirm today's goals, surface blockers |
 | `/user:handoff [stream]` | Compact the session into a handoff for one stream of work — writes `docs/handoffs/[stream].md`, updates the register, suggests next skills. `--close` retires a finished stream |
 | `/user:debrief [stream]` | Close a partial session — update the stream handoff, sweep the register for stale or colliding streams, update kanban, write DEVLOG, reorder backlog |
@@ -80,7 +80,7 @@ Print the following reference exactly:
 | `/user:ai-first-engineering` | Operating principles for AI-assisted delivery — process shifts, architecture, review focus, testing standards |
 | `/user:accessibility` | Design, implement, and audit WCAG 2.2 Level AA compliance — Web/iOS/Android, QA checklist, anti-patterns |
 | `/user:diagnose` | Systematically debug a failing ticket — hypothesis before fix |
-| `/user:review` | Structured code review against ADRs, CONTEXT.md, and standards |
+| `/user:diff-review` | Structured code review against ADRs, CONTEXT.md, and standards |
 | `/user:critic` | Honest prioritised critique of a framework, PRD, plan, or design |
 | `/user:lang-rules` | Install and activate language-specific coding rule sets for the current project |
 | `/user:push-standards` | Extract codebase patterns into .claude/CODING-STANDARDS.md project-specific section |

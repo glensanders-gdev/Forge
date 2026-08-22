@@ -1,7 +1,7 @@
 # Session Streams — the handoff register
 
 The shared specification for multi-stream session state. Owned by `/handoff`; read by
-`/continue`, `/save-state`, `/debrief`, `/approve`, `/sprint-end` and `/context-health`.
+`/pickup`, `/save-state`, `/debrief`, `/approve`, `/sprint-end` and `/context-health`.
 Cite this file by path — never restate its rules inside a skill (PRINCIPLE 6).
 
 Introduced in Forge v3.24.0. Replaces the single-document `docs/HANDOFF.md`.
@@ -182,7 +182,7 @@ Active ──▶ Paused   (deliberately parked)
 Closing a stream moves its file to `docs/handoffs/archive/YYYY-MM-DD-<slug>.md`, drops the register
 row, and reports the archive path. `/approve` closes the stream belonging to the feature it approves.
 
-A stream `Active` with no update for more than 7 days is **stale**. `/debrief` and `/continue`
+A stream `Active` with no update for more than 7 days is **stale**. `/debrief` and `/pickup`
 surface it and offer Pause or Close. Neither ever closes a stream on its own.
 
 ---
@@ -199,7 +199,7 @@ no `| Stream |` table.
 3. Write the register at `docs/HANDOFF.md` with that one row.
 4. Report both paths.
 
-`/continue` **never migrates** — it reads a legacy file exactly as it always did and notes that the
+`/pickup` **never migrates** — it reads a legacy file exactly as it always did and notes that the
 next `/handoff` will migrate it. A read path never writes.
 
 Date-prefixed files already in `docs/handoffs/` (`YYYY-MM-DD-*-handoff.md`) are archives from the

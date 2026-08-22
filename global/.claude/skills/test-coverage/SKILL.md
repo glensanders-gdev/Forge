@@ -208,7 +208,7 @@ If any file is still below threshold:
 | `/testplan` | `/testplan` designs the strategy; `/test-coverage` executes gap analysis and remediation against existing code. TC IDs assigned here follow the same registry. |
 | `/qa-plan` | `/qa-plan` covers manual verification; `/test-coverage` targets automated coverage gaps. |
 | `/go-nogo` | Coverage below threshold is a release gate signal. `/go-nogo` can reference the last coverage run. |
-| `/review` | Run after writing new tests — verify the generated tests meet quality standards before committing. |
+| `/diff-review` | Run after writing new tests — verify the generated tests meet quality standards before committing. |
 | `tools/global.md` | `test-runner` category is checked first for framework detection. |
 | `quality-checklist.md` | "Coverage meets project minimum (80%)" — this skill closes that gap. |
 

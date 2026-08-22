@@ -1,4 +1,4 @@
-# Forge v3.19.0
+# Forge v3.25.0
 
 An AI-assisted development workflow framework for Claude Code and Codex.
 
@@ -26,8 +26,8 @@ Each stage produces an artifact that feeds the next. The AI agent orients itself
 |----------|--------|
 | Ideation | `/idea`, `/create-project`, `/front-gate`, `/onboard` |
 | Pipeline | `/grill-with-docs`, `/grill-me`, `/grill-with-peer`, `/research`, `/prototype`, `/write-brd`, `/write-prd`, `/write-ord`, `/brd-review`, `/ord-review`, `/write-reqs`, `/write-ac`, `/testplan`, `/estimate`, `/break-down`, `/to-tickets`, `/build`, `/tdd`, `/test-coverage`, `/qa-plan`, `/qa-report`, `/pii-check`, `/approve` |
-| Session Management | `/continue`, `/standup`, `/handoff`, `/debrief`, `/save-state`, `/scope-check`, `/caveman`, `/backlog-list`, `/backlog-proj`, `/backlog-add`, `/lookup`, `/ia` |
-| Code Quality | `/scan-first`, `/review`, `/critic`, `/diagnose`, `/write-adr`, `/push-standards`, `/lang-rules`, `/update-readme`, `/git-guardrails`, `/accessibility`, `/ai-first-engineering`, `/write-article`, `/seo`, `/security-assessment`, `/security-resolve`, `/performance-review`, `/vibe-security`, `/codex-review` |
+| Session Management | `/pickup`, `/standup`, `/handoff`, `/debrief`, `/save-state`, `/scope-check`, `/caveman`, `/backlog-list`, `/backlog-proj`, `/backlog-add`, `/lookup`, `/ia` |
+| Code Quality | `/scan-first`, `/diff-review`, `/critic`, `/diagnose`, `/write-adr`, `/push-standards`, `/lang-rules`, `/update-readme`, `/git-guardrails`, `/accessibility`, `/ai-first-engineering`, `/write-article`, `/seo`, `/security-assessment`, `/security-resolve`, `/performance-review`, `/vibe-security`, `/codex-review` |
 | Knowledge Base | `/ia`, `/add-system`, `/add-project`, `/brain-setup`, `/teach`, `/summarise-system`, `/update-context`, `/add-term`, `/knowledge-health`, `/knowledge-onboard`, `/style-check`, `/ingest`, `/publish`, `/setup-confluence` |
 | Metrics & Reporting | `/token-report`, `/dashboard-tokens`, `/context-health`, `/fy-review` |
 | PI & Release | `/piplan`, `/pi-end`, `/sprintplan`, `/go-nogo`, `/changelog`, `/deploy`, `/deploy-pi`, `/rollback`, `/rollback-pi`, `/standalone-release`, `/sprint-replan`, `/pi-replan`, `/incident`, `/raid` |
@@ -207,7 +207,7 @@ Or if you have an existing project:
 
 ## Skill Versioning
 
-Skills are versioned in `global/.claude/skills/manifest.json`. The current framework version is `3.18.0` across Claude Code and Codex. Claude project overrides live in `.claude/skills/`; Codex project overrides live in `.agents/skills/`.
+Skills are versioned in `global/.claude/skills/manifest.json`. The current framework version is `3.25.0` across Claude Code and Codex. Claude project overrides live in `.claude/skills/`; Codex project overrides live in `.agents/skills/`.
 
 ---
 
@@ -221,6 +221,8 @@ The full framework lifecycle is documented in `~/.claude/forge-sequence.mmd`. Re
 
 | Version | Changes |
 |---------|---------|
+| 3.25.0 | `/continue` renamed `/pickup`, `/review` renamed `/diff-review` — both names were shadowed by Claude Code built-ins |
+| 3.24.0 | One handoff per stream of work — `docs/HANDOFF.md` becomes a register, streams live in `docs/handoffs/`; `skills/handoff/STREAMS.md` |
 | 3.21.1 | `/handoff` is user-invoked only — `disable-model-invocation` stops the model overwriting the next session's entry point |
 | 3.21.0 | Grilling moves to bounded frontier rounds — shared `FRONTIER.md` protocol for `/grill-me` and `/grill-with-docs` |
 | 3.18.0 | `/brain-setup` — three-tier second-brain knowledge model |

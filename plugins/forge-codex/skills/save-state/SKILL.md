@@ -29,7 +29,7 @@ first that answers:
 
 1. A slug given as an argument.
 2. The stream this session has already been writing to (resolved earlier by `$handoff`,
-   `$continue`, or a previous `$save-state`).
+   `$pickup`, or a previous `$save-state`).
 3. The single `Active` stream in `docs/HANDOFF.md`, if there is exactly one.
 4. Otherwise write `docs/handoffs/unassigned-YYYY-MM-DD-HHMM.md` and say so.
 
@@ -96,7 +96,7 @@ kanban.md:             ✅ Updated
 DEVLOG:                ✅ Written | ⚠️ Skipped (context limit)
 
 Start a new session to continue.
-Run continue ord-pack to resume from #N [ticket name].
+Run pickup ord-pack to resume from #N [ticket name].
 ```
 
 ---
@@ -108,7 +108,7 @@ Run continue ord-pack to resume from #N [ticket name].
 - `docs/kanban.md` — also written by `$debrief`, `$sprint-end`, `$approve`
 - `docs/DEVLOG.md` — also written by `$standup` and `$debrief`
 - `$handoff` — planned pause on one stream, with skill suggestions for the next session
-- `$continue` — reads a stream handoff on session start to orient itself
+- `$pickup` — reads a stream handoff on session start to orient itself
 
 ## Rules
 

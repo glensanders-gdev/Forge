@@ -11,6 +11,37 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
+## v3.25.0 — 2026-08-22
+
+**`/continue` → `/pickup`, `/review` → `/diff-review`** — two skill names were being shadowed
+
+Claude Code ships built-in commands called `/continue` and `/review`. A built-in wins the name, so
+invoking `/continue` ran the built-in rather than the Forge skill — quietly, with no error to
+explain why the skill never appeared. `/review` had the same collision and had not yet been noticed.
+
+A deprecation stub is not available as a mitigation: the old name is shadowed, so a stub left at
+`commands/continue.md` would never be reached either. The old names simply stop working.
+
+### Breaking
+
+- **`/continue` is now `/pickup`.** It pairs with `/handoff`: one session puts a stream down, the
+  next picks it up. Skill moves to `skills/pickup/`, command to `commands/pickup.md`.
+- **`/review` is now `/diff-review`.** It names what the skill actually reviews — a pinned diff —
+  and joins the existing subject-namespaced family (`brd-review`, `ord-review`, `security-review`,
+  `performance-review`), where the bare `review` was always the odd one out. Skill moves to
+  `skills/diff-review/` with its `smell-baseline.md`, command to `commands/diff-review.md`.
+- Both skills carry major versions (3.0.0) because every reference to the old names breaks. 30 files
+  updated across skills, rules, commands, README, and the pipeline diagrams. Historical CHANGELOG
+  and README version-history rows are **not** rewritten — they record what shipped at the time.
+
+### Note
+
+Only these two of Forge's 113 skill names collide with a Claude Code built-in today. The vendor's
+command namespace keeps growing, so a name check against built-ins at authoring time is the durable
+fix — logged rather than built here.
+
+---
+
 ## v3.24.0 — 2026-08-22
 
 **One handoff per stream of work** — session state stops being a single file

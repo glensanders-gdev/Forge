@@ -1,7 +1,7 @@
 ---
 name: lang-rules
 category: code-quality
-description: Install and activate language-specific coding rule sets for the current project. Detects project languages, checks ~/.claude/rules/<lang>/ for available rule sets, copies them into .claude/rules/, and writes an active.md activation file so /review, /build, and /push-standards know which baselines apply. Use when starting a project, running /onboard, or when /push-standards should reference a language baseline rather than starting from scratch.
+description: Install and activate language-specific coding rule sets for the current project. Detects project languages, checks ~/.claude/rules/<lang>/ for available rule sets, copies them into .claude/rules/, and writes an active.md activation file so /diff-review, /build, and /push-standards know which baselines apply. Use when starting a project, running /onboard, or when /push-standards should reference a language baseline rather than starting from scratch.
 origin: Adapted from Affaan Mustafa (ECC / github.com/affaan-m/ECC)
 ---
 
@@ -15,7 +15,7 @@ Credit: Adapted from the ECC rules system by Affaan Mustafa (github.com/affaan-m
 
 - When starting a new project or running `/onboard`
 - When `/push-standards` should skip rules already covered by a global language baseline
-- When `/review` or `/build` should apply language-specific coding standards
+- When `/diff-review` or `/build` should apply language-specific coding standards
 
 ## Process
 
@@ -84,7 +84,7 @@ When scaffolding, generate minimal stubs — one or two concrete rules per secti
 
 - `/user:onboard` — call `/lang-rules` as part of project bootstrapping
 - `/user:push-standards` — reads `active.md` to use language rules as baseline; only documents extensions
-- `/user:review` — reads `active.md` and applies language rules alongside ADRs and CODING-STANDARDS.md
+- `/user:diff-review` — reads `active.md` and applies language rules alongside ADRs and CODING-STANDARDS.md
 - `/user:build` — consults active language rules during TDD cycles
 
 ## Rules
