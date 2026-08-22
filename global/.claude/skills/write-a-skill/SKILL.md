@@ -103,7 +103,7 @@ Invoke the [skill-name] skill. [What it does and what it produces.] [Key argumen
 
 **Example** (`global/.claude/commands/handoff.md`):
 ```
-Invoke the handoff skill. Compact the current session into a structured handoff document written to docs/HANDOFF.md. References Forge artifacts by path rather than reproducing them. Suggests which skills the next session should use first. Optional argument: description of what the next session will focus on (e.g. /handoff "next session: implement login flow"). Add --archive to also save a timestamped copy to docs/handoffs/.
+Invoke the handoff skill. Compact the current session into a structured handoff for one stream of work, written to docs/handoffs/[stream].md and indexed in the register at docs/HANDOFF.md. References Forge artifacts by path rather than reproducing them. Suggests which skills the next session should use first. Optional arguments: the stream slug, and a description of what the next session will focus on (e.g. /handoff login-flow "next session: implement the login flow"). Add --archive to also save a timestamped copy, or --close to retire the stream.
 ```
 
 The command file is what registers `/user:skill-name` in Claude Code. Without it, the skill exists but cannot be invoked as a slash command.

@@ -1,113 +1,86 @@
 ---
 name: handoff
 category: session
-version: 1.2.0
+version: 2.0.0
 origin: Adapted from Matt Pocock (handoff / github.com/mattpocock/skills)
-description: Compact the current session into a structured handoff document so the next session can continue without re-reading the conversation. Writes to docs/HANDOFF.md. References artifacts by path rather than reproducing content. Suggests skills for the next session. Use /handoff for any planned pause — same-day resume, passing to another agent, or handing to a colleague. Use /debrief for a thorough end-of-day close that updates kanban, DEVLOG, and backlog.
-argument-hint: What will the next session focus on?
+description: Compact the current session into a structured handoff so the next session can continue without re-reading the conversation. Writes one handoff per stream of work to docs/handoffs/[stream].md and keeps the register at docs/HANDOFF.md. References artifacts by path rather than reproducing content. Suggests skills for the next session. Use /handoff for any planned pause — same-day resume, passing to another agent, or handing to a colleague. Use /debrief for a thorough end-of-day close that updates kanban, DEVLOG, and backlog.
+argument-hint: "[stream-slug] What will the next session focus on?"
 disable-model-invocation: true
 ---
 
 # Handoff
 
-Compact the current conversation into a clean handoff so the next session — whether a fresh agent instance or a human picking up the work — can continue without replaying the entire conversation history.
+Compact the current conversation into a clean handoff so the next session — whether a fresh agent
+instance or a human picking up the work — can continue without replaying the conversation history.
 
-**Execution mode:** `[HITL]` — **user-invoked only.** `disable-model-invocation: true` is load-bearing, not decoration: this skill *overwrites* `docs/HANDOFF.md`, which `/continue` treats as its primary source at the next session start. A model that runs handoff on its own initiative destroys the next session's entry point, and the loss is silent — the file still exists and still looks valid. The human decides when the session is at a pause worth recording.
+A project runs several **streams** of work at once. Each stream keeps its own handoff at
+`docs/handoffs/<slug>.md`; `docs/HANDOFF.md` is the register that lists them. The file layout,
+register and stream-file schemas, resolution rules, conflict guard, lifecycle and migration are
+specified once in **`~/.claude/skills/handoff/STREAMS.md`** — read it before writing anything.
 
-Adapted from Matt Pocock's `handoff` skill (AIHero.dev / github.com/mattpocock/skills), extended for the Forge framework's session and pipeline conventions.
+**Execution mode:** `[HITL]` — **user-invoked only.** `disable-model-invocation: true` is
+load-bearing, not decoration: this skill *overwrites* a stream's handoff, which `/continue` treats
+as its entry point. A model that runs handoff on its own initiative destroys that entry point, and
+the loss is silent — the file still exists and still looks valid. The human decides when the
+session is at a pause worth recording.
+
+Adapted from Matt Pocock's `handoff` skill (AIHero.dev / github.com/mattpocock/skills), extended
+for the Forge framework's session and pipeline conventions.
 
 ---
 
 ## Rules
 
-- **Reference, don't duplicate.** Do not reproduce content already captured in PRDs, ADRs, kanban tickets, DEVLOG entries, testplans, or other Forge artifacts. Reference them by filename or path instead.
-- **Forge-first.** The handoff writes to `docs/HANDOFF.md` — read by `/continue` at the next session start.
-- **Tailored.** If the user provides an argument (e.g. `/handoff "next session: implement the login flow"`), use it to shape the focus of the handoff — what to prioritise, what context is most relevant.
+- **Resolve the stream before writing.** Follow the resolution table in `STREAMS.md`. With more
+  than one stream Active and no slug given, stop and ask — never infer the stream from what the
+  conversation was about.
+- **One stream per invocation.** `/handoff` writes one stream file and updates one register row.
+  It never sweeps every stream — that is `/debrief`.
+- **Reference, don't duplicate.** Do not reproduce content already captured in PRDs, ADRs, kanban
+  tickets, DEVLOG entries, testplans, or other Forge artifacts. Reference them by path instead.
+- **The register carries no content.** `docs/HANDOFF.md` holds one pointer row per stream.
+- **Tailored.** If the user provides a focus argument (e.g. `/handoff ord-pack "next session:
+  reconcile the trees"`), use it to shape what the handoff prioritises.
 - **Suggest skills.** At the end, suggest which Forge skills the next session should use first.
-- **Never carry secrets across the handoff.** `HANDOFF.md` is a tracked workspace file read by `/continue` — anything written to it is persisted. Never reproduce API keys, passwords, tokens, or PII surfaced during the session. Reference where the value lives (env var, secrets manager, ticket) rather than the value itself; redact anything sensitive that must be mentioned.
-- **`/handoff` vs `/debrief` vs `/save-state`:** `/handoff` is for any planned pause — same-day resume, passing to another agent, or handing to a colleague. It writes HANDOFF.md only. `/debrief` is for end-of-day full close — it also updates kanban, DEVLOG, and reorders the backlog. `/save-state` is for emergencies when context limit is imminent.
+- **Never carry secrets across the handoff.** Stream files and the register are tracked workspace
+  files — anything written to them is persisted and committed. Reference where a value lives (env
+  var, secrets manager, ticket) rather than the value itself.
+- **`/handoff` vs `/debrief` vs `/save-state`:** `/handoff` is for any planned pause on one stream.
+  `/debrief` is the end-of-day full close — it also updates kanban, DEVLOG, the backlog, and sweeps
+  the register. `/save-state` is for emergencies when the context limit is imminent.
 
 ---
 
 ## Process
 
-1. **Read current state** — scan `docs/kanban.md`, the most recent `docs/DEVLOG.md` entry, and any active `docs/prd/active/` document to understand where things stand.
+1. **Read the register** — `docs/HANDOFF.md`. If it is a legacy single-document handoff, or absent,
+   follow the migration procedure in `STREAMS.md` before going further.
 
-2. **Identify what the user passed as an argument** — if provided, tailor the handoff to that focus. If not provided, infer the most likely next focus from the current kanban and DEVLOG state.
+2. **Resolve the stream** — per the resolution table in `STREAMS.md`. Record the stream file's
+   `Last updated` value at this point; the conflict guard in step 5 compares against it.
 
-3. **Write `docs/HANDOFF.md`** — overwrite with the structured handoff:
+3. **Read current state** — scan `docs/kanban.md`, the most recent `docs/DEVLOG.md` entry, and any
+   active `docs/prd/active/` document relevant to *this stream*. Other streams' artifacts are not
+   this handoff's concern.
 
-```markdown
-# Handoff: [Project Name]
+4. **Identify the focus** — if the user supplied one, tailor the handoff to it. If not, infer the
+   most likely next focus from this stream's current state.
 
-**Last updated:** YYYY-MM-DD HH:MM
-**Session type:** [current session type]
-**Prepared by:** /handoff[: next focus if provided]
+5. **Write `docs/handoffs/<slug>.md`** — overwrite using the stream-file template in `STREAMS.md`,
+   after applying the conflict guard. If the file changed underneath this session, write the
+   `.conflict-*` sibling instead and stop for the human.
 
----
+6. **Update the register row** — edit this stream's row in `docs/HANDOFF.md` only: `Status`,
+   `Updated`, `Next action` (≤ 100 characters), `Touches`. Never rewrite the whole file. If another
+   Active stream lists the same entry under `Touches`, mark the cell `⚠️` and say so in the output.
 
-## Current Ticket
+7. **Optionally archive** — with `--archive`, also write a timestamped copy to
+   `docs/handoffs/archive/YYYY-MM-DD-HH-MM-<slug>.md`. With `--close`, archive the stream, drop its
+   register row, and report the archive path.
 
-**#N — [Ticket name]** `[AFK/HITL]`
-Status: [In Progress / Blocked / Ready to start]
-**Current phase:** [phase name] — Session N of this phase
+8. **Report** — name the stream written, the register row updated, and any collision or conflict.
 
----
-
-## What Just Happened
-
-[2-3 sentences maximum — what was done, what was decided, what changed.
-Reference artifacts by path rather than reproducing content.]
-
-Key artifacts updated this session:
-- [path/to/file] — [one-word description of what changed]
-- [path/to/file] — [one-word description]
-
----
-
-## Next Action
-
-[The single most important thing to do first in the next session.
-Specific enough that no context is needed.]
-
----
-
-## Context the Next Session Will Need
-
-[Only include context that is NOT already in Forge artifacts.
-If it's in the PRD, kanban, or ADR — reference it, don't repeat it.]
-
-- [Unwritten decision or context that would otherwise be lost]
-- [External dependency or blocker the artifacts don't capture]
-
----
-
-## Open Decisions
-
-[Unresolved decisions the next session must make before proceeding.]
-_None_ if nothing is pending.
-
----
-
-## Blockers
-
-[Anything blocking progress.]
-_None_ if nothing is blocked.
-
----
-
-## Suggested Skills for Next Session
-
-[Based on the current state and next focus, suggest 1-3 Forge skills
-the next session should use first — with a brief reason each.]
-
-1. `/user:[skill]` — [why this is the right next step]
-2. `/user:[skill]` — [why]
-```
-
-4. **Optionally archive** — if the user adds `--archive` (e.g. `/handoff --archive "next session: QA"`), also write a timestamped copy to `docs/handoffs/YYYY-MM-DD-HH-MM-handoff.md` for reference. Create the `docs/handoffs/` folder if it doesn't exist.
-
-5. **Instinct prompt** — at the end of the handoff, include:
+9. **Instinct prompt** — end with:
 
 ```
 💡 Did anything this session produce a pattern worth capturing?
@@ -120,7 +93,7 @@ This is a suggestion only — never mandatory.
 
 ## Suggested Skills Logic
 
-Base the skill suggestions on the current pipeline position:
+Base the skill suggestions on the resolved stream's pipeline position — not the project's.
 
 | Current state | Suggest |
 |--------------|---------|
@@ -134,7 +107,8 @@ Base the skill suggestions on the current pipeline position:
 | Scope has changed | `/scope-check` then `/estimate` |
 | Buffer window active | `/build` with `BUILD-FIXES` only |
 
-Always suggest `/standup` if the next session is starting fresh (first action of a new day or after a multi-day gap).
+Always suggest `/standup` if the next session is starting fresh (first action of a new day or after
+a multi-day gap).
 
 ---
 
@@ -142,9 +116,14 @@ Always suggest `/standup` if the next session is starting fresh (first action of
 
 | Condition | Behaviour |
 |-----------|-----------|
-| `docs/kanban.md` missing | Write handoff from conversation context only. Note "kanban not found." |
-| No active PRD | Note "No active PRD — next session should run /grill-with-docs or /write-prd." |
+| More than one Active stream, no slug given | Stop. List the Active streams numbered and ask. Never infer from the conversation — a wrong guess overwrites another stream's entry point. |
+| Slug given that matches no row | Confirm before creating it. An unconfirmed typo forks one stream into two, and neither is complete. |
+| Stream file changed since this session read it | Another session wrote it. Write `docs/handoffs/<slug>.conflict-YYYY-MM-DD-HHMM.md`, leave the original untouched, report both paths. Never merge automatically. |
+| Legacy single-document `docs/HANDOFF.md` found | Migrate per `STREAMS.md`, confirming the slug, then proceed. Idempotent — never re-migrate. |
+| `docs/kanban.md` missing | Write the handoff from conversation context only. Note "kanban not found." |
+| No active PRD for this stream | Note "No active PRD — next session should run /grill-with-docs or /write-prd." |
 | Argument provided but vague | Use it as directional context, not a precise instruction. |
-| `docs/handoffs/` doesn't exist (archive mode) | Create it silently before writing. |
-| Session surfaced a secret or PII value | Never write it into `HANDOFF.md` — reference its location (env var, secrets manager, ticket) and redact the value. `docs/HANDOFF.md` is tracked and gets committed, so this rule is the only control standing between a session secret and the remote. |
-| Tempted to run `/handoff` unprompted — session looks like it's ending, context looks tight | Don't. The write overwrites `docs/HANDOFF.md` silently and takes the next session's entry point with it. Say the session looks like a pause point and let the human call it. For imminent context exhaustion the human runs `/save-state`. |
+| `docs/handoffs/` or `archive/` doesn't exist | Create it silently before writing. |
+| Register over 400 tokens | Report it — streams are being left open that should be closed. Never trim the register by dropping a row that has no archive. |
+| Session surfaced a secret or PII value | Never write it into a stream file or the register — reference its location (env var, secrets manager, ticket) and redact the value. Both files are tracked and get committed, so this rule is the only control standing between a session secret and the remote. |
+| Tempted to run `/handoff` unprompted — session looks like it's ending, context looks tight | Don't. The write overwrites a stream's entry point silently. Say the session looks like a pause point and let the human call it. For imminent context exhaustion the human runs `/save-state`. |

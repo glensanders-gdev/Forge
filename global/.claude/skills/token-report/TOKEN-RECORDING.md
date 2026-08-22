@@ -27,7 +27,7 @@ npx ccusage daily --since [sprint-start] --until [sprint-end] --json
 
 Use the input and output token totals from the result. Round to the nearest 1k.
 
-**Attribution:** the day's total is attributed to the phase worked this session (from `HANDOFF.md` / the conversation). If a single day spanned two features or phases, split the total by judgement and note the split — an approximate split of a real number beats a guess.
+**Attribution:** the day's total is attributed to the phase worked this session (from the stream handoff at `docs/handoffs/<slug>.md` / the conversation). If a single day spanned two features or phases, split the total by judgement and note the split — an approximate split of a real number beats a guess.
 
 ---
 
@@ -80,7 +80,7 @@ When recording the first entry for a feature:
 
 ## Session Count
 
-Increment the phase's session count at each `/debrief` that attributes work to it. Track the current phase and its session count in `HANDOFF.md` so it persists across sessions:
+Increment the phase's session count at each `/debrief` that attributes work to it. Track the current phase and its session count in the stream's handoff (`docs/handoffs/<slug>.md`) so it persists across sessions — each stream carries its own phase and count:
 ```
 ## Current Ticket
 Phase: Grill — Session 2 of current phase

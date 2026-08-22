@@ -59,12 +59,16 @@ Triggered when the human runs `sprint-end` or picks up the HITL finalise ticket.
    retrospective section to `~/.codex/forge/companies/[active_company]/retrospectives/sprint-NN-retro.md`
    (see Retrospective Storage below).
 8. **Log sprint metrics** — append one row to `docs/metrics/metrics-log.md` (see Metrics Logging below).
-9. **Update `docs/HANDOFF.md`** — overwrite with sprint close state:
+9. **Update the sprint's stream handoff** — resolve the stream per
+   [STREAMS.md](../handoff/STREAMS.md), then overwrite `docs/handoffs/<slug>.md` with sprint close
+   state and update its row in the register at `docs/HANDOFF.md`:
    - Session type: Sprint Close
    - Current ticket: "Sprint-NN closed"
    - What just happened: sprint summary in one sentence
    - Next action: "Run `sprint-start` to open Sprint-NN+1"
    - Open decisions or carry-forwards if any
+   - Where the sprint spanned several streams, update the one the sprint was run for and leave the
+     others alone — `$debrief` sweeps the register, `$sprint-end` does not.
 ## Pipeline Position
 
 ```

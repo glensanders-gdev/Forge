@@ -11,6 +11,75 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
+## v3.24.0 — 2026-08-22
+
+**One handoff per stream of work** — session state stops being a single file
+
+> Version 3.23.0 is reserved for the in-flight `rules/requirements/ai.md` work on its own branch;
+> this release takes 3.24.0 so the two cannot collide on merge.
+
+`docs/HANDOFF.md` was one fixed path with overwrite semantics and three writers (`$handoff`,
+`$save-state`, `$debrief`). A project running two threads of work at once had one entry point, so
+the second handoff destroyed the first — and the loss was silent, because the file still existed
+and still looked valid. The workaround in the wild was hand-named files in `docs/handoffs/` with
+`-superseded` suffixes applied by hand, which is a stream register implemented in filenames.
+
+### Added
+
+- **`skills/handoff/STREAMS.md`** — the shared specification, cited by path from every session
+  skill and restated in none of them (PRINCIPLE 6). Carries the file layout, the register and
+  stream-file schemas, stream identity rules, the resolution table, the concurrent-writer conflict
+  guard, the Active/Paused/Blocked/Closed lifecycle, and the migration procedure.
+- **The stream register** at `docs/HANDOFF.md` — one pointer row per open stream (`Stream`,
+  `Title`, `Status`, `Updated`, `Next action`, `Touches`), holding no content of its own. It is a
+  view of the stream files in the sense of `rules/requirements/tables.md`: it restates by reference
+  and introduces nothing.
+- **Per-stream handoffs** at `docs/handoffs/<slug>.md`, archives at `docs/handoffs/archive/`, and
+  `docs/handoffs/unassigned-*.md` for an emergency save with no resolvable stream.
+- **`Touches` collision flagging** — two Active streams writing the same artefact are marked `⚠️`
+  by whichever skill notices, rather than discovered later.
+- **Concurrent-writer conflict guard** — a stream file whose `Last updated` moved under a session
+  is never overwritten; the writer produces `<slug>.conflict-YYYY-MM-DD-HHMM.md` and stops for the
+  human. Register updates are row-level, so two sessions on different streams do not collide.
+
+### Changed
+
+- **`$handoff` 2.0.0** — writes one stream, resolves which one before writing, and **stops and asks
+  when more than one stream is Active and no slug is given**. Never infers the stream from what the
+  conversation was about: the write is destructive and silent, so a wrong inference reintroduces
+  exactly the failure this release removes. New `--close` flag retires a stream to the archive;
+  `--archive` now writes into `docs/handoffs/archive/`.
+- **`$continue` 2.0.0** — reads the register, presents a picker when several streams are open,
+  takes a slug argument, and loads **one** stream's artifacts rather than everything. Age and
+  stale-ticket checks are per stream. It never writes — a legacy handoff is read as-is and left for
+  `$handoff` to migrate.
+- **`$save-state` 2.0.0** — resolves the stream without ever asking a question, and where it cannot
+  (two Active streams, nothing resolved this session) writes `unassigned-*` rather than guessing.
+  An unassigned file is recoverable; an overwritten stream is not.
+- **`$debrief` 2.0.0** — writes the stream it was run for and is the only session skill that
+  **sweeps the register**: stale Active streams surfaced for Pause or Close, `Touches` collisions
+  flagged, rows pointing at missing files reported as lost work rather than tidied away.
+- **`$approve` 1.2.0** — closes the approved feature's stream (archive + drop the row) instead of
+  resetting the whole handoff. Other streams keep running.
+- **`$sprint-end` 1.1.0** — writes sprint close state to its own stream and leaves the others alone.
+- **`$context-health` 1.2.0** — register budgeted separately at 300/400 tokens (it is pointers); the
+  loaded stream file keeps the old 1,200/2,500 thresholds.
+- **`project-template/docs/HANDOFF.md`** replaced with a register stub, plus `docs/handoffs/` and
+  `docs/handoffs/archive/`. The template had been shipping a real handoff from Forge's own v2.3.7
+  development.
+- **`$commands` 1.0.1, `$write-a-skill` 1.3.2, `token-report` 1.0.1** — command descriptions, the
+  worked stub example, and phase/session-count tracking updated for per-stream state.
+
+### Migration
+
+Automatic and idempotent. The next `$handoff` in a project detects a legacy single-document
+`docs/HANDOFF.md` (heading `# Handoff:`, no `| Stream |` table), proposes a slug from its title for
+confirmation, copies the body to `docs/handoffs/<slug>.md`, and writes the register in its place.
+Nothing is deleted. Date-prefixed files already in `docs/handoffs/` are pre-2.0 archives; nothing
+reads them and they can be moved into `archive/` at leisure.
+
+---
+
 ## v3.22.2 — 2026-08-18
 
 **Scenario naming gains negative space** — describing a rename does not enforce it
