@@ -18,13 +18,13 @@ Ensures digital interfaces are Perceivable, Operable, Understandable, and Robust
 - Building any user-facing UI component for Web, iOS, or Android
 - Auditing existing code for accessibility barriers or compliance gaps
 - During `$qa-plan` — accessibility should be included in the QA checklist for any UI-bearing feature
-- During `$review` — flag accessibility issues alongside code quality issues
+- During `$diff-review` — flag accessibility issues alongside code quality issues
 - When a PRD includes a UI component with interactive elements
 
 ## Forge Integration Points
 
 - **`$qa-plan`** — request an accessibility section in the QA checklist for any UI feature
-- **`$review`** — include accessibility anti-patterns in the review
+- **`$diff-review`** — include accessibility anti-patterns in the review
 - **`$pii-check`** — accessible error messages must not expose PII
 - **`docs/CONTEXT.md`** — add accessibility terms (ARIA, WCAG, POUR) as domain terms via `$add-term`
 - **`docs/adr/`** — record accessibility approach decisions as ADRs (e.g. "We use native elements over custom ARIA")

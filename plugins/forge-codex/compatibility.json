@@ -49,12 +49,12 @@
     "jira": {
       "source": "global/.claude/skills/jira/SKILL.md",
       "codex": "plugins/forge-codex/skills/jira/SKILL.md",
-      "reviewedSourceSha256": "D82F29A305CA5799CF3CA34E42E8DDB2D7C469E88CE9AE387EE6BF420F220273"
+      "reviewedSourceSha256": "63CD4E648BE36E2C84407DA9666DD0972D67CCEDAE91645BE9888474FCE927DA"
     },
     "lang-rules": {
       "source": "global/.claude/skills/lang-rules/SKILL.md",
       "codex": "plugins/forge-codex/skills/lang-rules/SKILL.md",
-      "reviewedSourceSha256": "DA4220B5EA07E04C52C1491CDB7E3CD89733127096D1DFF5DDA9BEA46BBB872B"
+      "reviewedSourceSha256": "DFE26E6801FA6593B6350C6F9BD5A06AC5A53764248A6704930C195DCABD17B9"
     },
     "security-assessment": {
       "source": "global/.claude/skills/security-assessment/SKILL.md",

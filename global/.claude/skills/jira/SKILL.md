@@ -57,7 +57,7 @@ Run the auth check above. Then, based on the subcommand, read the corresponding 
 | `/sprint-end` | Call `/jira transition` to move completed tickets to Done; `/jira comment` to post a summary |
 | `/standup` | Call `/jira comment` to post standup notes back to the active ticket |
 | `/tdd` | After `/jira get`, the structured AC and test scenarios feed directly into TDD |
-| `/review` | Run `/review` before `/jira comment` — post the review outcome to the ticket |
+| `/diff-review` | Run `/diff-review` before `/jira comment` — post the review outcome to the ticket |
 
 ---
 

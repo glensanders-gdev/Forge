@@ -52,14 +52,14 @@ Standalone utility — user-invoked at any time during a session. No pipeline pr
 /caveman --off   ← toggle off
 ```
 
-Related: `/context-health` (token spend reduction), `/continue` (respects caveman-mode preference on session resume)
+Related: `/context-health` (token spend reduction), `/pickup` (respects caveman-mode preference on session resume)
 
 ## Forge Integration Points
 
 | Skill / File | Relationship |
 |---|---|
 | `~/.claude/preferences.md` | State persisted here — `caveman-mode: on/off` |
-| `/continue` | Reads preferences.md — will resume caveman mode if set |
+| `/pickup` | Reads preferences.md — will resume caveman mode if set |
 | `/context-health` | Caveman mode directly reduces output token spend — supports smart zone management |
 | All HITL skills | Safety exception applies — `/go-nogo`, `/deploy`, `/approve`, `/build` confirmations always use full language |
 

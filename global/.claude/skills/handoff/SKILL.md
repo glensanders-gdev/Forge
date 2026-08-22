@@ -19,7 +19,7 @@ register and stream-file schemas, resolution rules, conflict guard, lifecycle an
 specified once in **`~/.claude/skills/handoff/STREAMS.md`** — read it before writing anything.
 
 **Execution mode:** `[HITL]` — **user-invoked only.** `disable-model-invocation: true` is
-load-bearing, not decoration: this skill *overwrites* a stream's handoff, which `/continue` treats
+load-bearing, not decoration: this skill *overwrites* a stream's handoff, which `/pickup` treats
 as its entry point. A model that runs handoff on its own initiative destroys that entry point, and
 the loss is silent — the file still exists and still looks valid. The human decides when the
 session is at a pause worth recording.

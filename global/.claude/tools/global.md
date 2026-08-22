@@ -17,7 +17,7 @@ entirely new tools not listed here.
 | `performance-analyser` | `/performance-review` |
 | `dependency-auditor` | `/dependency-update`, `/security-assessment` |
 | `test-runner` | `/tdd` |
-| `linter` | `/review`, `/push-standards` |
+| `linter` | `/diff-review`, `/push-standards` |
 
 Custom categories are allowed — use any descriptive string. The AI will warn if an
 unrecognised category is used but will not block it.

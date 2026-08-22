@@ -1,33 +1,34 @@
 ---
-name: review
-category: code-quality
-version: 2.0.0
-description: Two-axis structured code review of a pinned diff — a Spec axis (does the change fulfil its originating requirement) and a Standards axis (project docs + an immutable code-smell baseline), judged by isolated parallel sub-agents and reported without merging. Runs per-ticket after /build and on demand. Advisory by default.
-origin: Adapted from Matt Pocock (AIHero.dev / github.com/mattpocock/skills)
+name: "diff-review"
+description: "Two-axis structured code review of a pinned diff — a Spec axis (does the change fulfil its originating requirement) and a Standards axis (project docs + an immutable code-smell baseline), judged by isolated parallel sub-agents and reported without merging. Runs per-ticket after $build and on demand. Advisory by default."
+metadata:
+  category: code-quality
+  version: 3.0.0
+  origin: Adapted from Matt Pocock (AIHero.dev / github.com/mattpocock/skills)
 ---
 
-# Review
+# Diff Review
 
 Review a **pinned diff** along two independent axes and report them separately. A change can pass one axis and fail the other — ship the feature but drift on quality, or write clean code that solves the wrong problem — so the axes are judged in isolation and never blended into a single list.
 
-Execution mode: **[AFK]** advisory — the review runs autonomously and produces a report; it changes no code unless a human explicitly asks. When wired into `/build` it fires per ticket; it is also human-invokable any time via `/review`.
+Execution mode: **[AFK]** advisory — the review runs autonomously and produces a report; it changes no code unless a human explicitly asks. When wired into `$build` it fires per ticket; it is also human-invokable any time via `$diff-review`.
 
 > Adapted from Matt Pocock's `code-review` skill (github.com/mattpocock/skills). Forge keeps the two-axis + isolated-sub-agent structure, the fixed-point diff, and the Fowler smell baseline; it translates the git plumbing to Forge's kanban-driven ticket diffs, its own P1/P2/P3 severities, and its ADR/CONTEXT/PRD sources of truth.
 
 ## Pipeline Position
 
 ```
-/build (per ticket: /tdd → /review) → /qa-plan → /pii-check → /approve
+$build (per ticket: $tdd → $diff-review) → $qa-plan → $pii-check → $approve
 ```
 
-`/build` calls this skill on each ticket's diff once its `/tdd` cycle goes green, before moving to the next ticket. Run standalone at any time to review an arbitrary diff.
+`$build` calls this skill on each ticket's diff once its `$tdd` cycle goes green, before moving to the next ticket. Run standalone at any time to review an arbitrary diff.
 
 ## The Two Axes
 
 | Axis | Question it answers | Sources |
 |------|--------------------|---------|
 | **Spec** | Does the diff actually deliver the requirement it was written for — no missing behaviour, no scope creep, no incorrect implementation? | Active PRD user stories, the ticket brief, `docs/testplan-*`, referenced ADRs |
-| **Standards** | Does the diff conform to how *this project* writes code, and is it free of baseline code smells? | `docs/CONTEXT.md`, `docs/adr/`, `.claude/CODING-STANDARDS.md`, active language rules, `.claude/rules/`, plus the immutable [smell baseline](smell-baseline.md) |
+| **Standards** | Does the diff conform to how *this project* writes code, and is it free of baseline code smells? | `docs/CONTEXT.md`, `docs/adr/`, `.codex/forge/CODING-STANDARDS.md`, active language rules, `.codex/forge/rules/`, plus the immutable [smell baseline](smell-baseline.md) |
 
 The axes stay separate on purpose. Do not let a strong Spec result excuse a Standards problem, or vice versa.
 
@@ -37,7 +38,7 @@ The axes stay separate on purpose. Do not let a strong Spec result excuse a Stan
 
 Establish the exact diff under review. Never review the whole codebase blind.
 
-- **Inside `/build`:** the fixed point is the ticket's own changes — the files written during this ticket's `/tdd` cycle. Review only those.
+- **Inside `$build`:** the fixed point is the ticket's own changes — the files written during this ticket's `$tdd` cycle. Review only those.
 - **Standalone:** take the reference the user gives (commit SHA, branch, tag). Confirm it resolves and yields a non-empty diff (`git diff <fixed-point>...HEAD`, three-dot merge-base). If no reference is given, ask which diff to review — do not guess.
 
 If the diff is empty, stop and say so.
@@ -53,7 +54,7 @@ Find what the change was supposed to do, in priority order:
 
 ### Step 3 — Identify the Standards sources
 
-Gather the project's own documented standards first — `docs/CONTEXT.md` (domain terms), `docs/adr/` (architectural decisions), `.claude/CODING-STANDARDS.md`, and the active language rules under `.claude/rules/`. Then layer the immutable [smell baseline](smell-baseline.md) underneath them.
+Gather the project's own documented standards first — `docs/CONTEXT.md` (domain terms), `docs/adr/` (architectural decisions), `.codex/forge/CODING-STANDARDS.md`, and the active language rules under `.codex/forge/rules/`. Then layer the immutable [smell baseline](smell-baseline.md) underneath them.
 
 **The repo overrides.** Documented project standards always win over the baseline. If a project doc endorses a pattern the baseline calls a smell, the doc wins — do not flag it. **Skip anything a linter or formatter already enforces** — tooling owns those; a review that repeats them is noise. Every baseline smell is a *judgment call*, never a hard violation.
 

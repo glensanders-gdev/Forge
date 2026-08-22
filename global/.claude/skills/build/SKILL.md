@@ -11,7 +11,7 @@ Execute the current sprint's tickets. The human signals `/build` once — the ag
 ## Pipeline Position
 
 ```
-/sprint-start → /build (per ticket: /tdd → /review) → /qa-plan → /pii-check → /approve
+/sprint-start → /build (per ticket: /tdd → /diff-review) → /qa-plan → /pii-check → /approve
 ```
 
 ## Pre-Flight Checks
@@ -130,7 +130,7 @@ Reference `docs/testplan-[feature].md` for which behaviours to test. Follow all 
 
 ### Step 4 — Post-Build Review
 
-Once the ticket's tests are green, run `/user:review` on **this ticket's diff** (the files written during this ticket) — the two-axis review: Spec (does the diff fulfil the ticket's requirement) and Standards (project docs + smell baseline). This is AFK and advisory — it does not auto-fix.
+Once the ticket's tests are green, run `/user:diff-review` on **this ticket's diff** (the files written during this ticket) — the two-axis review: Spec (does the diff fulfil the ticket's requirement) and Standards (project docs + smell baseline). This is AFK and advisory — it does not auto-fix.
 
 Surface the result inline, then handle by severity:
 - **P1 findings (Spec miss or documented-standard/ADR breach):** pause before the ticket can be marked Done:
@@ -140,7 +140,7 @@ Surface the result inline, then handle by severity:
   [Axis]: [finding] — [file:line] — [why blocking]
 
   Options:
-  1. Fix now (stay on this ticket, re-run /tdd + /review)
+  1. Fix now (stay on this ticket, re-run /tdd + /diff-review)
   2. Defer to backlog (/backlog-add) and mark ticket Done anyway (accepted risk)
   3. Stop the build here
 
@@ -278,7 +278,7 @@ Next steps:
 - Update kanban in real time — never batch updates
 - Run `/tdd` for every AFK ticket — never skip tests
 - Never run the full test suite after every change — single test files and typechecks as you go, full suite once at ticket end (see Step 3 cadence)
-- Run `/review` on every ticket's diff once tests are green — never skip the post-build review, and never auto-fix or silently pass a P1 finding
+- Run `/diff-review` on every ticket's diff once tests are green — never skip the post-build review, and never auto-fix or silently pass a P1 finding
 - Never deploy — build produces tested code only; deployment is handled by `/go-nogo` and `/deploy`
 - DEVLOG and token records are not updated during build — defer to `/debrief`
 - Smart zone check is mandatory for every ticket — never skip it

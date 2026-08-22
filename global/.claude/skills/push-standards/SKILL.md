@@ -12,7 +12,7 @@ Extract coding patterns and conventions from the current codebase and document t
 
 - After `/approve` when the user opts to document standards
 - When a pattern has been repeated enough to be worth formalising
-- After a `/review` surfaces a recurring issue worth preventing
+- After a `/diff-review` surfaces a recurring issue worth preventing
 
 ## Process
 
@@ -56,7 +56,7 @@ Append under `## Project-Specific Patterns` at the bottom of `.claude/CODING-STA
 - `.claude/CODING-STANDARDS.md` — canonical standards file this skill reads and updates
 - `global/.claude/rules/common/coding-style.md` — universal baseline rules that inform the standards
 - `/lang-rules` — installs language-specific rules that push-standards incorporates
-- `/review` — applies the standards produced here during code review
+- `/diff-review` — applies the standards produced here during code review
 - `/style-check` — sister skill for prose/documentation standards (push-standards handles code)
 
 ## Rules

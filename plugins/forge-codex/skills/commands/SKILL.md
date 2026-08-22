@@ -64,7 +64,7 @@ Print the following reference exactly:
 ### Session Management
 | Command | What it does |
 |---------|-------------|
-| `continue [stream]` | Resume a stream of work exactly where it left off — reads the stream register, loads that stream's handoff and artifacts, presents exact next action |
+| `pickup [stream]` | Resume a stream of work exactly where it left off — reads the stream register, loads that stream's handoff and artifacts, presents exact next action |
 | `standup` | Summarise last session, confirm today's goals, surface blockers |
 | `handoff [stream]` | Compact the session into a handoff for one stream of work — writes `docs/handoffs/[stream].md`, updates the register, suggests next skills. `--close` retires a finished stream |
 | `debrief [stream]` | Close a partial session — update the stream handoff, sweep the register for stale or colliding streams, update kanban, write DEVLOG, reorder backlog |
@@ -82,7 +82,7 @@ Print the following reference exactly:
 | `ai-first-engineering` | Operating principles for AI-assisted delivery — process shifts, architecture, review focus, testing standards |
 | `accessibility` | Design, implement, and audit WCAG 2.2 Level AA compliance — Web/iOS/Android, QA checklist, anti-patterns |
 | `diagnose` | Systematically debug a failing ticket — hypothesis before fix |
-| `review` | Structured code review against ADRs, CONTEXT.md, and standards |
+| `diff-review` | Structured code review against ADRs, CONTEXT.md, and standards |
 | `critic` | Honest prioritised critique of a framework, PRD, plan, or design |
 | `lang-rules` | Install and activate language-specific coding rule sets for the current project |
 | `push-standards` | Extract codebase patterns into .codex/forge/CODING-STANDARDS.md project-specific section |

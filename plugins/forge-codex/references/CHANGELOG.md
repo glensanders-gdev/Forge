@@ -11,6 +11,37 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
+## v3.25.0 — 2026-08-22
+
+**`/continue` → `$pickup`, `/review` → `$diff-review`** — two skill names were being shadowed
+
+Codex ships built-in commands called `/continue` and `/review`. A built-in wins the name, so
+invoking `/continue` ran the built-in rather than the Forge skill — quietly, with no error to
+explain why the skill never appeared. `/review` had the same collision and had not yet been noticed.
+
+A deprecation stub is not available as a mitigation: the old name is shadowed, so a stub left at
+`commands/continue.md` would never be reached either. The old names simply stop working.
+
+### Breaking
+
+- **`/continue` is now `$pickup`.** It pairs with `$handoff`: one session puts a stream down, the
+  next picks it up. Skill moves to `skills/pickup/`, command to `commands/pickup.md`.
+- **`/review` is now `$diff-review`.** It names what the skill actually reviews — a pinned diff —
+  and joins the existing subject-namespaced family (`brd-review`, `ord-review`, `security-review`,
+  `performance-review`), where the bare `review` was always the odd one out. Skill moves to
+  `skills/diff-review/` with its `smell-baseline.md`, command to `commands/diff-review.md`.
+- Both skills carry major versions (3.0.0) because every reference to the old names breaks. 30 files
+  updated across skills, rules, commands, README, and the pipeline diagrams. Historical CHANGELOG
+  and README version-history rows are **not** rewritten — they record what shipped at the time.
+
+### Note
+
+Only these two of Forge's 113 skill names collide with a Codex built-in today. The vendor's
+command namespace keeps growing, so a name check against built-ins at authoring time is the durable
+fix — logged rather than built here.
+
+---
+
 ## v3.24.0 — 2026-08-22
 
 **One handoff per stream of work** — session state stops being a single file
@@ -49,7 +80,7 @@ and still looked valid. The workaround in the wild was hand-named files in `docs
   conversation was about: the write is destructive and silent, so a wrong inference reintroduces
   exactly the failure this release removes. New `--close` flag retires a stream to the archive;
   `--archive` now writes into `docs/handoffs/archive/`.
-- **`$continue` 2.0.0** — reads the register, presents a picker when several streams are open,
+- **`/continue` 2.0.0** — reads the register, presents a picker when several streams are open,
   takes a slug argument, and loads **one** stream's artifacts rather than everything. Age and
   stale-ticket checks are per stream. It never writes — a legacy handoff is read as-is and left for
   `$handoff` to migrate.
@@ -255,7 +286,7 @@ reads them and they can be moved into `archive/` at leisure.
 
 - `$handoff` 1.1.0 → 1.2.0 — `disable-model-invocation: true` added to frontmatter, with an explicit
   `[HITL]` execution-mode line stating why it is load-bearing. `$handoff` **overwrites**
-  `docs/HANDOFF.md`, and `$continue` treats that file as its primary source at the next session start.
+  `docs/HANDOFF.md`, and `/continue` treats that file as its primary source at the next session start.
   A model that ran handoff on its own initiative destroyed the next session's entry point, and the
   loss was silent — the file still existed and still looked valid. The frontmatter field enforces
   PRINCIPLE 1 as a mechanism rather than as prose the model may or may not honour. The `$handoff`
@@ -281,7 +312,7 @@ next focus. Only the invocation gate was new.
 
 - **"Save to the temporary directory of the OS — not the current workspace."** Upstream keeps the
   handoff out of the repo, which makes a leaked secret structurally impossible. Forge writes
-  `docs/HANDOFF.md` because six skills read or write that path — `$continue`, `$debrief`,
+  `docs/HANDOFF.md` because six skills read or write that path — `/continue`, `$debrief`,
   `$save-state`, `$sprint-end`, `$approve`, `$context-health` — it ships in `project-template/docs/`,
   and a tmpdir file cannot be handed to a colleague, which the skill's own description covers.
   Recorded here as a known residual: Forge trades a mechanism for a rule on this one.
@@ -449,11 +480,11 @@ time` rule was a faithful copy of the earlier version, which upstream has since 
 **`$handoff` gains a secret-redaction rule** — assimilated from Matt Pocock's `handoff` skill (github.com/mattpocock/skills)
 
 ### Changed
-- `$handoff` 1.0.0 → 1.1.0 — added an explicit **never-carry-secrets** rule: `HANDOFF.md` is a tracked workspace file read by `$continue`, so anything written to it is persisted. Never reproduce API keys, passwords, tokens, or PII surfaced during the session — reference where the value lives (env var, secrets manager, ticket) and redact anything sensitive that must be mentioned. Added a matching Failure Modes row. (Matt Pocock was already credited inline; the Forge `handoff` skill was originally adapted from this same source.)
+- `$handoff` 1.0.0 → 1.1.0 — added an explicit **never-carry-secrets** rule: `HANDOFF.md` is a tracked workspace file read by `/continue`, so anything written to it is persisted. Never reproduce API keys, passwords, tokens, or PII surfaced during the session — reference where the value lives (env var, secrets manager, ticket) and redact anything sensitive that must be mentioned. Added a matching Failure Modes row. (Matt Pocock was already credited inline; the Forge `handoff` skill was originally adapted from this same source.)
 
 ### Assimilation notes
 - **Kept:** the source's redaction instruction — the one point not already present in Forge's richer `handoff` skill; aligns with the security baseline ("never log raw bodies that may contain credentials or PII") and matters more in Forge because the handoff is a *persisted* artifact, not ephemeral scratch.
-- **Dropped:** "save to the OS temp directory, not the workspace" — conflicts with Forge convention (Principle 6). Forge deliberately writes `docs/HANDOFF.md` in-workspace so `$continue` reads it and `--archive` snapshots it; the source treats the handoff as ephemeral. Forge's model is intentional and retained.
+- **Dropped:** "save to the OS temp directory, not the workspace" — conflicts with Forge convention (Principle 6). Forge deliberately writes `docs/HANDOFF.md` in-workspace so `/continue` reads it and `--archive` snapshots it; the source treats the handoff as ephemeral. Forge's model is intentional and retained.
 - **Already covered:** handoff summary, suggested-skills section, reference-don't-duplicate, argument tailoring. No new skill created.
 
 ---
@@ -482,8 +513,8 @@ time` rule was a faithful copy of the earlier version, which upstream has since 
 
 ### Assimilation notes
 - **Kept:** the tight-loop test rhythm — typecheck often, single files often, whole suite once at the end.
-- **Changed:** attached the cadence to `$build`'s existing per-ticket TDD loop and phrased the whole-suite pass as the gate into Forge's `$review` step; expressed the "not every change" half as an explicit Forge negative-space rule.
-- **Dropped:** "commit to the current branch" (per human decision — `$build` produces tested code only; committing stays out of its scope) and the rest of the source, already covered by `$build`'s existing TDD + `$review` wiring. No new skill created; Matt Pocock is already credited framework-wide in `PRINCIPLES.md`.
+- **Changed:** attached the cadence to `$build`'s existing per-ticket TDD loop and phrased the whole-suite pass as the gate into Forge's `/review` step; expressed the "not every change" half as an explicit Forge negative-space rule.
+- **Dropped:** "commit to the current branch" (per human decision — `$build` produces tested code only; committing stays out of its scope) and the rest of the source, already covered by `$build`'s existing TDD + `/review` wiring. No new skill created; Matt Pocock is already credited framework-wide in `PRINCIPLES.md`.
 
 ---
 
@@ -508,16 +539,16 @@ time` rule was a faithful copy of the earlier version, which upstream has since 
 
 ## v3.16.0 — 2026-07-10
 
-**`$review` two-axis overhaul + per-ticket wiring into `$build`** — assimilated from Matt Pocock's `code-review` skill (github.com/mattpocock/skills)
+**`/review` two-axis overhaul + per-ticket wiring into `$build`** — assimilated from Matt Pocock's `code-review` skill (github.com/mattpocock/skills)
 
 ### Changed
-- `$review` 1.0.0 → 2.0.0 — rebuilt around a **two-axis** methodology adapted from Matt Pocock's `code-review`. A **Spec axis** (does the diff fulfil its originating requirement — missing behaviour, scope creep, incorrect implementation, checked against the active PRD/ticket) and a **Standards axis** (project ADRs/CONTEXT/coding standards plus an immutable Fowler code-smell baseline) are now judged by **isolated parallel sub-agents** so neither contaminates the other, then reported separately without merging or re-ranking. Adds **fixed-point diff pinning** (never review the codebase blind), the **"repo overrides"** doctrine (documented standards beat the baseline; tooling-enforced rules skipped; smells are judgment calls, never hard P1s), and a new supporting reference `review/smell-baseline.md` holding the twelve smells. Retains Forge's P1/P2/P3 severities, advisory-by-default stance, and ADR/CONTEXT/PRD sources of truth. Attribution recorded in frontmatter `origin:` and the skill body.
-- `$build` 1.1.0 → 1.2.0 — added **Step 4 — Post-Build Review** to the per-ticket execution loop: once a ticket's `$tdd` cycle is green, `$review` runs on that ticket's diff before the next ticket. AFK and advisory; a **P1 finding pauses** the loop for a human decision (fix now / defer to backlog / stop) — never auto-fixed, never silently passed. Subsequent loop steps renumbered (sign-off → 5, mark-done → 6, checkpoint → 7); Rules, Pipeline Position, and Failure Modes updated.
+- `/review` 1.0.0 → 2.0.0 — rebuilt around a **two-axis** methodology adapted from Matt Pocock's `code-review`. A **Spec axis** (does the diff fulfil its originating requirement — missing behaviour, scope creep, incorrect implementation, checked against the active PRD/ticket) and a **Standards axis** (project ADRs/CONTEXT/coding standards plus an immutable Fowler code-smell baseline) are now judged by **isolated parallel sub-agents** so neither contaminates the other, then reported separately without merging or re-ranking. Adds **fixed-point diff pinning** (never review the codebase blind), the **"repo overrides"** doctrine (documented standards beat the baseline; tooling-enforced rules skipped; smells are judgment calls, never hard P1s), and a new supporting reference `review/smell-baseline.md` holding the twelve smells. Retains Forge's P1/P2/P3 severities, advisory-by-default stance, and ADR/CONTEXT/PRD sources of truth. Attribution recorded in frontmatter `origin:` and the skill body.
+- `$build` 1.1.0 → 1.2.0 — added **Step 4 — Post-Build Review** to the per-ticket execution loop: once a ticket's `$tdd` cycle is green, `/review` runs on that ticket's diff before the next ticket. AFK and advisory; a **P1 finding pauses** the loop for a human decision (fix now / defer to backlog / stop) — never auto-fixed, never silently passed. Subsequent loop steps renumbered (sign-off → 5, mark-done → 6, checkpoint → 7); Rules, Pipeline Position, and Failure Modes updated.
 
 ### Assimilation notes
 - **Kept:** two-axis isolation via parallel sub-agents, fixed-point diff scoping, the Fowler smell baseline, the repo-overrides doctrine, aggregate-without-merging.
 - **Changed:** git plumbing → Forge's kanban-driven ticket diffs; source's categories → Forge P1/P2/P3; standards sources → Forge ADR/CONTEXT/coding-rules; `general-purpose` agents → Forge sub-agent + model-selection routing.
-- **Dropped:** a second standalone `/code-review` command (Forge already owns this slot with `$review` — Principle 6, Reference Don't Duplicate).
+- **Dropped:** a second standalone `/code-review` command (Forge already owns this slot with `/review` — Principle 6, Reference Don't Duplicate).
 
 ---
 
@@ -761,7 +792,7 @@ time` rule was a faithful copy of the earlier version, which upstream has since 
   - Phase 4 [AFK]: writes `docs/seo/audit-YYYY-MM-DD.md` using `FORMATS.md` template; assigns `SEO-YYYYMMDD-NNN` IDs
   - Phase 5 [HITL]: optional kanban ticket creation for confirmed findings — detail stays in report, kanban holds ID + one-liner only
   - Flags: `--audit`, `--page <path>`, `--schema`, `--vitals`, `--content`, `--analyze-only`
-  - Integration: `$review` (template changes), `$build` (remediation tickets), `$qa-plan`, `$go-nogo`
+  - Integration: `/review` (template changes), `$build` (remediation tickets), `$qa-plan`, `$go-nogo`
   - Origin: Adapted from Affaan Mustafa (ECC / github.com/affaan-m/ECC)
 
 ---
@@ -942,9 +973,9 @@ Bumped to v3.0.0 — four skills added in one session (git-guardrails, jira, ski
 **New skill: $lang-rules + common coding rules layer + rules/README enrichment**
 
 ### Added
-- `$lang-rules` — install and activate language-specific coding rule sets for the current project. Detects languages from project files, copies matching rule sets from `~/.codex/forge/rules/<lang>/` into `.codex/forge/rules/`, and writes `.codex/forge/rules/active.md` so `$review`, `$build`, and `$push-standards` know which baselines apply. HITL gate before writing. Adapted from Affaan Mustafa (ECC / github.com/affaan-m/ECC) via $assimilate.
+- `$lang-rules` — install and activate language-specific coding rule sets for the current project. Detects languages from project files, copies matching rule sets from `~/.codex/forge/rules/<lang>/` into `.codex/forge/rules/`, and writes `.codex/forge/rules/active.md` so `/review`, `$build`, and `$push-standards` know which baselines apply. HITL gate before writing. Adapted from Affaan Mustafa (ECC / github.com/affaan-m/ECC) via $assimilate.
 - `~/.codex/forge/rules/common/coding-style.md` — universal baseline: immutability, KISS/DRY/YAGNI, file/function size limits (800-line cap, 50-line function cap, 4-level nesting cap), error handling, input validation, naming conventions.
-- `~/.codex/forge/rules/common/quality-checklist.md` — pre-ship checklist covering code quality, testing, security, and CI integration. Referenced by `$review` and `$qa-plan`.
+- `~/.codex/forge/rules/common/quality-checklist.md` — pre-ship checklist covering code quality, testing, security, and CI integration. Referenced by `/review` and `$qa-plan`.
 - `~/.codex/forge/rules/common/research-first.md` — search-before-writing rule: codebase → package registry → GitHub → docs → web. Explicit never rules.
 - `~/.codex/forge/rules/common/security.md` — pre-commit security checklist and escalation triggers for `/security-review`.
 - `~/.codex/forge/rules/README.md` — documents the layered rules architecture and how skills consume it.
@@ -1352,4 +1383,4 @@ LLM knowledge base pattern: raw data → compiled wiki → health checks → con
 **Initial release — planning pipeline and sprint management.**
 
 ### Skills
-`$grill-me`, `$grill-with-docs`, `$research`, `$prototype`, `$write-prd`, `$diagnose`, `$approve`, `$standup`, `$debrief`, `$scope-check`, `$write-adr`, `$break-down`, `$qa-plan`, `$review`, `$push-standards`, `$add-system`, `$summarise-system`, `$update-context`, `$sprint-start`, `$sprint-end`, `$piplan`, `$sprintplan`, `$write-a-skill`, `$commands`
+`$grill-me`, `$grill-with-docs`, `$research`, `$prototype`, `$write-prd`, `$diagnose`, `$approve`, `$standup`, `$debrief`, `$scope-check`, `$write-adr`, `$break-down`, `$qa-plan`, `/review`, `$push-standards`, `$add-system`, `$summarise-system`, `$update-context`, `$sprint-start`, `$sprint-end`, `$piplan`, `$sprintplan`, `$write-a-skill`, `$commands`

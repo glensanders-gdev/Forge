@@ -155,7 +155,7 @@ If no flags are overdue, nothing appears in standup output.
 ## Rules
 
 - A removal date is mandatory — never register a flag without one
-- Removal status update does not touch code — code removal is a developer task via `/tdd` and `/review`
+- Removal status update does not touch code — code removal is a developer task via `/tdd` and `/diff-review`
 - Kanban tickets for overdue flags use flag name and FF-NNN ID only — no code details
 - Flags stay in the register after removal for historical reference
 - `/standup` only surfaces flags that are past their removal date — not flags approaching it

@@ -1,5 +1,5 @@
 {
-  "forge_version": "3.24.0",
+  "forge_version": "3.25.0",
   "skills": {
     "brain-setup": "1.0.0",
     "scan-first": "1.0.0",
@@ -27,7 +27,7 @@
     "qa-plan": "1.1.0",
     "update-context": "1.0.0",
     "summarise-system": "1.0.0",
-    "review": "2.0.0",
+    "diff-review": "3.0.0",
     "push-standards": "1.0.0",
     "commands": "1.0.1",
     "sprint-start": "1.0.0",
@@ -60,7 +60,7 @@
     "token-report": "1.0.1",
     "lookup": "1.0.0",
     "handoff": "2.0.0",
-    "continue": "2.0.0",
+    "pickup": "3.0.0",
     "pir": "1.0.0",
     "add-term": "1.0.0",
     "knowledge-health": "1.1.0",

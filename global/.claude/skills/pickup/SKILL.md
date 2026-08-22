@@ -1,11 +1,12 @@
 ---
-name: continue
+name: pickup
 category: session
-description: Resume a session exactly where it left off. Reads the stream register at docs/HANDOFF.md, picks a stream, loads its handoff and referenced artifacts, and presents the exact next action. Use when user runs /continue or wants to resume interrupted work without re-reading the conversation. For daily planning orientation use /standup instead.
+version: 3.0.0
+description: Resume a session exactly where it left off. Reads the stream register at docs/HANDOFF.md, picks a stream, loads its handoff and referenced artifacts, and presents the exact next action. Use when user runs /pickup or wants to resume interrupted work without re-reading the conversation. For daily planning orientation use /standup instead.
 argument-hint: "[stream-slug]"
 ---
 
-# Continue
+# Pickup
 
 Resume work from where the last session ended on **one stream**. The stream's handoff at
 `docs/handoffs/<slug>.md` is the source of truth — it captures what was in progress, what was
@@ -15,11 +16,14 @@ decided, and what to do next, written by `/handoff`, `/save-state`, or `/debrief
 The register and stream schemas, and the stream lifecycle, are specified in
 **`~/.claude/skills/handoff/STREAMS.md`**.
 
+Named for its pair: `/handoff` puts a stream down, `/pickup` takes it up. (Renamed from
+`/continue` in v3.25.0 — that name is shadowed by a Claude Code built-in.)
+
 This skill is focused and fast: pick a stream, load its state, confirm the next action, start
 working. For broader daily orientation across all streams (priorities, deadlines, PI plan) use
 `/standup` instead.
 
-**`/continue` never writes.** It reads state; it does not migrate, close, or update anything.
+**`/pickup` never writes.** It reads state; it does not migrate, close, or update anything.
 
 ---
 
@@ -150,7 +154,7 @@ If the user confirms:
 
 If the user redirects:
 - Ask "What would you like to work on instead?" and proceed from their answer
-- Offer `/continue <other-slug>` if they meant a different stream, or `/standup` for the full picture
+- Offer `/pickup <other-slug>` if they meant a different stream, or `/standup` for the full picture
 
 ---
 
@@ -174,7 +178,7 @@ Continue with that, or run /standup for a full orientation? (continue / standup)
 | Condition | Behaviour |
 |-----------|-----------|
 | `docs/HANDOFF.md` missing | Stop — suggest `/standup` |
-| Legacy single-document handoff | Read it as-is, note that `/handoff` will migrate it. **Never migrate here** — `/continue` is a read path. |
+| Legacy single-document handoff | Read it as-is, note that `/handoff` will migrate it. **Never migrate here** — `/pickup` is a read path. |
 | Register lists a stream whose file is missing | Report the broken row and offer the other streams. Never silently skip it — a missing stream file is lost work, not an empty one. |
 | Slug given matches no row | List the streams that do exist and ask. Never fall back to "the only Active one" — the user named something specific. |
 | Stream older than 7 days | Warn and offer the choice |
