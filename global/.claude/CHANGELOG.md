@@ -11,6 +11,58 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
+## v3.27.0 — 2026-08-22
+
+**Name-collision policy** — a shadowed skill name is caught at authoring time, not in use
+
+> Version 3.26.0 is reserved for the in-flight `rules/requirements/ai.md` work on its own branch,
+> which is already renumbered to it. This release takes 3.27.0 so neither has to move again.
+
+v3.25.0 renamed two skills that Claude Code built-ins were shadowing and noted that a check at
+authoring time was the durable fix. This is that check. The failure it prevents is silent: a
+shadowed skill loads nothing and reports nothing, so the only signal is a skill that mysteriously
+never runs.
+
+### Added
+
+- **`skills/write-a-skill/RESERVED-NAMES.md`** — the names Claude Code claims, in one file read by
+  two skills and restated by neither (PRINCIPLE 6). Carries the bundled-skill names, the built-in
+  slash commands, an **At Risk** watch list (`build`, `deploy`, `publish`, `research`, `commands`,
+  `learn`, `teach`), a **Deliberately Avoided** register so a later tidy-up cannot walk back into a
+  collision Forge already steers around, and a **Withdrawn** section for names the vendor releases.
+- **A verification stamp and a written refresh procedure.** There is no API that emits the vendor's
+  reserved names, so the list is hand-maintained and stale by construction. The stamp records the
+  date, the Claude Code version, and whether each row was *confirmed* in a live session or
+  *recalled* — the two carry different weight, and collapsing them would be the whole defect. The
+  procedure says how to move the date rather than leaving it to age quietly.
+- **The Claude Code version is recorded as not determined.** `claude` is not on `PATH` on the
+  authoring machine, so the stamp says so instead of guessing. The next refresh fills it in.
+
+### Changed
+
+- **`/write-a-skill` 1.4.0** — a new step 2 checks the proposed name before anything is scaffolded,
+  and reports the result either way, naming the stamp date so the author knows what a pass is
+  worth. A match **stops and gates**: rename, or type `CONFIRM` to proceed. The block is
+  overridable because the list is stale in both directions — a name on it may since have been
+  released, and an author who knows that should not be stuck. New failure-mode rows cover the
+  shadowed-name symptom, the gate, and a stamp that has aged past the threshold.
+- **`/skill-health` 1.1.0** — audits the whole portfolio against the same list, so a name that
+  becomes reserved *after* the skill was written is caught rather than discovered in use. A
+  shadowed name is 🔴 Critical and leads the critical warning ahead of a missing `SKILL.md`: a
+  skill with no file is visibly broken, a shadowed skill is invisibly broken. An At Risk match and
+  a stale stamp are ℹ️ Info. The audit stays read-only — a stale stamp is reported, never
+  refreshed, because refreshing it needs a live session this skill does not have.
+- **`/skill-health` never reports a name as clear.** It reports it as unchecked against a list
+  stamped on a given date, which is what absence from a hand-maintained list actually means.
+
+### Note
+
+Zero of Forge's 113 skill names are reserved today — the two known collisions were fixed in
+v3.25.0. Recommending no rename is the correct output of this release, and the check exists for
+the names the vendor claims next.
+
+---
+
 ## v3.25.0 — 2026-08-22
 
 **`/continue` → `/pickup`, `/review` → `/diff-review`** — two skill names were being shadowed

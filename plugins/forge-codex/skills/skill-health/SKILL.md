@@ -16,6 +16,8 @@ Run a read-only structural audit of the installed Forge plugin.
 - Every directory under `skills/` has a `SKILL.md`.
 - Every skill has `name`, `description`, and `origin` frontmatter.
 - Skill names are unique.
+- No skill name matches a Reserved row in `skills/write-a-skill/RESERVED-NAMES.md`. A shadowed name never loads and reports nothing, so report a match as critical and lead with it. The list covers Claude Code; Codex's own reserved surface has no equivalent list, so report a clear name as unchecked there rather than clear.
+- The `RESERVED-NAMES.md` verification stamp carries a date and a version, and the date is within the staleness threshold.
 - `hooks/hooks.json` and referenced scripts exist.
 - Bundled hook commands contain no machine-specific absolute paths.
 - `references/adaptation-build.json` records an upstream commit.

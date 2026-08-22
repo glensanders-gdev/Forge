@@ -12,6 +12,9 @@ Create a new skill for Forge following the standard structure. Skills live in `~
 > *craft* of the prose inside them — **leading words**, checkable **completion criteria**,
 > information hierarchy, and pruning out **no-ops** — read [CRAFT.md](CRAFT.md) before
 > drafting a description or step. Predictability (same process every run) is the goal.
+>
+> **Names** — [RESERVED-NAMES.md](RESERVED-NAMES.md) holds the names Claude Code already claims,
+> and step 2 below gates on it. A shadowed skill never loads and says nothing about why.
 
 ## Process
 
@@ -21,17 +24,30 @@ Create a new skill for Forge following the standard structure. Skills live in `~
    - Is it global (all projects) or project-specific?
    - Does it need supporting files (REFERENCE.md, EXAMPLES.md, scripts)?
 
-2. **Draft the skill** — create:
+2. **Check the name against [RESERVED-NAMES.md](RESERVED-NAMES.md)** — compare the proposed
+   name to every Reserved row before anything is scaffolded. Report the result either way:
+   "`<name>` is not on the reserved list (last verified YYYY-MM-DD)" is the pass, and it names
+   the date so the author knows what the clearance is worth.
+
+   **On a match, stop and gate.** Name the collision, quote the row's source and the stamp date,
+   and offer two paths: a different name, or proceeding under the existing one. Proceeding
+   requires the human to type `CONFIRM` — the list is stale by construction, so an author who
+   knows the name has since been released may override it. Never scaffold through a match on
+   your own judgement.
+
+   Check the At Risk table too. A hit there is not a block — say so, and move on.
+
+3. **Draft the skill** — create:
    - `SKILL.md` with concise instructions — target under 100 lines; if workflow logic exceeds this, extract supporting content (reference tables, templates, examples, scripts) to additional files (`REFERENCE.md`, `FORMATS.md`, `scripts/`, etc.)
    - Additional files for any content that would push `SKILL.md` over 100 lines or has a distinct domain
    - A command file if a `/user:skill-name` trigger is needed
 
-3. **Review with user** — present the draft and ask:
+4. **Review with user** — present the draft and ask:
    - Does this cover your use cases?
    - Anything missing or unclear?
    - Should any section be more or less detailed?
 
-4. **Write the files** — once confirmed, create all files and update the manifest.
+5. **Write the files** — once confirmed, create all files and update the manifest.
 
 ## File Structure
 
@@ -129,6 +145,7 @@ Split into separate files when:
 Before finalising, verify:
 - [ ] Read `~/.claude/PRINCIPLES.md` — does this skill follow the 8 design principles?
 - [ ] Read [CRAFT.md](CRAFT.md) — description front-loads a **leading word**, every step has a **checkable completion criterion**, and the prose survives the **no-op test** (no line that changes nothing versus the agent's default)
+- [ ] **Name checked against [RESERVED-NAMES.md](RESERVED-NAMES.md)** — no Reserved row matches, or a match was overridden by a typed `CONFIRM` and the reason recorded in the CHANGELOG entry
 - [ ] `category:` field set — valid values: `pipeline`, `ideation`, `session`, `code-quality`, `knowledge`, `metrics`, `pi-release`, `sprint`, `maintenance`, `company`, `framework`
 - [ ] Description includes "Use when [triggers]"
 - [ ] **If adapting from an external source** — use `/user:assimilate` instead. It handles attribution, fit evaluation, and adaptation automatically.
@@ -155,4 +172,7 @@ When the skill you just wrote misbehaves, the cause is usually one of these. Ful
 | Skill is too long though every line is live | **Sprawl** — disclose tier-3 reference behind context pointers in a sibling file |
 | A line that changes nothing versus the agent's default | **No-op** — delete it, or replace a weak leading word with a stronger one |
 | A "never" rule that's really steering intended behaviour | **Negation** — reframe as a positive leading word; keep "never" only for guardrails on consequential/irreversible actions |
+| Skill was authored and never loads, with no error | **Shadowed name** — a vendor command won it. Check [RESERVED-NAMES.md](RESERVED-NAMES.md); a rename is a major version, and no stub or alias survives at the old name |
+| Proposed name matches a Reserved row | Stop and gate — offer a rename, or a typed `CONFIRM` to proceed. Never decide it alone |
+| Reserved list stamp is older than the staleness threshold | Say so at the point of the check, run the refresh procedure in [RESERVED-NAMES.md](RESERVED-NAMES.md), then check the name |
 | Source is an external skill/article | Stop — use `/user:assimilate`, which handles fit evaluation and attribution |

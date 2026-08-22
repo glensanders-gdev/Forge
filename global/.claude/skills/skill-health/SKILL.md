@@ -1,14 +1,17 @@
 ---
 name: skill-health
 category: framework
-description: Read-only structural audit of the Forge skill portfolio. Checks every skill in manifest.json for a matching SKILL.md directory, command stub, required sections (failure modes, rules), and CHANGELOG coverage. Flags orphaned directories, missing commands, and attribution gaps. Saves a report to ~/.claude/knowledge/skill-health-report.md. Use when user runs /skill-health, or run monthly as portfolio maintenance.
+description: Read-only structural audit of the Forge skill portfolio. Checks every skill in manifest.json for a matching SKILL.md directory, command stub, required sections (failure modes, rules), CHANGELOG coverage, and a name shadowed by a Claude Code built-in. Flags orphaned directories, missing commands, and attribution gaps. Saves a report to ~/.claude/knowledge/skill-health-report.md. Use when user runs /skill-health, or run monthly as portfolio maintenance.
 origin: Adapted from Affaan Mustafa (ECC / github.com/affaan-m/ECC)
 ---
 
 # Skill Health
 
 Read-only structural audit of the Forge skill portfolio. Answers: "Is every skill in
-`manifest.json` complete, reachable, and recorded?" Complements `/context-health`
+`manifest.json` complete, reachable, and recorded?" **Reachable** carries a name check: a skill
+whose name Claude Code has claimed never loads, and the failure is silent — the shadowed skill
+looks perfectly healthy on disk. Reserved names live in
+`skills/write-a-skill/RESERVED-NAMES.md`. Complements `/context-health`
 (token load) and `/knowledge-health` (knowledge articles) with a third health layer
 covering the skills themselves.
 
@@ -28,6 +31,7 @@ covering the skills themselves.
 
 | Check | Severity if failing |
 |-------|-------------------|
+| Skill name matches a Reserved row in `write-a-skill/RESERVED-NAMES.md` | 🔴 Critical |
 | Skill in `manifest.json` has no `skills/<name>/SKILL.md` | 🔴 Critical |
 | `SKILL.md` missing required frontmatter (`name:`, `description:`) | 🔴 Critical |
 | `SKILL.md` missing **Failure Modes** section | ⚠️ Amber |
@@ -38,6 +42,8 @@ covering the skills themselves.
 | `skills/<name>/` directory exists but not in `manifest.json` | ℹ️ Info |
 | `commands/<name>.md` exists but not in `manifest.json` | ℹ️ Info |
 | `SKILL.md` has `version:` in frontmatter that doesn't match `manifest.json` | ℹ️ Info |
+| Skill name matches an At Risk row in `RESERVED-NAMES.md` | ℹ️ Info |
+| `RESERVED-NAMES.md` verification stamp exceeds `Forge staleness warning (days)` from `preferences.md` (default 30), or carries no version | ℹ️ Info |
 | `~/.claude/forge-version` missing or `updated:` date exceeds `Forge staleness warning (days)` from `preferences.md` (default 30) | ℹ️ Info |
 
 ---
@@ -52,8 +58,13 @@ Do not produce output during this phase.
 2. List all directories in `~/.claude/skills/` — collect directory names.
 3. List all files in `~/.claude/commands/` — collect command stub names (strip `.md`).
 4. Read `~/.claude/CHANGELOG.md` — extract all version headings and the skills they mention.
-5. Read `~/.claude/forge-version` (if it exists) — extract `version:`, `installed:` date, and `commit:` SHA. Calculate days since install.
-6. For each skill in the manifest, read its `~/.claude/skills/<name>/SKILL.md`
+5. Read `~/.claude/skills/write-a-skill/RESERVED-NAMES.md` — extract the Reserved names (both
+   tables), the At Risk names, and the verification stamp's date and version. Compare every
+   manifest name against the Reserved set; a match is a shadowed skill. Report the stamp's age
+   alongside every finding it produced — a collision found against a six-month-old list is a
+   different claim from one found against last week's.
+6. Read `~/.claude/forge-version` (if it exists) — extract `version:`, `installed:` date, and `commit:` SHA. Calculate days since install.
+7. For each skill in the manifest, read its `~/.claude/skills/<name>/SKILL.md`
    (if it exists) and extract:
    - Frontmatter fields present (`name:`, `description:`, `version:`, `origin:`)
    - Whether a `## Failure Modes` section is present (any variant of that heading)
@@ -70,6 +81,10 @@ Classify every finding against the checks table above. Tally totals:
 ```
 total_skills        = count of entries in manifest.json
 complete            = skills with SKILL.md + command stub + failure modes + rules sections
+shadowed_skills     = manifest names matching a Reserved row in RESERVED-NAMES.md
+at_risk_skills      = manifest names matching an At Risk row
+reserved_stamp_age  = days since the RESERVED-NAMES.md verification date
+reserved_stamp_ver  = Claude Code version in the stamp, or "not recorded"
 manifest_orphans    = skills in manifest with no SKILL.md directory
 dir_orphans         = skill directories with no manifest entry
 missing_commands    = manifest skills with no command stub
@@ -105,13 +120,24 @@ If any 🔴 Critical findings exist, surface a prominent warning:
    Full report: ~/.claude/knowledge/skill-health-report.md
 ```
 
+A shadowed name leads that warning ahead of any other Critical finding. A skill with no SKILL.md
+is visibly broken; a shadowed skill is invisibly broken, and the reader has no other way to find
+out:
+```
+🔴 N skill(s) are shadowed by a Claude Code name — they never load, and produce no error.
+   Shadowed: [names]
+   Reserved list last verified YYYY-MM-DD (Claude Code [version or "version not recorded"]).
+   Renaming is a major version — see /write-a-skill.
+```
+
 ---
 
 ## Forge Integration Points
 
 | Skill / File | Relationship |
 |---|---|
-| `/write-a-skill` | Defines the structural checklist this skill enforces — the canonical definition of a "complete" skill |
+| `/write-a-skill` | Defines the structural checklist this skill enforces — the canonical definition of a "complete" skill. Owns `RESERVED-NAMES.md`, which both skills read and neither restates |
+| `RESERVED-NAMES.md` | The reserved-name inventory. `/write-a-skill` gates on it at authoring time; this skill re-checks the whole portfolio as the list grows |
 | `/evolve` | Recommended action for Amber skills missing sections — evolve instincts into proper skills |
 | `/context-health` | Family sibling — token load audit. Run together for a complete framework health picture. |
 | `/knowledge-health` | Family sibling — knowledge article audit. Third panel of the same health picture. |
@@ -143,6 +169,9 @@ Consider running /skill-health before this sprint begins.
 | Single SKILL.md is unreadable | Note the file as unreadable, count it as missing required sections, continue |
 | `~/.claude/knowledge/` directory missing | Create it before writing the report |
 | `preferences.md` missing | Create it with `skill-health-last-run: YYYY-MM-DD` |
+| `RESERVED-NAMES.md` missing | Report 🔴 Critical — the authoring gate in `/write-a-skill` has nothing to check against. Skip the collision checks, name the absence, continue the rest of the audit |
+| `RESERVED-NAMES.md` stamp has no version | Report ℹ️ Info and repeat it on every collision finding — an undated clearance is worth less than it looks |
+| A shadowed skill is found | Report 🔴 Critical and lead the warning with it. Recommend the rename with its major version; never recommend a deprecation stub — the old name is shadowed, so the stub is unreachable too |
 | `--skill <name>` not found in manifest | Report "Skill '<name>' not found in manifest.json" — do not search directories |
 
 ---
@@ -160,6 +189,8 @@ Consider running /skill-health before this sprint begins.
 - Ground every finding in a specific file path — no general observations
 - If a section exists under any reasonable heading variant (e.g. "Never", "Failure Modes", "Failure Mode") count it as present — do not penalize naming variations
 - Never flag `~/.claude/SOUL.md`, `~/.claude/PRINCIPLES.md`, or framework files as missing skills
+- Never treat a name's absence from `RESERVED-NAMES.md` as proof it is free — report it as unchecked against a list stamped YYYY-MM-DD, which is what it is
+- Never edit `RESERVED-NAMES.md` during the audit — a stale stamp is reported, never quietly refreshed (the audit is read-only, and a refresh needs the live session this skill does not have)
 - A skill is "complete" only when it passes all checks — partial passes show in the scorecard but not as "complete"
 - Always include the Trend line (overall completeness vs previous report) — single snapshots are less useful than direction
 - Recommended actions must name the exact file or command — never generic guidance

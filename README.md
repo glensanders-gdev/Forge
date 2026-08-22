@@ -1,4 +1,4 @@
-# Forge v3.25.0
+# Forge v3.27.0
 
 An AI-assisted development workflow framework for Claude Code and Codex.
 
@@ -207,7 +207,7 @@ Or if you have an existing project:
 
 ## Skill Versioning
 
-Skills are versioned in `global/.claude/skills/manifest.json`. The current framework version is `3.25.0` across Claude Code and Codex. Claude project overrides live in `.claude/skills/`; Codex project overrides live in `.agents/skills/`.
+Skills are versioned in `global/.claude/skills/manifest.json`. The current framework version is `3.27.0` across Claude Code and Codex. Claude project overrides live in `.claude/skills/`; Codex project overrides live in `.agents/skills/`.
 
 ---
 
@@ -221,6 +221,7 @@ The full framework lifecycle is documented in `~/.claude/forge-sequence.mmd`. Re
 
 | Version | Changes |
 |---------|---------|
+| 3.27.0 | Name-collision policy — `RESERVED-NAMES.md` gates `/write-a-skill` at authoring time and `/skill-health` audits the portfolio against it |
 | 3.25.0 | `/continue` renamed `/pickup`, `/review` renamed `/diff-review` — both names were shadowed by Claude Code built-ins |
 | 3.24.0 | One handoff per stream of work — `docs/HANDOFF.md` becomes a register, streams live in `docs/handoffs/`; `skills/handoff/STREAMS.md` |
 | 3.21.1 | `/handoff` is user-invoked only — `disable-model-invocation` stops the model overwriting the next session's entry point |

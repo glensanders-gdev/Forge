@@ -21,12 +21,19 @@ Output inline and save to `~/.claude/knowledge/skill-health-report.md`:
 | Have command stub | N | N% |
 | Have Failure Modes section | N | N% |
 | Have Rules section | N | N% |
+| Name clear of the reserved list | N | N% |
 
 **Overall completeness:** N% (↑ improved / ↓ declined / — first check vs previous report)
 
 ---
 
 ## 🔴 Critical — Must Fix
+
+### Shadowed names (Claude Code claims the name — the skill never loads)
+| Skill | Reserved as | Source | Action |
+|-------|-------------|--------|--------|
+
+*Reserved list last verified YYYY-MM-DD against Claude Code [version / not recorded].*
 
 ### Manifest orphans (in manifest.json, no SKILL.md directory)
 | Skill | Version | Action |
@@ -75,6 +82,16 @@ Output inline and save to `~/.claude/knowledge/skill-health-report.md`:
 ### Version mismatches (SKILL.md version != manifest version)
 | Skill | SKILL.md | Manifest | Action |
 |-------|----------|----------|--------|
+
+### At-risk names (not reserved today, plausibly claimed next)
+| Skill | Why exposed |
+|-------|-------------|
+
+### Reserved list freshness
+| Item | Value | Status |
+|------|-------|--------|
+| Last verified | YYYY-MM-DD | ✅ within threshold / ⚠️ [N] days ago — run the refresh procedure in RESERVED-NAMES.md |
+| Claude Code version | [value] | ✅ recorded / ℹ️ not recorded — clearances are undated |
 
 ### Forge installation
 | Item | Value | Status |
