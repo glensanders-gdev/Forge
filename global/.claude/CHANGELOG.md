@@ -11,6 +11,38 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
+## v3.25.2 — 2026-08-22
+
+**`$write-a-skill` teaches the `no-adapt` fence** — the rule reaches the author who needs it
+
+v3.25.1 added the fence and documented it in <!--no-adapt-->`CLAUDE.md`<!--/no-adapt--> and
+`ADAPTATION.md`. Neither is where a skill author is looking while writing a skill, so the rule was
+discoverable only by someone already hunting for it.
+
+### Changed
+
+- **`write-a-skill` 1.4.0** — a fifth "After Writing Files" step, a Review Checklist item, and a
+  Failure Modes row for host-name falsification. The checklist item carries the decision rule
+  rather than restating the mechanism (PRINCIPLE 6): *ask which host the sentence is about, not
+  which host will read it.*
+- **The Codex-native override** gains the matching guidance on its own step 3 — "review the
+  generated Codex copy" now says to read it for host names, not just structure, since that is the
+  moment a falsification is visible. It also carries the inverse rule: **never write a fence marker
+  into a file under `plugins/forge-codex/`**. Those files are hand-maintained and never adapted, so
+  a marker there is not an exemption — it is a leak, and parity fails on it.
+- **`write-a-skill` now practises the rule.** Its own line about <!--no-adapt-->`/user:skill-name`
+  registering in Claude Code<!--/no-adapt--> is fenced. That line was true only because the override
+  skips adaptation entirely; fencing it means it stays true if the override is ever retired.
+
+### Note
+
+This is the follow-up flagged in v3.25.1. The ledger review it required was checked first: all 17
+override hashes were in sync beforehand, so `update-forge-codex-overrides.ps1 -ConfirmReview`
+re-stamped exactly the one changed entry. That tool rewrites **all 17** hashes on every run, so it
+is safe only on a clean tree with no other override drift — logged for a `-Only` flag.
+
+---
+
 ## v3.25.1 — 2026-08-22
 
 **Host names stop being rewritten into lies** — a substitution exemption for the Codex build
