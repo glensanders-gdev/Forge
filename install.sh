@@ -202,7 +202,7 @@ if [ ! -f "$CLAUDE_DIR/preferences.md" ]; then
 ## Security Assessment
 # security-assessment-last-run: (set automatically by /security-assessment)
 
-## Company (set by /company-add — do not edit manually)
+## Company (set by /add-company — do not edit manually)
 # active_company:
 EOF
   echo -e "${GREEN}✓  preferences.md created${NC}"
@@ -221,12 +221,12 @@ echo "  ~/.claude/skills/, commands/, rules/ are now linked to:"
 echo "  $SCRIPT_DIR/global/.claude/"
 echo ""
 echo "  Editing a skill in ~/.claude/ edits the repo directly."
-echo "  To update: cd $SCRIPT_DIR && git pull  (or run /forge-update)"
+echo "  To update: cd $SCRIPT_DIR && git pull  (or run /update-forge)"
 echo ""
 echo "Next steps:"
 echo "  1. Edit ~/.claude/preferences.md — set your username and sprint capacity"
 echo "  2. Open Claude Code in a project directory"
-echo "  3. Run: /user:forge-init  to generate ~/.claude/CLAUDE.md"
+echo "  3. Run: /user:init-forge  to generate ~/.claude/CLAUDE.md"
 echo "  4. Run: /user:commands    to see all available commands"
 echo ""
 echo "Full docs: $REPO_URL"

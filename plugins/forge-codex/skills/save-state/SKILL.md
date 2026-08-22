@@ -105,7 +105,7 @@ Run pickup ord-pack to resume from #N [ticket name].
 
 - `docs/handoffs/<slug>.md` — primary output; also written by `$handoff` and `$debrief`
 - `docs/HANDOFF.md` — the stream register; see `~/.agents/skills/handoff/STREAMS.md`
-- `docs/kanban.md` — also written by `$debrief`, `$sprint-end`, `$approve`
+- `docs/kanban.md` — also written by `$debrief`, `$end-sprint`, `$approve`
 - `docs/DEVLOG.md` — also written by `$standup` and `$debrief`
 - `$handoff` — planned pause on one stream, with skill suggestions for the next session
 - `$pickup` — reads a stream handoff on session start to orient itself

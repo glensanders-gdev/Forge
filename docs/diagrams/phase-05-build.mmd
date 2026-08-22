@@ -13,7 +13,7 @@ sequenceDiagram
     B->>Cfg: Read ai_human_signoff_required + ai_data_restrictions
     B->>Cfg: Check required tools
     alt Required tools missing
-        B->>H: ⛔ Install missing tools — run /tool-check
+        B->>H: ⛔ Install missing tools — run /check-tools
     end
 
     alt Buffer window active

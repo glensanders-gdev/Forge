@@ -19,7 +19,7 @@ company contexts (e.g. for a consultant working with several clients)?
 
 ## Decision
 
-**One company per Forge install.** `active_company` is a single value. `/company-add`
+**One company per Forge install.** `active_company` is a single value. `/add-company`
 blocks if a company is already configured. There is no `/company-switch` command.
 
 ---
@@ -36,7 +36,7 @@ blocks if a company is already configured. There is no `/company-switch` command
    is high.
 
 3. **Config conflicts.** Company config drives behaviour in `/build`, `/deploy`,
-   `/go-nogo`, `/pii-check`, and `/standup`. Two companies with different compliance
+   `/go-nogo`, `/check-pii`, and `/standup`. Two companies with different compliance
    tiers, deployment chains, or AI policies cannot safely share a single active config.
 
 4. **One machine = one context.** In practice, the overwhelming majority of users work
@@ -49,7 +49,7 @@ blocks if a company is already configured. There is no `/company-switch` command
 - Consultants or contractors working across clients must use separate machines,
   separate OS user accounts, or separate Forge installs (e.g. one per WSL distro).
 - There is no runtime overhead from conditional company resolution in skills.
-- The constraint is clearly documented at the `/company-add` pre-check rather than
+- The constraint is clearly documented at the `/add-company` pre-check rather than
   discovered by accident.
 
 ---

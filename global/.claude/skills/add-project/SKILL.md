@@ -6,7 +6,7 @@ description: Scaffold a new project knowledge folder with Raw/Wiki/Outputs tiers
 
 # Add Project
 
-> **Company-aware:** When `active_company` is set in `~/.claude/preferences.md` (configured by `/company-add`), projects are scaffolded under `~/.claude/companies/[active_company]/knowledge/projects/` instead of `~/.claude/knowledge/projects/`.
+> **Company-aware:** When `active_company` is set in `~/.claude/preferences.md` (configured by `/add-company`), projects are scaffolded under `~/.claude/companies/[active_company]/knowledge/projects/` instead of `~/.claude/knowledge/projects/`.
 
 Scaffold the full three-tier knowledge structure for a new project under `~/.claude/knowledge/projects/`.
 

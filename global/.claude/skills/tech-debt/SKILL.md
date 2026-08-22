@@ -1,7 +1,7 @@
 ---
 name: tech-debt
 category: maintenance
-description: Track and manage technical debt in the current project. Add entries with priority and location, list by priority, and resolve items when addressed. /sprint-start surfaces High items as candidates. Per-project register at docs/tech-debt.md. Use when user runs /tech-debt, identifies debt during a session, or /sprint-start surfaces High items for the sprint.
+description: Track and manage technical debt in the current project. Add entries with priority and location, list by priority, and resolve items when addressed. /start-sprint surfaces High items as candidates. Per-project register at docs/tech-debt.md. Use when user runs /tech-debt, identifies debt during a session, or /start-sprint surfaces High items for the sprint.
 ---
 
 # Tech Debt
@@ -141,9 +141,9 @@ Review complete. Changes: N items re-prioritised.
 
 ---
 
-## `/sprint-start` Integration
+## `/start-sprint` Integration
 
-`/sprint-start` reads `docs/tech-debt.md` after sprint goals are confirmed.
+`/start-sprint` reads `docs/tech-debt.md` after sprint goals are confirmed.
 If any High priority items exist:
 
 ```
@@ -165,7 +165,7 @@ Human confirms — items are never added automatically.
 |-----------|-----------|
 | `docs/tech-debt.md` missing | Create it with the standard header on first `/tech-debt add` |
 | ID not found for resolve | List open IDs and ask to confirm |
-| No High items | Note "No High priority tech debt" in sprint-start — do not warn |
+| No High items | Note "No High priority tech debt" in start-sprint — do not warn |
 | Empty register | Note "No tech debt registered" on list |
 
 ---
@@ -176,4 +176,4 @@ Human confirms — items are never added automatically.
 - Descriptions must be specific enough to be actionable: file path or module required
 - Never auto-add items — always confirm before writing
 - Resolved items are retained in the register for historical reference
-- `/sprint-start` surfaces High items only — Medium and Low are not surfaced unless user runs `/tech-debt list`
+- `/start-sprint` surfaces High items only — Medium and Low are not surfaced unless user runs `/tech-debt list`

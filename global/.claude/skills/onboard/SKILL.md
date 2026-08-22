@@ -112,7 +112,7 @@ Recommended next steps:
 2. Review docs/kanban.md — confirm ticket state is accurate
 3. Run /user:grill-with-docs to validate domain model against codebase
 4. Add this project to ~/.claude/priorities.md
-5. Add to sprint calendar via /user:sprint-start
+5. Add to sprint calendar via /user:start-sprint
 ```
 
 ## Rules

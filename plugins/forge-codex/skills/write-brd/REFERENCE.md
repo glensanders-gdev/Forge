@@ -74,7 +74,7 @@ carrying a declared gap.
 
 ## Phase 3 — self-assessment report
 
-The report format in [GATE-PROTOCOL.md](../brd-review/GATE-PROTOCOL.md), with three changes that
+The report format in [GATE-PROTOCOL.md](../review-brd/GATE-PROTOCOL.md), with three changes that
 follow from the reviewer being the author:
 
 1. **The reviewer line says so.** `**Reviewer:** $write-brd — the author's own assessment, not an
@@ -82,7 +82,7 @@ follow from the reviewer being the author:
 2. **A refusal is not recorded and overridden.** Name the absent bar items and offer to return to
    Phase 2. The protocol's authority note covers declaring *someone else's* document not-ready; it
    does not apply to your own.
-3. **The closing line names the independent pass.** `Run $brd-review for the independent assessment —
+3. **The closing line names the independent pass.** `Run $review-brd for the independent assessment —
    §8 names a reviewer who did not author the document as the highest-value Tier 1 control, and this
    assessment is not one.`
 

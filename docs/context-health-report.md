@@ -31,7 +31,7 @@ Notes:
 | File | Tokens | Threshold | Action |
 |------|--------|-----------|--------|
 | `~/.claude/knowledge/projects/fftcg-simulator/Wiki/` (6 files) | 5,347 | 5,000 | Largest files: `fftcg-faq-rulings.md` (2,147), `fftcg-errata.md` (1,544). Only loads in fftcg-simulator sessions, not Forge — review those two for entries that can be condensed or split when next working that project. |
-| Skill portfolio (carried from 2026-06-11) | 2,076–8,765 each | 2,000/skill | 20 skills still exceed the single-skill red threshold — see `docs/skill-size-audit.md`. Top offenders: company-add (8,765), graphify (8,486), dashboard-tokens (8,375). Fix: extract embedded templates to `references/` folders. |
+| Skill portfolio (carried from 2026-06-11) | 2,076–8,765 each | 2,000/skill | 20 skills still exceed the single-skill red threshold — see `docs/skill-size-audit.md`. Top offenders: add-company (8,765), graphify (8,486), dashboard-tokens (8,375). Fix: extract embedded templates to `references/` folders. |
 
 ### ⚠️ Amber — Monitor or Trim
 
@@ -47,7 +47,7 @@ Notes:
 |------|--------|
 | CLAUDE.md (project, `Forge/CLAUDE.md`) | 943 |
 | docs/HANDOFF.md | 807 |
-| ~/.claude/CLAUDE.md (forge-init output) | 430 |
+| ~/.claude/CLAUDE.md (init-forge output) | 430 |
 | ~/.claude/PRINCIPLES.md | 1,508 (framework file — awareness only) |
 | ~/.claude/SOUL.md | 629 (framework file — awareness only) |
 | ~/.claude/preferences.md | 143 |
@@ -74,7 +74,7 @@ Auto-load grew +6,098 tokens (+76%) in a month. Drivers: nbn company setup (acro
 
 ## Recommended Actions
 
-1. `docs/kanban.md` (1,260 tokens ⚠️, outstanding since 2026-06-11) — archive all Done tickets to `docs/kanban-archive.md` under a "Junction Sync" heading. Saving: ~1,000 tokens per session. Happens automatically at next `/sprint-end`.
+1. `docs/kanban.md` (1,260 tokens ⚠️, outstanding since 2026-06-11) — archive all Done tickets to `docs/kanban-archive.md` under a "Junction Sync" heading. Saving: ~1,000 tokens per session. Happens automatically at next `/end-sprint`.
 2. `docs/DEVLOG.md` (1,831 tokens ⚠️) — archive entries older than the last 3 sessions to `docs/devlog-archive.md`. Saving: ~800–1,000 tokens per session.
 3. Injected rules set (4,848 tokens, crossed the ~5k watch line) — stop injecting `rules/README.md` (contributor documentation, not a coding standard). Saving: ~570 tokens per session across **all** projects.
 4. Skill slimming (🔴, recurring per-invocation cost, carried from last report) — extract dashboard-tokens' embedded HTML template to `references/dashboard-template.html`. Saving: ~5–6k tokens per invocation.

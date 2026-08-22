@@ -18,6 +18,11 @@ Create or update a skill without confusing Forge's canonical source, its generat
 > *craft* of the prose inside them — **leading words**, checkable **completion criteria**,
 > information hierarchy, and pruning out **no-ops** — read [CRAFT.md](CRAFT.md) before
 > drafting a description or step. Predictability (same process every run) is the goal.
+>
+> **Names** — [RESERVED-NAMES.md](RESERVED-NAMES.md) holds the names Claude Code already claims,
+> and step 2 gates on it. It is a **Claude Code** list: Forge skills are authored against Claude
+> Code first and generated into this plugin, so a name taken there is unusable regardless of host.
+> No equivalent list exists for Codex's own reserved surface — that gap is real and unclosed.
 
 ## Process
 
@@ -27,17 +32,27 @@ Create or update a skill without confusing Forge's canonical source, its generat
    - Is it global (all projects) or project-specific?
    - Does it need supporting files (REFERENCE.md, EXAMPLES.md, scripts)?
 
-2. **Draft the skill** — create:
+2. **Check the name against [RESERVED-NAMES.md](RESERVED-NAMES.md)** — compare the proposed name
+   to every Reserved row before scaffolding, and report the result either way, naming the stamp
+   date so the author knows what a pass is worth.
+
+   **On a match, stop and gate.** Name the collision and its source, then offer a rename or a
+   typed `CONFIRM` to proceed — the list is stale in both directions, so an author who knows a
+   name has been released may override. Never scaffold through a match unaided.
+
+   A hit in the At Risk table is not a block. Say so and continue.
+
+3. **Draft the skill** — create:
    - `SKILL.md` with concise instructions — target under 100 lines; if workflow logic exceeds this, extract supporting content (reference tables, templates, examples, scripts) to additional files (`REFERENCE.md`, `FORMATS.md`, `scripts/`, etc.)
    - Additional files for any content that would push `SKILL.md` over 100 lines or has a distinct domain
    - No Codex command stub; Codex discovers `SKILL.md` directly
 
-3. **Review with user** — present the draft and ask:
+4. **Review with user** — present the draft and ask:
    - Does this cover your use cases?
    - Anything missing or unclear?
    - Should any section be more or less detailed?
 
-4. **Write the files** — once confirmed, create all files and update the manifest.
+5. **Write the files** — once confirmed, create all files and update the manifest.
 
 ## File Structure
 
@@ -139,7 +154,7 @@ Before finalising, verify:
 - [ ] **`global/.claude/skills/commands/SKILL.md` updated** — add the skill to the command reference.
 - [ ] **`global/.claude/CHANGELOG.md` updated** — add the skill under the current `forge_version` entry.
 - [ ] **`README.md` updated** — increment the skill count in the "What's Included" intro line (e.g. "**94 skills**"), add the new skill to the correct category row in the table, and update any other inline counts (e.g. the file structure section).
-- [ ] **Git tag and GitHub Release created** — after merging to `main`: (1) push the tag: `git tag v[forge_version] <main-sha> && git push origin v[forge_version]`; (2) create a GitHub Release at `github.com/glensanders-gdev/Forge/releases/new` using that tag, pasting the relevant CHANGELOG section as the release body. Tags anchor version strings to specific commits; Releases surface them in the repo UI and enable future API-based version checks in `$forge-update`.
+- [ ] **Git tag and GitHub Release created** — after merging to `main`: (1) push the tag: `git tag v[forge_version] <main-sha> && git push origin v[forge_version]`; (2) create a GitHub Release at `github.com/glensanders-gdev/Forge/releases/new` using that tag, pasting the relevant CHANGELOG section as the release body. Tags anchor version strings to specific commits; Releases surface them in the repo UI and enable future API-based version checks in `$update-forge`.
 - [ ] **Diagrams reviewed** — if a new pipeline phase was added, or the delivery lifecycle changed materially, update: `~/.codex/forge/forge-sequence.mmd` (installed single-file) and `docs/diagrams/framework-complete.mmd` + the relevant `docs/diagrams/phase-NN-*.mmd` file in the Forge repo. Not required for every skill — only when a diagram would be materially wrong without the update.
 
 ## Failure Modes

@@ -4,7 +4,7 @@
 **Owner / Contact:** [Brand / Communications team]
 **Status:** Placeholder — populate this file when onboarding at your company.
 
-The AI reads this file when producing written outputs (documents, PRDs, reports, stakeholder summaries). Fill in each section with your company's standards. Run `/user:style-check` to validate any deliverable against these standards.
+The AI reads this file when producing written outputs (documents, PRDs, reports, stakeholder summaries). Fill in each section with your company's standards. Run `/user:check-style` to validate any deliverable against these standards.
 
 ---
 

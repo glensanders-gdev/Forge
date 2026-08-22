@@ -1,12 +1,12 @@
 sequenceDiagram
     actor H as Human
-    participant SS as /sprint-start
+    participant SS as /start-sprint
     participant SD as /standup
     participant Cal as ~/.claude/sprints/calendar.md
     participant Cfg as Company Config
     participant FS as docs/sprints/
 
-    H->>SS: /sprint-start
+    H->>SS: /start-sprint
 
     SS->>Cal: Identify current sprint by today's date
     alt No sprint in calendar

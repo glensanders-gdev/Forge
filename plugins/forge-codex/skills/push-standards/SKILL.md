@@ -14,7 +14,7 @@ Extract coding patterns and conventions from the current codebase and document t
 
 - After `$approve` when the user opts to document standards
 - When a pattern has been repeated enough to be worth formalising
-- After a `$diff-review` surfaces a recurring issue worth preventing
+- After a `$review-diff` surfaces a recurring issue worth preventing
 
 ## Process
 
@@ -58,8 +58,8 @@ Append under `## Project-Specific Patterns` at the bottom of `.codex/forge/CODIN
 - `.codex/forge/CODING-STANDARDS.md` — canonical standards file this skill reads and updates
 - `global/.claude/rules/common/coding-style.md` — universal baseline rules that inform the standards
 - `$lang-rules` — installs language-specific rules that push-standards incorporates
-- `$diff-review` — applies the standards produced here during code review
-- `$style-check` — sister skill for prose/documentation standards (push-standards handles code)
+- `$review-diff` — applies the standards produced here during code review
+- `$check-style` — sister skill for prose/documentation standards (push-standards handles code)
 
 ## Rules
 

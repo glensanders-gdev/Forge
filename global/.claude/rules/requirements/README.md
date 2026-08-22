@@ -39,6 +39,6 @@ skill files themselves would strip the directives that make the skills work.
 
 ## Enforcement
 
-`/style-check` reads `~/.claude/knowledge/company/style-guide.md`, not this ruleset — a company
+`/check-style` reads `~/.claude/knowledge/company/style-guide.md`, not this ruleset — a company
 style guide may add to these rules but never relaxes them. Where the two conflict, the stricter
 requirement wins and the conflict is flagged rather than silently resolved.

@@ -69,7 +69,7 @@ Flag in the output:
 ## Related
 
 - `/go-nogo` — produces the **Go/No Go Gate** record checked during sprint planning
-- `/sprint-start` — opens an individual project sprint after the sprint plan is approved
+- `/start-sprint` — opens an individual project sprint after the sprint plan is approved
 - `/piplan` — PI-level planning that sprint plans feed into
 
 ## Rules
@@ -85,7 +85,7 @@ Flag in the output:
 | Condition | Behaviour |
 |-----------|-----------|
 | No PI plan at `~/.claude/pi/[current-pi]/plan.md` | Note no active PI is set; suggest `/piplan` before a sprint plan can be shown. |
-| No sprint calendar entries | Report that dates are unavailable and recommend `/sprint-start` or `/piplan` first. |
+| No sprint calendar entries | Report that dates are unavailable and recommend `/start-sprint` or `/piplan` first. |
 | A feature has no assigned release | Flag it ⚠️ — never silently omit it from the view. |
 | A Go/No Go date is missing for a release | Surface the gap — Go/No Go dates are never omitted. |
 | A sprint appears over capacity | Flag 🟡 — this is display only; never reschedule automatically. |

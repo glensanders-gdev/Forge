@@ -27,7 +27,7 @@ Type a number or project name.
 4. **Extract Backlog section only** — In Progress and Blocked tickets are excluded.
 5. **Group by priority** — P1 → P2 → P3 → P4 → Unranked.
 6. **Display the formatted list.**
-7. Offer: "Want to add an item to this backlog? Run `/user:backlog-add`."
+7. Offer: "Want to add an item to this backlog? Run `/user:add-backlog-item`."
 
 ## Output Format
 

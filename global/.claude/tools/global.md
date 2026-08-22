@@ -14,10 +14,10 @@ entirely new tools not listed here.
 | Category | Skills that use it |
 |----------|-------------------|
 | `security-scanner` | `/security-assessment` |
-| `performance-analyser` | `/performance-review` |
-| `dependency-auditor` | `/dependency-update`, `/security-assessment` |
+| `performance-analyser` | `/review-performance` |
+| `dependency-auditor` | `/update-dependencies`, `/security-assessment` |
 | `test-runner` | `/tdd` |
-| `linter` | `/diff-review`, `/push-standards` |
+| `linter` | `/review-diff`, `/push-standards` |
 
 Custom categories are allowed — use any descriptive string. The AI will warn if an
 unrecognised category is used but will not block it.

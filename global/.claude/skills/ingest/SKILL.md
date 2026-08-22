@@ -6,7 +6,7 @@ description: Compile unprocessed Raw/ items into the Wiki. Handles three intake 
 
 # Ingest
 
-> **Company-aware:** When `active_company` is set in `~/.claude/preferences.md` (configured by `/company-add`), all Raw/ and Wiki/ paths resolve under `~/.claude/companies/[active_company]/knowledge/` instead of `~/.claude/knowledge/`.
+> **Company-aware:** When `active_company` is set in `~/.claude/preferences.md` (configured by `/add-company`), all Raw/ and Wiki/ paths resolve under `~/.claude/companies/[active_company]/knowledge/` instead of `~/.claude/knowledge/`.
 
 Compile unprocessed source material into the Wiki. Raw is always the origin — all intake
 modes save to `Raw/` first, then flow through the same pipeline.
@@ -152,10 +152,10 @@ configured, offer to push the new Wiki articles to the team:
 ```
 ✅ Ingest complete — N articles created/updated.
 
-   Share with your team? Run /company-sync --push-only
+   Share with your team? Run /sync-company --push-only
 ```
 
-Do not run `/company-sync` automatically — always offer and let the user decide.
+Do not run `/sync-company` automatically — always offer and let the user decide.
 
 ---
 
@@ -177,4 +177,4 @@ Do not run `/company-sync` automatically — always offer and let the user decid
 | Concept spans 2+ systems | It belongs in global `Wiki/` — confirm via `cross_system_gate` before creating. |
 | A single item fails to compile | Log `failed: [reason]` in `_compiled.log` and continue — never stop mid-batch. |
 | Same item fails twice | Flag it in the summary for human review. |
-| `active_company` set with a git remote | Offer `/company-sync --push-only` after the run — never push automatically. |
+| `active_company` set with a git remote | Offer `/sync-company --push-only` after the run — never push automatically. |

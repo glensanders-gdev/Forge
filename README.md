@@ -1,4 +1,4 @@
-# Forge v3.25.0
+# Forge v4.0.0
 
 An AI-assisted development workflow framework for Claude Code and Codex.
 
@@ -10,7 +10,7 @@ Forge is a structured dev workflow built around composable skills for Claude Cod
 
 ```
 /idea → /create-project → /grill-with-docs → /write-prd → /testplan
-     → /to-tickets → /sprint-start → /build → /qa-plan → /pii-check → /approve
+     → /to-tickets → /start-sprint → /build → /qa-plan → /check-pii → /approve
      → /go-nogo → /deploy → production
 ```
 
@@ -25,16 +25,16 @@ Each stage produces an artifact that feeds the next. The AI agent orients itself
 | Category | Skills |
 |----------|--------|
 | Ideation | `/idea`, `/create-project`, `/front-gate`, `/onboard` |
-| Pipeline | `/grill-with-docs`, `/grill-me`, `/grill-with-peer`, `/research`, `/prototype`, `/write-brd`, `/write-prd`, `/write-ord`, `/brd-review`, `/ord-review`, `/write-reqs`, `/write-ac`, `/testplan`, `/estimate`, `/break-down`, `/to-tickets`, `/build`, `/tdd`, `/test-coverage`, `/qa-plan`, `/qa-report`, `/pii-check`, `/approve` |
-| Session Management | `/pickup`, `/standup`, `/handoff`, `/debrief`, `/save-state`, `/scope-check`, `/caveman`, `/backlog-list`, `/backlog-proj`, `/backlog-add`, `/lookup`, `/ia` |
-| Code Quality | `/scan-first`, `/diff-review`, `/critic`, `/diagnose`, `/write-adr`, `/push-standards`, `/lang-rules`, `/update-readme`, `/git-guardrails`, `/accessibility`, `/ai-first-engineering`, `/write-article`, `/seo`, `/security-assessment`, `/security-resolve`, `/performance-review`, `/vibe-security`, `/codex-review` |
-| Knowledge Base | `/ia`, `/add-system`, `/add-project`, `/brain-setup`, `/teach`, `/summarise-system`, `/update-context`, `/add-term`, `/knowledge-health`, `/knowledge-onboard`, `/style-check`, `/ingest`, `/publish`, `/setup-confluence` |
-| Metrics & Reporting | `/token-report`, `/dashboard-tokens`, `/context-health`, `/fy-review` |
-| PI & Release | `/piplan`, `/pi-end`, `/sprintplan`, `/go-nogo`, `/changelog`, `/deploy`, `/deploy-pi`, `/rollback`, `/rollback-pi`, `/standalone-release`, `/sprint-replan`, `/pi-replan`, `/incident`, `/raid` |
-| Sprint Management | `/sprint-start`, `/sprint-end`, `/pir` |
-| Maintenance | `/feature-flag`, `/tech-debt`, `/dependency-update` |
-| Company Config | `/company-add`, `/company-git`, `/company-sync`, `/company-update`, `/jira`, `/roap`, `/tool-add`, `/tool-check` |
-| Framework | `/write-a-skill`, `/assimilate`, `/learn`, `/evolve`, `/forge-init`, `/forge-install`, `/forge-update`, `/skill-health`, `/intent-layers`, `/link-jira`, `/commands` |
+| Pipeline | `/grill-with-docs`, `/grill-me`, `/grill-with-peer`, `/research`, `/prototype`, `/write-brd`, `/write-prd`, `/write-ord`, `/review-brd`, `/review-ord`, `/write-reqs`, `/write-ac`, `/testplan`, `/estimate`, `/break-down`, `/to-tickets`, `/build`, `/tdd`, `/test-coverage`, `/qa-plan`, `/qa-report`, `/check-pii`, `/approve` |
+| Session Management | `/pickup`, `/standup`, `/handoff`, `/debrief`, `/save-state`, `/check-scope`, `/caveman`, `/backlog-list`, `/backlog-proj`, `/add-backlog-item`, `/lookup`, `/ia` |
+| Code Quality | `/scan-first`, `/review-diff`, `/critic`, `/diagnose`, `/write-adr`, `/push-standards`, `/lang-rules`, `/update-readme`, `/git-guardrails`, `/accessibility`, `/ai-first-engineering`, `/write-article`, `/seo`, `/security-assessment`, `/resolve-findings`, `/review-performance`, `/vibe-security`, `/codex-review` |
+| Knowledge Base | `/ia`, `/add-system`, `/add-project`, `/setup-brain`, `/teach`, `/summarise-system`, `/update-context`, `/add-term`, `/knowledge-health`, `/onboard-knowledge`, `/check-style`, `/ingest`, `/publish`, `/setup-confluence` |
+| Metrics & Reporting | `/token-report`, `/dashboard-tokens`, `/context-health`, `/review-fy` |
+| PI & Release | `/piplan`, `/end-pi`, `/sprintplan`, `/go-nogo`, `/changelog`, `/deploy`, `/deploy-pi`, `/rollback`, `/rollback-pi`, `/standalone-release`, `/replan-sprint`, `/replan-pi`, `/incident`, `/raid` |
+| Sprint Management | `/start-sprint`, `/end-sprint`, `/pir` |
+| Maintenance | `/feature-flag`, `/tech-debt`, `/update-dependencies` |
+| Company Config | `/add-company`, `/company-git`, `/sync-company`, `/update-company`, `/jira`, `/roap`, `/add-tool`, `/check-tools` |
+| Framework | `/write-a-skill`, `/assimilate`, `/learn`, `/evolve`, `/init-forge`, `/install-forge`, `/update-forge`, `/skill-health`, `/intent-layers`, `/link-jira`, `/commands` |
 
 ---
 
@@ -73,7 +73,7 @@ cd ~/forge && git pull
 Or from any Claude Code session:
 
 ```
-/forge-update
+/update-forge
 ```
 
 ### Remote / Web Sessions (Claude Code on Web)
@@ -192,9 +192,9 @@ Or if you have an existing project:
 | `[PREP]` | Deployment prep — safe to execute during buffer window |
 | `blocked-by: #N` | Cannot start until ticket #N is complete |
 | Smart Zone | Keep each task under 100k tokens |
-| Buffer window | Days before the release date (default: Friday–Sunday). Configured via `/company-add` |
-| Release day | Configured via `/company-add` (default: 3rd Monday of each month) |
-| Sprint start | Configured via `/company-add` (default: Tuesdays) |
+| Buffer window | Days before the release date (default: Friday–Sunday). Configured via `/add-company` |
+| Release day | Configured via `/add-company` (default: 3rd Monday of each month) |
+| Sprint start | Configured via `/add-company` (default: Tuesdays) |
 | `IDEA-NNN` | Unique idea ID — assigned at `/idea`, tracked in `~/.claude/registry.md` |
 | `PROJ-NNN` | Unique project ID — assigned at `/create-project` or `/onboard` |
 | `TC-NNN` | Unique test case ID — assigned at `/testplan`, tracked in `docs/tests/registry.md` |
@@ -207,7 +207,7 @@ Or if you have an existing project:
 
 ## Skill Versioning
 
-Skills are versioned in `global/.claude/skills/manifest.json`. The current framework version is `3.25.0` across Claude Code and Codex. Claude project overrides live in `.claude/skills/`; Codex project overrides live in `.agents/skills/`.
+Skills are versioned in `global/.claude/skills/manifest.json`. The current framework version is `4.0.0` across Claude Code and Codex. Claude project overrides live in `.claude/skills/`; Codex project overrides live in `.agents/skills/`.
 
 ---
 
@@ -221,6 +221,8 @@ The full framework lifecycle is documented in `~/.claude/forge-sequence.mmd`. Re
 
 | Version | Changes |
 |---------|---------|
+| 4.0.0 | **Breaking** — 26 action skills renamed verb-first per ADR-0002; state skills keep noun shape |
+| 3.27.0 | Name-collision policy — `RESERVED-NAMES.md` gates `/write-a-skill` at authoring time and `/skill-health` audits the portfolio against it |
 | 3.25.0 | `/continue` renamed `/pickup`, `/review` renamed `/diff-review` — both names were shadowed by Claude Code built-ins |
 | 3.24.0 | One handoff per stream of work — `docs/HANDOFF.md` becomes a register, streams live in `docs/handoffs/`; `skills/handoff/STREAMS.md` |
 | 3.21.1 | `/handoff` is user-invoked only — `disable-model-invocation` stops the model overwriting the next session's entry point |

@@ -18,7 +18,7 @@ Standalone reference utility — no pipeline position. User-invoked any time.
 $commands     ← list all available Forge skills
 ```
 
-Related: `$skill-health` (validates skills are functioning), `$forge-update` (installs new skills)
+Related: `$skill-health` (validates skills are functioning), `$update-forge` (installs new skills)
 
 ## Output
 
@@ -48,8 +48,8 @@ Print the following reference exactly:
 | `write-ord` | Synthesise a transcript/document into an Operational Requirements Document (ISO/IEC 25010:2023) — AFK ingests and classifies, HITL writes |
 | `write-reqs` | Author a PRD and ORD together from one source — AFK classifies functional vs operational, delegates each to $write-prd and $write-ord, then cross-links the BRD↔PRD↔ORD traceability |
 | `write-ac` | Transform a PRD and ORD into Jira acceptance criteria — AFK sorts KPPs/headline outcomes to Capability AC and detail to child issues, HITL writes docs/ac/ and optionally pushes to the linked Jira Capability behind a PUSH gate |
-| `brd-review` | Assess a BRD against the published handoff gate (BH-1 – BH-10, the `[TBD]` rule) — AFK advisory, per-item verdicts with evidence and one of four outcomes derived from them, no score |
-| `ord-review` | Assess an ORD against the §7.1 gate (OH-1 – OH-13) plus the §7.3 defect scan and the §5 tier rule — AFK advisory, per-item verdicts with evidence and one of four outcomes derived from them, no score |
+| `review-brd` | Assess a BRD against the published handoff gate (BH-1 – BH-10, the `[TBD]` rule) — AFK advisory, per-item verdicts with evidence and one of four outcomes derived from them, no score |
+| `review-ord` | Assess an ORD against the §7.1 gate (OH-1 – OH-13) plus the §7.3 defect scan and the §5 tier rule — AFK advisory, per-item verdicts with evidence and one of four outcomes derived from them, no score |
 | `testplan` | Design the testing strategy — automated vs manual, critical path, what's not tested |
 | `estimate` | Estimate token cost bands and story points — table of estimates, human confirms, XL flags $break-down |
 | `break-down` | Split a large ticket into smaller smart-zone tickets |
@@ -58,7 +58,7 @@ Print the following reference exactly:
 | `tdd` | Run a single TDD cycle manually — red-green-refactor, one test at a time |
 | `qa-plan` | Generate a human QA checklist from the active PRD and testplan |
 | `qa-report` | Record QA results as a datestamped evidence artefact — CI link, test output, per-TC pass/fail, approve gate verdict |
-| `pii-check` | Scan for PII — AFK scans codebase and docs, HITL reviews findings and confirms remediation |
+| `check-pii` | Scan for PII — AFK scans codebase and docs, HITL reviews findings and confirms remediation |
 | `approve` | QA passed — archive PRD, seal session, close feature cycle |
 
 ### Session Management
@@ -69,10 +69,10 @@ Print the following reference exactly:
 | `handoff [stream]` | Compact the session into a handoff for one stream of work — writes `docs/handoffs/[stream].md`, updates the register, suggests next skills. `--close` retires a finished stream |
 | `debrief [stream]` | Close a partial session — update the stream handoff, sweep the register for stale or colliding streams, update kanban, write DEVLOG, reorder backlog |
 | `save-state [stream]` | Save state immediately — stream handoff → register → kanban.md → DEVLOG. Never asks a question. Use to pause or on context exhaustion |
-| `scope-check` | Flag scope creep and force a decision on each unplanned item |
+| `check-scope` | Flag scope creep and force a decision on each unplanned item |
 | `backlog-list` | Display global backlog grouped by priority |
 | `backlog-proj` | Display a project's backlog — select from known projects, grouped by priority |
-| `backlog-add` | Add an item to global or project backlog — grills lightly before writing |
+| `add-backlog-item` | Add an item to global or project backlog — grills lightly before writing |
 
 ### Code Quality
 | Command | What it does |
@@ -82,14 +82,14 @@ Print the following reference exactly:
 | `ai-first-engineering` | Operating principles for AI-assisted delivery — process shifts, architecture, review focus, testing standards |
 | `accessibility` | Design, implement, and audit WCAG 2.2 Level AA compliance — Web/iOS/Android, QA checklist, anti-patterns |
 | `diagnose` | Systematically debug a failing ticket — hypothesis before fix |
-| `diff-review` | Structured code review against ADRs, CONTEXT.md, and standards |
+| `review-diff` | Structured code review against ADRs, CONTEXT.md, and standards |
 | `critic` | Honest prioritised critique of a framework, PRD, plan, or design |
 | `lang-rules` | Install and activate language-specific coding rule sets for the current project |
 | `push-standards` | Extract codebase patterns into .codex/forge/CODING-STANDARDS.md project-specific section |
 | `write-adr` | Create an Architecture Decision Record for a hard design decision |
 | `security-assessment` | Structured security audit — OWASP Top 10, AI threat model, optional tool scan (semgrep/bandit/trivy), gitignored report |
-| `security-resolve` | Mark a security finding resolved — records fix in the report and closes the kanban ticket |
-| `performance-review` | Performance audit — AI-led static analysis and optional tool scan (Lighthouse, bundle analyser), gitignored report |
+| `resolve-findings` | Mark a security finding resolved — records fix in the report and closes the kanban ticket |
+| `review-performance` | Performance audit — AI-led static analysis and optional tool scan (Lighthouse, bundle analyser), gitignored report |
 | `update-readme` | Propose README updates for new features, changed behaviour, version history |
 | `graphify` | Build or query a persistent knowledge graph for a codebase or mixed content |
 
@@ -97,14 +97,14 @@ Print the following reference exactly:
 | Command | What it does |
 |---------|-------------|
 | `ia` | Impact assessment — sharpen a proposed change, search all knowledge sources, produce a severity-tagged summary, change brief or PRD, and draft artefacts in an isolated IA folder |
-| `knowledge-onboard` | Guided company knowledge setup — style guide, acronyms, domain terms, and core systems in sequence |
-| `style-check` | Review any deliverable against the company style guide — CRITICAL/HIGH/LOW findings, pass/fail gate |
+| `onboard-knowledge` | Guided company knowledge setup — style guide, acronyms, domain terms, and core systems in sequence |
+| `check-style` | Review any deliverable against the company style guide — CRITICAL/HIGH/LOW findings, pass/fail gate |
 | `knowledge-health` | Read-only diagnostic across all knowledge layers — coverage scorecard, stale files, cross-reference conflicts, interesting connections |
 | `add-term` | Add a term to the company-level glossary — acronyms or domain concepts, lightweight quick-add |
 | `add-system` | Scaffold a new system folder in ~/.codex/forge/knowledge/systems/ |
 | `teach` | Teach a subject across sessions — mission-grounded, ZPD-pitched HTML lessons with curated resources, spaced practice, and learning records under ~/.codex/forge/knowledge/learning/ |
 | `add-project` | Scaffold a new project knowledge folder under ~/.codex/forge/knowledge/projects/ with Raw/Wiki/Outputs tiers |
-| `brain-setup` | Scaffold or audit the three-tier second-brain model (global/company/project Raw+Wiki) — enforce per-project personal-or-company scope, establish the company pending-changes record |
+| `setup-brain` | Scaffold or audit the three-tier second-brain model (global/company/project Raw+Wiki) — enforce per-project personal-or-company scope, establish the company pending-changes record |
 | `summarise-system` | Draft overview.md for a system from docs or description |
 | `update-context` | Flush session discoveries into CONTEXT.md and knowledge files |
 | `ingest` | Compile Raw/ items into Wiki articles — handles files in Raw/, uploaded files, and pasted text |
@@ -118,13 +118,13 @@ Print the following reference exactly:
 | `dashboard-tokens` | Generate a comprehensive project health dashboard — Token & Cost, Quality, Pipeline, Knowledge, Health sections |
 | `context-health` | Audit the token load profile of context files — sizes, growth flags, trimming recommendations |
 | `intent-layers` | Alias for `$context-health` — use if you think in terms of Tyler Brandt's Intent Layer pattern (directory-scoped AGENTS.md nodes) |
-| `fy-review` | Generate a financial year or mid-year review — delivered value, token spend, year-on-year comparison |
+| `review-fy` | Generate a financial year or mid-year review — delivered value, token spend, year-on-year comparison |
 
 ### PI & Release Management
 | Command | What it does |
 |---------|-------------|
 | `piplan` | Create or update a PI plan — releases, sprints, features, stakeholder view |
-| `pi-end` | Formally close a PI — delivery summary, retro, carry-forwards, stakeholder update, archive |
+| `end-pi` | Formally close a PI — delivery summary, retro, carry-forwards, stakeholder update, archive |
 | `sprintplan` | Display sprint timeline with tickets, deployments, buffers, and Go/No Go dates |
 | `go-nogo` | Prepare Go/No Go brief for a release — reads company config for cadence and freeze periods; human types GO or NO-GO |
 | `changelog` | Generate release notes from completed kanban tickets, DEVLOG entries, ADRs, and git log |
@@ -133,33 +133,33 @@ Print the following reference exactly:
 | `rollback` | Roll back current project — presents last good version, requires reason + ROLLBACK [version] |
 | `rollback-pi` | Roll back all PI projects in reverse order — one reason, per-project confirmation, stops on failure |
 | `standalone-release` | Deploy an urgent change outside the monthly cycle — lighter gate, still HITL |
-| `sprint-replan` | Inject unplanned work mid-sprint — absorb or swap, displaced tickets flagged in backlog |
-| `pi-replan` | Inject new project mid-PI — assesses remaining releases, Fixed Deadline risks, two-gate confirmation |
+| `replan-sprint` | Inject unplanned work mid-sprint — absorb or swap, displaced tickets flagged in backlog |
+| `replan-pi` | Inject new project mid-PI — assesses remaining releases, Fixed Deadline risks, two-gate confirmation |
 | `incident` | Manage a production incident lifecycle — declare, investigate, resolve, post-mortem, stakeholder comms |
 
 ### Sprint Management
 | Command | What it does |
 |---------|-------------|
-| `sprint-start` | Open a new sprint — pull calendar dates, carry-in, capture goals and deadlines |
-| `sprint-end` | Close the sprint — AFK drafts from kanban, HITL finalises retro and carry-over |
+| `start-sprint` | Open a new sprint — pull calendar dates, carry-in, capture goals and deadlines |
+| `end-sprint` | Close the sprint — AFK drafts from kanban, HITL finalises retro and carry-over |
 | `pir` | Post Implementation Review — did features achieve stated goals? Reads PRDs, collects outcomes, writes private PIR to company directory |
 
 ### Maintenance
 | Command | What it does |
 |---------|-------------|
 | `feature-flag` | Track feature flags from creation to removal — register, surface overdue flags, create cleanup tickets |
-| `tech-debt` | Track and manage technical debt — add entries, list by priority, resolve when addressed; $sprint-start surfaces High items |
-| `dependency-update` | Update dependencies safely — patch/minor by default, --all for major bumps with per-package confirmation |
+| `tech-debt` | Track and manage technical debt — add entries, list by priority, resolve when addressed; $start-sprint surfaces High items |
+| `update-dependencies` | Update dependencies safely — patch/minor by default, --all for major bumps with per-package confirmation |
 
 ### Company Configuration
 | Command | What it does |
 |---------|-------------|
-| `company-add` | Set up a company-specific config — grills on sprint cadence, team locations, freeze periods, compliance, and AI policy |
+| `add-company` | Set up a company-specific config — grills on sprint cadence, team locations, freeze periods, compliance, and AI policy |
 | `company-git` | Connect the company knowledge directory to a company-approved GitHub remote |
-| `company-sync` | Sync company knowledge directory with the team GitHub remote — pull, push, or selective |
-| `company-update` | Post-install maintenance — re-run grilling topics to update config (--reconfigure) or refresh bundled skills after a Forge upgrade (--update-skills) |
-| `tool-add` | Register a tool in the global or company tools registry — grills on category, usage, and anti-patterns |
-| `tool-check` | Verify which registered tools are installed — full matrix by category with company classifications |
+| `sync-company` | Sync company knowledge directory with the team GitHub remote — pull, push, or selective |
+| `update-company` | Post-install maintenance — re-run grilling topics to update config (--reconfigure) or refresh bundled skills after a Forge upgrade (--update-skills) |
+| `add-tool` | Register a tool in the global or company tools registry — grills on category, usage, and anti-patterns |
+| `check-tools` | Verify which registered tools are installed — full matrix by category with company classifications |
 | `roap` | Grill out a Role on a Page — nine questions covering purpose, accountabilities, measures, activity allocation, development focus, and relationships; writes docs/roles/[role]-roap.md |
 
 ### Framework
@@ -171,8 +171,8 @@ Print the following reference exactly:
 | `evolve` | Review High confidence instincts — PROMOTE to skill, DEFER, or RETIRE. Never auto-promotes. |
 | `link-jira` | Link a Forge ID (IDEA-NNN or PROJ-NNN) to a Jira ticket, epic, or capability |
 | `lookup` | Find any entity by ID — IDEA-NNN, PROJ-NNN, TC-NNN, SEC-NNN, PERF-NNN, INC-NNN — returns summary and file path |
-| `forge-init` | Regenerate ~/.codex/forge/AGENTS.md and ~/.codex/forge/AGENTS.md — run after config changes or Forge upgrade |
-| `forge-update` | Pull the latest Forge from GitHub and install updated skills, commands, and framework files |
+| `init-forge` | Regenerate ~/.codex/forge/AGENTS.md and ~/.codex/forge/AGENTS.md — run after config changes or Forge upgrade |
+| `update-forge` | Pull the latest Forge from GitHub and install updated skills, commands, and framework files |
 | `commands` | Show this reference |
 
 ---

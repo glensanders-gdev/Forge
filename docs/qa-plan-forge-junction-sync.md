@@ -30,13 +30,13 @@ _None — no `docs/known-issues.md` found for this project._
 - [ ] **Story 1 (smoke test) — Edit reflects in repo:** Edit any skill file via `~/.claude/skills/` (e.g. add a blank line to any SKILL.md), then run `git status` in `~/forge`.
   - Expected: modified file appears in `git status` with no copy step
 
-- [ ] **Story 3 — Migration flow:** From a fresh machine (or test scenario), confirm `/forge-install` detects a legacy copy-based install, presents the migration plan, and on MIGRATE creates junctions correctly.
+- [ ] **Story 3 — Migration flow:** From a fresh machine (or test scenario), confirm `/install-forge` detects a legacy copy-based install, presents the migration plan, and on MIGRATE creates junctions correctly.
   - Expected: `~/.claude/skills/` becomes a junction; user data dirs (`knowledge/`, `instincts/`, etc.) are untouched real directories
 
-- [ ] **Story 4 — iOS guidance:** In a Claude Code session, run `/forge-install` in an environment without `ln`. Confirm iOS guidance branch appears.
+- [ ] **Story 4 — iOS guidance:** In a Claude Code session, run `/install-forge` in an environment without `ln`. Confirm iOS guidance branch appears.
   - Expected: message explains PR-only branch workflow; no junction creation attempted
 
-- [ ] **Story 5 — /forge-update uses git pull:** Run `/forge-update`. Confirm it runs `git pull` and does NOT invoke `update.sh`.
+- [ ] **Story 5 — /update-forge uses git pull:** Run `/update-forge`. Confirm it runs `git pull` and does NOT invoke `update.sh`.
   - Expected: version check shown, pull executed, `update.sh` not mentioned in output
 
 - [ ] **Story 6 — git status reflects edits:** Edit a skill file directly in `~/.claude/skills/[skill]/SKILL.md`, check `git status` in the repo.
@@ -52,7 +52,7 @@ _None — no `docs/known-issues.md` found for this project._
 - [ ] **User data preserved — migration:** After running the migration, confirm `~/.claude/knowledge/`, `~/.claude/instincts/`, `~/.claude/tokens/`, `~/.claude/preferences.md` are untouched.
   - Expected: all user data dirs exist and contain their original content
 
-- [ ] **Wrong remote guard:** If `~/forge` exists but points to a different remote, confirm `/forge-install` stops with a warning rather than proceeding.
+- [ ] **Wrong remote guard:** If `~/forge` exists but points to a different remote, confirm `/install-forge` stops with a warning rather than proceeding.
   - Expected: error message naming the wrong remote; no file system changes made
 
 ---
@@ -63,7 +63,7 @@ _None — no `docs/known-issues.md` found for this project._
   - Expected: PowerShell error output visible; `✗ Failed to create junction` message printed; script does not exit with a silent success
 
 - [ ] **update.sh deprecation notice visible:** Open `update.sh` and confirm the deprecation notice is at the top of the file.
-  - Expected: first comment block clearly states the file is deprecated and directs users to `git pull` / `/forge-update`
+  - Expected: first comment block clearly states the file is deprecated and directs users to `git pull` / `/update-forge`
 
 ---
 
@@ -73,7 +73,7 @@ _None — no `docs/known-issues.md` found for this project._
 - [ ] HITL tasks #1 and #6 signed off
 - [ ] `~/.claude/skills/`, `~/.claude/commands/`, `~/.claude/rules/` are junctions on Windows (ReparsePoint attribute confirmed)
 - [ ] Editing a skill in `~/.claude/` immediately appears in `git status` without a copy step
-- [ ] `/forge-update` skill no longer references `update.sh`
+- [ ] `/update-forge` skill no longer references `update.sh`
 - [ ] `update.sh` has a deprecation notice at the top
 - [ ] README updated to reflect new install model (noted as open item — not yet done)
 
@@ -99,7 +99,7 @@ _None — no `docs/known-issues.md` found for this project._
 | 2 | Edit reflects in repo (smoke test) | ✅ Pass / ❌ Fail / ⚠️ Waived | |
 | 3 | Migration flow | ✅ Pass / ❌ Fail / ⚠️ Waived | |
 | 4 | iOS guidance branch | ✅ Pass / ❌ Fail / ⚠️ Waived | |
-| 5 | /forge-update uses git pull | ✅ Pass / ❌ Fail / ⚠️ Waived | |
+| 5 | /update-forge uses git pull | ✅ Pass / ❌ Fail / ⚠️ Waived | |
 | 6 | git status reflects edits | ✅ Pass / ❌ Fail / ⚠️ Waived | |
 | 7 | Idempotency — re-run install.sh | ✅ Pass / ❌ Fail / ⚠️ Waived | |
 | 8 | User data preserved after migration | ✅ Pass / ❌ Fail / ⚠️ Waived | |

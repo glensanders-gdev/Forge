@@ -47,7 +47,7 @@ Generate a concise standup summary from the project's living documents. No input
 - 🚩 Overdue feature flags: [FF-NNN flag-name (N days overdue), ...]
 - ❄️ Freeze period approaching: [reason] — [window] ([N days away])
 - 🗓️ Public holiday check: [locale] — verify team availability for [date]
-- 🔧 Forge v[version] installed [N] days ago — run $forge-update to check for newer skills
+- 🔧 Forge v[version] installed [N] days ago — run $update-forge to check for newer skills
 
 ### Yesterday
 [What was completed or progressed in the last session — from DEVLOG]
@@ -81,6 +81,6 @@ Generate a concise standup summary from the project's living documents. No input
 | `DEVLOG.md` missing or empty | Note "No session history found — this may be a fresh project." Ask user to state goals directly. |
 | `kanban.md` missing | Note "No kanban found." Ask user to confirm goals and whether to run `$write-prd` first. |
 | `priorities.md` missing | Skip priority ordering. Surface tickets in kanban order. |
-| No active sprint in calendar | Note "No active sprint found." Suggest `$sprint-start`. |
+| No active sprint in calendar | Note "No active sprint found." Suggest `$start-sprint`. |
 | No active PRD | Note "No active PRD." State which feature is in progress based on kanban if possible. |
 | Go/No Go date calculation fails | Skip deadline flag. Do not guess dates. |

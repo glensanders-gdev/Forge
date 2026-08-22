@@ -1,6 +1,6 @@
 ---
 name: "knowledge-health"
-description: "Run a read-only diagnostic across all Forge knowledge layers — system knowledge, company glossaries, and project CONTEXT.md files. Reports structural health, cross-reference findings, and interesting connections. Saves to ~/.codex/forge/knowledge/health-report.md. Use when user runs $knowledge-health or when $sprint-start flags the last check was more than 30 days ago."
+description: "Run a read-only diagnostic across all Forge knowledge layers — system knowledge, company glossaries, and project CONTEXT.md files. Reports structural health, cross-reference findings, and interesting connections. Saves to ~/.codex/forge/knowledge/health-report.md. Use when user runs $knowledge-health or when $start-sprint flags the last check was more than 30 days ago."
 metadata:
   category: knowledge
   version: 1.1.0
@@ -9,14 +9,14 @@ metadata:
 
 # Knowledge Health
 
-> **Company-aware:** When `active_company` is set in `~/.codex/forge/preferences.md` (configured by `$company-add`), all scan paths resolve under `~/.codex/forge/companies/[active_company]/` instead of `~/.codex/forge/knowledge/`. The health report is written to the same location.
+> **Company-aware:** When `active_company` is set in `~/.codex/forge/preferences.md` (configured by `$add-company`), all scan paths resolve under `~/.codex/forge/companies/[active_company]/` instead of `~/.codex/forge/knowledge/`. The health report is written to the same location.
 
 Read-only diagnostic across all Forge knowledge layers. Never modifies files. Reports findings with specific actionable suggestions — the human decides what to act on.
 
 ## When to Use
 
 - User runs `knowledge-health` explicitly
-- `$sprint-start` flags the last health check was more than 30 days ago
+- `$start-sprint` flags the last health check was more than 30 days ago
 - After a period of intensive knowledge base changes
 - Before a PI planning session
 
@@ -66,8 +66,8 @@ Read `~/.codex/forge/knowledge/company/context.md`:
 - Extract all Flagged Ambiguities — note which are unresolved
 
 Check `~/.codex/forge/knowledge/company/style-guide.md`:
-- If missing: flag as P1 — "Style guide not found. Run `knowledge-onboard` to set it up."
-- If present but all sections are placeholders: flag as P1 — "Style guide exists but is unpopulated. Fill in before running `style-check`."
+- If missing: flag as P1 — "Style guide not found. Run `onboard-knowledge` to set it up."
+- If present but all sections are placeholders: flag as P1 — "Style guide exists but is unpopulated. Fill in before running `check-style`."
 - If partially populated: flag as P2 — note which sections are still placeholder
 
 ### 4. Scan Project CONTEXT.md Files
@@ -244,7 +244,7 @@ knowledge-health-last-run: YYYY-MM-DD
 
 ## Sprint-Start Integration
 
-When `$sprint-start` runs, check `knowledge-health-last-run` in `preferences.md`. If more than 30 days ago:
+When `$start-sprint` runs, check `knowledge-health-last-run` in `preferences.md`. If more than 30 days ago:
 
 ```
 ⚠️ Knowledge base health check overdue (last run: N days ago).
@@ -257,8 +257,8 @@ Consider running knowledge-health before this sprint begins.
 
 - `$add-project` — scaffolds the **Three-Tier Knowledge Structure** (Raw/Wiki/Outputs) this skill audits
 - `$add-system` — creates system knowledge folders audited in Phase 1
-- `$knowledge-onboard` — populates the knowledge base content that health check evaluates
-- `$sprint-start` — triggers a health check reminder if last check > 30 days
+- `$onboard-knowledge` — populates the knowledge base content that health check evaluates
+- `$start-sprint` — triggers a health check reminder if last check > 30 days
 
 ## Rules
 

@@ -64,7 +64,7 @@ Does this ROAP represent the role? (approve / edit / cancel)
 
 ## Phase 5 [AFK] — Write
 
-Write to `docs/roles/[role-slug]-roap.md`, creating `docs/roles/` if absent. Slug is the role title, lowercased and hyphenated. Confirm the path and offer `/style-check` against the company style guide.
+Write to `docs/roles/[role-slug]-roap.md`, creating `docs/roles/` if absent. Slug is the role title, lowercased and hyphenated. Confirm the path and offer `/check-style` against the company style guide.
 
 ---
 

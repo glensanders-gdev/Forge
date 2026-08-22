@@ -23,8 +23,8 @@ _None_
 
 - [x] [AFK]  #2 Rewrite `install.sh` — platform detection, junction/symlink creation, remove copy step ✓
 - [x] [AFK]  #3 Deprecate `update.sh` — add deprecation notice, retain file ✓
-- [x] [AFK]  #4 Rewrite `/forge-install` skill — auto-detect, migration flow, iOS guidance ✓
-- [x] [AFK]  #5 Simplify `/forge-update` skill — replace `update.sh` with `git pull` ✓
+- [x] [AFK]  #4 Rewrite `/install-forge` skill — auto-detect, migration flow, iOS guidance ✓
+- [x] [AFK]  #5 Simplify `/update-forge` skill — replace `update.sh` with `git pull` ✓
 - [x] [HITL] #6 Run migration on Windows — confirm junctions resolve, verify skill edits appear in repo ✓
 - [x] [AFK]  #7 Commit and push all changes to `origin/main` ✓
 
@@ -37,19 +37,19 @@ _None_
 ---
 
 <!-- Previous sprint: Forge Knowledge Onboard Build (2026-05-23) — shipped as v2.5.6 -->
-<!-- Deferred tickets from previous sprint: #2/#7/#10/#11 (api.md design) — tracked in PRD archived/knowledge-onboard.md -->
+<!-- Deferred tickets from previous sprint: #2/#7/#10/#11 (api.md design) — tracked in PRD archived/onboard-knowledge.md -->
 
 ---
 
 ## Done (Previous Sprint)
 
 - [x] [HITL] #1 Review and confirm `style-guide.md` template structure before writing ✓
-- [x] [HITL] #3 Review and confirm `/knowledge-onboard` SKILL.md draft before finalising ✓
-- [x] [HITL] #4 Review and confirm `/style-check` SKILL.md draft before finalising ✓
+- [x] [HITL] #3 Review and confirm `/onboard-knowledge` SKILL.md draft before finalising ✓
+- [x] [HITL] #4 Review and confirm `/check-style` SKILL.md draft before finalising ✓
 - [x] [HITL] #5 Confirm manifest, commands reference, and CHANGELOG updates before push ✓
 - [x] [AFK] #6 Create `~/.claude/knowledge/company/style-guide.md` template ✓
-- [x] [AFK] #8 Write `/knowledge-onboard` SKILL.md and command file ✓
-- [x] [AFK] #9 Write `/style-check` SKILL.md and command file ✓
+- [x] [AFK] #8 Write `/onboard-knowledge` SKILL.md and command file ✓
+- [x] [AFK] #9 Write `/check-style` SKILL.md and command file ✓
 - [x] [AFK] #12 Extend `/write-article` — consult `style-guide.md` when present ✓
 - [x] [AFK] #13 Extend `/write-prd` — consult `style-guide.md` when present ✓
 - [x] [AFK] #14 Extend `/knowledge-health` — check `style-guide.md` presence (api.md portion deferred) ✓
@@ -82,12 +82,12 @@ _None — deferred tickets tracked in PRD and HANDOFF._
 ## Done
 
 - [x] [HITL] #1 Review and confirm `style-guide.md` template structure before writing ✓
-- [x] [HITL] #3 Review and confirm `/knowledge-onboard` SKILL.md draft before finalising ✓
-- [x] [HITL] #4 Review and confirm `/style-check` SKILL.md draft before finalising ✓
+- [x] [HITL] #3 Review and confirm `/onboard-knowledge` SKILL.md draft before finalising ✓
+- [x] [HITL] #4 Review and confirm `/check-style` SKILL.md draft before finalising ✓
 - [x] [HITL] #5 Confirm manifest, commands reference, and CHANGELOG updates before push ✓
 - [x] [AFK] #6 Create `~/.claude/knowledge/company/style-guide.md` template ✓
-- [x] [AFK] #8 Write `/knowledge-onboard` SKILL.md and command file ✓
-- [x] [AFK] #9 Write `/style-check` SKILL.md and command file ✓
+- [x] [AFK] #8 Write `/onboard-knowledge` SKILL.md and command file ✓
+- [x] [AFK] #9 Write `/check-style` SKILL.md and command file ✓
 - [x] [AFK] #12 Extend `/write-article` — consult `style-guide.md` when present ✓
 - [x] [AFK] #13 Extend `/write-prd` — consult `style-guide.md` when present ✓
 - [x] [AFK] #14 Extend `/knowledge-health` — check `style-guide.md` presence (api.md portion deferred) ✓

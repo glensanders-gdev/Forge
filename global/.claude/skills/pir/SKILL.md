@@ -37,7 +37,7 @@ project's GitHub.
 ```
 
 If no `active_company` is set, write to `docs/pir/` in the project repo and note:
-"No company configured — PIR written to project docs. Set up /company-add to enable
+"No company configured — PIR written to project docs. Set up /add-company to enable
 private company-level storage."
 
 ---
@@ -82,7 +82,7 @@ For **PI-level**: the period is fixed — the full PI from start to final releas
 1. Read `~/.claude/pi/PI-N/plan.md` — extract PI objectives and all projects in scope.
 2. For each project in the PI: repeat the project-level gather above.
 3. Read all Go/No Go records for the PI's releases.
-4. Read `~/.claude/pi/PI-N/plan.md` PI End section for delivery summary if `/pi-end` was run.
+4. Read `~/.claude/pi/PI-N/plan.md` PI End section for delivery summary if `/end-pi` was run.
 
 ---
 
@@ -192,8 +192,8 @@ Gap 2: ...
 For each gap where the human chooses A or B:
 
 **A — Backlog item:** Record the gap and decision. The human should create the ticket
-separately via `/backlog-add` — do not create it automatically.
-Prompt: "Run `/backlog-add` to add this: [suggested ticket title]"
+separately via `/add-backlog-item` — do not create it automatically.
+Prompt: "Run `/add-backlog-item` to add this: [suggested ticket title]"
 
 **B — New idea:** Record the gap and decision. Prompt:
 "Run `/idea` to capture this: [suggested one-line idea framing]"
@@ -337,7 +337,7 @@ Same structure, with additions:
    🔲 Too soon:         N
 
    Gaps identified: N
-     → Backlog items to create:  N  (run /backlog-add for each)
+     → Backlog items to create:  N  (run /add-backlog-item for each)
      → Ideas to capture:         N  (run /idea for each)
      → Monitoring:               N
      → No action:                N
@@ -345,15 +345,15 @@ Same structure, with additions:
    [If PRD quality notes exist:]
    ⚠️ N PRD(s) lacked measurable outcomes — see PRD Quality Notes in the report.
 
-   This PIR will be included in the next /fy-review automatically.
+   This PIR will be included in the next /review-fy automatically.
    Private document — not committed to project GitHub.
 ```
 
 ---
 
-## Connection to /fy-review
+## Connection to /review-fy
 
-`/fy-review` Phase 2 reads `~/.claude/companies/[active_company]/pir/` as a data source.
+`/review-fy` Phase 2 reads `~/.claude/companies/[active_company]/pir/` as a data source.
 PIR outcome assessments feed directly into the value observations phase, reducing
 the amount of reconstruction needed at year-end.
 

@@ -11,6 +11,152 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
+## v4.0.0 — 2026-08-22
+
+**Action skills are verb-first** — 26 renames, decided in [ADR-0002](../../docs/adr/0002-verb-first-action-skill-names.md)
+
+Forge had 113 skill names and no naming convention. The result was not untidy so much as
+unpredictable: the same verb appeared in both positions, so `add-project` sat beside `tool-add`
+and `update-readme` beside `forge-update`. A reader could not derive a skill's name from what it
+did.
+
+### Breaking
+
+- **26 action skills renamed.** A skill that performs an operation now takes verb-first.
+
+| `/backlog-add` | `/add-backlog-item` |
+| `/company-add` | `/add-company` |
+| `/tool-add` | `/add-tool` |
+| `/pii-check` | `/check-pii` |
+| `/scope-check` | `/check-scope` |
+| `/style-check` | `/check-style` |
+| `/tool-check` | `/check-tools` |
+| `/pi-end` | `/end-pi` |
+| `/sprint-end` | `/end-sprint` |
+| `/forge-init` | `/init-forge` |
+| `/forge-install` | `/install-forge` |
+| `/knowledge-onboard` | `/onboard-knowledge` |
+| `/pi-replan` | `/replan-pi` |
+| `/sprint-replan` | `/replan-sprint` |
+| `/security-resolve` | `/resolve-findings` |
+| `/brd-review` | `/review-brd` |
+| `/diff-review` | `/review-diff` |
+| `/fy-review` | `/review-fy` |
+| `/ord-review` | `/review-ord` |
+| `/performance-review` | `/review-performance` |
+| `/brain-setup` | `/setup-brain` |
+| `/sprint-start` | `/start-sprint` |
+| `/company-sync` | `/sync-company` |
+| `/company-update` | `/update-company` |
+| `/dependency-update` | `/update-dependencies` |
+| `/forge-update` | `/update-forge` |
+
+- **Every renamed skill takes a major version.** As established in v3.25.0, there is no soft
+  landing: the old name stops resolving the day the rename lands, and a deprecation stub is not
+  available as a mitigation. `/review-diff` reaches 4.0.0 — its second major in two releases,
+  accepted deliberately and reasoned in ADR-0002.
+- **`forge_version` 3.27.0 → 4.0.0.** A lifecycle change across a quarter of the portfolio.
+
+### Fixed
+
+- **`/graphify` declared the wrong name.** Its `SKILL.md` frontmatter read
+  `name: graphify-windows` while its directory, its manifest key, its command stub and its own
+  `trigger:` all read `graphify`. No Windows-specific variant ever existed — the name arrived
+  wrong in 8c54d2f, the commit that added the skill, and survived every audit since. Frontmatter
+  corrected to `graphify`; skill version 1.0.1 → 1.0.2.
+- **`/skill-health` now checks that a skill's declared name is its directory name.** It checked
+  that `name:` was *present*, and separately that a `version:` matched the manifest, but never
+  that `name:` matched the folder it sat in — which is why the `graphify` mismatch survived. A
+  skill that declares a different name registers under the declared name or not at all, and
+  reports nothing: the same silent-failure class as the shadowed names in v3.27.0, so it carries
+  the same 🔴 Critical severity and leads the summary warning alongside them. The comparison is
+  literal — no case, hyphen or underscore normalisation, because the loader does not normalise
+  either. Mirrored into the Codex-native override. Skill version 1.1.0 → 1.2.0.
+
+Running the new check across all 113 skills found `graphify` and nothing else. The count was
+unknown rather than one until it ran: the check had never existed, and it was verified against
+the post-rename directory names above, not remembered ones.
+
+### Unchanged
+
+- **Seven state skills keep their noun shape** — `skill-health`, `context-health`,
+  `knowledge-health`, `qa-plan`, `qa-report`, `token-report`, `security-assessment`. Their names
+  are used as nouns in prose and as artefact references ("read the skill-health report"), not as
+  imperatives; forcing `report-tokens` would split the skill name from the artefact name.
+- **Single-word names are outside the convention** — there is no order to get wrong.
+- **Historical records are not rewritten.** Old names inside past CHANGELOG entries, README
+  version-history rows, prior ADRs, DEVLOG entries and handoffs record what shipped at the time
+  and stand as they are — the rule set in v3.25.0. `graphify-out/` is likewise left alone: it is
+  a dated generated snapshot, and rewriting it would falsify a record rather than update a
+  reference.
+
+### Note
+
+Every one of the 26 new names was run through the v3.27.0 collision gate before adoption: none is
+shadowed, none is on the At Risk list, and none collides with an existing skill. Three targets
+depart from a literal word-order flip — `add-backlog-item`, `onboard-knowledge` and
+`resolve-findings` — because verb-first requires naming the object acted on rather than the
+register it sits in.
+
+The `*-review` family carried an independent justification. <!--no-adapt-->Claude Code<!--/no-adapt-->
+occupies three names in the `*-review` shape — `review`, `code-review`, `security-review` — and
+none in `review-*`, so Forge's five names sat in the demonstrated expansion path. Moving them out
+is collision avoidance, not tidiness.
+
+---
+
+## v3.27.0 — 2026-08-22
+
+**Name-collision policy** — a shadowed skill name is caught at authoring time, not in use
+
+> Version 3.26.0 is reserved for the in-flight `rules/requirements/ai.md` work on its own branch,
+> which is already renumbered to it. This release takes 3.27.0 so neither has to move again.
+
+v3.25.0 renamed two skills that <!--no-adapt-->Claude Code built-ins<!--/no-adapt--> were shadowing and noted that a check at
+authoring time was the durable fix. This is that check. The failure it prevents is silent: a
+shadowed skill loads nothing and reports nothing, so the only signal is a skill that mysteriously
+never runs.
+
+### Added
+
+- **`skills/write-a-skill/RESERVED-NAMES.md`** — the names <!--no-adapt-->Claude Code<!--/no-adapt--> claims, in one file read by
+  two skills and restated by neither (PRINCIPLE 6). Carries the bundled-skill names, the built-in
+  slash commands, an **At Risk** watch list (`build`, `deploy`, `publish`, `research`, `commands`,
+  `learn`, `teach`), a **Deliberately Avoided** register so a later tidy-up cannot walk back into a
+  collision Forge already steers around, and a **Withdrawn** section for names the vendor releases.
+- **A verification stamp and a written refresh procedure.** There is no API that emits the vendor's
+  reserved names, so the list is hand-maintained and stale by construction. The stamp records the
+  date, the <!--no-adapt-->Claude Code<!--/no-adapt--> version, and whether each row was *confirmed* in a live session or
+  *recalled* — the two carry different weight, and collapsing them would be the whole defect. The
+  procedure says how to move the date rather than leaving it to age quietly.
+- **The <!--no-adapt-->Claude Code<!--/no-adapt--> version is recorded as not determined.** <!--no-adapt-->`claude` is not on `PATH`<!--/no-adapt--> on the
+  authoring machine, so the stamp says so instead of guessing. The next refresh fills it in.
+
+### Changed
+
+- **`/write-a-skill` 1.4.0** — a new step 2 checks the proposed name before anything is scaffolded,
+  and reports the result either way, naming the stamp date so the author knows what a pass is
+  worth. A match **stops and gates**: rename, or type `CONFIRM` to proceed. The block is
+  overridable because the list is stale in both directions — a name on it may since have been
+  released, and an author who knows that should not be stuck. New failure-mode rows cover the
+  shadowed-name symptom, the gate, and a stamp that has aged past the threshold.
+- **`/skill-health` 1.1.0** — audits the whole portfolio against the same list, so a name that
+  becomes reserved *after* the skill was written is caught rather than discovered in use. A
+  shadowed name is 🔴 Critical and leads the critical warning ahead of a missing `SKILL.md`: a
+  skill with no file is visibly broken, a shadowed skill is invisibly broken. An At Risk match and
+  a stale stamp are ℹ️ Info. The audit stays read-only — a stale stamp is reported, never
+  refreshed, because refreshing it needs a live session this skill does not have.
+- **`/skill-health` never reports a name as clear.** It reports it as unchecked against a list
+  stamped on a given date, which is what absence from a hand-maintained list actually means.
+
+### Note
+
+Zero of Forge's 113 skill names are reserved today — the two known collisions were fixed in
+v3.25.0. Recommending no rename is the correct output of this release, and the check exists for
+the names the vendor claims next.
+
+---
+
 ## v3.25.2 — 2026-08-22
 
 **`$write-a-skill` teaches the `no-adapt` fence** — the rule reaches the author who needs it

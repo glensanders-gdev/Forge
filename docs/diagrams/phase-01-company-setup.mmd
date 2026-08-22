@@ -1,10 +1,10 @@
 sequenceDiagram
     actor H as Human
-    participant CA as /company-add
+    participant CA as /add-company
     participant Pref as ~/.claude/preferences.md
     participant FS as ~/.claude/companies/[name]/
 
-    H->>CA: /company-add [name]
+    H->>CA: /add-company [name]
 
     note over CA: Pre-checks
     CA->>Pref: Check active_company not already set
@@ -46,10 +46,10 @@ sequenceDiagram
     CA->>FS: Bundle 17 company knowledge skills
     CA->>Pref: Set active_company: [name]
 
-    CA->>H: ✅ Setup complete — next steps (fill config, /knowledge-onboard, /add-system, /company-git)
+    CA->>H: ✅ Setup complete — next steps (fill config, /onboard-knowledge, /add-system, /company-git)
 
     note over H,FS: Optional follow-up
     H->>CA: /company-git [remote-url]
     CA->>FS: git init + add remote
-    H->>CA: /company-sync
+    H->>CA: /sync-company
     CA->>FS: Pull then push knowledge base with team

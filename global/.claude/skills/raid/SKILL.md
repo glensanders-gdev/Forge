@@ -282,16 +282,16 @@ Before assembling the Go/No Go brief, read `docs/raid/RISKS.md` for the active p
 - Include in the brief under a **Open High Risks** section.
 - A High Impact + High Probability risk with status `Open` is a soft block — note it and ask for explicit acknowledgment before recording GO.
 
-### `/sprint-start`
+### `/start-sprint`
 
 After pulling carry-in from the previous sprint, read `docs/raid/ACTIONS.md`:
 - List `Open` and `In Progress` actions.
 - Ask: "These RAID actions are open — should any become sprint tickets?"
 - Do not add automatically — human confirms.
 
-### `/sprint-end`
+### `/end-sprint`
 
-After writing the sprint-end record, prompt:
+After writing the end-sprint record, prompt:
 - "Review open RAID entries for this sprint. Any risks mitigated, actions completed, or issues resolved?"
 - For each confirmed resolution, offer to run `/raid close [ID]`.
 

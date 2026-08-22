@@ -16,7 +16,7 @@ Display the global backlog from `~/.codex/forge/backlog.md`, grouped by priority
 2. Group items by priority: P1 → P2 → P3 → P4 → Unranked.
 3. Within each group, maintain date-added order.
 4. Display the formatted list.
-5. Offer: "Want to add an item? Run `backlog-add`."
+5. Offer: "Want to add an item? Run `add-backlog-item`."
 
 ## Output Format
 
@@ -45,12 +45,12 @@ Display the global backlog from `~/.codex/forge/backlog.md`, grouped by priority
 
 | Condition | Behaviour |
 |-----------|-----------|
-| `backlog.md` missing | "No global backlog found. Run `backlog-add` to create one." |
-| Backlog is empty | "Global backlog is empty." Offer `backlog-add`. |
-| Items have no priority | Group under Unranked. Offer to run `backlog-add` to triage them. |
+| `backlog.md` missing | "No global backlog found. Run `add-backlog-item` to create one." |
+| Backlog is empty | "Global backlog is empty." Offer `add-backlog-item`. |
+| Items have no priority | Group under Unranked. Offer to run `add-backlog-item` to triage them. |
 
 ## Rules
 
-- This is a read-only display — never modify `backlog.md`; adding items is `$backlog-add`.
+- This is a read-only display — never modify `backlog.md`; adding items is `$add-backlog-item`.
 - Preserve priority grouping and date-added order within groups — never reorder by inference.
 - This shows the global backlog only — direct project-level requests to `$backlog-proj`.

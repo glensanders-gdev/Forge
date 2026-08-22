@@ -27,7 +27,7 @@ Generate or update token cost and complexity estimates for the current feature, 
 
 - After `$idea` grill — feature-level estimate
 - After `$write-prd` Phase 2 — per-module estimates
-- After `$sprint-start` — per-ticket capacity check
+- After `$start-sprint` — per-ticket capacity check
 - When scope changes and estimates are flagged as stale
 - On demand: `estimate` at any point
 

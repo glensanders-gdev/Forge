@@ -1,6 +1,6 @@
 # Custom PII Categories
 
-Extends the default PII categories used by `/pii-check`. Add company or project-specific PII types here.
+Extends the default PII categories used by `/check-pii`. Add company or project-specific PII types here.
 
 **Last updated:** YYYY-MM-DD
 

@@ -216,9 +216,9 @@ On confirmation, update `~/.codex/forge/priorities.md`.
 **3. Sprint/PI prompt:**
 ```
 To add this project to sprint planning:
-- If starting fresh: run sprint-start
-- If injecting into an active sprint: run sprint-replan
-- If it affects the current PI plan: run pi-replan
+- If starting fresh: run start-sprint
+- If injecting into an active sprint: run replan-sprint
+- If it affects the current PI plan: run replan-pi
 ```
 
 ---

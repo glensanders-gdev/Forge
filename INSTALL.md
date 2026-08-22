@@ -315,7 +315,7 @@ These are read by skills like `/create-project` and `/idea` so they don't need t
 
 ## Setting Up the Sprint Calendar (First Time Only)
 
-The sprint calendar lives at `~/.claude/sprints/calendar.md` and was created as part of the global install. Before using `/user:sprint-start` for the first time, open it in any text editor and add your first sprint entry.
+The sprint calendar lives at `~/.claude/sprints/calendar.md` and was created as part of the global install. Before using `/user:start-sprint` for the first time, open it in any text editor and add your first sprint entry.
 
 ### Option A — Personal project (generate your own dates)
 
@@ -335,11 +335,11 @@ Then add your active projects for that sprint:
 - another-repo
 ```
 
-Alternatively, just run `/user:sprint-start` and when prompted "No active sprint found", choose to auto-generate — the agent will propose the dates and add the entry for you.
+Alternatively, just run `/user:start-sprint` and when prompted "No active sprint found", choose to auto-generate — the agent will propose the dates and add the entry for you.
 
 ### Option B — Work project (syncing from an external calendar)
 
-If your organisation manages sprint dates in Jira, Notion, or another tool, manually copy the current sprint dates into `calendar.md` at the start of each sprint. When `/user:sprint-start` prompts you about a missing sprint, choose "sync from elsewhere" and provide the name, start, and end dates.
+If your organisation manages sprint dates in Jira, Notion, or another tool, manually copy the current sprint dates into `calendar.md` at the start of each sprint. When `/user:start-sprint` prompts you about a missing sprint, choose "sync from elsewhere" and provide the name, start, and end dates.
 
 ### Sprint naming convention
 

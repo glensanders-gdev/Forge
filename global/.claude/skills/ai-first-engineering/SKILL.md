@@ -2,7 +2,7 @@
 name: ai-first-engineering
 category: code-quality
 version: 1.0.0
-description: Operating principles for teams delivering software with AI-assisted code generation. Shapes how planning, review, architecture, and testing work when AI generates a significant share of implementation output. Use during /grill-with-docs, /diff-review, /write-prd, and /testplan to apply AI-first thinking to design and process decisions.
+description: Operating principles for teams delivering software with AI-assisted code generation. Shapes how planning, review, architecture, and testing work when AI generates a significant share of implementation output. Use during /grill-with-docs, /review-diff, /write-prd, and /testplan to apply AI-first thinking to design and process decisions.
 origin: Adapted from ECC (github.com/affaan-m/ECC) by Affaan Mustafa
 ---
 
@@ -44,7 +44,7 @@ Ambiguous requirements produce plausible-looking but incorrect code. Every assum
 **4. Review focus shifts from syntax to system behaviour.**
 Linting and style are cheap to automate. Code review in AI-first teams should focus on: behaviour regressions, security assumptions, data integrity, failure handling, and rollout safety. Not semicolons.
 
-*Forge application:* `/diff-review` checks against ADRs, `CONTEXT.md`, and `CODING-STANDARDS.md` — not style. `/pii-check` covers data integrity. `/go-nogo` covers rollout safety.
+*Forge application:* `/review-diff` checks against ADRs, `CONTEXT.md`, and `CODING-STANDARDS.md` — not style. `/check-pii` covers data integrity. `/go-nogo` covers rollout safety.
 
 **5. Raise the testing bar for generated code.**
 Generated code is fluent — it looks correct and compiles cleanly while containing subtle logic errors. The testing bar must be higher, not lower, because the code is produced faster and in larger volumes.
@@ -83,7 +83,7 @@ Review for:
 
 Minimise time spent on style issues already handled by `CODING-STANDARDS.md` and linting.
 
-*Forge application:* `/diff-review` uses this checklist. `/pii-check` covers data integrity specifically. `/go-nogo` is the final rollout safety gate.
+*Forge application:* `/review-diff` uses this checklist. `/check-pii` covers data integrity specifically. `/go-nogo` is the final rollout safety gate.
 
 ---
 
@@ -133,7 +133,7 @@ Every Forge phase embodies an AI-first principle:
 | `/write-prd` + `/estimate` | Measurable acceptance criteria upfront |
 | `/testplan` | Raise the testing bar before build |
 | `/build` (with smart zone) | Bounded units produce higher-quality output |
-| `/diff-review` + `/pii-check` | Behaviour and data integrity over syntax |
+| `/review-diff` + `/check-pii` | Behaviour and data integrity over syntax |
 | `/go-nogo` | Rollout safety gate — human decides |
 | `kanban-archive.md` actuals | Eval coverage — did the estimates hold? |
 

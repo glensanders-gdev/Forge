@@ -79,7 +79,7 @@ Before writing code that touches auth, payments, database access, API keys, or u
 ## Forge Integration
 
 - **`/security-assessment`** — use for full OWASP-structured audits with threat modelling; use `/vibe-security` for fast, technology-specific pattern audits
-- **`/diff-review`** — `/vibe-security` runs automatically on auth/payment/data-access scope reviews
+- **`/review-diff`** — `/vibe-security` runs automatically on auth/payment/data-access scope reviews
 - **`/build`** — reference files loaded when writing code in security-sensitive areas
 - **`/go-nogo`** — Critical or High findings from `/vibe-security` are a NO-GO gate
 

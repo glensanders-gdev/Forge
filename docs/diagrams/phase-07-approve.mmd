@@ -14,7 +14,7 @@ sequenceDiagram
     note over A: PII gate
     A->>FS: Read pii-report.md
     alt No PII report found
-        A->>H: ⚠️ No PII report — run /pii-check or OVERRIDE [reason]
+        A->>H: ⚠️ No PII report — run /check-pii or OVERRIDE [reason]
         H->>A: OVERRIDE [reason]
     else Unresolved PII findings
         A->>H: ⚠️ Unresolved findings [list] — OVERRIDE [reason] or CANCEL

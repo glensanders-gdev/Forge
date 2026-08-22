@@ -11,6 +11,152 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
+## v4.0.0 — 2026-08-22
+
+**Action skills are verb-first** — 26 renames, decided in [ADR-0002](../../docs/adr/0002-verb-first-action-skill-names.md)
+
+Forge had 113 skill names and no naming convention. The result was not untidy so much as
+unpredictable: the same verb appeared in both positions, so `add-project` sat beside `tool-add`
+and `update-readme` beside `forge-update`. A reader could not derive a skill's name from what it
+did.
+
+### Breaking
+
+- **26 action skills renamed.** A skill that performs an operation now takes verb-first.
+
+| `/backlog-add` | `$add-backlog-item` |
+| `/company-add` | `$add-company` |
+| `/tool-add` | `$add-tool` |
+| `/pii-check` | `$check-pii` |
+| `/scope-check` | `$check-scope` |
+| `/style-check` | `$check-style` |
+| `/tool-check` | `$check-tools` |
+| `/pi-end` | `$end-pi` |
+| `/sprint-end` | `$end-sprint` |
+| `/forge-init` | `$init-forge` |
+| `/forge-install` | `$install-forge` |
+| `/knowledge-onboard` | `$onboard-knowledge` |
+| `/pi-replan` | `$replan-pi` |
+| `/sprint-replan` | `$replan-sprint` |
+| `/security-resolve` | `$resolve-findings` |
+| `/brd-review` | `$review-brd` |
+| `/diff-review` | `$review-diff` |
+| `/fy-review` | `$review-fy` |
+| `/ord-review` | `$review-ord` |
+| `/performance-review` | `$review-performance` |
+| `/brain-setup` | `$setup-brain` |
+| `/sprint-start` | `$start-sprint` |
+| `/company-sync` | `$sync-company` |
+| `/company-update` | `$update-company` |
+| `/dependency-update` | `$update-dependencies` |
+| `/forge-update` | `$update-forge` |
+
+- **Every renamed skill takes a major version.** As established in v3.25.0, there is no soft
+  landing: the old name stops resolving the day the rename lands, and a deprecation stub is not
+  available as a mitigation. `$review-diff` reaches 4.0.0 — its second major in two releases,
+  accepted deliberately and reasoned in ADR-0002.
+- **`forge_version` 3.27.0 → 4.0.0.** A lifecycle change across a quarter of the portfolio.
+
+### Fixed
+
+- **`$graphify` declared the wrong name.** Its `SKILL.md` frontmatter read
+  `name: graphify-windows` while its directory, its manifest key, its command stub and its own
+  `trigger:` all read `graphify`. No Windows-specific variant ever existed — the name arrived
+  wrong in 8c54d2f, the commit that added the skill, and survived every audit since. Frontmatter
+  corrected to `graphify`; skill version 1.0.1 → 1.0.2.
+- **`$skill-health` now checks that a skill's declared name is its directory name.** It checked
+  that `name:` was *present*, and separately that a `version:` matched the manifest, but never
+  that `name:` matched the folder it sat in — which is why the `graphify` mismatch survived. A
+  skill that declares a different name registers under the declared name or not at all, and
+  reports nothing: the same silent-failure class as the shadowed names in v3.27.0, so it carries
+  the same 🔴 Critical severity and leads the summary warning alongside them. The comparison is
+  literal — no case, hyphen or underscore normalisation, because the loader does not normalise
+  either. Mirrored into the Codex-native override. Skill version 1.1.0 → 1.2.0.
+
+Running the new check across all 113 skills found `graphify` and nothing else. The count was
+unknown rather than one until it ran: the check had never existed, and it was verified against
+the post-rename directory names above, not remembered ones.
+
+### Unchanged
+
+- **Seven state skills keep their noun shape** — `skill-health`, `context-health`,
+  `knowledge-health`, `qa-plan`, `qa-report`, `token-report`, `security-assessment`. Their names
+  are used as nouns in prose and as artefact references ("read the skill-health report"), not as
+  imperatives; forcing `report-tokens` would split the skill name from the artefact name.
+- **Single-word names are outside the convention** — there is no order to get wrong.
+- **Historical records are not rewritten.** Old names inside past CHANGELOG entries, README
+  version-history rows, prior ADRs, DEVLOG entries and handoffs record what shipped at the time
+  and stand as they are — the rule set in v3.25.0. `graphify-out/` is likewise left alone: it is
+  a dated generated snapshot, and rewriting it would falsify a record rather than update a
+  reference.
+
+### Note
+
+Every one of the 26 new names was run through the v3.27.0 collision gate before adoption: none is
+shadowed, none is on the At Risk list, and none collides with an existing skill. Three targets
+depart from a literal word-order flip — `add-backlog-item`, `onboard-knowledge` and
+`resolve-findings` — because verb-first requires naming the object acted on rather than the
+register it sits in.
+
+The `*-review` family carried an independent justification. Claude Code
+occupies three names in the `*-review` shape — `review`, `code-review`, `security-review` — and
+none in `review-*`, so Forge's five names sat in the demonstrated expansion path. Moving them out
+is collision avoidance, not tidiness.
+
+---
+
+## v3.27.0 — 2026-08-22
+
+**Name-collision policy** — a shadowed skill name is caught at authoring time, not in use
+
+> Version 3.26.0 is reserved for the in-flight `rules/requirements/ai.md` work on its own branch,
+> which is already renumbered to it. This release takes 3.27.0 so neither has to move again.
+
+v3.25.0 renamed two skills that Claude Code built-ins were shadowing and noted that a check at
+authoring time was the durable fix. This is that check. The failure it prevents is silent: a
+shadowed skill loads nothing and reports nothing, so the only signal is a skill that mysteriously
+never runs.
+
+### Added
+
+- **`skills/write-a-skill/RESERVED-NAMES.md`** — the names Claude Code claims, in one file read by
+  two skills and restated by neither (PRINCIPLE 6). Carries the bundled-skill names, the built-in
+  slash commands, an **At Risk** watch list (`build`, `deploy`, `publish`, `research`, `commands`,
+  `learn`, `teach`), a **Deliberately Avoided** register so a later tidy-up cannot walk back into a
+  collision Forge already steers around, and a **Withdrawn** section for names the vendor releases.
+- **A verification stamp and a written refresh procedure.** There is no API that emits the vendor's
+  reserved names, so the list is hand-maintained and stale by construction. The stamp records the
+  date, the Claude Code version, and whether each row was *confirmed* in a live session or
+  *recalled* — the two carry different weight, and collapsing them would be the whole defect. The
+  procedure says how to move the date rather than leaving it to age quietly.
+- **The Claude Code version is recorded as not determined.** `claude` is not on `PATH` on the
+  authoring machine, so the stamp says so instead of guessing. The next refresh fills it in.
+
+### Changed
+
+- **`$write-a-skill` 1.4.0** — a new step 2 checks the proposed name before anything is scaffolded,
+  and reports the result either way, naming the stamp date so the author knows what a pass is
+  worth. A match **stops and gates**: rename, or type `CONFIRM` to proceed. The block is
+  overridable because the list is stale in both directions — a name on it may since have been
+  released, and an author who knows that should not be stuck. New failure-mode rows cover the
+  shadowed-name symptom, the gate, and a stamp that has aged past the threshold.
+- **`$skill-health` 1.1.0** — audits the whole portfolio against the same list, so a name that
+  becomes reserved *after* the skill was written is caught rather than discovered in use. A
+  shadowed name is 🔴 Critical and leads the critical warning ahead of a missing `SKILL.md`: a
+  skill with no file is visibly broken, a shadowed skill is invisibly broken. An At Risk match and
+  a stale stamp are ℹ️ Info. The audit stays read-only — a stale stamp is reported, never
+  refreshed, because refreshing it needs a live session this skill does not have.
+- **`$skill-health` never reports a name as clear.** It reports it as unchecked against a list
+  stamped on a given date, which is what absence from a hand-maintained list actually means.
+
+### Note
+
+Zero of Forge's 113 skill names are reserved today — the two known collisions were fixed in
+v3.25.0. Recommending no rename is the correct output of this release, and the check exists for
+the names the vendor claims next.
+
+---
+
 ## v3.25.2 — 2026-08-22
 
 **`$write-a-skill` teaches the `no-adapt` fence** — the rule reaches the author who needs it
@@ -95,7 +241,7 @@ retired.
 
 ## v3.25.0 — 2026-08-22
 
-**`/continue` → `$pickup`, `/review` → `$diff-review`** — two skill names were being shadowed
+**`/continue` → `$pickup`, `/review` → `/diff-review`** — two skill names were being shadowed
 
 Claude Code ships built-in commands called `/continue` and `/review`. A built-in wins the name, so
 invoking `/continue` ran the built-in rather than the Forge skill — quietly, with no error to
@@ -108,7 +254,7 @@ A deprecation stub is not available as a mitigation: the old name is shadowed, s
 
 - **`/continue` is now `$pickup`.** It pairs with `$handoff`: one session puts a stream down, the
   next picks it up. Skill moves to `skills/pickup/`, command to `commands/pickup.md`.
-- **`/review` is now `$diff-review`.** It names what the skill actually reviews — a pinned diff —
+- **`/review` is now `/diff-review`.** It names what the skill actually reviews — a pinned diff —
   and joins the existing subject-namespaced family (`brd-review`, `ord-review`, `security-review`,
   `performance-review`), where the bare `review` was always the odd one out. Skill moves to
   `skills/diff-review/` with its `smell-baseline.md`, command to `commands/diff-review.md`.
@@ -174,7 +320,7 @@ and still looked valid. The workaround in the wild was hand-named files in `docs
   flagged, rows pointing at missing files reported as lost work rather than tidied away.
 - **`$approve` 1.2.0** — closes the approved feature's stream (archive + drop the row) instead of
   resetting the whole handoff. Other streams keep running.
-- **`$sprint-end` 1.1.0** — writes sprint close state to its own stream and leaves the others alone.
+- **`/sprint-end` 1.1.0** — writes sprint close state to its own stream and leaves the others alone.
 - **`$context-health` 1.2.0** — register budgeted separately at 300/400 tokens (it is pointers); the
   loaded stream file keeps the old 1,200/2,500 thresholds.
 - **`project-template/docs/HANDOFF.md`** replaced with a register stub, plus `docs/handoffs/` and
@@ -307,12 +453,12 @@ reads them and they can be moved into `archive/` at leisure.
   baseline, target and date, the solution-vs-outcome test, a cost-of-failure case for each objective
   carrying operational exposure, and a §12 traceability skeleton. Three phases: **[AFK]** ingest and
   classify by the BABOK taxonomy, **[HITL]** write behind a confirmation gate, **[AFK]** run the
-  gate. `$write-ord` already read `docs/brd/` and `$brd-review` already judged what arrived there;
+  gate. `$write-ord` already read `docs/brd/` and `/brd-review` already judged what arrived there;
   nothing wrote it.
 - **Phase 3 is the handoff gate, self-assessed.** BH-1 – BH-10 with a verdict and an evidence
   citation each, and one of the four outcomes derived by precedence rather than judged. The standard
   puts this gate in the author's hands — a document's readiness is its author's to establish — so the
-  skill runs it on its own output and then names `$brd-review` as the independent pass it **does
+  skill runs it on its own output and then names `/brd-review` as the independent pass it **does
   not** replace. §8 names a reviewer who did not author the document as the highest-value Tier 1
   control, and a self-assessment cannot be one.
 - **A refusal at Phase 3 needs no authority, and the skill says so.** `GATE-PROTOCOL.md`'s
@@ -395,7 +541,7 @@ next focus. Only the invocation gate was new.
 - **"Save to the temporary directory of the OS — not the current workspace."** Upstream keeps the
   handoff out of the repo, which makes a leaked secret structurally impossible. Forge writes
   `docs/HANDOFF.md` because six skills read or write that path — `/continue`, `$debrief`,
-  `$save-state`, `$sprint-end`, `$approve`, `$context-health` — it ships in `project-template/docs/`,
+  `$save-state`, `/sprint-end`, `$approve`, `$context-health` — it ships in `project-template/docs/`,
   and a tmpdir file cannot be handed to a colleague, which the skill's own description covers.
   Recorded here as a known residual: Forge trades a mechanism for a rule on this one.
 
@@ -457,14 +603,14 @@ time` rule was a faithful copy of the earlier version, which upstream has since 
 
 ## v3.20.0 — 2026-08-07
 
-**New skills `$brd-review` and `$ord-review`** — the requirements pack's own Tier 1 control, mechanised
+**New skills `/brd-review` and `/ord-review`** — the requirements pack's own Tier 1 control, mechanised
 
 ### Added
 
-- `$brd-review` 1.0.0 and `$ord-review` 1.0.0 — `[AFK]` advisory conformance reviews against the two
-  handoff gates published in the `requirements-documents` pack. `$brd-review` applies the BRD gate
+- `/brd-review` 1.0.0 and `/ord-review` 1.0.0 — `[AFK]` advisory conformance reviews against the two
+  handoff gates published in the `requirements-documents` pack. `/brd-review` applies the BRD gate
   (bar BH-1 – BH-4, supporting BH-5 – BH-10, the `[TBD]` treatment rule and its two limits);
-  `$ord-review` applies §7.1 (bar OH-1 – OH-7, supporting OH-8 – OH-13) and adds three checks only
+  `/ord-review` applies §7.1 (bar OH-1 – OH-7, supporting OH-8 – OH-13) and adds three checks only
   the downstream hop can make: the §7.3 scan, where content the ORD must refuse to produce is
   reported as a **defect rather than a gap** because gaps drive the maturity tier and defects do not;
   the §5 tier rule, where the tier is the weakest status carried by any **KPP-bearing** requirement
@@ -497,7 +643,7 @@ time` rule was a faithful copy of the earlier version, which upstream has since 
   - Extract sizes are 16 KB (BRD) and 63 KB (ORD, including the worked example ORD and the three
     desk references). The gate criteria themselves are ~15 KB — the earlier judgement that bundling
     was infeasible rested on measuring whole source files rather than the sections actually applied.
-- `brd-review/GATE-PROTOCOL.md` — the protocol both gates share, cited by `$ord-review` by path
+- `brd-review/GATE-PROTOCOL.md` — the protocol both gates share, cited by `/ord-review` by path
   rather than duplicated: the four-verdict vocabulary, the evidence rule (a verdict with no citation
   is an assertion), outcome derivation with its precedence order, refusal-and-authority handling, and
   the report format. It carries **no criterion** — protocol is tooling and has no home in the pack,
@@ -532,13 +678,13 @@ time` rule was a faithful copy of the earlier version, which upstream has since 
 
 ## v3.18.0 — 2026-07-13
 
-**New skill `$brain-setup`** — scaffold and audit the Karpathy second-brain knowledge model across three tiers
+**New skill `/brain-setup`** — scaffold and audit the Karpathy second-brain knowledge model across three tiers
 
 ### Added
-- `$brain-setup` 1.0.0 — sets up or audits the three-tier Raw/Wiki model (global `~/.codex/forge/knowledge/`, company `~/.codex/forge/companies/[name]/knowledge/`, and per-project folders), enforces a **mandatory human-declared scope** for every project (`personal` stays under the global tier permanently, whatever company context is active; `company` stays segregated under the company tier until deployment), and establishes the company `Wiki/pending-changes.md` ledger of potential/confirmed knowledge changes from in-flight company projects. Scope's sole source of truth is the `_scope.md` marker in the project's knowledge folder — **absence means company-restricted** (never shared, moved, or compiled into the global tier), so company information cannot leak global by omission and nothing is ever written to record restriction. `scope: company` must name an existing company install; scope change `company` → `personal` is forbidden in-skill (git history/team remote — manual action only); folder moves are typed-`CONFIRM`-gated per project with a git-sync warning. Design grilled via $grill-me and hardened via $critic (1 P1, 4 P2, 5 P3 — all resolved). Templates in `FORMATS.md`.
+- `/brain-setup` 1.0.0 — sets up or audits the three-tier Raw/Wiki model (global `~/.codex/forge/knowledge/`, company `~/.codex/forge/companies/[name]/knowledge/`, and per-project folders), enforces a **mandatory human-declared scope** for every project (`personal` stays under the global tier permanently, whatever company context is active; `company` stays segregated under the company tier until deployment), and establishes the company `Wiki/pending-changes.md` ledger of potential/confirmed knowledge changes from in-flight company projects. Scope's sole source of truth is the `_scope.md` marker in the project's knowledge folder — **absence means company-restricted** (never shared, moved, or compiled into the global tier), so company information cannot leak global by omission and nothing is ever written to record restriction. `scope: company` must name an existing company install; scope change `company` → `personal` is forbidden in-skill (git history/team remote — manual action only); folder moves are typed-`CONFIRM`-gated per project with a git-sync warning. Design grilled via $grill-me and hardened via $critic (1 P1, 4 P2, 5 P3 — all resolved). Templates in `FORMATS.md`.
 
 ### Deferred (backlog 2026-07-13)
-- **P2** — scope enforcement in `$ingest` and `$add-project` (read `_scope.md`, treat absence as restricted, ask scope at creation, pending-changes prompt): until it lands the scope model is only binding while `$brain-setup` runs.
+- **P2** — scope enforcement in `$ingest` and `$add-project` (read `_scope.md`, treat absence as restricted, ask scope at creation, pending-changes prompt): until it lands the scope model is only binding while `/brain-setup` runs.
 - **P3** — merge-on-deploy: `$deploy` first needs a post-deployment cleanup hook, then fold a deployed company project's Wiki into the company Wiki and resolve its pending-changes rows; personal projects permanently exempt.
 
 ---
@@ -762,7 +908,7 @@ time` rule was a faithful copy of the earlier version, which upstream has since 
 **Critic fixes — correctness, completeness, consistency**
 
 ### Fixed
-- `$forge-install` v2.0.1 — scenario detection script now uses PowerShell ReparsePoint check for Windows junctions; `[ -L ]` alone returns false for NTFS junctions and would misidentify an already-linked machine as needing migration
+- `/forge-install` v2.0.1 — scenario detection script now uses PowerShell ReparsePoint check for Windows junctions; `[ -L ]` alone returns false for NTFS junctions and would misidentify an already-linked machine as needing migration
 - `forge-sequence.mmd` — added `$qa-report` step to Phase 6 pipeline (was missing since v3.6.0); fixed `qa-plan.md` filename reference to `qa-plan-[feature].md`
 - `$build` v1.1.0 — testplan pre-flight check upgraded from passive read to active warning gate; prompts to run `$testplan` first if no testplan file found
 - `$qa-report` v1.1.0 — added step 0: identify active feature from `docs/prd/active/` and validate report filename matches; confirms save path before writing
@@ -773,12 +919,12 @@ time` rule was a faithful copy of the earlier version, which upstream has since 
 
 ## v3.7.0 — 2026-06-01
 
-**Junction-based sync — install.sh, $forge-install, $forge-update rewritten**
+**Junction-based sync — install.sh, /forge-install, /forge-update rewritten**
 
 ### Changed
 - `install.sh` v2.0.0 — rewritten to create junctions (Windows: `mklink /J`) and symlinks (Mac/Linux: `ln -s`) for `skills/`, `commands/`, `rules/` dirs and 4 loose framework files (`CHANGELOG.md`, `PRINCIPLES.md`, `SOUL.md`, `forge-sequence.mmd`). Removes copy and backup steps entirely. Idempotent — skips already-linked targets. User-owned dirs (`knowledge/`, `instincts/`, `tokens/`, etc.) are never touched. Platform auto-detected via `$OSTYPE`/`uname`.
-- `$forge-install` v2.0.0 — auto-detects scenario: fresh install, legacy migration, already linked (no-op), re-link, or iOS. Migration flow moves repo from any detected location (incl. `OneDrive/Forge`) to `~/forge`, then runs `install.sh`. iOS branch provides PR-only contributor guidance. HITL confirmation required before any file system changes.
-- `$forge-update` v2.0.0 — simplified to `git pull` + version check + CHANGELOG display. Drops `update.sh` dependency entirely. Checks junctions are in place before pulling; redirects to `$forge-install` if not. Updates `forge-version` stamp preserving original `installed:` date.
+- `/forge-install` v2.0.0 — auto-detects scenario: fresh install, legacy migration, already linked (no-op), re-link, or iOS. Migration flow moves repo from any detected location (incl. `OneDrive/Forge`) to `~/forge`, then runs `install.sh`. iOS branch provides PR-only contributor guidance. HITL confirmation required before any file system changes.
+- `/forge-update` v2.0.0 — simplified to `git pull` + version check + CHANGELOG display. Drops `update.sh` dependency entirely. Checks junctions are in place before pulling; redirects to `/forge-install` if not. Updates `forge-version` stamp preserving original `installed:` date.
 - `update.sh` — deprecated with notice at top of file. Retained for backwards compatibility with legacy copy-based installs. Not called by any skill or `install.sh` going forward.
 
 ---
@@ -798,14 +944,14 @@ time` rule was a faithful copy of the earlier version, which upstream has since 
 
 ## v3.5.0 — 2026-05-29
 
-**New skills: $forge-init, $forge-update + $ingest scope prompt + $context-health Intent Layer + category fields**
+**New skills: /forge-init, /forge-update + $ingest scope prompt + $context-health Intent Layer + category fields**
 
 ### Added
-- `$forge-init` v1.0.0 — generates `~/.claude/CLAUDE.md` and `~/.claude/AGENTS.md` from a single source of truth. Writes skill-loading instruction and standing instructions (git safety, push confirmation, HITL gates, context limit) for Claude Code. Overlays company config (ai_human_signoff_required, ai_data_restrictions, ai_monthly_spend_cap_usd) when `active_company` is set. Called automatically by `$company-add` as its final write step; runnable standalone after config changes or Forge upgrades. `compatibility: codex: unsupported` (writes to `~/.claude/` which is Claude Code's directory).
-- `$forge-update` v1.0.0 — self-update skill for Forge. Ensures `~/forge` clone exists, pulls latest, version-checks current vs incoming, surfaces the CHANGELOG section for the new version, confirms before running `update.sh`. Warns to start a new session after install.
+- `/forge-init` v1.0.0 — generates `~/.claude/CLAUDE.md` and `~/.claude/AGENTS.md` from a single source of truth. Writes skill-loading instruction and standing instructions (git safety, push confirmation, HITL gates, context limit) for Claude Code. Overlays company config (ai_human_signoff_required, ai_data_restrictions, ai_monthly_spend_cap_usd) when `active_company` is set. Called automatically by `/company-add` as its final write step; runnable standalone after config changes or Forge upgrades. `compatibility: codex: unsupported` (writes to `~/.claude/` which is Claude Code's directory).
+- `/forge-update` v1.0.0 — self-update skill for Forge. Ensures `~/forge` clone exists, pulls latest, version-checks current vs incoming, surfaces the CHANGELOG section for the new version, confirms before running `update.sh`. Warns to start a new session after install.
 
 ### Changed
-- `$company-add` v1.3.0 — runs `$forge-init` silently as its final write step, regenerating `~/.codex/forge/AGENTS.md` with company config overlays applied immediately after setup
+- `/company-add` v1.3.0 — runs `/forge-init` silently as its final write step, regenerating `~/.codex/forge/AGENTS.md` with company config overlays applied immediately after setup
 - `$ingest` v1.2.0 — structured scope prompt replaces open-ended "which Raw/ folder?" question for all three modes. Reads active projects from `registry.md`, presents a numbered list, pre-highlights any project matching the current working directory, falls back silently to global when no projects registered. Frontmatter description corrected to reflect actual scope behaviour.
 - `$context-health` v1.1.0 — Intent Layer child node recommendations added (adapted from Railly Hugo / Crafter Station, Tyler Brandt's Intent Layer framework). Phase 1 now scans first-level source directories (`src/`, `app/`, `lib/`, `packages/`, `services/`, `api/`, `components/`), flags subdirectories exceeding 20k tokens without an `AGENTS.md`, and adds a Child Node Recommendations section to the report with an inline `AGENTS.md` template. 3 new failure modes, 4 new rules.
 
@@ -948,25 +1094,25 @@ Bumped to v3.0.0 — four skills added in one session (git-guardrails, jira, ski
 
 ## v2.6.0 — 2026-05-25
 
-**New skill: $company-update + critic resolution (16 issues)**
+**New skill: /company-update + critic resolution (16 issues)**
 
 ### Added
-- `$company-update` v1.0.0 — post-install maintenance for company repos. Two modes:
-  - `--reconfigure`: re-run any of the 8 grilling topics from `$company-add` against the existing config; shows a diff of changes before writing; fields from unselected topics are untouched
+- `/company-update` v1.0.0 — post-install maintenance for company repos. Two modes:
+  - `--reconfigure`: re-run any of the 8 grilling topics from `/company-add` against the existing config; shows a diff of changes before writing; fields from unselected topics are untouched
   - `--update-skills`: compare version fields of the 17 bundled skills against `~/.agents/skills/`; show an update inventory; copy newer versions on confirmation
   - `--all`: reconfigure then update-skills in sequence
 - `decisions/ADR-001-one-company-per-install.md` — formal ADR documenting the one-company-per-install constraint: rationale (unambiguous path resolution, knowledge contamination risk, config conflicts), alternatives considered, and revisit criteria
 
 ### Changed
-- `$company-add` v1.2.0 — multiple correctness and completeness fixes:
+- `/company-add` v1.2.0 — multiple correctness and completeness fixes:
   - `setup.sh` template: replaced `sed -i` (broken on macOS — requires backup suffix) with portable `awk` equivalent
   - Frontmatter description: removed stale "instincts" reference
   - Confirm block and AGENTS.md template: corrected bundled skill count from 18 to 17 (learn was removed last patch)
   - Embedded AGENTS.md template: removed `instincts/` from repository structure section
   - Company Skills section header: corrected "18 skills" to "17 skills"
-  - `config.md` template: added `git_remote` / `git_branch` fields (default `origin` / `main`) — read by `$company-sync`
+  - `config.md` template: added `git_remote` / `git_branch` fields (default `origin` / `main`) — read by `/company-sync`
   - Next steps: added step 10 — rename `technology1–technology8` to actual domain names with example `mv` command and follow-up note
-- `$company-sync` v1.1.0 — safety and portability improvements:
+- `/company-sync` v1.1.0 — safety and portability improvements:
   - Push phase now reads `git_remote` and `git_branch` from `config.md` (defaults to `origin` / `main`)
   - Added HITL gate before committing: shows a `git status --short`-style file list and requires `SYNC` before staging or committing
   - Merge conflict guidance expanded: explains that knowledge article conflicts should be merged (combining content), not overwritten; provides step-by-step resolution commands
@@ -987,14 +1133,14 @@ Bumped to v3.0.0 — four skills added in one session (git-guardrails, jira, ski
 - P1-1 `setup.sh` macOS portability — `sed -i` → `awk`
 - P1-2 Stale "instincts" in company-add frontmatter description
 - P1-3 Wrong bundled skill count (18 → 17) in three locations
-- P1-4 `$company-sync` blind commit — HITL gate added
+- P1-4 `/company-sync` blind commit — HITL gate added
 - P1-5 `$build` duplicate Step 5 numbering
-- P2-7/P2-8 No post-install update path — resolved by `$company-update`
+- P2-7/P2-8 No post-install update path — resolved by `/company-update`
 - P2-9 `$ingest` had no technology sub-category routing
 - P2-10 `$write-a-skill` 100-line rule was fiction in practice
-- P2-11 `$company-sync` hard-coded `origin main` — now reads from config
+- P2-11 `/company-sync` hard-coded `origin main` — now reads from config
 - P3-12 One-company constraint undocumented — ADR-001 written
-- P3-13 No rename-domain guidance — step 10 added to $company-add next steps
+- P3-13 No rename-domain guidance — step 10 added to /company-add next steps
 - P3-14 SOUL.md contradiction with AFK mode — exception clause added
 - P3-15 forge-sequence.mmd update criterion vague — checklist item added to $write-a-skill
 - P3-16 Merge conflict guidance for prose knowledge files was absent
@@ -1006,12 +1152,12 @@ Bumped to v3.0.0 — four skills added in one session (git-guardrails, jira, ski
 **Company structure mirrors global: Raw/Wiki/Outputs, rules, projects, tools, legal, technology**
 
 ### Changed
-- `$company-add` v1.1.0 — scaffold now mirrors global `~/.codex/forge/` structure:
+- `/company-add` v1.1.0 — scaffold now mirrors global `~/.codex/forge/` structure:
   - Added `knowledge/Raw/`, `knowledge/Wiki/`, `knowledge/Outputs/` — three-tier knowledge pipeline lands in company repo; `$ingest` already routes here when `active_company` is set
-  - Added `knowledge/legal/` with full three-tier structure (Raw/Wiki/Outputs) — contracts and legal advice are ingested via Raw/ first; Wiki index stub notes legal privilege sensitivity and suggests `$pii-check` before sharing
+  - Added `knowledge/legal/` with full three-tier structure (Raw/Wiki/Outputs) — contracts and legal advice are ingested via Raw/ first; Wiki index stub notes legal privilege sensitivity and suggests `/pii-check` before sharing
   - Added `knowledge/technology/` with Raw/Wiki/Outputs at the domain level; 8 placeholder sub-categories (`technology1/`–`technology8/`) with Wiki/Outputs only — Raw/ lives at `technology/` level, `$ingest` classifies and routes articles into the correct sub-category Wiki/; each sub-category also has a `hardware/` folder (Wiki/Outputs, no Raw/); sub-categories renamed to actual domains at company install
   - Added `projects/` with `registry.md` stub — company-level project index; populated by `$add-project` and `$create-project`. Distinct from `knowledge/projects/` (which holds knowledge content per project)
-  - Added `tools.md` — required/approved/prohibited tools registry; scaffolded by `$company-add` and populated via `$tool-add --company [name]`
+  - Added `tools.md` — required/approved/prohibited tools registry; scaffolded by `/company-add` and populated via `/tool-add --company [name]`
   - Added Topic 8 — Tools Policy grilling: captures prohibited tools (compliance/licensing), required tools (security scanners, test runners), and approved standard tools; writes skeleton entries to `tools.md` with TODO comments
   - Added `rules/` with `README.md` stub — company rule extensions layer on top of global `~/.codex/forge/rules/common/` baseline
   - Fixed `ideas/archive/` → `ideas/archived/` to match global naming
@@ -1032,15 +1178,15 @@ Bumped to v3.0.0 — four skills added in one session (git-guardrails, jira, ski
 
 ## v2.5.6 — 2026-05-23
 
-**New skills: $knowledge-onboard, $style-check + company knowledge layer**
+**New skills: /knowledge-onboard, /style-check + company knowledge layer**
 
 ### Added
-- `$knowledge-onboard` — guided company knowledge setup for a new employer. Four-stage sequence: style guide → acronyms → domain terms → core systems. HITL gate between every stage. Multi-source ingestion: Confluence URL, file path (PDF/Word), manual paste (SharePoint), or verbal description. Produces `style-guide.md`, populates `acronyms.md` and `context.md`, and scaffolds system knowledge via `$summarise-system` logic.
-- `$style-check` — reviews any document against `~/.codex/forge/knowledge/company/style-guide.md`. CRITICAL/HIGH/LOW severity model (mirrors `$pii-check`). Pass/fail gate: APPROVED or NEEDS REVISION. Gracefully degrades if style guide is a placeholder.
-- `~/.codex/forge/knowledge/company/style-guide.md` — placeholder template covering written style, formatting, fonts, colour scheme, approved/banned terminology, logo usage, and document types. Populated via `$knowledge-onboard` or manually at the company.
+- `/knowledge-onboard` — guided company knowledge setup for a new employer. Four-stage sequence: style guide → acronyms → domain terms → core systems. HITL gate between every stage. Multi-source ingestion: Confluence URL, file path (PDF/Word), manual paste (SharePoint), or verbal description. Produces `style-guide.md`, populates `acronyms.md` and `context.md`, and scaffolds system knowledge via `$summarise-system` logic.
+- `/style-check` — reviews any document against `~/.codex/forge/knowledge/company/style-guide.md`. CRITICAL/HIGH/LOW severity model (mirrors `/pii-check`). Pass/fail gate: APPROVED or NEEDS REVISION. Gracefully degrades if style guide is a placeholder.
+- `~/.codex/forge/knowledge/company/style-guide.md` — placeholder template covering written style, formatting, fonts, colour scheme, approved/banned terminology, logo usage, and document types. Populated via `/knowledge-onboard` or manually at the company.
 
 ### Changed
-- `$write-article` — reads `style-guide.md` before writing (step 0 of writing process); quality gate now includes a `$style-check` reminder for external deliverables
+- `$write-article` — reads `style-guide.md` before writing (step 0 of writing process); quality gate now includes a `/style-check` reminder for external deliverables
 - `$write-prd` — reads `style-guide.md` in Phase 2 before writing
 - `$knowledge-health` — company knowledge scan now checks for `style-guide.md`: missing = P1, all-placeholder = P1, partially populated = P2
 
@@ -1201,7 +1347,7 @@ LLM knowledge base pattern: raw data → compiled wiki → health checks → con
 - `$qa-plan` — reads `docs/known-issues.md` before generating checklist; "Known Issues to Verify" section added to QA plan output with KI-NNN references
 - `$standup` — surfaces active known issues count in daily brief
 - `$go-nogo` — reads `docs/known-issues.md` for each project; Active issues included in brief; Critical active issues can block Go/No Go
-- `$sprint-start` — surfaces High/Critical active known issues and asks whether any should be scheduled as sprint tickets
+- `/sprint-start` — surfaces High/Critical active known issues and asks whether any should be scheduled as sprint tickets
 - `AGENTS.md` — `docs/known-issues.md` added to key files table
 - `INSTALL.md` — `docs/known-issues.md` listed in project scaffold
 
@@ -1332,8 +1478,8 @@ LLM knowledge base pattern: raw data → compiled wiki → health checks → con
 - `$qa-plan` — records token usage after QA phases complete
 - `$approve` — rolls up feature token record to `~/.codex/forge/tokens/ledger.md` at feature close
 - `$standup` — shows current feature token spend line
-- `$sprint-end` — shows sprint token total line
-- `$pi-end` — shows PI token total line, suggests `$token-report`
+- `/sprint-end` — shows sprint token total line
+- `/pi-end` — shows PI token total line, suggests `$token-report`
 
 ### Token recording approach
 - AFK automatic at phase end — agent estimates, not exact counts
@@ -1401,9 +1547,9 @@ LLM knowledge base pattern: raw data → compiled wiki → health checks → con
 ### Changed
 - `$idea` — feature-level estimate generated before decision gate, added to `idea.md`
 - `$write-prd` — per-module estimates generated in Phase 2, added to PRD header and Implementation Decisions. PRD header now includes `Estimate (AI Token Cost)`, `Estimate (Story Points)`, `Estimate Status`, `Last estimated`
-- `$sprint-start` — sprint capacity check against `preferences.md` limits (story points + token budget). XL tickets flagged. Warning not block.
+- `/sprint-start` — sprint capacity check against `preferences.md` limits (story points + token budget). XL tickets flagged. Warning not block.
 - `$build` — actuals tracked per ticket. Estimated vs actual band recorded in `kanban-archive.md`. Over-band actuals flagged ⚠️
-- `$scope-check` — stale estimate detection. Marks PRD estimate as Stale when scope changes, prompts `$estimate`
+- `/scope-check` — stale estimate detection. Marks PRD estimate as Stale when scope changes, prompts `$estimate`
 - `preferences.md` — `sprint-capacity-points` and `sprint-capacity-tokens` fields added
 - `kanban.md` template — `S|M|L|XL | Npts` and `XL ⚠️` tags added
 - `kanban-archive.md` template — `estimated: M | actual: L` actuals format added
@@ -1424,18 +1570,18 @@ LLM knowledge base pattern: raw data → compiled wiki → health checks → con
 - `$rollback` — emergency project rollback with mandatory reason, diagnose handoff, deploy log entry
 - `$rollback-pi` — full PI rollback in reverse deploy order, stops on failure, PI plan reflects exact state
 - `$piplan` — PI creation with auto-derived release dates, Go/No Go gates, buffer windows
-- `$pi-end` — formal PI closure with delivery summary, retrospective, stakeholder view
+- `/pi-end` — formal PI closure with delivery summary, retrospective, stakeholder view
 - `$go-nogo` — release gate with AI-prepared brief, GO/NO-GO human decision, NO-GO next step suggestions
 - `$standalone-release` — urgent deploy outside monthly cycle, deploy log integration
-- `$sprint-replan` — mid-sprint injection with absorb/swap options
-- `$pi-replan` — mid-PI scope change with Fixed Deadline risk check and two-gate confirmation
-- `$pii-check` — AFK codebase scan + HITL review, Necessary vs Incidental classification, living report
+- `/sprint-replan` — mid-sprint injection with absorb/swap options
+- `/pi-replan` — mid-PI scope change with Fixed Deadline risk check and two-gate confirmation
+- `/pii-check` — AFK codebase scan + HITL review, Necessary vs Incidental classification, living report
 - `$tdd` — red-green-refactor with deep-modules, interface-design, mocking, refactoring reference files
 - `$testplan` — testing strategy design before implementation
 - `$idea` — structured idea capture with grill, diagrams, impact/effort, ACCEPT/DECLINE/HOLD
 - `$create-project` — progress accepted idea to git repo with Forge scaffold
 - `$onboard` — bootstrap Forge onto existing project
-- `$backlog-list`, `$backlog-proj`, `$backlog-add` — backlog management with priority grouping
+- `$backlog-list`, `$backlog-proj`, `/backlog-add` — backlog management with priority grouping
 - `$critic` — honest prioritised critique across correctness, completeness, consistency, risk
 - `$update-readme` — diff-style README proposal against PRD and DEVLOG
 - `$write-adr` — explicit ADR creation skill
@@ -1450,7 +1596,7 @@ LLM knowledge base pattern: raw data → compiled wiki → health checks → con
 - `AGENTS.md` — session start now reads `HANDOFF.md` first, staleness warning for knowledge files, session end writes `HANDOFF.md`
 - `$approve` — PII gate added, HANDOFF reset on feature close, README update suggestion, fixed step numbering
 - `$write-prd` — two-phase AFK explore + HITL write, Sprint and PI fields in PRD template
-- `$sprint-end` — kanban archiving to `kanban-archive.md`, HANDOFF update
+- `/sprint-end` — kanban archiving to `kanban-archive.md`, HANDOFF update
 - `$debrief` — HANDOFF update added as step 2
 - `$standup` — reads priorities, flags deadline risk, Go/No Go proximity, auto scope-check for Fixed Deadline features
 - `manifest.json` — `forge_version` field added
@@ -1465,4 +1611,4 @@ LLM knowledge base pattern: raw data → compiled wiki → health checks → con
 **Initial release — planning pipeline and sprint management.**
 
 ### Skills
-`$grill-me`, `$grill-with-docs`, `$research`, `$prototype`, `$write-prd`, `$diagnose`, `$approve`, `$standup`, `$debrief`, `$scope-check`, `$write-adr`, `$break-down`, `$qa-plan`, `/review`, `$push-standards`, `$add-system`, `$summarise-system`, `$update-context`, `$sprint-start`, `$sprint-end`, `$piplan`, `$sprintplan`, `$write-a-skill`, `$commands`
+`$grill-me`, `$grill-with-docs`, `$research`, `$prototype`, `$write-prd`, `$diagnose`, `$approve`, `$standup`, `$debrief`, `/scope-check`, `$write-adr`, `$break-down`, `$qa-plan`, `/review`, `$push-standards`, `$add-system`, `$summarise-system`, `$update-context`, `/sprint-start`, `/sprint-end`, `$piplan`, `$sprintplan`, `$write-a-skill`, `$commands`

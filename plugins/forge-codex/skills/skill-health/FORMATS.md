@@ -80,7 +80,7 @@ Output inline and save to `~/.codex/forge/knowledge/skill-health-report.md`:
 | Item | Value | Status |
 |------|-------|--------|
 | Version | v[N.N.N] | ✅ stamp present / ℹ️ stamp missing |
-| Installed | YYYY-MM-DD | ✅ recent / ⚠️ [N] days ago — run $forge-update |
+| Installed | YYYY-MM-DD | ✅ recent / ⚠️ [N] days ago — run $update-forge |
 | Commit | [sha] | |
 
 ---

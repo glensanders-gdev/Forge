@@ -114,7 +114,7 @@ Recommended next steps:
 2. Review docs/kanban.md — confirm ticket state is accurate
 3. Run grill-with-docs to validate domain model against codebase
 4. Add this project to ~/.codex/forge/priorities.md
-5. Add to sprint calendar via sprint-start
+5. Add to sprint calendar via start-sprint
 ```
 
 ## Rules

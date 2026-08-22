@@ -179,12 +179,12 @@ Note: in-progress features marked ⚠️ partial — actuals incomplete
 Token spend (current feature): ~Nk so far across N phases
 ```
 
-### `$sprint-end` — sprint total line
+### `$end-sprint` — sprint total line
 ```
 Sprint token total: ~Nk (N features, N sessions)
 ```
 
-### `$pi-end` — PI total line
+### `$end-pi` — PI total line
 ```
 PI token total: ~Nk across N features, N projects, N sessions
 ```

@@ -8,7 +8,7 @@ metadata:
 
 # Context Health
 
-> **Company-aware:** When `active_company` is set in `~/.codex/forge/preferences.md` (configured by `$company-add`), company-specific files (acronyms, context, systems, projects) are measured from `~/.codex/forge/companies/[active_company]/knowledge/` instead of `~/.codex/forge/knowledge/`.
+> **Company-aware:** When `active_company` is set in `~/.codex/forge/preferences.md` (configured by `$add-company`), company-specific files (acronyms, context, systems, projects) are measured from `~/.codex/forge/companies/[active_company]/knowledge/` instead of `~/.codex/forge/knowledge/`.
 
 Audit how much of the 100k token soft limit is consumed by loaded files before a single
 message is sent. Flags bloated files early, before they cause mid-session compaction.
@@ -250,7 +250,7 @@ not block completion of the context health check.
 
 ## Sprint-Start Integration
 
-`$sprint-start` checks `context-health-last-run` in `preferences.md`. If more than 7 days ago:
+`$start-sprint` checks `context-health-last-run` in `preferences.md`. If more than 7 days ago:
 
 ```
 ⚠️ Context health check overdue (last run: N days ago).

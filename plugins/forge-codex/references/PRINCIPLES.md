@@ -29,7 +29,7 @@ Forge applies this everywhere:
 - `ERROR-HANDLING.md` — "Never use `innerHTML` in error handlers"
 - `SECURITY.md` — "Never store API keys in source code"
 - `$build` — "Never deploy. Never auto-rollback."
-- `$pii-check` — "Never reproduce actual PII values"
+- `$check-pii` — "Never reproduce actual PII values"
 - `known-issues.md` `Do Not Attempt` entries — explicit negative space per system
 
 When writing a new skill: every skill should have explicit "never" rules, not just "do this" instructions.

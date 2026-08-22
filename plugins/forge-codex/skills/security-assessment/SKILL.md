@@ -100,7 +100,7 @@ State what will be assessed and which tools will run before starting:
 Running assessment — this may take a few minutes...
 ```
 
-If no tools are installed, note: "No security-scanner tools installed — running AI analysis only. Install tools via $tool-check for recommendations."
+If no tools are installed, note: "No security-scanner tools installed — running AI analysis only. Install tools via $check-tools for recommendations."
 
 ---
 
@@ -265,7 +265,7 @@ The full finding detail stays in `docs/security/assessment-YYYY-MM-DD.md` only.
 If `docs/known-issues.md` exists and the finding is a persistent issue rather than a
 one-off fix, offer to add a reference there too — ID and severity only.
 
-To mark a finding resolved after fixing, note: a future `$security-resolve [ID]` skill
+To mark a finding resolved after fixing, note: a future `$resolve-findings [ID]` skill
 will handle closure tracking. Until then, re-running `$security-assessment` and finding
 the issue absent is sufficient confirmation of resolution.
 

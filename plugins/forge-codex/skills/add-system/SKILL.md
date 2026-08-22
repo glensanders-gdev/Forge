@@ -8,7 +8,7 @@ metadata:
 
 # Add System
 
-> **Company-aware:** When `active_company` is set in `~/.codex/forge/preferences.md` (configured by `$company-add`), systems are scaffolded under `~/.codex/forge/companies/[active_company]/knowledge/systems/` instead of `~/.codex/forge/knowledge/systems/`.
+> **Company-aware:** When `active_company` is set in `~/.codex/forge/preferences.md` (configured by `$add-company`), systems are scaffolded under `~/.codex/forge/companies/[active_company]/knowledge/systems/` instead of `~/.codex/forge/knowledge/systems/`.
 
 Scaffold the full three-tier knowledge structure for a new system under `~/.codex/forge/knowledge/systems/`.
 

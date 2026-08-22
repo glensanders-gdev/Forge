@@ -95,7 +95,7 @@ Delete and rewrite any of these — they signal AI-generated filler:
 
 ## Writing Process
 
-0. **Check style guide** — if `~/.claude/knowledge/company/style-guide.md` exists and is populated, read it before writing. Apply its tone, terminology, banned phrases, and formatting standards throughout. If it is a placeholder, proceed without it and note: "Style guide not yet populated — run `/style-check` once filled in."
+0. **Check style guide** — if `~/.claude/knowledge/company/style-guide.md` exists and is populated, read it before writing. Apply its tone, terminology, banned phrases, and formatting standards throughout. If it is a placeholder, proceed without it and note: "Style guide not yet populated — run `/check-style` once filled in."
 1. **Clarify audience and purpose** — who reads this and what do they need to do after reading it?
 2. **Build a hard outline** — one job per section, stated in plain language
 3. **Draft section by section** — start each section with the concrete thing (proof, finding, outcome)
@@ -114,7 +114,7 @@ Before delivering any written content:
 - [ ] Every section adds something new — no padding
 - [ ] Format matches the intended medium (Confluence, README, brief, etc.)
 - [ ] The first sentence would make a reader want to read the second
-- [ ] If this is an external deliverable, run `/user:style-check` to validate against the company style guide
+- [ ] If this is an external deliverable, run `/user:check-style` to validate against the company style guide
 
 ---
 
@@ -123,7 +123,7 @@ Before delivering any written content:
 | Skill | How article-writing applies |
 |-------|---------------------------|
 | `/update-readme` | Apply voice and structure rules when drafting README updates |
-| `/pi-end` | Stakeholder delivery summary follows the Stakeholder Summary format above |
+| `/end-pi` | Stakeholder delivery summary follows the Stakeholder Summary format above |
 | `/go-nogo` | Go/No Go brief follows the brief format above |
 | `/handoff` | Handoff notes follow the concrete-first rule |
 | Confluence page | Full article-writing skill applies |

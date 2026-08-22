@@ -1,0 +1,2 @@
+Invoke the check-tools skill. Verify which registered Forge tools are installed on this machine. Shows a full matrix by category — tool name, availability (installed/missing), and company classification (required/approved/prohibited/global-only). Required-but-missing tools are flagged prominently with install hints. Use /check-tools [category] to filter by category, or /check-tools --company [name] to check against a specific company.
+Skill: global/.claude/skills/check-tools/SKILL.md
