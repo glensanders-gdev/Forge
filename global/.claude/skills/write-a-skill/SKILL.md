@@ -106,7 +106,7 @@ Invoke the [skill-name] skill. [What it does and what it produces.] [Key argumen
 Invoke the handoff skill. Compact the current session into a structured handoff for one stream of work, written to docs/handoffs/[stream].md and indexed in the register at docs/HANDOFF.md. References Forge artifacts by path rather than reproducing them. Suggests which skills the next session should use first. Optional arguments: the stream slug, and a description of what the next session will focus on (e.g. /handoff login-flow "next session: implement the login flow"). Add --archive to also save a timestamped copy, or --close to retire the stream.
 ```
 
-The command file is what registers `/user:skill-name` in Claude Code. Without it, the skill exists but cannot be invoked as a slash command.
+<!--no-adapt-->The command file is what registers `/user:skill-name` in Claude Code.<!--/no-adapt--> Without it, the skill exists but cannot be invoked as a slash command.
 
 ## After Writing Files
 
@@ -116,6 +116,7 @@ The command file is what registers `/user:skill-name` in Claude Code. Without it
 2. Update `~/.claude/CHANGELOG.md` — add an entry for the new or changed skill under the current framework version.
 3. Confirm the files created/updated and their locations.
 4. Remind the user: project-level skills go in `.claude/skills/[skill-name]/SKILL.md` and override global skills of the same name.
+5. Fence any host-product claim. The Codex build rewrites <!--no-adapt-->`Claude Code` → `Codex` and `~/.claude/` → `~/.codex/forge/`<!--/no-adapt--> on every adapted file, so a sentence naming one host as a *distinct product* ships as a false statement. See <!--no-adapt-->`CLAUDE.md`<!--/no-adapt--> § Naming a host product.
 
 ## When to Split Files
 
@@ -137,6 +138,7 @@ Before finalising, verify:
 - [ ] Terminology consistent with `docs/CONTEXT.md`
 - [ ] `manifest.json` updated with new skill and version `"1.0.0"`
 - [ ] Command file created if slash command needed
+- [ ] **Host names fenced** — every sentence that names <!--no-adapt-->Claude Code, Claude Desktop, or a `~/.claude/` path<!--/no-adapt--> as a specific product, rather than meaning "the host you are running on", is wrapped in a `no-adapt` fence. Ask which host the sentence is *about*, not which host will read it
 - [ ] **`~/.claude/skills/commands/SKILL.md` updated** — add the new command to the correct section in the command reference table. This is mandatory — never skip it.
 - [ ] **`~/.claude/CHANGELOG.md` updated** — add the new skill under the current `forge_version` entry (or create a new version entry if bumping the version). Version bump guidance: patch (x.x.N) for skill fixes, minor (x.N.0) for new skills, major (N.0.0) for lifecycle changes (new pipeline phases, fundamental workflow changes). Never let the changelog drift from the actual skill set.
 - [ ] **`README.md` updated** — increment the skill count in the "What's Included" intro line (e.g. "**94 skills**"), add the new skill to the correct category row in the table, and update any other inline counts (e.g. the file structure section).
@@ -156,3 +158,4 @@ When the skill you just wrote misbehaves, the cause is usually one of these. Ful
 | A line that changes nothing versus the agent's default | **No-op** — delete it, or replace a weak leading word with a stronger one |
 | A "never" rule that's really steering intended behaviour | **Negation** — reframe as a positive leading word; keep "never" only for guardrails on consequential/irreversible actions |
 | Source is an external skill/article | Stop — use `/user:assimilate`, which handles fit evaluation and attribution |
+| Generated Codex copy states something untrue about its host | **Host-name falsification** — an unfenced product name was rewritten by the build; fence the span and rerun `tools/build-forge-codex.ps1` |
