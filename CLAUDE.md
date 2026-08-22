@@ -64,6 +64,20 @@ Each skill lives at `global/.claude/skills/[skill-name]/SKILL.md`. Before writin
 
 After changing any shared skill, run `build-forge-codex.ps1` and commit the output before pushing. If the changed skill has a Codex-native override, run `update-forge-codex-overrides.ps1 -ConfirmReview` after reviewing the diff.
 
+### Naming a host product
+
+The Codex build rewrites `Claude Code` → `Codex`, `Claude` → `Codex`, `CLAUDE.md` → `AGENTS.md`, and `~/.claude/` → `~/.codex/forge/` unconditionally. That is right when the text means *the host you are running on*, and wrong when it names **Claude Code specifically** — the rewrite turns a true sentence into a false one with no error.
+
+When a sentence is a claim about one named product — which host reserves a command name, where that host stores its data, which host a tool reads logs from — fence it:
+
+```markdown
+<!--no-adapt-->Claude Code ships built-in commands called `/continue` and `/review`.<!--/no-adapt-->
+```
+
+The fence wraps a phrase or a block, survives no substitution, and is stripped from the generated output. An unbalanced fence fails the build; a fence that reaches `plugins/forge-codex/skills/` or `references/` fails parity. Fence only the host-specific span — leave surrounding paths and skill names free to adapt.
+
+Ask which host the sentence is *about*, not which host will read it. "Restart your session to load new skills" is about the host and adapts correctly. "That name is shadowed by a Claude Code built-in" is about Claude Code and must be fenced.
+
 ## Windows Shell Convention
 
 When `install.sh` or any script needs Windows-specific operations, use `powershell -NoProfile -Command "..."` not `cmd.exe /c`. To detect whether a path is a junction (not a real directory), check for the `ReparsePoint` attribute — `test -d` returns true for both real dirs and junctions on Windows.

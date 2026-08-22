@@ -22,7 +22,18 @@ Codex-native overrides are tracked in `compatibility.json`. When a corresponding
 | `.claude/skills/` | `.agents/skills/` or plugin skills |
 | slash command `/skill` | explicit skill mention `$skill` |
 | Claude command stubs | omitted |
+| Text fenced `no-adapt` | left exactly as upstream wrote it |
 | Claude hooks | Codex `hooks/hooks.json` |
+
+## Substitution Exemptions
+
+The conversions above run unconditionally over every adapted file. They are correct where the source means *the host* generically, and wrong where it names Claude Code as a distinct product — a sentence such as "Claude Code ships a built-in `/review`" is true upstream and false here once rewritten.
+
+Source text may therefore be fenced with a `no-adapt` marker pair (`<!--` `no-adapt` `-->` … `<!--` `/no-adapt` `-->`). A fenced span is withheld from every substitution and restored verbatim, and the markers themselves are stripped, so the generated file carries the upstream wording with no marker left behind. Fences wrap a phrase or a block.
+
+This is why `references/CHANGELOG.md` still names Claude Code, Claude Desktop, and `~/.claude/` paths in places. Those entries are a historical record of what shipped on a named host; adapting them would misattribute Claude Code's built-in command namespace and data directory to Codex.
+
+`tools/build-forge-codex.ps1` fails on an unbalanced fence, and `tools/test-forge-parity.ps1` fails if a marker survives into `skills/` or `references/` — either means the file was not adapted and its host-specific claims are unverified.
 
 ## Compatibility Classes
 

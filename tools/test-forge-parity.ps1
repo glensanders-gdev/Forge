@@ -166,6 +166,19 @@ if ([int]$adaptation.skillsAdapted -ne $sourceSkills.Count) {
     $errors.Add("Adaptation skill count mismatch: source=$($sourceSkills.Count), adaptation=$($adaptation.skillsAdapted)")
 }
 
+# A no-adapt fence is stripped by Convert-ForgeText. One surviving into generated
+# output means the build did not process that file, so nothing guarantees the
+# surrounding host-specific claims are true for Codex. Scoped to the generated
+# trees: ADAPTATION.md is hand-maintained and documents the marker literally.
+foreach ($generatedTree in @("skills", "references")) {
+    Get-ChildItem -LiteralPath (Join-Path $pluginRoot $generatedTree) -Recurse -File -Filter "*.md" | ForEach-Object {
+        $text = [IO.File]::ReadAllText($_.FullName)
+        if ($text -match "<!--/?no-adapt-->") {
+            $errors.Add("Unstripped no-adapt fence found in $($_.FullName.Substring($root.Length + 1))")
+        }
+    }
+}
+
 $forbidden = @(
     "C:\Users\",
     "C:/Users/",
