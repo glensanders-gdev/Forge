@@ -26,8 +26,26 @@ function ConvertTo-StableJson([object]$Value, [switch]$Compress) {
         -replace "\\u003e", ">"
 }
 
-function Convert-ForgeText([string]$Text, [string[]]$SkillNames) {
+function Convert-ForgeText([string]$Text, [string[]]$SkillNames, [string]$SourcePath = "(inline text)") {
     $out = $Text
+
+    # Text fenced with <!--no-adapt-->...<!--/no-adapt--> is a statement about a
+    # named host product ("Claude Code ships a built-in /review"), not about "the
+    # host" generically. Rewriting it turns a true statement into a false one, so
+    # the fenced span is withheld from every substitution below and restored
+    # verbatim at the end. Fences may wrap a phrase or a block, and are stripped
+    # from the output either way. See plugins/forge-codex/ADAPTATION.md.
+    $withheld = New-Object System.Collections.Generic.List[string]
+    $out = [regex]::Replace($out, "(?s)<!--no-adapt-->(.*?)<!--/no-adapt-->", {
+        param($noAdaptMatch)
+        $withheld.Add($noAdaptMatch.Groups[1].Value)
+        return "__FORGE_NOADAPT_$($withheld.Count - 1)__"
+    })
+    # An unbalanced fence would silently adapt text the author marked host-specific,
+    # which is the exact falsification the fence exists to prevent. Fail the build.
+    if ($out -match "<!--/?no-adapt-->") {
+        throw "Unbalanced <!--no-adapt--> fence in $SourcePath"
+    }
     $out = $out.Replace("global/.claude/", "__FORGE_SOURCE__/")
     $out = $out.Replace("global\.claude\", "__FORGE_SOURCE__\")
     # Repository-scoped skills use the cross-agent discovery directory. Keep
@@ -61,6 +79,10 @@ function Convert-ForgeText([string]$Text, [string[]]$SkillNames) {
             $replacement = "---`n$frontmatter`norigin: Adapted from Glen Sanders (Forge / https://github.com/glensanders-gdev/Forge)`n---"
             $out = [regex]::Replace($out, "(?s)^---\r?\n.*?\r?\n---", $replacement, 1)
         }
+    }
+
+    for ($restoreIndex = $withheld.Count - 1; $restoreIndex -ge 0; $restoreIndex--) {
+        $out = $out.Replace("__FORGE_NOADAPT_${restoreIndex}__", $withheld[$restoreIndex])
     }
 
     return $out -replace "\r\n?", "`n"
@@ -137,7 +159,7 @@ function Copy-AdaptedTree([string]$Source, [string]$Destination, [string[]]$Skil
         if ($relativePosix -eq "agents/openai.yaml") {
             $agentText = [IO.File]::ReadAllText($_.FullName, [Text.Encoding]::UTF8)
             if ($agentText -match "(?m)^interface:\s*$") {
-                $adapted = Convert-ForgeText $agentText $SkillNames
+                $adapted = Convert-ForgeText $agentText $SkillNames $_.FullName
             } else {
                 $skillName = Split-Path -Leaf $Source
                 $defaultPrompt = "Use `$$skillName to audit this codebase and provide severity-ranked findings with fixes."
@@ -157,7 +179,7 @@ policy:
             [IO.File]::WriteAllText($target, $normalized, [Text.UTF8Encoding]::new($false))
         } elseif ($extension -in @(".md", ".json", ".txt", ".sh", ".ps1", ".toml", ".yaml", ".yml")) {
             $text = [IO.File]::ReadAllText($_.FullName, [Text.Encoding]::UTF8)
-            $adapted = Convert-ForgeText $text $SkillNames
+            $adapted = Convert-ForgeText $text $SkillNames $_.FullName
             [IO.File]::WriteAllText($target, $adapted, [Text.UTF8Encoding]::new($false))
         } else {
             Copy-Item -LiteralPath $_.FullName -Destination $target -Force
@@ -242,7 +264,7 @@ foreach ($file in $frameworkFiles) {
     $source = Join-Path $ForgeRoot "global\.claude\$file"
     if (Test-Path -LiteralPath $source) {
         $text = [IO.File]::ReadAllText($source, [Text.Encoding]::UTF8)
-        [IO.File]::WriteAllText((Join-Path $references $file), (Convert-ForgeText $text $skillNames), [Text.UTF8Encoding]::new($false))
+        [IO.File]::WriteAllText((Join-Path $references $file), (Convert-ForgeText $text $skillNames $source), [Text.UTF8Encoding]::new($false))
     }
 }
 
