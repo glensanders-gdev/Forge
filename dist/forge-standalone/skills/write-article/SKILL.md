@@ -9,13 +9,13 @@ origin: Adapted from Affaan Mustafa (ECC / github.com/affaan-m/ECC)
 
 Write long-form content that sounds like an actual person with a point of view — not an AI smoothing itself into generic paste.
 
-Adapted from ECC's article-writing skill. Applied to Forge's written deliverables: Confluence pages, READMEs, stakeholder communications, Go/No Go briefs, PI summaries, research outputs, and release notes.
+Adapted from ECC's article-writing skill. Applied to written deliverables: Confluence pages, READMEs, stakeholder communications, Go/No Go briefs, PI summaries, research outputs, and release notes.
 
 ---
 
 ## When to Use
 
-- Writing or updating `forge-confluence.md` or any Confluence section
+- Writing or updating any Confluence section
 - Drafting stakeholder-facing content (PI summaries, release communications, Go/No Go briefs)
 - Writing or improving README sections
 - Turning research notes or session findings into a structured document
@@ -40,7 +40,7 @@ If a voice reference is provided (e.g. an existing Confluence page, a previous R
 2. Note: sentence length, formality level, use of headers, tone (direct/warm/technical)
 3. Match those properties in the new content
 
-If no voice reference is given, default to the **Forge voice**: plain, direct, concrete, professional without being formal. The Confluence page in this session is the reference.
+If no voice reference is given, default to the **default voice**: plain, direct, concrete, professional without being formal. The Confluence page in this session is the reference.
 
 ---
 
@@ -109,7 +109,7 @@ Before delivering any written content:
 
 - [ ] Every factual claim is backed by provided sources or documented data
 - [ ] Generic AI transitions and filler phrases are gone
-- [ ] Voice matches the supplied reference or the Forge default voice
+- [ ] Voice matches the supplied reference or the default voice
 - [ ] Every section adds something new — no padding
 - [ ] Format matches the intended medium (Confluence, README, brief, etc.)
 - [ ] The first sentence would make a reader want to read the second
@@ -122,13 +122,13 @@ Before delivering any written content:
 - Never invent evidence — if you don't have a number, don't fabricate one
 - Always clarify audience before writing anything substantial
 - Voice consistency matters more than variety — once a voice is established, maintain it
-- The quality gate is not optional for any Forge-produced written deliverable
+- The quality gate is not optional for any written deliverable produced here
 
 ## Failure Modes
 
 | Condition | Behaviour |
 |-----------|-----------|
 | No audience specified | Ask: "Who reads this and what do they need to do after reading it?" — never assume |
-| No voice reference available | Default to Forge voice (plain, direct, concrete, professional) |
+| No voice reference available | Default to the default voice (plain, direct, concrete, professional) |
 | Content is too long | Apply the "cut anything templated" rule — offer a tighter version |
 | Factual gaps | Flag explicitly: "I don't have a number for X — use [placeholder] and fill in before publishing" |

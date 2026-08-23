@@ -2,7 +2,7 @@
 name: backlog-list
 category: session
 standalone: true
-description: Display the global Forge backlog grouped by priority. Use when user runs /backlog-list, wants to see pending framework items, discussion topics, or cross-project concerns.
+description: Display the global backlog grouped by priority. Use when user runs /backlog-list, wants to see pending framework items, discussion topics, or cross-project concerns.
 ---
 
 # Backlog List

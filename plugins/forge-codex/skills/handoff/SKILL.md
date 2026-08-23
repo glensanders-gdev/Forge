@@ -25,7 +25,7 @@ the loss is silent — the file still exists and still looks valid. The human de
 session is at a pause worth recording.
 
 Adapted from Matt Pocock's `handoff` skill (AIHero.dev / github.com/mattpocock/skills), extended
-for the Forge framework's session and pipeline conventions.
+for these skills' session and pipeline conventions.
 
 ---
 
@@ -37,11 +37,11 @@ for the Forge framework's session and pipeline conventions.
 - **One stream per invocation.** `$handoff` writes one stream file and updates one register row.
   It never sweeps every stream — that is `$debrief`.
 - **Reference, don't duplicate.** Do not reproduce content already captured in PRDs, ADRs, kanban
-  tickets, DEVLOG entries, testplans, or other Forge artifacts. Reference them by path instead.
+  tickets, DEVLOG entries, testplans, or other project artifacts. Reference them by path instead.
 - **The register carries no content.** `docs/HANDOFF.md` holds one pointer row per stream.
 - **Tailored.** If the user provides a focus argument (e.g. `$handoff ord-pack "next session:
   reconcile the trees"`), use it to shape what the handoff prioritises.
-- **Suggest skills.** At the end, suggest which Forge skills the next session should use first.
+- **Suggest skills.** At the end, suggest which skills the next session should use first.
 - **Never carry secrets across the handoff.** Stream files and the register are tracked workspace
   files — anything written to them is persisted and committed. Reference where a value lives (env
   var, secrets manager, ticket) rather than the value itself.

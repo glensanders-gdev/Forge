@@ -20,7 +20,7 @@ Use during planning, architecture decisions, code review, and testplan design to
 
 In traditional engineering, the bottleneck is typing speed. In AI-first engineering, the bottleneck is **planning quality and verification discipline**. The agent can generate code faster than any developer — but only the human can ensure the right thing is being built and that it actually works.
 
-**This is why Forge front-loads planning.** `$grill-with-docs`, `$write-prd`, and `$testplan` exist because the quality of what gets built is determined before `$build` runs, not during it.
+**This is why these skills front-load planning.** `$grill-with-docs`, `$write-prd`, and `$testplan` exist because the quality of what gets built is determined before `$build` runs, not during it.
 
 ---
 

@@ -8,7 +8,7 @@ metadata:
 
 # Push Standards
 
-Extract coding patterns and conventions from the current codebase and document them in the project-specific section of `.codex/forge/CODING-STANDARDS.md`. The Forge defaults at the top of the file are never modified — patterns are appended to the "Project-Specific Patterns" section at the bottom.
+Extract coding patterns and conventions from the current codebase and document them in the project-specific section of `.codex/forge/CODING-STANDARDS.md`. The baseline defaults at the top of the file are never modified — patterns are appended to the "Project-Specific Patterns" section at the bottom.
 
 ## When to Use
 
@@ -27,7 +27,7 @@ Extract coding patterns and conventions from the current codebase and document t
 
 ## Output Format
 
-Append under `## Project-Specific Patterns` at the bottom of `.codex/forge/CODING-STANDARDS.md`. Create the section if it doesn't exist. Never modify the Forge defaults above it.
+Append under `## Project-Specific Patterns` at the bottom of `.codex/forge/CODING-STANDARDS.md`. Create the section if it doesn't exist. Never modify the baseline defaults above it.
 
 ```markdown
 ## Project-Specific Patterns
@@ -66,19 +66,19 @@ Append under `## Project-Specific Patterns` at the bottom of `.codex/forge/CODIN
 - Standards must be grounded in the actual codebase — not generic best practices.
 - If `.codex/forge/rules/active.md` exists, treat the referenced language rules as the baseline — never re-document what is already covered there.
 - Each standard needs a "Reason" — if you can't explain why, it's not a standard yet.
-- Never remove or modify the Forge defaults at the top of `CODING-STANDARDS.md`.
+- Never remove or modify the baseline defaults at the top of `CODING-STANDARDS.md`.
 - Never remove existing project standards — mark superseded ones with `~~strikethrough~~` and a note.
 - Keep standards concise — a standard needing a long explanation needs simplifying.
 - After writing, confirm the file location and list what was added.
-- If `.codex/forge/CODING-STANDARDS.md` doesn't exist, create it with just the Project-Specific Patterns section and warn: "Forge defaults not found — reinstall from project template."
+- If `.codex/forge/CODING-STANDARDS.md` doesn't exist, create it with just the Project-Specific Patterns section and warn: "Baseline defaults not found — reinstall from project template."
 
 ## Failure Modes
 
 | Condition | Behaviour |
 |-----------|-----------|
-| `.codex/forge/CODING-STANDARDS.md` doesn't exist | Create it with just the Project-Specific Patterns section and warn that the Forge defaults are missing. |
+| `.codex/forge/CODING-STANDARDS.md` doesn't exist | Create it with just the Project-Specific Patterns section and warn that the baseline defaults are missing. |
 | A pattern is already covered by active language rules | Don't re-document it — extract only what extends the baseline. |
 | Pattern is generic best practice, not codebase-grounded | Don't add it — standards must come from the actual code. |
 | A proposed standard has no "Reason" | It's not a standard yet — drop it or sharpen it. |
 | A standard is being superseded | Mark the old one `~~strikethrough~~` with a note — never delete project standards. |
-| Tempted to edit the Forge defaults | Never — append only to the Project-Specific Patterns section. |
+| Tempted to edit the baseline defaults | Never — append only to the Project-Specific Patterns section. |

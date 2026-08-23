@@ -37,7 +37,7 @@ no-seam: [why no test attaches] — verified by [evidence]
 
 If a ticket looks seamless mid-cycle, that is a Plan defect, not a licence — stop and put it to the human with the proposed evidence.
 
-> The seam framing is adapted from Matt Pocock's `implement` skill (github.com/mattpocock/skills) — "use TDD where possible, at pre-agreed seams". Forge keeps the pre-agreement and makes the exemption a recorded human decision carrying its own evidence.
+> The seam framing is adapted from Matt Pocock's `implement` skill (github.com/mattpocock/skills) — "use TDD where possible, at pre-agreed seams". This skill keeps the pre-agreement and makes the exemption a recorded human decision carrying its own evidence.
 
 ## Anti-Pattern: Horizontal Slices
 

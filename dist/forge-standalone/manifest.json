@@ -1,7 +1,6 @@
 {
-  "source": "https://github.com/glensanders-gdev/Forge",
-  "forge_version": "4.4.0",
-  "generated_by": "tools/build-forge-standalone.ps1",
+  "repository": "https://github.com/glensanders-gdev/skills",
+  "version": "4.4.0",
   "skill_count": 65,
   "skills": [
     {
@@ -27,7 +26,7 @@
     {
       "name": "backlog-list",
       "category": "session",
-      "description": "Display the global Forge backlog grouped by priority. Use when user runs /backlog-list, wants to see pending framework items, discussion topics, or cross-project concerns."
+      "description": "Display the global backlog grouped by priority. Use when user runs /backlog-list, wants to see pending framework items, discussion topics, or cross-project concerns."
     },
     {
       "name": "break-down",
@@ -52,7 +51,7 @@
     {
       "name": "check-pii",
       "category": "pipeline",
-      "description": "Scan the codebase and Forge documents for Personal Identifying Information (PII). Classifies findings as Necessary or Incidental, assesses handling of Necessary PII, suggests remediation, and saves a living compliance report. AFK scan, HITL review. Use when user runs /check-pii, during QA before /approve, or when /approve detects unresolved PII findings."
+      "description": "Scan the codebase and project documents for Personal Identifying Information (PII). Classifies findings as Necessary or Incidental, assesses handling of Necessary PII, suggests remediation, and saves a living compliance report. AFK scan, HITL review. Use when user runs /check-pii, during QA before /approve, or when /approve detects unresolved PII findings."
     },
     {
       "name": "check-scope",
@@ -112,7 +111,7 @@
     {
       "name": "grill-with-docs",
       "category": "pipeline",
-      "description": "Planning phase grilling session that challenges a plan against the existing domain model, sharpens terminology, and updates CONTEXT.md and ADRs inline as decisions crystallise. The standard entry point for project planning in Forge. Use when stress-testing a plan against the project's language, codebase, and documented decisions."
+      "description": "Planning phase grilling session that challenges a plan against the existing domain model, sharpens terminology, and updates CONTEXT.md and ADRs inline as decisions crystallise. The standard entry point for project planning. Use when stress-testing a plan against the project's language, codebase, and documented decisions."
     },
     {
       "name": "grill-with-peer",

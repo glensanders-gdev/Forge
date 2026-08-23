@@ -1,6 +1,6 @@
 ---
 name: "check-pii"
-description: "Scan the codebase and Forge documents for Personal Identifying Information (PII). Classifies findings as Necessary or Incidental, assesses handling of Necessary PII, suggests remediation, and saves a living compliance report. AFK scan, HITL review. Use when user runs $check-pii, during QA before $approve, or when $approve detects unresolved PII findings."
+description: "Scan the codebase and project documents for Personal Identifying Information (PII). Classifies findings as Necessary or Incidental, assesses handling of Necessary PII, suggests remediation, and saves a living compliance report. AFK scan, HITL review. Use when user runs $check-pii, during QA before $approve, or when $approve detects unresolved PII findings."
 metadata:
   category: pipeline
   origin: Adapted from Glen Sanders (Forge / https://github.com/glensanders-gdev/Forge)
@@ -70,7 +70,7 @@ Scan all source files, test fixtures, config files, and environment templates:
 - PII passed to third-party APIs or external services
 - PII in comments or documentation strings
 
-### 6. Scan Forge Documents
+### 6. Scan Project Documents
 
 Scan `docs/` folder:
 - PRDs — example data, user stories with real names
@@ -160,7 +160,7 @@ Record the decision in `docs/pii-report.md` and move to the next finding.
 # PII Report: [Project Name]
 
 **Last scan:** YYYY-MM-DD
-**Scanned by:** Forge $check-pii
+**Scanned by:** $check-pii
 **Status:** Clean | Findings Unresolved | All Reviewed
 
 ---
@@ -264,7 +264,7 @@ Create `~/.codex/forge/knowledge/company/pii-categories.md` to extend the defaul
 
 | Condition | Behaviour |
 |-----------|-----------|
-| No source files found | Note "No source files detected." Scan Forge documents only. |
+| No source files found | Note "No source files detected." Scan project documents only. |
 | `pii-categories.md` not found | Use default categories only. Note custom categories file is missing. |
 | System knowledge not available for a finding | Mark handling assessment as "⚠️ Unknown — no system knowledge available" |
 | `docs/pii-report.md` corrupted or unreadable | Create a fresh report. Note prior history may be lost. |

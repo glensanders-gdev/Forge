@@ -29,7 +29,7 @@ but lacks sufficient test coverage.
 ## Coverage Threshold
 
 Read from `CLAUDE.md` (project root) if a `coverage-threshold` value is specified.
-Default: **80%** (Forge quality-checklist.md standard).
+Default: **80%** (quality-checklist.md standard).
 
 If `--threshold N` is passed, use that value for this run only — do not persist.
 

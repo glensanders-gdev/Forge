@@ -12,7 +12,7 @@ A prototype is **throwaway code built to answer one design question** — not a 
 
 Spike code lives under `$prototype`, informs the PRD, is preserved on a throwaway branch as primary-source evidence, and is then removed from the working tree when `$write-prd` completes.
 
-> Adapted from Matt Pocock's `prototype` skill and its `LOGIC.md` and `UI.md` (github.com/mattpocock/skills). Forge keeps the question-first framing, the pick-a-branch decision, the Logic Prototype method (pure liftable logic module behind a throwaway interactive harness) and the UI Prototype method (structurally different variants behind a dev-only switcher); it keeps Forge's own `$prototype` folder convention, `LOGIC.md`/`UI.md` notes, and `$write-prd` handoff, and adds throwaway-branch preservation so the spike survives as recorded evidence (Principle 8) rather than being deleted outright.
+> Adapted from Matt Pocock's `prototype` skill and its `LOGIC.md` and `UI.md` (github.com/mattpocock/skills). This skill keeps the question-first framing, the pick-a-branch decision, the Logic Prototype method (pure liftable logic module behind a throwaway interactive harness) and the UI Prototype method (structurally different variants behind a dev-only switcher); it keeps the `$prototype` folder convention, `LOGIC.md`/`UI.md` notes, and `$write-prd` handoff, and adds throwaway-branch preservation so the spike survives as recorded evidence (Principle 8) rather than being deleted outright.
 
 ## When to Use
 
@@ -40,7 +40,7 @@ If genuinely ambiguous: backend/logic-oriented code defaults to the Logic branch
 
 ## Rules That Apply to Both Branches
 
-- All prototype code lives in `$prototype` — **never in `src/`**. Forge keeps the spike in one folder for clean separation and cleanup, rather than scattering it adjacent to target code.
+- All prototype code lives in `$prototype` — **never in `src/`**. The spike stays in one folder for clean separation and cleanup, rather than scattering it adjacent to target code.
 - Prototype code is explicitly **not production quality** — no tests, minimal error handling, no abstractions built for reuse.
 - **One command to run**, wired into the project's existing task runner (`pnpm run <name>`, `make <name>`, etc.) — no new bespoke tooling.
 - **No persistence** — hold state in memory, unless persistence behaviour is itself the question.

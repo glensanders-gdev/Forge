@@ -1,6 +1,6 @@
 ---
 name: "backlog-list"
-description: "Display the global Forge backlog grouped by priority. Use when user runs $backlog-list, wants to see pending framework items, discussion topics, or cross-project concerns."
+description: "Display the global backlog grouped by priority. Use when user runs $backlog-list, wants to see pending framework items, discussion topics, or cross-project concerns."
 metadata:
   category: session
   origin: Adapted from Glen Sanders (Forge / https://github.com/glensanders-gdev/Forge)

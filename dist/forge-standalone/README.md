@@ -1,11 +1,12 @@
 # Skills
 
-65 skills for [Claude Code](https://claude.com/claude-code), usable on their own.
+65 skills for [Claude Code](https://claude.com/claude-code) — practical, self-contained
+workflows for getting real work done with an AI assistant.
 
-These are generated from [Forge](https://github.com/glensanders-gdev/Forge), a larger
-skill framework. The build strips the parts that only make sense inside Forge, so each
-skill here stands on its own. Forge itself carries 113 skills; the rest depend on
-Forge's sprint, company and knowledge-base scaffolding and are not published here.
+They cover the parts of software delivery that benefit most from structure: writing
+requirements, stress-testing a plan before you build it, test-driven implementation,
+code and security review, accessibility, and keeping context under control across
+long sessions. Each one stands on its own — install the whole set or a single skill.
 
 ## Install
 
@@ -35,7 +36,7 @@ Some skills cite the shared standards in `rules/`. `install.sh` copies those to
 | [`/approve`](skills/approve/SKILL.md) | Close a completed feature by archiving the PRD, sealing the DEVLOG session, and optionally pushing coding standards. Use when human runs /approve afte… |
 | [`/break-down`](skills/break-down/SKILL.md) | Split a large ticket or feature into smaller tickets within the smart zone limit, with HITL/AFK tags and blocking relationships. Use when user runs /b… |
 | [`/build`](skills/build/SKILL.md) | Execute the current sprint's AFK tickets in sequence, running /tdd for each. Pauses at HITL tickets and blockers with clear prompts. Updates kanban in… |
-| [`/check-pii`](skills/check-pii/SKILL.md) | Scan the codebase and Forge documents for Personal Identifying Information (PII). Classifies findings as Necessary or Incidental, assesses handling of… |
+| [`/check-pii`](skills/check-pii/SKILL.md) | Scan the codebase and project documents for Personal Identifying Information (PII). Classifies findings as Necessary or Incidental, assesses handling… |
 | [`/estimate`](skills/estimate/SKILL.md) | Estimate AI token cost and development complexity for a feature, module, or ticket. Produces token cost bands (S/M/L/XL) and story points (1/2/3/5/8/1… |
 | [`/grill-me`](skills/grill-me/SKILL.md) | Ad-hoc stress-test of a plan or design outside the standard planning phase. Use when user wants to pressure-test an idea, approach, or decision withou… |
 | [`/grill-with-docs`](skills/grill-with-docs/SKILL.md) | Planning phase grilling session that challenges a plan against the existing domain model, sharpens terminology, and updates CONTEXT.md and ADRs inline… |
@@ -88,7 +89,7 @@ Some skills cite the shared standards in `rules/`. `install.sh` copies those to
 | Skill | What it does |
 |---|---|
 | [`/add-backlog-item`](skills/add-backlog-item/SKILL.md) | Add a well-defined item to the global or a project backlog. Grills the item lightly before adding — what it is, why it matters, priority. Recognises t… |
-| [`/backlog-list`](skills/backlog-list/SKILL.md) | Display the global Forge backlog grouped by priority. Use when user runs /backlog-list, wants to see pending framework items, discussion topics, or cr… |
+| [`/backlog-list`](skills/backlog-list/SKILL.md) | Display the global backlog grouped by priority. Use when user runs /backlog-list, wants to see pending framework items, discussion topics, or cross-pr… |
 | [`/caveman`](skills/caveman/SKILL.md) | Toggle caveman communication mode — strips articles, filler, pleasantries, and hedging to reduce output token usage by ~75%. Technical accuracy fully… |
 | [`/check-scope`](skills/check-scope/SKILL.md) | Mid-session gut check that compares current progress against agreed goals and flags scope creep. Use when user runs /check-scope, the session feels li… |
 | [`/debrief`](skills/debrief/SKILL.md) | Thorough session close — updates the stream handoff, sweeps the stream register, and updates kanban, DEVLOG, and the backlog. Use at the end of any pa… |
@@ -159,11 +160,13 @@ Every skill declares its execution mode — **[HITL]** pauses for a human, **[AF
 through. Anything consequential asks for a typed confirmation (`CONFIRM`, `APPROVE`,
 `GO`). Every skill also carries explicit "never" rules, not just instructions.
 
-## Generated — do not edit here
+## Generated — do not edit in place
 
-This repository is built from Forge 4.4.0. Edits made here are overwritten on the
-next sync. Open issues and pull requests against
-[Forge](https://github.com/glensanders-gdev/Forge) instead.
+These files are generated, so edits made directly here are overwritten on the next
+release. Open an issue describing what needs changing and it will be fixed upstream
+and republished.
+
+Release 4.4.0.
 
 ## Credits
 

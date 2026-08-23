@@ -115,7 +115,7 @@ its identity and lifecycle into the requirements documents rather than collapsin
 
 `If false` is mandatory — an assumption with no stated consequence is a note, not an assumption.
 
-**Escalation:** Forge's RAID log is Risks, Actions, Issues, Decisions — it has **no Assumptions
+**Escalation:** The RAID log is Risks, Actions, Issues, Decisions — it has **no Assumptions
 quadrant**. A falsified assumption therefore has no home in RAID and must be raised as a risk:
 set `Status: Falsified`, run `/raid add risk`, and record the `R-NNN` in the `If false` cell.
 

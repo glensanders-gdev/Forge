@@ -202,10 +202,9 @@ foreach ($pack in @("common", "requirements")) {
 $forgeVersion = (Get-Content -LiteralPath (Join-Path $skillsRoot "manifest.json") -Raw | ConvertFrom-Json).forge_version
 
 $manifest = [ordered]@{
-    source        = "https://github.com/glensanders-gdev/Forge"
-    forge_version = $forgeVersion
-    generated_by  = "tools/build-forge-standalone.ps1"
-    skill_count   = $shipped.Count
+    repository  = "https://github.com/glensanders-gdev/skills"
+    version     = $forgeVersion
+    skill_count = $shipped.Count
     skills        = @($shipped | ForEach-Object {
         [ordered]@{ name = $_; category = $all[$_].Category; description = $all[$_].Description }
     })
@@ -277,12 +276,13 @@ $categoryOrder += @($shipped | ForEach-Object { $all[$_].Category } | Where-Obje
 $readme = New-Object System.Collections.Generic.List[string]
 $readme.Add("# Skills")
 $readme.Add("")
-$readme.Add("$($shipped.Count) skills for [Claude Code](https://claude.com/claude-code), usable on their own.")
+$readme.Add("$($shipped.Count) skills for [Claude Code](https://claude.com/claude-code) — practical, self-contained")
+$readme.Add("workflows for getting real work done with an AI assistant.")
 $readme.Add("")
-$readme.Add("These are generated from [Forge](https://github.com/glensanders-gdev/Forge), a larger")
-$readme.Add("skill framework. The build strips the parts that only make sense inside Forge, so each")
-$readme.Add("skill here stands on its own. Forge itself carries $($all.Count) skills; the rest depend on")
-$readme.Add("Forge's sprint, company and knowledge-base scaffolding and are not published here.")
+$readme.Add("They cover the parts of software delivery that benefit most from structure: writing")
+$readme.Add("requirements, stress-testing a plan before you build it, test-driven implementation,")
+$readme.Add("code and security review, accessibility, and keeping context under control across")
+$readme.Add("long sessions. Each one stands on its own — install the whole set or a single skill.")
 $readme.Add("")
 $readme.Add("## Install")
 $readme.Add("")
@@ -329,11 +329,13 @@ $readme.Add('Every skill declares its execution mode — **[HITL]** pauses for a
 $readme.Add('through. Anything consequential asks for a typed confirmation (`CONFIRM`, `APPROVE`,')
 $readme.Add('`GO`). Every skill also carries explicit "never" rules, not just instructions.')
 $readme.Add("")
-$readme.Add("## Generated — do not edit here")
+$readme.Add("## Generated — do not edit in place")
 $readme.Add("")
-$readme.Add("This repository is built from Forge $forgeVersion. Edits made here are overwritten on the")
-$readme.Add("next sync. Open issues and pull requests against")
-$readme.Add("[Forge](https://github.com/glensanders-gdev/Forge) instead.")
+$readme.Add("These files are generated, so edits made directly here are overwritten on the next")
+$readme.Add("release. Open an issue describing what needs changing and it will be fixed upstream")
+$readme.Add("and republished.")
+$readme.Add("")
+$readme.Add("Release $forgeVersion.")
 $readme.Add("")
 $readme.Add("## Credits")
 $readme.Add("")
@@ -387,6 +389,27 @@ if ($IsLinux -or $IsMacOS) { chmod +x $installPath }
 Write-Host "Dangling references: $($residual.Count)"
 Write-Host "Surviving 'Forge' mentions: $($forgeWord.Count)"
 Write-Host "Output: $OutRoot"
+
+# The published tree is a standalone product and must not name the framework it is
+# generated from. `forge` lowercase is left alone -- it is an ordinary English verb
+# ("cannot forge a signature") and appears legitimately in the security references.
+$leaks = @(Get-ChildItem -LiteralPath $OutRoot -Recurse -File |
+    Where-Object { $_.Extension -in @(".md", ".json", ".txt", ".sh", ".yaml", ".yml") } |
+    ForEach-Object {
+        $rel = $_.FullName.Substring($OutRoot.Length).TrimStart("\", "/") -replace "\\", "/"
+        $i = 0
+        foreach ($line in ([IO.File]::ReadAllText($_.FullName, [Text.Encoding]::UTF8) -split "`n")) {
+            $i++
+            if ($line -cmatch "\bForge\b" -or $line -cmatch "forge[-_](version|standalone|codex|confluence)") {
+                "  ${rel}:${i}: $($line.Trim())"
+            }
+        }
+    })
+if ($leaks.Count -gt 0) {
+    Write-Host "Upstream name leaked into the distribution:"
+    $leaks | ForEach-Object { Write-Host $_ }
+    throw "$($leaks.Count) reference(s) to the upstream framework in the published tree."
+}
 
 if ($Strict -and $residual.Count -gt 0) {
     throw "$($residual.Count) dangling skill reference(s). See $reportPath"
