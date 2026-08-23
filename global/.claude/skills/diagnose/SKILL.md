@@ -1,6 +1,7 @@
 ---
 name: diagnose
 category: code-quality
+standalone: true
 description: Systematically diagnose a failing ticket, bug, or repeated error. Use when /diagnose is invoked manually, or when the AI has failed the same ticket twice during implementation.
 ---
 

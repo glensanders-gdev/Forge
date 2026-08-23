@@ -1,6 +1,7 @@
 ---
 name: check-style
 category: knowledge
+standalone: true
 description: Review any deliverable against the company style guide in ~/.claude/knowledge/company/style-guide.md. Produces a findings report with CRITICAL, HIGH, and LOW severity levels. Use when user runs /check-style, before sharing any document externally, or when /write-article or /write-prd flags a style review is recommended.
 ---
 
@@ -92,7 +93,7 @@ Ask the user how to provide the document:
 ## Related
 
 - `~/.claude/knowledge/company/style-guide.md` — canonical **Company Style Guide** this skill reads
-- `/onboard-knowledge` — populates the style-guide.md that this skill checks against
+<!--forge-only-->- `/onboard-knowledge` — populates the style-guide.md that this skill checks against<!--/forge-only-->
 - `/push-standards` — enforces coding standards; check-style handles prose and documentation standards
 - `/write-article` — primary consumer of check-style for external content
 

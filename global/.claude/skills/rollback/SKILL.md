@@ -1,6 +1,7 @@
 ---
 name: rollback
 category: pi-release
+standalone: true
 description: Roll back the current project to the last known good version or a specified version tag. No Go/No Go gate — emergency recovery action. Requires explicit ROLLBACK [version] confirmation and a mandatory reason. Use when user runs /rollback, a deployment has failed, or production needs immediate recovery.
 ---
 
@@ -13,7 +14,7 @@ Roll back the current project to a previously known good state. Designed for eme
 - A deployment has failed and production is degraded
 - A bug was introduced in the latest release
 - User explicitly runs `/user:rollback`
-- `/deploy` failure handling offers `ROLLBACK` as an option
+<!--forge-only-->- `/deploy` failure handling offers `ROLLBACK` as an option<!--/forge-only-->
 
 ## Pre-Flight Checks
 

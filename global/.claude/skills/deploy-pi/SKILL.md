@@ -1,6 +1,7 @@
 ---
 name: deploy-pi
 category: pi-release
+standalone: false
 description: Deploy all projects in the current PI release in configured sequence. Requires a confirmed Go/No Go. Confirms each project succeeds before proceeding to the next. Updates PI plan and stakeholder view on full success. Use when user runs /deploy-pi for a full PI release deployment.
 ---
 

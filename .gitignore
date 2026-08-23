@@ -31,3 +31,6 @@ global/.claude/sprints/calendar.md
 *.zip
 forge-sequence-v*.mmd
 !forge-sequence.mmd
+
+# Working clone used by tools/sync-standalone-skills.sh
+.standalone-sync/

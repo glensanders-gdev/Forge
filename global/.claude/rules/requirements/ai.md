@@ -231,7 +231,7 @@ so no requirement document restates them and no author cites them believing they
 
 - **Last verified:** 2026-08-21, in `../docs/research/requirements-for-ai-solutions.md` § *Current timing* —
   resolved from the repo root, i.e. the workspace directory **containing** this repo
-  (`~/Documents/Forge/docs/research/` by default), not `docs/` inside it. That document is
+  <!--forge-only-->(`~/Documents/Forge/docs/research/` by default)<!--/forge-only-->, not `docs/` inside it. That document is
   **workspace-local and not tracked in this repository**, as the `requirements-documents` pack is. A
   reader resolving the path against the repo root finds nothing; that is the path being ambiguous,
   not the evidence being absent.

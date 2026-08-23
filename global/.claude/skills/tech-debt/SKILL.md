@@ -1,7 +1,8 @@
 ---
 name: tech-debt
 category: maintenance
-description: Track and manage technical debt in the current project. Add entries with priority and location, list by priority, and resolve items when addressed. /start-sprint surfaces High items as candidates. Per-project register at docs/tech-debt.md. Use when user runs /tech-debt, identifies debt during a session, or /start-sprint surfaces High items for the sprint.
+standalone: true
+description: Track and manage technical debt in the current project. Add entries with priority and location, list by priority, and resolve items when addressed. Sprint planning surfaces High items as candidates. Per-project register at docs/tech-debt.md. Use when user runs /tech-debt or identifies debt during a session.
 ---
 
 # Tech Debt
@@ -176,4 +177,4 @@ Human confirms — items are never added automatically.
 - Descriptions must be specific enough to be actionable: file path or module required
 - Never auto-add items — always confirm before writing
 - Resolved items are retained in the register for historical reference
-- `/start-sprint` surfaces High items only — Medium and Low are not surfaced unless user runs `/tech-debt list`
+<!--forge-only-->- `/start-sprint` surfaces High items only — Medium and Low are not surfaced unless user runs `/tech-debt list`<!--/forge-only-->

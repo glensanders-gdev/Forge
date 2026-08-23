@@ -1,6 +1,7 @@
 ---
 name: token-report
 category: metrics
+standalone: true
 description: Generate a program-level token usage report across features, sprints, and PIs. Shows phase breakdowns, estimate vs actual calibration, and session counts. Use when user runs /token-report or wants to analyse AI execution costs across projects.
 ---
 

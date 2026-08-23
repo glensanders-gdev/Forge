@@ -1,6 +1,7 @@
 ---
 name: caveman
 category: session
+standalone: true
 description: Toggle caveman communication mode — strips articles, filler, pleasantries, and hedging to reduce output token usage by ~75%. Technical accuracy fully preserved. HITL gate language always stays clear and unambiguous. Toggle off with /caveman --off or "normal mode".
 origin: Adapted from Matt Pocock (AIHero.dev / github.com/mattpocock/skills)
 ---

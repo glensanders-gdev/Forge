@@ -1,6 +1,7 @@
 ---
 name: debrief
 category: session
+standalone: true
 description: Thorough session close — updates the stream handoff, sweeps the stream register, and updates kanban, DEVLOG, and the backlog. Use at the end of any partial session to save state completely. For passing work to another agent or person without the full close overhead, use /handoff instead — it compacts one stream and suggests next skills.
 argument-hint: "[stream-slug]"
 ---

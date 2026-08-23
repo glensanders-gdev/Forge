@@ -22,7 +22,7 @@ One mission per workspace, under the knowledge base:
 ~/.codex/forge/knowledge/learning/[topic-slug]/
   MISSION.md          ← why the learner cares (grounds everything)
   RESOURCES.md        ← curated high-trust sources
-  GLOSSARY.md         ← compressed validated terms (Forge $add-term format)
+  GLOSSARY.md         ← compressed validated terms (Forge $add-term glossary format)
   NOTES.md            ← learner preferences: pacing, format, style
   lessons/            ← 0001-<slug>.html  (sequential, self-contained)
   reference/          ← cheat sheets, syntax, flowcharts — for later lookup

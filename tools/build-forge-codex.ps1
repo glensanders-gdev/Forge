@@ -46,6 +46,11 @@ function Convert-ForgeText([string]$Text, [string[]]$SkillNames, [string]$Source
     if ($out -match "<!--/?no-adapt-->") {
         throw "Unbalanced <!--no-adapt--> fence in $SourcePath"
     }
+    # Codex is a full Forge distribution, so <!--forge-only--> content stays; only the
+    # markers go. The standalone build (build-forge-standalone.ps1) drops the span instead.
+    $out = $out -replace "<!--/?forge-only-->", ""
+    # `standalone:` selects the standalone build target. It is not skill metadata.
+    $out = $out -replace "(?m)^standalone:.*\r?\n", ""
     $out = $out.Replace("global/.claude/", "__FORGE_SOURCE__/")
     $out = $out.Replace("global\.claude\", "__FORGE_SOURCE__\")
     # Repository-scoped skills use the cross-agent discovery directory. Keep

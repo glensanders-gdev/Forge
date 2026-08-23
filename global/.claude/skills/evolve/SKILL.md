@@ -1,6 +1,7 @@
 ---
 name: evolve
 category: framework
+standalone: false
 description: Review High confidence instincts and promote worthy ones to formal Forge skills. Surfaces all unpromoted High confidence instincts, presents each for human decision, and triggers /write-a-skill with the instinct as the brief. Use when user runs /evolve or after several sessions of /learn activity.
 ---
 

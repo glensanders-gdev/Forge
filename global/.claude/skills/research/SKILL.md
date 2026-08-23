@@ -1,6 +1,7 @@
 ---
 name: research
 category: pipeline
+standalone: true
 description: Cache findings from expensive exploration phases into topic-specific markdown files. Use when implementation would require repeated or costly exploration of external APIs, libraries, schemas, or unfamiliar codebases.
 ---
 
@@ -98,4 +99,4 @@ Promotion is always advisory — the human confirms each entry before it is writ
 | Tempted to combine unrelated topics in one file | Keep one file per topic. |
 | Findings drift into opinion | Keep findings factual; confine judgement to the Recommendation section. |
 | Research is inconclusive | Record what's known and the open question — don't force a recommendation. |
-| Findings belong in the knowledge base | Offer promotion via `/add-system` / `/add-term` — advisory, human confirms each entry. |
+| Findings belong in the knowledge base | Offer promotion to the knowledge base<!--forge-only--> via `/add-system` / `/add-term`<!--/forge-only--> — advisory, human confirms each entry. |

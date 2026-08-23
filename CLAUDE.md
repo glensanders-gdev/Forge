@@ -64,6 +64,45 @@ Each skill lives at `global/.claude/skills/[skill-name]/SKILL.md`. Before writin
 
 After changing any shared skill, run `build-forge-codex.ps1` and commit the output before pushing. If the changed skill has a Codex-native override, run `update-forge-codex-overrides.ps1 -ConfirmReview` after reviewing the diff.
 
+### Standalone skills distribution
+
+A third build target publishes a subset of skills to
+[glensanders-gdev/skills](https://github.com/glensanders-gdev/skills) for people using them
+outside Forge. Source of truth is still `global/.claude/skills/` — never edit `dist/` by hand.
+
+```bash
+./tools/build-forge-standalone.ps1 -Strict
+```
+
+Every skill declares `standalone: true|false` in its frontmatter. `true` ships; `false` means
+the skill depends on Forge's sprint, company or knowledge-base scaffolding and is meaningless
+without it. A new skill with no `standalone:` key fails the build — the decision is not
+allowed to default.
+
+The build removes Forge-only material three ways:
+
+1. **Conventional sections** — `## Pipeline Position`, `## Forge Integration Points`,
+   `## Integration with Forge` and friends are dropped whole.
+2. **Sections naming a held skill** — a heading like `## /go-nogo Integration` is dropped
+   whole when `/go-nogo` is not shipped.
+3. **Explicit fences** — `<!--forge-only-->…<!--/forge-only-->` for anything else.
+
+**The fence removes; it never substitutes.** Forge and Codex read the fenced span as ordinary
+text, so the sentence must read correctly both with the span and without it. Put the
+punctuation that joins the clause *inside* the fence:
+
+```markdown
+- Never deploy — build produces tested code only<!--forge-only-->; deployment is handled by `/go-nogo`<!--/forge-only-->
+```
+
+An unbalanced fence fails both builds. Frontmatter `description:` cannot be fenced — a YAML
+value carries the markers verbatim into the live skill — so reword the description instead.
+
+`-Strict` fails on any surviving reference to an unshipped skill; CI runs it. The build also
+writes `dist/forge-standalone-BUILD-REPORT.md`, an advisory list of remaining `Forge` mentions
+to work down over time. After changing a shared skill, rebuild and commit `dist/` alongside
+`plugins/forge-codex/`.
+
 ### Naming a host product
 
 The Codex build rewrites `Claude Code` → `Codex`, `Claude` → `Codex`, `CLAUDE.md` → `AGENTS.md`, and `~/.claude/` → `~/.codex/forge/` unconditionally. That is right when the text means *the host you are running on*, and wrong when it names **Claude Code specifically** — the rewrite turns a true sentence into a false one with no error.

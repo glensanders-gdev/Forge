@@ -1,6 +1,7 @@
 ---
 name: add-company
 category: company
+standalone: false
 description: Set up a company-specific file structure outside the Forge repo at ~/.claude/companies/[name]/. Grills the user on company operational config — sprint cadence, team locations, public holidays, freeze periods, compliance tier, external approval gates, deployment environments, AI usage policy, and tools policy. Scaffolds knowledge, projects, rules, and tools sections mirroring the global structure. Company data is never committed to the Forge GitHub. Use when user runs /add-company [name] or sets up Forge for a new company install.
 ---
 

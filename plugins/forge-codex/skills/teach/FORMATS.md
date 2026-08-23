@@ -7,7 +7,7 @@ description: Artefact formats for the $teach workspace — MISSION, RESOURCES, l
 # Teach Workspace Formats
 
 Skeletons and rules for every artefact `$teach` writes. Glossary is intentionally absent —
-`GLOSSARY.md` uses Forge's existing `$add-term` convention (`**Term**: definition` + `_Avoid_:`
+`GLOSSARY.md` uses the Forge `$add-term` glossary convention (`**Term**: definition` + `_Avoid_:`
 aliases); do not re-specify it here.
 
 ---

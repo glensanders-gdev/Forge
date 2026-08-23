@@ -1,6 +1,7 @@
 ---
 name: write-adr
 category: code-quality
+standalone: true
 description: Create a structured Architecture Decision Record for a significant hard-to-reverse design decision. Use when user runs /write-adr, a major architectural choice is being made, or a decision needs to be formally documented.
 ---
 

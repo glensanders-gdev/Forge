@@ -1,6 +1,7 @@
 ---
 name: save-state
 category: session
+standalone: true
 description: Save current session state immediately — stream handoff first, register second, kanban third, DEVLOG last. Use when user runs /save-state, wants to pause cleanly, or context window exhaustion is imminent. Fast, predictable, no ceremony, never asks a question.
 argument-hint: "[stream-slug]"
 ---
@@ -103,7 +104,7 @@ Run /user:pickup ord-pack to resume from #N [ticket name].
 
 - `docs/handoffs/<slug>.md` — primary output; also written by `/handoff` and `/debrief`
 - `docs/HANDOFF.md` — the stream register; see `~/.claude/skills/handoff/STREAMS.md`
-- `docs/kanban.md` — also written by `/debrief`, `/end-sprint`, `/approve`
+- `docs/kanban.md` — also written by `/debrief`<!--forge-only-->, `/end-sprint`<!--/forge-only-->, `/approve`
 - `docs/DEVLOG.md` — also written by `/standup` and `/debrief`
 - `/handoff` — planned pause on one stream, with skill suggestions for the next session
 - `/pickup` — reads a stream handoff on session start to orient itself

@@ -1,6 +1,7 @@
 ---
 name: approve
 category: pipeline
+standalone: true
 description: Close a completed feature by archiving the PRD, sealing the DEVLOG session, and optionally pushing coding standards. Use when human runs /approve after QA is passed.
 ---
 

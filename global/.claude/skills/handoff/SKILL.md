@@ -1,6 +1,7 @@
 ---
 name: handoff
 category: session
+standalone: true
 origin: Adapted from Matt Pocock (handoff / github.com/mattpocock/skills)
 description: Compact the current session into a structured handoff so the next session can continue without re-reading the conversation. Writes one handoff per stream of work to docs/handoffs/[stream].md and keeps the register at docs/HANDOFF.md. References artifacts by path rather than reproducing content. Suggests skills for the next session. Use /handoff for any planned pause — same-day resume, passing to another agent, or handing to a colleague. Use /debrief for a thorough end-of-day close that updates kanban, DEVLOG, and backlog.
 argument-hint: "[stream-slug] What will the next session focus on?"
@@ -97,7 +98,7 @@ Base the skill suggestions on the resolved stream's pipeline position — not th
 | Current state | Suggest |
 |--------------|---------|
 | PRD written, no testplan | `/testplan` then `/estimate` |
-| Testplan done, no build | `/start-sprint` then `/build` |
+<!--forge-only-->| Testplan done, no build | `/start-sprint` then `/build` |<!--/forge-only-->
 | Build in progress | `/build` (resume) |
 | Build complete, no QA | `/qa-plan` then `/check-pii` |
 | QA complete | `/approve` |

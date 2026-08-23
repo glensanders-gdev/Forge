@@ -1,13 +1,13 @@
 # Token Recording — Actuals Guide
 
-Token usage is recorded from **measured actuals**, not agent estimates. The source of truth is [ccusage](https://github.com/ryoppippi/ccusage), which reads Claude Code's local session logs. Recording happens at session close (`/debrief`) and sprint close (`/end-sprint`) — individual pipeline skills do not record token usage.
+Token usage is recorded from **measured actuals**, not agent estimates. The source of truth is [ccusage](https://github.com/ryoppippi/ccusage), which reads Claude Code's local session logs. Recording happens at session close (`/debrief`)<!--forge-only--> and sprint close (`/end-sprint`)<!--/forge-only--> — individual pipeline skills do not record token usage.
 
 ---
 
 ## When to Record
 
 - **`/debrief`** — at every session close, record the session's actuals against the current feature and phase.
-- **`/end-sprint`** — at sprint close, cross-check the sprint-period total against the per-feature records and fill any gaps.
+<!--forge-only-->- **`/end-sprint`** — at sprint close, cross-check the sprint-period total against the per-feature records and fill any gaps.<!--/forge-only-->
 
 Pipeline skills (`/idea`, `/grill-with-docs`, `/build`, `/qa-plan`, etc.) never write token records. One recording point per session prevents both duplicate entries and per-phase guessing.
 
@@ -37,7 +37,7 @@ If ccusage is unavailable (no network, no npx) or returns no data for the period
 
 - Record the entry with `**Source:** no data` and leave the token fields as `—`.
 - Never reconstruct token counts from memory or file-size heuristics. A missing number is recoverable later (ccusage logs persist); a fabricated one poisons calibration.
-- The next `/debrief` or `/end-sprint` with ccusage available should backfill missing entries using `--since`/`--until` for the gap dates.
+- The next `/debrief`<!--forge-only--> or `/end-sprint`<!--/forge-only--> with ccusage available should backfill missing entries using `--since`/`--until` for the gap dates.
 
 ---
 

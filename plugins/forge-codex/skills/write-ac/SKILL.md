@@ -130,7 +130,7 @@ Runs after the human confirms the split.
 | An ORD requirement is still `[TBD]` | Do not turn it into an AC. List it as blocked pending the ORD; do not invent a threshold. |
 | No Jira Capability linked | Produce the AC document only. Suggest `$link-jira PROJ-NNN CAP-NN --type capability`; never push. |
 | AC document already exists at target path | Stop. "An AC document already exists at docs/ac/. Confirm overwrite or provide a new name." |
-| jira MCP not configured at push time | Write the document, skip the push, direct the user to `$jira setup`. |
+| jira MCP not configured at push time | Write the document, skip the push, and direct the user to `$jira setup` — configure the `jira` MCP. |
 | Every ORD requirement is `Won't` | Stop. "All operational requirements are marked Won't for this release — no AC to author." |
 | User declines the write-back `CONFIRM` | The AC document stands; the ORD is untouched. Report which `ORD#` rows remain unmapped. Never apply a partial set without a fresh `CONFIRM`. |
 | ORD not found or not writable at write-back time | Write the AC document, skip the write-back, and list the `ORD# → Capability/Epic` mapping for the human to apply manually. |

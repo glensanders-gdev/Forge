@@ -26,6 +26,20 @@ jobs:
         shell: pwsh
         run: ./tools/test-forge-parity.ps1
 
+      - name: Regenerate standalone skills distribution
+        shell: pwsh
+        run: ./tools/build-forge-standalone.ps1 -Strict
+
+      - name: Verify standalone output is committed
+        shell: pwsh
+        run: |
+          $changes = git status --porcelain -- dist/forge-standalone
+          if ($changes) {
+            $changes
+            git diff -- dist/forge-standalone
+            throw "Standalone output is stale. Run tools/build-forge-standalone.ps1 and commit the result."
+          }
+
       # Skips here by design: the requirements-documents pack is held locally and is
       # not in this repo, so CI cannot compare the extracts against it. The check runs
       # for whoever holds the pack, which is the only party who can regenerate.

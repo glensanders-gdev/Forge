@@ -1,6 +1,7 @@
 ---
 name: pickup
 category: session
+standalone: true
 description: Resume a session exactly where it left off. Reads the stream register at docs/HANDOFF.md, picks a stream, loads its handoff and referenced artifacts, and presents the exact next action. Use when user runs /pickup or wants to resume interrupted work without re-reading the conversation. For daily planning orientation use /standup instead.
 argument-hint: "[stream-slug]"
 ---

@@ -1,6 +1,7 @@
 ---
 name: write-prd
 category: pipeline
+standalone: true
 description: Synthesize the current conversation, grill session, research, and prototype findings into a structured PRD aligned with ISO/IEC/IEEE 29148:2018 — the functional demand document sitting between the BRD and the SOAP, stating what is built and for whom and carrying no technical figure. Executes in two phases — AFK explore then HITL write — with a confirmation gate between them. Use when user runs /write-prd or when grill-me confirms shared understanding is reached.
 ---
 
@@ -49,7 +50,7 @@ These are authoritative and shared with `/write-ord`, `/write-reqs` and `/write-
 
 Read the standard; do not recall it. The live pack where it is held —
 `$FORGE_REQ_PACK/reference/prd-standard.md`, else `requirements-documents/reference/prd-standard.md`
-searching up from the working directory, else `~/Documents/Forge/requirements-documents/reference/`.
+searching up from the working directory<!--forge-only-->, else `~/Documents/Forge/requirements-documents/reference/`<!--/forge-only-->.
 **Name the pack version in the Phase 1 summary and in the PRD header.** Where the pack is not
 readable, say so in the summary and author from this skill alone — never claim a pack version that
 was not read.

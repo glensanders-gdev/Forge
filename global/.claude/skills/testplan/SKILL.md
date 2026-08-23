@@ -1,6 +1,7 @@
 ---
 name: testplan
 category: pipeline
+standalone: true
 description: Design the testing strategy for a feature or a release — what to test, at what level, automated vs manual, and which behaviours are critical. Runs in feature mode against a PRD, or operational mode (--operational) against an ORD register. Produces a testplan.md that feeds into /tdd and /qa-plan. Use when user runs /testplan, a PRD or ORD is written, or before implementation begins.
 ---
 
@@ -172,14 +173,14 @@ document that demanded it, and it is the column that carries ORD coverage throug
 Write `—` only where a test genuinely has no requirement origin.
 
 **Migrating an existing registry. [HITL]** A registry written before this column exists has six
-columns, and `/qa-report`, `/lookup` and `/test-coverage` all parse it. Adding a column is a schema
+columns, and `/qa-report`,<!--forge-only--> `/lookup`<!--/forge-only--> and `/test-coverage` all parse it. Adding a column is a schema
 change to a shared artefact, so present it and require a typed `CONFIRM`:
 
 ```
 ## Registry migration — docs/tests/registry.md
 Adding column: Requirement (position 5 of 7)
 N existing rows backfilled to `—`.
-Skills that read this file: /qa-report, /lookup, /test-coverage.
+Skills that read this file: /qa-report,<!--forge-only--> /lookup,<!--/forge-only--> /test-coverage.
 Type CONFIRM to apply.
 ```
 

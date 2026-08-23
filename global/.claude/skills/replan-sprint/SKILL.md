@@ -1,6 +1,7 @@
 ---
 name: replan-sprint
 category: pi-release
+standalone: false
 description: Replan the current sprint when unplanned work is injected mid-sprint. Assesses capacity, presents absorb or swap options with ranked swap candidates, updates kanban in place, and appends a replan entry to DEVLOG. Use when user runs /replan-sprint or a new project/feature is injected into an active sprint.
 ---
 

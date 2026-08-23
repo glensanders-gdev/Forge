@@ -1,6 +1,6 @@
 ---
 name: "tech-debt"
-description: "Track and manage technical debt in the current project. Add entries with priority and location, list by priority, and resolve items when addressed. $start-sprint surfaces High items as candidates. Per-project register at docs/tech-debt.md. Use when user runs $tech-debt, identifies debt during a session, or $start-sprint surfaces High items for the sprint."
+description: "Track and manage technical debt in the current project. Add entries with priority and location, list by priority, and resolve items when addressed. Sprint planning surfaces High items as candidates. Per-project register at docs/tech-debt.md. Use when user runs $tech-debt or identifies debt during a session."
 metadata:
   category: maintenance
   origin: Adapted from Glen Sanders (Forge / https://github.com/glensanders-gdev/Forge)

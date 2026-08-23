@@ -1,6 +1,7 @@
 ---
 name: assimilate
 category: framework
+standalone: false
 description: Adapt an idea, skill, or pattern from an external source into Forge. Fetches the source, evaluates what maps to Forge and what doesn't, adapts the relevant parts with Forge conventions, credits the original author, and produces a new skill or reference file. Use when user provides a URL or describes an external idea worth integrating.
 argument-hint: URL or description of the external idea to assimilate
 ---

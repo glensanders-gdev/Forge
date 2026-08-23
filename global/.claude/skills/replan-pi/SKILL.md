@@ -1,6 +1,7 @@
 ---
 name: replan-pi
 category: pi-release
+standalone: false
 description: Replan the current PI when a new project or significant scope change is injected mid-PI. Assesses remaining releases only, flags Fixed Deadline risks as P1 before confirmation, updates PI plan in place, and prepares a stakeholder draft requiring separate confirmation. Use when user runs /replan-pi or a new project is injected into an active PI.
 ---
 

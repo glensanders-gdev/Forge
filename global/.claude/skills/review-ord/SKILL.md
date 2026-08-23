@@ -1,6 +1,7 @@
 ---
 name: review-ord
 category: pipeline
+standalone: true
 description: Assess a submitted ORD against the published §7.1 handoff gate — OH-1 to OH-13, the four outcomes, the §7.3 refuse-to-produce scan and the §5 tier rule — returning a per-item verdict table with evidence and a mechanically derived outcome. Criteria are read from the requirements-documents pack at review time, never recalled. Use when an ORD is ready for solution architecture, when /review-ord is run, or before handoff is declared.
 ---
 

@@ -1,6 +1,7 @@
 ---
 name: add-backlog-item
 category: session
+standalone: true
 description: Add a well-defined item to the global or a project backlog. Grills the item lightly before adding — what it is, why it matters, priority. Recognises three types — task/fix, discussion, and opportunity (a spotted gap or enhancement worth considering later). Suggests /idea or /write-prd if the item appears feature-sized. Use when user runs /add-backlog-item or wants to capture something for later.
 ---
 

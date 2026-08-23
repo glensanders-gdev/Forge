@@ -1,6 +1,7 @@
 ---
 name: skill-health
 category: framework
+standalone: false
 description: Read-only structural audit of the Forge skill portfolio. Checks every skill in manifest.json for a matching SKILL.md directory, command stub, required sections (failure modes, rules), CHANGELOG coverage, a frontmatter name that disagrees with its directory, and a name shadowed by a Claude Code built-in. Flags orphaned directories, missing commands, and attribution gaps. Saves a report to ~/.claude/knowledge/skill-health-report.md. Use when user runs /skill-health, or run monthly as portfolio maintenance.
 origin: Adapted from Affaan Mustafa (ECC / github.com/affaan-m/ECC)
 ---

@@ -1,6 +1,7 @@
 ---
 name: backlog-list
 category: session
+standalone: true
 description: Display the global Forge backlog grouped by priority. Use when user runs /backlog-list, wants to see pending framework items, discussion topics, or cross-project concerns.
 ---
 
@@ -51,4 +52,4 @@ Display the global backlog from `~/.claude/backlog.md`, grouped by priority. Thi
 
 - This is a read-only display — never modify `backlog.md`; adding items is `/add-backlog-item`.
 - Preserve priority grouping and date-added order within groups — never reorder by inference.
-- This shows the global backlog only — direct project-level requests to `/backlog-proj`.
+<!--forge-only-->- This shows the global backlog only — direct project-level requests to `/backlog-proj`.<!--/forge-only-->

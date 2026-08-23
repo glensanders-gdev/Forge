@@ -1,6 +1,7 @@
 ---
 name: piplan
 category: pi-release
+standalone: false
 description: Create or update a Product Iteration plan spanning 3 monthly releases and 6 sprints. Generates consolidated cross-project and stakeholder-facing views. Use when user runs /piplan, a new PI is starting, or features need to be assigned to releases.
 ---
 

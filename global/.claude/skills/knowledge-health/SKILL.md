@@ -1,6 +1,7 @@
 ---
 name: knowledge-health
 category: knowledge
+standalone: false
 description: Run a read-only diagnostic across all Forge knowledge layers — system knowledge, company glossaries, and project CONTEXT.md files. Reports structural health, cross-reference findings, and interesting connections. Saves to ~/.claude/knowledge/health-report.md. Use when user runs /knowledge-health or when /start-sprint flags the last check was more than 30 days ago.
 ---
 
