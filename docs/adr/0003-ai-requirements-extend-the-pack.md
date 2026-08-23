@@ -10,7 +10,8 @@ ISO/IEC 25010:2023, with wording and presentation owned by the shared rulesets i
 `rules/requirements/`. Nothing in it addresses a solution whose delivered behaviour is *learned or
 generated* rather than specified.
 
-Research (`docs/research/requirements-for-ai-solutions.md`, 2026-08-21) established three things
+Research (`../docs/research/requirements-for-ai-solutions.md`, 2026-08-21 — workspace-local,
+not tracked in this repository; the path resolves from the repo root) established three things
 that force a decision now rather than at first AI project:
 
 1. **The standards bodies answered this as an extension, not a replacement.** ISO/IEC 25059:2023 is
@@ -107,5 +108,6 @@ stated at the top of its own file.
   customizability) is the part most relevant to consumed-as-a-service AI, which is most of our
   exposure. Re-check before the §3 patch is treated as stable.
 
-Informed by `docs/research/requirements-for-ai-solutions.md`. Extends ADR-0001 (namespace, shared
+Informed by `../docs/research/requirements-for-ai-solutions.md` (workspace-local, not tracked
+here — see the verification stamp in `rules/requirements/ai.md`). Extends ADR-0001 (namespace, shared
 ruleset placement); supersedes nothing.

@@ -229,16 +229,21 @@ so no requirement document restates them and no author cites them believing they
 | Annex III high-risk obligations | 2 December 2027 | cited — deferred from the original date by the amending regulation below |
 | Annex I high-risk obligations | 2 August 2028 | cited — deferred as above |
 
-- **Last verified:** never, within this repository. ADR-0003 attributes the deferral to Regulation
-  (EU) 2026/1744 (Digital Omnibus on AI) and cites
-  `docs/research/requirements-for-ai-solutions.md` (2026-08-21) as the source — **that file is not
-  in the repository and is not in its history**, so the chain of evidence for these three dates ends
-  at an ADR paragraph.
+- **Last verified:** 2026-08-21, in `../docs/research/requirements-for-ai-solutions.md` § *Current timing* —
+  resolved from the repo root, i.e. the workspace directory **containing** this repo
+  (`~/Documents/Forge/docs/research/` by default), not `docs/` inside it. That document is
+  **workspace-local and not tracked in this repository**, as the `requirements-documents` pack is. A
+  reader resolving the path against the repo root finds nothing; that is the path being ambiguous,
+  not the evidence being absent.
+- **Verified against a secondary source.** The research cites a law-firm briefing on Regulation (EU)
+  2026/1744 (Digital Omnibus on AI, published 24 July 2026, in force 27 July 2026) for the deferral
+  — competent, and not the primary text. **No date here has been checked against the consolidated
+  text of Regulation (EU) 2024/1689 on EUR-Lex.**
 - **Owner:** unassigned. Assign one before any document authored under this file makes a conformity
   claim.
-- **Before citing a date in a conformity claim, verify it against the consolidated text of
-  Regulation (EU) 2024/1689 on EUR-Lex**, not against this table and not against the ADR. Record the
-  check by replacing *Last verified* above with the date and the person.
+- **Before citing a date in a conformity claim, verify it against EUR-Lex** — not against this
+  table, not against the ADR, and not against the secondary briefing. Record the check by replacing
+  *Last verified* above with the date, the person, and the primary source.
 - **The requirement classes are not affected by this gap.** Arts. 9–15 and Annex IV supply the
   classes in the map above whatever the application dates turn out to be; it is only the deadlines
   that are unverified.
@@ -259,8 +264,8 @@ so no requirement document restates them and no author cites them believing they
   the minimum required.
 - Never leave an AI-governed row unmarked — `[AI]` is what makes this ruleset checkable by someone
   who was not in the room.
-- Never cite an AI Act application date as verified on the strength of this file — the stamp above
-  records that the chain of evidence is incomplete.
+- Never cite an AI Act application date as verified against primary law on the strength of this
+  file — the stamp above records a secondary source and an unassigned owner.
 - Never record an evaluation set with no re-run trigger.
 - Never name a model version in a requirement without a matching `MDL-NNN` row.
 - Never treat go-live acceptance as final for a component whose behaviour is learned or generated.

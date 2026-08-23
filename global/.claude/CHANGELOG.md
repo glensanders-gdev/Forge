@@ -46,15 +46,18 @@ unverifiable.
   the moment someone tried to check it. Mirrors **[KPP]**: same column, same bracket form,
   **[KPP][AI]** where both. Orthogonal to MoSCoW and to KPP — it records which ruleset governs the
   row's form, not its priority. A `[AI]` row naming no `EVL-NNN` is rejectable on sight.
-- **AI Act dates carry a verification stamp — and it reads "never".** Tracing them found that
-  `docs/research/requirements-for-ai-solutions.md`, cited by ADR-0003 twice, by `ai.md` and by the
-  v4.2.0 entry below, **is not in the repository and is not in its history**. The chain of evidence
-  for the 2 December 2027 / 2 August 2028 deferrals therefore ends at an ADR paragraph. Rather than
-  restate the dates as fact, `ai.md` now records them in a stamped table with `Last verified: never,
-  within this repository`, an unassigned owner, and an instruction to verify against the
-  consolidated text of Regulation (EU) 2024/1689 on EUR-Lex before any conformity claim. **The
-  requirement classes are unaffected** — Arts. 9–15 and Annex IV supply them whatever the deadlines
-  prove to be.
+- **AI Act dates carry a verification stamp.** They are recorded once in `ai.md`, with provenance,
+  so no requirement document restates them and no author cites them believing they were checked
+  today. `Last verified: 2026-08-21`, against a **secondary** source — a law-firm briefing on
+  Regulation (EU) 2026/1744 — never against the consolidated text of Regulation (EU) 2024/1689 on
+  EUR-Lex. Owner unassigned; assign one before any conformity claim. **The requirement classes are
+  unaffected** — Arts. 9–15 and Annex IV supply them whatever the deadlines prove to be.
+- **The research document's citation path is disambiguated, not the document recovered.** It was
+  briefly reported missing: `docs/research/requirements-for-ai-solutions.md` reads as repo-relative
+  and resolves to nothing, because it is **workspace-local** — it sits beside the repo in the same
+  workspace, as the `requirements-documents` pack does. ADR-0003 (×2), `ai.md` and the v4.2.0 entry
+  now all write it as `../docs/research/requirements-for-ai-solutions.md` — resolved from the
+  repo root — and say it is untracked, so the next reader does not repeat the search. Whether it should be tracked here is a separate, deliberate call.
 
 ### Skills
 
@@ -119,7 +122,8 @@ AI-governed register row; the AI Act dates carry no verification stamp.
 `ai-first-engineering` governs AI writing the solution. Nothing governed AI *being* the solution:
 no coverage of non-determinism, drift, evaluation sets, model dependency, or the EU AI Act anywhere
 in the requirements pack or the rules. Researched in
-`docs/research/requirements-for-ai-solutions.md`; decided in **ADR-0003**.
+`../docs/research/requirements-for-ai-solutions.md` (workspace-local, not tracked here);
+decided in **ADR-0003**.
 
 ### Added
 
