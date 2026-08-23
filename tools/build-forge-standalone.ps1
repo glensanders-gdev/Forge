@@ -199,14 +199,31 @@ foreach ($pack in @("common", "requirements")) {
 
 # ---------------------------------------------------------------- manifest + report
 
-$forgeVersion = (Get-Content -LiteralPath (Join-Path $skillsRoot "manifest.json") -Raw | ConvertFrom-Json).forge_version
+$sourceManifest = Get-Content -LiteralPath (Join-Path $skillsRoot "manifest.json") -Raw | ConvertFrom-Json
+$forgeVersion = $sourceManifest.forge_version
+
+# Per-skill versions come from the source registry, so a consumer of the published
+# manifest can tell which revision of a given skill they have -- the release number
+# alone cannot answer that.
+$skillVersions = @{}
+foreach ($entry in $sourceManifest.skills.PSObject.Properties) { $skillVersions[$entry.Name] = $entry.Value }
+
+$unversioned = @($shipped | Where-Object { -not $skillVersions.ContainsKey($_) })
+if ($unversioned.Count -gt 0) {
+    throw "Shipped skill(s) absent from the source registry, so no version can be published: $($unversioned -join ', ')"
+}
 
 $manifest = [ordered]@{
     repository  = "https://github.com/glensanders-gdev/skills"
     version     = $forgeVersion
     skill_count = $shipped.Count
     skills        = @($shipped | ForEach-Object {
-        [ordered]@{ name = $_; category = $all[$_].Category; description = $all[$_].Description }
+        [ordered]@{
+            name        = $_
+            version     = $skillVersions[$_]
+            category    = $all[$_].Category
+            description = $all[$_].Description
+        }
     })
 }
 $json = ($manifest | ConvertTo-Json -Depth 20) `

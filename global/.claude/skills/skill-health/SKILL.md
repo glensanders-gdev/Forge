@@ -51,6 +51,11 @@ covering the skills themselves.
 | Skill name matches an At Risk row in `RESERVED-NAMES.md` | ℹ️ Info |
 | `RESERVED-NAMES.md` verification stamp exceeds `Forge staleness warning (days)` from `preferences.md` (default 30), or carries no version | ℹ️ Info |
 | `~/.claude/forge-version` missing or `updated:` date exceeds `Forge staleness warning (days)` from `preferences.md` (default 30) | ℹ️ Info |
+| `SKILL.md` frontmatter missing `standalone:` | 🔴 Critical |
+| `standalone: true` but no `dist/forge-standalone/skills/<name>/` | 🔴 Critical |
+| `standalone: false` but present in `dist/forge-standalone/skills/` | 🔴 Critical |
+| Published per-skill version differs from `manifest.json` | ⚠️ Amber |
+| A `standalone: true` skill changed more recently than `dist/` was rebuilt | ⚠️ Amber |
 
 ---
 
@@ -118,6 +123,12 @@ attribution_gaps    = skills with origin: in frontmatter but no body credit line
 orphaned_commands   = command stubs with no manifest entry
 frontmatter_versions = SKILL.md files carrying a version: field (manifest owns the version)
 forge_version_stale = forge-version file missing, or updated date exceeds staleness threshold from preferences.md
+standalone_shipped   = skills with standalone: true
+standalone_held      = skills with standalone: false
+standalone_unmarked  = skills with no standalone: key (blocks the standalone build)
+ship_set_drift       = skills whose standalone: flag disagrees with their presence in dist/forge-standalone/skills/
+published_version_drift = skills whose version in dist/forge-standalone/manifest.json != manifest.json
+dist_stale           = shipped skills modified after dist/forge-standalone was last built
 ```
 
 ---
@@ -161,6 +172,29 @@ ahead of every visibly-broken finding:
    name or not at all, and produce no error.
    Mismatched: <dir> declares <name>
 ```
+
+---
+
+## The Standalone Distribution
+
+A subset of skills is published outside Forge, to a public repository, selected by the
+`standalone:` key in each skill's frontmatter. That makes every shipped skill a public
+artefact with a second audience who has none of Forge's scaffolding.
+
+Report the split explicitly — `standalone_shipped` / `standalone_held` / `standalone_unmarked`
+— so a reader knows how much of the portfolio is public without opening a file.
+
+**`standalone_unmarked` is Critical, not Amber.** `tools/build-forge-standalone.ps1` refuses
+to build when a skill carries no `standalone:` key, so an unmarked skill blocks the
+distribution for every other skill, not only itself.
+
+**`ship_set_drift` means the committed distribution disagrees with the source flags** — a
+skill flipped to `false` whose folder still sits in `dist/`, or flipped to `true` and never
+built. CI catches this on the next push; surfacing it here catches it before the push.
+
+`published_version_drift` and `dist_stale` are Amber rather than Critical: both are fixed by
+rebuilding, and neither can reach the public repository, because the sync script refuses to
+publish a tree that does not match committed source.
 
 ---
 

@@ -24,6 +24,7 @@ Create a new skill for Forge following the standard structure. Skills live in `~
    - What triggers it? (keywords, slash command, context)
    - Is it global (all projects) or project-specific?
    - Does it need supporting files (REFERENCE.md, EXAMPLES.md, scripts)?
+   - **Does it stand on its own outside Forge?** (see step 3)
 
 2. **Check the name against [RESERVED-NAMES.md](RESERVED-NAMES.md)** — compare the proposed
    name to every Reserved row before anything is scaffolded. Report the result either way:
@@ -38,17 +39,37 @@ Create a new skill for Forge following the standard structure. Skills live in `~
 
    Check the At Risk table too. A hit there is not a block — say so, and move on.
 
-3. **Draft the skill** — create:
+3. **Decide `standalone:` — ask, do not guess.** A subset of skills is published to a public
+   repository for people who do not run Forge. The key is mandatory: the standalone build
+   refuses to run when any skill lacks it, so an unanswered question blocks the distribution
+   for every other skill.
+
+   Put the question to the author plainly: *"Does this skill do something useful for someone
+   who has no kanban, no sprint, no knowledge base — just Claude Code and a repository?"*
+
+   | Answer | Set | Because |
+   |---|---|---|
+   | Yes — it is about code, tests, review, requirements, or the session itself | `standalone: true` | It carries its own value |
+   | No — it reads or writes Forge's document estate, sprint state, or company config | `standalone: false` | It would be incoherent without them |
+
+   **`true` means public.** The skill's text, including its examples and failure modes, is
+   published under the author's name to a repository anyone can read. Say so when asking —
+   an author who knows that writes differently.
+
+   Where the answer is genuinely unclear, set `false`. A held skill is invisible; a shipped
+   one that makes no sense outside Forge is a bug report from a stranger.
+
+4. **Draft the skill** — create:
    - `SKILL.md` with concise instructions — target under 100 lines; if workflow logic exceeds this, extract supporting content (reference tables, templates, examples, scripts) to additional files (`REFERENCE.md`, `FORMATS.md`, `scripts/`, etc.)
    - Additional files for any content that would push `SKILL.md` over 100 lines or has a distinct domain
    - A command file if a `/user:skill-name` trigger is needed
 
-4. **Review with user** — present the draft and ask:
+5. **Review with user** — present the draft and ask:
    - Does this cover your use cases?
    - Anything missing or unclear?
    - Should any section be more or less detailed?
 
-5. **Write the files** — once confirmed, create all files and update the manifest.
+6. **Write the files** — once confirmed, create all files and update the manifest.
 
 ## File Structure
 
@@ -67,6 +88,7 @@ Create a new skill for Forge following the standard structure. Skills live in `~
 ---
 name: skill-name
 category: [pipeline|ideation|session|code-quality|knowledge|metrics|pi-release|sprint|maintenance|company|framework]
+standalone: [true|false]
 description: What this skill does. Use when [specific triggers].
 ---
 
@@ -149,6 +171,8 @@ Before finalising, verify:
 - [ ] Read `~/.claude/PRINCIPLES.md` — does this skill follow the 8 design principles?
 - [ ] Read [CRAFT.md](CRAFT.md) — description front-loads a **leading word**, every step has a **checkable completion criterion**, and the prose survives the **no-op test** (no line that changes nothing versus the agent's default)
 - [ ] **Name checked against [RESERVED-NAMES.md](RESERVED-NAMES.md)** — no Reserved row matches, or a match was overridden by a typed `CONFIRM` and the reason recorded in the CHANGELOG entry
+- [ ] `standalone:` field set to `true` or `false` — asked of the author, never inferred; the standalone build fails without it
+- [ ] If `standalone: true`, the skill reads correctly for someone with no kanban, sprint, or knowledge base — no dangling `/skill` references to held skills
 - [ ] `category:` field set — valid values: `pipeline`, `ideation`, `session`, `code-quality`, `knowledge`, `metrics`, `pi-release`, `sprint`, `maintenance`, `company`, `framework`
 - [ ] Description includes "Use when [triggers]"
 - [ ] **If adapting from an external source** — use `/user:assimilate` instead. It handles attribution, fit evaluation, and adaptation automatically.

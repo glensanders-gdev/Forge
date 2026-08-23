@@ -42,17 +42,32 @@ Create or update a skill without confusing Forge's canonical source, its generat
 
    A hit in the At Risk table is not a block. Say so and continue.
 
-3. **Draft the skill** — create:
+3. **Decide `standalone:` — Forge framework skills only, and ask rather than guess.** A subset
+   of Forge skills is published to a public repository for people running neither Forge nor this
+   plugin. The key is mandatory in `global/.claude/skills/`: the standalone build refuses to run
+   when any skill lacks it, so an unanswered question blocks the distribution for every skill.
+
+   Put it to the author plainly: *"Does this skill do something useful for someone with no kanban,
+   no sprint, no knowledge base — just a coding agent and a repository?"* Yes → `standalone: true`;
+   it reads or writes Forge's document estate, sprint state or company config → `standalone: false`.
+
+   **`true` means public** — the skill's text is published under the author's name to a repository
+   anyone can read. Where the answer is genuinely unclear, set `false`.
+
+   A repository-only or user-only Codex skill under `.agents/skills/` needs no `standalone:` key;
+   it is not part of the Forge registry the standalone build reads.
+
+4. **Draft the skill** — create:
    - `SKILL.md` with concise instructions — target under 100 lines; if workflow logic exceeds this, extract supporting content (reference tables, templates, examples, scripts) to additional files (`REFERENCE.md`, `FORMATS.md`, `scripts/`, etc.)
    - Additional files for any content that would push `SKILL.md` over 100 lines or has a distinct domain
    - No Codex command stub; Codex discovers `SKILL.md` directly
 
-4. **Review with user** — present the draft and ask:
+5. **Review with user** — present the draft and ask:
    - Does this cover your use cases?
    - Anything missing or unclear?
    - Should any section be more or less detailed?
 
-5. **Write the files** — once confirmed, create all files and update the manifest.
+6. **Write the files** — once confirmed, create all files and update the manifest.
 
 ## File Structure
 
@@ -73,6 +88,7 @@ plugins/forge-codex/skills/[skill-name]/  ← generated or reviewed Codex adapta
 ---
 name: skill-name
 category: [pipeline|ideation|session|code-quality|knowledge|metrics|pi-release|sprint|maintenance|company|framework]
+standalone: [true|false]   # Forge framework skills only
 description: What this skill does. Use when [specific triggers].
 ---
 
@@ -143,6 +159,7 @@ Split into separate files when:
 Before finalising, verify:
 - [ ] Read `global/.claude/PRINCIPLES.md` — does this skill follow the 8 design principles?
 - [ ] Read [CRAFT.md](CRAFT.md) — description front-loads a **leading word**, every step has a **checkable completion criterion**, and the prose survives the **no-op test** (no line that changes nothing versus the agent's default)
+- [ ] For a Forge framework skill, `standalone:` set to `true` or `false` — asked of the author, never inferred; the standalone build fails without it
 - [ ] `category:` field set — valid values: `pipeline`, `ideation`, `session`, `code-quality`, `knowledge`, `metrics`, `pi-release`, `sprint`, `maintenance`, `company`, `framework`
 - [ ] Description includes "Use when [triggers]"
 - [ ] **If adapting from an external source** — use `assimilate` instead. It handles attribution, fit evaluation, and adaptation automatically.
