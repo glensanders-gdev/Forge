@@ -11,6 +11,75 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
+## v4.1.2 — 2026-08-23
+
+**`/skill-health` reads frontmatter, not the whole file** — scoping the version check
+
+v4.1.0 made `manifest.json` the sole source of a skill's version and had `/skill-health` flag any
+`version:` field in a `SKILL.md`. The check did not say where to look, and the portfolio contains
+a live trap: `update-forge` documents the `~/.claude/forge-version` file format inside a fenced
+code block, and that block contains a literal `version:` line. A whole-file scan reports a clean
+skill as a finding.
+
+### Changed
+
+- **`/skill-health` 1.4.1** — the `version:` and `name:` checks read the frontmatter block only:
+  the opening `---` to its closing `---`, and nothing after it. A new failure-mode row states
+  that a `version:` or `name:` inside a fenced code block is not a finding, and names
+  `update-forge` as the case that proves it.
+
+### Note
+
+Found by running the v4.1.0 checks across all 113 skills rather than trusting them. Everything
+else passed: no frontmatter name mismatches, no stale stub opening clauses, no orphaned commands.
+Both deliberate alias stubs — `grill-with-codex` and `intent-layers` — were correctly exempted.
+
+---
+
+## v4.1.1 — 2026-08-23
+
+**`/tdd` gains seams — and the exemption becomes a human decision** — assimilated from Matt Pocock's `implement` skill (github.com/mattpocock/skills)
+
+Re-running `/assimilate` against the same source found v3.17.1 had taken its test-execution cadence
+but left one clause behind: *"use /tdd where possible, at pre-agreed seams"*. Forge had neither half.
+`/tdd` never named the seam — the boundary a test attaches to — and `/build` Step 3 read as *run the
+TDD cycle for every AFK ticket*, unconditionally. Tickets that genuinely have no seam (dependency
+bumps, config, one-shot migrations, scaffolding, pure visual work, spikes) were left to agents to
+improvise around, silently.
+
+"Where possible" is an escape hatch the moment an agent decides what was possible, so the exemption
+is defined as a recorded human decision that swaps the test for named evidence — never a licence to
+skip verification.
+
+### Changed
+
+- `/tdd` 1.0.0 → 1.1.0 — new **Where TDD Applies — Seams** section. Defines a seam as the boundary at
+  which behaviour becomes observable through a public interface, makes naming the seams part of Step 1
+  Plan, and tables the six ticket shapes that have none of their own against **the evidence required
+  instead** — the exemption changes what the evidence is, never the obligation to produce it. A ticket
+  is exempt only on a human decision recorded as `no-seam: [reason] — verified by [evidence]`, so the
+  gap is visible at `/qa-plan` rather than in production. Three new negative-space rules and four new
+  Failure Modes rows, including the one that matters most: *"where possible" invoked on a ticket that
+  does have a seam* — the work is being avoided, not exempted.
+- `/build` 1.2.1 → 1.3.0 — Step 3 gains a **seam check** before the RED/GREEN cycle, with a typed
+  `NO-SEAM` / `TDD` gate. An agent that thinks a ticket is untestable now pauses and proposes the
+  replacement evidence rather than deciding alone — an agent holding that judgement is how a sprint
+  quietly loses its coverage. Two new rules and two new Failure Modes rows; a `NO-SEAM` ticket stays In
+  Progress until the evidence exists.
+
+### Assimilation notes
+
+- **Kept:** the seam concept, and the pre-agreement — TDD attaches somewhere specific, agreed before
+  the tracer bullet rather than discovered mid-cycle.
+- **Changed:** "where possible" is Forge-hardened into a HITL gate (Principle 1) with recorded evidence
+  and explicit negative space (Principle 2); the ticket shapes and their evidence are enumerated rather
+  than left to judgement.
+- **Dropped:** nothing new — the rest of the source remains covered by `/build`, `/tdd` and
+  `/review-diff`, and "commit to the current branch" stays out of `/build`'s scope per the v3.17.1
+  decision. No new skill created.
+
+---
+
 ## v4.1.0 — 2026-08-23
 
 **`manifest.json` becomes the single source of a skill's version** — 32 frontmatter copies removed
