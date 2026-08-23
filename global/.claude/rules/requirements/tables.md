@@ -135,6 +135,10 @@ Authorised prefixes. See ADR-0001 for the requirement prefixes and their extensi
 | `AC-NNN` | Acceptance criteria | `/write-ac` |
 | `ASM-NNN` | Assumptions | whichever document records it |
 | `DEP-NNN` | Dependencies | whichever document records it |
+| `EVL-NNN` | Evaluation sets — schema in [ai.md](ai.md) | whichever document records it |
+| `MDL-NNN` | Model / provider dependencies — schema in [ai.md](ai.md) | whichever document records it |
+
+`EVL-NNN` and `MDL-NNN` were added by ADR-0003 and apply only where [ai.md](ai.md) is triggered.
 
 All are flat and sequential in order of first appearance, never encode a theme or characteristic,
 and are never reused once retired. `BO-N` and `BR-N` are single-digit-sequential per BRD, matching

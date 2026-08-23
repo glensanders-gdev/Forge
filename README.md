@@ -1,4 +1,4 @@
-# Forge v4.0.0
+# Forge v4.2.0
 
 An AI-assisted development workflow framework for Claude Code and Codex.
 
@@ -178,6 +178,10 @@ Or if you have an existing project:
   rules/
     common/            ← language-agnostic coding standards (always active)
     [lang]/            ← language-specific rule sets, installed via /lang-rules
+    requirements/      ← authoring standards for requirements documents
+      language.md      ← wording, voice, banned modals (unconditional)
+      tables.md        ← table-first presentation, schemas, ID namespaces (unconditional)
+      ai.md            ← learned or generated behaviour (conditional — see its trigger test)
 ```
 
 ---
@@ -207,7 +211,7 @@ Or if you have an existing project:
 
 ## Skill Versioning
 
-Skills are versioned in `global/.claude/skills/manifest.json`. The current framework version is `4.0.0` across Claude Code and Codex. Claude project overrides live in `.claude/skills/`; Codex project overrides live in `.agents/skills/`.
+Skills are versioned in `global/.claude/skills/manifest.json`. The current framework version is `4.2.0` across Claude Code and Codex. Claude project overrides live in `.claude/skills/`; Codex project overrides live in `.agents/skills/`.
 
 ---
 
@@ -221,6 +225,7 @@ The full framework lifecycle is documented in `~/.claude/forge-sequence.mmd`. Re
 
 | Version | Changes |
 |---------|---------|
+| 4.2.0 | AI as the subject of a requirement — `rules/requirements/ai.md`, the evaluative criterion form, `EVL-NNN` / `MDL-NNN`; ADR-0003 |
 | 4.0.0 | **Breaking** — 26 action skills renamed verb-first per ADR-0002; state skills keep noun shape |
 | 3.27.0 | Name-collision policy — `RESERVED-NAMES.md` gates `/write-a-skill` at authoring time and `/skill-health` audits the portfolio against it |
 | 3.25.0 | `/continue` renamed `/pickup`, `/review` renamed `/diff-review` — both names were shadowed by Claude Code built-ins |

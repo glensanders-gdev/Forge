@@ -31,6 +31,8 @@ PARTS = [
     ("Table schemas — carries the Sunny Day / Rainy Day / Edge Case naming",
      FORGE / "global/.claude/rules/requirements/tables.md"),
     ("Requirement language rules", FORGE / "global/.claude/rules/requirements/language.md"),
+    ("AI requirement rules — conditional on learned or generated behaviour",
+     FORGE / "global/.claude/rules/requirements/ai.md"),
     ("PRD standard of record (pack)", PACK / "reference/prd-standard.md"),
 ]
 
