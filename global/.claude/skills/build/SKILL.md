@@ -123,6 +123,19 @@ REFACTOR: Clean up — run tests again to confirm still green
 
 Reference `docs/testplan-[feature].md` for which behaviours to test. Follow all rules from the TDD skill — vertical slices, public interfaces only, no horizontal slicing.
 
+**Seam check before the cycle** — TDD attaches at a seam, and a few ticket shapes have none of their own (dependency bumps, config, one-shot migrations, scaffolding, pure visual work, `/user:prototype` spikes). Read *Where TDD Applies — Seams* in the TDD skill. If a queued ticket looks seamless, do not decide it alone — pause and put it to the human:
+
+```
+🧵 No seam — #N [Ticket name]
+
+No test attaches here because: [reason]
+Proposed evidence instead: [from the TDD seam table]
+
+Type NO-SEAM to accept and record it on the ticket, or TDD to write the test anyway.
+```
+
+On `NO-SEAM`, record `no-seam: [reason] — verified by [evidence]` on the kanban ticket and produce that evidence before Step 4. The ticket is not Done without it.
+
 **Test-execution cadence** — keep the feedback loop tight without paying for the full suite on every change (adapted from Matt Pocock's `implement` skill, github.com/mattpocock/skills):
 - **Typecheck regularly** as you write — catch type breaks the moment they appear, not at the end.
 - **Run single test files regularly** — the RED/GREEN cycle drives the file under change; do not run the whole suite to confirm one behaviour.
@@ -278,6 +291,8 @@ Next steps:
 - Update kanban in real time — never batch updates
 - Run `/tdd` for every AFK ticket — never skip tests
 - Never run the full test suite after every change — single test files and typechecks as you go, full suite once at ticket end (see Step 3 cadence)
+- Never skip TDD on a ticket without a human `NO-SEAM` decision — an agent deciding a ticket is untestable is how a sprint quietly loses its test coverage (see Step 3 seam check)
+- Never mark a `no-seam` ticket Done without the recorded evidence that replaced the test
 - Run `/review-diff` on every ticket's diff once tests are green — never skip the post-build review, and never auto-fix or silently pass a P1 finding
 - Never deploy — build produces tested code only; deployment is handled by `/go-nogo` and `/deploy`
 - DEVLOG and token records are not updated during build — defer to `/debrief`
@@ -294,3 +309,5 @@ Next steps:
 | Review returns a P1 finding | Pause per Step 4 — fix now, defer to backlog, or stop. Never auto-fix, never mark the ticket Done with an unresolved P1. |
 | Codebase in broken state at start | "Codebase has failing tests before build began. Fix these before running `/build`." Surface the failures. |
 | All tickets blocked | "All remaining tickets are blocked. Resolve blockers then resume with `/user:build`." |
+| Ticket appears to have no testable seam | Pause per the Step 3 seam check and wait for `NO-SEAM` or `TDD`. Never proceed untested on your own judgement. |
+| `NO-SEAM` accepted but the replacement evidence can't be produced | The ticket stays In Progress. Surface what blocked the evidence — an exemption with nothing behind it is untested work wearing a label. |

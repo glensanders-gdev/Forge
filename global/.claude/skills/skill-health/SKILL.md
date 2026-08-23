@@ -46,7 +46,7 @@ covering the skills themselves.
 | `SKILL.md` has `origin:` field but body has no attribution credit line | ⚠️ Amber |
 | `skills/<name>/` directory exists but not in `manifest.json` | ℹ️ Info |
 | `commands/<name>.md` exists but not in `manifest.json` | ℹ️ Info |
-| `SKILL.md` carries a `version:` field in frontmatter | ⚠️ Amber |
+| `SKILL.md` carries a `version:` field in its frontmatter block (not its body) | ⚠️ Amber |
 | Skill name matches an At Risk row in `RESERVED-NAMES.md` | ℹ️ Info |
 | `RESERVED-NAMES.md` verification stamp exceeds `Forge staleness warning (days)` from `preferences.md` (default 30), or carries no version | ℹ️ Info |
 | `~/.claude/forge-version` missing or `updated:` date exceeds `Forge staleness warning (days)` from `preferences.md` (default 30) | ℹ️ Info |
@@ -73,7 +73,11 @@ Do not produce output during this phase.
    (if it exists) and extract:
    - Frontmatter fields present (`name:`, `description:`, `origin:`) — and that `version:`
      is **absent**: `manifest.json` is the sole source of a skill's version, so a copy in
-     frontmatter is a second source that can only ever drift out of agreement with it
+     frontmatter is a second source that can only ever drift out of agreement with it.
+     Read the frontmatter block only — the leading `---` fence to its closing `---` — and
+     never the body. `update-forge` documents the `forge-version` file format inside a fenced
+     code block containing a literal `version:` line, so a whole-file scan reports a skill
+     that is in fact clean
    - The **value** of `name:`, compared against the directory name it was read from — they
      must be identical. Compare the raw string: strip surrounding quotes and trailing
      whitespace, but never normalise case, hyphens or underscores, because the loader does not
@@ -194,6 +198,7 @@ Consider running /skill-health before this sprint begins.
 | `~/.claude/commands/` directory missing | Note "No commands directory — all skills missing command stubs" and continue |
 | `CHANGELOG.md` missing | Skip CHANGELOG drift check, note "CHANGELOG.md not found" |
 | Single SKILL.md is unreadable | Note the file as unreadable, count it as missing required sections, continue |
+| A `version:` or `name:` line is found in a fenced code block | Not a finding — frontmatter is the block between the opening `---` and its closing `---`, and nothing after it counts |
 | `~/.claude/knowledge/` directory missing | Create it before writing the report |
 | `preferences.md` missing | Create it with `skill-health-last-run: YYYY-MM-DD` |
 | `RESERVED-NAMES.md` missing | Report 🔴 Critical — the authoring gate in `/write-a-skill` has nothing to check against. Skip the collision checks, name the absence, continue the rest of the audit |
