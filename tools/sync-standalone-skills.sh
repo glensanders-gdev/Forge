@@ -61,6 +61,6 @@ if [ "$do_push" -ne 1 ]; then
     exit 0
 fi
 
-git -C "$WORK" commit -q -m "Sync standalone skills from Forge $FORGE_VERSION ($FORGE_SHA)"
+git -C "$WORK" commit -q -m "Release $FORGE_VERSION" -m "Build $FORGE_SHA"
 git -C "$WORK" push -u origin "$BRANCH"
 echo "==> Published to $REMOTE ($BRANCH)"
