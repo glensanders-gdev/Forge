@@ -209,12 +209,13 @@ demonstrated.
 
 | Standard | Status here |
 |---|---|
-| ISO/IEC 25059:2023 | Extends the ORD's ISO/IEC 25010:2023 taxonomy — adds functional adaptability, robustness, user controllability, transparency, intervenability. Does not replace it. Second edition under member-body vote. |
+| ISO/IEC 25010:2023 | The ORD §3 taxonomy this file extends. Australian adoption: **AS/NZS ISO/IEC 25010:2025**. |
+| ISO/IEC 25059:2023 | Extends the ORD's ISO/IEC 25010:2023 taxonomy — adds functional adaptability, robustness, user controllability, transparency, intervenability. Does not replace it. Second edition under member-body vote. Australian adoption: **AS ISO/IEC 25059:2024**. |
 | ISO/IEC/IEEE 29148:2018 | Unchanged for the PRD. The good-requirement characteristics hold; only the evidence satisfying *verifiable* changes. |
 | ISO/IEC 22989:2022 | Vocabulary. Adopt its terms rather than coining local ones — record them via `/add-term`. |
 | ISO/IEC 23894 | AI risk management. Feeds ORD § 9 and `/raid`. |
 | ISO/IEC 5338 | AI system life-cycle processes. Feeds ORD § 5 and § 7. |
-| EU AI Act — Regulation (EU) 2024/1689, as amended | Supplies requirement classes (Arts. 9–15, Annex IV), not document structure. **Application dates below are cited, not verified in this repo — see the stamp.** |
+| EU AI Act — Regulation (EU) 2024/1689, as amended by (EU) 2026/1744 | Supplies requirement classes (Arts. 9–15, Annex IV), not document structure. Application dates are in the stamp below, verified 2026-08-24. |
 | ISO/IEC 42001:2023 | Organisational management system, above the document layer. Out of scope for this file. |
 | ISO/IEC 5259 series | Data quality for ML. A data-as-subject schema is deferred per ADR-0003. |
 
@@ -223,30 +224,68 @@ demonstrated.
 **Dates move; a rules file does not notice.** These are recorded once, here, with their provenance,
 so no requirement document restates them and no author cites them believing they were checked today.
 
+The research behind this file, `../docs/research/requirements-for-ai-solutions.md`, is
+**deliberately not tracked in this repository.** The workspace `docs/` holds company-internal
+material and is not published with the framework, as the `requirements-documents` pack is not. Its
+findings are restated here and in ADR-0003, which are tracked; the source is not, by choice — a
+reader resolving that path against the repo root is meant to find nothing.
+
 | Obligation | Date as recorded | Status |
 |---|---|---|
 | AI Act Art. 5 prohibitions, GPAI obligations, Art. 50 transparency duties | in force | cited |
 | Annex III high-risk obligations | 2 December 2027 | cited — deferred from the original date by the amending regulation below |
 | Annex I high-risk obligations | 2 August 2028 | cited — deferred as above |
 
-- **Last verified:** 2026-08-21, in `../docs/research/requirements-for-ai-solutions.md` § *Current timing* —
-  resolved from the repo root, i.e. the workspace directory **containing** this repo
-  <!--forge-only-->(`~/Documents/Forge/docs/research/` by default)<!--/forge-only-->, not `docs/` inside it. That document is
-  **workspace-local and not tracked in this repository**, as the `requirements-documents` pack is. A
-  reader resolving the path against the repo root finds nothing; that is the path being ambiguous,
-  not the evidence being absent.
-- **Verified against a secondary source.** The research cites a law-firm briefing on Regulation (EU)
-  2026/1744 (Digital Omnibus on AI, published 24 July 2026, in force 27 July 2026) for the deferral
-  — competent, and not the primary text. **No date here has been checked against the consolidated
-  text of Regulation (EU) 2024/1689 on EUR-Lex.**
-- **Owner:** unassigned. Assign one before any document authored under this file makes a conformity
-  claim.
-- **Before citing a date in a conformity claim, verify it against EUR-Lex** — not against this
-  table, not against the ADR, and not against the secondary briefing. Record the check by replacing
-  *Last verified* above with the date, the person, and the primary source.
-- **The requirement classes are not affected by this gap.** Arts. 9–15 and Annex IV supply the
-  classes in the map above whatever the application dates turn out to be; it is only the deadlines
-  that are unverified.
+- **Last verified:** 2026-08-24, by **Glen Sanders**, against the European Commission's own
+  announcement of the amending regulation entering into force —
+  <https://digital-strategy.ec.europa.eu/en/news/ai-omnibus-enters-force> — which states the
+  2 December 2027 and 2 August 2028 dates directly.
+- **Amending instrument:** Regulation (EU) 2026/1744 (Digital Omnibus on AI), adopted 8 July 2026,
+  published OJ 24 July 2026, in force 27 July 2026. CELEX `32026R1744`, ELI
+  <https://eur-lex.europa.eu/eli/reg/2026/1744/oj/eng>. It amends Regulation (EU) 2024/1689 (the AI
+  Act), ELI <https://eur-lex.europa.eu/eli/reg/2024/1689/oj/eng>.
+- **What was not done:** the consolidated **Article 113** text was not read. EUR-Lex returned its
+  Official Journal navigation page rather than the document on three URL forms, so the dates above
+  rest on the Commission's announcement plus consistent independent legal analyses, not on the
+  article itself. That is a strong chain and it is not the primary text. **Read Article 113 before
+  certifying conformity**, and record it here.
+- **Owner:** **Glen Sanders**, as maintainer of this ruleset. Re-verify on any amending regulation,
+  and at minimum annually.
+- **Deferral changes the deadline, not the content.** A register already carrying data governance,
+  logging, human oversight and accuracy rows needs no retrofit in 2027; one that does not, does. The
+  dates govern *when* evidence is demanded, never whether the classes above apply.
+
+### Australian adoptions and instruments
+
+Recorded because this pack is authored in an Australian context. **Cite the AS designation where one
+exists** — it is the same text, and it is the one an Australian auditor asks for.
+
+| Instrument | Status here |
+|---|---|
+| **AS/NZS ISO/IEC 25010:2025** | Identical adoption of ISO/IEC 25010:2023 — the taxonomy the ORD's §3 is keyed to. Cite this designation in an Australian document. |
+| **AS ISO/IEC 25059:2024** | Australian adoption of ISO/IEC 25059:2023 — the AI extension this file applies. Cite alongside the ISO designation. |
+| **AS ISO/IEC 42001:2023** | Identical adoption, February 2024. Organisational management system, above the document layer — out of scope for this file, as its ISO parent is. |
+| ISO/IEC/IEEE 29148:2018 | **No Australian adoption identified.** Cite the ISO/IEC/IEEE designation. |
+| **Voluntary AI Safety Standard (VAISS)** — DISR, 10 guardrails | **Voluntary. Binds nothing.** Useful as a checklist against the class map; never cite a guardrail as the authority for a requirement. |
+| **Guidance for AI Adoption (GfAA)** — October 2025, six practices | Voluntary; supersedes VAISS in practice. Same treatment. |
+| Proposed mandatory guardrails for high-risk AI, September 2024 | **Shelved.** Do not author against them. |
+| **National AI Plan**, 2 December 2025 | Policy direction, not law: existing legislation and sector regulators, supported by voluntary guidance and the Australian AI Safety Institute. **There is no Australian AI Act.** |
+
+**Watch item — an Australian AI standard to be legislated.** An Office of AI was established in the
+Department of the Prime Minister and Cabinet, and on 15 July 2026 the Prime Minister announced an
+intent to legislate an Australian AI standard — for consideration by National Cabinet in August 2026,
+with legislation expected early 2027. Published scope centres on **large AI data centres** — energy,
+water, and copyright protections for Australian creators — not on requirement classes for an AI
+system generally. **None of it is law yet**, and nothing in this file's class map derives from it.
+Re-check before the next document cycle; the owner named above owns this too.
+
+**The practical consequence for an Australian project.** The binding classes in the map above come
+from the **EU AI Act**, and apply only where a system falls within its scope. A purely domestic
+Australian system currently has **no mandatory AI-specific requirement classes**: it is governed by
+existing law — privacy, consumer, anti-discrimination, sector regulation — plus whatever the
+organisation adopts voluntarily. Name which regime applies in the document rather than importing the
+AI Act by default. The evaluative criterion, the evaluation-set discipline and the shelf-life rule in
+this file are **engineering practice, not regulation**, and apply either way.
 
 ## Never
 
@@ -264,8 +303,14 @@ so no requirement document restates them and no author cites them believing they
   the minimum required.
 - Never leave an AI-governed row unmarked — `[AI]` is what makes this ruleset checkable by someone
   who was not in the room.
-- Never cite an AI Act application date as verified against primary law on the strength of this
-  file — the stamp above records a secondary source and an unassigned owner.
+- Never cite an AI Act application date for a conformity certification without reading the
+  consolidated Article 113 — the stamp above records exactly what was and was not checked.
+- Never cite a VAISS or GfAA guardrail as the authority for a requirement. Both are voluntary; a
+  requirement naming one as its source names no obligation.
+- Never import the EU AI Act's classes into a purely domestic Australian system by default — name
+  the regime that applies and why.
+- Never cite an ISO designation alone where an AS adoption exists — an Australian auditor asks for
+  the AS number.
 - Never record an evaluation set with no re-run trigger.
 - Never name a model version in a requirement without a matching `MDL-NNN` row.
 - Never treat go-live acceptance as final for a component whose behaviour is learned or generated.

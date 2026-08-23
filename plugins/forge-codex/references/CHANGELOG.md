@@ -11,6 +11,54 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
+## v4.3.1 — 2026-08-24
+
+**The AI Act dates are now verified, and Australian adoptions are recorded.**
+
+### Changed
+
+- **`rules/requirements/ai.md` — regulatory stamp verified.** `Last verified: 2026-08-24, by Glen
+  Sanders`, against the European Commission's own announcement of the amending regulation entering
+  into force, which states the 2 December 2027 (Annex III) and 2 August 2028 (Annex I) dates
+  directly. The amending instrument is cited properly for the first time: Regulation (EU) 2026/1744
+  (Digital Omnibus on AI), adopted 8 July 2026, OJ 24 July 2026, in force 27 July 2026, CELEX
+  `32026R1744`, with ELI links for it and for the AI Act. Art. 5, GPAI and Art. 50 / Art. 4 dates
+  added as separate rows — Art. 50 and the AI-literacy duty were **not** deferred, which the previous
+  single "already in force" row obscured. Owner assigned.
+- **What was not done is recorded too.** The consolidated **Article 113** text was not read — EUR-Lex
+  served its Official Journal navigation page rather than the document on three URL forms. The dates
+  rest on the Commission's announcement plus consistent independent legal analyses. Strong, and not
+  the primary text; the stamp says to read Art. 113 before certifying conformity.
+
+### Added
+
+- **`ai.md` § Australian adoptions and instruments.** **AS/NZS ISO/IEC 25010:2025** (identical
+  adoption of the taxonomy ORD §3 is keyed to) and **AS ISO/IEC 25059:2024** (the AI extension this
+  file applies) both exist and are now cited beside their ISO designations — an Australian auditor
+  asks for the AS number. **AS ISO/IEC 42001:2023** recorded and still out of scope. No Australian
+  adoption of 29148 identified.
+- **The Australian regulatory position, stated plainly.** VAISS and the Guidance for AI Adoption are
+  **voluntary and bind nothing**; the September 2024 mandatory guardrails were **shelved**; the
+  National AI Plan (2 December 2025) confirms **there is no Australian AI Act**. Watch item: an
+  Office of AI in PM&C and a 15 July 2026 intent to legislate an Australian AI standard — scoped to
+  large AI data centres, not to requirement classes, and not law yet.
+- **The consequence for a domestic project is now explicit.** A purely Australian system has **no
+  mandatory AI-specific requirement classes** and is governed by existing law plus voluntary
+  adoption; the map's classes come from the EU AI Act and apply only within its scope. The
+  evaluative criterion, evaluation-set discipline and shelf-life rule are engineering practice, not
+  regulation, and apply either way.
+- Four `Never` rules: no conformity date without Art. 113; no voluntary guardrail as a requirement's
+  authority; no importing the AI Act into a domestic system by default; no ISO designation alone
+  where an AS adoption exists.
+
+### Decided
+
+The research document stays **untracked, by choice** — the workspace `docs/` holds company-internal
+material and is not published with the framework, as the `requirements-documents` pack is not. `ai.md`
+now says so, so the absence reads as deliberate rather than as the oversight v4.3.0 reported.
+
+---
+
 ## v4.3.0 — 2026-08-24
 
 **The `$critic` P2s on the requirements pack.** v4.2.1 made `ai.md` reachable; this makes it
