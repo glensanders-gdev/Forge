@@ -5,7 +5,7 @@
 # change staged. It never pushes on its own -- pass --push only after reading the diff.
 set -euo pipefail
 
-REMOTE="${FORGE_STANDALONE_REMOTE:-git@github.com:glensanders-gdev/skills.git}"
+REMOTE="${FORGE_STANDALONE_REMOTE:-https://github.com/glensanders-gdev/skills.git}"
 BRANCH="${FORGE_STANDALONE_BRANCH:-main}"
 FORGE_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 DIST="$FORGE_ROOT/dist/forge-standalone"
