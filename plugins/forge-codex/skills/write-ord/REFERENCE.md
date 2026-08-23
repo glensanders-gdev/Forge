@@ -43,7 +43,7 @@ Can specified users operate the system to achieve their goals?
 - **Inclusivity** — designed for diverse abilities and backgrounds *(NEW in 2023)*
 - **Self-Descriptiveness** — system communicates how to use it correctly *(NEW in 2023)*
 
-*ORD relevance:* operator training requirements, accessibility compliance (WCAG 2.1 AA), self-service capability.
+*ORD relevance:* operator training requirements, accessibility compliance (WCAG 2.2 AA), self-service capability.
 
 ### 5. Reliability
 Does the system perform its functions without failure over a specified period under specified conditions?

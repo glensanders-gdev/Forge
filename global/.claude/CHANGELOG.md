@@ -11,6 +11,81 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
+## v4.4.0 — 2026-08-24
+
+**Accessibility moves upstream in `/prototype` — from the rewrite to the variant choice.**
+
+A UI Prototype exists to decide layout, information hierarchy and primary affordance. A subset of
+WCAG 2.2 A/AA is *determined by exactly those three things* and cannot be retrofitted during
+Implementation without discarding the decision the prototype was run to make. The skill previously
+deferred all accessibility to the rewrite, so a variant could win on appearance and arrive at
+Implementation structurally unable to reach AA.
+
+### Added
+
+- **`prototype/ui-prototype.md` § Structural accessibility — decided here, not later.** Fourteen
+  A/AA criteria that follow from the layout choice — 1.3.1, 1.3.2, 1.4.1, 1.4.4, 1.4.10, 1.4.12,
+  2.4.3, 2.4.6, 2.4.11, 2.5.7, 2.5.8, 3.2.3, 3.2.4, 3.2.6 — each with what the layout determines.
+  Framed as a **screen over the variant set, not an audit of the spike**: auditing throwaway code is
+  the effort the prototype method exists to avoid. `/accessibility` still owns everything else.
+- **The Australian floor, stated once and generically.** WCAG 2.2 Level AA is the minimum for any
+  public-facing digital service in **either** sector — DDA 1992 s.24 via the AHRC's April 2025
+  guidelines — and is mandated for Commonwealth entities by the DTA's Digital Experience Policy
+  (effective 1 January 2025). A procurement clause citing **AS EN 301 549:2024** names WCAG **2.1**
+  and does not discharge that. No Australia-only section was added: the criteria are WCAG, which is
+  jurisdiction-neutral.
+- **Step 5 gains a participant requirement.** Where the surface is public-facing, the variant
+  evaluation includes participants with disability — the DTA Digital Inclusion Standard requires
+  co-design and usability testing with diverse user groups, and for everyone else it is the cheapest
+  evidence against a DDA claim. A set judged only by a product owner and a designer was chosen the
+  way the standard says not to choose it.
+- **`/prototype` UI.md findings-note template gains § Structural Accessibility Constraints**, so
+  step 6's capture has somewhere to land and the PRD inherits a known constraint rather than an
+  Implementation surprise.
+- Four `Never` rules: no drag-only primary affordance without a single-pointer alternative (2.5.7);
+  no colour as the sole hierarchy mechanism (1.4.1); no switcher that obscures the variant or claims
+  its keys; no full WCAG audit on throwaway variants.
+
+### Changed
+
+- **The switcher is now specified as a measurement instrument.** It ships nowhere, so it carries no
+  conformance obligation — the file was right about that — but a fixed bottom-centre bar manufactures
+  a 2.4.11 failure that belongs to the harness, and a global `←`/`→` binding swallows the keys any
+  listbox, tablist, radio group, slider or screen-reader browse mode inside the variant needs. Both
+  are now constrained.
+- **Step 2 screens candidates.** A variant that cannot reach WCAG 2.2 AA without changing its layout
+  is not a candidate — discard it before the human sees it, or record why it is shown anyway.
+- **The *What carries forward* table splits accessibility** into *structural* (decided at prototype,
+  inherited by the PRD) and *implementational* (contrast, names and roles, live regions, error
+  handling — still the rewrite). The single undifferentiated word hid the distinction.
+- **Design-system rule extended** — a mature system already ships the conformant behaviour; a
+  government or GBE surface reuses the relevant government design system for the same reason.
+
+### Fixed
+
+- **`skills/write-ord/REFERENCE.md:46` named WCAG 2.1 AA** under Interaction Capability — one release
+  below the Australian floor and below the `accessibility` skill's own 2.2 AA baseline. An ORD
+  authored from that reference understated the legal minimum. Now 2.2 AA. §3.7.1 already said
+  "WCAG level" without pinning a version, which is correct and is unchanged.
+
+### Knowledge base
+
+- **`knowledge/company/acronyms.md`** — AHRC, AS EN 301 549, DDA, DTA, WCAG.
+- **`knowledge/company/context.md`** — *Accessible (of a digital service)* and *Structural
+  accessibility* under Language; **WCAG version** added to Flagged Ambiguities, recording that three
+  Australian instruments name different versions at once and the stricter obligation wins.
+
+### Provenance
+
+Research: `docs/research/australian-accessibility-standards-for-ui.md` in the workspace `docs/`,
+**untracked by choice** per the v4.3.1 decision. Primary sources read: W3C WCAG 2.2 (updated
+12 December 2024), the W3C WAI Australia policy register, Standards Australia's AS EN 301 549:2024
+listing. The AHRC guidelines page returned HTTP 403 and `digital.gov.au` timed out on three
+attempts — both are recorded from the DTA's own PDFs and secondary sources, and the research file
+says so rather than implying they were read.
+
+---
+
 ## v4.3.1 — 2026-08-24
 
 **The AI Act dates are now verified, and Australian adoptions are recorded.**

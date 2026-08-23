@@ -374,6 +374,12 @@ echo "Installed $installed skills to $skills_dst"
 echo "Installed rules to $rules_dst"
 echo "Restart your Claude Code session to pick them up."
 '@
+# The published repository is cloned on Windows too, where core.autocrlf rewrites
+# checkouts to CRLF. Markdown survives that; install.sh does not -- bash rejects a
+# script whose shebang line ends in CR.
+$gitattributes = "* text=auto eol=lf`n"
+[IO.File]::WriteAllText((Join-Path $OutRoot ".gitattributes"), $gitattributes, [Text.UTF8Encoding]::new($false))
+
 $installPath = Join-Path $OutRoot "install.sh"
 [IO.File]::WriteAllText($installPath, ($installer -replace "\r\n?", "`n"), [Text.UTF8Encoding]::new($false))
 if ($IsLinux -or $IsMacOS) { chmod +x $installPath }

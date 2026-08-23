@@ -97,6 +97,11 @@ If genuinely ambiguous: backend/logic-oriented code defaults to the Logic branch
 ## Winning Variant + Rationale
 [Which variant (or combination) won and why]
 
+## Structural Accessibility Constraints
+[What the winning structure fixes that Implementation cannot undo — reflow behaviour, focus order,
+sticky chrome, target density, any drag-primary affordance needing a single-pointer alternative.
+See ui-prototype.md § Structural accessibility. Write "screened, none binding" if that is the answer.]
+
 ## Recommendation for Implementation
 [The distilled answer — rebuild the winner under real constraints; this is what carries into the PRD]
 ```

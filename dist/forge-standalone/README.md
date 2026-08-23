@@ -161,7 +161,7 @@ through. Anything consequential asks for a typed confirmation (`CONFIRM`, `APPRO
 
 ## Generated — do not edit here
 
-This repository is built from Forge 4.3.1. Edits made here are overwritten on the
+This repository is built from Forge 4.4.0. Edits made here are overwritten on the
 next sync. Open issues and pull requests against
 [Forge](https://github.com/glensanders-gdev/Forge) instead.
 
