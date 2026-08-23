@@ -3,7 +3,6 @@ name: "handoff"
 description: "Compact the current session into a structured handoff so the next session can continue without re-reading the conversation. Writes one handoff per stream of work to docs/handoffs/[stream].md and keeps the register at docs/HANDOFF.md. References artifacts by path rather than reproducing content. Suggests skills for the next session. Use $handoff for any planned pause — same-day resume, passing to another agent, or handing to a colleague. Use $debrief for a thorough end-of-day close that updates kanban, DEVLOG, and backlog."
 metadata:
   category: session
-  version: 2.0.0
   origin: Adapted from Matt Pocock (handoff / github.com/mattpocock/skills)
   argument_hint: "[stream-slug] What will the next session focus on?"
   disable_model_invocation: true

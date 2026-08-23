@@ -3,7 +3,6 @@ name: "learn"
 description: "Capture a pattern observed during a session as a Forge instinct. Accepts an optional inline description. Checks for duplicates and increments observation count if a match exists. Use when a recurring pattern, failure mode, or useful heuristic is noticed during any session phase."
 metadata:
   category: framework
-  version: 1.0.0
   argument_hint: What pattern was observed? (optional — will ask if not provided)
   origin: Adapted from Glen Sanders (Forge / https://github.com/glensanders-gdev/Forge)
 ---

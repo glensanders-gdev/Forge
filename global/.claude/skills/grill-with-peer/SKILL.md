@@ -1,7 +1,6 @@
 ---
 name: grill-with-peer
 category: pipeline
-version: 1.0.0
 description: Stress-test a plan or design with an independent peer model, then reconcile its critique with the host model. Use when the user asks for cross-model review, model diversity, a second AI opinion, /grill-with-peer, or /grill-with-codex.
 ---
 

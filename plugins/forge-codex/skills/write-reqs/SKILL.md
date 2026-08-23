@@ -3,7 +3,6 @@ name: "write-reqs"
 description: "Author a PRD and an ORD together from one source — classify needs into functional (PRD) and operational (ORD), delegate each document end-to-end to $write-prd and $write-ord via a binding authoring brief (each keeping its own confirmation gate), then own the bidirectional BRD↔PRD↔ORD cross-link neither sibling can complete alone. Use when the user runs $write-reqs, or wants both a PRD and an ORD from a single grill, transcript, or BRD rather than authoring either standalone."
 metadata:
   category: pipeline
-  version: 1.2.1
   origin: Adapted from Glen Sanders (Forge / https://github.com/glensanders-gdev/Forge)
 ---
 

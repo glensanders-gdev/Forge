@@ -1,7 +1,6 @@
 ---
 name: review-brd
 category: pipeline
-version: 1.0.0
 description: Assess a submitted BRD against the published handoff gate — BH-1 to BH-10, the [TBD] treatment rule and the four outcomes — returning a per-item verdict table with evidence and a mechanically derived outcome. Criteria are read from the requirements-documents pack at review time, never recalled. Use when a BRD arrives for ORD development, when /review-brd is run, or before ORD work is assigned against a BRD.
 ---
 

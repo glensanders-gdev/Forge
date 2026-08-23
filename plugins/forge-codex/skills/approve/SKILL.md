@@ -3,7 +3,6 @@ name: "approve"
 description: "Close a completed feature by archiving the PRD, sealing the DEVLOG session, and optionally pushing coding standards. Use when human runs $approve after QA is passed."
 metadata:
   category: pipeline
-  version: 1.1.0
   origin: Adapted from Glen Sanders (Forge / https://github.com/glensanders-gdev/Forge)
 ---
 

@@ -1,7 +1,6 @@
 ---
 name: write-ord
 category: pipeline
-version: 1.4.1
 description: Synthesize a call transcript, document, conversation context, or structured notes into a compliant Operational Requirements Document (ORD) organised by ISO/IEC 25010:2023 quality characteristics. Use when the user runs /write-ord, provides a transcript or document to convert into an ORD, or wants to formalise operational requirements from a conversation.
 ---
 

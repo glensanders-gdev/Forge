@@ -41,11 +41,12 @@ covering the skills themselves.
 | `SKILL.md` missing **Failure Modes** section | ⚠️ Amber |
 | `SKILL.md` missing **Rules** section | ⚠️ Amber |
 | Skill in `manifest.json` has no `commands/<name>.md` stub | ⚠️ Amber |
+| `commands/<name>.md` opens `Invoke the <other> skill` — a name that is not `<name>` | ⚠️ Amber |
 | Version in `manifest.json` > `1.0.0` but no CHANGELOG entry for that version | ⚠️ Amber |
 | `SKILL.md` has `origin:` field but body has no attribution credit line | ⚠️ Amber |
 | `skills/<name>/` directory exists but not in `manifest.json` | ℹ️ Info |
 | `commands/<name>.md` exists but not in `manifest.json` | ℹ️ Info |
-| `SKILL.md` has `version:` in frontmatter that doesn't match `manifest.json` | ℹ️ Info |
+| `SKILL.md` carries a `version:` field in frontmatter | ⚠️ Amber |
 | Skill name matches an At Risk row in `RESERVED-NAMES.md` | ℹ️ Info |
 | `RESERVED-NAMES.md` verification stamp exceeds `Forge staleness warning (days)` from `preferences.md` (default 30), or carries no version | ℹ️ Info |
 | `~/.claude/forge-version` missing or `updated:` date exceeds `Forge staleness warning (days)` from `preferences.md` (default 30) | ℹ️ Info |
@@ -70,12 +71,19 @@ Do not produce output during this phase.
 6. Read `~/.claude/forge-version` (if it exists) — extract `version:`, `installed:` date, and `commit:` SHA. Calculate days since install.
 7. For each skill in the manifest, read its `~/.claude/skills/<name>/SKILL.md`
    (if it exists) and extract:
-   - Frontmatter fields present (`name:`, `description:`, `version:`, `origin:`)
+   - Frontmatter fields present (`name:`, `description:`, `origin:`) — and that `version:`
+     is **absent**: `manifest.json` is the sole source of a skill's version, so a copy in
+     frontmatter is a second source that can only ever drift out of agreement with it
    - The **value** of `name:`, compared against the directory name it was read from — they
      must be identical. Compare the raw string: strip surrounding quotes and trailing
      whitespace, but never normalise case, hyphens or underscores, because the loader does not
    - The manifest key and the `commands/<name>.md` stub for the same skill, so a mismatch is
      reported with all four identifiers side by side
+   - The **skill named in the stub's opening clause** (`Invoke the <name> skill`), compared
+     against the stub's own filename. A rename that updates the filename but not the sentence
+     leaves the stub describing a skill that no longer exists, and nothing errors — the stub
+     still resolves, so only reading it reveals the stale name. Stubs that open `Alias for
+     /<other>` are deliberate and are not findings
    - Whether a `## Failure Modes` section is present (any variant of that heading)
    - Whether a `## Rules` section is present (any variant)
    - Whether a body credit line exists (search for the origin URL or author name
@@ -98,11 +106,12 @@ reserved_stamp_ver  = Claude Code version in the stamp, or "not recorded"
 manifest_orphans    = skills in manifest with no SKILL.md directory
 dir_orphans         = skill directories with no manifest entry
 missing_commands    = manifest skills with no command stub
+stale_stub_names    = command stubs whose opening clause names a skill other than their filename
 missing_sections    = SKILL.md files missing failure modes or rules
 changelog_drift     = skills at version > 1.0.0 with no matching CHANGELOG entry
 attribution_gaps    = skills with origin: in frontmatter but no body credit line
 orphaned_commands   = command stubs with no manifest entry
-version_mismatches  = SKILL.md version field != manifest version
+frontmatter_versions = SKILL.md files carrying a version: field (manifest owns the version)
 forge_version_stale = forge-version file missing, or updated date exceeds staleness threshold from preferences.md
 ```
 
@@ -189,6 +198,8 @@ Consider running /skill-health before this sprint begins.
 | `preferences.md` missing | Create it with `skill-health-last-run: YYYY-MM-DD` |
 | `RESERVED-NAMES.md` missing | Report 🔴 Critical — the authoring gate in `/write-a-skill` has nothing to check against. Skip the collision checks, name the absence, continue the rest of the audit |
 | `RESERVED-NAMES.md` stamp has no version | Report ℹ️ Info and repeat it on every collision finding — an undated clearance is worth less than it looks |
+| A command stub names a different skill than its filename | Report ⚠️ Amber and correct the opening clause to the stub's own name. Check the rest of the stub body for other references to the retired name before closing it |
+| A `SKILL.md` carries a `version:` field | Report ⚠️ Amber and recommend deleting the line, whatever its value — never recommend correcting it to match the manifest, which restores the second source of truth this check exists to remove |
 | A shadowed skill is found | Report 🔴 Critical and lead the warning with it. Recommend the rename with its major version; never recommend a deprecation stub — the old name is shadowed, so the stub is unreachable too |
 | `SKILL.md` frontmatter `name:` does not equal its directory name | Report 🔴 Critical. Name all four identifiers — directory, frontmatter, manifest key, command stub — and recommend correcting whichever is in the minority. Never assume the frontmatter is authoritative |
 | A name mismatch and a shadowed name are found on the same skill | Report both. Resolving the mismatch toward a shadowed name would trade a silent failure for a different one — say so, and recommend a name that is clear of the reserved list |

@@ -1,7 +1,6 @@
 ---
 name: critic
 category: code-quality
-version: 1.1.0
 description: Critically evaluate the current framework, plan, PRD, skill, or design. Surfaces weaknesses, risks, inconsistencies, and gaps with honest prioritised feedback. Use when user runs /critic, wants critical feedback, or asks for an honest evaluation of something.
 ---
 
