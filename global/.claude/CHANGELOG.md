@@ -11,6 +11,28 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
+## v4.5.0 — 2026-08-24
+
+**The standalone distribution becomes visible to the skills that maintain it.**
+
+The published repository could not answer "which version of `/tdd` is out there?" — its manifest
+carried a release number and nothing per skill. And nothing told an author editing a skill that
+the change reached a public audience; the `standalone:` key recorded the decision but no index or
+skill surfaced it.
+
+- `dist/forge-standalone/manifest.json` now carries a `version` per skill, read from the source
+  registry. The build fails if a shipped skill is absent from that registry, so a published skill
+  can never lack a version.
+- `/skill-health` audits the distribution: shipped / held / unmarked counts, ship-set drift where
+  the `standalone:` flag disagrees with the committed tree, published version drift, and staleness.
+  An unmarked skill is **Critical**, not Amber — it blocks the build for every other skill.
+- `/write-a-skill` asks for `standalone:` as a numbered step rather than leaving the build to fail
+  later, and states plainly that `true` means the text is published publicly.
+
+`/skill-health` v1.4.1 → v1.5.0, `/write-a-skill` v1.5.0 → v1.6.0.
+
+---
+
 ## v4.4.0 — 2026-08-24
 
 **Accessibility moves upstream in `/prototype` — from the rewrite to the variant choice.**

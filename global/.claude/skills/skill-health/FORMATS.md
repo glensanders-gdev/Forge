@@ -23,8 +23,14 @@ Output inline and save to `~/.claude/knowledge/skill-health-report.md`:
 | Have Rules section | N | N% |
 | Name clear of the reserved list | N | N% |
 | Frontmatter name matches directory | N | N% |
+| Declares `standalone:` | N | N% |
+| Published in the standalone distribution | N | N% |
 
 **Overall completeness:** N% (↑ improved / ↓ declined / — first check vs previous report)
+
+**Standalone distribution:** N published / N held / N unmarked. Release `N.N.N`.
+Anything listed as published is a public artefact — changes to it reach an audience
+outside this repository.
 
 ---
 
@@ -48,6 +54,14 @@ Output inline and save to `~/.claude/knowledge/skill-health-report.md`:
 | Skill | Missing | Action |
 |-------|---------|--------|
 
+### Unmarked for the standalone distribution (blocks the build for every skill)
+| Skill | Action |
+|-------|--------|
+
+### Ship-set drift (`standalone:` flag disagrees with the committed distribution)
+| Skill | Flag | In `dist/`? | Action |
+|-------|------|-------------|--------|
+
 ---
 
 ## ⚠️ Amber — Should Fix
@@ -67,6 +81,14 @@ Output inline and save to `~/.claude/knowledge/skill-health-report.md`:
 ### CHANGELOG drift (version bumped, no CHANGELOG entry)
 | Skill | Manifest version | Action |
 |-------|-----------------|--------|
+
+### Published version drift (`dist/` manifest version != source manifest)
+| Skill | Source | Published | Action |
+|-------|--------|-----------|--------|
+
+### Distribution stale (shipped skill changed after `dist/` was built)
+| Skill | Changed | `dist/` built | Action |
+|-------|---------|---------------|--------|
 
 ### Attribution gaps (origin: in frontmatter, no body credit)
 | Skill | Origin | Action |
