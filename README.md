@@ -230,6 +230,7 @@ The full framework lifecycle is documented in `~/.claude/forge-sequence.mmd`. Re
 | 3.27.0 | Name-collision policy — `RESERVED-NAMES.md` gates `/write-a-skill` at authoring time and `/skill-health` audits the portfolio against it |
 | 3.25.0 | `/continue` renamed `/pickup`, `/review` renamed `/diff-review` — both names were shadowed by Claude Code built-ins |
 | 3.24.0 | One handoff per stream of work — `docs/HANDOFF.md` becomes a register, streams live in `docs/handoffs/`; `skills/handoff/STREAMS.md` |
+| 3.22.0 | Acceptance-criteria scenarios named `Sunny Day` / `Rainy Day` / `Edge Case`, with negative space to enforce it (3.22.1–3.22.2) |
 | 3.21.1 | `/handoff` is user-invoked only — `disable-model-invocation` stops the model overwriting the next session's entry point |
 | 3.21.0 | Grilling moves to bounded frontier rounds — shared `FRONTIER.md` protocol for `/grill-me` and `/grill-with-docs` |
 | 3.18.0 | `/brain-setup` — three-tier second-brain knowledge model |
