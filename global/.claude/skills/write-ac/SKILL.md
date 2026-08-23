@@ -15,6 +15,13 @@ criterion written here. Translation carries a requirement's meaning across, not 
 derived from a hedged source requirement is rewritten to the declarative end-state form, never
 copied through. Never restate these rules here.
 
+`~/.claude/rules/requirements/ai.md` applies **conditionally**, on top of `language.md` and relaxing
+nothing, to any criterion derived from a requirement over learned or generated behaviour: a delivered component whose output for a given input is not fully determined by written logic — a trained model, an LLM call, a retrieval-augmented pipeline, an agent, or a third-party AI service consumed as an API. Such an AC carries its threshold, its named `EVL-NNN` set, its floor and its review
+hook across intact — dropping any of the four makes it untestable, and a source requirement missing
+one is a defect to flag, never one to silently inherit. The source row's **[AI]** prefix carries
+across to the criterion, and an unresolved `[EVL-TBD]` in a source requirement is a blocker: an AC
+cannot name the set that proves it.
+
 ---
 
 ## Phase 1 — AFK Select [AFK]

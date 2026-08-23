@@ -44,6 +44,8 @@ characteristic, so there is no characteristic column.
 - **`Comments` never holds a commitment.** It is a refinement scratch column; if a statement binds,
   it belongs in `Requirement Description`.
 - Mark a Key Performance Parameter by prefixing `Requirement Description` with **[KPP]**.
+- Mark a row governed by [ai.md](ai.md) by prefixing `Requirement Description` with **[AI]**; where
+  both apply the order is **[KPP][AI]**, always. See [ai.md](ai.md) § *Marking an AI-governed row*.
 
 **MoSCoW and [KPP] are orthogonal.** A KPP is a program-failure threshold; a Must is required for
 this release. Most KPPs are Musts; most Musts are not KPPs. Keep both.
@@ -63,6 +65,8 @@ outcome, which a register row cannot. Its **acceptance criteria** are rows:
 
 - Criterion IDs are `PRD-NNN.N` within their story, so `$write-ac` maps each `AC-NNN` to a precise
   criterion rather than a whole story.
+- A criterion over learned or generated behaviour is prefixed **[AI]** in the `Acceptance Criterion`
+  cell and follows [ai.md](ai.md) as well as this file.
 - The story carries a `MoSCoW` priority; `$write-ac` gates altitude on it exactly as it does for
   ORD register rows.
 - **`Scenario` names the weather the requirement is being put through**, not a category of criterion.
@@ -135,10 +139,14 @@ Authorised prefixes. See ADR-0001 for the requirement prefixes and their extensi
 | `AC-NNN` | Acceptance criteria | `$write-ac` |
 | `ASM-NNN` | Assumptions | whichever document records it |
 | `DEP-NNN` | Dependencies | whichever document records it |
-| `EVL-NNN` | Evaluation sets — schema in [ai.md](ai.md) | whichever document records it |
-| `MDL-NNN` | Model / provider dependencies — schema in [ai.md](ai.md) | whichever document records it |
+| `EVL-NNN` | Evaluation sets — schema in [ai.md](ai.md) | `$write-ord` (the PRD cites, never mints — see below) |
+| `MDL-NNN` | Model / provider dependencies — schema in [ai.md](ai.md) | `$write-ord` (as above) |
 
 `EVL-NNN` and `MDL-NNN` were added by ADR-0003 and apply only where [ai.md](ai.md) is triggered.
+**Both have exactly one assigning skill, like every other prefix here.** `$write-reqs` authors the
+PRD before the ORD, so a PRD needing a set that does not exist yet writes `[EVL-TBD — <what must be
+measured>]` and `$write-ord` writes the real ID back — the same mechanism as `Capability` and `Epic`.
+Where no ORD is produced at all, the PRD holds the registers and assigns the IDs, and says so.
 
 All are flat and sequential in order of first appearance, never encode a theme or characteristic,
 and are never reused once retired. `BO-N` and `BR-N` are single-digit-sequential per BRD, matching
@@ -193,4 +201,6 @@ prevents.
 - Never restate a value in a second table — reference the ID and mark the table as a view.
 - Never scaffold an empty table per absent subsection — use the Coverage Gaps table.
 - Never use a single-letter ID prefix (collides with `$raid`).
+- Never mint an ID from a prefix this table assigns to a different skill — write the `[TBD]` form and
+  let the owning skill write it back.
 - Never silently drop a gap to keep a document looking complete.

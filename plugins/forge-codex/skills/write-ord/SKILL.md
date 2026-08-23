@@ -15,6 +15,11 @@ See [REFERENCE.md](REFERENCE.md) for the ISO/IEC 25010:2023 characteristic taxon
 **Authoring standards — read before writing any requirement:**
 - `~/.codex/forge/rules/requirements/language.md` — wording, voice, banned modals and constructions
 - `~/.codex/forge/rules/requirements/tables.md` — table-first presentation, canonical schemas, ID namespaces, the coverage-gap collapse rule
+- `~/.codex/forge/rules/requirements/ai.md` — **conditional.** Applies on top of both, and relaxes
+  neither, where the trigger test fires: a delivered component whose output for a given input is not fully determined by written logic — a trained model, an LLM call, a retrieval-augmented pipeline, an agent, or a third-party AI service consumed as an API. It supplies the evaluative criterion
+  form, the `EVL-NNN` / `MDL-NNN` schemas, and the class map routing AI requirements into the §3
+  subsections listed in [REFERENCE.md](REFERENCE.md) § *ISO/IEC 25059 sub-characteristics*. Apply
+  the test in Phase 1 — a wrong "no" silently skips the whole ruleset.
 
 These are authoritative and shared with `$write-prd`, `$write-reqs` and `$write-ac`. Never restate them here.
 
@@ -43,7 +48,14 @@ Runs unattended. Extracts and classifies all operational requirements from sourc
 6. Identify gaps at **sub-characteristic** level — check every sub-characteristic in the REFERENCE.md taxonomy, not only the subsections pre-scaffolded in the template. Characteristic-level checking hides gaps inside a partially-covered characteristic. If a BRD exists, also identify BRD objectives with no resulting operational requirement.
 7. Extract **assumptions and dependencies** as first-class items. If an idea file exists at `~/.codex/forge/ideas/active/`, carry its `Assumptions to Validate` rows forward with their Status rather than restating them as prose — they keep their identity into this document.
 8. Identify Key Performance Parameters (KPPs) — requirements whose failure constitutes system/program failure. Mark these explicitly.
-9. Present the Phase 1 Summary and pause.
+9. **Apply the AI trigger test** from `rules/requirements/ai.md` — is any delivered component's
+   behaviour learned or generated rather than specified? Answer it explicitly and state the answer
+   in the Phase 1 Summary; do not leave it unasked. Where it fires, classify the affected statements
+   against the ISO/IEC 25059 sub-characteristics in [REFERENCE.md](REFERENCE.md) as well as the
+   25010 nine, and check for the classes that ruleset's class map assigns to this document — they
+   are gaps whether or not the source material raised them. Judge the **delivered solution**, never
+   the toolchain that builds it.
+10. Present the Phase 1 Summary and pause.
 
 ### Phase 1 Summary Format
 
@@ -65,6 +77,12 @@ Runs unattended. Extracts and classifies all operational requirements from sourc
 | Reliability | N | N | N |
 | Security | N | N | N |
 | [etc.] | | | |
+
+### AI Trigger — `rules/requirements/ai.md`
+**Fired:** Yes — [components whose behaviour is learned or generated] | No — [why the test does not fire]
+This asks about the **delivered solution**, never the toolchain that builds it.
+[Where fired:] **ISO/IEC 25059 sub-characteristics engaged:** [list from REFERENCE.md]
+[Where fired:] **Evaluation sets / model dependencies identified:** [EVL-NNN / MDL-NNN candidates, or "none — TBD at the gate"]
 
 ### Coverage Gaps
 Sub-characteristics with no source material: [list]
@@ -97,8 +115,8 @@ Runs after human confirms Phase 1 summary. Writes the ORD using the template in 
 1. Incorporate all corrections and gap-fills from the Phase 1 confirmation.
 2. Write the ORD following the structure in [REFERENCE.md](REFERENCE.md), populating each section from classified requirements.
 3. **Assign every requirement a stable ID** — `ORD-001`, `ORD-002`, … flat and sequential in order of first appearance. The ID never encodes the 25010 characteristic (the subsection heading supplies it), so moving a requirement between subsections never churns its ID. IDs are retired when a requirement is dropped — never reused.
-4. **Write every requirement per the shared rules** — wording follows `rules/requirements/language.md`, the register schema follows `rules/requirements/tables.md`. A complete row is a declarative `Requirement Description` carrying its own quantified value, plus a `Verification` method; a quantified but hedged requirement fails. Where source material gives no value, write `[TBD — source: "quoted vague statement"]` — never invent one. Leave `Capability` and `Epic` as `—`; `$write-ac` writes them back.
-5. **Every binding statement in Sections 3–8 is a row with an `ORD-NNN` ID** — not Section 3 alone. Operating environment, patch SLAs, alert thresholds, staffing commitments, SLA governance and infrastructure are requirements and carry IDs. Section 7 is a **view**: it cites existing IDs and introduces no new values. Mark KPPs by prefixing `Requirement Description` with **[KPP]** — MoSCoW priority is a separate column and does not replace it.
+4. **Write every requirement per the shared rules** — wording follows `rules/requirements/language.md`, the register schema follows `rules/requirements/tables.md`, and where the AI trigger fired, every requirement over learned or generated behaviour additionally follows `rules/requirements/ai.md`: it carries a threshold on a named `EVL-NNN` set, a floor, and a review hook, and a model version named in a row carries a matching `MDL-NNN` row. **This document owns the `EVL-NNN` and `MDL-NNN` namespaces** — assign them here, flat and sequential like `ORD-NNN`, and resolve every `[EVL-TBD — …]` the PRD left behind, writing the real ID back into the PRD criterion. A `[EVL-TBD]` surviving into an approved ORD is an unmeasurable requirement. A complete row is a declarative `Requirement Description` carrying its own quantified value, plus a `Verification` method; a quantified but hedged requirement fails. Where source material gives no value, write `[TBD — source: "quoted vague statement"]` — never invent one. Leave `Capability` and `Epic` as `—`; `$write-ac` writes them back.
+5. **Every binding statement in Sections 3–8 is a row with an `ORD-NNN` ID** — not Section 3 alone. Operating environment, patch SLAs, alert thresholds, staffing commitments, SLA governance and infrastructure are requirements and carry IDs. Section 7 is a **view**: it cites existing IDs and introduces no new values. Mark KPPs by prefixing `Requirement Description` with **[KPP]**, and rows governed by `rules/requirements/ai.md` with **[AI]** (**[KPP][AI]** where both) — MoSCoW priority is a separate column and replaces neither.
 6. **Record assumptions and dependencies as tables** in §9.2 and §9.3 using the `ASM-NNN` / `DEP-NNN` schemas. Carry forward any `$idea` assumptions with their Status. Every assumption states `If false`.
 7. **Check traceability against the register itself** — `BRD#` and `Source` live in every row, so there is no separate matrix to populate. Flag any row with `BRD#` = `—` **and** no `Source` as **orphan scope**, and any BRD requirement with no resulting register row as a **coverage gap**. Do not silently resolve either. Appendix B holds only the PRD cross-link and is omitted entirely for a standalone ORD; `$write-reqs` populates it.
 8. Save to `docs/ord/[system-name]-ORD.md`.

@@ -19,6 +19,11 @@ objective is verb-first by the pack's own form, and a `[TBD]` carries **a named 
 rather than `language.md`'s source quote — the gate reads both, and a `[TBD]` missing either is a
 hole that fails the bar.
 
+`~/.claude/rules/requirements/ai.md` applies **conditionally** — where a delivered component's
+behaviour is learned or generated rather than specified, this document records the **risk
+classification decision** once, per that ruleset's class map, and every downstream document reads it
+from here.
+
 ---
 
 ## Phase 1 — Ingest and classify [AFK]

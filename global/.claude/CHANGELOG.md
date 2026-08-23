@@ -11,6 +11,107 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
+## v4.3.0 — 2026-08-24
+
+**The `/critic` P2s on the requirements pack.** v4.2.1 made `ai.md` reachable; this makes it
+checkable. Five findings, each a way a requirement written under it could pass review and still be
+unverifiable.
+
+### Changed
+
+- **`EVL-NNN` and `MDL-NNN` now have one assigning skill — `/write-ord`.** `tables.md` previously
+  assigned both to "whichever document records it" while `ai.md`'s class map deliberately places AI
+  requirements in *both* the PRD and the ORD, and `/write-reqs` authors the PRD **first** — two
+  skills allocating from one flat sequential namespace, with the PRD guaranteed to go first. A PRD
+  criterion needing a set that does not exist yet now writes `[EVL-TBD — <what must be measured>]`
+  and `/write-ord` writes the real ID back, reusing the `Capability` / `Epic` write-back the pack
+  already had. Where no ORD is produced, the PRD holds the registers and says so. The two TBD forms
+  are now distinguished in a table — `[TBD — source: …]` is a missing *decision*, `[EVL-TBD]` is a
+  missing *set*, and writing the first where the second is true buries a known measurement.
+- **"Calibrated to human annotation" now carries a number.** `ai.md` banned "the model is
+  explainable" as an unquantified adjective while accepting "calibrated" as a scorer. A judge-based
+  `Scorer` cell now names the human-annotated calibration subset, the agreement statistic, and the
+  value achieved with the minimum required; Krippendorff's α ≥ 0.800 convention is offered as a
+  default to record, not to assume. An asserted-but-unmeasured judge is a `[TBD]`, as an
+  uncalibrated one already was.
+- **`Floor` split into two obligations.** The criterion defined it as "unacceptable at any rate, **or**
+  the worst single case tolerated" — a categorical prohibition and a scalar minimum — while the
+  register carried only the scalar, leaving the safety-relevant half homeless. `Floor` is now scalar
+  only; a categorical prohibition is a zero-tolerance register row in new **ORD § 3.9.3 Prohibited
+  Outputs** (or § 3.3 Security where it is a disclosure), and the `EVL-NNN` register gains a
+  `Prohibited outputs` column holding those row **IDs and no values**, per the view-table rule. `—`
+  means *considered, none apply*. Scoring a prohibition implies a rate at which it passes.
+- **AI-governed rows are marked `[AI]`.** The trigger is per-component, so an ORD holds governed and
+  ungoverned rows side by side with nothing to tell them apart — the ruleset became uncheckable at
+  the moment someone tried to check it. Mirrors **[KPP]**: same column, same bracket form,
+  **[KPP][AI]** where both. Orthogonal to MoSCoW and to KPP — it records which ruleset governs the
+  row's form, not its priority. A `[AI]` row naming no `EVL-NNN` is rejectable on sight.
+- **AI Act dates carry a verification stamp — and it reads "never".** Tracing them found that
+  `docs/research/requirements-for-ai-solutions.md`, cited by ADR-0003 twice, by `ai.md` and by the
+  v4.2.0 entry below, **is not in the repository and is not in its history**. The chain of evidence
+  for the 2 December 2027 / 2 August 2028 deferrals therefore ends at an ADR paragraph. Rather than
+  restate the dates as fact, `ai.md` now records them in a stamped table with `Last verified: never,
+  within this repository`, an unassigned owner, and an instruction to verify against the
+  consolidated text of Regulation (EU) 2024/1689 on EUR-Lex before any conformity claim. **The
+  requirement classes are unaffected** — Arts. 9–15 and Annex IV supply them whatever the deadlines
+  prove to be.
+
+### Skills
+
+`/write-prd` 2.7.2 · `/write-ord` 1.5.2 · `/write-ac` 1.5.2 — namespace ownership, the `[AI]` marker,
+and `[EVL-TBD]` resolution. `/write-brd` and `/write-reqs` unchanged since 4.2.1.
+
+### Open
+
+The missing research document is **not** reconstructed here — it is either recoverable from wherever
+it was authored or it never existed, and inventing a replacement would fabricate the provenance the
+stamp exists to flag.
+
+---
+
+## v4.2.1 — 2026-08-24
+
+**`ai.md` was unreachable.** v4.2.0 shipped the ruleset and bumped five skills to cite it. The
+rebase that landed it carried the version numbers across but dropped the edits they were numbering:
+the merge touched **no `SKILL.md` file**, so no skill referenced `ai.md` and nothing ever asked the
+trigger question. The ruleset was live in `rules/` and dead in practice — reachable only through
+`tools/build-reqs-bundle.py`, which is the standalone-machine escape hatch, not the normal path.
+Found by `/critic`.
+
+The v4.2.0 entry below described the intended state. This release makes it the actual state.
+
+### Fixed
+
+- **`/write-prd` 2.7.1, `/write-ord` 1.5.1, `/write-ac` 1.5.1, `/write-reqs` 1.3.1,
+  `/write-brd` 1.1.1** now cite `rules/requirements/ai.md` in their authoring-standards blocks,
+  marked conditional on the trigger test.
+- **The trigger is now asked, not assumed.** `/write-prd` and `/write-ord` each carry an explicit
+  Phase 1 step and a named block in the Phase 1 Summary, so the answer reaches the human gate
+  either way. `/write-reqs` settles it **once** during classification and passes it in both briefs,
+  so the siblings cannot disagree about whether the ruleset is in force. Each states that the test
+  judges the *delivered solution*, never the toolchain — a run in AI-assisted delivery mode is not
+  itself a trigger, and the two questions are independent.
+- **ISO/IEC 25059 sub-characteristics are in `write-ord/REFERENCE.md`.** ADR-0003 required the §3
+  patch; v4.2.0 did not apply it, so the class map routed requirements to subsections that did not
+  exist. Added as an *AI Extension* block in the taxonomy and scaffolded in the §3 template, marked
+  *(AI — 25059)*: **3.2.5** Robustness · **3.3.7** Prompt Injection and Model Attack Surface ·
+  **3.6.3** Record-Keeping and Inference Logging · **3.7.4** User Controllability and
+  Intervenability · **3.7.5** Transparency and Explainability · **3.8.2** Functional Adaptability ·
+  **3.8.3** Accuracy and Fairness Thresholds. §3 is not restructured; every existing §3.x reference
+  still resolves, and the numbering only extends.
+- **`ai.md`'s class map names the subsections** rather than the parent characteristics, and states
+  that they are conditional: where the trigger does not fire they are omitted from the body *and*
+  from §3.10 — an inapplicable subsection is not a coverage gap.
+
+### Known gaps — not addressed here
+
+Raised by the same `/critic` pass, deliberately left open: `EVL-NNN` / `MDL-NNN` have no single
+assigning skill; "calibrated to human annotation" names no agreement statistic; `Floor` is defined
+two ways in the criterion but has one column in the register; no marker distinguishes an
+AI-governed register row; the AI Act dates carry no verification stamp.
+
+---
+
 ## v4.2.0 — 2026-08-23
 
 **AI as the *subject* of a requirement** — not AI as the author of the code
