@@ -3,7 +3,6 @@ name: "write-prd"
 description: "Synthesize the current conversation, grill session, research, and prototype findings into a structured PRD aligned with ISO/IEC/IEEE 29148:2018 — the functional demand document sitting between the BRD and the SOAP, stating what is built and for whom and carrying no technical figure. Executes in two phases — AFK explore then HITL write — with a confirmation gate between them. Use when user runs $write-prd or when grill-me confirms shared understanding is reached."
 metadata:
   category: pipeline
-  version: 2.5.1
   origin: Adapted from Glen Sanders (Forge / https://github.com/glensanders-gdev/Forge)
 ---
 

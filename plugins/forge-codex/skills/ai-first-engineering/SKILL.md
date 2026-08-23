@@ -3,7 +3,6 @@ name: "ai-first-engineering"
 description: "Operating principles for teams delivering software with AI-assisted code generation. Shapes how planning, review, architecture, and testing work when AI generates a significant share of implementation output. Use during $grill-with-docs, $review-diff, $write-prd, and $testplan to apply AI-first thinking to design and process decisions."
 metadata:
   category: code-quality
-  version: 1.0.0
   origin: Adapted from ECC (github.com/affaan-m/ECC) by Affaan Mustafa
 ---
 

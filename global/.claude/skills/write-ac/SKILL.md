@@ -1,7 +1,6 @@
 ---
 name: write-ac
 category: pipeline
-version: 1.4.0
 description: Transform a PRD and ORD into Jira acceptance criteria — promote KPPs and headline outcomes to Capability-level AC, flow story detail to child Epics/Stories, carry PRD-NNN/ORD-NNN traceability into each criterion, and optionally push to the linked Jira Capability behind a confirmation gate. Use when the user runs /write-ac, has a PRD and/or ORD ready to turn into Jira acceptance criteria, or is promoting a project to a Jira Capability.
 ---
 

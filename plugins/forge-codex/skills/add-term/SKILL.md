@@ -3,7 +3,6 @@ name: "add-term"
 description: "Add a new term to the company-level glossary. Acronyms go to ~/.codex/forge/knowledge/company/acronyms.md. Domain concepts go to ~/.codex/forge/knowledge/company/context.md. Lightweight — captures term + definition + avoid aliases immediately, flags for enrichment later. Use when a new company or domain term is coined or discovered during any session."
 metadata:
   category: knowledge
-  version: 1.0.0
   origin: Adapted from Glen Sanders (Forge / https://github.com/glensanders-gdev/Forge)
 ---
 

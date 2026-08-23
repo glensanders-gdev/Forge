@@ -1,7 +1,6 @@
 ---
 name: to-tickets
 category: pipeline
-version: 1.0.0
 description: Convert a plan, PRD, spec, or conversation into a set of vertical-slice kanban tickets — each a tracer bullet sized to the smart zone, with genuine blocking edges and HITL/AFK tags. Quizzes the human on granularity before writing to docs/kanban.md. Use when a plan is agreed and needs turning into tracked, buildable tickets.
 origin: Adapted from Matt Pocock (AIHero.dev / github.com/mattpocock/skills)
 ---

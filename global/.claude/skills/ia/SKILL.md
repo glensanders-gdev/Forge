@@ -1,7 +1,6 @@
 ---
 name: ia
 category: knowledge
-version: 1.3.0
 description: Impact assessment for a proposed change — searches all knowledge sources, conducts a full grill-with-docs session to sharpen the change, then produces a severity-tagged impact summary, adaptive PRD or change brief, and draft artefacts. Use when user runs /IA, proposes a change to a knowledge file, process, or system and wants to understand the blast radius before committing.
 ---
 

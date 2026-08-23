@@ -11,6 +11,103 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
+## v4.1.0 — 2026-08-23
+
+**`manifest.json` becomes the single source of a skill's version** — 32 frontmatter copies removed
+
+Chasing the `/review-diff` version drift found the drift was not the defect. Seven skills carried a
+`version:` in `SKILL.md` frontmatter that disagreed with `manifest.json`; 25 more carried one that
+happened to agree; **81 carried none at all**. The canonical `SKILL.md` template in `/write-a-skill`
+has never had a `version:` field, so the 32 that carried one had drifted *away* from the documented
+convention, and nothing read the value — which is exactly why seven of them went stale unnoticed.
+
+Correcting the seven numbers would have restored a second source of truth. Removing the field
+instead makes the drift unrepresentable.
+
+### Changed
+
+- **`version:` removed from 32 `SKILL.md` frontmatters.** `manifest.json` is now the only place a
+  skill's version lives, matching the 81 skills that already worked that way and the template that
+  always specified it. No version values were lost: every one is recorded in the manifest and in this
+  changelog. Affected: `accessibility`, `add-term`, `ai-first-engineering`, `approve`, `assimilate`,
+  `break-down`, `critic`, `diagnose`, `evolve`, `grill-me`, `grill-with-docs`, `grill-with-peer`,
+  `handoff`, `ia`, `install-forge`, `intent-layers`, `knowledge-health`, `learn`, `pickup`,
+  `prototype`, `research`, `review-brd`, `review-diff`, `review-ord`, `to-tickets`, `update-company`,
+  `write-ac`, `write-article`, `write-brd`, `write-ord`, `write-prd`, `write-reqs`.
+- `/skill-health` 1.2.0 → 1.4.0 — two checks. The version check **inverts**: It reported ℹ️ Info when a
+  frontmatter `version:` disagreed with the manifest; it now reports ⚠️ Amber when a `version:` is
+  present *at all*, regardless of value. The Phase 1 inventory asserts the field's absence, the
+  `version_mismatches` tally becomes `frontmatter_versions`, and a new Failure Modes row directs the
+  fix to **delete** the line rather than reconcile it — reconciling is what re-creates the second
+  source of truth.
+- `/skill-health` also gains a **stale stub name** check. It verified that a command stub *exists*
+  but never read it, so a stub whose opening clause named a skill that no longer exists passed the
+  audit — the stub still resolves, and nothing errors, so only reading it reveals the stale name.
+  Now ⚠️ Amber, with an inventory step, a `stale_stub_names` tally, and a Failure Modes row that
+  also directs a check of the rest of the stub body for the retired name. Stubs opening `Alias for
+  /<other>` are deliberate and exempt.
+- `/pickup` 3.0.1 → 3.0.2 and `/review-diff` 4.0.1 → 4.0.2 — **stub openings corrected.**
+  `pickup.md` opened "Invoke the continue skill" and `review-diff.md` "Invoke the review skill",
+  both naming the pre-v3.25.0 name. Those two renames updated the filenames and the skill bodies but
+  not the sentence inside the stub. A sweep of all 114 stubs found no others, and a sweep for the 28
+  retired command names across every stub and skill body found only two references, both correct
+  historical citations rather than live pointers: the rename note in `pickup/SKILL.md` (deliberately
+  `no-adapt` fenced, because it is a claim about a Claude Code built-in) and the `code-review` row in
+  `RESERVED-NAMES.md`. The v4.0.0 verb-first renames updated all 26 of their stubs correctly.
+- `/write-a-skill` 1.4.0 → 1.5.0 — states the convention its template already implied: never add
+  `version:` to `SKILL.md`, because the copy in frontmatter is the one that goes stale silently,
+  since nothing reads it. Added as a manifest-step rule, a Review Checklist gate, and a Failure
+  Modes row.
+- **`forge_version` 4.0.1 → 4.1.0.**
+
+### Fixed
+
+- **Seven version drifts resolved** by removal rather than correction: `write-prd` (2.5.1≠2.6.1),
+  `approve` (1.1.0≠1.2.0), `install-forge` (2.0.1≠3.0.0), `write-ac` (1.4.0≠1.4.2), `review-brd`
+  (1.0.0≠2.0.0), `review-ord` (1.0.0≠2.0.0), `update-company` (1.0.0≠2.0.0). In all seven the
+  manifest held the correct value, confirmed against this changelog: the three non-renamed skills
+  match their last recorded bump, and the four renamed at v4.0.0 took the major that rename required
+  while their files kept the pre-rename number.
+- **`update-forge` was never drifted.** It was reported as `[NEW_VERSION]≠3.0.0` in the v4.0.1 note;
+  that string is a template literal inside a fenced example block the skill emits, and the detection
+  pass matched it by reading the first `version:` anywhere in the file instead of parsing frontmatter.
+  The v4.0.1 count of nine should have read seven.
+
+---
+
+## v4.0.1 — 2026-08-23
+
+**`/review-diff` recovers two elements dropped at assimilation** — from Matt Pocock's `code-review` skill (github.com/mattpocock/skills)
+
+A re-run of `/assimilate` against the upstream source found no methodology change since Forge took
+it at v3.16.0 — the nine intervening upstream commits are all housekeeping (em-dash removal, YAML
+quoting, harness-neutral sub-agent dispatch that Forge had already made independently, and an
+invocation-type fix for a setup skill Forge does not have). The comparison did surface two small
+elements present in the original at assimilation time that were dropped without a recorded reason.
+
+### Changed
+
+- `/review-diff` 4.0.0 → 4.0.1 — **a 400-word cap on each sub-agent's report**, stated in the brief:
+  the main thread pays to read whatever comes back, and an unbounded Standards report on a large diff
+  buries its own P1s. And a **per-axis closing summary** in the output format — total findings and the
+  single worst finding *within each axis*. Forge stated the no-re-ranking rule three times in prose but
+  never rendered it in the report, which is the one place a reader sees it. Two matching negative-space
+  rules and two Failure Modes rows added (over-long sub-agent report; the clean-on-both summary reading).
+  Attribution line updated to name both recovered elements.
+- **`forge_version` 4.0.0 → 4.0.1.**
+
+### Fixed
+
+- **`/review-diff` declared `version: 3.0.0` while `manifest.json` said `4.0.0`.** The v4.0.0 verb-first
+  rename bumped the manifest but not the skill file. Corrected as part of this bump. Eight further skills
+  carry the same drift and are not fixed here — see the note below.
+
+### Known
+
+- **Seven skills disagree with the manifest on their own version.** Resolved in v4.1.0 — see below.
+
+---
+
 ## v4.0.0 — 2026-08-22
 
 **Action skills are verb-first** — 26 renames, decided in [ADR-0002](../../docs/adr/0002-verb-first-action-skill-names.md)

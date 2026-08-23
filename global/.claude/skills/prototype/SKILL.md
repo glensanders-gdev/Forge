@@ -1,7 +1,6 @@
 ---
 name: prototype
 category: pipeline
-version: 2.0.0
 description: Spike throwaway code to answer a specific design question before writing the PRD. Pick a branch first — a logic/state question builds an interactive Logic Prototype (see logic-prototype.md); a visual/UX question builds structurally different UI variants behind a switcher (see ui-prototype.md). Findings feed /write-prd; the spike is preserved on a throwaway branch, then cleaned from the working tree. Use when a design question is cheaper to answer in code than in discussion.
 origin: Adapted from Matt Pocock (AIHero.dev / github.com/mattpocock/skills)
 ---

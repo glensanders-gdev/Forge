@@ -3,7 +3,6 @@ name: "review-diff"
 description: "Two-axis structured code review of a pinned diff — a Spec axis (does the change fulfil its originating requirement) and a Standards axis (project docs + an immutable code-smell baseline), judged by isolated parallel sub-agents and reported without merging. Runs per-ticket after $build and on demand. Advisory by default."
 metadata:
   category: code-quality
-  version: 3.0.0
   origin: Adapted from Matt Pocock (AIHero.dev / github.com/mattpocock/skills)
 ---
 
@@ -13,7 +12,7 @@ Review a **pinned diff** along two independent axes and report them separately. 
 
 Execution mode: **[AFK]** advisory — the review runs autonomously and produces a report; it changes no code unless a human explicitly asks. When wired into `$build` it fires per ticket; it is also human-invokable any time via `$review-diff`.
 
-> Adapted from Matt Pocock's `code-review` skill (github.com/mattpocock/skills). Forge keeps the two-axis + isolated-sub-agent structure, the fixed-point diff, and the Fowler smell baseline; it translates the git plumbing to Forge's kanban-driven ticket diffs, its own P1/P2/P3 severities, and its ADR/CONTEXT/PRD sources of truth.
+> Adapted from Matt Pocock's `code-review` skill (github.com/mattpocock/skills). Forge keeps the two-axis + isolated-sub-agent structure, the fixed-point diff, the Fowler smell baseline, the 400-word sub-agent cap, and the per-axis closing summary; it translates the git plumbing to Forge's kanban-driven ticket diffs, its own P1/P2/P3 severities, and its ADR/CONTEXT/PRD sources of truth.
 
 ## Pipeline Position
 
@@ -67,6 +66,8 @@ Judge the two axes independently so neither contaminates the other. Delegate eac
 
 Neither sub-agent sees the other's findings.
 
+**Cap each sub-agent's report at 400 words.** The main thread pays to read whatever comes back, and an unbounded Standards report on a large diff buries its own P1s. State the cap in the brief.
+
 ### Step 5 — Aggregate without merging
 
 Present both axes under separate headings, in their own severity order. Do not merge them into one list and do not re-rank one axis by the other. A human reads the two axes side by side and decides.
@@ -104,13 +105,21 @@ Advisory only — no changes made.
 **P3 — Suggestions**
 - ...
 **Passed**: [areas clean]
+
+### Summary
+- **Spec**: [N] findings — worst: [the worst Spec finding, or "none"]
+- **Standards**: [N] findings — worst: [the worst Standards finding, or "none"]
 ```
+
+The summary carries **one worst finding per axis**. Never name a single worst across both axes — that is the re-ranking the whole separation exists to prevent.
 
 Close with: *"Want me to fix any of these, or are you handling them manually?"*
 
 ## Rules
 
 - Never merge the two axes into one list, and never re-rank one axis by the other — report them separately.
+- Never name a single worst finding across both axes — the closing summary carries one worst per axis, never a winner between them.
+- Never let a sub-agent report run past 400 words — a review the human will not read is not a review.
 - Never review the whole codebase blind — always pin a fixed point first.
 - Never flag anything a linter or formatter already enforces.
 - Never flag a baseline smell the project's own docs explicitly endorse — the repo overrides.
@@ -128,4 +137,5 @@ Close with: *"Want me to fix any of these, or are you handling them manually?"*
 | No ADRs, CONTEXT.md, or coding standards exist | Run the Standards axis against the [smell baseline](smell-baseline.md) and the codebase's own conventions; state that no documented project standards were available. |
 | Sub-agents unavailable in this environment | Run both axes inline on the main thread, but keep them as two separate passes with separate reports — do not collapse them into one. |
 | User asks for fixes mid-review | Leave advisory mode only on explicit instruction; apply fixes for the named findings only. |
-| Both axes clean | Say so plainly under **Passed** on each axis — never invent findings. |
+| Both axes clean | Say so plainly under **Passed** on each axis — never invent findings; the summary reads `0 findings — worst: none` on both. |
+| A sub-agent returns more than 400 words | Send it back to re-report under the cap. Never paste an unbounded report into the aggregate, and never silently truncate one — a cut report loses findings without saying so. |

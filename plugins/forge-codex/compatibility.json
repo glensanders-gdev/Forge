@@ -4,7 +4,7 @@
     "assimilate": {
       "source": "global/.claude/skills/assimilate/SKILL.md",
       "codex": "plugins/forge-codex/skills/assimilate/SKILL.md",
-      "reviewedSourceSha256": "B630576E89C8A20C34CB8CDE12CD995942038AF7C07AC2B2E66FC0360C875C48"
+      "reviewedSourceSha256": "FCBAC58B552BD758F306AED12BA1D3EB9922CA565967B143623C7E171BF15DF1"
     },
     "add-company": {
       "source": "global/.claude/skills/add-company/SKILL.md",
@@ -14,7 +14,7 @@
     "update-company": {
       "source": "global/.claude/skills/update-company/SKILL.md",
       "codex": "plugins/forge-codex/skills/update-company/SKILL.md",
-      "reviewedSourceSha256": "3B016D3E53C0E09E611BF44458106F480622F0BA3E8EA38B565A69161E504EAF"
+      "reviewedSourceSha256": "46DBDC14F74DCB8CAFE3E16993E89002DB72AFDD611D5DC1B6DA61C10CD6ACDB"
     },
     "debrief": {
       "source": "global/.claude/skills/debrief/SKILL.md",
@@ -29,7 +29,7 @@
     "install-forge": {
       "source": "global/.claude/skills/install-forge/SKILL.md",
       "codex": "plugins/forge-codex/skills/install-forge/SKILL.md",
-      "reviewedSourceSha256": "2BEFBFA3D5AECEC39E37DE616E1C8DA2E55AC99DA9F5C4889B254786728522E7"
+      "reviewedSourceSha256": "4DF3064AE8027A43C4AE38DA43C60770AAE2D688EA167F7C3AD18FB9390AB0C6"
     },
     "update-forge": {
       "source": "global/.claude/skills/update-forge/SKILL.md",
@@ -44,7 +44,7 @@
     "grill-with-peer": {
       "source": "global/.claude/skills/grill-with-peer/SKILL.md",
       "codex": "plugins/forge-codex/skills/grill-with-peer/SKILL.md",
-      "reviewedSourceSha256": "46B5F74CC117317A95B811DF5865CEE7D02E0B9D027545F1FA0AF46944BCC7C0"
+      "reviewedSourceSha256": "6340153BF3626F7AC11BB9934F44C95938270DBAF440205011D2015DDDF0B0D4"
     },
     "jira": {
       "source": "global/.claude/skills/jira/SKILL.md",
@@ -69,7 +69,7 @@
     "skill-health": {
       "source": "global/.claude/skills/skill-health/SKILL.md",
       "codex": "plugins/forge-codex/skills/skill-health/SKILL.md",
-      "reviewedSourceSha256": "9CC5C5B31744F50EA2284149E6D8E1E0BD7173E5F4AB37560014860367321426"
+      "reviewedSourceSha256": "E1D46086FF39862E8CF1E56FB7ACA124F236823BE6AE90A9153256507F8E068E"
     },
     "end-sprint": {
       "source": "global/.claude/skills/end-sprint/SKILL.md",
@@ -84,7 +84,7 @@
     "write-a-skill": {
       "source": "global/.claude/skills/write-a-skill/SKILL.md",
       "codex": "plugins/forge-codex/skills/write-a-skill/SKILL.md",
-      "reviewedSourceSha256": "781776F99C7C0B74BED8E11176A030CB4A9225B6CFD779A6382D6F0AA9BB78B2"
+      "reviewedSourceSha256": "57AB63607CC403E1B363C569500E05952E86640F35EFD02C708DEA6B033107B9"
     }
   }
 }

@@ -3,7 +3,6 @@ name: "break-down"
 description: "Split a large ticket or feature into smaller tickets within the smart zone limit, with HITL/AFK tags and blocking relationships. Use when user runs $break-down, a ticket is too large, or a task exceeds the smart zone of 100k tokens."
 metadata:
   category: pipeline
-  version: 1.1.0
   origin: Adapted from Glen Sanders (Forge / https://github.com/glensanders-gdev/Forge)
 ---
 

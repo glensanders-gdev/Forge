@@ -3,7 +3,6 @@ name: "research"
 description: "Cache findings from expensive exploration phases into topic-specific markdown files. Use when implementation would require repeated or costly exploration of external APIs, libraries, schemas, or unfamiliar codebases."
 metadata:
   category: pipeline
-  version: 1.0.0
   origin: Adapted from Glen Sanders (Forge / https://github.com/glensanders-gdev/Forge)
 ---
 

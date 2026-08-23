@@ -129,6 +129,7 @@ Invoke the handoff skill. Compact the current session into a structured handoff 
 1. Update `~/.claude/skills/manifest.json`:
    - New skill: add entry with version `"1.0.0"`
    - Updated skill: bump the existing version (`1.0.0` → `1.1.0`, `1.1.0` → `1.2.0`, etc.). Never leave the manifest at the old version after a meaningful change — a frozen version number is the same as no version number.
+   - **`manifest.json` is the only place a skill's version lives.** Never add a `version:` field to `SKILL.md` frontmatter — the template above has none. A version in both files is two sources of truth for one number, and the copy in frontmatter is the one that goes stale, silently, because nothing reads it. `/skill-health` reports one as ⚠️ Amber.
 2. Update `~/.claude/CHANGELOG.md` — add an entry for the new or changed skill under the current framework version.
 3. Confirm the files created/updated and their locations.
 4. Remind the user: project-level skills go in `.claude/skills/[skill-name]/SKILL.md` and override global skills of the same name.
@@ -154,6 +155,7 @@ Before finalising, verify:
 - [ ] No time-sensitive information included
 - [ ] Terminology consistent with `docs/CONTEXT.md`
 - [ ] `manifest.json` updated with new skill and version `"1.0.0"`
+- [ ] `SKILL.md` frontmatter carries **no** `version:` field — the manifest owns the version
 - [ ] Command file created if slash command needed
 - [ ] **Host names fenced** — every sentence that names <!--no-adapt-->Claude Code, Claude Desktop, or a `~/.claude/` path<!--/no-adapt--> as a specific product, rather than meaning "the host you are running on", is wrapped in a `no-adapt` fence. Ask which host the sentence is *about*, not which host will read it
 - [ ] **`~/.claude/skills/commands/SKILL.md` updated** — add the new command to the correct section in the command reference table. This is mandatory — never skip it.
@@ -175,6 +177,7 @@ When the skill you just wrote misbehaves, the cause is usually one of these. Ful
 | A line that changes nothing versus the agent's default | **No-op** — delete it, or replace a weak leading word with a stronger one |
 | A "never" rule that's really steering intended behaviour | **Negation** — reframe as a positive leading word; keep "never" only for guardrails on consequential/irreversible actions |
 | Skill was authored and never loads, with no error | **Shadowed name** — a vendor command won it. Check [RESERVED-NAMES.md](RESERVED-NAMES.md); a rename is a major version, and no stub or alias survives at the old name |
+| `SKILL.md` frontmatter has a `version:` field | Delete the line, whatever it says. Never reconcile it against the manifest instead — that keeps the second source of truth alive |
 | Proposed name matches a Reserved row | Stop and gate — offer a rename, or a typed `CONFIRM` to proceed. Never decide it alone |
 | Reserved list stamp is older than the staleness threshold | Say so at the point of the check, run the refresh procedure in [RESERVED-NAMES.md](RESERVED-NAMES.md), then check the name |
 | Source is an external skill/article | Stop — use `/user:assimilate`, which handles fit evaluation and attribution |
