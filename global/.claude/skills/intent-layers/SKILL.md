@@ -1,6 +1,7 @@
 ---
 name: intent-layers
 category: framework
+standalone: true
 description: Alias for /context-health. Audits token load and recommends directory-scoped AGENTS.md child nodes. Use when thinking about context structure in terms of Tyler Brandt's "Intent Layer" framework.
 ---
 

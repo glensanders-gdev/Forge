@@ -1,0 +1,18 @@
+name: vibe-security
+description: >
+  Audits codebases for common security vulnerabilities introduced by AI coding
+  assistants. Checks for exposed API keys, broken database access control
+  (Supabase RLS, Firebase rules), missing auth validation, client-side trust
+  issues, insecure payment flows, rate limiting gaps, mobile security, and
+  AI/LLM integration risks.
+
+triggers:
+  - "$vibe-security"
+  - "check my code for security issues"
+  - "audit this project"
+  - "is this safe"
+  - "review for vulnerabilities"
+  - "check my Supabase RLS"
+  - "can someone hack this"
+
+skill_file: SKILL.md

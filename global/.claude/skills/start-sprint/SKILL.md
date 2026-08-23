@@ -1,6 +1,7 @@
 ---
 name: start-sprint
 category: sprint
+standalone: false
 description: Open a new sprint for the current project. Reads the global sprint calendar for dates and active projects, pulls carry-in from the previous end-sprint record, captures goals and deadlines, and writes a start-sprint document. Use when user runs /start-sprint or a new sprint period begins.
 ---
 

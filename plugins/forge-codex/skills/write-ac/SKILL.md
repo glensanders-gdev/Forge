@@ -17,6 +17,13 @@ criterion written here. Translation carries a requirement's meaning across, not 
 derived from a hedged source requirement is rewritten to the declarative end-state form, never
 copied through. Never restate these rules here.
 
+`~/.codex/forge/rules/requirements/ai.md` applies **conditionally**, on top of `language.md` and relaxing
+nothing, to any criterion derived from a requirement over learned or generated behaviour: a delivered component whose output for a given input is not fully determined by written logic — a trained model, an LLM call, a retrieval-augmented pipeline, an agent, or a third-party AI service consumed as an API. Such an AC carries its threshold, its named `EVL-NNN` set, its floor and its review
+hook across intact — dropping any of the four makes it untestable, and a source requirement missing
+one is a defect to flag, never one to silently inherit. The source row's **[AI]** prefix carries
+across to the criterion, and an unresolved `[EVL-TBD]` in a source requirement is a blocker: an AC
+cannot name the set that proves it.
+
 ---
 
 ## Phase 1 — AFK Select [AFK]
@@ -123,7 +130,7 @@ Runs after the human confirms the split.
 | An ORD requirement is still `[TBD]` | Do not turn it into an AC. List it as blocked pending the ORD; do not invent a threshold. |
 | No Jira Capability linked | Produce the AC document only. Suggest `$link-jira PROJ-NNN CAP-NN --type capability`; never push. |
 | AC document already exists at target path | Stop. "An AC document already exists at docs/ac/. Confirm overwrite or provide a new name." |
-| jira MCP not configured at push time | Write the document, skip the push, direct the user to `$jira setup`. |
+| jira MCP not configured at push time | Write the document, skip the push, and direct the user to `$jira setup` — configure the `jira` MCP. |
 | Every ORD requirement is `Won't` | Stop. "All operational requirements are marked Won't for this release — no AC to author." |
 | User declines the write-back `CONFIRM` | The AC document stands; the ORD is untouched. Report which `ORD#` rows remain unmapped. Never apply a partial set without a fresh `CONFIRM`. |
 | ORD not found or not writable at write-back time | Write the AC document, skip the write-back, and list the `ORD# → Capability/Epic` mapping for the human to apply manually. |

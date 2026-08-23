@@ -1,6 +1,7 @@
 ---
 name: go-nogo
 category: pi-release
+standalone: false
 description: Prepare and execute the Go/No Go release gate for a monthly release. AI prepares the brief, human decides, result is saved formally. Use when user runs /go-nogo, a Go/No Go date is approaching, or standup flags a Go/No Go is due within 5 days.
 ---
 

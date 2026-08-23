@@ -100,4 +100,4 @@ Promotion is always advisory — the human confirms each entry before it is writ
 | Tempted to combine unrelated topics in one file | Keep one file per topic. |
 | Findings drift into opinion | Keep findings factual; confine judgement to the Recommendation section. |
 | Research is inconclusive | Record what's known and the open question — don't force a recommendation. |
-| Findings belong in the knowledge base | Offer promotion via `$add-system` / `$add-term` — advisory, human confirms each entry. |
+| Findings belong in the knowledge base | Offer promotion to the knowledge base via `$add-system` / `$add-term` — advisory, human confirms each entry. |

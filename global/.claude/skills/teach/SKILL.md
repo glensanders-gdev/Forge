@@ -1,6 +1,7 @@
 ---
 name: teach
 category: knowledge
+standalone: true
 origin: Adapted from Matt Pocock (AIHero.dev / github.com/mattpocock/skills — productivity/teach)
 description: Teach a subject across multiple sessions, grounded in the learner's real mission. Curates trusted resources, delivers short HTML lessons pitched at the learner's zone of proximal development, builds long-term retention through desirable difficulty, and records what was learned as it goes. Use when the user wants to learn or be upskilled in a topic, runs /teach, or resumes a learning workspace.
 ---
@@ -21,7 +22,7 @@ One mission per workspace, under the knowledge base:
 ~/.claude/knowledge/learning/[topic-slug]/
   MISSION.md          ← why the learner cares (grounds everything)
   RESOURCES.md        ← curated high-trust sources
-  GLOSSARY.md         ← compressed validated terms (Forge /add-term format)
+  GLOSSARY.md         ← compressed validated terms (<!--forge-only-->Forge /add-term <!--/forge-only-->glossary format)
   NOTES.md            ← learner preferences: pacing, format, style
   lessons/            ← 0001-<slug>.html  (sequential, self-contained)
   reference/          ← cheat sheets, syntax, flowcharts — for later lookup
@@ -51,7 +52,7 @@ Formats for each artefact are in [FORMATS.md](FORMATS.md). When `active_company`
 ## Forge Integration
 
 - **`/research`** sources `RESOURCES.md`; the research-first rule ("never trust parametric knowledge, cite everything") is the same discipline.
-- **`/add-term`** owns the glossary format — `GLOSSARY.md` follows it; do not re-specify it.
+<!--forge-only-->- **`/add-term`** owns the glossary format — `GLOSSARY.md` follows it; do not re-specify it.<!--/forge-only-->
 - **Learning records ≈ ADRs** (`/write-adr`) and **instincts** (`/learn`) — same record-everything spirit as PRINCIPLE 8. Supersede, don't delete (`superseded by LR-NNNN`).
 - **`/idea`** and a PRD's problem statement are cousins of `MISSION.md` (Why / Success / Constraints / Out of scope).
 

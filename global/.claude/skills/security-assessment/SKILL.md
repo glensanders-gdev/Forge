@@ -1,7 +1,8 @@
 ---
 name: security-assessment
 category: code-quality
-description: Structured security audit of project code. AI-led threat modelling and OWASP Top 10 review, layered with optional external tool invocation (semgrep, npm audit, bandit, trivy). Writes a gitignored report to docs/security/. Critical and High findings can be promoted to kanban tickets as SEC-NNN references. Use when user runs /security-assessment, before a major release, or when /go-nogo flags the last assessment is overdue.
+standalone: true
+description: Structured security audit of project code. AI-led threat modelling and OWASP Top 10 review, layered with optional external tool invocation (semgrep, npm audit, bandit, trivy). Writes a gitignored report to docs/security/. Critical and High findings can be promoted to kanban tickets as SEC-NNN references. Use when user runs /security-assessment, before a major release, or when the last assessment is overdue.
 ---
 
 # Security Assessment
@@ -37,8 +38,8 @@ and `compliance_frameworks`. This affects assessment behaviour:
 |------|--------------------------|----------------------|-----------------|
 | none | No | Advisory | None required |
 | standard | Recommended | Advisory | None required |
-| regulated | Yes — /go-nogo will flag if overdue (>30 days) | Must be resolved or formally accepted before GO | None required |
-| highly-regulated | Yes — /go-nogo will flag if overdue (>14 days) | Must be resolved before GO — no acceptance without documented justification | Periodic (frequency per framework) |
+| regulated | Yes — flagged if overdue (>30 days) | Must be resolved or formally accepted before GO | None required |
+| highly-regulated | Yes — flagged if overdue (>14 days) | Must be resolved before GO — no acceptance without documented justification | Periodic (frequency per framework) |
 
 If frameworks are listed, note them at the top of the report:
 ```
@@ -94,7 +95,7 @@ State what will be assessed and which tools will run before starting:
 Running assessment — this may take a few minutes...
 ```
 
-If no tools are installed, note: "No security-scanner tools installed — running AI analysis only. Install tools via /check-tools for recommendations."
+If no tools are installed, note: "No security-scanner tools installed — running AI analysis only.<!--forge-only--> Install tools via /check-tools for recommendations.<!--/forge-only-->"
 
 ---
 
@@ -282,7 +283,7 @@ Confirm to the user:
    Kanban tickets created: N (SEC-YYYYMMDD-001 … SEC-YYYYMMDD-N)
 
    Next assessment due: YYYY-MM-DD (+30 days)
-   /go-nogo will warn if overdue before a release.
+<!--forge-only-->   /go-nogo will warn if overdue before a release.<!--/forge-only-->
 ```
 
 ---

@@ -1,6 +1,7 @@
 ---
 name: scan-first
 category: code-quality
+standalone: true
 description: Verify a ticket or task brief against live source before building or spawning agents on it — treat examples, counts, and "this is open" claims as hypotheses until checked. Use before starting a coverage/effect/behaviour ticket, before spawning worktree agents or subagents on a wave, when a backlog or audit table looks stale, or whenever a brief asserts facts about code that exist to be checked.
 ---
 

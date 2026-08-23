@@ -1,6 +1,7 @@
 ---
 name: to-tickets
 category: pipeline
+standalone: true
 description: Convert a plan, PRD, spec, or conversation into a set of vertical-slice kanban tickets — each a tracer bullet sized to the smart zone, with genuine blocking edges and HITL/AFK tags. Quizzes the human on granularity before writing to docs/kanban.md. Use when a plan is agreed and needs turning into tracked, buildable tickets.
 origin: Adapted from Matt Pocock (AIHero.dev / github.com/mattpocock/skills)
 ---
@@ -11,7 +12,7 @@ Turn an agreed plan into a set of **vertical-slice tickets** ready for `/build`.
 
 Execution mode: **[HITL]** — drafting is autonomous, but the human confirms the breakdown before anything is written to `docs/kanban.md`.
 
-> Adapted from Matt Pocock's `to-tickets` skill (github.com/mattpocock/skills). Forge keeps the vertical-slice/tracer-bullet discipline, the quiz-before-publish loop, minimal genuine blocking edges, and expand–contract for wide refactors; it swaps the `.scratch/`-file and GitHub-issue trackers for Forge's `docs/kanban.md`, maps "one context window" to the **smart zone (<100k tokens)**, and delegates oversized slices to `/break-down` and external export to `/jira`.
+> Adapted from Matt Pocock's `to-tickets` skill (github.com/mattpocock/skills). Forge keeps the vertical-slice/tracer-bullet discipline, the quiz-before-publish loop, minimal genuine blocking edges, and expand–contract for wide refactors; it swaps the `.scratch/`-file and GitHub-issue trackers for Forge's `docs/kanban.md`, maps "one context window" to the **smart zone (<100k tokens)**, and delegates oversized slices to `/break-down`<!--forge-only--> and external export to `/jira`<!--/forge-only-->.
 
 ## Pipeline Position
 
@@ -29,7 +30,7 @@ Input: a PRD (`docs/prd/active/`), a plan, a spec, a conversation thread, or an 
 4. **Handle wide refactors with expand–contract** — never force a broad refactor into one tracer bullet. Add the new form (expand), migrate call sites in batches (one ticket each, CI green after each), then delete the old form (contract). Share an integration branch only if the batches can't each stay green alone.
 5. **Quiz the human** — present the numbered draft (title · blocked-by · deliverable per ticket) and ask: right granularity? any false or missing blocking edges? merge or split anything? Iterate until confirmed. **Never write to kanban before approval.**
 6. **Publish to `docs/kanban.md`** — write the tickets in dependency order (blockers first), one discrete kanban entry each, with `blocked-by: #N` notation. Assign sequential ticket numbers continuing the board.
-7. **Hand off** — suggest `/build`. If a slice still exceeds the smart zone, run `/break-down` on it; for sizing bands use `/estimate`; to export the set to an external tracker use `/jira`.
+7. **Hand off** — suggest `/build`. If a slice still exceeds the smart zone, run `/break-down` on it; for sizing bands use `/estimate`<!--forge-only-->; to export the set to an external tracker use `/jira`<!--/forge-only-->.
 
 ## Ticket Shape
 
@@ -72,7 +73,7 @@ On confirmation, each becomes a kanban entry:
 - **`/write-prd`** hands off here — its task/module list is this skill's primary input (fills the "Kanban stage" it points to).
 - **`/build`** consumes the tickets in dependency order; **`/tdd`** already enforces the same vertical-slice rule at build time.
 - **`/break-down`** is the fallback when a single slice still exceeds the smart zone.
-- **`/estimate`** provides the S/M/L/XL bands; **`/jira`** / **`/link-jira`** export to an external tracker.
+- **`/estimate`** provides the S/M/L/XL bands<!--forge-only-->; **`/jira`** / **`/link-jira`** export to an external tracker<!--/forge-only-->.
 
 ## Rules
 
@@ -90,7 +91,7 @@ On confirmation, each becomes a kanban entry:
 | Condition | Behaviour |
 |-----------|-----------|
 | No PRD/plan/spec found | Ask the human to point to the source (PRD path, issue, or a described plan) — never invent scope. |
-| No `docs/kanban.md` | Say a board is needed first — run `/start-sprint` to open one, then re-run. |
+| No `docs/kanban.md` | Say a board is needed first<!--forge-only--> — run `/start-sprint` to open one<!--/forge-only-->, then re-run. |
 | A drafted slice exceeds the smart zone | Split it further or run `/break-down` before publishing — every ticket must fit one focused run. |
 | The work is a wide refactor | Sequence it as expand–contract batches, not a single tracer bullet. |
 | Blocking edges form a deep/tangled graph | Flag it, prefer linear chains, and re-check each edge is genuine before publishing. |

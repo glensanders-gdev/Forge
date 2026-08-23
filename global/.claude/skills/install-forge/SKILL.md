@@ -1,6 +1,7 @@
 ---
 name: install-forge
 category: framework
+standalone: false
 description: Install or migrate Forge to the junction-based sync model. Auto-detects whether this is a fresh install, a migration from a legacy copy-based install, or already linked. Use when Forge is not yet installed, when upgrading from a copy-based install, or when setting up Forge on a new device.
 ---
 

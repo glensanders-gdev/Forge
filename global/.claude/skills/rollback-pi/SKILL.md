@@ -1,6 +1,7 @@
 ---
 name: rollback-pi
 category: pi-release
+standalone: false
 description: Roll back all projects in the current PI release in reverse deploy order (last deployed first). Stops on any project rollback failure. Each project requires individual ROLLBACK [version] confirmation. Use when user runs /rollback-pi or a full PI deployment needs to be reversed.
 ---
 

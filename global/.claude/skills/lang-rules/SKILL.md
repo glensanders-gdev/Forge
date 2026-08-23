@@ -1,7 +1,8 @@
 ---
 name: lang-rules
 category: code-quality
-description: Install and activate language-specific coding rule sets for the current project. Detects project languages, checks ~/.claude/rules/<lang>/ for available rule sets, copies them into .claude/rules/, and writes an active.md activation file so /review-diff, /build, and /push-standards know which baselines apply. Use when starting a project, running /onboard, or when /push-standards should reference a language baseline rather than starting from scratch.
+standalone: true
+description: Install and activate language-specific coding rule sets for the current project. Detects project languages, checks ~/.claude/rules/<lang>/ for available rule sets, copies them into .claude/rules/, and writes an active.md activation file so /review-diff, /build, and /push-standards know which baselines apply. Use when starting a project or when /push-standards should reference a language baseline rather than starting from scratch.
 origin: Adapted from Affaan Mustafa (ECC / github.com/affaan-m/ECC)
 ---
 
@@ -13,7 +14,7 @@ Credit: Adapted from the ECC rules system by Affaan Mustafa (github.com/affaan-m
 
 ## When to Use
 
-- When starting a new project or running `/onboard`
+- When starting a new project<!--forge-only--> or running `/onboard`<!--/forge-only-->
 - When `/push-standards` should skip rules already covered by a global language baseline
 - When `/review-diff` or `/build` should apply language-specific coding standards
 

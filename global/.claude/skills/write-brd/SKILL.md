@@ -1,6 +1,7 @@
 ---
 name: write-brd
 category: pipeline
+standalone: true
 description: Author a Business Requirements Document to the pack's BABOK v3 standard — SMART objectives carrying baseline, target and date, outcomes rather than solutions, and a cost-of-failure case for each objective carrying operational exposure — then self-assess it against the BH-1 – BH-10 handoff gate that decides whether ORD development can start. Runs AFK ingest, HITL write, then the gate. The standard is read at authoring time, never recalled. Use when a BRD is needed from a request brief, idea, transcript or notes, when /write-brd is run, or when an ORD task turns out to be a BRD task in disguise.
 ---
 
@@ -19,6 +20,11 @@ objective is verb-first by the pack's own form, and a `[TBD]` carries **a named 
 rather than `language.md`'s source quote — the gate reads both, and a `[TBD]` missing either is a
 hole that fails the bar.
 
+`~/.claude/rules/requirements/ai.md` applies **conditionally** — where a delivered component's
+behaviour is learned or generated rather than specified, this document records the **risk
+classification decision** once, per that ruleset's class map, and every downstream document reads it
+from here.
+
 ---
 
 ## Phase 1 — Ingest and classify [AFK]
@@ -29,7 +35,7 @@ hole that fails the bar.
    anatomy and its five **★** sections, both forms, the solution-vs-outcome test, the gate, and
    **BRD-2026-041** as the reference implementation — it carries a declared gap, an unowned one and
    an empty traceability row, which is what a real BRD looks like.
-2. **Read every source in full** — a `/front-gate` Request Brief, `~/.claude/ideas/active/*/idea.md`,
+2. **Read every source in full** — a<!--forge-only--> `/front-gate`<!--/forge-only--> Request Brief, `~/.claude/ideas/active/*/idea.md`,
    transcripts, notes, existing documents, conversation context.
 3. **Classify every statement by the BABOK v3 taxonomy.** Business and Stakeholder statements are
    this document's. A Solution statement is not, and is **routed rather than dropped** — the

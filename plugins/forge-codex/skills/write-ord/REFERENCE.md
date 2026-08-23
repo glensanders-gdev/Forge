@@ -1,6 +1,8 @@
 # write-ord Reference
 
-ISO/IEC 25010:2023 taxonomy and ORD template used by SKILL.md.
+ISO/IEC 25010:2023 taxonomy and ORD template used by SKILL.md, plus the **ISO/IEC 25059:2023**
+sub-characteristics that extend it where a delivered component's behaviour is learned or generated
+rather than specified.
 
 ---
 
@@ -41,7 +43,7 @@ Can specified users operate the system to achieve their goals?
 - **Inclusivity** — designed for diverse abilities and backgrounds *(NEW in 2023)*
 - **Self-Descriptiveness** — system communicates how to use it correctly *(NEW in 2023)*
 
-*ORD relevance:* operator training requirements, accessibility compliance (WCAG 2.1 AA), self-service capability.
+*ORD relevance:* operator training requirements, accessibility compliance (WCAG 2.2 AA), self-service capability.
 
 ### 5. Reliability
 Does the system perform its functions without failure over a specified period under specified conditions?
@@ -90,6 +92,32 @@ Does the system protect against risk of injury or harm to people, property, or t
 - **Safe Integration** — safe integration with other systems
 
 *ORD relevance:* applicable to safety-critical systems (healthcare, infrastructure, industrial control). If not applicable, note explicitly.
+
+---
+
+## ISO/IEC 25059:2023 — AI Extension *(conditional)*
+
+**Applies only where the trigger test in `~/.codex/forge/rules/requirements/ai.md` fires** — a delivered
+component whose output for a given input is not fully determined by written logic. 25059 sits inside
+the same SQuaRE series as 25010 and **extends it**: it adds the sub-characteristics below and
+inherits everything above unchanged. It is not a replacement taxonomy and does not restructure §3.
+
+| Added sub-characteristic | Extends | Covers |
+|---|---|---|
+| **Functional Adaptability** | 1. Functional Suitability | Behaviour holding as data, context or usage shifts from what the component was tuned on |
+| **Robustness** | 5. Reliability | Behaviour under out-of-distribution, adversarial or malformed input |
+| **User Controllability** | 6. Interaction Capability | The operator's ability to direct, constrain or halt the component |
+| **Intervenability** | 6. Interaction Capability | A named human's authority to override an output, and the point at which they can |
+| **Transparency** | 6. Interaction Capability | Output labelling, explanation of a decision, disclosure that a component is AI |
+
+*ORD relevance:* every one of these needs a threshold on a named held-out `EVL-NNN` evaluation set,
+a floor, and a review hook — see `rules/requirements/ai.md` § *The evaluative criterion*. Accuracy
+and fairness are **not** new sub-characteristics: they are Functional Correctness measured the AI
+way, which is why they sit under §3.8 in the template below rather than here.
+
+**Watch item (ADR-0003):** the 25059 second edition awaits member-body vote. Its AI *service*
+quality model — traceability, service adaptability, customizability — is the part most relevant to
+AI consumed as a service. Re-check before treating this patch as stable.
 
 ---
 
@@ -177,6 +205,8 @@ Save output to `docs/ord/[system-name]-ORD.md`.
 
 > Requirements in this section are organized by ISO/IEC 25010:2023 characteristics.  
 > **[KPP]** = Key Performance Parameter — failure constitutes program/system failure.  
+> **[AI]** = governed by `rules/requirements/ai.md` — learned or generated behaviour. Both, in this
+> order: **[KPP][AI]**.  
 > Wording follows `rules/requirements/language.md`; presentation, schemas and IDs follow
 > `rules/requirements/tables.md`. Both are authoritative — the tables below show the shape only.
 
@@ -194,7 +224,7 @@ end state, never in a separate column:
 |---|---|
 | `BRD#` | Originating BRD item — `BO-N` for an objective, `BR-N` for a business requirement, which are the IDs `$write-brd` emits. Never `BRD-NN`; nothing produces that form. `—` where no BRD exists — then `Source` carries provenance alone. |
 | `ORD#` | `ORD-NNN`, flat and sequential, never reused. |
-| `Requirement Description` | The declarative end state, carrying its own quantified value. Prefix **[KPP]** where failure constitutes program failure. |
+| `Requirement Description` | The declarative end state, carrying its own quantified value. Prefix **[KPP]** where failure constitutes program failure, and **[AI]** where `rules/requirements/ai.md` governs the row — **[KPP][AI]** where both. An `[AI]` row names an `EVL-NNN` set; one that does not is incomplete. |
 | `MoSCoW` | `Must` / `Should` / `Could` / `Won't`. |
 | `Timing` | When the requirement needs to be live — release, quarter, or date. |
 | `Source` | Business Unit, Function, Name. |
@@ -207,6 +237,9 @@ end state, never in a separate column:
 **MoSCoW and [KPP] are orthogonal and both are kept.** A KPP is a program-failure threshold; a
 Must is required for this release. Most KPPs are Musts; most Musts are not KPPs.
 
+**[AI] is orthogonal to both.** It records which ruleset governs the row's *form* — not its priority
+and not its severity. An `[AI]` row carries a MoSCoW value like any other.
+
 **`Should` and `Could` as MoSCoW values do not violate `language.md`.** That rule bans hedging
 verbs inside requirement *text*. A controlled enum in a priority column is unambiguous.
 
@@ -217,6 +250,13 @@ statement"]` — never drop to prose, and never invent a value.
 Gaps table at the end of this section. Check against the full sub-characteristic set in the
 taxonomy above — all nine characteristics and every sub-characteristic — not only the
 subsections pre-scaffolded below.
+
+**Subsections marked *(AI — 25059)* below are conditional.** They are live only where the trigger
+test in `rules/requirements/ai.md` fires; where it does not, they are not requirements with no
+source material but subsections that do not apply — omit them from the body *and* from the §3.10
+Coverage Gaps table, and state once in §3.10 that the AI trigger did not fire. Where it does fire,
+every one of them is checked, and each requirement written under them carries a threshold on a
+named `EVL-NNN` set, a floor, and a review hook per that ruleset.
 
 ### 3.1 Performance Efficiency
 
@@ -268,6 +308,16 @@ subsections pre-scaffolded below.
 
 ---
 
+**3.2.5 Robustness** *(AI — 25059)* — behaviour under out-of-distribution, adversarial or malformed
+input. Distinct from 3.2.2 Fault Tolerance: that covers a component failing, this covers a component
+succeeding confidently on input it was never fit for.
+
+| BRD# | ORD# | Requirement Description | MoSCoW | Timing | Source | Delivery Agent | Verification | Capability | Epic | Comments |
+|---|---|---|---|---|---|---|---|---|---|---|
+| [BO-N / BR-N or —] | ORD-NNN | [declarative statement carrying the value] | Must | [when live] | [BU, Function, Name] | [Department] | [how proven] | [CAP-NN or —] | [EPIC-NN or —] | |
+
+---
+
 ### 3.3 Security
 
 **3.3.1 Confidentiality** — data classification, encryption at rest and in transit, access control model.
@@ -301,6 +351,17 @@ subsections pre-scaffolded below.
 | [BO-N / BR-N or —] | ORD-NNN | [declarative statement carrying the value] | Must | [when live] | [BU, Function, Name] | [Department] | [how proven] | [CAP-NN or —] | [EPIC-NN or —] | |
 
 **3.3.6 Compliance Frameworks** — applicable frameworks and the operational obligations they impose.
+
+| BRD# | ORD# | Requirement Description | MoSCoW | Timing | Source | Delivery Agent | Verification | Capability | Epic | Comments |
+|---|---|---|---|---|---|---|---|---|---|---|
+| [BO-N / BR-N or —] | ORD-NNN | [declarative statement carrying the value] | Must | [when live] | [BU, Function, Name] | [Department] | [how proven] | [CAP-NN or —] | [EPIC-NN or —] | |
+
+---
+
+**3.3.7 Prompt Injection and Model Attack Surface** *(AI — 25059, AI Act Art. 15)* — resistance to
+instruction injection carried in retrieved content, user input or tool output; the trust boundary
+between instructions and data; model extraction and training-data exfiltration. Name the actor and
+use the active voice where authorisation is load-bearing.
 
 | BRD# | ORD# | Requirement Description | MoSCoW | Timing | Source | Delivery Agent | Verification | Capability | Epic | Comments |
 |---|---|---|---|---|---|---|---|---|---|---|
@@ -363,6 +424,16 @@ detail lives in Appendix E, keyed by `ORD#`, so the register keeps one schema th
 
 ---
 
+**3.6.3 Record-Keeping and Inference Logging** *(AI — AI Act Art. 12)* — what is retained per
+inference (input, output, model version, confidence, the `MDL-NNN` in force), for how long, and who
+can read it. Retention is a commitment with a number, not a note in the support model.
+
+| BRD# | ORD# | Requirement Description | MoSCoW | Timing | Source | Delivery Agent | Verification | Capability | Epic | Comments |
+|---|---|---|---|---|---|---|---|---|---|---|
+| [BO-N / BR-N or —] | ORD-NNN | [declarative statement carrying the value] | Must | [when live] | [BU, Function, Name] | [Department] | [how proven] | [CAP-NN or —] | [EPIC-NN or —] | |
+
+---
+
 ### 3.7 Interaction Capability
 
 **3.7.1 Accessibility** — WCAG level, assistive-technology support.
@@ -385,9 +456,49 @@ detail lives in Appendix E, keyed by `ORD#`, so the register keeps one schema th
 
 ---
 
+**3.7.4 User Controllability and Intervenability** *(AI — 25059, AI Act Art. 14)* — how an operator
+directs, constrains or halts the component, and **which named role** holds authority to override an
+output, at what point, on what evidence. Name the actor and use the active voice — "oversight is
+provided" names nobody and binds nobody.
+
+| BRD# | ORD# | Requirement Description | MoSCoW | Timing | Source | Delivery Agent | Verification | Capability | Epic | Comments |
+|---|---|---|---|---|---|---|---|---|---|---|
+| [BO-N / BR-N or —] | ORD-NNN | [declarative statement carrying the value] | Must | [when live] | [BU, Function, Name] | [Department] | [how proven] | [CAP-NN or —] | [EPIC-NN or —] | |
+
+**3.7.5 Transparency and Explainability** *(AI — 25059, AI Act Arts. 13, 50)* — disclosure that an
+output is AI-generated, output labelling, and what explanation accompanies a decision. "The model is
+explainable" is an unquantified adjective; state what is shown, to whom, and when.
+
+| BRD# | ORD# | Requirement Description | MoSCoW | Timing | Source | Delivery Agent | Verification | Capability | Epic | Comments |
+|---|---|---|---|---|---|---|---|---|---|---|
+| [BO-N / BR-N or —] | ORD-NNN | [declarative statement carrying the value] | Must | [when live] | [BU, Function, Name] | [Department] | [how proven] | [CAP-NN or —] | [EPIC-NN or —] | |
+
+---
+
 ### 3.8 Functional Suitability
 
 **3.8.1 Functional Completeness** — operational functions required at go-live; what can be phased.
+
+| BRD# | ORD# | Requirement Description | MoSCoW | Timing | Source | Delivery Agent | Verification | Capability | Epic | Comments |
+|---|---|---|---|---|---|---|---|---|---|---|
+| [BO-N / BR-N or —] | ORD-NNN | [declarative statement carrying the value] | Must | [when live] | [BU, Function, Name] | [Department] | [how proven] | [CAP-NN or —] | [EPIC-NN or —] | |
+
+---
+
+**3.8.2 Functional Adaptability** *(AI — 25059)* — behaviour holding as data, context or usage
+shift away from what the component was tuned on. Carries the drift measure and its band (for example
+a population-stability index threshold), the re-verification cadence, and the runbook each drift
+alert names. "Drift is monitored" is not a requirement.
+
+| BRD# | ORD# | Requirement Description | MoSCoW | Timing | Source | Delivery Agent | Verification | Capability | Epic | Comments |
+|---|---|---|---|---|---|---|---|---|---|---|
+| [BO-N / BR-N or —] | ORD-NNN | [declarative statement carrying the value] | Must | [when live] | [BU, Function, Name] | [Department] | [how proven] | [CAP-NN or —] | [EPIC-NN or —] | |
+
+**3.8.3 Accuracy and Fairness Thresholds** *(AI — 25059, AI Act Art. 15)* — Functional Correctness
+measured the AI way. Every threshold names the held-out `EVL-NNN` set it is measured on, carries a
+floor as well as a mean, and states what happens to a case below threshold. A mean with no floor
+hides the case that harms someone; a threshold measured on data the component was tuned against is
+not a threshold.
 
 | BRD# | ORD# | Requirement Description | MoSCoW | Timing | Source | Delivery Agent | Verification | Capability | Epic | Comments |
 |---|---|---|---|---|---|---|---|---|---|---|
@@ -404,6 +515,18 @@ detail lives in Appendix E, keyed by `ORD#`, so the register keeps one schema th
 | [BO-N / BR-N or —] | ORD-NNN | [declarative statement carrying the value] | Must | [when live] | [BU, Function, Name] | [Department] | [how proven] | [CAP-NN or —] | [EPIC-NN or —] | |
 
 **3.9.2 Hazard Warning** — alerting for hazardous conditions.
+
+| BRD# | ORD# | Requirement Description | MoSCoW | Timing | Source | Delivery Agent | Verification | Capability | Epic | Comments |
+|---|---|---|---|---|---|---|---|---|---|---|
+| [BO-N / BR-N or —] | ORD-NNN | [declarative statement carrying the value] | Must | [when live] | [BU, Function, Name] | [Department] | [how proven] | [CAP-NN or —] | [EPIC-NN or —] | |
+
+**3.9.3 Prohibited Outputs** *(AI — 25059, AI Act Art. 15)* — an output unacceptable **at any rate**,
+stated with a tolerance of zero and its own verification method. This is not a floor on a scored
+scale: scoring such an output at all implies a rate at which it passes. Each row here is referenced
+by the `Prohibited outputs` column of the `EVL-NNN` set scored alongside it, and restates no value
+from it. Where the prohibited output is a disclosure rather than a hazard — a leaked secret, a
+protected-attribute inference — the row belongs in §3.3 Security instead; put it in one place, not
+both.
 
 | BRD# | ORD# | Requirement Description | MoSCoW | Timing | Source | Delivery Agent | Verification | Capability | Epic | Comments |
 |---|---|---|---|---|---|---|---|---|---|---|

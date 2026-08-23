@@ -1,6 +1,7 @@
 ---
 name: grill-me
 category: pipeline
+standalone: true
 origin: Adapted from Matt Pocock (grilling / github.com/mattpocock/skills)
 description: Ad-hoc stress-test of a plan or design outside the standard planning phase. Use when user wants to pressure-test an idea, approach, or decision without domain model context. For project planning, use /grill-with-docs instead — it checks CONTEXT.md and the codebase during grilling.
 ---

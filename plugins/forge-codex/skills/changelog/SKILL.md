@@ -1,6 +1,6 @@
 ---
 name: "changelog"
-description: "Generate release notes from completed kanban tickets, DEVLOG entries, ADRs, and git log. Produces a user-facing release summary and a technical CHANGELOG.md entry. Natural trigger between $go-nogo approval and $deploy. Use when user runs $changelog or before deploying a release."
+description: "Generate release notes from completed kanban tickets, DEVLOG entries, ADRs, and git log. Produces a user-facing release summary and a technical CHANGELOG.md entry. Natural trigger between release approval and deployment. Use when user runs $changelog or before deploying a release."
 metadata:
   category: pi-release
   origin: Adapted from Glen Sanders (Forge / https://github.com/glensanders-gdev/Forge)

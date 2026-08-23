@@ -1,7 +1,8 @@
 ---
 name: test-coverage
 category: pipeline
-description: Analyze test coverage gaps in an existing codebase, identify under-covered files and functions, then generate missing tests to reach the project coverage threshold (default 80%). Reactive complement to /tdd (which writes tests first for new code). Use when user runs /test-coverage, coverage is below threshold before a release, or /go-nogo flags a coverage gap.
+standalone: true
+description: Analyze test coverage gaps in an existing codebase, identify under-covered files and functions, then generate missing tests to reach the project coverage threshold (default 80%). Reactive complement to /tdd (which writes tests first for new code). Use when user runs /test-coverage, or coverage is below threshold before a release.
 origin: Adapted from Affaan Mustafa (ECC / github.com/affaan-m/ECC)
 ---
 
@@ -207,7 +208,7 @@ If any file is still below threshold:
 | `/tdd` | Sibling — `/tdd` is proactive (test-first for new code); `/test-coverage` is reactive (gap remediation for existing code). Both use the same test writing philosophy. |
 | `/testplan` | `/testplan` designs the strategy; `/test-coverage` executes gap analysis and remediation against existing code. TC IDs assigned here follow the same registry. |
 | `/qa-plan` | `/qa-plan` covers manual verification; `/test-coverage` targets automated coverage gaps. |
-| `/go-nogo` | Coverage below threshold is a release gate signal. `/go-nogo` can reference the last coverage run. |
+<!--forge-only-->| `/go-nogo` | Coverage below threshold is a release gate signal. `/go-nogo` can reference the last coverage run. |<!--/forge-only-->
 | `/review-diff` | Run after writing new tests — verify the generated tests meet quality standards before committing. |
 | `tools/global.md` | `test-runner` category is checked first for framework detection. |
 | `quality-checklist.md` | "Coverage meets project minimum (80%)" — this skill closes that gap. |

@@ -1,6 +1,7 @@
 ---
 name: roap
 category: company
+standalone: false
 description: Grill a hiring manager into a complete Role on a Page — title, team, reports to, purpose, accountabilities, success measures, activities with % allocation, development focus, and key relationships — then write it to docs/roles/[role-slug]-roap.md. Use when a new role is being designed, an existing role needs documenting, or user runs /roap.
 ---
 

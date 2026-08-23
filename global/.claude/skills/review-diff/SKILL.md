@@ -1,6 +1,7 @@
 ---
 name: review-diff
 category: code-quality
+standalone: true
 description: Two-axis structured code review of a pinned diff — a Spec axis (does the change fulfil its originating requirement) and a Standards axis (project docs + an immutable code-smell baseline), judged by isolated parallel sub-agents and reported without merging. Runs per-ticket after /build and on demand. Advisory by default.
 origin: Adapted from Matt Pocock (AIHero.dev / github.com/mattpocock/skills)
 ---

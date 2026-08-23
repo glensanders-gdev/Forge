@@ -1,6 +1,7 @@
 ---
 name: vibe-security
 category: security
+standalone: true
 description: Active security auditor for AI-generated ("vibe-coded") codebases. Loads technology-specific reference files and produces severity-ranked findings with before/after fixes. Covers secrets, database access control, auth, rate limiting, payments, mobile, AI/LLM integration, deployment, and data access. Trigger proactively when writing or reviewing auth, payments, database, API keys, or user data — not just on explicit security requests.
 origin: Adapted from Chris Raroque (vibe-security-skill / github.com/raroque/vibe-security-skill)
 license: MIT

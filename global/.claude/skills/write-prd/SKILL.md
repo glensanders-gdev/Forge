@@ -1,6 +1,7 @@
 ---
 name: write-prd
 category: pipeline
+standalone: true
 description: Synthesize the current conversation, grill session, research, and prototype findings into a structured PRD aligned with ISO/IEC/IEEE 29148:2018 — the functional demand document sitting between the BRD and the SOAP, stating what is built and for whom and carrying no technical figure. Executes in two phases — AFK explore then HITL write — with a confirmation gate between them. Use when user runs /write-prd or when grill-me confirms shared understanding is reached.
 ---
 
@@ -34,6 +35,14 @@ has no SAR column. Verification of the stories themselves is the `Test` column's
 **Authoring standards — read before writing any requirement:**
 - `~/.claude/rules/requirements/language.md` — wording, voice, banned modals and constructions
 - `~/.claude/rules/requirements/tables.md` — presentation, canonical schemas, ID namespaces
+- `~/.claude/rules/requirements/ai.md` — **conditional.** Applies on top of both, and relaxes
+  neither, where the trigger test fires: a delivered component whose output for a given input is not fully determined by written logic — a trained model, an LLM call, a retrieval-augmented pipeline, an agent, or a third-party AI service consumed as an API. It supplies the evaluative criterion
+  form, the `EVL-NNN` / `MDL-NNN` schemas, and the class map that puts intended purpose and
+  prohibited uses in this document. Apply the test in Phase 1 — a wrong "no" silently skips the
+  whole ruleset, and nothing downstream catches it. **This document cites `EVL-NNN` and `MDL-NNN`
+  and never mints them** — the ORD owns both namespaces and this skill runs first, so a criterion
+  needing a set that does not exist yet carries `[EVL-TBD — <what must be measured, and on what>]`
+  for `/write-ord` to write back. Prefix such a criterion **[AI]**.
 
 These are authoritative and shared with `/write-ord`, `/write-reqs` and `/write-ac`. Never restate them here.
 
@@ -41,7 +50,7 @@ These are authoritative and shared with `/write-ord`, `/write-reqs` and `/write-
 
 Read the standard; do not recall it. The live pack where it is held —
 `$FORGE_REQ_PACK/reference/prd-standard.md`, else `requirements-documents/reference/prd-standard.md`
-searching up from the working directory, else `~/Documents/Forge/requirements-documents/reference/`.
+searching up from the working directory<!--forge-only-->, else `~/Documents/Forge/requirements-documents/reference/`<!--/forge-only-->.
 **Name the pack version in the Phase 1 summary and in the PRD header.** Where the pack is not
 readable, say so in the summary and author from this skill alone — never claim a pack version that
 was not read.
@@ -93,7 +102,13 @@ Runs unattended. Gathers all context needed to write the PRD without asking the 
     2. The delivery agent named for this work — a vendor or a non-engineering department determines *Conventional*.
 
     Where neither fires, the mode is **not determined**. Repository context is **not** a determining signal: almost every repo this skill runs in is Forge-driven, so treating that as evidence would make the mode auto-resolve to AI-assisted every time and the human would never see the question. Offer it as a *suggestion* in Open Questions — "no statement found; this repo is Forge-driven, so AI-assisted is likely — confirm" — and let the human settle it at the gate.
-11. Produce a **Phase 1 Summary** and pause for human confirmation.
+11. **Apply the AI trigger test** from `rules/requirements/ai.md` — is any delivered component's
+    behaviour learned or generated rather than specified? Answer it explicitly and state the answer
+    in the Phase 1 Summary; do not leave it unasked. Where it fires, that ruleset governs the
+    criteria for every story touching such a component, and this document owns the intended purpose
+    and the prohibited uses. Judge the **delivered solution**, never the toolchain that builds it —
+    AI-assisted delivery mode (step 10) is not a trigger, and the two questions are independent.
+12. Produce a **Phase 1 Summary** and pause for human confirmation.
 
 ### Phase 1 Summary Format
 
@@ -129,6 +144,12 @@ and risks only — no module decomposition, no interface or schema design. Those
 ### Scope Boundary
 **In:** [What will be built]
 **Out:** [What will not be built]
+
+### AI Trigger — `rules/requirements/ai.md`
+**Fired:** Yes — [components whose behaviour is learned or generated] | No — [why the test does not fire]
+This asks about the **delivered solution**, not the toolchain. It is independent of Delivery Mode below.
+[Where fired:] **Intended purpose:** [PRD § Scope boundary owns it] · **Prohibited uses:** [PRD § Out of Scope owns it]
+[Where fired:] **Evaluation sets needed:** [EVL-NNN candidates, or "none identified — TBD at the gate"]
 
 ### Delivery Mode
 **Mode:** AI-assisted | Conventional | **Not determined — settle at this gate**

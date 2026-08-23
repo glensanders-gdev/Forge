@@ -1,6 +1,7 @@
 ---
 name: onboard-knowledge
 category: knowledge
+standalone: false
 description: Guided company knowledge setup for a new employer. Walks through style guide, acronyms, domain terms, and core systems in sequence — each stage HITL-gated before the next begins. Supports Confluence URLs, file paths (PDF/Word), manual paste (SharePoint), and verbal description. Use when installing Forge at a new employer, running initial knowledge base setup, or onboarding a new client context.
 origin: Designed for Forge — informed by ECC knowledge patterns (github.com/affaan-m/ECC)
 ---

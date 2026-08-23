@@ -1,6 +1,7 @@
 ---
 name: publish
 category: knowledge
+standalone: false
 description: Publish wiki articles and ideas to Confluence. Pushes changed articles since the last publish run, or all articles with --all. One-way: wiki and ideas are the master, Confluence is the published view. Use when user runs /publish or /publish --all.
 ---
 

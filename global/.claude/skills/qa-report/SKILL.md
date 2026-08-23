@@ -1,6 +1,7 @@
 ---
 name: qa-report
 category: pipeline
+standalone: true
 description: Record the results of a completed QA session as a datestamped evidence artefact. Reads the qa-plan and TC registry, captures pass/fail per test case, structured evidence (CI link, test output, screenshots), and produces docs/tests/results/[feature]-YYYY-MM-DD.md. Use when human runs /qa-report after completing the qa-plan checklist, or before /approve is run.
 ---
 

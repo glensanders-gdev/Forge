@@ -136,6 +136,6 @@ Detailed criteria that flow to child issues under the Capability.
 |-------------|-------------|
 | Capability AC | The Capability's Acceptance Criteria field (or description AC block) |
 | Child Epic/Story AC | The corresponding child issue's Acceptance Criteria field |
-| Source ID (PRD-NNN/ORD-NNN) | Keep inline in the AC text + the Forge↔Jira map in `/link-jira` |
+<!--forge-only-->| Source ID (PRD-NNN/ORD-NNN) | Keep inline in the AC text + the Forge↔Jira map in `/link-jira` |<!--/forge-only-->
 
-Push is performed via the `jira` MCP through `/jira`, behind the typed `PUSH` gate in SKILL.md Phase 2. Child issues that do not yet exist in Jira are listed for the human to create — this skill does not auto-create issues.
+Push is performed via the `jira` MCP<!--forge-only--> through `/jira`<!--/forge-only-->, behind the typed `PUSH` gate in SKILL.md Phase 2. Child issues that do not yet exist in Jira are listed for the human to create — this skill does not auto-create issues.

@@ -1,5 +1,5 @@
 {
-  "forge_version": "4.2.0",
+  "forge_version": "4.4.0",
   "skills": {
     "setup-brain": "2.0.0",
     "scan-first": "1.0.0",
@@ -11,8 +11,8 @@
     "grill-with-peer": "1.0.0",
     "graphify": "1.0.2",
     "research": "1.0.0",
-    "prototype": "2.0.0",
-    "write-prd": "2.7.0",
+    "prototype": "2.1.0",
+    "write-prd": "2.7.2",
     "diagnose": "1.0.0",
     "approve": "1.2.0",
     "add-system": "1.0.0",
@@ -107,10 +107,10 @@
     "qa-report": "1.1.0",
     "ia": "1.3.0",
     "vibe-security": "1.0.1",
-    "write-brd": "1.1.0",
-    "write-ord": "1.5.0",
-    "write-reqs": "1.3.0",
-    "write-ac": "1.5.0",
+    "write-brd": "1.1.1",
+    "write-ord": "1.5.3",
+    "write-reqs": "1.3.1",
+    "write-ac": "1.5.2",
     "roap": "1.0.0",
     "review-brd": "2.0.0",
     "review-ord": "2.0.0"

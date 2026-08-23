@@ -19,8 +19,8 @@ how a review is *conducted and reported* — which is tooling, and has no home i
 Two sources, in this order. The skill names which files it needs; this is where they come from.
 
 1. **The live pack, where it is held** — `$FORGE_REQ_PACK/reference/…`, else
-   `requirements-documents/reference/…` searching up from the working directory, else
-   `~/Documents/Forge/requirements-documents/reference/…`. **Authoritative.**
+   `requirements-documents/reference/…` searching up from the working directory<!--forge-only-->, else
+   `~/Documents/Forge/requirements-documents/reference/…`<!--/forge-only-->. **Authoritative.**
 2. **`CRITERIA.md` beside the skill** — the same criteria, extracted from the pack by
    `tools/build-review-criteria.py` and shipped with the skill so a review runs on a machine that
    does not hold the pack. It is a **generated file**: pinned, stamped with the pack version, and

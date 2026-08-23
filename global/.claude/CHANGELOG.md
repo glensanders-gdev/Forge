@@ -11,6 +11,233 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
+## v4.4.0 — 2026-08-24
+
+**Accessibility moves upstream in `/prototype` — from the rewrite to the variant choice.**
+
+A UI Prototype exists to decide layout, information hierarchy and primary affordance. A subset of
+WCAG 2.2 A/AA is *determined by exactly those three things* and cannot be retrofitted during
+Implementation without discarding the decision the prototype was run to make. The skill previously
+deferred all accessibility to the rewrite, so a variant could win on appearance and arrive at
+Implementation structurally unable to reach AA.
+
+### Added
+
+- **`prototype/ui-prototype.md` § Structural accessibility — decided here, not later.** Fourteen
+  A/AA criteria that follow from the layout choice — 1.3.1, 1.3.2, 1.4.1, 1.4.4, 1.4.10, 1.4.12,
+  2.4.3, 2.4.6, 2.4.11, 2.5.7, 2.5.8, 3.2.3, 3.2.4, 3.2.6 — each with what the layout determines.
+  Framed as a **screen over the variant set, not an audit of the spike**: auditing throwaway code is
+  the effort the prototype method exists to avoid. `/accessibility` still owns everything else.
+- **The Australian floor, stated once and generically.** WCAG 2.2 Level AA is the minimum for any
+  public-facing digital service in **either** sector — DDA 1992 s.24 via the AHRC's April 2025
+  guidelines — and is mandated for Commonwealth entities by the DTA's Digital Experience Policy
+  (effective 1 January 2025). A procurement clause citing **AS EN 301 549:2024** names WCAG **2.1**
+  and does not discharge that. No Australia-only section was added: the criteria are WCAG, which is
+  jurisdiction-neutral.
+- **Step 5 gains a participant requirement.** Where the surface is public-facing, the variant
+  evaluation includes participants with disability — the DTA Digital Inclusion Standard requires
+  co-design and usability testing with diverse user groups, and for everyone else it is the cheapest
+  evidence against a DDA claim. A set judged only by a product owner and a designer was chosen the
+  way the standard says not to choose it.
+- **`/prototype` UI.md findings-note template gains § Structural Accessibility Constraints**, so
+  step 6's capture has somewhere to land and the PRD inherits a known constraint rather than an
+  Implementation surprise.
+- Four `Never` rules: no drag-only primary affordance without a single-pointer alternative (2.5.7);
+  no colour as the sole hierarchy mechanism (1.4.1); no switcher that obscures the variant or claims
+  its keys; no full WCAG audit on throwaway variants.
+
+### Changed
+
+- **The switcher is now specified as a measurement instrument.** It ships nowhere, so it carries no
+  conformance obligation — the file was right about that — but a fixed bottom-centre bar manufactures
+  a 2.4.11 failure that belongs to the harness, and a global `←`/`→` binding swallows the keys any
+  listbox, tablist, radio group, slider or screen-reader browse mode inside the variant needs. Both
+  are now constrained.
+- **Step 2 screens candidates.** A variant that cannot reach WCAG 2.2 AA without changing its layout
+  is not a candidate — discard it before the human sees it, or record why it is shown anyway.
+- **The *What carries forward* table splits accessibility** into *structural* (decided at prototype,
+  inherited by the PRD) and *implementational* (contrast, names and roles, live regions, error
+  handling — still the rewrite). The single undifferentiated word hid the distinction.
+- **Design-system rule extended** — a mature system already ships the conformant behaviour; a
+  government or GBE surface reuses the relevant government design system for the same reason.
+
+### Fixed
+
+- **`skills/write-ord/REFERENCE.md:46` named WCAG 2.1 AA** under Interaction Capability — one release
+  below the Australian floor and below the `accessibility` skill's own 2.2 AA baseline. An ORD
+  authored from that reference understated the legal minimum. Now 2.2 AA. §3.7.1 already said
+  "WCAG level" without pinning a version, which is correct and is unchanged.
+
+### Knowledge base
+
+- **`knowledge/company/acronyms.md`** — AHRC, AS EN 301 549, DDA, DTA, WCAG.
+- **`knowledge/company/context.md`** — *Accessible (of a digital service)* and *Structural
+  accessibility* under Language; **WCAG version** added to Flagged Ambiguities, recording that three
+  Australian instruments name different versions at once and the stricter obligation wins.
+
+### Provenance
+
+Research: `docs/research/australian-accessibility-standards-for-ui.md` in the workspace `docs/`,
+**untracked by choice** per the v4.3.1 decision. Primary sources read: W3C WCAG 2.2 (updated
+12 December 2024), the W3C WAI Australia policy register, Standards Australia's AS EN 301 549:2024
+listing. The AHRC guidelines page returned HTTP 403 and `digital.gov.au` timed out on three
+attempts — both are recorded from the DTA's own PDFs and secondary sources, and the research file
+says so rather than implying they were read.
+
+---
+
+## v4.3.1 — 2026-08-24
+
+**The AI Act dates are now verified, and Australian adoptions are recorded.**
+
+### Changed
+
+- **`rules/requirements/ai.md` — regulatory stamp verified.** `Last verified: 2026-08-24, by Glen
+  Sanders`, against the European Commission's own announcement of the amending regulation entering
+  into force, which states the 2 December 2027 (Annex III) and 2 August 2028 (Annex I) dates
+  directly. The amending instrument is cited properly for the first time: Regulation (EU) 2026/1744
+  (Digital Omnibus on AI), adopted 8 July 2026, OJ 24 July 2026, in force 27 July 2026, CELEX
+  `32026R1744`, with ELI links for it and for the AI Act. Art. 5, GPAI and Art. 50 / Art. 4 dates
+  added as separate rows — Art. 50 and the AI-literacy duty were **not** deferred, which the previous
+  single "already in force" row obscured. Owner assigned.
+- **What was not done is recorded too.** The consolidated **Article 113** text was not read — EUR-Lex
+  served its Official Journal navigation page rather than the document on three URL forms. The dates
+  rest on the Commission's announcement plus consistent independent legal analyses. Strong, and not
+  the primary text; the stamp says to read Art. 113 before certifying conformity.
+
+### Added
+
+- **`ai.md` § Australian adoptions and instruments.** **AS/NZS ISO/IEC 25010:2025** (identical
+  adoption of the taxonomy ORD §3 is keyed to) and **AS ISO/IEC 25059:2024** (the AI extension this
+  file applies) both exist and are now cited beside their ISO designations — an Australian auditor
+  asks for the AS number. **AS ISO/IEC 42001:2023** recorded and still out of scope. No Australian
+  adoption of 29148 identified.
+- **The Australian regulatory position, stated plainly.** VAISS and the Guidance for AI Adoption are
+  **voluntary and bind nothing**; the September 2024 mandatory guardrails were **shelved**; the
+  National AI Plan (2 December 2025) confirms **there is no Australian AI Act**. Watch item: an
+  Office of AI in PM&C and a 15 July 2026 intent to legislate an Australian AI standard — scoped to
+  large AI data centres, not to requirement classes, and not law yet.
+- **The consequence for a domestic project is now explicit.** A purely Australian system has **no
+  mandatory AI-specific requirement classes** and is governed by existing law plus voluntary
+  adoption; the map's classes come from the EU AI Act and apply only within its scope. The
+  evaluative criterion, evaluation-set discipline and shelf-life rule are engineering practice, not
+  regulation, and apply either way.
+- Four `Never` rules: no conformity date without Art. 113; no voluntary guardrail as a requirement's
+  authority; no importing the AI Act into a domestic system by default; no ISO designation alone
+  where an AS adoption exists.
+
+### Decided
+
+The research document stays **untracked, by choice** — the workspace `docs/` holds company-internal
+material and is not published with the framework, as the `requirements-documents` pack is not. `ai.md`
+now says so, so the absence reads as deliberate rather than as the oversight v4.3.0 reported.
+
+---
+
+## v4.3.0 — 2026-08-24
+
+**The `/critic` P2s on the requirements pack.** v4.2.1 made `ai.md` reachable; this makes it
+checkable. Five findings, each a way a requirement written under it could pass review and still be
+unverifiable.
+
+### Changed
+
+- **`EVL-NNN` and `MDL-NNN` now have one assigning skill — `/write-ord`.** `tables.md` previously
+  assigned both to "whichever document records it" while `ai.md`'s class map deliberately places AI
+  requirements in *both* the PRD and the ORD, and `/write-reqs` authors the PRD **first** — two
+  skills allocating from one flat sequential namespace, with the PRD guaranteed to go first. A PRD
+  criterion needing a set that does not exist yet now writes `[EVL-TBD — <what must be measured>]`
+  and `/write-ord` writes the real ID back, reusing the `Capability` / `Epic` write-back the pack
+  already had. Where no ORD is produced, the PRD holds the registers and says so. The two TBD forms
+  are now distinguished in a table — `[TBD — source: …]` is a missing *decision*, `[EVL-TBD]` is a
+  missing *set*, and writing the first where the second is true buries a known measurement.
+- **"Calibrated to human annotation" now carries a number.** `ai.md` banned "the model is
+  explainable" as an unquantified adjective while accepting "calibrated" as a scorer. A judge-based
+  `Scorer` cell now names the human-annotated calibration subset, the agreement statistic, and the
+  value achieved with the minimum required; Krippendorff's α ≥ 0.800 convention is offered as a
+  default to record, not to assume. An asserted-but-unmeasured judge is a `[TBD]`, as an
+  uncalibrated one already was.
+- **`Floor` split into two obligations.** The criterion defined it as "unacceptable at any rate, **or**
+  the worst single case tolerated" — a categorical prohibition and a scalar minimum — while the
+  register carried only the scalar, leaving the safety-relevant half homeless. `Floor` is now scalar
+  only; a categorical prohibition is a zero-tolerance register row in new **ORD § 3.9.3 Prohibited
+  Outputs** (or § 3.3 Security where it is a disclosure), and the `EVL-NNN` register gains a
+  `Prohibited outputs` column holding those row **IDs and no values**, per the view-table rule. `—`
+  means *considered, none apply*. Scoring a prohibition implies a rate at which it passes.
+- **AI-governed rows are marked `[AI]`.** The trigger is per-component, so an ORD holds governed and
+  ungoverned rows side by side with nothing to tell them apart — the ruleset became uncheckable at
+  the moment someone tried to check it. Mirrors **[KPP]**: same column, same bracket form,
+  **[KPP][AI]** where both. Orthogonal to MoSCoW and to KPP — it records which ruleset governs the
+  row's form, not its priority. A `[AI]` row naming no `EVL-NNN` is rejectable on sight.
+- **AI Act dates carry a verification stamp.** They are recorded once in `ai.md`, with provenance,
+  so no requirement document restates them and no author cites them believing they were checked
+  today. `Last verified: 2026-08-21`, against a **secondary** source — a law-firm briefing on
+  Regulation (EU) 2026/1744 — never against the consolidated text of Regulation (EU) 2024/1689 on
+  EUR-Lex. Owner unassigned; assign one before any conformity claim. **The requirement classes are
+  unaffected** — Arts. 9–15 and Annex IV supply them whatever the deadlines prove to be.
+- **The research document's citation path is disambiguated, not the document recovered.** It was
+  briefly reported missing: `docs/research/requirements-for-ai-solutions.md` reads as repo-relative
+  and resolves to nothing, because it is **workspace-local** — it sits beside the repo in the same
+  workspace, as the `requirements-documents` pack does. ADR-0003 (×2), `ai.md` and the v4.2.0 entry
+  now all write it as `../docs/research/requirements-for-ai-solutions.md` — resolved from the
+  repo root — and say it is untracked, so the next reader does not repeat the search. Whether it should be tracked here is a separate, deliberate call.
+
+### Skills
+
+`/write-prd` 2.7.2 · `/write-ord` 1.5.2 · `/write-ac` 1.5.2 — namespace ownership, the `[AI]` marker,
+and `[EVL-TBD]` resolution. `/write-brd` and `/write-reqs` unchanged since 4.2.1.
+
+### Open
+
+The missing research document is **not** reconstructed here — it is either recoverable from wherever
+it was authored or it never existed, and inventing a replacement would fabricate the provenance the
+stamp exists to flag.
+
+---
+
+## v4.2.1 — 2026-08-24
+
+**`ai.md` was unreachable.** v4.2.0 shipped the ruleset and bumped five skills to cite it. The
+rebase that landed it carried the version numbers across but dropped the edits they were numbering:
+the merge touched **no `SKILL.md` file**, so no skill referenced `ai.md` and nothing ever asked the
+trigger question. The ruleset was live in `rules/` and dead in practice — reachable only through
+`tools/build-reqs-bundle.py`, which is the standalone-machine escape hatch, not the normal path.
+Found by `/critic`.
+
+The v4.2.0 entry below described the intended state. This release makes it the actual state.
+
+### Fixed
+
+- **`/write-prd` 2.7.1, `/write-ord` 1.5.1, `/write-ac` 1.5.1, `/write-reqs` 1.3.1,
+  `/write-brd` 1.1.1** now cite `rules/requirements/ai.md` in their authoring-standards blocks,
+  marked conditional on the trigger test.
+- **The trigger is now asked, not assumed.** `/write-prd` and `/write-ord` each carry an explicit
+  Phase 1 step and a named block in the Phase 1 Summary, so the answer reaches the human gate
+  either way. `/write-reqs` settles it **once** during classification and passes it in both briefs,
+  so the siblings cannot disagree about whether the ruleset is in force. Each states that the test
+  judges the *delivered solution*, never the toolchain — a run in AI-assisted delivery mode is not
+  itself a trigger, and the two questions are independent.
+- **ISO/IEC 25059 sub-characteristics are in `write-ord/REFERENCE.md`.** ADR-0003 required the §3
+  patch; v4.2.0 did not apply it, so the class map routed requirements to subsections that did not
+  exist. Added as an *AI Extension* block in the taxonomy and scaffolded in the §3 template, marked
+  *(AI — 25059)*: **3.2.5** Robustness · **3.3.7** Prompt Injection and Model Attack Surface ·
+  **3.6.3** Record-Keeping and Inference Logging · **3.7.4** User Controllability and
+  Intervenability · **3.7.5** Transparency and Explainability · **3.8.2** Functional Adaptability ·
+  **3.8.3** Accuracy and Fairness Thresholds. §3 is not restructured; every existing §3.x reference
+  still resolves, and the numbering only extends.
+- **`ai.md`'s class map names the subsections** rather than the parent characteristics, and states
+  that they are conditional: where the trigger does not fire they are omitted from the body *and*
+  from §3.10 — an inapplicable subsection is not a coverage gap.
+
+### Known gaps — not addressed here
+
+Raised by the same `/critic` pass, deliberately left open: `EVL-NNN` / `MDL-NNN` have no single
+assigning skill; "calibrated to human annotation" names no agreement statistic; `Floor` is defined
+two ways in the criterion but has one column in the register; no marker distinguishes an
+AI-governed register row; the AI Act dates carry no verification stamp.
+
+---
+
 ## v4.2.0 — 2026-08-23
 
 **AI as the *subject* of a requirement** — not AI as the author of the code
@@ -18,7 +245,8 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 `ai-first-engineering` governs AI writing the solution. Nothing governed AI *being* the solution:
 no coverage of non-determinism, drift, evaluation sets, model dependency, or the EU AI Act anywhere
 in the requirements pack or the rules. Researched in
-`docs/research/requirements-for-ai-solutions.md`; decided in **ADR-0003**.
+`../docs/research/requirements-for-ai-solutions.md` (workspace-local, not tracked here);
+decided in **ADR-0003**.
 
 ### Added
 

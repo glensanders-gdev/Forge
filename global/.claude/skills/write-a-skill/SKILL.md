@@ -1,6 +1,7 @@
 ---
 name: write-a-skill
 category: framework
+standalone: false
 description: Create new Forge skills with proper structure, correct file locations, and updated manifest. Use when user wants to create, write, or add a new skill to Forge, or mentions /write-a-skill.
 ---
 

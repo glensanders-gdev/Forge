@@ -237,6 +237,7 @@ If overall status is 🔴 Red, surface a prominent warning:
    Full report: docs/context-health-report.md
 ```
 
+
 ### Phase 5 — Regenerate Dashboard
 
 After saving the report, run `$dashboard-tokens` automatically to regenerate the token
@@ -246,7 +247,10 @@ This keeps `docs/dashboard/index.html` current after every health check without 
 a separate manual step. If `$dashboard-tokens` is not available or fails, note it but do
 not block completion of the context health check.
 
+
+
 ---
+
 
 ## Sprint-Start Integration
 
@@ -256,6 +260,8 @@ not block completion of the context health check.
 ⚠️ Context health check overdue (last run: N days ago).
 Consider running $context-health before this sprint begins.
 ```
+
+
 
 ---
 

@@ -282,7 +282,7 @@ Next steps:
 
 ## Scope Rules
 
-- Execute current sprint tickets only — never pull from general backlog without `$replan-sprint`
+- Execute current sprint tickets only — never pull from the general backlog without replanning (`$replan-sprint`)
 - If a ticket is not in the current sprint, flag it and skip
 - Never create new tickets during build — surface gaps to the human after the loop completes
 - If scope appears to have grown mid-build, flag it and suggest `$check-scope`

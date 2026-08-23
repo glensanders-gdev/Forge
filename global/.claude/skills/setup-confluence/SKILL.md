@@ -1,6 +1,7 @@
 ---
 name: setup-confluence
 category: knowledge
+standalone: false
 description: Interactively configure Confluence publishing for the knowledge base. Walks through connection details, auth method, and optional plugin settings. Validates the connection before writing confluence.md. Use when user runs /setup-confluence or sets up the knowledge base at a new company.
 ---
 

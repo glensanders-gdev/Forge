@@ -1,6 +1,7 @@
 ---
 name: update-forge
 category: framework
+standalone: false
 description: Pull the latest Forge framework from GitHub. Since Forge v3.6.0, ~/.claude/skills/, commands/, and rules/ are junctions/symlinks — git pull is all that's needed. Use when user runs /update-forge, wants to sync Forge to the latest version, or asks to update Forge skills.
 ---
 

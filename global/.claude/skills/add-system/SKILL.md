@@ -1,6 +1,7 @@
 ---
 name: add-system
 category: knowledge
+standalone: false
 description: Scaffold a new system knowledge folder with Raw/Wiki/Outputs tiers and stub files inside ~/.claude/knowledge/systems/. Use when user wants to add a system, runs /add-system, or mentions adding a new system to the knowledge base.
 ---
 

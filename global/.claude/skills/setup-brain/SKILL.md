@@ -1,6 +1,7 @@
 ---
 name: setup-brain
 category: knowledge
+standalone: false
 description: Scaffold and audit the Karpathy second-brain knowledge model — three tiers (global, company, project) each with Raw/ and Wiki/, a mandatory human-declared scope (personal or company) for every project, and a company pending-changes record for in-flight work. Use when user runs /setup-brain, sets up the knowledge base on a new machine or new company, or when projects need scope declared or the tier structure audited.
 origin: Knowledge model adapted from Andrej Karpathy's second-brain pattern (Raw sources compiled into a curated Wiki)
 ---

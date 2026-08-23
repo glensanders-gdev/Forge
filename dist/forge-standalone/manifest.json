@@ -1,0 +1,333 @@
+{
+  "source": "https://github.com/glensanders-gdev/Forge",
+  "forge_version": "4.4.0",
+  "generated_by": "tools/build-forge-standalone.ps1",
+  "skill_count": 65,
+  "skills": [
+    {
+      "name": "accessibility",
+      "category": "code-quality",
+      "description": "Design, implement, and audit inclusive digital products using WCAG 2.2 Level AA standards. Generates semantic ARIA for Web and accessibility attributes for native platforms (iOS/Android). Use when building or reviewing any user-facing interface, running an accessibility audit, or when /qa-plan flags accessibility as a concern."
+    },
+    {
+      "name": "add-backlog-item",
+      "category": "session",
+      "description": "Add a well-defined item to the global or a project backlog. Grills the item lightly before adding — what it is, why it matters, priority. Recognises three types — task/fix, discussion, and opportunity (a spotted gap or enhancement worth considering later). Suggests /idea or /write-prd if the item appears feature-sized. Use when user runs /add-backlog-item or wants to capture something for later."
+    },
+    {
+      "name": "ai-first-engineering",
+      "category": "code-quality",
+      "description": "Operating principles for teams delivering software with AI-assisted code generation. Shapes how planning, review, architecture, and testing work when AI generates a significant share of implementation output. Use during /grill-with-docs, /review-diff, /write-prd, and /testplan to apply AI-first thinking to design and process decisions."
+    },
+    {
+      "name": "approve",
+      "category": "pipeline",
+      "description": "Close a completed feature by archiving the PRD, sealing the DEVLOG session, and optionally pushing coding standards. Use when human runs /approve after QA is passed."
+    },
+    {
+      "name": "backlog-list",
+      "category": "session",
+      "description": "Display the global Forge backlog grouped by priority. Use when user runs /backlog-list, wants to see pending framework items, discussion topics, or cross-project concerns."
+    },
+    {
+      "name": "break-down",
+      "category": "pipeline",
+      "description": "Split a large ticket or feature into smaller tickets within the smart zone limit, with HITL/AFK tags and blocking relationships. Use when user runs /break-down, a ticket is too large, or a task exceeds the smart zone of 100k tokens."
+    },
+    {
+      "name": "build",
+      "category": "pipeline",
+      "description": "Execute the current sprint's AFK tickets in sequence, running /tdd for each. Pauses at HITL tickets and blockers with clear prompts. Updates kanban in real time. Resumable across sessions. Use when user runs /build or is ready to begin implementation work on the current sprint."
+    },
+    {
+      "name": "caveman",
+      "category": "session",
+      "description": "Toggle caveman communication mode — strips articles, filler, pleasantries, and hedging to reduce output token usage by ~75%. Technical accuracy fully preserved. HITL gate language always stays clear and unambiguous. Toggle off with /caveman --off or \"normal mode\"."
+    },
+    {
+      "name": "changelog",
+      "category": "pi-release",
+      "description": "Generate release notes from completed kanban tickets, DEVLOG entries, ADRs, and git log. Produces a user-facing release summary and a technical CHANGELOG.md entry. Natural trigger between release approval and deployment. Use when user runs /changelog or before deploying a release."
+    },
+    {
+      "name": "check-pii",
+      "category": "pipeline",
+      "description": "Scan the codebase and Forge documents for Personal Identifying Information (PII). Classifies findings as Necessary or Incidental, assesses handling of Necessary PII, suggests remediation, and saves a living compliance report. AFK scan, HITL review. Use when user runs /check-pii, during QA before /approve, or when /approve detects unresolved PII findings."
+    },
+    {
+      "name": "check-scope",
+      "category": "session",
+      "description": "Mid-session gut check that compares current progress against agreed goals and flags scope creep. Use when user runs /check-scope, the session feels like it's drifting, or more than 3 tickets have been added since the session started."
+    },
+    {
+      "name": "check-style",
+      "category": "knowledge",
+      "description": "Review any deliverable against the company style guide in ~/.claude/knowledge/company/style-guide.md. Produces a findings report with CRITICAL, HIGH, and LOW severity levels. Use when user runs /check-style, before sharing any document externally, or when /write-article or /write-prd flags a style review is recommended."
+    },
+    {
+      "name": "context-health",
+      "category": "metrics",
+      "description": "Audit the token load profile of the current project's context files. Measures every file loaded into a session, estimates token cost, flags files that are growing too large, and recommends specific trimming actions. Also scans project source directories and recommends child AGENTS.md context nodes for directories exceeding the 20k token threshold. Run weekly or at sprint start. Saves a report to docs/context-health-report.md. Use when user runs /context-health or when sessions are regularly hitting context limits."
+    },
+    {
+      "name": "critic",
+      "category": "code-quality",
+      "description": "Critically evaluate the current framework, plan, PRD, skill, or design. Surfaces weaknesses, risks, inconsistencies, and gaps with honest prioritised feedback. Use when user runs /critic, wants critical feedback, or asks for an honest evaluation of something."
+    },
+    {
+      "name": "debrief",
+      "category": "session",
+      "description": "Thorough session close — updates the stream handoff, sweeps the stream register, and updates kanban, DEVLOG, and the backlog. Use at the end of any partial session to save state completely. For passing work to another agent or person without the full close overhead, use /handoff instead — it compacts one stream and suggests next skills."
+    },
+    {
+      "name": "diagnose",
+      "category": "code-quality",
+      "description": "Systematically diagnose a failing ticket, bug, or repeated error. Use when /diagnose is invoked manually, or when the AI has failed the same ticket twice during implementation."
+    },
+    {
+      "name": "estimate",
+      "category": "pipeline",
+      "description": "Estimate AI token cost and development complexity for a feature, module, or ticket. Produces token cost bands (S/M/L/XL) and story points (1/2/3/5/8/13). AI suggests all estimates as a table, human confirms in aggregate. Use when user runs /estimate, scope has changed, or a planning document needs estimates updated."
+    },
+    {
+      "name": "feature-flag",
+      "category": "maintenance",
+      "description": "Track feature flags from creation to planned removal. Register flags, monitor for overdue removal dates, and create kanban tickets for cleanup. /standup surfaces overdue flags. Per-project register at docs/feature-flags.md. Use when user runs /feature-flag, a new flag is added to the codebase, or /standup surfaces overdue flags."
+    },
+    {
+      "name": "git-guardrails",
+      "category": "code-quality",
+      "description": "Set up a PreToolUse hook that hard-blocks dangerous git commands (push, reset --hard, clean -f, branch -D, checkout ., restore .) before Claude can execute them. Complements git-safety.md (AI soft rules) with OS-level enforcement. Use when user wants to prevent Claude from running destructive git operations even if the AI ignores its own rules."
+    },
+    {
+      "name": "graphify",
+      "category": "uncategorised",
+      "description": "Use for any question about a codebase, its architecture, file relationships, or project content — especially when graphify-out/ exists, where the question should be treated as a graphify query first. Turns any input (code, docs, papers, images, videos) into a persistent knowledge graph with god nodes, community detection, and query/path/explain tools."
+    },
+    {
+      "name": "grill-me",
+      "category": "pipeline",
+      "description": "Ad-hoc stress-test of a plan or design outside the standard planning phase. Use when user wants to pressure-test an idea, approach, or decision without domain model context. For project planning, use /grill-with-docs instead — it checks CONTEXT.md and the codebase during grilling."
+    },
+    {
+      "name": "grill-with-docs",
+      "category": "pipeline",
+      "description": "Planning phase grilling session that challenges a plan against the existing domain model, sharpens terminology, and updates CONTEXT.md and ADRs inline as decisions crystallise. The standard entry point for project planning in Forge. Use when stress-testing a plan against the project's language, codebase, and documented decisions."
+    },
+    {
+      "name": "grill-with-peer",
+      "category": "pipeline",
+      "description": "Stress-test a plan or design with an independent peer model, then reconcile its critique with the host model. Use when the user asks for cross-model review, model diversity, a second AI opinion, /grill-with-peer, or /grill-with-codex."
+    },
+    {
+      "name": "handoff",
+      "category": "session",
+      "description": "Compact the current session into a structured handoff so the next session can continue without re-reading the conversation. Writes one handoff per stream of work to docs/handoffs/[stream].md and keeps the register at docs/HANDOFF.md. References artifacts by path rather than reproducing content. Suggests skills for the next session. Use /handoff for any planned pause — same-day resume, passing to another agent, or handing to a colleague. Use /debrief for a thorough end-of-day close that updates kanban, DEVLOG, and backlog."
+    },
+    {
+      "name": "ia",
+      "category": "knowledge",
+      "description": "Impact assessment for a proposed change — searches all knowledge sources, conducts a full grill-with-docs session to sharpen the change, then produces a severity-tagged impact summary, adaptive PRD or change brief, and draft artefacts. Use when user runs /IA, proposes a change to a knowledge file, process, or system and wants to understand the blast radius before committing."
+    },
+    {
+      "name": "idea",
+      "category": "ideation",
+      "description": "Capture and stress-test a new idea through structured grilling — problem statement, baseline measurements, destination targets, journey, impact vs effort, and assumptions. Produces idea.md and living Mermaid diagrams. Use when user runs /idea, pitches an idea formally, or uses informal idea language like \"I've been thinking about...\" or \"what if we...\"."
+    },
+    {
+      "name": "incident",
+      "category": "pi-release",
+      "description": "Manage the full lifecycle of a production incident — declare, investigate, resolve, and write a post-mortem. Coordinates /diagnose and /rollback as sub-steps. Records at ~/.claude/companies/[active_company]/incidents/INC-NNN/. Drafts stakeholder communications at each stage. Use when user runs /incident, a production issue is detected, or /rollback is triggered without a prior incident."
+    },
+    {
+      "name": "intent-layers",
+      "category": "framework",
+      "description": "Alias for /context-health. Audits token load and recommends directory-scoped AGENTS.md child nodes. Use when thinking about context structure in terms of Tyler Brandt's \"Intent Layer\" framework."
+    },
+    {
+      "name": "lang-rules",
+      "category": "code-quality",
+      "description": "Install and activate language-specific coding rule sets for the current project. Detects project languages, checks ~/.claude/rules/<lang>/ for available rule sets, copies them into .claude/rules/, and writes an active.md activation file so /review-diff, /build, and /push-standards know which baselines apply. Use when starting a project or when /push-standards should reference a language baseline rather than starting from scratch."
+    },
+    {
+      "name": "pickup",
+      "category": "session",
+      "description": "Resume a session exactly where it left off. Reads the stream register at docs/HANDOFF.md, picks a stream, loads its handoff and referenced artifacts, and presents the exact next action. Use when user runs /pickup or wants to resume interrupted work without re-reading the conversation. For daily planning orientation use /standup instead."
+    },
+    {
+      "name": "prototype",
+      "category": "pipeline",
+      "description": "Spike throwaway code to answer a specific design question before writing the PRD. Pick a branch first — a logic/state question builds an interactive Logic Prototype (see logic-prototype.md); a visual/UX question builds structurally different UI variants behind a switcher (see ui-prototype.md). Findings feed /write-prd; the spike is preserved on a throwaway branch, then cleaned from the working tree. Use when a design question is cheaper to answer in code than in discussion."
+    },
+    {
+      "name": "push-standards",
+      "category": "code-quality",
+      "description": "Extract coding patterns from the current codebase and append them to .claude/CODING-STANDARDS.md under a Project-Specific Patterns section. Use when user runs /push-standards, patterns have emerged that should be enforced, or after /approve when new conventions were established."
+    },
+    {
+      "name": "qa-plan",
+      "category": "pipeline",
+      "description": "Generate a human QA checklist from the active PRD's user stories and definition of done. Use when user runs /qa-plan, implementation is complete, or the feature is ready for human review before /approve."
+    },
+    {
+      "name": "qa-report",
+      "category": "pipeline",
+      "description": "Record the results of a completed QA session as a datestamped evidence artefact. Reads the qa-plan and TC registry, captures pass/fail per test case, structured evidence (CI link, test output, screenshots), and produces docs/tests/results/[feature]-YYYY-MM-DD.md. Use when human runs /qa-report after completing the qa-plan checklist, or before /approve is run."
+    },
+    {
+      "name": "raid",
+      "category": "delivery",
+      "description": "Manage a RAID log (Risks, Actions, Issues, Decisions) for a project, system, or process. Supports add, update, close, status, and init sub-commands. Use when the user runs /raid or wants to capture a risk, action, issue, or decision."
+    },
+    {
+      "name": "research",
+      "category": "pipeline",
+      "description": "Cache findings from expensive exploration phases into topic-specific markdown files. Use when implementation would require repeated or costly exploration of external APIs, libraries, schemas, or unfamiliar codebases."
+    },
+    {
+      "name": "resolve-findings",
+      "category": "code-quality",
+      "description": "Mark a security finding as resolved. Records resolution date, resolver, and fix description in the assessment report. Closes the kanban ticket if one exists. Use when user runs /resolve-findings [SEC-YYYYMMDD-NNN] after fixing a security finding."
+    },
+    {
+      "name": "review-brd",
+      "category": "pipeline",
+      "description": "Assess a submitted BRD against the published handoff gate — BH-1 to BH-10, the [TBD] treatment rule and the four outcomes — returning a per-item verdict table with evidence and a mechanically derived outcome. Criteria are read from the requirements-documents pack at review time, never recalled. Use when a BRD arrives for ORD development, when /review-brd is run, or before ORD work is assigned against a BRD."
+    },
+    {
+      "name": "review-diff",
+      "category": "code-quality",
+      "description": "Two-axis structured code review of a pinned diff — a Spec axis (does the change fulfil its originating requirement) and a Standards axis (project docs + an immutable code-smell baseline), judged by isolated parallel sub-agents and reported without merging. Runs per-ticket after /build and on demand. Advisory by default."
+    },
+    {
+      "name": "review-ord",
+      "category": "pipeline",
+      "description": "Assess a submitted ORD against the published §7.1 handoff gate — OH-1 to OH-13, the four outcomes, the §7.3 refuse-to-produce scan and the §5 tier rule — returning a per-item verdict table with evidence and a mechanically derived outcome. Criteria are read from the requirements-documents pack at review time, never recalled. Use when an ORD is ready for solution architecture, when /review-ord is run, or before handoff is declared."
+    },
+    {
+      "name": "review-performance",
+      "category": "code-quality",
+      "description": "Structured performance audit of project code. AI-led static analysis and architectural review, layered with optional tool invocation (Lighthouse, webpack-bundle-analyzer, language profilers). Writes a gitignored report to docs/performance/. Findings use PERF-YYYYMMDD-NNN IDs and can be promoted to kanban tickets. Use when user runs /review-performance or before a major release."
+    },
+    {
+      "name": "rollback",
+      "category": "pi-release",
+      "description": "Roll back the current project to the last known good version or a specified version tag. No Go/No Go gate — emergency recovery action. Requires explicit ROLLBACK [version] confirmation and a mandatory reason. Use when user runs /rollback, a deployment has failed, or production needs immediate recovery."
+    },
+    {
+      "name": "save-state",
+      "category": "session",
+      "description": "Save current session state immediately — stream handoff first, register second, kanban third, DEVLOG last. Use when user runs /save-state, wants to pause cleanly, or context window exhaustion is imminent. Fast, predictable, no ceremony, never asks a question."
+    },
+    {
+      "name": "scan-first",
+      "category": "code-quality",
+      "description": "Verify a ticket or task brief against live source before building or spawning agents on it — treat examples, counts, and \"this is open\" claims as hypotheses until checked. Use before starting a coverage/effect/behaviour ticket, before spawning worktree agents or subagents on a wave, when a backlog or audit table looks stale, or whenever a brief asserts facts about code that exist to be checked."
+    },
+    {
+      "name": "security-assessment",
+      "category": "code-quality",
+      "description": "Structured security audit of project code. AI-led threat modelling and OWASP Top 10 review, layered with optional external tool invocation (semgrep, npm audit, bandit, trivy). Writes a gitignored report to docs/security/. Critical and High findings can be promoted to kanban tickets as SEC-NNN references. Use when user runs /security-assessment, before a major release, or when the last assessment is overdue."
+    },
+    {
+      "name": "seo",
+      "category": "code-quality",
+      "description": "SEO audit and remediation planning — technical SEO (crawlability, canonical, redirects), on-page (titles, meta, headings), structured data (JSON-LD), Core Web Vitals, and content quality. Reads source files directly, ranks findings by severity, confirms remediation scope, writes a dated report, and optionally creates kanban tickets. Use when user runs /seo, before a major release, or when SEO regressions are suspected."
+    },
+    {
+      "name": "standup",
+      "category": "session",
+      "description": "Summarise the last session, state today's goals, and surface any blockers. Use when user wants a session summary, runs /standup, or wants to orient themselves at the start of a working session."
+    },
+    {
+      "name": "tdd",
+      "category": "pipeline",
+      "description": "Test-driven development with red-green-refactor loop. Use when user wants to build features or fix bugs using TDD, mentions \"red-green-refactor\", wants integration tests, or asks for test-first development."
+    },
+    {
+      "name": "teach",
+      "category": "knowledge",
+      "description": "Teach a subject across multiple sessions, grounded in the learner's real mission. Curates trusted resources, delivers short HTML lessons pitched at the learner's zone of proximal development, builds long-term retention through desirable difficulty, and records what was learned as it goes. Use when the user wants to learn or be upskilled in a topic, runs /teach, or resumes a learning workspace."
+    },
+    {
+      "name": "tech-debt",
+      "category": "maintenance",
+      "description": "Track and manage technical debt in the current project. Add entries with priority and location, list by priority, and resolve items when addressed. Sprint planning surfaces High items as candidates. Per-project register at docs/tech-debt.md. Use when user runs /tech-debt or identifies debt during a session."
+    },
+    {
+      "name": "test-coverage",
+      "category": "pipeline",
+      "description": "Analyze test coverage gaps in an existing codebase, identify under-covered files and functions, then generate missing tests to reach the project coverage threshold (default 80%). Reactive complement to /tdd (which writes tests first for new code). Use when user runs /test-coverage, or coverage is below threshold before a release."
+    },
+    {
+      "name": "testplan",
+      "category": "pipeline",
+      "description": "Design the testing strategy for a feature or a release — what to test, at what level, automated vs manual, and which behaviours are critical. Runs in feature mode against a PRD, or operational mode (--operational) against an ORD register. Produces a testplan.md that feeds into /tdd and /qa-plan. Use when user runs /testplan, a PRD or ORD is written, or before implementation begins."
+    },
+    {
+      "name": "to-tickets",
+      "category": "pipeline",
+      "description": "Convert a plan, PRD, spec, or conversation into a set of vertical-slice kanban tickets — each a tracer bullet sized to the smart zone, with genuine blocking edges and HITL/AFK tags. Quizzes the human on granularity before writing to docs/kanban.md. Use when a plan is agreed and needs turning into tracked, buildable tickets."
+    },
+    {
+      "name": "token-report",
+      "category": "metrics",
+      "description": "Generate a program-level token usage report across features, sprints, and PIs. Shows phase breakdowns, estimate vs actual calibration, and session counts. Use when user runs /token-report or wants to analyse AI execution costs across projects."
+    },
+    {
+      "name": "update-context",
+      "category": "knowledge",
+      "description": "Review the current session and flush new terms, decisions, and system behaviour into CONTEXT.md and relevant knowledge files. Use when user runs /update-context, terminology has shifted during a session, or new domain concepts have emerged."
+    },
+    {
+      "name": "update-dependencies",
+      "category": "maintenance",
+      "description": "Update project dependencies safely. --safe (default) handles patch and minor updates; --all includes major version bumps with per-package confirmation showing breaking changes. Runs tests after updating and stages changes for developer review — never auto-commits. Use when user runs /update-dependencies or /security-assessment flags vulnerable dependencies."
+    },
+    {
+      "name": "update-readme",
+      "category": "code-quality",
+      "description": "Review the current README.md against the active PRD, DEVLOG, and codebase, then propose updates for new features, changed behaviour, or version history. Advisory only until confirmed. Use when user runs /update-readme, a feature is approved, or README appears out of date."
+    },
+    {
+      "name": "vibe-security",
+      "category": "security",
+      "description": "Active security auditor for AI-generated (\"vibe-coded\") codebases. Loads technology-specific reference files and produces severity-ranked findings with before/after fixes. Covers secrets, database access control, auth, rate limiting, payments, mobile, AI/LLM integration, deployment, and data access. Trigger proactively when writing or reviewing auth, payments, database, API keys, or user data — not just on explicit security requests."
+    },
+    {
+      "name": "write-ac",
+      "category": "pipeline",
+      "description": "Transform a PRD and ORD into Jira acceptance criteria — promote KPPs and headline outcomes to Capability-level AC, flow story detail to child Epics/Stories, carry PRD-NNN/ORD-NNN traceability into each criterion, and optionally push to the linked Jira Capability behind a confirmation gate. Use when the user runs /write-ac, has a PRD and/or ORD ready to turn into Jira acceptance criteria, or is promoting a project to a Jira Capability."
+    },
+    {
+      "name": "write-adr",
+      "category": "code-quality",
+      "description": "Create a structured Architecture Decision Record for a significant hard-to-reverse design decision. Use when user runs /write-adr, a major architectural choice is being made, or a decision needs to be formally documented."
+    },
+    {
+      "name": "write-article",
+      "category": "code-quality",
+      "description": "Write long-form content — Confluence pages, README sections, stakeholder summaries, Go/No Go briefs, release notes, guides, and reports — in a clear, concrete voice that sounds like a person, not an AI. Use when producing any written deliverable longer than a paragraph where voice consistency, structure, and credibility matter."
+    },
+    {
+      "name": "write-brd",
+      "category": "pipeline",
+      "description": "Author a Business Requirements Document to the pack's BABOK v3 standard — SMART objectives carrying baseline, target and date, outcomes rather than solutions, and a cost-of-failure case for each objective carrying operational exposure — then self-assess it against the BH-1 – BH-10 handoff gate that decides whether ORD development can start. Runs AFK ingest, HITL write, then the gate. The standard is read at authoring time, never recalled. Use when a BRD is needed from a request brief, idea, transcript or notes, when /write-brd is run, or when an ORD task turns out to be a BRD task in disguise."
+    },
+    {
+      "name": "write-ord",
+      "category": "pipeline",
+      "description": "Synthesize a call transcript, document, conversation context, or structured notes into a compliant Operational Requirements Document (ORD) organised by ISO/IEC 25010:2023 quality characteristics. Use when the user runs /write-ord, provides a transcript or document to convert into an ORD, or wants to formalise operational requirements from a conversation."
+    },
+    {
+      "name": "write-prd",
+      "category": "pipeline",
+      "description": "Synthesize the current conversation, grill session, research, and prototype findings into a structured PRD aligned with ISO/IEC/IEEE 29148:2018 — the functional demand document sitting between the BRD and the SOAP, stating what is built and for whom and carrying no technical figure. Executes in two phases — AFK explore then HITL write — with a confirmation gate between them. Use when user runs /write-prd or when grill-me confirms shared understanding is reached."
+    },
+    {
+      "name": "write-reqs",
+      "category": "pipeline",
+      "description": "Author a PRD and an ORD together from one source — classify needs into functional (PRD) and operational (ORD), delegate each document end-to-end to /write-prd and /write-ord via a binding authoring brief (each keeping its own confirmation gate), then own the bidirectional BRD↔PRD↔ORD cross-link neither sibling can complete alone. Use when the user runs /write-reqs, or wants both a PRD and an ORD from a single grill, transcript, or BRD rather than authoring either standalone."
+    }
+  ]
+}

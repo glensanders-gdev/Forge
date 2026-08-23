@@ -1,6 +1,7 @@
 ---
 name: check-pii
 category: pipeline
+standalone: true
 description: Scan the codebase and Forge documents for Personal Identifying Information (PII). Classifies findings as Necessary or Incidental, assesses handling of Necessary PII, suggests remediation, and saves a living compliance report. AFK scan, HITL review. Use when user runs /check-pii, during QA before /approve, or when /approve detects unresolved PII findings.
 ---
 

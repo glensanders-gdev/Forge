@@ -1,6 +1,7 @@
 ---
 name: raid
 category: delivery
+standalone: true
 description: Manage a RAID log (Risks, Actions, Issues, Decisions) for a project, system, or process. Supports add, update, close, status, and init sub-commands. Use when the user runs /raid or wants to capture a risk, action, issue, or decision.
 ---
 
@@ -48,7 +49,7 @@ Scaffold `docs/raid/` for the current context (project, system, or process).
 2. Create the folder and files using the templates below.
 3. Confirm completion and list files created.
 
-**Called automatically by:** `/create-project`, `/add-system`, and any future `/add-process` skill.
+<!--forge-only-->**Called automatically by:** `/create-project`, `/add-system`, and any future `/add-process` skill.<!--/forge-only-->
 
 ### Folder Structure
 

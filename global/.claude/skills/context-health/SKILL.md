@@ -1,13 +1,14 @@
 ---
 name: context-health
 category: metrics
+standalone: true
 description: Audit the token load profile of the current project's context files. Measures every file loaded into a session, estimates token cost, flags files that are growing too large, and recommends specific trimming actions. Also scans project source directories and recommends child AGENTS.md context nodes for directories exceeding the 20k token threshold. Run weekly or at sprint start. Saves a report to docs/context-health-report.md. Use when user runs /context-health or when sessions are regularly hitting context limits.
 origin: Child node recommendations adapted from Railly Hugo (Crafter Station / github.com/crafter-station/skills), drawing from Tyler Brandt's Intent Layer framework.
 ---
 
 # Context Health
 
-> **Company-aware:** When `active_company` is set in `~/.claude/preferences.md` (configured by `/add-company`), company-specific files (acronyms, context, systems, projects) are measured from `~/.claude/companies/[active_company]/knowledge/` instead of `~/.claude/knowledge/`.
+<!--forge-only-->> **Company-aware:** When `active_company` is set in `~/.claude/preferences.md` (configured by `/add-company`), company-specific files (acronyms, context, systems, projects) are measured from `~/.claude/companies/[active_company]/knowledge/` instead of `~/.claude/knowledge/`.<!--/forge-only-->
 
 Audit how much of the 100k token soft limit is consumed by loaded files before a single
 message is sent. Flags bloated files early, before they cause mid-session compaction.
@@ -236,6 +237,7 @@ If overall status is 🔴 Red, surface a prominent warning:
    Full report: docs/context-health-report.md
 ```
 
+<!--forge-only-->
 ### Phase 5 — Regenerate Dashboard
 
 After saving the report, run `/dashboard-tokens` automatically to regenerate the token
@@ -244,9 +246,12 @@ usage dashboard with the latest context health data.
 This keeps `docs/dashboard/index.html` current after every health check without requiring
 a separate manual step. If `/dashboard-tokens` is not available or fails, note it but do
 not block completion of the context health check.
+<!--/forge-only-->
+
 
 ---
 
+<!--forge-only-->
 ## Sprint-Start Integration
 
 `/start-sprint` checks `context-health-last-run` in `preferences.md`. If more than 7 days ago:
@@ -255,6 +260,8 @@ not block completion of the context health check.
 ⚠️ Context health check overdue (last run: N days ago).
 Consider running /context-health before this sprint begins.
 ```
+<!--/forge-only-->
+
 
 ---
 

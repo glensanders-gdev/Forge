@@ -1,6 +1,7 @@
 ---
 name: qa-plan
 category: pipeline
+standalone: true
 description: Generate a human QA checklist from the active PRD's user stories and definition of done. Use when user runs /qa-plan, implementation is complete, or the feature is ready for human review before /approve.
 ---
 

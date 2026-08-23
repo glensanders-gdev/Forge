@@ -1,6 +1,7 @@
 ---
 name: check-scope
 category: session
+standalone: true
 description: Mid-session gut check that compares current progress against agreed goals and flags scope creep. Use when user runs /check-scope, the session feels like it's drifting, or more than 3 tickets have been added since the session started.
 ---
 
@@ -70,7 +71,7 @@ When unplanned work is added or scope changes are confirmed, check for stale est
 3. Surface to human:
    ```
    ⚠️ Estimates are now stale — scope has changed.
-   Run /user:estimate to update before the next /start-sprint.
+   Run /estimate to update before the next sprint<!--forge-only--> — /start-sprint re-checks capacity<!--/forge-only-->.
    ```
 4. Never auto-update estimates — flag only.
 

@@ -1,6 +1,7 @@
 ---
 name: build
 category: pipeline
+standalone: true
 description: Execute the current sprint's AFK tickets in sequence, running /tdd for each. Pauses at HITL tickets and blockers with clear prompts. Updates kanban in real time. Resumable across sessions. Use when user runs /build or is ready to begin implementation work on the current sprint.
 ---
 
@@ -44,7 +45,7 @@ Before executing any ticket:
      [tool-name] ([category])
        Install: [install-hint from registry]
 
-   Run /check-tools for the full picture.
+<!--forge-only-->   Run /check-tools for the full picture.<!--/forge-only-->
    ```
 8. Check sprint buffer window — read `~/.claude/sprints/calendar.md` and `~/.claude/pi/[current-pi]/plan.md`. If today falls within the buffer window (Friday–Sunday before a release Monday), warn and wait for an explicit decision:
    ```
@@ -280,7 +281,7 @@ Next steps:
 
 ## Scope Rules
 
-- Execute current sprint tickets only — never pull from general backlog without `/replan-sprint`
+- Execute current sprint tickets only — never pull from the general backlog without replanning<!--forge-only--> (`/replan-sprint`)<!--/forge-only-->
 - If a ticket is not in the current sprint, flag it and skip
 - Never create new tickets during build — surface gaps to the human after the loop completes
 - If scope appears to have grown mid-build, flag it and suggest `/check-scope`
@@ -294,7 +295,7 @@ Next steps:
 - Never skip TDD on a ticket without a human `NO-SEAM` decision — an agent deciding a ticket is untestable is how a sprint quietly loses its test coverage (see Step 3 seam check)
 - Never mark a `no-seam` ticket Done without the recorded evidence that replaced the test
 - Run `/review-diff` on every ticket's diff once tests are green — never skip the post-build review, and never auto-fix or silently pass a P1 finding
-- Never deploy — build produces tested code only; deployment is handled by `/go-nogo` and `/deploy`
+- Never deploy — build produces tested code only<!--forge-only-->; deployment is handled by `/go-nogo` and `/deploy`<!--/forge-only-->
 - DEVLOG and token records are not updated during build — defer to `/debrief`
 - Smart zone check is mandatory for every ticket — never skip it
 - Resumable by design — reading kanban state is always the first step

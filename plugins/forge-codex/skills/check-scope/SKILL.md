@@ -72,7 +72,7 @@ When unplanned work is added or scope changes are confirmed, check for stale est
 3. Surface to human:
    ```
    ⚠️ Estimates are now stale — scope has changed.
-   Run estimate to update before the next $start-sprint.
+   Run $estimate to update before the next sprint — $start-sprint re-checks capacity.
    ```
 4. Never auto-update estimates — flag only.
 

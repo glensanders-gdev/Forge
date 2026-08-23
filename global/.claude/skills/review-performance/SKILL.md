@@ -1,6 +1,7 @@
 ---
 name: review-performance
 category: code-quality
+standalone: true
 description: Structured performance audit of project code. AI-led static analysis and architectural review, layered with optional tool invocation (Lighthouse, webpack-bundle-analyzer, language profilers). Writes a gitignored report to docs/performance/. Findings use PERF-YYYYMMDD-NNN IDs and can be promoted to kanban tickets. Use when user runs /review-performance or before a major release.
 ---
 
@@ -61,7 +62,7 @@ The first installed tool found per category wins.
 Running review — this may take a few minutes...
 ```
 
-If no performance-analyser tools are installed, note: "No performance-analyser tools installed — running AI analysis only. Run /check-tools for recommendations."
+If no performance-analyser tools are installed, note: "No performance-analyser tools installed — running AI analysis only.<!--forge-only--> Run /check-tools for recommendations.<!--/forge-only-->"
 
 ---
 

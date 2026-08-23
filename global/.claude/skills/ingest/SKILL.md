@@ -1,6 +1,7 @@
 ---
 name: ingest
 category: knowledge
+standalone: false
 description: Compile unprocessed Raw/ items into the Wiki. Handles three intake modes — files already in Raw/, uploaded files, and pasted text. Prompts for scope via a numbered project list when no flag is given; use --all to process all Raw/ folders. Use when user runs /ingest, drops files into Raw/, uploads a file in session, or pastes content to be added to the knowledge base.
 ---
 

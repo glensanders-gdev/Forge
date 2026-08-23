@@ -1,6 +1,7 @@
 ---
 name: company-git
 category: company
+standalone: false
 description: Connect the local company knowledge directory to a company-approved GitHub remote. One-time setup — initialises a git repo in ~/.claude/companies/[name]/, adds the remote, and either pushes initial stubs (empty remote) or pulls existing team content (populated remote). Use when user runs /company-git [remote-url] after /add-company.
 ---
 

@@ -1,6 +1,7 @@
 ---
 name: write-ac
 category: pipeline
+standalone: true
 description: Transform a PRD and ORD into Jira acceptance criteria — promote KPPs and headline outcomes to Capability-level AC, flow story detail to child Epics/Stories, carry PRD-NNN/ORD-NNN traceability into each criterion, and optionally push to the linked Jira Capability behind a confirmation gate. Use when the user runs /write-ac, has a PRD and/or ORD ready to turn into Jira acceptance criteria, or is promoting a project to a Jira Capability.
 ---
 
@@ -14,6 +15,13 @@ See [REFERENCE.md](REFERENCE.md) for the altitude rules, the PRD-story and ORD-r
 criterion written here. Translation carries a requirement's meaning across, not its defects: an AC
 derived from a hedged source requirement is rewritten to the declarative end-state form, never
 copied through. Never restate these rules here.
+
+`~/.claude/rules/requirements/ai.md` applies **conditionally**, on top of `language.md` and relaxing
+nothing, to any criterion derived from a requirement over learned or generated behaviour: a delivered component whose output for a given input is not fully determined by written logic — a trained model, an LLM call, a retrieval-augmented pipeline, an agent, or a third-party AI service consumed as an API. Such an AC carries its threshold, its named `EVL-NNN` set, its floor and its review
+hook across intact — dropping any of the four makes it untestable, and a source requirement missing
+one is a defect to flag, never one to silently inherit. The source row's **[AI]** prefix carries
+across to the criterion, and an unresolved `[EVL-TBD]` in a source requirement is a blocker: an AC
+cannot name the set that proves it.
 
 ---
 
@@ -35,7 +43,7 @@ Runs unattended. Reads the source requirements and sorts them by altitude — no
 ```
 ## AC Selection — [Capability name / Feature]
 
-Target Jira Capability: [CAP-NN or "none linked — run /link-jira"]
+Target Jira Capability: [CAP-NN or "none linked<!--forge-only--> — run /link-jira<!--/forge-only-->"]
 Sources read: [PRD path / "none"] · [ORD path / "none"]
 
 ### Promote to Capability AC
@@ -69,7 +77,7 @@ Runs after the human confirms the split.
 4. Write the AC document to `docs/ac/[capability-name]-AC.md` using the template in REFERENCE.md.
 5. **Jira push is optional and gated.** If a Capability is linked and the human wants it pushed:
    - Show exactly what will be written to which Capability key (Capability AC field + child issue AC).
-   - Require the human to type `PUSH` to confirm. On confirm, write via the `jira` MCP (`/jira`). Never push without it.
+   - Require the human to type `PUSH` to confirm. On confirm, write via the `jira` MCP<!--forge-only--> (`/jira`)<!--/forge-only-->. Never push without it.
    - List child issues that do not yet exist for the human to create — never auto-create Jira issues.
 6. **Write back the Capability and Epic mapping into the ORD register.** The ORD's `Capability` and `Epic` columns exist for this and stay `—` until this step runs.
 
@@ -89,7 +97,7 @@ Runs after the human confirms the split.
    ```
 
    Never touch any other column. Never write back to a requirement that has no AC.
-7. Suggest next steps: `/link-jira` if no Capability is linked yet. Note that `/qa-plan` generates its checklist from the PRD's user stories and definition of done — it does **not** read `docs/ac/`, so the AC document is the Jira-facing artefact rather than the QA input.
+7. Suggest next steps:<!--forge-only--> `/link-jira` if no Capability is linked yet.<!--/forge-only--> Note that `/qa-plan` generates its checklist from the PRD's user stories and definition of done — it does **not** read `docs/ac/`, so the AC document is the Jira-facing artefact rather than the QA input.
 
 ---
 
@@ -119,9 +127,9 @@ Runs after the human confirms the split.
 | Only an ORD (no PRD) | Proceed — Capability AC are KPP thresholds only; note no functional AC exist. |
 | No [KPP] tagged in the ORD | Proceed — promote headline outcomes; flag "no KPP designated — confirm the Capability has no program-failure threshold." |
 | An ORD requirement is still `[TBD]` | Do not turn it into an AC. List it as blocked pending the ORD; do not invent a threshold. |
-| No Jira Capability linked | Produce the AC document only. Suggest `/link-jira PROJ-NNN CAP-NN --type capability`; never push. |
+| No Jira Capability linked | Produce the AC document only<!--forge-only-->. Suggest `/link-jira PROJ-NNN CAP-NN --type capability`<!--/forge-only-->; never push. |
 | AC document already exists at target path | Stop. "An AC document already exists at docs/ac/. Confirm overwrite or provide a new name." |
-| jira MCP not configured at push time | Write the document, skip the push, direct the user to `/jira setup`. |
+| jira MCP not configured at push time | Write the document, skip the push, and direct the user to <!--forge-only-->`/jira setup` — <!--/forge-only-->configure the `jira` MCP. |
 | Every ORD requirement is `Won't` | Stop. "All operational requirements are marked Won't for this release — no AC to author." |
 | User declines the write-back `CONFIRM` | The AC document stands; the ORD is untouched. Report which `ORD#` rows remain unmapped. Never apply a partial set without a fresh `CONFIRM`. |
 | ORD not found or not writable at write-back time | Write the AC document, skip the write-back, and list the `ORD# → Capability/Epic` mapping for the human to apply manually. |

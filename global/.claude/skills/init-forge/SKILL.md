@@ -1,6 +1,7 @@
 ---
 name: init-forge
 category: framework
+standalone: false
 description: Generate ~/.claude/CLAUDE.md and ~/.claude/AGENTS.md from a single source of truth. Writes the skill-loading instruction and standing instructions (hook replacements) for both Claude Code and Codex. Overlays company-specific instructions when active_company is set. Called automatically by /add-company; also runnable standalone to regenerate after config changes or when switching tools.
 compatibility:
   claude_code: full

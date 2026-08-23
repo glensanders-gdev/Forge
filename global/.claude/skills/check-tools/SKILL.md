@@ -1,6 +1,7 @@
 ---
 name: check-tools
 category: company
+standalone: false
 description: Verify which registered Forge tools are installed on this machine. Shows a full matrix by category — tool name, availability, and company classification. Required-but-missing tools are flagged prominently. Use when user runs /check-tools or to diagnose missing tool errors before a build.
 ---
 

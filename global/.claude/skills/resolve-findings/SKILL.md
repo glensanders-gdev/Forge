@@ -1,6 +1,7 @@
 ---
 name: resolve-findings
 category: code-quality
+standalone: true
 description: Mark a security finding as resolved. Records resolution date, resolver, and fix description in the assessment report. Closes the kanban ticket if one exists. Use when user runs /resolve-findings [SEC-YYYYMMDD-NNN] after fixing a security finding.
 ---
 
