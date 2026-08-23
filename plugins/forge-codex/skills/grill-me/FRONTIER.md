@@ -2,7 +2,7 @@
 
 The traversal protocol shared by `$grill-me` and `$grill-with-docs`. Both skills reference this file rather than restating it — one definition, no drift.
 
-> Adapted from Matt Pocock's `grilling` skill (AIHero.dev / github.com/mattpocock/skills). The frontier model, the question format, and the empty-frontier stop condition are his; the round cap and the subagent routing are Forge additions.
+> Adapted from Matt Pocock's `grilling` skill (AIHero.dev / github.com/mattpocock/skills). The frontier model, the question format, and the empty-frontier stop condition are his; the round cap and the subagent routing are additions here.
 
 ---
 

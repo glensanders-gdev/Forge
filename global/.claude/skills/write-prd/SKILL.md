@@ -101,7 +101,7 @@ Runs unattended. Gathers all context needed to write the PRD without asking the 
     1. An explicit statement in the source or the BRD.
     2. The delivery agent named for this work — a vendor or a non-engineering department determines *Conventional*.
 
-    Where neither fires, the mode is **not determined**. Repository context is **not** a determining signal: almost every repo this skill runs in is Forge-driven, so treating that as evidence would make the mode auto-resolve to AI-assisted every time and the human would never see the question. Offer it as a *suggestion* in Open Questions — "no statement found; this repo is Forge-driven, so AI-assisted is likely — confirm" — and let the human settle it at the gate.
+    Where neither fires, the mode is **not determined**. Repository context is **not** a determining signal: almost every repo this skill runs in is agent-driven, so treating that as evidence would make the mode auto-resolve to AI-assisted every time and the human would never see the question. Offer it as a *suggestion* in Open Questions — "no statement found; this repo is agent-driven, so AI-assisted is likely — confirm" — and let the human settle it at the gate.
 11. **Apply the AI trigger test** from `rules/requirements/ai.md` — is any delivered component's
     behaviour learned or generated rather than specified? Answer it explicitly and state the answer
     in the Phase 1 Summary; do not leave it unasked. Where it fires, that ruleset governs the
@@ -239,7 +239,7 @@ Runs after human confirms Phase 1 summary. Writes the PRD and cleans up.
    ```
 
    If a git branch can't be created (e.g. not a git repo), leave `/prototype` in place and note it — never destroy the only copy, and never present this gate when preservation failed.
-8. Suggest next steps in order. **The first applies under either delivery mode; the rest are the Forge build path and apply under `AI-assisted` only.**
+8. Suggest next steps in order. **The first applies under either delivery mode; the rest are the build path and apply under `AI-assisted` only.**
    - Hand the PRD to the **SOAP** hop — it is the document that answers this one, and every `SOAP Ref` cell in the traceability matrix stays `TBD` until it does.
    - Run `/testplan` to design the testing strategy before implementation begins — this also **back-fills the `TBD` Test column** in the PRD's Traceability Matrix. Under `Conventional` this is still worth running for the Test column, but its output describes verification the delivering party performs, not tests this repo will write.
    - Then run `/to-tickets` (the Kanban stage) to convert the PRD task list into tracked vertical-slice tickets in `docs/kanban.md`. **`AI-assisted` only** — under `Conventional` the delivering party owns its own plan.
@@ -265,7 +265,7 @@ both before saving; never copy this instruction into the document.
 **Sprint:** Sprint-NN (or "Not sprint-tracked")
 **PI:** PI-N [Name] (or "Not PI-tracked")
 **Target Release:** PI-N-RN (or "Standalone" or "Not assigned")
-**Author:** [Human name or "Forge"]
+**Author:** [Human name or the authoring agent]
 
 **Stakeholder Label:** [External-facing feature name for stakeholder communication]
 **Delivery Type:** Iterative | Fixed Scope | Fixed Deadline | Fixed Both
@@ -462,7 +462,7 @@ no ID: nothing traces *to* an exclusion, so an ID would never be referenced.
 
 Carries forward the assumptions table from `/idea` with its Status — never collapse it to prose.
 `If false` is mandatory. On falsification set `Status: Falsified`, run `/raid add risk`, and record
-the `R-NNN` in `If false` (Forge's RAID has no Assumptions quadrant).
+the `R-NNN` in `If false` (the RAID log has no Assumptions quadrant).
 
 | ID | Assumption | Status | If false | Owner |
 |----|-----------|--------|----------|-------|
@@ -529,7 +529,7 @@ narrative, so provenance has no row to live in. This matrix is that home, not a 
 - **Never claim a pack version that was not read.** Where the pack is unreadable, say so in the summary and in the PRD header.
 - Never size by module — a module decomposition is the SOAP's. Estimate per story.
 - **Never produce a token estimate or a T-shirt band for a conventionally-delivered solution.** Token cost measures what it costs an AI to write the code; where people, a vendor or a configuration change deliver it, the band measures nothing and will be planned against as though it did. Omit the header line rather than writing `N/A` into it.
-- **Never assume the delivery mode, and never read it off repository context.** Only an explicit statement or a named delivery agent determines it; a Forge-driven repo is a suggestion to confirm, not evidence. Absent both, write `Not determined` and let the human settle it at the gate — the mode decides the estimate table, the Task List form, the Definition of Done rows and the next-steps block.
+- **Never assume the delivery mode, and never read it off repository context.** Only an explicit statement or a named delivery agent determines it; an agent-driven repo is a suggestion to confirm, not evidence. Absent both, write `Not determined` and let the human settle it at the gate — the mode decides the estimate table, the Task List form, the Definition of Done rows and the next-steps block.
 - **Never emit a conditional instruction into the document.** The template's conditional lines are resolved before saving — an emitted `omit this line when…` or an unresolved `Route:` under AI-assisted is a template artefact, not a PRD.
 - If Phase 1 uncovers a significant unknown that blocks scoping, surface it in Open Questions and wait.
 - Do not clean up `/prototype` until Phase 2 is complete and confirmed — and never before it is preserved on its `prototype/[feature-name]` throwaway branch with a pointer recorded in the PRD.
@@ -565,7 +565,7 @@ After Phase 2 is complete and PRD is written:
 | Phase 1 exploration finds no relevant codebase | Note "Codebase appears empty or not yet scaffolded." Proceed with a greenfield assumption — state it explicitly. |
 | Sprint field cannot be determined | Set to "Not sprint-tracked" and flag for human to update. |
 | Estimate confirmation not given | Do not write PRD until estimates are confirmed — prompt once more. |
-| Neither determining signal fires — no statement, no named delivery agent | Record `Mode: Not determined` and put it in Open Questions. Repository context is not a determining signal, so offer it as a suggestion ("this repo is Forge-driven, so AI-assisted is likely — confirm") and wait for the human. It decides four sections, not just the estimate. |
+| Neither determining signal fires — no statement, no named delivery agent | Record `Mode: Not determined` and put it in Open Questions. Repository context is not a determining signal, so offer it as a suggestion ("this repo is agent-driven, so AI-assisted is likely — confirm") and wait for the human. It decides four sections, not just the estimate. |
 | Delivery mode is Conventional | Produce story points only, and name the route. Omit the `Estimate (AI Token Cost)` header line and the token column, drop the XL/`/break-down` flag (the smart zone is a token-budget rule), use the owner-tagged Task List, add the delivering party's completion evidence to the Definition of Done, and mark `/to-tickets` as not applicable. A story too large on points alone is still flagged, named as such. |
 | `Delivery Mode` is `Conventional` and the PRD is handed downstream | State that `/estimate`, `/break-down`, `/to-tickets` and `/build` do not read the mode and assume AI-assisted delivery. The mode is carried by a human until they do — say so rather than letting it be lost silently. |
 | Mode is Conventional but the source quotes a token or AI-cost figure | Do not carry it into the PRD. Note it in Open Questions — a token figure against non-AI delivery is either a mis-stated mode or a number nobody can act on. |

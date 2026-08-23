@@ -29,7 +29,7 @@ $test-coverage --threshold 90         ← override default threshold for this ru
 ## Coverage Threshold
 
 Read from `AGENTS.md` (project root) if a `coverage-threshold` value is specified.
-Default: **80%** (Forge quality-checklist.md standard).
+Default: **80%** (quality-checklist.md standard).
 
 If `--threshold N` is passed, use that value for this run only — do not persist.
 

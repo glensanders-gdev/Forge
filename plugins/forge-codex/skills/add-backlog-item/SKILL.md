@@ -132,7 +132,7 @@ The `💡` prefix makes opportunities visually distinct and greppable in both th
 | Condition | Behaviour |
 |-----------|-----------|
 | No active projects found | "No active projects found. Add one via `create-project` or `onboard`." |
-| Project kanban not found | "kanban.md not found for [project]. Run `onboard` to scaffold Forge first." |
+| Project kanban not found | "kanban.md not found for [project]." Run `onboard` to scaffold Forge first. |
 | Global backlog missing | Create `~/.codex/forge/backlog.md` and add the entry as the first item. |
 | User provides no meaningful answer to Q1 | "I need a clearer description to add this — what specifically needs to happen?" Prompt once more, then stop if still unclear. |
 | Opportunity with no RAID log and user wants RAID entry | Note: "No RAID log found for this context. Run `$raid init` to set one up, then `$raid add risk` manually." |

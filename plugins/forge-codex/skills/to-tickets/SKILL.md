@@ -12,7 +12,7 @@ Turn an agreed plan into a set of **vertical-slice tickets** ready for `$build`.
 
 Execution mode: **[HITL]** — drafting is autonomous, but the human confirms the breakdown before anything is written to `docs/kanban.md`.
 
-> Adapted from Matt Pocock's `to-tickets` skill (github.com/mattpocock/skills). Forge keeps the vertical-slice/tracer-bullet discipline, the quiz-before-publish loop, minimal genuine blocking edges, and expand–contract for wide refactors; it swaps the `.scratch/`-file and GitHub-issue trackers for Forge's `docs/kanban.md`, maps "one context window" to the **smart zone (<100k tokens)**, and delegates oversized slices to `$break-down` and external export to `$jira`.
+> Adapted from Matt Pocock's `to-tickets` skill (github.com/mattpocock/skills). This skill keeps the vertical-slice/tracer-bullet discipline, the quiz-before-publish loop, minimal genuine blocking edges, and expand–contract for wide refactors; it swaps the `.scratch/`-file and GitHub-issue trackers for `docs/kanban.md`, maps "one context window" to the **smart zone (<100k tokens)**, and delegates oversized slices to `$break-down` and external export to `$jira`.
 
 ## Pipeline Position
 

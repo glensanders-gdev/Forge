@@ -8,7 +8,7 @@ metadata:
 
 # Critic
 
-Provide an honest, prioritised critical evaluation of whatever is in scope — the Forge framework itself, a PRD, a plan, a skill, a design decision, or a codebase. No sycophancy. Surface what is actually wrong or risky.
+Provide an honest, prioritised critical evaluation of whatever is in scope — the framework itself, a PRD, a plan, a skill, a design decision, or a codebase. No sycophancy. Surface what is actually wrong or risky.
 
 ## When to Use
 

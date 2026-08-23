@@ -12,7 +12,7 @@ Review a **pinned diff** along two independent axes and report them separately. 
 
 Execution mode: **[AFK]** advisory — the review runs autonomously and produces a report; it changes no code unless a human explicitly asks. When wired into `$build` it fires per ticket; it is also human-invokable any time via `$review-diff`.
 
-> Adapted from Matt Pocock's `code-review` skill (github.com/mattpocock/skills). Forge keeps the two-axis + isolated-sub-agent structure, the fixed-point diff, the Fowler smell baseline, the 400-word sub-agent cap, and the per-axis closing summary; it translates the git plumbing to Forge's kanban-driven ticket diffs, its own P1/P2/P3 severities, and its ADR/CONTEXT/PRD sources of truth.
+> Adapted from Matt Pocock's `code-review` skill (github.com/mattpocock/skills). This skill keeps the two-axis + isolated-sub-agent structure, the fixed-point diff, the Fowler smell baseline, the 400-word sub-agent cap, and the per-axis closing summary; it translates the git plumbing to kanban-driven ticket diffs, its own P1/P2/P3 severities, and its ADR/CONTEXT/PRD sources of truth.
 
 ## Pipeline Position
 

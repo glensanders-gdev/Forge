@@ -38,7 +38,7 @@ Project activation: .claude/rules/active.md not found
 Show exactly what will be written. Wait for confirmation before proceeding.
 
 For each language with no global rule set, offer:
-- **A** — Scaffold a starter rule set from Forge's common rules adapted for that language
+- **A** — Scaffold a starter rule set from the common rules adapted for that language
 - **B** — Skip that language (common rules apply only)
 
 ### Phase 3 — AFK: Write
@@ -103,7 +103,7 @@ When scaffolding, generate minimal stubs — one or two concrete rules per secti
 | Language detected but no global rule set | Offer to scaffold a starter or skip |
 | `.claude/rules/active.md` already exists | Show current content, ask before overwriting |
 | Language cannot be confidently detected | Ask the human to specify |
-| `~/.claude/rules/` missing | Warn: "Forge rules not installed — re-run Forge installer or check ~/forge/install.sh" |
+| `~/.claude/rules/` missing | Warn: "Shared rules not installed<!--forge-only--> — re-run the Forge installer or check ~/forge/install.sh<!--/forge-only-->." |
 
 ## Never
 

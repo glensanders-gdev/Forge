@@ -48,7 +48,7 @@ carried in both is edited in the stream file first, then the row is brought into
 |---|---|---|---|---|---|
 | `ord-pack` | ORD standard pack v1.4 | Active | 2026-08-11 15:56 | Reconcile the two pack trees | `requirements-documents/` |
 | `capacity-report` | Capacity report intake | Paused | 2026-08-04 09:20 | Draft §3 thresholds | `docs/prd/active/` |
-| `junction-sync` | Forge junction sync | Blocked | 2026-07-28 17:40 | Waiting on API access | `Forge/` |
+| `junction-sync` | Junction sync | Blocked | 2026-07-28 17:40 | Waiting on API access | `platform/` |
 ```
 
 - **`Status`** is `Active`, `Paused`, or `Blocked`. Closed streams are archived and their row removed.
@@ -100,7 +100,7 @@ that no other context is needed.]
 
 ## Context the Next Session Will Need
 
-[Only what is NOT already in a Forge artifact. If it is in the PRD, kanban or ADR — reference it.]
+[Only what is NOT already in a project artifact. If it is in the PRD, kanban or ADR — reference it.]
 
 ---
 

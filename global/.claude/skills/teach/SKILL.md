@@ -10,7 +10,7 @@ description: Teach a subject across multiple sessions, grounded in the learner's
 
 Stateful, multi-session teaching. Every lesson is **mission-grounded** — tied to a concrete real-world goal — and pitched in the learner's **zone of proximal development**: hard enough to stretch, not so hard it overwhelms. The aim is *storage strength* (durable retention), not *fluency* (the illusion of mastery that fades).
 
-Adapted from Matt Pocock's "teach" skill (github.com/mattpocock/skills), translated into Forge conventions and wired into the knowledge base.
+Adapted from Matt Pocock's "teach" skill (github.com/mattpocock/skills), translated into these conventions and wired into the knowledge base.
 
 **Execution mode:** `[HITL]` — mission clarification, assessment, and feedback are interactive. Lesson and reference authoring between checkpoints is `[AFK]`.
 
@@ -36,7 +36,7 @@ Formats for each artefact are in [FORMATS.md](FORMATS.md). When `active_company`
 
 1. **Mission gate `[HITL]`** — read `MISSION.md`. If it is missing or vague, interview the learner about their real-world goal *before drafting anything*, then write `MISSION.md`. **Completion criterion:** the mission names a concrete, observable outcome (e.g. "ship a Rust CLI to my team"), not "understand Rust". Confirm the path before scaffolding a new workspace.
 2. **Assess the zone `[HITL]`** — read every file in `learning-records/` to map current capability. Pick the most mission-relevant topic that sits just past what the learner already knows. **Completion criterion:** the chosen topic is neither already-known nor unreachable.
-3. **Curate resources** — find high-trust external sources and record them in `RESOURCES.md`. Cite them in lessons. **Never teach from parametric memory** — verify against sources first (Forge's research-first rule).
+3. **Curate resources** — find high-trust external sources and record them in `RESOURCES.md`. Cite them in lessons. **Never teach from parametric memory** — verify against sources first (the research-first rule).
 4. **Design the lesson** — one tightly-scoped win tied to the mission, completable in one sitting. Reuse `assets/` (create the shared stylesheet first); author new reusable components into `assets/`, never inline. **Completion criterion:** lesson is a self-contained `lessons/NNNN-<slug>.html`, cites a primary source, links related lessons/reference, and ends by inviting follow-up questions.
 5. **Practice & feedback** — for skills-heavy topics, add effortful retrieval with tight, immediate feedback (quizzes, in-browser simulators). For knowledge-heavy topics, curate and reduce load instead. Build retention with spacing, interleaving, and retrieval practice.
 6. **Record `[HITL→AFK]`** — when the learner demonstrates real understanding, write a `learning-records/NNNN-<slug>.md` and promote validated terms into `GLOSSARY.md`. Update `MISSION.md` only with the learner's confirmation if their goal shifts; note preferences in `NOTES.md`.

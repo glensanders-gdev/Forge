@@ -19,7 +19,7 @@ Origin: Adapted from Affaan Mustafa (ECC / github.com/affaan-m/ECC)
 
 - [ ] Tests exist for all new logic
 - [ ] Tests are named to describe behaviour, not implementation
-- [ ] Coverage meets project minimum (Forge default: 80%)
+- [ ] Coverage meets project minimum (default: 80%)
 - [ ] Tests pass clean — no skipped tests without a documented reason
 
 ## Security

@@ -15,7 +15,7 @@ Before executing any `git push`, always:
 
 **Do this:**
 ```
-Ready to push to origin/claude/forge-learning-on-go-STAq0. 2 commits:
+Ready to push to origin/claude/session-resumption-STAq0. 2 commits:
   - Add /continue skill for session resumption
   - Clarify /handoff vs /debrief hierarchy
 
