@@ -38,7 +38,8 @@ CI (`forge-parity.yml`) runs on every push/PR and fails if:
 1. The Codex plugin output is stale (not committed after a shared skill change)
 2. Claude and Codex skill parity checks fail
 3. The standalone distribution is stale — CI runs `build-forge-standalone.ps1 -Strict` and fails
-   if `dist/forge-standalone/` differs from the committed tree
+   if anything under `dist/` differs from the committed tree. That covers both the distribution
+   and `dist/forge-standalone-BUILD-REPORT.md`, which the same build writes
 4. The review-criteria extracts are stale — this one is expected to skip in CI, because the
    `requirements-documents` pack is held locally and is not in this repo. It runs for whoever
    holds the pack, who is the only party able to regenerate it.

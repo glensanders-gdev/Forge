@@ -30,13 +30,17 @@ jobs:
         shell: pwsh
         run: ./tools/build-forge-standalone.ps1 -Strict
 
+      # Scoped to dist/, not dist/forge-standalone/ — the build also writes
+      # dist/forge-standalone-BUILD-REPORT.md, a sibling of that directory rather
+      # than a file inside it. Checking the directory alone left the report
+      # uncovered, and it went a release stale without failing anything.
       - name: Verify standalone output is committed
         shell: pwsh
         run: |
-          $changes = git status --porcelain -- dist/forge-standalone
+          $changes = git status --porcelain -- dist
           if ($changes) {
             $changes
-            git diff -- dist/forge-standalone
+            git diff -- dist
             throw "Standalone output is stale. Run tools/build-forge-standalone.ps1 and commit the result."
           }
 
