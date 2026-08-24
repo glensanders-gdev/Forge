@@ -2,18 +2,18 @@
 
 **Stream:** `standalone-skills`
 **Status:** Active
-**Last updated:** 2026-08-24 10:27
+**Last updated:** 2026-08-24 11:00
 **Session type:** Framework build
-**Prepared by:** /handoff: fix the setup.sh bug too
-**Touches:** `global/.claude/skills/`, `global/.claude/commands/`, `dist/forge-standalone/`, `plugins/forge-codex/`, `tools/`, `glensanders-gdev/skills` (public), and the `nbn` company repo (outside Forge)
+**Prepared by:** /handoff: publish the standalone repo in the next session
+**Touches:** `dist/forge-standalone/`, `.standalone-sync/`, `glensanders-gdev/skills` (public), `global/.claude/`, `tools/`, `.github/workflows/`
 
 ---
 
 ## Current Ticket
 
 **Publish Forge skills as a standalone distribution** `[HITL]`
-Status: Shipped — follow-up work outstanding
-**Current phase:** Post-merge follow-ups — Session 2 of this phase
+Status: Shipped — publish step outstanding
+**Current phase:** Post-merge follow-ups — Session 3 of this phase
 
 Not tracked in `docs/kanban.md`; that board is stale (June 2026, `/check-style` work) and belongs
 to a different stream. This is framework work carried on branches and PRs.
@@ -22,123 +22,118 @@ to a different stream. This is framework work carried on branches and PRs.
 
 ## What Just Happened
 
-Three pieces, all landed in **PR #63**. `/write-a-skill` now confirms a skill's destination before
-anything else — Forge, company, or standalone — with the whole fork fenced `forge-only`. A real
-defect in the standalone build was found and fixed: a whole-line `forge-only` fence left behind
-the blank line it sat on, which split any markdown table it was a row of, so `/handoff` and
-`/standup` were both shipping broken tables to the public repo. And `/skill-health` gained the two
-version checks nothing was performing.
+Three PRs merged. **#63** landed two releases at once (v4.6.0 from a concurrent session, v4.6.1
+prototype accessibility) plus this stream's last handoff. **#64** closed the previous Next Action —
+the `setup.sh` bug — and documented the third build target in `CLAUDE.md`. **#65** closed a CI gap
+that surfaced while fixing #64.
+
+`main` is at `e305962`, Forge **4.6.2**, working tree clean, in sync with origin.
 
 Key artifacts updated this session:
-- `global/.claude/skills/write-a-skill/SKILL.md` — destination fork (v1.6.0 → 1.7.0)
-- `global/.claude/skills/skill-health/SKILL.md` + `FORMATS.md` — two checks (v1.5.0 → 1.6.0)
-- `tools/build-forge-standalone.ps1` — two-pass fence strip
-- `plugins/forge-codex/skills/write-a-skill/SKILL.md` — company destination added to the override
-- `global/.claude/CHANGELOG.md` — v4.6.0 section
+- `global/.claude/skills/add-company/SKILL.md` — symlink guard, in-place link guard, rename rule (v2.0.0 → 2.1.0)
+- `CLAUDE.md` — three build targets in Key Commands; CI list 2 entries → 4
+- `.github/workflows/forge-parity.yml` — staleness check scoped to `dist/`, not `dist/forge-standalone/`
+- `~/.claude/companies/nbn/` — `setup.sh` fixed, 6 skills renamed, all 17 re-bundled (`e7357a2`, local-only)
 
 ---
 
 ## Next Action
 
-**Fix `setup.sh` copying company skills into the Forge repo.** Start from a tree synced to PR #63;
-the work described above is committed there, not sitting loose.
+**Publish 4.6.2 to `glensanders-gdev/skills`.** The public repo is at **4.4.0** (`ff00307`) — three
+release bumps behind. The `dist/`-must-be-committed precondition that blocked this is now satisfied.
 
-`~/.claude/companies/<name>/setup.sh` step 3 runs
-`cp "$skill_dir/SKILL.md" "$CLAUDE_DIR/skills/$skill/SKILL.md"`, and `~/.claude/skills` is a
-symlink to `global/.claude/skills/` in this repository. So installing a company knowledge base
-writes into the Forge working tree:
+```bash
+./tools/sync-standalone-skills.sh          # rebuilds, mirrors, stages, stops
+```
 
-- 11 of the 17 bundled names match live Forge skills — those are **overwritten** with whatever
-  stale copy the company repo holds.
-- 6 carry pre-rename names (`pii-check`, `style-check`, `company-sync`, `tool-add`, `tool-check`,
-  `knowledge-onboard`) and land as new untracked directories with no `standalone:` key, which
-  **throws `build-forge-standalone.ps1` for every skill**.
+It never pushes on its own. Read the staged diff, then:
 
-Two places to fix, and they are in different repositories: the template in
-`global/.claude/skills/add-company/SKILL.md` (§ `setup.sh` and § Company Skills), and the live
-`~/.claude/companies/nbn/setup.sh`. The live nbn copy also still holds the six pre-rename skill
-names — reconcile those while there.
+```bash
+./tools/sync-standalone-skills.sh --push
+```
 
-`/write-a-skill` step 3 now warns an author that a company skill shares one discovery namespace
-with the Forge portfolio. That mitigates the collision; it does not fix the copy target.
+Expect a large diff — three releases of accumulated change, including the per-skill `version` field
+that shipped in 4.5.0 and has never been published. **Read it before pushing**: the mirror runs
+`rsync -a --delete`, so a skill dropped from the shipped set disappears upstream, and that is the
+one thing this script does that cannot be undone by the next release.
 
 ---
 
 ## Context the Next Session Will Need
 
-**Two sessions' work shipped together in PR #63.** A concurrent session delivered v4.6.1
-(accessibility structural constraints become `CON-NNN` rows) touching
-`global/.claude/skills/accessibility/SKILL.md`, `prototype/SKILL.md`, `prototype/ui-prototype.md`
-and `write-prd/SKILL.md`, bumping `prototype` to 2.1.1 and `write-prd` to 2.7.3, and setting
-`forge_version` to 4.6.1. This session's work is under the v4.6.0 CHANGELOG section. Because
-`manifest.json` and `CHANGELOG.md` each held both sets of edits, the two could not be split
-per-file and one commit carries both releases.
+**The publish path is already wired and does not need rebuilding.** `tools/sync-standalone-skills.sh`
+rebuilds under `-Strict`, refuses to run while `dist/forge-standalone` is uncommitted, mirrors into
+a working clone at `.standalone-sync/` (gitignored, currently at `ff00307`), and stages. Remote
+defaults to SSH `git@github.com:glensanders-gdev/skills.git`, overridable via
+`FORGE_STANDALONE_REMOTE`. The commit it writes is `Release <version>` / `Build <sha>` — that form
+was fixed in #61 and does not name Forge.
 
-**The `git add -A` warning was right, and it fired.** The other session staged the whole tree while
-this one's `build-forge-standalone` was mid-write, producing a commit that recorded 56 `dist/`
-paths as deleted while they still existed on disk. It was caught and amended before the push. Stage
-by path when a tree is shared, and never stage during a build. Run `git log` before assuming a
-branch holds only one session's commits.
+**CI has three build targets, and this was learned the hard way.** `build-forge-codex.ps1`,
+`test-forge-parity.ps1`, and `build-forge-standalone.ps1 -Strict`. A version bump alone makes
+`dist/` stale, because the release version is stamped into its README and manifest. `CLAUDE.md`
+Key Commands now says so; before #64 it named only the first two, and following it was enough to
+fail CI.
 
-**Version ordering is unresolved.** `/skill-health` v1.6.0 was filed under the v4.6.0 CHANGELOG
-section after 4.6.1 had already been claimed. No release is tagged, so this is still cosmetic —
-but both sections are now committed in PR #63, so splitting the skill-health work into its own
-v4.6.2 would mean rewriting that commit rather than restaging. Awaiting a decision.
+**Three defects this session were invisible to reading and obvious on execution** — an `ln -sfn`
+that linked a repo inside itself, the missing standalone build step, and a staleness check that
+could not see the report its own build wrote. Run the thing.
 
-**The published repo is two releases behind.** Source and `dist/` are at 4.6.1; the public repo is
-at 4.4.0 (`ff00307`). `./tools/sync-standalone-skills.sh --push` publishes it, and it refuses to
-run while `dist/` is uncommitted — satisfied once PR #63 merges, not before.
+**Two sessions shared this working tree earlier today.** One `git add -A` fired mid-build and
+committed 56 `dist/` paths as deleted while they existed on disk; caught and amended before the
+push. If a second session is open, stage by path and never stage during a build.
 
-**The fence contract.** `<!--forge-only-->…<!--/forge-only-->` *removes* but never *substitutes*.
-Since this session's build fix, a fence occupying whole lines takes its trailing newline with it,
-so the natural whole-line form is now safe. The end-of-previous-line form used throughout
-`/write-a-skill` is safe under both the old and new build.
-
-**`/write-a-skill` fences are unexercised by CI.** The skill is `standalone: false`, so the build
-never converts it and never validates its fences. They were verified by simulating the build's
-transform in Python. Any future edit to that fork needs the same manual check.
-
-**Frontmatter `description:` cannot be fenced** — a YAML value carries the markers verbatim into
-the live skill. Reword instead.
-
-**Codex overrides.** Both touched skills were reviewed this session and hashes refreshed.
-`/write-a-skill`'s override gained the company destination; `/skill-health`'s needed nothing — it
-audits the installed plugin, not this repository, so neither new check has a counterpart there.
-
-**`/skill-health`'s new checks, run for real, currently report:** published release 4.4.0 against
-`dist/` 4.6.1, 65 published skills with no per-skill version (that field shipped in 4.5.0, never
-published), and 17 stale skill versions after the portfolio-sweep filter.
+**`/skill-health`'s publication checks are now live and unrun against a fresh publish.** They read
+the published manifest via `gh` and compare it to `dist/`. Before the push they should report
+publication lag 4.4.0 vs 4.6.2 and 65 skills with no per-skill version; after it, clean. That is
+the cheapest confirmation the publish worked.
 
 ---
 
 ## Open Decisions
 
-**Three published commit subjects still name Forge.** `ff00307`, `0246fac` and `0c03e6a` in the
-public repo read `Sync standalone skills from Forge …`. Fixed for future releases in #61;
-correcting the existing three needs a force push over published history. Deliberately not done.
-
 **Whether `/skill-health` v1.6.0 stands as its own v4.6.2** rather than sitting in the v4.6.0
-section beneath the concurrent session's v4.6.1. See Context.
+CHANGELOG section beneath the concurrent session's v4.6.1. No release is tagged, so this is still
+cosmetic — but it is committed history now, so changing it means rewriting a merged commit rather
+than restaging. Note that 4.6.2 has since been used for the `setup.sh` fix.
 
-**Whether `/write-a-skill` ever ships standalone.** Deferred this session by choice: the
-destination fork is fenced and shaped for publication, but the skill stays `standalone: false`.
-Shipping it means rewriting or fencing the Forge-only back half — After Writing Files, half the
-Review Checklist, the git-tag step, the Codex fence contract. The `standalone:` template line and
-its two checklist items are also still unfenced, and are part of that same deferred sweep.
+**Three published commit subjects still name Forge.** `ff00307`, `0246fac` and `0c03e6a` in the
+public repo read `Sync standalone skills from Forge …`. Fixed for future releases in #61; correcting
+the existing three needs a force push over published history. Deliberately not done.
+
+**Whether `/write-a-skill` ever ships standalone.** Deferred by choice: the destination fork is
+fenced and shaped for publication, but the skill stays `standalone: false`. Shipping it means
+rewriting or fencing the Forge-only back half.
+
+**`review-ord` extract differs from pack v1.9.** Pre-existing and unrelated to this stream — the
+extract is unmodified in the tree, so `main` reports the same. `python3 tools/build-review-criteria.py`
+regenerates it, which pulls in pack changes nobody has reviewed. Only visible to whoever holds the
+local `requirements-documents` pack.
 
 ---
 
 ## Blockers
 
-_None._
+_None._ The precondition that blocked publishing is satisfied.
+
+---
+
+## Not Backed Up Anywhere
+
+Two local-only git repositories hold work from this session and have no remote:
+
+- `~/.claude/companies/nbn/` at `e7357a2` — the `setup.sh` fix and re-bundled skills. No remote **by
+  design**; the company repo must never be given one.
+- `~/.claude/knowledge/` at `d94ffba` — initialised this session. Holds the company glossary and
+  `docs/research/australian-accessibility-standards-for-ui.md`. No remote **by default, not by
+  design** — a decision nobody has made yet.
 
 ---
 
 ## Suggested Skills for Next Session
 
-1. `/write-a-skill` — the `setup.sh` fix edits `/add-company`'s SKILL.md; its own checklist covers
-   what that edit must satisfy.
-2. `/skill-health` — run it once PR #63 merges, to see the two new checks report against the real
-   portfolio rather than only reading correctly.
-3. `/standup` — if resuming after a gap; this stream now spans several merged PRs and two
-   release sections carried by PR #63.
+1. `/standup` — if resuming after a gap; this stream now spans PRs #59–#65 and four release sections.
+2. `/skill-health` — run it *before* the publish to capture the lag, and again after to confirm it
+   cleared. Its publication checks exist for exactly this moment and have never been run against a
+   fresh publish.
+3. `/changelog` — if the publish should carry release notes to the public repo rather than landing
+   as a bare `Release 4.6.2`.
