@@ -25,7 +25,6 @@ Generate or update token cost and complexity estimates for the current feature, 
 
 - After `/idea` grill — feature-level estimate
 - After `/write-prd` Phase 2 — per-module estimates
-
 - When scope changes and estimates are flagged as stale
 - On demand: `/user:estimate` at any point
 

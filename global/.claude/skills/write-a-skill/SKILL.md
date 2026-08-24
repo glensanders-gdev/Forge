@@ -2,12 +2,12 @@
 name: write-a-skill
 category: framework
 standalone: false
-description: Create new Forge skills with proper structure, correct file locations, and updated manifest. Use when user wants to create, write, or add a new skill to Forge, or mentions /write-a-skill.
+description: Create new Forge, company, or standalone skills with proper structure, correct file locations, and updated manifest. Use when user wants to create, write, or add a new skill, or mentions /write-a-skill.
 ---
 
 # Write a Skill
 
-Create a new skill for Forge following the standard structure. Skills live in `~/.claude/skills/` (global) or `.claude/skills/` (project-level override).
+Create a new skill following the standard structure. Skills live in `~/.claude/skills/` (global) or `.claude/skills/` (project-level override).<!--forge-only--> Step 3 settles which of three destinations it belongs to — Forge, a company, or the public standalone distribution — and that answer drives every registry step below.<!--/forge-only-->
 
 > **Writing well** — this file covers *structure* (which files, what to update). For the
 > *craft* of the prose inside them — **leading words**, checkable **completion criteria**,
@@ -23,8 +23,8 @@ Create a new skill for Forge following the standard structure. Skills live in `~
    - What does this skill do?
    - What triggers it? (keywords, slash command, context)
    - Is it global (all projects) or project-specific?
-   - Does it need supporting files (REFERENCE.md, EXAMPLES.md, scripts)?
-   - **Does it stand on its own outside Forge?** (see step 3)
+   - Does it need supporting files (REFERENCE.md, EXAMPLES.md, scripts)?<!--forge-only-->
+   - **Where does it belong — Forge, a company, or the public distribution?** (see step 3)<!--/forge-only-->
 
 2. **Check the name against [RESERVED-NAMES.md](RESERVED-NAMES.md)** — compare the proposed
    name to every Reserved row before anything is scaffolded. Report the result either way:
@@ -37,27 +37,40 @@ Create a new skill for Forge following the standard structure. Skills live in `~
    knows the name has since been released may override it. Never scaffold through a match on
    your own judgement.
 
-   Check the At Risk table too. A hit there is not a block — say so, and move on.
+   Check the At Risk table too. A hit there is not a block — say so, and move on.<!--forge-only-->
 
-3. **Decide `standalone:` — ask, do not guess.** A subset of skills is published to a public
-   repository for people who do not run Forge. The key is mandatory: the standalone build
-   refuses to run when any skill lacks it, so an unanswered question blocks the distribution
-   for every other skill.
+3. **Confirm the destination — ask, do not guess.** Three destinations. The answer settles where
+   the files land, which registries are updated, and whether the text becomes public.
 
-   Put the question to the author plainly: *"Does this skill do something useful for someone
-   who has no kanban, no sprint, no knowledge base — just Claude Code and a repository?"*
+   Put it to the author plainly: *"Is this a Forge skill, a company skill, or a standalone skill?"*
 
-   | Answer | Set | Because |
-   |---|---|---|
-   | Yes — it is about code, tests, review, requirements, or the session itself | `standalone: true` | It carries its own value |
-   | No — it reads or writes Forge's document estate, sprint state, or company config | `standalone: false` | It would be incoherent without them |
+   | Answer | Files land in | Frontmatter | Registries |
+   |---|---|---|---|
+   | **Forge** — it reads or writes Forge's document estate, sprint state, or company config | `global/.claude/skills/[name]/` | `standalone: false` | `manifest.json`, `CHANGELOG.md`, `README.md`, the `/commands` table |
+   | **Standalone** — it is useful to someone with no kanban, no sprint and no knowledge base, just a repository | `global/.claude/skills/[name]/` | `standalone: true` | all of the above, **and the text is published publicly** |
+   | **Company** — it encodes one company's systems, processes, or vocabulary | `~/.claude/companies/[active]/.claude/skills/[name]/` | no `standalone:` key — the standalone build never scans there | none of Forge's; the company repo's own git history is the record |
+
+   **The destination sets `standalone:` — never put both questions to the author.** The key is
+   mandatory for anything under `global/.claude/skills/`: the standalone build refuses to run
+   when a single skill lacks it, so one unanswered question blocks the distribution for every
+   other skill.
 
    **`true` means public.** The skill's text, including its examples and failure modes, is
    published under the author's name to a repository anyone can read. Say so when asking —
    an author who knows that writes differently.
 
-   Where the answer is genuinely unclear, set `false`. A held skill is invisible; a shipped
+   **Unsure between Forge and Standalone? Take Forge.** A held skill is invisible; a shipped
    one that makes no sense outside Forge is a bug report from a stranger.
+
+   **Resolve `[active]` before writing a company skill** — read `active_company` from
+   `~/.claude/preferences.md`. Where it is unset, or more than one company is installed, ask
+   which. Never write into a company directory on an inference, and never add a company skill
+   to Forge's `manifest.json` — company content is not committed to the Forge repository.
+
+   **A company skill is installed into `~/.claude/skills/` alongside the Forge portfolio**, so
+   its name shares one discovery namespace with every Forge and standalone skill. Check the
+   manifest for a collision as well as [RESERVED-NAMES.md](RESERVED-NAMES.md); a company skill
+   taking a Forge skill's name silently replaces it at install time.<!--/forge-only-->
 
 4. **Draft the skill** — create:
    - `SKILL.md` with concise instructions — target under 100 lines; if workflow logic exceeds this, extract supporting content (reference tables, templates, examples, scripts) to additional files (`REFERENCE.md`, `FORMATS.md`, `scripts/`, etc.)
@@ -82,7 +95,11 @@ Create a new skill for Forge following the standard structure. Skills live in `~
 ~/.claude/commands/[skill-name].md   ← if slash command needed
 ```
 
-## SKILL.md Template
+<!--forge-only-->A company skill uses the same two-file layout one level down, under
+`~/.claude/companies/[active]/.claude/` — `skills/[skill-name]/SKILL.md` and
+`commands/[skill-name].md`. Nothing else about the layout changes.
+
+<!--/forge-only-->## SKILL.md Template
 
 ```markdown
 ---
@@ -147,7 +164,12 @@ Invoke the handoff skill. Compact the current session into a structured handoff 
 
 <!--no-adapt-->The command file is what registers `/user:skill-name` in Claude Code.<!--/no-adapt--> Without it, the skill exists but cannot be invoked as a slash command.
 
-## After Writing Files
+## After Writing Files<!--forge-only-->
+
+**A company skill stops at step 3 below.** Forge's `manifest.json`, `CHANGELOG.md`, `README.md`
+and `/commands` table index the Forge portfolio only — a company skill in any of them leaks
+company content into a public repository. Commit it in the company repo instead, via
+`/sync-company`.<!--/forge-only-->
 
 1. Update `~/.claude/skills/manifest.json`:
    - New skill: add entry with version `"1.0.0"`
@@ -170,7 +192,9 @@ Split into separate files when:
 Before finalising, verify:
 - [ ] Read `~/.claude/PRINCIPLES.md` — does this skill follow the 8 design principles?
 - [ ] Read [CRAFT.md](CRAFT.md) — description front-loads a **leading word**, every step has a **checkable completion criterion**, and the prose survives the **no-op test** (no line that changes nothing versus the agent's default)
-- [ ] **Name checked against [RESERVED-NAMES.md](RESERVED-NAMES.md)** — no Reserved row matches, or a match was overridden by a typed `CONFIRM` and the reason recorded in the CHANGELOG entry
+- [ ] **Name checked against [RESERVED-NAMES.md](RESERVED-NAMES.md)** — no Reserved row matches, or a match was overridden by a typed `CONFIRM` and the reason recorded in the CHANGELOG entry<!--forge-only-->
+- [ ] **Destination confirmed** — Forge, company, or standalone; put to the author, never inferred from the skill's topic (step 3)
+- [ ] **If a company skill** — written under `~/.claude/companies/[active]/.claude/`, with `[active]` resolved from `active_company` rather than assumed, and absent from Forge's `manifest.json`, `CHANGELOG.md`, `README.md` and `/commands` table<!--/forge-only-->
 - [ ] `standalone:` field set to `true` or `false` — asked of the author, never inferred; the standalone build fails without it
 - [ ] If `standalone: true`, the skill reads correctly for someone with no kanban, sprint, or knowledge base — no dangling `/skill` references to held skills
 - [ ] `category:` field set — valid values: `pipeline`, `ideation`, `session`, `code-quality`, `knowledge`, `metrics`, `pi-release`, `sprint`, `maintenance`, `company`, `framework`
@@ -203,7 +227,10 @@ When the skill you just wrote misbehaves, the cause is usually one of these. Ful
 | A "never" rule that's really steering intended behaviour | **Negation** — reframe as a positive leading word; keep "never" only for guardrails on consequential/irreversible actions |
 | Skill was authored and never loads, with no error | **Shadowed name** — a vendor command won it. Check [RESERVED-NAMES.md](RESERVED-NAMES.md); a rename is a major version, and no stub or alias survives at the old name |
 | `SKILL.md` frontmatter has a `version:` field | Delete the line, whatever it says. Never reconcile it against the manifest instead — that keeps the second source of truth alive |
-| Proposed name matches a Reserved row | Stop and gate — offer a rename, or a typed `CONFIRM` to proceed. Never decide it alone |
+| Proposed name matches a Reserved row | Stop and gate — offer a rename, or a typed `CONFIRM` to proceed. Never decide it alone |<!--forge-only-->
+| Destination inferred from the skill's topic | Ask. A skill can be entirely about code and still be company-private |
+| A company named, but `active_company` unset or several installed | Stop and ask which company. Never write into a company directory on an inference |
+| Company skill appears in Forge's `manifest.json`, `CHANGELOG.md`, `README.md` or `/commands` table | Remove it — those index the Forge portfolio, which is public. Commit the skill in the company repo via `/sync-company` instead |<!--/forge-only-->
 | Reserved list stamp is older than the staleness threshold | Say so at the point of the check, run the refresh procedure in [RESERVED-NAMES.md](RESERVED-NAMES.md), then check the name |
 | Source is an external skill/article | Stop — use `/user:assimilate`, which handles fit evaluation and attribution |
 | Generated Codex copy states something untrue about its host | **Host-name falsification** — an unfenced product name was rewritten by the build; fence the span and rerun `tools/build-forge-codex.ps1` |

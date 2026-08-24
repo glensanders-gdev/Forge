@@ -137,6 +137,7 @@ Wait for human confirmation before proceeding.
 - Never delete `/prototype` before it is preserved on its throwaway branch and the PRD is confirmed.
 - Never wire a prototype to a real database unless persistence behaviour is the question.
 - Never build UI variants that differ only in colour or copy — variants must differ structurally, stay read-only, and the switcher must be gated out of production (see [ui-prototype.md](ui-prototype.md)).
+- Never hand over a UI variant set that has not been screened for structural accessibility — the criteria that follow from layout, hierarchy and primary affordance are decided by the variant that wins and cannot be retrofitted later (see [ui-prototype.md](ui-prototype.md) § Structural accessibility).
 
 ## Failure Modes
 
@@ -150,6 +151,8 @@ Wait for human confirmation before proceeding.
 | Adding tests/polish to spike code | Don't — a prototype that needs tests is no longer a prototype. |
 | Logic and harness blurring together | Keep the logic module pure and liftable; the harness imports it, nothing flows back (see logic-prototype.md). |
 | UI variants differ only in colour/copy | Not real choices — make each variant structurally distinct (layout, hierarchy, primary action), 3–5 max (see ui-prototype.md). |
+| UI variant set not screened for structural accessibility | Screen it before hand-over — a variant that cannot reach WCAG 2.2 AA without changing its layout is not a candidate (see ui-prototype.md). |
+| Winning variant's structural constraints not captured | Record them in `UI.md`; they become `CON-NNN` rows in the PRD, not prose. |
 | UI switcher could reach production | Gate it to dev/non-production; it exists only to drive the decision. |
 | `/write-prd` not yet complete | Don't clean `/prototype` — preserve on branch and remove only after the PRD is written and confirmed. |
 | Findings unclear after the spike | Present what was learned and the open question before recommending a next stage. |

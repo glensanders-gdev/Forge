@@ -85,7 +85,7 @@ Runs unattended. Gathers all context needed to write the PRD without asking the 
 2. Read `docs/CONTEXT.md` — domain glossary and terminology.
 3. Read grill session summary from the current conversation or `docs/DEVLOG.md`.
 4. Read any `docs/research/*.md` files relevant to this feature.
-5. Read `$prototype/LOGIC.md` and `$prototype/UI.md` if they exist.
+5. Read `$prototype/LOGIC.md` and `$prototype/UI.md` if they exist. A UI spike's **§ Structural Accessibility Constraints** is not narrative — it records what the chosen layout fixes that Implementation cannot undo, and each such constraint becomes a `CON-NNN` row in § Solution Constraints below. Carrying it as prose loses it.
 6. **Read the BRD** if one exists (`docs/brd/`) and capture two things:
    - the **objectives (`BO-N`) and business requirements (`BR-N`)** this feature traces up to — these are the IDs `$write-brd` emits, not `BRD-NN`;
    - the **cost-of-failure statements**, which are where operational tolerance lives in this chain. A story that depends on a tolerance cites the BRD statement; it never states a figure and never forward-cites an ORD section that does not exist yet.
@@ -389,6 +389,7 @@ belong to the SOAP, which answers this document. Two things only live here:
 | ID | Constraint or reference | Type | Why it binds the solution |
 |----|-------------------------|------|---------------------------|
 | CON-NNN | [e.g. must integrate with [named system] — mandated by contract] | Demand-side given | [regulatory / contractual / business mandate, with its source] |
+| CON-NNN | [e.g. [Product] reflows to 320 CSS px without two-dimensional scrolling — the chosen layout is single-column by decision] | Demand-side given | [WCAG 2.2 AA, SC 1.4.10; structural, fixed at `$prototype` variant selection] |
 | — | [e.g. [System] SOAP §N answers PRD-001's tolerance] | SOAP reference | [an answer that already exists and is cited, not restated] |
 
 - A **demand-side given** is a constraint the business imposes regardless of design — a named system
@@ -397,6 +398,7 @@ belong to the SOAP, which answers this document. Two things only live here:
   `rules/requirements/tables.md`; a SOAP reference is a citation, not a commitment, and carries `—`.
 - A **SOAP reference** is only valid where the SOAP already exists. Apply the existence test: where
   architecture's answer does not yet exist, the figure is not this document's to invent.
+- A **structural accessibility constraint** carried out of `$prototype` is a demand-side given like any other: the accessibility floor is regulatory in source (in Australia, WCAG 2.2 Level AA under the Disability Discrimination Act 1992 for any public-facing service), and the layout that satisfies it was fixed when the variant won. Cite the SC and name it structural, so a reader knows it cannot be traded away at build time. Implementational accessibility — contrast, names and roles, live regions — is not a `CON-NNN`; it is ordinary delivery work and belongs to `$accessibility`.
 - Where neither applies, write `None` and let the SOAP hop do its work.
 
 Do NOT include file paths or code snippets — these go stale quickly, and they are not demand.

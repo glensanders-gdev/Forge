@@ -1,11 +1,11 @@
 {
   "repository": "https://github.com/glensanders-gdev/skills",
-  "version": "4.5.0",
+  "version": "4.6.1",
   "skill_count": 65,
   "skills": [
     {
       "name": "accessibility",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "category": "code-quality",
       "description": "Design, implement, and audit inclusive digital products using WCAG 2.2 Level AA standards. Generates semantic ARIA for Web and accessibility attributes for native platforms (iOS/Android). Use when building or reviewing any user-facing interface, running an accessibility audit, or when /qa-plan flags accessibility as a concern."
     },
@@ -185,7 +185,7 @@
     },
     {
       "name": "prototype",
-      "version": "2.1.0",
+      "version": "2.1.1",
       "category": "pipeline",
       "description": "Spike throwaway code to answer a specific design question before writing the PRD. Pick a branch first — a logic/state question builds an interactive Logic Prototype (see logic-prototype.md); a visual/UX question builds structurally different UI variants behind a switcher (see ui-prototype.md). Findings feed /write-prd; the spike is preserved on a throwaway branch, then cleaned from the working tree. Use when a design question is cheaper to answer in code than in discussion."
     },
@@ -383,7 +383,7 @@
     },
     {
       "name": "write-prd",
-      "version": "2.7.2",
+      "version": "2.7.3",
       "category": "pipeline",
       "description": "Synthesize the current conversation, grill session, research, and prototype findings into a structured PRD aligned with ISO/IEC/IEEE 29148:2018 — the functional demand document sitting between the BRD and the SOAP, stating what is built and for whom and carrying no technical figure. Executes in two phases — AFK explore then HITL write — with a confirmation gate between them. Use when user runs /write-prd or when grill-me confirms shared understanding is reached."
     },

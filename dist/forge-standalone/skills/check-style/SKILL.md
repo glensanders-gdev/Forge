@@ -85,7 +85,6 @@ Ask the user how to provide the document:
 ## Related
 
 - `~/.claude/knowledge/company/style-guide.md` — canonical **Company Style Guide** this skill reads
-
 - `/push-standards` — enforces coding standards; check-style handles prose and documentation standards
 - `/write-article` — primary consumer of check-style for external content
 

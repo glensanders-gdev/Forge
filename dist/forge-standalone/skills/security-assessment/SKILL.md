@@ -282,7 +282,6 @@ Confirm to the user:
    Kanban tickets created: N (SEC-YYYYMMDD-001 … SEC-YYYYMMDD-N)
 
    Next assessment due: YYYY-MM-DD (+30 days)
-
 ```
 
 ---

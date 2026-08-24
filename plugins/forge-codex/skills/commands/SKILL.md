@@ -165,7 +165,7 @@ Print the following reference exactly:
 ### Framework
 | Command | What it does |
 |---------|-------------|
-| `write-a-skill` | Create a new Forge skill with correct structure and manifest entry |
+| `write-a-skill` | Create a new Forge, company, or standalone skill with correct structure and manifest entry |
 | `assimilate` | Adapt an external idea into Forge — evaluates fit, adapts with Forge conventions, credits source |
 | `learn` | Capture a session pattern as a Forge instinct — checks duplicates, increments count, one behaviour question |
 | `evolve` | Review High confidence instincts — PROMOTE to skill, DEFER, or RETIRE. Never auto-promotes. |
