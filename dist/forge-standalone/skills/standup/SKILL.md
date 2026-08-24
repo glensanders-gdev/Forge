@@ -29,7 +29,6 @@ Generate a concise standup summary from the project's living documents. No input
    - Run `/feature-flag check` — surface any flags past their removal date
    - If within `freeze_warning_days_ahead` of a freeze period → flag it
    - If today is a likely public holiday for any configured team locale → note it
-   
 8. Produce the standup report.
 9. Ask: "Are these the right goals for today, or do you want to adjust?"
 
@@ -78,6 +77,5 @@ Generate a concise standup summary from the project's living documents. No input
 | `DEVLOG.md` missing or empty | Note "No session history found — this may be a fresh project." Ask user to state goals directly. |
 | `kanban.md` missing | Note "No kanban found." Ask user to confirm goals and whether to run `/write-prd` first. |
 | `priorities.md` missing | Skip priority ordering. Surface tickets in kanban order. |
-
 | No active PRD | Note "No active PRD." State which feature is in progress based on kanban if possible. |
 | Go/No Go date calculation fails | Skip deadline flag. Do not guess dates. |

@@ -86,7 +86,22 @@ function Convert-StandaloneText([string]$Text, [string]$SourcePath, [string[]]$H
     # <!--forge-only--> ... <!--/forge-only--> is dropped entirely. An unbalanced fence
     # would ship Forge-internal text to a public repo silently, so it fails the build --
     # same contract as the <!--no-adapt--> fence in build-forge-codex.ps1.
+    #
+    # Two passes, because a fence that occupies whole lines must take its trailing newline
+    # with it. Removing only the span leaves the blank line the fenced text sat on, which
+    # splits a markdown table in two wherever the fenced line was a row -- silently, in the
+    # published output. Prose survives it (the \n{3,} collapse below hides it), tables do not.
+    #
+    # Pass 1 is line-anchored: it fires only when nothing but whitespace precedes the opening
+    # fence and nothing but whitespace follows the closing one. The (?!<!--forge-only-->)
+    # guard stops a lazy match from stepping over a later fence to find a line-ending close,
+    # which would delete every line in between.
+    $out = [regex]::Replace($out, "(?sm)^[ \t]*<!--forge-only-->(?:(?!<!--forge-only-->).)*?<!--/forge-only-->[ \t]*\n", "")
+
+    # Pass 2: everything left is an inline fence, removed in place. Its newline belongs to
+    # the surrounding sentence and stays.
     $out = [regex]::Replace($out, "(?s)<!--forge-only-->.*?<!--/forge-only-->", "")
+
     if ($out -match "<!--/?forge-only-->") {
         throw "Unbalanced <!--forge-only--> fence in $SourcePath"
     }

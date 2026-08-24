@@ -97,7 +97,6 @@ Base the skill suggestions on the resolved stream's pipeline position — not th
 | Current state | Suggest |
 |--------------|---------|
 | PRD written, no testplan | `/testplan` then `/estimate` |
-
 | Build in progress | `/build` (resume) |
 | Build complete, no QA | `/qa-plan` then `/check-pii` |
 | QA complete | `/approve` |

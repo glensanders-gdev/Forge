@@ -1,6 +1,6 @@
 ---
 name: "write-a-skill"
-description: "Create new Forge skills with proper structure, correct file locations, and updated manifest. Use when user wants to create, write, or add a new skill to Forge, or mentions $write-a-skill."
+description: "Create new Forge, company, repository, or user skills with proper structure, correct file locations, and updated manifest. Use when user wants to create, write, or add a new skill, or mentions $write-a-skill."
 metadata:
   category: framework
   origin: Adapted from Glen Sanders (Forge / https://github.com/glensanders-gdev/Forge)
@@ -13,6 +13,9 @@ Create or update a skill without confusing Forge's canonical source, its generat
 - **Forge framework skill:** author `global/.claude/skills/[name]/`, then generate `plugins/forge-codex/skills/[name]/`. Keep a separate reviewed Codex copy when runtime behavior differs.
 - **Repository Codex skill:** use `.agents/skills/[name]/SKILL.md`.
 - **User Codex skill:** use `~/.agents/skills/[name]/SKILL.md`.
+- **Company skill:** author it in the company repo under `.claude/skills/[name]/SKILL.md`, which `add-company` installs. The Codex-side discovery location for company skills is undefined — `add-company` scaffolds `~/.codex/forge/companies/[name]/` but says nothing about skills. Settle it there before writing one; do not invent a path here.
+
+Confirm which of these four the author means before scaffolding. Never infer it from the skill's topic — a skill can be entirely about code and still be company-private.
 
 > **Writing well** — this file covers *structure* (which files, what to update). For the
 > *craft* of the prose inside them — **leading words**, checkable **completion criteria**,

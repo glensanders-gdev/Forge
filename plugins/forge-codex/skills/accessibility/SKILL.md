@@ -22,6 +22,7 @@ Ensures digital interfaces are Perceivable, Operable, Understandable, and Robust
 
 ## Forge Integration Points
 
+- **`$prototype`** (UI branch) — the criteria that follow from layout, hierarchy and primary affordance are screened at variant selection, before a winner is picked; this skill owns everything else, at rewrite time
 - **`$qa-plan`** — request an accessibility section in the QA checklist for any UI feature
 - **`$review-diff`** — include accessibility anti-patterns in the review
 - **`$check-pii`** — accessible error messages must not expose PII

@@ -69,7 +69,7 @@
     "skill-health": {
       "source": "global/.claude/skills/skill-health/SKILL.md",
       "codex": "plugins/forge-codex/skills/skill-health/SKILL.md",
-      "reviewedSourceSha256": "96B2EDBE50CD00B29C6937275B001263CC717C60C286D49B7EF8BF5230B37558"
+      "reviewedSourceSha256": "BBDB792D7DFF80D63EAB9079A3B37D95D9022C3BB0E2FD10B6C7E88D9C039670"
     },
     "end-sprint": {
       "source": "global/.claude/skills/end-sprint/SKILL.md",
@@ -84,7 +84,7 @@
     "write-a-skill": {
       "source": "global/.claude/skills/write-a-skill/SKILL.md",
       "codex": "plugins/forge-codex/skills/write-a-skill/SKILL.md",
-      "reviewedSourceSha256": "ED8F26D3A4427F8DE37F98055B18F6DF7B29D1C35CE69F99B62FD96F9560244C"
+      "reviewedSourceSha256": "13CDC30DB2E57B3DC1015A0CCDD86ECE32D2251748E8A325115FB132E0558A90"
     }
   }
 }

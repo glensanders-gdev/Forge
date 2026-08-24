@@ -11,6 +11,97 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
+## v4.6.1 — 2026-08-24
+
+**The prototype's accessibility finding now has somewhere to land.**
+
+v4.4.0 made `$prototype` capture the winning variant's structural accessibility constraints. It did
+not say where they go, so `$write-prd` read them and synthesised them into prose — and under
+`rules/requirements/tables.md` a binding statement written as prose is the defect that ruleset exists
+to prevent. A capture with no consumer is theatre.
+
+### Changed
+
+- **Structural accessibility constraints become `CON-NNN` rows.** `$write-prd` § Solution Constraints
+  already defined a demand-side given as "regulatory / contractual / business mandate, with its
+  source" — which is exactly what an accessibility floor fixed at variant selection is. Phase 1 step 5
+  now says so when it reads `$prototype/UI.md`, the section carries a worked `CON-NNN` example
+  (reflow to 320 CSS px, SC 1.4.10, marked structural), and a new bullet draws the line: structural
+  constraints bind and carry an ID; implementational accessibility — contrast, names and roles, live
+  regions — is ordinary delivery work owned by `$accessibility`.
+- **`ui-prototype.md` step 6 names the destination** rather than saying "the PRD inherits it".
+- **`$prototype` SKILL.md gains the enforcement surface.** A `Never` rule against handing over an
+  unscreened variant set, plus two failure-mode rows — set not screened, and winner's constraints not
+  captured. The parent skill is what an agent reads first; the method file is a link away.
+- **`$accessibility` Forge Integration Points now lists `$prototype`.** The cross-reference was
+  one-way: the prototype pointed at the skill, and the skill did not know the stage existed.
+
+### Not changed, deliberately
+
+- The Logic Prototype branch — layout is not its question.
+- `write-ord/REFERENCE.md` §3.7.1's unpinned "WCAG level" — correct, jurisdiction varies. Line 46 was
+  the defect and v4.4.0 fixed it.
+- Downstream coverage was already in place and needed nothing: `qa-plan` mandates the accessibility
+  checklist for any UI feature and forbids omitting it, and `tdd` routes pure layout changes to an
+  accessibility check.
+
+---
+
+## v4.6.0 — 2026-08-24
+
+**`$write-a-skill` asks where the skill belongs before it asks anything else about publication.**
+
+The skill knew about two outcomes — a Forge skill, or a Forge skill that also publishes. It had no
+word for the third, even though `$add-company` has scaffolded `~/.codex/forge/companies/[name].agents/skills/`
+since it was written. An author writing something company-specific was walked through Forge's
+manifest, changelog, README and command table, all of which are public.
+
+- Step 3 is now a destination question — Forge, company, or standalone — put to the author, never
+  inferred from the skill's topic. It settles the file location, the registries to update, and
+  whether the text becomes public.
+- The destination sets `standalone:`; the author is no longer asked both questions. Unsure between
+  Forge and Standalone resolves to Forge, as before.
+- A company skill lands under `~/.codex/forge/companies/[active].codex/forge/`, carries no `standalone:` key,
+  and enters none of Forge's registries. `[active]` is resolved from `active_company` rather than
+  assumed — an unset or ambiguous value stops and asks.
+- The whole destination fork is fenced ``. The published copy of the skill, if it
+  is ever shipped, has one destination and asks nothing.
+
+**A whole-line `forge-only` fence no longer splits a published table.**
+
+`build-forge-standalone.ps1` removed the fenced span but not the newline it sat on. In prose the
+leftover blank line was hidden by the existing `\n{3,}` collapse; where the fenced line was a table
+row, the table split in two — silently, in the public repository. `$handoff` and `$standup` were
+both shipping broken tables.
+
+- Fence stripping is now two passes. A fence occupying whole lines takes its trailing newline with
+  it; an inline fence leaves the surrounding sentence's newline alone. The line-anchored pass is
+  guarded against stepping over a later fence to find a line-ending close.
+- 6 stray blank lines removed across 5 published skills. No content changed.
+
+**`$skill-health` audits the two version numbers nothing was checking.**
+
+Parity checks that the Forge and Codex manifests agree with *each other*, never that an edited
+skill was bumped at all. And every standalone check read `dist/`, so a published tree a release
+behind stayed invisible — `dist/` matched source the whole time it was stale.
+
+- `stale_skill_versions` compares the commit that set a skill's current version against the most
+  recent commit touching its directory. Later directory, stale version. ⚠️ Amber.
+- **Portfolio sweeps are excluded** — a commit touching 10 or more skill directories is
+  mechanical, and counting it would bury real findings under the whole portfolio. Without the
+  filter the check fires on 109 of 113 skills; with it, 17. The skipped sweeps are reported, not
+  hidden, so the exemption stays reviewable.
+- `publication_lag` and `published_skill_drift` compare `dist/` against the published repository
+  itself — read live via `gh`, else from `.standalone-sync`'s `origin/main` with its fetch date
+  stated. No fetch, no network write; the audit stays read-only.
+- Where the published state cannot be read, the check reports `publication_unverified` rather
+  than rendering an empty table. A check that passes silently when it could not run is worse
+  than no check.
+
+`$skill-health` v1.5.0 → v1.6.0, `$write-a-skill` v1.6.0 → v1.7.0.
+
+---
+
 ## v4.5.0 — 2026-08-24
 
 **The standalone distribution becomes visible to the skills that maintain it.**

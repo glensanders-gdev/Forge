@@ -32,6 +32,9 @@ Output inline and save to `~/.claude/knowledge/skill-health-report.md`:
 Anything listed as published is a public artefact — changes to it reach an audience
 outside this repository.
 
+**Published repository:** release `N.N.N` [✅ matches `dist/` / ⚠️ N releases behind /
+ℹ️ not verified]. Read from [gh / `.standalone-sync` origin-main, fetched YYYY-MM-DD / unread].
+
 ---
 
 ## 🔴 Critical — Must Fix
@@ -90,6 +93,18 @@ outside this repository.
 | Skill | Changed | `dist/` built | Action |
 |-------|---------|---------------|--------|
 
+### Stale skill versions (skill changed after its manifest version was set)
+| Skill | Version | Version set | Last changed | Action |
+|-------|---------|-------------|--------------|--------|
+
+*N portfolio sweep(s) excluded — [commit: what it touched, N skills]. A sweep that genuinely
+changed behaviour still needs its bumps; review the list before dismissing it.*
+
+### Publication drift (`dist/` vs the published repository)
+| Item | `dist/` | Published | Action |
+|------|---------|-----------|--------|
+| Release version | N.N.N | N.N.N | Run `tools/sync-standalone-skills.sh` |
+
 ### Attribution gaps (origin: in frontmatter, no body credit)
 | Skill | Origin | Action |
 |-------|--------|--------|
@@ -109,6 +124,13 @@ outside this repository.
 ### Version mismatches (SKILL.md version != manifest version)
 | Skill | SKILL.md | Manifest | Action |
 |-------|----------|----------|--------|
+
+### Publication state unverified
+| Item | Value |
+|------|-------|
+| Source attempted | gh / `.standalone-sync` / none available |
+| Reason | [gh not installed, not authenticated, offline, no fetched ref] |
+| Consequence | The published repository was not compared. These findings are absent, not clean. |
 
 ### At-risk names (not reserved today, plausibly claimed next)
 | Skill | Why exposed |
