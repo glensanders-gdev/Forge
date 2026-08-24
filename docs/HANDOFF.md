@@ -1,6 +1,6 @@
 # Handoffs: Forge Framework
 
-**Last updated:** 2026-08-24 09:44
+**Last updated:** 2026-08-24 10:27
 **Register version:** 2
 
 Pointer rows only — each stream's handoff lives at `docs/handoffs/<slug>.md`. Schema, resolution
@@ -8,7 +8,7 @@ rules, lifecycle and the conflict guard are specified in `~/.claude/skills/hando
 
 | Stream | Title | Status | Updated | Next action | Touches |
 |---|---|---|---|---|---|
-| `standalone-skills` | Standalone skills distribution | Active | 2026-08-24 09:44 | Add the version-bump check to `/skill-health`; publish 4.5.0 | `global/.claude/`, `dist/forge-standalone/`, `tools/` |
+| `standalone-skills` | Standalone skills distribution | Active | 2026-08-24 10:27 | Fix setup.sh copying company skills into the Forge repo; then commit split, publish 4.6.1 | `global/.claude/`, `dist/forge-standalone/`, `plugins/forge-codex/`, `tools/` |
 
 `skill-naming` (v4.1.2) and `ai-requirements` (v4.2.0) closed on 2026-08-23.
 
