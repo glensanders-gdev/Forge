@@ -669,6 +669,10 @@ Copy the following 17 skills from the user's global `~/.claude/` install into th
 
 If a skill file is missing from `~/.claude/` (not yet installed), note it in the confirm output and skip — do not block setup.
 
+**These are copies of Forge skills, not company-authored ones.** They are bundled so a teammate who clones the company repo without installing Forge still has them. On a machine that *does* have Forge, `setup.sh` skips the whole bundle — `~/.claude/skills` and `~/.claude/commands` are symlinks into the Forge repository, so copying into them overwrites live skills with older copies and leaves directories the standalone build rejects for carrying no `standalone:` key. Forge's copies are canonical wherever both are present.
+
+**Bundle names must track Forge renames.** A bundled directory keeps whatever name it had when it was copied; renaming the skill in Forge does not rename it here. A stale name installs as a *new* skill on a no-Forge machine and shadows nothing, so it fails silently — re-bundle after any rename.
+
 **Version note:** Skills are copied at install time. To update after a Forge upgrade, re-run `/add-company` or manually overwrite the `.claude/skills/[skill]/SKILL.md` files from `~/.claude/skills/`.
 
 ---
@@ -689,10 +693,20 @@ CLAUDE_DIR="$HOME/.claude"
 
 echo "Setting up Forge for [Company Name]..."
 
-# 1. Symlink company repo into Forge companies directory
+# 1. Link the company repo into the companies directory.
+#
+# Where the repo was initialised in place it already *is* the target. `ln -sfn` would
+# then see an existing directory and create the link inside it — ~/.claude/companies/
+# [name]/[name] pointing at its own parent. Check before linking.
 mkdir -p "$CLAUDE_DIR/companies"
-ln -sfn "$REPO_DIR" "$CLAUDE_DIR/companies/$COMPANY_NAME"
-echo "  ↳ Linked: ~/.claude/companies/$COMPANY_NAME → $REPO_DIR"
+LINK_TARGET="$CLAUDE_DIR/companies/$COMPANY_NAME"
+RESOLVED="$(cd "$LINK_TARGET" 2>/dev/null && pwd -P || true)"
+if [ "$RESOLVED" = "$REPO_DIR" ]; then
+  echo "  ↳ Already in place: $LINK_TARGET"
+else
+  ln -sfn "$REPO_DIR" "$LINK_TARGET"
+  echo "  ↳ Linked: ~/.claude/companies/$COMPANY_NAME → $REPO_DIR"
+fi
 
 # 2. Set active_company in preferences.md
 PREFS="$CLAUDE_DIR/preferences.md"
@@ -706,23 +720,35 @@ else
   echo "  ↳ Set active_company: $COMPANY_NAME in preferences.md"
 fi
 
-# 3. Install company skills and commands to ~/.claude/
+# 3. Install the bundled skills and commands — only where Forge is absent.
+#
+# The bundled skills are copies of Forge skills, carried so a teammate without Forge
+# still gets them. Forge's install.sh symlinks ~/.claude/skills and ~/.claude/commands
+# into its own repository, so copying into those paths on a machine that has Forge
+# writes into the Forge working tree — overwriting live skills with older copies and
+# creating directories the standalone build then rejects for carrying no `standalone:`
+# key. A symlink is the signal that Forge is installed and already owns these names.
 SKILLS_SRC="$REPO_DIR/.claude/skills"
 CMDS_SRC="$REPO_DIR/.claude/commands"
 
-if [ -d "$SKILLS_SRC" ]; then
-  for skill_dir in "$SKILLS_SRC"/*/; do
-    skill=$(basename "$skill_dir")
-    mkdir -p "$CLAUDE_DIR/skills/$skill"
-    cp "$skill_dir/SKILL.md" "$CLAUDE_DIR/skills/$skill/SKILL.md"
-  done
-  echo "  ↳ Installed $(ls "$SKILLS_SRC" | wc -l | tr -d ' ') company skills"
-fi
+if [ -L "$CLAUDE_DIR/skills" ] || [ -L "$CLAUDE_DIR/commands" ]; then
+  echo "  ↳ Forge is installed — bundled skills and commands skipped."
+  echo "    Forge's own copies are canonical and are left untouched."
+else
+  if [ -d "$SKILLS_SRC" ]; then
+    for skill_dir in "$SKILLS_SRC"/*/; do
+      skill=$(basename "$skill_dir")
+      mkdir -p "$CLAUDE_DIR/skills/$skill"
+      cp "$skill_dir/SKILL.md" "$CLAUDE_DIR/skills/$skill/SKILL.md"
+    done
+    echo "  ↳ Installed $(ls "$SKILLS_SRC" | wc -l | tr -d ' ') bundled skills"
+  fi
 
-if [ -d "$CMDS_SRC" ]; then
-  mkdir -p "$CLAUDE_DIR/commands"
-  cp "$CMDS_SRC"/*.md "$CLAUDE_DIR/commands/"
-  echo "  ↳ Installed $(ls "$CMDS_SRC"/*.md | wc -l | tr -d ' ') company commands"
+  if [ -d "$CMDS_SRC" ]; then
+    mkdir -p "$CLAUDE_DIR/commands"
+    cp "$CMDS_SRC"/*.md "$CLAUDE_DIR/commands/"
+    echo "  ↳ Installed $(ls "$CMDS_SRC"/*.md | wc -l | tr -d ' ') bundled commands"
+  fi
 fi
 
 echo ""
@@ -860,6 +886,7 @@ Next steps:
 | User skips a grilling topic | Record as default or blank with a `# TODO` comment in config.md — do not block setup |
 | User provides non-IANA timezone | Accept as-is but note: "Verify this is a valid IANA timezone — /standup will use it for holiday warnings." |
 | Skill missing from ~/.claude/ at bundle time | Skip it, note in confirm output: "⚠️ [skill] not found in ~/.claude/skills/ — not bundled. Install Forge first if this is needed." |
+| `~/.claude/skills` or `~/.claude/commands` is a symlink at setup time | Forge is installed and owns those names — skip the bundled copies entirely and say so. Never write through the symlink. |
 
 ---
 
@@ -870,5 +897,7 @@ Next steps:
 - All grilling topics may be skipped — note defaults and add `# TODO` comments
 - The `~/.claude/companies/` path is outside the Forge repo — no `.gitignore` needed in the repo
 - Do not create a `.git` repository inside the company directory — that is `/company-git`'s job
+- Never let `setup.sh` copy the bundled skills or commands into `~/.claude/skills` or `~/.claude/commands` when either is a symlink — that path is Forge's own repository, and the copy overwrites live skills and breaks the standalone build
+- Never bundle a skill under a name Forge has since renamed — re-bundle after a rename, or the copy installs as a new skill that shadows nothing and fails silently
 - Never pre-populate stub files with invented company data
 - config.md is written once with real values — it is not a template for the user to fill in manually (beyond the labelled placeholders)

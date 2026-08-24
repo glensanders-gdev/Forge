@@ -11,6 +11,51 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
+## v4.6.2 — 2026-08-24
+
+**`setup.sh` wrote company skills into the Forge repository.**
+
+`/add-company` bundles 17 Forge skills into the company repo so a teammate without Forge still has
+them, and `setup.sh` copies them to `~/.claude/skills` and `~/.claude/commands`. Forge's `install.sh`
+symlinks both of those paths into the Forge repository — so on a machine with both installed, the
+copy wrote straight into the Forge working tree. Verified against the live `nbn` repo before the fix:
+11 of the 17 names matched live Forge skills and were overwritten with older copies, and 6 carried
+pre-rename names (`pii-check`, `style-check`, `company-sync`, `tool-add`, `tool-check`,
+`knowledge-onboard`) that landed as new untracked directories with no `standalone:` key — which
+throws `build-forge-standalone.ps1` for every skill, not just those six.
+
+### Fixed
+
+- **`setup.sh` skips the bundle where Forge is installed.** A symlink at `~/.claude/skills` or
+  `~/.claude/commands` is the signal that Forge owns those names, and the bundle is redundant there
+  by construction — it exists for the machine that has no Forge. The template in
+  `add-company/SKILL.md` § `setup.sh` now guards on it and says why.
+- **A second bug, found by running the script rather than reading it.** Step 1 ran
+  `ln -sfn "$REPO_DIR" "$CLAUDE_DIR/companies/$COMPANY_NAME"`. Where a company repo was
+  initialised *in place* it already **is** that path, so `ln` saw an existing directory and created
+  the link inside it — `companies/[name]/[name]` pointing at its own parent, which then gets
+  committed to the company repo. Step 1 now resolves the target and skips when it already matches.
+- **Verified end-to-end**, not by reading: the live `nbn` `setup.sh` was patched and run twice, the
+  self-referential link did not reappear, and the Forge working tree came out byte-identical to
+  before the runs.
+
+### Added
+
+- **§ Company Skills states what the bundle is** — copies of Forge skills for the no-Forge case, not
+  company-authored skills — and that Forge's copies are canonical wherever both are present.
+- **A rename rule.** A bundled directory keeps the name it was copied under; renaming the skill in
+  Forge does not rename it in the bundle, so a stale name installs as a *new* skill on a no-Forge
+  machine and shadows nothing. It fails silently, which is why it survived six renames.
+- Two `Never` rules and a failure-mode row covering the symlink case.
+
+### Known — outside this repository
+
+The live `nbn` company repo carried all six stale names and all 17 bundled copies had drifted from
+their Forge originals. Renamed and re-bundled there in its own local-only repository; that work is
+not part of this commit and is not published.
+
+---
+
 ## v4.6.1 — 2026-08-24
 
 **The prototype's accessibility finding now has somewhere to land.**

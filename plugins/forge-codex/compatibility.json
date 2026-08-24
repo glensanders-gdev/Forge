@@ -9,7 +9,7 @@
     "add-company": {
       "source": "global/.claude/skills/add-company/SKILL.md",
       "codex": "plugins/forge-codex/skills/add-company/SKILL.md",
-      "reviewedSourceSha256": "74371284C005FFDF26F825673E04E241E2CC20C75743C0E2656D9A97AE6DEEBD"
+      "reviewedSourceSha256": "3476F4294E617E1F8B0A319830DE34EAF5EF0CFC7BAE9822630F782469AFA947"
     },
     "update-company": {
       "source": "global/.claude/skills/update-company/SKILL.md",

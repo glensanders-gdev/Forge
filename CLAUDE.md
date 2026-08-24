@@ -24,11 +24,24 @@ bash update.sh
 
 # Verify Codex plugin is not stale and Claude/Codex are in parity
 ./tools/test-forge-parity.ps1          # PowerShell / Windows
+
+# Regenerate the standalone skills distribution (see below)
+./tools/build-forge-standalone.ps1 -Strict   # PowerShell / Windows
 ```
+
+**There are three build targets, and CI checks all three.** After changing a shared skill, run
+the Codex build *and* the standalone build, and commit both `plugins/forge-codex/` and
+`dist/forge-standalone/` alongside your change. A version bump alone is enough to make `dist/`
+stale, because the release version is stamped into its README and manifest.
 
 CI (`forge-parity.yml`) runs on every push/PR and fails if:
 1. The Codex plugin output is stale (not committed after a shared skill change)
 2. Claude and Codex skill parity checks fail
+3. The standalone distribution is stale — CI runs `build-forge-standalone.ps1 -Strict` and fails
+   if `dist/forge-standalone/` differs from the committed tree
+4. The review-criteria extracts are stale — this one is expected to skip in CI, because the
+   `requirements-documents` pack is held locally and is not in this repo. It runs for whoever
+   holds the pack, who is the only party able to regenerate it.
 
 ## Architecture
 
@@ -43,10 +56,13 @@ global/.claude/         ← source of truth for all shared skills
   PRINCIPLES.md         ← design philosophy; read before writing a new skill
 
 plugins/forge-codex/    ← generated Codex plugin (committed, do not edit manually)
+dist/forge-standalone/  ← generated standalone distribution (committed, do not edit manually)
 tools/
   build-forge-codex.ps1           ← generates plugins/forge-codex/ from global/.claude/
+  build-forge-standalone.ps1      ← generates dist/forge-standalone/ from global/.claude/
   test-forge-parity.ps1           ← enforces Claude/Codex skill parity
   update-forge-codex-overrides.ps1 ← reviews Codex-native overrides when shared source changes
+  build-review-criteria.py        ← regenerates review criteria from the local requirements pack
 
 project-template/       ← scaffold copied into consumer projects (not used by Forge itself)
 docs/                   ← Forge's own DEVLOG, kanban, and PRD history
