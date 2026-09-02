@@ -11,6 +11,34 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
+## v4.6.3 — 2026-09-02
+
+**`$prototype`'s variant switcher exempted itself from the accessibility it depends on.**
+
+`ui-prototype.md` step 4 reasoned that because the floating switcher is gated out of production, it
+carries "no conformance obligation of its own". True about shipping, and it contradicted step 5 one
+paragraph later: where the surface is public-facing, the evaluation includes participants with
+disability — and the bar is the only way to reach a variant. The exemption gated those participants
+out of the study the same skill mandates.
+
+### Changed — `prototype` 2.1.1 → 2.2.0
+
+- **The exemption is narrowed to what is actually true.** Never shipping discharges the switcher's
+  *shipping* obligation, not its *operability* one. Step 4 now says so and points at the floor.
+- **New § Switcher operability** — five checks, none needing a tool: real `<button>` arrows,
+  accessible names on both, an announced variant change (focus move or live region, chosen
+  deliberately), 24×24 CSS px on the bar's own controls, and a visible focus indicator. Explicitly a
+  floor and not an audit — the rest of WCAG remains the rewrite's, per the skill's existing position.
+- **SC 1.4.13 Content on Hover or Focus (AA) added to the structural screen.** A hover-revealed
+  primary affordance is an affordance decision in the same class as 2.5.7 Dragging Movements, which
+  the table already carried.
+- **Matching anti-pattern:** never hand over a switcher a participant with disability cannot drive.
+
+The variant-set position is unchanged and was already correct — screen the structure, audit the
+rewrite. The fourteen existing SC numbers and levels were verified against WCAG 2.2 and none moved.
+
+---
+
 ## v4.6.2 — 2026-08-24
 
 **`setup.sh` wrote company skills into the Forge repository.**

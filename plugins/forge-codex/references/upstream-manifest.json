@@ -1,5 +1,5 @@
 {
-  "forge_version": "4.6.2",
+  "forge_version": "4.6.3",
   "skills": {
     "setup-brain": "2.0.0",
     "scan-first": "1.0.0",
@@ -11,7 +11,7 @@
     "grill-with-peer": "1.0.0",
     "graphify": "1.0.2",
     "research": "1.0.0",
-    "prototype": "2.1.1",
+    "prototype": "2.2.0",
     "write-prd": "2.7.3",
     "diagnose": "1.0.0",
     "approve": "1.2.0",
