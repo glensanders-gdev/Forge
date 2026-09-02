@@ -1,6 +1,6 @@
 {
   "repository": "https://github.com/glensanders-gdev/skills",
-  "version": "4.6.3",
+  "version": "4.6.4",
   "skill_count": 65,
   "skills": [
     {
@@ -227,7 +227,7 @@
     },
     {
       "name": "review-brd",
-      "version": "2.0.0",
+      "version": "2.0.1",
       "category": "pipeline",
       "description": "Assess a submitted BRD against the published handoff gate — BH-1 to BH-10, the [TBD] treatment rule and the four outcomes — returning a per-item verdict table with evidence and a mechanically derived outcome. Criteria are read from the requirements-documents pack at review time, never recalled. Use when a BRD arrives for ORD development, when /review-brd is run, or before ORD work is assigned against a BRD."
     },
@@ -239,7 +239,7 @@
     },
     {
       "name": "review-ord",
-      "version": "2.0.0",
+      "version": "2.1.0",
       "category": "pipeline",
       "description": "Assess a submitted ORD against the published §7.1 handoff gate — OH-1 to OH-13, the four outcomes, the §7.3 refuse-to-produce scan and the §5 tier rule — returning a per-item verdict table with evidence and a mechanically derived outcome. Criteria are read from the requirements-documents pack at review time, never recalled. Use when an ORD is ready for solution architecture, when /review-ord is run, or before handoff is declared."
     },
@@ -371,7 +371,7 @@
     },
     {
       "name": "write-brd",
-      "version": "1.1.1",
+      "version": "1.1.2",
       "category": "pipeline",
       "description": "Author a Business Requirements Document to the pack's BABOK v3 standard — SMART objectives carrying baseline, target and date, outcomes rather than solutions, and a cost-of-failure case for each objective carrying operational exposure — then self-assess it against the BH-1 – BH-10 handoff gate that decides whether ORD development can start. Runs AFK ingest, HITL write, then the gate. The standard is read at authoring time, never recalled. Use when a BRD is needed from a request brief, idea, transcript or notes, when /write-brd is run, or when an ORD task turns out to be a BRD task in disguise."
     },
