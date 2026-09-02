@@ -38,6 +38,7 @@ Run this as a **screen over the variant set, not an audit of the spike**. The qu
 | 1.4.4 | Resize Text (200%) | AA | Fixed-height containers, side-by-side panes |
 | 1.4.10 | Reflow (320 CSS px, no 2-D scroll) | AA | Multi-column and multi-pane arrangements |
 | 1.4.12 | Text Spacing | AA | Tight vertical rhythm chosen for density |
+| 1.4.13 | Content on Hover or Focus | AA | Whether the primary affordance is hover-revealed — a menu, a tooltip, a preview. An affordance decision, like 2.5.7 |
 | 2.4.3 | Focus Order | A | DOM order against visual order |
 | 2.4.6 | Headings and Labels | AA | The hierarchy under test *is* the heading structure |
 | 2.4.11 | Focus Not Obscured (Minimum) | AA | Sticky chrome, floating action bars, docked drawers |
@@ -49,12 +50,28 @@ Run this as a **screen over the variant set, not an audit of the spike**. The qu
 
 **WCAG 2.2 Level AA is the floor, not the aspiration.** In Australia it is the minimum for any public-facing digital service in *either* sector — Disability Discrimination Act 1992 s.24, via the Australian Human Rights Commission's April 2025 guidelines — and it is mandated for Commonwealth entities by the Digital Transformation Agency's Digital Experience Policy. A procurement clause citing AS EN 301 549 names WCAG 2.1 and does not discharge that. Check the jurisdiction the surface actually ships into; where it is not Australia, the structural subset above is unchanged because WCAG is jurisdiction-neutral.
 
+## Switcher operability — the harness must not gate the study
+
+The switcher never ships, so it carries no **shipping** obligation. It carries an **operability** one, and the source is this method's own step 5: where the surface is public-facing the evaluation includes participants with disability, and the bar is the only way to reach a variant. A switcher they cannot drive gates them out of the study you just told them to run. The harness must not distort the evaluation — and it must not prevent it.
+
+Build to this floor. It is a floor, not an audit — five checks, none of which needs a tool.
+
+| | Requirement | Why it bites |
+|---|---|---|
+| Arrows are real buttons | Native `<button>`, or the platform's focusable control | A `<div>` is not Tab-reachable and carries no role — every keyboard and screen-reader participant is locked out at the first step |
+| Each arrow has an accessible name | "Previous variant" / "Next variant" | Two controls both announcing "button" name no direction |
+| The variant change is announced | Move focus to the new variant's first heading, **or** announce the key through a live region — one or the other, deliberately | The URL changes and the region re-renders in silence otherwise. This is the gap that most often ends the session |
+| The bar's own controls meet 24×24 CSS px | 2.5.8, applied to the harness | The table above holds every variant to it; a cramped harness exempting itself is the failure it screens for |
+| Focus is visible on the bar | 2.4.7, and 2.4.13 where the project takes it | A participant who cannot see where focus sits cannot report what they were looking at |
+
+Nothing beyond this list. The switcher is throwaway code and the rest of WCAG is the rewrite's.
+
 ## Process
 
 1. **State the question and pick N** — write the one-line question into `$prototype/UI.md`. Default to **3 variants; cap at 5**. More than that isn't a sharper question, just more noise.
 2. **Generate radically different variants** — each must differ **structurally**: layout, information hierarchy, and primary affordance. Colour or copy changes do **not** count as different variants. Export each as a named component (`VariantA`, `VariantB`, …) using the project's component-library conventions. **A variant that cannot reach WCAG 2.2 AA without changing its layout is not a candidate** — screen it against the structural table above and discard it before the human sees it, or record why it is shown anyway.
 3. **Wire them together** — a switcher reads the variant key from the URL (or platform equivalent) and renders the matching variant plus the floating switch bar.
-4. **Build the floating switcher** — a fixed bottom-centre bar with left/right arrows that navigate by changing the URL, the current variant's key/name shown, and keyboard support (`←`/`→`). **Gate it out of production** (`process.env.NODE_ENV !== 'production'` or the platform equivalent) so it can never ship. Because it never ships it carries **no conformance obligation of its own** — but it must not distort the evaluation it exists to run. Scope `←`/`→` to when focus is on the switcher (those keys belong to any listbox, tablist, radio group or slider inside the variant, and to a screen reader's browse mode), and keep the bar clear of the variant's focusable content — a bar sitting over the bottom edge manufactures a 2.4.11 failure that is the harness's, not the variant's.
+4. **Build the floating switcher** — a fixed bottom-centre bar with left/right arrows that navigate by changing the URL, the current variant's key/name shown, and keyboard support (`←`/`→`). **Gate it out of production** (`process.env.NODE_ENV !== 'production'` or the platform equivalent) so it can never ship. Never shipping discharges its **shipping** obligation and not its **operability** one — meet the floor in § Switcher operability. Scope `←`/`→` to when focus is on the switcher (those keys belong to any listbox, tablist, radio group or slider inside the variant, and to a screen reader's browse mode), and keep the bar clear of the variant's focusable content — a bar sitting over the bottom edge manufactures a 2.4.11 failure that is the harness's, not the variant's.
 5. **Hand over** — share the URL and the variant keys. Expect feedback that *combines* pieces across variants ("B's header with C's sidebar") — that's the method working. **Where the surface is public-facing, the evaluation includes participants with disability** — the DTA's Digital Inclusion Standard requires co-design and usability testing with diverse user groups for Commonwealth entities, and for everyone else it is the cheapest available evidence against a DDA claim. A variant set judged only by a product owner and a designer was chosen the way the standard says not to choose it.
 6. **Capture** — record in `$prototype/UI.md` which variant won and why (and any cross-variant combination). Record the winner's **structural accessibility constraints** alongside the rationale. They land in the PRD as **`CON-NNN` rows in § Solution Constraints** — a demand-side given with a regulatory source, not prose in Further Notes; a binding statement written as prose is the defect `rules/requirements/tables.md` exists to prevent. The PRD inherits a known constraint rather than an Implementation surprise. This is the Recommendation for Implementation that feeds the PRD. Preservation and cleanup are then handled by `$write-prd` (spike committed to the `prototype/[feature-name]` throwaway branch, working tree cleaned).
 
@@ -86,5 +103,6 @@ Run this as a **screen over the variant set, not an audit of the spike**. The qu
 - **Never** pick a winner whose primary affordance is drag-only with no single-pointer alternative (SC 2.5.7).
 - **Never** let colour be the sole mechanism carrying the hierarchy under test (SC 1.4.1).
 - **Never** let the switcher obscure the variant or claim keys the variant needs — the harness must not out-rank the thing being measured.
+- **Never** hand over a switcher a participant with disability cannot drive — the harness must not out-rank the thing being measured, and it must not gate who gets to measure it (§ Switcher operability).
 - **Never** run a full WCAG audit on throwaway variants — screen the structure, audit the rewrite.
 - **Never** promote a winning variant by pasting it — rewrite it properly under production constraints during Implementation.

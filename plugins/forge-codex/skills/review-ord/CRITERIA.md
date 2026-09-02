@@ -5,8 +5,8 @@
 > everything below. Editing this file puts it out of step with the pack; regenerate
 > instead.
 
-**Pack version:** v1.4 · **Pack commit:** `9d0128aa6a27` (tag `v1.4`)
-**Generated:** 2026-08-10 · **Content hash:** `af290c6f8c5a25f8`
+**Pack version:** v1.9 · **Pack commit:** `719eecb78e35`
+**Generated:** 2026-09-02 · **Content hash:** `d42f01562ab54517`
 
 **Quote the version in every review this extract is used for.**
 A reader needs to know which revision was applied — a verdict, and a document
@@ -379,7 +379,7 @@ Fixed structure. **Section 3 keeps its numbering unchanged**, so every §3.x ref
 | **6** | *Not used* | **Staffing and organisational requirements — out of scope.** Route to the referred requirements register |
 | **7** | Service level requirements | The tolerances that carry a contractual or reporting obligation, restated as a view of §3 |
 | **8** | *Not used* | **Infrastructure and facilities — out of scope.** Answered in the SOAP |
-| **9** | Trade-offs and risk | Accepted trade-offs, with the business consequence of each |
+| **9** | Trade-offs, risk and dependencies | Accepted trade-offs with the business consequence of each · open questions with owner and due date · the dependency register, carrying model and service dependency detail where a component's behaviour is learned or generated |
 | **App. A** | Traceability | Every requirement to a BRD objective, or an explicit orphan-scope flag |
 | **App. B** | Assumption register | Owners, confirm-by dates, consequence if wrong |
 | **App. C** | Referred requirements register | What this ORD will not deliver, and who it went to |
@@ -432,6 +432,168 @@ Fixed structure. **Section 3 keeps its numbering unchanged**, so every §3.x ref
 | **roles, FTE, certifications, handover criteria** | — | **Not in a 25010-anchored ORD** → referred requirements register |
 | **hosting, hardware, physical security of infrastructure** | — | **Not in a 25010-anchored ORD** → referred requirements register |
 
+## AI components — additional phrasings
+
+> Applies only where a component's behaviour is **learned or generated** rather than specified.
+> Background and the standards behind it: `ai-standards-map.md`. **No section is added and none is
+> renumbered** — ISO/IEC 25059:2023 extends ISO/IEC 25010:2023 with sub-characteristics, so every
+> row below lands in a §3.x that already exists.
+
+| If the requirement mentions… | Characteristic (sub) | ORD Section |
+|---|---|---|
+| behaviour under unseen, out-of-distribution or adversarial input | Reliability (Robustness) | 3.2 |
+| prompt injection, jailbreak, model-specific attack surface | Security | 3.3.5 Resistance |
+| accuracy, quality or error rate of a generated output | Functional Suitability | 3.8 |
+| difference in error rate between groups or cases — fairness, unfair bias | Functional Suitability | 3.8 |
+| behaviour changing as the component learns from data or prior actions | Functional Suitability (Functional adaptability) | 3.8 |
+| a user stopping, overriding or correcting the component | Interaction Capability (User controllability) | 3.7 |
+| an operator intervening to prevent harm | Interaction Capability (Intervenability) | 3.7 |
+| what is disclosed about the component to those relying on it; output labelled as AI-generated | Interaction Capability (Transparency) | 3.7 |
+| why a specific output was produced, and to which audience | Interaction Capability | 3.7 |
+| a named person able to interpret, override and stop the component | *(business demand)* | 3.7, and the tolerance in 5 |
+| inference logging, retention of inputs and outputs for audit | Maintainability | 3.6.2 Analyzability |
+| degradation with no code change; re-measurement cadence after a model or prompt change | Maintainability | 3.6.2, with the reporting obligation in 7 |
+| provenance, labelling method or licensing of training data | *(constraint)* | 4. Operating environment and constraints |
+| reliance on a named external model, version, or provider | *(operational)* | 9. Trade-offs, risk and dependencies |
+| **the evaluation set, the scorer and the pass mark** | — | **Not authored in a demand-side ORD** → derived by the design response, recorded at App. D |
+| **which model, provider or technique is used** | — | **Not in the ORD** → the design response |
+
+**The last two rows carry the same boundary as an RTO.** On the demand-side model the ORD states
+the quantified business tolerance and the response derives the figure:
+
+| Statement | Treatment |
+|---|---|
+| *"An unsupported claim reaching a customer is unacceptable above X per thousand, because obligation Y"* | **In scope** — a business tolerance, sourced to an obligation |
+| *"A generated response a customer acts on is reviewable by a named officer within the complaint window"* | **In scope** — the tolerance for oversight |
+| *"Answer quality scores ≥ 4.0 of 5 on the Q2 evaluation set, judged by a calibrated model-as-judge"* | **Out of scope** — the set, the scorer and the mark are the response's to derive |
+| *"Retrieval is re-ranked and the model is pinned to version N"* | **Out of scope** — the design's to specify |
+
+_Avoid_: writing a quality threshold with no named evaluation set anywhere in the chain. It is
+unmeasurable at verification wherever it sits — the demand-side rule routes it to the response, it
+does not excuse it.
+
+_Avoid_: letting non-determinism reintroduce a hedge. `may`, `might`, `should`, `could` and `would`
+remain banned in a requirement. **Variability belongs in the threshold, never in the verb.**
+
+## The evaluation threshold — population is demand-side, instrument is response-side
+
+The rows above route the set, the scorer and the pass mark to the design response. That raises the
+question the boundary has to answer: **what makes an ORD row verifiable when the instrument does not
+yet exist?**
+
+**The ORD names the population. The response draws the set from it.**
+
+| Element | Side | Why |
+|---|---|---|
+| The class of output that is unacceptable | Demand | The business defines the harm |
+| The **population** it is judged over | Demand | The business decides which cases matter |
+| The rate, in the business's own consequence unit | Demand | Sourced to an obligation or an incident record |
+| The **held-out set** drawn from that population | Response | A sample is a design choice |
+| The scorer or judge, and its calibration | Response | An instrument, not a demand |
+| The pass mark and the sampling method | Response | Derived from the tolerance, not equal to it |
+
+This is the standard every other requirement in §3 already meets. *"Within two billing cycles"* and
+*"per calendar month"* each name a measurement population, and neither names the monitoring tool. A
+threshold on generated output is held to that rule, not to a stricter one.
+
+**§3 carries no `Verification` column, so the population belongs inside the tolerance sentence** —
+the same place *"two billing cycles"* sits:
+
+| Ref | Ver | Business tolerance | KPP | Status | Owner | Source |
+|---|---|---|---|---|---|---|
+| ORD-NN | 1.0 | An unsupported claim reaching a customer in a rebate-eligibility answer is unacceptable above 2 per thousand answers. **Threshold:** 2 per thousand. **Objective:** 0.5 per thousand | | Provisional | GM Customer Care | [TBD — source: "we can't have it telling customers things that aren't true"] |
+
+The instrument that measures it — the held-out set, the scorer, the pass mark — is **derived by the
+design response and recorded at Appendix D** when the SOAP answers. The ORD does not author it.
+**Appendix D is where an evaluation set is recorded; no fifth appendix is added.**
+
+**A population is quantifiable, or it is a hedge.** *"Customer-facing determinations"* names no
+boundary and fails at verification exactly as *"fast"* does. A population states what is counted,
+over what window, and what is excluded — *"rebate-eligibility answers issued to a customer within a
+billing period, excluding internal test traffic"*. Where it cannot yet be stated, write
+`[TBD — source: …]` and leave the gap visible rather than narrowing it by invention.
+
+**Acceptance at go-live is not final acceptance, and Appendix D does not follow the component into
+service.** A component whose behaviour is learned or generated degrades with no change to the code,
+so it is re-measured — and each re-measurement produces a new instrument. **Appendix D receives none
+of them.** It records the instrument as at SOAP issue and completes there, on the same rule that ends
+the ORD's influence at that hop.
+
+The ORD therefore carries the *obligation*, never the log. The obligation is a requirement at §3.6.2,
+with its reporting tolerance in §7:
+
+> *Degradation in rebate-eligibility answer quality against ORD-NN is detected and reported within
+> [TBD — source: "we'd want to know quickly if it started drifting"] of occurrence.*
+
+**Where the re-measurement records live is outside this document** — in the **operate record**
+(defined in `GLOSSARY.md`), which the design response establishes and whose accountable owner is
+named in the SOAP. Stated rather than omitted: a declared boundary with a named owner can be checked
+at handoff, whereas an implied one is discovered when somebody goes looking for a log that was never
+anyone's to keep.
+
+_Avoid_: reading *"the set is the response's"* as *"the set is optional"*. The rule routes the
+instrument; it does not excuse its absence. A tolerance whose population is unnamed is unmeasurable
+on either side of the hop.
+
+## A model or provider dependency — where it lands, and when it lands nowhere
+
+**Who chooses the model decides whether the ORD carries it at all.**
+
+| Case | Treatment |
+|---|---|
+| The design response selects the model | **No ORD row.** The ORD cannot name what the response has not yet chosen. It appears in the SOAP, and Appendix D records its conformance |
+| A model or service is already in use, and this ORD is written against it | A `DEP-` row in **§9**, with the detail table below |
+| A model or provider is **mandated** — enterprise agreement, sovereignty or licensing constraint | The mandate is a **§4** constraint; the dependency is a `DEP-` row in **§9** |
+
+Where a `DEP-` row exists, the four attributes a learned or generated component adds are carried in a
+detail table keyed to it — the same shape the pack uses for per-interface technical attributes, and
+carrying specification rather than commitment. The binding statement stays the `DEP-` row.
+
+| DEP# | Model or service | Version | Pinned | Deprecation notice contracted | Behaviour when unavailable |
+|---|---|---|---|---|---|
+
+_Avoid_: routing a model **dependency** to the referred requirements register. Appendix C records
+what this ORD **will not deliver**, and who it went to; a dependency is carried, not referred, and
+filing it there removes it from the document that depends on it.
+
+**The exception is a different thing wearing the same name.** A *requirement about* the model that
+this ORD will not deliver — a retraining cadence owned by a data-science function, a provider
+contract variation owned by commercial — is referred content and belongs at Appendix C. The
+dependency stays at §9; the requirement goes to its resolver. Both rows can exist for one model, and
+where they do **the §9 row names the Appendix C row** — as `DEP-02` names `REF-01` in the worked
+example. The link is deliberately single-directional: Appendix C's schema carries no dependency
+column, so §9 is where the association lives. Do not add the reverse without adding the column.
+
+## EU AI Act Articles 9–15 → ORD section
+
+> Applies where the component is classified high-risk. **Classification is a BRD decision**, recorded
+> once for the chain below it. Annex III high-risk obligations apply from 2 December 2027 and Annex I
+> from 2 August 2028; Article 50 transparency, the general-purpose obligations and the Article 5
+> prohibitions are live now.
+>
+> This maps the article to where the *requirement* lands. Conformity evidence, technical
+> documentation (Art. 11 / Annex IV) and the quality management system are assembled elsewhere —
+> the ORD supplies rows to them, it does not become them.
+
+| Article | Requires | ORD Section |
+|---|---|---|
+| **9** Risk management system | Risk identified, evaluated and mitigated across the lifecycle | 9. Trade-offs, risk and dependencies; assumption register |
+| **10** Data and data governance | Governance over training, validation and test data — origin, preparation, labelling, assumptions, suitability | 4. Operating environment and constraints |
+| **11** Technical documentation | The Annex IV file | *Outside the ORD* — the ORD is one input |
+| **12** Record-keeping | Automatic logging of events over the system's lifetime | 3.6.2 Analyzability, with retention in 4 |
+| **13** Transparency to deployers | Information sufficient for a deployer to interpret and use the output | 3.7 |
+| **14** Human oversight | A person able to interpret, override and stop the system, with the authority to do so | 3.7, with the tolerance in 5 |
+| **15** Accuracy, robustness, cybersecurity | Declared accuracy and its metrics; resilience to error and to adversarial input | 3.8 accuracy · 3.2 robustness · 3.3 cybersecurity |
+| **50** Transparency for generated content | Disclosure that content is AI-generated; machine-readable marking | 3.7 |
+
+_Avoid_: treating the deferral of the high-risk dates as a reason to defer the rows. A register
+already carrying data governance, logging, oversight and accuracy needs no retrofit in 2027; one that
+does not, does — and the retrofit falls due under a conformity deadline.
+
+_Avoid_: an oversight or record-keeping requirement written in the passive with no actor.
+"Oversight is provided" names nobody and binds nobody — these are the rows where the actor is
+load-bearing, so name them and write them active.
+
 ## Note on Sections 5–9
 Sections 1–2 (Introduction, Operational Concept) and 4–9 (Environment, Escalation tolerance, SLAs, Risk) are **operational framing**, not 25010 characteristics. Section 3 is the only one organised strictly by the nine characteristics. Don't force business-demand content such as escalation tolerance into a 25010 bucket — it has its own home.
 
@@ -448,7 +610,8 @@ Sections 1–2 (Introduction, Operational Concept) and 4–9 (Environment, Escal
 
 *Boundary source: ORD Intake and Maturity Standard §2.2 and §7.2.*
 
-*Source: ISO/IEC 25010:2023; standard ORD template.*
+*Source: ISO/IEC 25010:2023; standard ORD template. AI rows: ISO/IEC 25059:2023 and Regulation (EU)
+2024/1689 as amended — see `ai-standards-map.md`.*
 
 ---
 
@@ -782,6 +945,17 @@ answered in the SOAP. The section number is retained for the same reason as §6.
 | DEP-01 | Contractor portal data-quality remediation, in the Field Systems programme | Internal | Programme lead, Field Systems | Design sign-off | At risk |
 | DEP-02 | Regulatory Affairs interpretation of clause 14.3, which blocks REF-01 and OQ-01 | Internal | Head of Regulatory Affairs | 2026-09-05 | Open |
 
+**Model and service dependency detail — illustrative, no row populated.** This change carries no
+component whose behaviour is learned or generated, so nothing here binds. The table appears because
+the shape is part of the standard: where a `DEP-` row names a model or an AI service **already in use
+or mandated**, these attributes are carried against it. Keyed to the `DEP-` row, which remains the
+binding statement — this table carries specification, not commitment. A model the *design response*
+selects has no row here at all; it is answered in the SOAP.
+
+| DEP# | Model or service | Version | Pinned | Deprecation notice contracted | Behaviour when unavailable |
+|---|---|---|---|---|---|
+| — | *No component with learned or generated behaviour in this change* | — | — | — | — |
+
 ---
 
 ## Appendix A — Traceability
@@ -851,3 +1025,26 @@ or **Unanswered**.
 **An unanswered KPP is escalated rather than recorded.** Nothing downstream reads this document —
 a business demand not carried into the SOAP is absent from every artefact anyone downstream will
 read.
+
+**Where a tolerance governs generated output, the SOAP response is the evaluation instrument.**
+Appendix D is where an evaluation set is recorded, and **the pack adds no appendix for it**.
+Illustrative, since this change carries no such requirement:
+
+| ORD ref | Business tolerance stated | SOAP response | Conformance |
+|---|---|---|---|
+| *ORD-NN* | *An unsupported claim reaching a customer in a rebate-eligibility answer is unacceptable above 2 per thousand answers* | *Held-out set drawn from customer-facing rebate answers, scored by a calibrated judge, at a stated pass mark* | *pending* |
+
+**Conformance turns on whether the set answers the stated population**, not on whether a set exists.
+A set drawn from data the component was tuned against satisfies no tolerance, and a set drawn from a
+narrower population than the one the tolerance names answers a different question.
+
+**This appendix records the instrument as at SOAP issue, and completes there.** A component whose
+behaviour is learned or generated is re-measured after issue, and each re-measurement produces a new
+instrument — **none of which lands here.** The obligation to re-measure is a requirement at §3.6.2
+with its reporting tolerance at §7; the records of those re-measurements live in the **operate
+record** — defined in `GLOSSARY.md`, established by the design response, with its accountable owner
+named in the SOAP. Declared rather than omitted, so the boundary and its owner can both be checked at
+handoff instead of discovered when someone looks for a log nobody kept.
+
+*The illustrative rows above and at §9 are placeholders for a worked AI exemplar that is not yet
+written. This document is the Acme rebate change and carries no AI component.*
