@@ -108,7 +108,7 @@ Conditions of satisfaction for the Capability. KPPs + headline outcomes only.
 | AC ID | Criterion | Source | Verification |
 |-------|-----------|--------|--------------|
 | AC-001 | [declarative testable condition, carried verbatim] | PRD-002 | [test / measure] |
-| AC-002 | [declarative testable condition, carried verbatim] | ORD-004 (KPP) | [carried from the register's Verification] |
+| AC-002 | [declarative testable condition, carried verbatim] | ORD-004 (KPP) | [carried from Appendix D, or "pending design response"] |
 
 `Verification` is a carried copy, from the ORD's Appendix D or the PRD — the source stays authoritative. Change it there and
 re-run `/write-ac`; never edit it here.

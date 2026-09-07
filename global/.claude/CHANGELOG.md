@@ -11,6 +11,56 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
+## v4.7.3 — 2026-09-07
+
+**Five emitted-template lines still sourced register columns v4.7.0 removed. Found by pre-push
+review of v4.7.0–v4.7.2.**
+
+v4.7.0 removed `Verification` and `Delivery Agent` from the ORD register — both response-side, with
+the instrument recorded at Appendix D instead — and converged the consuming skills' **prose**
+thoroughly: instructions, `Never` lists and failure-mode tables were all corrected. **The output
+templates those skills emit were not.**
+
+The sweep was partial rather than deliberate, and the same files prove it. `write-ac/REFERENCE.md`'s
+note *below* its table already read "from the ORD's **Appendix D**" while the row *above* it still
+read "from the register's Verification". `testplan/SKILL.md` gained the sentence *"a demand-side ORD
+carries no `Verification` column"* in the same commit that left four of its own templates reading
+one.
+
+**The consequence is worse than a stale comment.** A skill following its own corrected instructions
+emitted a table with a column it could not fill — and all five lines shipped in
+`dist/forge-standalone/` as well.
+
+### Fixed
+
+| File | Was | Now |
+|---|---|---|
+| `write-ac/REFERENCE.md` | `[carried from the register's Verification]` | `[carried from Appendix D, or "pending design response"]` |
+| `testplan/SKILL.md` ×3 | `[verbatim from register]` / `[verbatim]` | `[verbatim from Appendix D]` |
+| `testplan/SKILL.md` ×4 | `[Delivery Agent]` | `[Owner, from the register]` |
+
+Two of the replacements do more than substitute a name, and both follow instructions the skills
+already carry:
+
+- **`[Owner, from the register]`** is not a rename of `Delivery Agent`. A demand-side register names
+  the **business owner of the tolerance**, never a delivery team — which is exactly why `testplan`'s
+  own prose was changed at v4.7.0 from *"Check `Delivery Agent`"* to *"Check `Owner`"*. The template
+  now matches it.
+- **One `testplan` row now shows `instrument: pending design response`.** v4.7.0 mandated that form
+  where Appendix D has not been issued, and no template demonstrated it. A template that never shows
+  the pending case produces plans that never use it.
+
+### Known
+
+- **This is the fifth occurrence of one defect class** — a rule correct in prose whose supporting
+  structure does not match. Here it is inverted and sharper: the prose was right and the *emitted
+  artefact* was wrong. The pack's response to the same pattern was `tools/check-pack.py`; this repo
+  has no equivalent check over skill output templates, and a grep for a removed column name would
+  have caught all five in one pass.
+- **The §3.8 numbering disagreement is unchanged and unresolved** — see v4.7.2.
+
+---
+
 ## v4.7.2 — 2026-09-07
 
 **Review criteria regenerated against requirements-documents pack v1.11 — the AI-impact assessment

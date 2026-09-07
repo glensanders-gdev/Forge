@@ -291,8 +291,8 @@ Register rows read: **N.** Rows placed: **N.** *(These must match.)*
 
 | TC | ORD# | Requirement | Verification Method | Level | Owner | Priority |
 |----|------|-------------|--------------------|-------|-------|----------|
-| TC-NNN | ORD-004 | [declarative end state, carrying its value] | [verbatim from register] | System | [Delivery Agent] | P1 |
-| TC-NNN | ORD-009 | [requirement] | [verbatim] | Environment | [Delivery Agent] | P2 |
+| TC-NNN | ORD-004 | [declarative end state, carrying its value] | [verbatim from Appendix D] | System | [Owner, from the register] | P1 |
+| TC-NNN | ORD-009 | [requirement] | instrument: pending design response | Environment | [Owner, from the register] | P2 |
 
 `Level`: Unit / Integration / System / Environment.
 
@@ -307,7 +307,7 @@ Proven before release by evidence, not by execution. Routed to the Go/No Go evid
 
 | ORD# | Requirement | Evidence Required | Owner | Due |
 |------|-------------|------------------|-------|-----|
-| ORD-NNN | [requirement] | [document / config / sign-off] | [Delivery Agent] | [milestone] |
+| ORD-NNN | [requirement] | [document / config / sign-off] | [Owner, from the register] | [milestone] |
 
 ---
 
@@ -318,7 +318,7 @@ waived is not a gate.
 
 | ORD# | Requirement | Monitoring Method | Owner | First Review |
 |------|-------------|------------------|-------|--------------|
-| ORD-NNN | [threshold, verbatim] | [verbatim from register] | [Delivery Agent] | [date or milestone] |
+| ORD-NNN | [threshold, verbatim] | [verbatim from Appendix D] | [Owner, from the register] | [date or milestone] |
 
 ---
 
