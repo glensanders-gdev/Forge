@@ -303,6 +303,113 @@ Get-ChildItem -LiteralPath $projectTemplate -Recurse -File -Filter "*.md" | ForE
     [IO.File]::WriteAllText($_.FullName, $text, [Text.UTF8Encoding]::new($false))
 }
 
+
+# ---------------------------------------------------------------- self-contained bundling
+
+# Skills whose authoring standards travel inside their own folder.
+#
+# These skills cited `~/.codex/forge/rules/<pack>/...`, which nothing creates -- the path is
+# what a blind `~/.claude` -> `~/.codex/forge` rewrite produces, and the packs actually land
+# in references/coding-guidance/. The citation resolved to nothing, so the model drafted the
+# register schema and the modal ban from memory and produced a document that looked right.
+#
+# The packs stay at references/coding-guidance/ for `$lang-rules`. This is a duplicate placed
+# beside the skill that needs it, generated every build, so it cannot drift. A sibling folder
+# under skills/ is reachable wherever Codex installs the plugin -- plugin.json points the
+# loader at ./skills/ and says nothing about the rest of the tree.
+$SelfContainedSkills = [ordered]@{
+    'write-ord'  = 'requirements'
+    'write-prd'  = 'requirements'
+    'write-brd'  = 'requirements'
+    'write-ac'   = 'requirements'
+    'write-reqs' = 'requirements'
+    'roap'       = 'requirements'
+    'grill-me'   = 'common'
+}
+
+$bundled = New-Object System.Collections.Generic.List[object]
+
+foreach ($entry in $SelfContainedSkills.GetEnumerator()) {
+    $name = $entry.Key
+    $pack = $entry.Value
+    $skillDir = Join-Path $destinationSkills $name
+    if (-not (Test-Path -LiteralPath $skillDir)) { throw "Self-contained skill '$name' is not in the plugin." }
+
+    # Copy from the adapted pack, not from upstream: it has already been through
+    # Convert-ForgeText, so its `$skill` invocations and Codex paths are correct.
+    $srcPack = Join-Path $codingGuidance $pack
+    if (-not (Test-Path -LiteralPath $srcPack)) { throw "Adapted rules pack '$pack' not found at $srcPack" }
+
+    $bundleDir = Join-Path $skillDir "standards"
+    if (Test-Path -LiteralPath $bundleDir) { Remove-Item -LiteralPath $bundleDir -Recurse -Force }
+    Ensure-Directory $bundleDir
+    $bundleDir = (Resolve-Path -LiteralPath $bundleDir).Path
+
+    $packFiles = @(Get-ChildItem -LiteralPath $srcPack -File -Filter "*.md" | Sort-Object Name)
+    if ($packFiles.Count -eq 0) { throw "Adapted rules pack '$pack' holds no markdown." }
+    foreach ($file in $packFiles) {
+        Copy-Item -LiteralPath $file.FullName -Destination (Join-Path $bundleDir $file.Name) -Force
+    }
+
+    $stems           = @($packFiles | ForEach-Object { [IO.Path]::GetFileNameWithoutExtension($_.Name) })
+    $alternation     = (($stems | ForEach-Object { [regex]::Escape($_) }) -join '|')
+    # The bare form is rewritten on filename alone, so `README` is excluded: a skill citing
+    # `README.md` almost always means the consuming project's, not the pack's.
+    $bareAlternation = (($stems | Where-Object { $_ -ne 'README' } | ForEach-Object { [regex]::Escape($_) }) -join '|')
+
+    # Three citation forms exist, longest first so an earlier rewrite is not re-matched.
+    # Cross-skill `../` links are left alone -- the whole skills tree installs together, so
+    # those resolve; only the rules paths were ever dead.
+    $skillFiles = @(Get-ChildItem -LiteralPath $skillDir -Recurse -File -Filter "*.md" |
+        Where-Object { $_.DirectoryName -ne $bundleDir })
+    $rewritten = 0
+    foreach ($f in $skillFiles) {
+        $text   = [IO.File]::ReadAllText($f.FullName, [Text.Encoding]::UTF8)
+        $before = $text
+        $text = $text -replace "~/\.codex/forge/rules/$([regex]::Escape($pack))/($alternation)\.md", 'standards/$1.md'
+        $text = $text -replace "(?<![\w./-])rules/$([regex]::Escape($pack))/($alternation)\.md", 'standards/$1.md'
+        $text = $text -replace "``($bareAlternation)\.md``", '`standards/$1.md`'
+        if ($text -ne $before) {
+            [IO.File]::WriteAllText($f.FullName, $text, [Text.UTF8Encoding]::new($false))
+            $rewritten++
+        }
+    }
+    $bundled.Add([pscustomobject]@{ Skill = $name; Pack = $pack; Files = $packFiles.Count; Rewritten = $rewritten })
+}
+
+# ---------------------------------------------------------------- reference resolution
+
+# Two checks, both on the defect this stage exists to remove.
+#   1. No skill names `~/.codex/forge/rules/` -- that tree is never created.
+#   2. Every `standards/...` citation resolves beside the skill that makes it.
+$badRefs = New-Object System.Collections.Generic.List[string]
+$skillsResolved = (Resolve-Path -LiteralPath $destinationSkills).Path
+foreach ($file in (Get-ChildItem -LiteralPath $destinationSkills -Recurse -File -Filter "*.md")) {
+    $rel = $file.FullName.Substring($skillsResolved.Length).TrimStart("\", "/") -replace "\\", "/"
+    $i = 0
+    foreach ($line in ([IO.File]::ReadAllText($file.FullName, [Text.Encoding]::UTF8) -split "`n")) {
+        $i++
+        if ($line -match "~/\.codex/forge/rules/") {
+            $badRefs.Add("  ${rel}:${i}: names ~/.codex/forge/rules/, which nothing creates")
+        }
+        foreach ($m in [regex]::Matches($line, '`(standards/[A-Za-z0-9_.-]+\.md)`|\]\((standards/[A-Za-z0-9_.-]+\.md)\)')) {
+            $cited = if ($m.Groups[1].Success) { $m.Groups[1].Value } else { $m.Groups[2].Value }
+            if (-not (Test-Path -LiteralPath (Join-Path $file.DirectoryName $cited))) {
+                $badRefs.Add("  ${rel}:${i}: $cited does not resolve beside the skill")
+            }
+        }
+    }
+}
+if ($badRefs.Count -gt 0) {
+    Write-Host "Unresolvable standards references in the plugin:"
+    $badRefs | ForEach-Object { Write-Host $_ }
+    throw "$($badRefs.Count) unresolvable standards reference(s) in plugins/forge-codex/skills."
+}
+
+foreach ($b in $bundled) {
+    Write-Host "Bundled $($b.Files) $($b.Pack) standard(s) into skills/$($b.Skill)/standards/ ($($b.Rewritten) file(s) repointed)"
+}
+
 $manifestSource = Join-Path $sourceSkills "manifest.json"
 if (Test-Path -LiteralPath $manifestSource) {
     $manifestText = [IO.File]::ReadAllText($manifestSource, [Text.Encoding]::UTF8) -replace "\r\n?", "`n"

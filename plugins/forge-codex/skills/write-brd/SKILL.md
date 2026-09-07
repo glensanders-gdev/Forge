@@ -14,14 +14,14 @@ off — then establish whether it clears **the bar** for ORD development.
 Execution mode: Phase 1 **[AFK]** · Phase 2 **[HITL]** behind a confirmation gate · Phase 3 **[AFK]**.
 The standard owns the anatomy, both forms and the gate; this skill locates it and applies it.
 
-**Authoring standards** — `~/.codex/forge/rules/requirements/language.md` and
-`~/.codex/forge/rules/requirements/tables.md`, shared with `$write-prd`, `$write-ord` and `$write-ac`,
+**Authoring standards** — `standards/language.md` and
+`standards/tables.md`, shared with `$write-prd`, `$write-ord` and `$write-ac`,
 never restated here. **Where they meet the pack, the pack wins on BRD-specific forms:** the SMART
 objective is verb-first by the pack's own form, and a `[TBD]` carries **a named owner and a date**
-rather than `language.md`'s source quote — the gate reads both, and a `[TBD]` missing either is a
+rather than `standards/language.md`'s source quote — the gate reads both, and a `[TBD]` missing either is a
 hole that fails the bar.
 
-`~/.codex/forge/rules/requirements/ai.md` applies **conditionally** — where a delivered component's
+`standards/ai.md` applies **conditionally** — where a delivered component's
 behaviour is learned or generated rather than specified, this document records the **risk
 classification decision** once, per that ruleset's class map, and every downstream document reads it
 from here.
@@ -68,7 +68,7 @@ date; and every figure the source did not state is an open question at the gate 
 1. Incorporate the corrections and gap-fills from the Phase 1 confirmation.
 2. **Write every section of the anatomy**, in the standard's order, to
    `docs/brd/[change-name]-BRD.md`. Objectives are `BO-N`, business requirements `BR-N`, assumptions
-   and dependencies `ASM-NNN` / `DEP-NNN` per `tables.md`. Carry `$idea` assumptions forward with
+   and dependencies `ASM-NNN` / `DEP-NNN` per `standards/tables.md`. Carry `$idea` assumptions forward with
    their Status rather than as prose; every assumption states `If false`.
 3. **Keep an unquantified objective in the register.** One carrying `[TBD]` with an owner and a date
    is a tracked gap; the same objective omitted is invisible.

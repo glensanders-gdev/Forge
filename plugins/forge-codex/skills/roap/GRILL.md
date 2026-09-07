@@ -75,7 +75,7 @@ The **probe** column of each question is the grill — use it whenever the answe
 >
 > *Example: "Rework attributable to requirements defects is under 10% of delivered stories. Every initiative entering build has signed acceptance criteria. Stakeholder satisfaction rating of 4+ in the half-yearly delivery survey."*
 
-**Form:** 3–5 measures. Every measure carries a metric, threshold, or named evidence source, and is written in the declarative present with no modals (`~/.codex/forge/rules/requirements/language.md`).
+**Form:** 3–5 measures. Every measure carries a metric, threshold, or named evidence source, and is written in the declarative present with no modals (`standards/language.md`).
 **Probe:** for an adjective measure — "How would you evidence that in a review conversation? What would you show?" If nothing exists, record `[TBD — source: "quoted answer"]` and move on rather than inventing a threshold.
 **Cross-check:** every accountability from Q5 is visible in at least one measure. Name any that is not: "Nothing here tells you whether [accountability] went well — is that measurable, or is it a gap?"
 

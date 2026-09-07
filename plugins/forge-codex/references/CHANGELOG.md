@@ -11,6 +11,38 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
+## v4.7.7 — 2026-09-07
+
+**The Codex plugin cited `~/.codex/forge/rules/` twenty-one times. Nothing has ever created
+that directory.**
+
+The path is what a blind `~/.codex/forge` → `~/.codex/forge` rewrite produces
+(`tools/build-forge-codex.ps1`). The packs actually land in `references/coding-guidance/`, which
+only `$lang-rules` knows about. So every requirements skill in the plugin ran with its authoring
+standards unreadable — the same silent failure v4.7.5 and v4.7.6 fixed for the standalone build,
+present in the plugin the whole time.
+
+`tools/build-forge-codex.ps1` gains the same `$SelfContainedSkills` stage: the adapted pack is
+copied into `skills/<name>/standards/` and all three citation forms are repointed. Copying from
+`references/coding-guidance/` rather than upstream means the bundle is already Codex-adapted —
+`$raid`, not `$raid`.
+
+Seven skills, not five. `$roap` cites `language.md` and `$grill-me`'s `FRONTIER.md` cites
+`common/model-selection.md` through the same dead path; leaving them would have made "the plugin is
+fixed" false.
+
+**Cross-skill `../` links are deliberately left alone.** A Codex plugin installs as a unit, so
+`$write-brd`'s links to `../review-brd/GATE-PROTOCOL.md` resolve. The standalone bundles that file
+because its README offers a single-skill copy; the plugin has no such install path, and the
+self-containment invariant that fires for the standalone would be cargo-cult here.
+
+A build check enforces the two things that were actually wrong: no skill names
+`~/.codex/forge/rules/`, and every `standards/…` citation resolves beside the skill making it.
+`plugin.json` declares `"skills": "./skills/"` and says nothing about the rest of the tree, which is
+why the standards sit beside the skill rather than being cited at `../../references/`.
+
+---
+
 ## v4.7.6 — 2026-09-07
 
 **The four requirements skills beside `$write-ord` had the same standalone hole, plus two it

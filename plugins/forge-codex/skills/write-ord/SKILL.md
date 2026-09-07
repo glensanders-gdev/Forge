@@ -21,13 +21,13 @@ See [REFERENCE.md](REFERENCE.md) for the ISO/IEC 25010:2023 taxonomy, the demand
 the status taxonomy, the KPP guide and the full ORD template.
 
 **Authoring standards — read before writing any requirement:**
-- `~/.codex/forge/rules/requirements/language.md` — wording, voice, banned modals, demand-not-design
-- `~/.codex/forge/rules/requirements/tables.md` — table-first presentation, canonical schemas, ID namespaces
-- `~/.codex/forge/rules/requirements/ai.md` — **conditional.** Fires where a delivered component's output
+- `standards/language.md` — wording, voice, banned modals, demand-not-design
+- `standards/tables.md` — table-first presentation, canonical schemas, ID namespaces
+- `standards/ai.md` — **conditional.** Fires where a delivered component's output
   for a given input is not fully determined by written logic — a trained model, an LLM call, a
   retrieval-augmented pipeline, an agent, or a third-party AI service consumed as an API. Supplies
   the evaluative criterion, the `EVL-NNN` / `MDL-NNN` schemas, and the ISO/IEC 25059 class map.
-- `~/.codex/forge/rules/requirements/reporting.md` — **conditional.** Fires where the change creates,
+- `standards/reporting.md` — **conditional.** Fires where the change creates,
   alters or retires a measure somebody reports. Supplies the measure definition, the `DAT-NNN`
   schema and the ISO/IEC 25012 data-quality anchor.
 
@@ -110,10 +110,10 @@ assumption with an owner and a confirm-by date, or a decision item.
 14. Identify **Key Performance Parameters** — requirements whose failure means the capability is
     unfit for purpose, not merely degraded. State each as a business-failure threshold carrying
     **threshold and objective** as two labelled values.
-15. **Apply both conditional trigger tests** — `ai.md` and `reporting.md`. Answer each explicitly in
+15. **Apply both conditional trigger tests** — `standards/ai.md` and `standards/reporting.md`. Answer each explicitly in
     the Phase 1 Summary; do not leave either unasked. Judge the **delivered solution**, never the
-    toolchain that builds it. Where `ai.md` fires, classify against the ISO/IEC 25059
-    sub-characteristics too. Where `reporting.md` fires, check every class in its map and extract
+    toolchain that builds it. Where `standards/ai.md` fires, classify against the ISO/IEC 25059
+    sub-characteristics too. Where `standards/reporting.md` fires, check every class in its map and extract
     the `DAT-NNN` data elements.
 16. **Detect competing methodologies** — where current operational practice differs from
     contractual, regulatory or documented reporting practice, preserve both, and raise it for the
@@ -154,11 +154,11 @@ assumption with an owner and a confirm-by date, or a decision item.
 [or "none — source stated demand throughout"]
 Technical figures whose underlying tolerance could not be recovered: [list, or "none"]
 
-### Trigger — `rules/requirements/ai.md`
+### Trigger — `standards/ai.md`
 **Fired:** Yes — [components] | No — [why]
 [Where fired:] 25059 sub-characteristics engaged · EVL/MDL candidates
 
-### Trigger — `rules/requirements/reporting.md`
+### Trigger — `standards/reporting.md`
 **Fired:** Yes — [the reported measures] | No — [why]
 [Where fired:] data elements identified · reconciliation classes checked
 
@@ -229,7 +229,7 @@ Runs after the human confirms the Phase 1 summary. Writes the ORD using the temp
    mints `AC-NNN`), B (assumptions), C (referred requirements), D (conformance, left pending until
    the design response is issued), E (interface detail), F (scenario catalogue), G (business rules —
    only where no functional requirements document is produced, with the deviation declared),
-   H (data elements — only where `reporting.md` fires).
+   H (data elements — only where `standards/reporting.md` fires).
 7. **Check traceability at Appendix A**, which is its single home — the register carries `Source`
    only. Flag any row with no objective **and** no source as **orphan scope**, and any BRD objective
    with no resulting register row as a **coverage gap**. Do not silently resolve either.

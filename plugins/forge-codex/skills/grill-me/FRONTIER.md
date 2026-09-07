@@ -52,7 +52,7 @@ An explicit "accept all" **is** an answer and settles those decisions. Silence i
 
 **Facts you find. Decisions the human makes.**
 
-- When a frontier question needs a fact from the environment — codebase, filesystem, docs, tooling — dispatch a subagent to find it rather than asking the human. Route lookups to a Haiku subagent per `~/.codex/forge/rules/common/model-selection.md`; do it inline when the lookup is smaller than the spawn round-trip.
+- When a frontier question needs a fact from the environment — codebase, filesystem, docs, tooling — dispatch a subagent to find it rather than asking the human. Route lookups to a Haiku subagent per `standards/model-selection.md`; do it inline when the lookup is smaller than the spawn round-trip.
 - A running exploration is an unsettled prerequisite. Only the questions downstream of it wait — ask the rest of the round now rather than blocking the session on a subagent.
 - A decision is the human's even when the answer looks obvious. Put it to them and wait.
 
