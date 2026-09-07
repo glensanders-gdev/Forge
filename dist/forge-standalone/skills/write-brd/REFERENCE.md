@@ -7,7 +7,7 @@ description: Output formats for /write-brd — the Phase 1 ingest summary, the d
 
 The three things this skill emits. It holds **no criterion and no section template**: the BRD
 anatomy, the objective form, the cost-of-failure form and the ten gate items are the standard's, read
-at authoring time from the live pack or from [STANDARD.md](STANDARD.md).
+at authoring time from the live pack or from `STANDARD.md`.
 
 ---
 
@@ -73,7 +73,7 @@ carrying a declared gap.
 
 ## Phase 3 — self-assessment report
 
-The report format in [GATE-PROTOCOL.md](standards/GATE-PROTOCOL.md), with three changes that
+The report format in `GATE-PROTOCOL.md`, with three changes that
 follow from the reviewer being the author:
 
 1. **The reviewer line says so.** `**Reviewer:** /write-brd — the author's own assessment, not an

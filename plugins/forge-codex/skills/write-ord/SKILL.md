@@ -37,10 +37,10 @@ independent: a change can fire both, one, or neither.
 These are authoritative and shared with `$write-prd`, `$write-reqs` and `$write-ac`. Never restate
 them here.
 
-**If a standard above cannot be read, stop and name it.** The register schema, the modal ban and the
-scenario values live there and nowhere else. Drafting them from memory produces a document that
-looks conformant and is not — an invented column set, hedged criteria, and no way for a reviewer to
-see it. An unreadable standard is a blocked run, never a degraded one.
+**If an authoring standard above cannot be read, stop and name it.** The register and criteria
+schemas, the modal ban and the scenario values live there and nowhere else. Drafting them from
+memory produces a document that looks conformant and is not, and no reviewer can see the
+difference. An unreadable standard is a blocked run, never a degraded one.
 
 ---
 

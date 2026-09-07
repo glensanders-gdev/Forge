@@ -10,17 +10,20 @@ Turn an authored PRD and ORD into testable acceptance criteria positioned at the
 
 See [REFERENCE.md](REFERENCE.md) for the altitude rules, the PRD-story and ORD-requirement translation patterns, the AC document template, and the Jira field mapping.
 
-**Authoring standards** — `standards/language.md` governs the wording of every
+**Authoring standards** — `language.md` governs the wording of every
 criterion written here. Translation carries a requirement's meaning across, not its defects: an AC
 derived from a hedged source requirement is rewritten to the declarative end-state form, never
 copied through. Never restate these rules here.
 
-`standards/ai.md` applies **conditionally**, on top of `standards/language.md` and relaxing
+`ai.md` applies **conditionally**, on top of `language.md` and relaxing
 nothing, to any criterion derived from a requirement over learned or generated behaviour: a delivered component whose output for a given input is not fully determined by written logic — a trained model, an LLM call, a retrieval-augmented pipeline, an agent, or a third-party AI service consumed as an API. Such an AC carries its threshold, its named `EVL-NNN` set, its floor and its review
 hook across intact — dropping any of the four makes it untestable, and a source requirement missing
 one is a defect to flag, never one to silently inherit. The source row's **[AI]** prefix carries
 across to the criterion, and an unresolved `[EVL-TBD]` in a source requirement is a blocker: an AC
 cannot name the set that proves it.
+
+Each standard named above is a part of `STANDARDS.md`, beside this file — a citation such as
+`tables.md` means the part of that document carrying that name, not a separate file to find.
 
 **If an authoring standard above cannot be read, stop and name it.** The register and criteria
 schemas, the modal ban and the scenario values live there and nowhere else. Drafting them from
@@ -118,7 +121,7 @@ Runs after the human confirms the split.
 - Never put detailed story-level criteria on the Capability — Capability AC are KPPs and headline outcomes only; detail flows to child issues.
 - Never carry a requirement's *narrative* into the AC — no "As a… I want…", no full register row, no priority, timing, delivery agent or comments. Carry the testable condition and its verification method verbatim; that is what makes the criterion readable standalone in Jira. See REFERENCE.md § Verbatim vs reference.
 - Never edit a carried value in the AC document — the source PRD/ORD is authoritative. Change it there and re-run.
-- Never write `could`, `should`, `would`, `may`, `enables`, `is able to`, or `can [verb]` into a criterion, and never refer to "the system" — a criterion derived from a hedged source requirement is rewritten to the declarative end-state form, never copied through. See `standards/language.md`.
+- Never write `could`, `should`, `would`, `may`, `enables`, `is able to`, or `can [verb]` into a criterion, and never refer to "the system" — a criterion derived from a hedged source requirement is rewritten to the declarative end-state form, never copied through. See `language.md`.
 - Never translate a `Won't` requirement into an AC, and never promote a `Could` to Capability level.
 - Never promote a delivery enabler to Capability AC on priority alone — only a **[KPP]** tag promotes one.
 - Never reuse a retired `AC-NNN` ID.

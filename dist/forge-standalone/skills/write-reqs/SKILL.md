@@ -20,10 +20,13 @@ and read in both directions rather than mirrored as a column in each document.
 One source → one classification → two briefs → two documents (two gates) → one gated cross-link.
 
 **Authoring standards** — shared with both siblings, never restated here:
-`standards/language.md` and `standards/tables.md`, plus
-`standards/ai.md` **conditionally** — where a delivered component's behaviour is
+`language.md` and `tables.md`, plus
+`ai.md` **conditionally** — where a delivered component's behaviour is
 learned or generated rather than specified. Classification (Phase 1) settles the trigger once for
 both halves, so the siblings never disagree about whether that ruleset is in force.
+
+Each standard named above is a part of `STANDARDS.md`, beside this file — a citation such as
+`tables.md` means the part of that document carrying that name, not a separate file to find.
 
 **If an authoring standard above cannot be read, stop and name it.** The register and criteria
 schemas, the modal ban and the scenario values live there and nowhere else. Drafting them from
@@ -43,7 +46,7 @@ here — each document is confirmed at its own gate in Phase 2.
    dual-nature need into a linked PRD story + ORD requirement — never hand the same whole need to
    both.
 4. **Settle the AI trigger once, for both halves.** Apply the trigger test in
-   `standards/ai.md` — is any delivered component's behaviour learned or generated rather
+   `ai.md` — is any delivered component's behaviour learned or generated rather
    than specified? Record the answer in the split below and pass it in both briefs, so neither
    sibling re-decides it and they cannot disagree. Judge the **delivered solution**, never the
    toolchain that builds it. Where it fires, name the affected components: the trigger is
@@ -59,7 +62,7 @@ PRD-bound (functional):  N needs
 ORD-bound (operational): N needs
 Cross-links foreseen:    N
 Assumptions / dependencies carried: N / N
-AI trigger (standards/ai.md): [fired — components: ... | not fired]
+AI trigger (ai.md): [fired — components: ... | not fired]
 BRD objectives with no coverage in either: [list or none]
 Unclassified (blocks authoring): [list or none]
 ```
