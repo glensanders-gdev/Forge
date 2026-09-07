@@ -5,8 +5,8 @@
 > everything below. Editing this file puts it out of step with the pack; regenerate
 > instead.
 
-**Pack version:** v1.9 · **Pack commit:** `719eecb78e35`
-**Generated:** 2026-09-02 · **Content hash:** `9d3e57310592cd19`
+**Pack version:** v1.10 · **Pack commit:** `b11241bcce4f`
+**Generated:** 2026-09-07 · **Content hash:** `9d3e57310592cd19`
 
 **Quote the version in every BRD authored from this extract.**
 A reader needs to know which revision was applied — a verdict, and a document

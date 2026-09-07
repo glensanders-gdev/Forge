@@ -11,6 +11,140 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
+## v4.7.0 — 2026-09-07
+
+**`write-ord` converged onto the demand-side ORD standard, and the requirements rules pack gained a
+fourth file.**
+
+Forge carried two ORD standards that disagreed. `write-ord/REFERENCE.md` held a generic template with
+an 11-column register, `Verification` and `Delivery Agent` columns, and §6/§8 scaffolded for staffing
+and infrastructure. `review-ord/CRITERIA.md` — generated from the requirements-documents pack — held
+a demand-side standard with a 7-column register, a Committed/Provisional/Assumed status taxonomy,
+§6 and §8 declared out of scope, and Appendices A–D that `write-ord` never authored. Documents
+written by the skill were reviewed against criteria the skill had never been told about.
+
+`write-ord` now authors what `review-ord` reviews.
+
+### Changed — `write-ord` 1.5.3 → 2.0.0 (breaking)
+
+- **Demand-side rule is now the skill's first statement.** The ORD carries quantified business
+  tolerance and never the technical target that satisfies it. Phase 1 rewrites source-stated
+  technical targets into tolerances and reports the rewrites at the gate; a target whose tolerance
+  cannot be recovered is a gap, not a requirement.
+- **Register schema replaced** — `ORD# · Requirement Title · Business Tolerance · KPP · MoSCoW ·
+  Status · Owner · Traces to · Source`. `Requirement Title` is new and active verb-first per the
+  existing `language.md` voice rule. `KPP` moves from an inline prefix to a column; `[AI]` stays a
+  prefix. `Delivery Agent`, `Operational Owner`, `Timing` and `Verification` are **removed** — each
+  is response-side, and stating one pre-empts the design review the document exists to inform.
+- **Status taxonomy and document tier adopted** — Committed / Provisional / Assumed, with the tier
+  set by the weakest status on any KPP-bearing requirement.
+- **KPPs carry threshold and objective as two labelled values.**
+- **§6 and §8 numbered and left empty** — staffing and infrastructure are out of scope; content
+  falling there is referred, never omitted.
+- **All nine 25010 characteristics now always appear.** The coverage-gap collapse rule was narrowed
+  to sub-characteristic level, which is what it always meant — a missing characteristic heading is
+  invisible to a reviewer, thirty empty sub-characteristic tables bury the document.
+- **New registers:** operational objectives (`OBJ-NNN`, with baseline/target/target-date), scenarios
+  (`SCN-NNN`), impacts (`IMP-NNN`), referred requirements (`REF-NNN`), business rules (`BRL-NNN`,
+  conditional), data elements (`DAT-NNN`, conditional).
+- **Appendices realigned to the standard** — A traceability (with `Proposed AC`, `Capability`,
+  `Epic`, `PRD#` written back), B assumptions, C referred requirements, D conformance to the design
+  response, E interface detail, F scenario catalogue, G business rules, H data elements.
+- **Conformance claim corrected.** The header claimed `ISO/IEC Standard: 25010:2023`. The ORD is not
+  an ISO document type at all — it is JCIDS heritage. It now claims **ISO/IEC/IEEE 29148:2018**
+  (stakeholder and system requirements), *organised by* 25010:2023 at §3.
+- **REFERENCE.md 732 → 466 lines.** The register schema was repeated in ~30 sub-characteristic
+  stubs; it is now stated once and the subsections are a map. That repetition was the reason a
+  column change had to touch forty tables.
+
+### Added — `rules/requirements/reporting.md`
+
+Fourth file in the pack, conditional like `ai.md` and independent of it. Fires where a change
+creates, alters or retires a measure somebody reports. Supplies the four-part measure definition
+(population · rule set and version · lineage · correction path), the `DAT-NNN` schema, a class map
+routing reporting requirements into existing §3 subsections, reconciliation rules, and the competing-
+methodologies procedure. Anchored to **ISO/IEC 25012** / **25024** (data quality) and
+**ISO/IEC 20000-1:2018** (service reporting), with **OMG DMN** and **SBVR** behind the business-rule
+register. Carries an `ai.md`-style verification stamp: the anchors were adopted from knowledge, not
+from the standard texts, and the stamp says so.
+
+### Changed — `rules/requirements/`
+
+- **`tables.md`** — demand-side register schema; objective, scenario, business-rule, impact and
+  referred-requirement schemas; `OBJ`/`BRL`/`SCN`/`IMP`/`REF`/`DAT` namespaces; assumptions gain a
+  mandatory `Confirm by`; coverage-gap collapse narrowed to sub-characteristic level.
+- **Scenario gains a second axis rather than a fourth value.** `Outcome` (Favourable / Adverse)
+  applies on a Sunny Day only. A determination that runs correctly and returns bad news is not a
+  Rainy Day — condition and outcome are orthogonal, and a fourth `Scenario` value would have
+  conflated them. A determination requirement carrying only a Favourable row is now incomplete.
+- **`language.md`** — new § *Demand, not design*. The INCOSE *Guide to Writing Requirements* is
+  recorded under the existing `shall` deviation, which previously named 29148 alone and silently
+  extended to the more prescriptive source. ISO/IEC/IEEE 24765 adopted as the vocabulary anchor.
+
+### Changed — downstream consumers
+
+- **`write-ac` 1.5.2 → 1.6.0.** Reads the new register; carries both labelled KPP values; takes the
+  verification instrument from Appendix D and writes `pending design response` where it is not yet
+  issued. `Proposed AC` in Appendix A is explicitly the author's input, not an assigned `AC-NNN`.
+- **`testplan` 1.1.0 → 1.2.0.** Triages on the measurement population inside the tolerance plus
+  Appendix D, instead of a `Verification` column that no longer exists. A pending Appendix D is the
+  expected pre-response state, not a defect.
+- **`write-reqs` 1.3.1 → 1.4.0.** The joint PRD+ORD cross-link lived at "ORD Appendix B — PRD
+  Cross-Link". Appendix B is now the assumption register, so the link moved to the **`PRD#` column
+  of Appendix A — Traceability**, which already holds the row's up-link and its written-back
+  downstream links. A standalone ORD leaves the column empty rather than omitting an appendix.
+- Both `write-ac` and `testplan` read a pre-convergence ORD as the same register and do not rewrite
+  the source document.
+
+### Changed — the pack, and the review side (pack v1.9 → v1.10)
+
+`review-ord/CRITERIA.md` is a generated extract, so the review side was updated by revising the pack
+and regenerating — never by hand-editing the extract.
+
+- **Pack v1.10** adds `Requirement title` to the register schema and the worked example; adds
+  **OH-14** (operational objectives with a baseline) and **OH-15** (scenario coverage including the
+  adverse outcome) as supporting gate items; extends OH-11 where a reported measure changes; adds a
+  rule that a competing methodology is never recorded as an assumption; and adds **Appendix E**, the
+  scenario catalogue. The gate is now fifteen items; the seven bar items are untouched.
+- **The business-rule dead end got a third exit.** §7.1 offered two outcomes where no functional
+  requirements document exists and called both bad. It now names a third and prefers it where a
+  referral has no recipient: the ORD **may** carry a rule register provided the carry is
+  **declared** as a deviation. **The defect is silence, not carrying** — a review fails undeclared
+  functional content and passes declared content, recording in both cases that the chain lacks a
+  functional requirements document. This resolves the conflict the convergence had otherwise created
+  between `write-ord`'s Appendix G and the pack's refer-it-instead position, without reversing the
+  pack's reasoning.
+- **`review-ord` 2.1.0 → 2.2.0** — verdicts OH-1 – OH-15; checks the OH-12 inline provenance
+  (`Ver`, status, owner, confirm-by travelling with a proposed criterion), OH-14's baseline rule,
+  OH-15's adverse-outcome substance, and assesses carried business rules on their *declaration*
+  rather than their presence. Scans the assumption register for a methodology conflict filed as an
+  assumption.
+- **`review-brd` 2.0.1 → 2.0.2** and **`write-brd` 1.1.2 → 1.1.3** — **stamp only**; the BRD
+  material did not move.
+
+### Corrected during implementation
+
+- **`Ver` was wrongly dropped** from the register in the first convergence pass. It is the
+  requirement's own version and it carries the §6.2 inline provenance that travels with a proposed
+  acceptance criterion — restored.
+- **`Traces to` was wrongly added** as a register column. Traceability lives once, at Appendix A;
+  carrying it in both places is the restatement the view rule forbids — removed.
+- **`Operational Owner` was dropped rather than added**, reversing the review's earlier
+  recommendation. The operating model is the design response's to specify, so naming who runs a
+  requirement in production is the same pre-emption as stating an RTO.
+- **Scenarios gained a second axis rather than a fourth value**, for the reason recorded above.
+
+### Known
+
+- **The standards anchors added by `reporting.md` are unverified** against their published texts —
+  ISO/IEC 25012's characteristic list, whether an AS/NZS adoption of it exists, 20000-1's service
+  reporting clauses, and DMN's decision separation. The stamp in that file records exactly what was
+  and was not checked. No document claims conformance to them until they are.
+- **The worked example's scenario catalogue covers three of seventeen requirements**, with the
+  remainder declared as a gap. It demonstrates the form, not full coverage.
+
+---
+
 ## v4.6.4 — 2026-09-02
 
 **The review-criteria extracts were five pack revisions stale.**

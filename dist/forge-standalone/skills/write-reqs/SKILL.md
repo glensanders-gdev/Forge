@@ -14,8 +14,8 @@ never reproduces their templates or quality rules.
 
 **The two halves keep their own schemas.** A PRD story is narrative with declarative criteria rows;
 an ORD requirement is a register row. They are not merged and their tables are not reconciled — the
-only thing joining them is the ORD's **Appendix B — PRD Cross-Link**, held once and read in both
-directions rather than mirrored as a column in each document.
+only thing joining them is the **`PRD#` column of the ORD's Appendix A — Traceability**, held once
+and read in both directions rather than mirrored as a column in each document.
 
 One source → one classification → two briefs → two documents (two gates) → one gated cross-link.
 
@@ -79,9 +79,9 @@ Needs (N):
 
 Cross-document context:
   [ORD brief] NFRs the PRD must not hold and this ORD owns: [list]
-  [ORD brief] Retain Appendix B — PRD Cross-Link. This is joint authoring, so the
-              appendix the template omits for a standalone ORD is required here.
-              Leave its PRD# cells unset; /write-reqs fills them in Phase 3.
+  [ORD brief] Populate Appendix A — Traceability, including its PRD# column. This is
+              joint authoring, so the column a standalone ORD leaves empty is required
+              here. Leave the PRD# cells unset; /write-reqs fills them in Phase 3.
   [PRD brief] Operational needs routed to the ORD — do not restate them, and do not
               carry their figures: [list]
 
@@ -92,7 +92,7 @@ On completion: return the document path and the ID range assigned. Suppress your
 ```
 
 The ORD brief carries the routed NFRs deliberately: it lets the ORD own them **without reading the
-PRD**, preserving the ADR-0001 sibling rule. Appendix B is the one thing that cannot be prepared
+PRD**, preserving the ADR-0001 sibling rule. The `PRD#` column is the one thing that cannot be prepared
 this way — it needs both ID ranges, which is why it is filled in Phase 3 rather than at authoring.
 
 ## Phase 2 — HITL Author both [HITL]
@@ -111,15 +111,16 @@ Both documents now exist and **both have already been approved at their own gate
 edits approved content, so it is gated in its own right.
 
 1. Prepare the cross-link set — do not write yet:
-   - **ORD Appendix B — PRD Cross-Link** is the home for the link, one row per linked
-     requirement: `ORD#` → the requirement's ID, `Section` → its register subsection (e.g. `3.2.1`),
-     `PRD#` → the real `PRD-NNN` it backs. The ORD template names this appendix as the one link its
-     register cannot hold, and names this skill as what populates it — write the column headings
-     exactly as the template gives them, and never invent a cross-link column in the register.
+   - **The `PRD#` column of ORD Appendix A — Traceability** is the home for the link: on the row
+     already carrying that `ORD#`, set `PRD#` to the real `PRD-NNN` it backs. Appendix A holds the
+     row's up-link (`Traces to`) and its written-back downstream links (`Proposed AC`, `Capability`,
+     `Epic`, `PRD#`) together, so the cross-link needs no table of its own — write the column
+     headings exactly as the template gives them, and never invent a cross-link column in the
+     register.
    - **The PRD side carries no ORD column.** Its traceability matrix ends at `SOAP Ref`, because in
-     this chain the ORD is downstream of the SOAP. Appendix B is therefore the single home for the
-     link and is read in both directions; do not add a column to the PRD matrix to mirror it, and do
-     not restate the mapping anywhere else.
+     this chain the ORD is downstream of the design response. Appendix A is therefore the single
+     home for the link and is read in both directions; do not add a column to the PRD matrix to
+     mirror it, and do not restate the mapping anywhere else.
    - **NFR-home rule**: the ORD *owns* the NFR. Any NFR stated in full in the PRD is a duplication
      to resolve by deleting the PRD copy — `/write-prd` already forbids carrying a technical figure,
      so a PRD holding one is a defect at source, not a citation to rewrite. Where the story genuinely
@@ -133,7 +134,7 @@ edits approved content, so it is gated in its own right.
 ```
 ## Cross-link pass — changes to two approved documents
 
-Links to add:      N   (ORD Appendix B rows)
+Links to add:      N   (ORD Appendix A PRD# cells)
 NFR text to DELETE from the PRD (the ORD owns it):
   - PRD §[x] "[first line of text to be removed]" → owned by [System] ORD §[y] (ORD-NNN)
 Orphans / gaps to flag (no content change): N
@@ -163,10 +164,10 @@ Type CONFIRM to apply, or list the changes to drop.
   cross-link pass runs after both human gates and must not treat that approval as covering it.
 - Never hand the same whole need to both siblings — classify it to one, or split a dual-nature
   need into a linked PRD story / ORD requirement pair.
-- Never leave an ORD Appendix B `PRD#` cell unset once both documents exist — closing that gap is
+- Never leave an ORD Appendix A `PRD#` cell unset once both documents exist — closing that gap is
   the entire reason this skill exists.
-- Never invent a cross-link column in either document. Appendix B is the only home the templates
-  provide; if a link will not fit there, report it rather than adding a column to hold it.
+- Never invent a cross-link column in either document. Appendix A's `PRD#` column is the only home
+  the templates provide; if a link will not fit there, report it rather than adding a column.
 - Never give an `ORD-NNN` ID to a functional need or a `PRD-NNN` ID to an operational one.
 - Never reuse a retired `PRD-NNN`, `ORD-NNN`, `ASM-NNN` or `DEP-NNN` ID.
 - Never let a sibling emit its standalone next-steps block — sequencing is owned here, once.
@@ -184,5 +185,5 @@ Type CONFIRM to apply, or list the changes to drop.
 | User rejects the Phase 3 cross-link gate | Both documents stand as approved. Report which links remain unset; never apply a partial set without a fresh `CONFIRM`. |
 | A sibling ignores its brief and re-extracts | Stop before the cross-link pass. Report the scope drift — a document containing needs routed to its sibling has the wrong ID prefixes and cannot be cross-linked correctly. |
 | A sibling changes its Phase contract | Fix the invocation here; never copy the sibling's logic in to compensate. |
-| Authored ORD has no Appendix B | The brief required it and the template omits it only for a standalone ORD. Stop before the cross-link pass and report it — never add the appendix here, and never write the links into the register instead. Re-invoke `/write-ord` with the brief restated, or ask the human to add the appendix. |
-| Appendix B column headings differ from the ORD template | Report the mismatch and stop. The headings are `ORD#`, `Section`, `PRD#` — writing into renamed columns produces an ORD its own reviewer (`/review-ord`) reads as non-conforming. |
+| Authored ORD's Appendix A has no `PRD#` column | The brief required it; a standalone ORD leaves the column empty rather than omitting it. Stop before the cross-link pass and report it — never add the column here, and never write the links into the register instead. Re-invoke `/write-ord` with the brief restated, or ask the human to add it. |
+| Appendix A column headings differ from the ORD template | Report the mismatch and stop. The headings are `ORD#`, `Traces to — OBJ, and BO via BR`, `Orphan?`, `Proposed AC`, `Capability`, `Epic`, `PRD#` — writing into renamed columns produces an ORD its own reviewer (`/review-ord`) reads as non-conforming. |

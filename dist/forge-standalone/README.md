@@ -46,14 +46,14 @@ Some skills cite the shared standards in `rules/`. `install.sh` copies those to
 | [`/qa-report`](skills/qa-report/SKILL.md) | Record the results of a completed QA session as a datestamped evidence artefact. Reads the qa-plan and TC registry, captures pass/fail per test case,… |
 | [`/research`](skills/research/SKILL.md) | Cache findings from expensive exploration phases into topic-specific markdown files. Use when implementation would require repeated or costly explorat… |
 | [`/review-brd`](skills/review-brd/SKILL.md) | Assess a submitted BRD against the published handoff gate — BH-1 to BH-10, the [TBD] treatment rule and the four outcomes — returning a per-item verdi… |
-| [`/review-ord`](skills/review-ord/SKILL.md) | Assess a submitted ORD against the published §7.1 handoff gate — OH-1 to OH-13, the four outcomes, the §7.3 refuse-to-produce scan and the §5 tier rul… |
+| [`/review-ord`](skills/review-ord/SKILL.md) | Assess a submitted ORD against the published §7.1 handoff gate — OH-1 to OH-15, the four outcomes, the §7.3 refuse-to-produce scan and the §5 tier rul… |
 | [`/tdd`](skills/tdd/SKILL.md) | Test-driven development with red-green-refactor loop. Use when user wants to build features or fix bugs using TDD, mentions "red-green-refactor", want… |
 | [`/test-coverage`](skills/test-coverage/SKILL.md) | Analyze test coverage gaps in an existing codebase, identify under-covered files and functions, then generate missing tests to reach the project cover… |
 | [`/testplan`](skills/testplan/SKILL.md) | Design the testing strategy for a feature or a release — what to test, at what level, automated vs manual, and which behaviours are critical. Runs in… |
 | [`/to-tickets`](skills/to-tickets/SKILL.md) | Convert a plan, PRD, spec, or conversation into a set of vertical-slice kanban tickets — each a tracer bullet sized to the smart zone, with genuine bl… |
 | [`/write-ac`](skills/write-ac/SKILL.md) | Transform a PRD and ORD into Jira acceptance criteria — promote KPPs and headline outcomes to Capability-level AC, flow story detail to child Epics/St… |
 | [`/write-brd`](skills/write-brd/SKILL.md) | Author a Business Requirements Document to the pack's BABOK v3 standard — SMART objectives carrying baseline, target and date, outcomes rather than so… |
-| [`/write-ord`](skills/write-ord/SKILL.md) | Synthesize a call transcript, document, conversation context, or structured notes into a compliant Operational Requirements Document (ORD) organised b… |
+| [`/write-ord`](skills/write-ord/SKILL.md) | Synthesize a call transcript, document, conversation context, or structured notes into a compliant demand-side Operational Requirements Document (ORD)… |
 | [`/write-prd`](skills/write-prd/SKILL.md) | Synthesize the current conversation, grill session, research, and prototype findings into a structured PRD aligned with ISO/IEC/IEEE 29148:2018 — the… |
 | [`/write-reqs`](skills/write-reqs/SKILL.md) | Author a PRD and an ORD together from one source — classify needs into functional (PRD) and operational (ORD), delegate each document end-to-end to /w… |
 
@@ -166,7 +166,7 @@ These files are generated, so edits made directly here are overwritten on the ne
 release. Open an issue describing what needs changing and it will be fixed upstream
 and republished.
 
-Release 4.6.4.
+Release 4.7.0.
 
 ## Credits
 
