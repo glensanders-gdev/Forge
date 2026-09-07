@@ -1,10 +1,10 @@
 # Handoff: Standalone skills distribution
 
 **Stream:** `standalone-skills`
-**Status:** Active
-**Last updated:** 2026-09-07 20:55
-**Session type:** The release landed — PR #68 merged, five releases on `main`, publish now unblocked
-**Prepared by:** /handoff standalone-skills — second refresh, after the merge
+**Status:** Closed
+**Last updated:** 2026-09-07 21:10
+**Session type:** Stream closed — v4.7.4 published and confirmed
+**Prepared by:** /handoff standalone-skills --close
 **Touches:** `dist/forge-standalone/`, `.standalone-sync/`, `glensanders-gdev/skills` (public), `global/.claude/`, `tools/`, `.github/workflows/`
 
 ---
@@ -12,8 +12,8 @@
 ## Current Ticket
 
 **Publish Forge skills as a standalone distribution** `[HITL]`
-Status: Shipped — **publish is the only step left, and it is now unblocked**
-**Current phase:** Post-merge follow-ups — Session 5 of this phase
+Status: **Done.** Published as `9218bfe`, *Release 4.7.4*, 2026-09-07.
+**Current phase:** Closed — the stream's purpose is discharged
 
 Not tracked in `docs/kanban.md`; that board is stale (June 2026) and belongs to a different stream.
 
@@ -44,35 +44,30 @@ from a pre-push review; v4.7.4 came from CI catching what that same review misse
 `global/` and `dist/` and never looked at `plugins/`. **Three generated trees exist —
 `dist/`, `plugins/forge-codex/` and the `review-*` extracts — and a review covered two.**
 
-## Next Action
+## Outcome — the stream is closed
 
-**Publish. It is the only step left in this stream, and nothing blocks it.**
+**Published.** `ff00307..9218bfe`, commit subject *Release 4.7.4*, 2026-09-07, to
+`git@github.com:glensanders-gdev/skills.git`.
 
-`origin/main` = `3c1ceff` carries v4.7.4. Local `main` is fast-forwarded to match. The public repo is
-at `ff00307`, *"Sync standalone skills from Forge 4.4.0"*, dated **2026-08-23**.
+| | |
+|---|---|
+| Diff | 25 files, 24 modified, **1 added**, **0 deleted**, +1,427/−713 |
+| Version | `4.4.0` → **`4.7.4`** in `manifest.json` and `README.md` |
+| Skill count | unchanged at 65 |
+| First-time content | `rules/requirements/reporting.md`, and the per-skill `version` field on all 65 skills |
 
-```bash
-./tools/sync-standalone-skills.sh
-```
+**The `rsync -a --delete` risk did not fire, and that was checked on the staged diff rather than
+inferred** — zero deletions. The guard matters again the moment the shipped set changes; it is not
+a general clearance.
 
-It rebuilds, mirrors, stages and stops — it never pushes on its own. Read the staged diff, then:
+**Confirmed after the fact by `/skill-health`, read live from `gh`:** published release `4.7.4`
+matches `dist/`, 65 skills both sides, all 65 per-skill versions agree, none absent upstream and
+none upstream-only. **The publication checks had never run against a real publish before — they
+work.** The lag they exist to catch measured 4.4.0 vs 4.7.4 beforehand and is now zero.
 
-```bash
-./tools/sync-standalone-skills.sh --push
-```
-
-**Expect a very large diff: ten release bumps, 4.5.0 through 4.7.4**, including the per-skill
-`version` field that shipped in 4.5.0 and has never been published — every skill gains a version for
-the first time.
-
-**The irreversible risk this handoff used to carry does not apply, and that was verified rather than
-assumed.** The mirror runs `rsync -a --delete`, so a skill dropped from the shipped set disappears
-upstream. The sets were compared directly: **65 skills upstream, 65 local, identical names.** Nothing
-would be deleted; the publish is additive-plus-modify only. **Re-check before pushing** — the guard
-matters again the moment the shipped set changes.
-
-**Publish from `main`, not from the branch.** The branch is retained and still carries the merged
-work, so it is an easy mistake to make.
+**Ten release bumps landed unannotated**, as a bare `Release 4.7.4`. `/changelog` was offered and
+not taken. Recorded because it is the one thing about this publish that a future reader of the
+public repository cannot reconstruct.
 
 ## Context the Next Session Will Need
 
@@ -125,37 +120,24 @@ never stage during a build.
 
 ---
 
-## Open Decisions
+## Open Decisions at close
 
-**Closed — which release publishes first.** The choice existed only because 4.7.0 was unlanded.
-It is landed, along with four more, so the publish is **v4.7.4 from `main`**. The 4.6.4 alternative
-would now publish content two pack revisions stale and need a second publish behind it.
+**All closed or carried out of the stream. Nothing was dropped.**
 
-**Whether `/skill-health` v1.6.0 stands as its own v4.6.2** rather than sitting in the v4.6.0
-CHANGELOG section beneath a concurrent session's v4.6.1. No release is tagged, so still cosmetic —
-but it is committed history, so changing it means rewriting a merged commit. 4.6.2 has since been
-used for the `setup.sh` fix, and three further releases now sit on top. **Age is turning this from a
-decision into a fact.**
+| Decision | Disposition |
+|---|---|
+| Which release publishes first | **Closed** — v4.7.4 published |
+| `/skill-health` v1.6.0 versioning | **Carried to backlog** — committed history; age turned it from a decision into a fact |
+| Three published commit subjects naming the upstream framework | **Carried to backlog** — `ff00307`, `0246fac`, `0c03e6a`. Fixed for future releases in #61; correcting these needs a force push over published history, deliberately not done |
+| Whether `/write-a-skill` ever ships standalone | **Carried to backlog** — deferred by choice; the destination fork is fenced and shaped, the skill stays `standalone: false` |
 
-**Three published commit subjects still name Forge.** `ff00307`, `0246fac` and `0c03e6a` in the
-public repo read `Sync standalone skills from Forge …`. Fixed for future releases in #61; correcting
-the existing three needs a force push over published history. Deliberately not done.
-
-**Whether `/write-a-skill` ever ships standalone.** Deferred by choice: the destination fork is
-fenced and shaped for publication, but the skill stays `standalone: false`.
-
-**Closed since the last handoff:** the extract-stamp residual. v4.7.2 regenerated all three extracts
-against **pack v1.11**, stamped with the real pack commit `d2f74eca4885` — the sha and the content now
-agree. A first regeneration in the wrong order stamped a stale sha with a dirty-tree warning and was
-**backed out rather than committed**; the pack is committed before the extracts are built, and that
-ordering is the reason the provenance holds.
-
----
+**Archives are never read on resume**, so the three surviving items were written to
+`~/.claude/backlog.md` rather than left here. That is the whole reason this section exists in a
+closing handoff.
 
 ## Blockers
 
-_None._ The previous blocker — *"v4.7.0 is not on `main` and is not pushed"* — cleared with PR #68.
-Everything remaining in this stream is a decision, not an obstacle.
+_None, and none remaining._ The stream's last blocker cleared with PR #68 and the publish followed.
 
 ---
 
