@@ -19,13 +19,13 @@ See [REFERENCE.md](REFERENCE.md) for the ISO/IEC 25010:2023 taxonomy, the demand
 the status taxonomy, the KPP guide and the full ORD template.
 
 **Authoring standards — read before writing any requirement:**
-- `standards/language.md` — wording, voice, banned modals, demand-not-design
-- `standards/tables.md` — table-first presentation, canonical schemas, ID namespaces
-- `standards/ai.md` — **conditional.** Fires where a delivered component's output
+- `language.md` — wording, voice, banned modals, demand-not-design
+- `tables.md` — table-first presentation, canonical schemas, ID namespaces
+- `ai.md` — **conditional.** Fires where a delivered component's output
   for a given input is not fully determined by written logic — a trained model, an LLM call, a
   retrieval-augmented pipeline, an agent, or a third-party AI service consumed as an API. Supplies
   the evaluative criterion, the `EVL-NNN` / `MDL-NNN` schemas, and the ISO/IEC 25059 class map.
-- `standards/reporting.md` — **conditional.** Fires where the change creates,
+- `reporting.md` — **conditional.** Fires where the change creates,
   alters or retires a measure somebody reports. Supplies the measure definition, the `DAT-NNN`
   schema and the ISO/IEC 25012 data-quality anchor.
 
@@ -35,10 +35,13 @@ independent: a change can fire both, one, or neither.
 These are authoritative and shared with `/write-prd`, `/write-reqs` and `/write-ac`. Never restate
 them here.
 
-**If a standard above cannot be read, stop and name it.** The register schema, the modal ban and the
-scenario values live there and nowhere else. Drafting them from memory produces a document that
-looks conformant and is not — an invented column set, hedged criteria, and no way for a reviewer to
-see it. An unreadable standard is a blocked run, never a degraded one.
+Each standard named above is a part of `STANDARDS.md`, beside this file — a citation such as
+`tables.md` means the part of that document carrying that name, not a separate file to find.
+
+**If an authoring standard above cannot be read, stop and name it.** The register and criteria
+schemas, the modal ban and the scenario values live there and nowhere else. Drafting them from
+memory produces a document that looks conformant and is not, and no reviewer can see the
+difference. An unreadable standard is a blocked run, never a degraded one.
 
 ---
 
@@ -108,10 +111,10 @@ assumption with an owner and a confirm-by date, or a decision item.
 14. Identify **Key Performance Parameters** — requirements whose failure means the capability is
     unfit for purpose, not merely degraded. State each as a business-failure threshold carrying
     **threshold and objective** as two labelled values.
-15. **Apply both conditional trigger tests** — `standards/ai.md` and `standards/reporting.md`. Answer each explicitly in
+15. **Apply both conditional trigger tests** — `ai.md` and `reporting.md`. Answer each explicitly in
     the Phase 1 Summary; do not leave either unasked. Judge the **delivered solution**, never the
-    toolchain that builds it. Where `standards/ai.md` fires, classify against the ISO/IEC 25059
-    sub-characteristics too. Where `standards/reporting.md` fires, check every class in its map and extract
+    toolchain that builds it. Where `ai.md` fires, classify against the ISO/IEC 25059
+    sub-characteristics too. Where `reporting.md` fires, check every class in its map and extract
     the `DAT-NNN` data elements.
 16. **Detect competing methodologies** — where current operational practice differs from
     contractual, regulatory or documented reporting practice, preserve both, and raise it for the
@@ -152,11 +155,11 @@ assumption with an owner and a confirm-by date, or a decision item.
 [or "none — source stated demand throughout"]
 Technical figures whose underlying tolerance could not be recovered: [list, or "none"]
 
-### Trigger — `standards/ai.md`
+### Trigger — `ai.md`
 **Fired:** Yes — [components] | No — [why]
 [Where fired:] 25059 sub-characteristics engaged · EVL/MDL candidates
 
-### Trigger — `standards/reporting.md`
+### Trigger — `reporting.md`
 **Fired:** Yes — [the reported measures] | No — [why]
 [Where fired:] data elements identified · reconciliation classes checked
 
@@ -227,7 +230,7 @@ Runs after the human confirms the Phase 1 summary. Writes the ORD using the temp
    mints `AC-NNN`), B (assumptions), C (referred requirements), D (conformance, left pending until
    the design response is issued), E (interface detail), F (scenario catalogue), G (business rules —
    only where no functional requirements document is produced, with the deviation declared),
-   H (data elements — only where `standards/reporting.md` fires).
+   H (data elements — only where `reporting.md` fires).
 7. **Check traceability at Appendix A**, which is its single home — the register carries `Source`
    only. Flag any row with no objective **and** no source as **orphan scope**, and any BRD objective
    with no resulting register row as a **coverage gap**. Do not silently resolve either.

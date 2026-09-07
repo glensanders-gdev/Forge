@@ -11,6 +11,43 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
+## v4.8.0 — 2026-09-08
+
+**A skill folder is not the only way a skill is consumed. The standalone requirements skills
+now ship as three files that work with no filesystem at all.**
+
+v4.7.5 fixed the citations for someone who copies a skill *directory*. It did nothing for
+someone who pastes `SKILL.md` and `REFERENCE.md` into a chat — `standards/tables.md` is exactly
+as unreachable there as `~/.claude/rules/requirements/tables.md` was, and the blocked-run rule
+added in the same release turns that into a refusal rather than a wrong document.
+
+The standalone build now concatenates the pack into a single **`STANDARDS.md`** beside
+`SKILL.md` and `REFERENCE.md`, and the `standards/` directory is gone:
+
+- **Each part keeps the name of the file it came from.** The many inline citations — *"per
+  `tables.md`"*, *"where `ai.md` fires"*, *"`tables.md` § Requirement register"* — resolve
+  against a section name and are left untouched. Only the path forms are rewritten, which is
+  what keeps the prose grammatical.
+- **`Fold` absorbs a file the skill already owns.** `/write-brd` shipped a generated
+  `STANDARD.md` beside the new `STANDARDS.md` — a one-letter difference in one folder, with no
+  way for a reader to know which they had opened. It is now a part like any other.
+- Pack-internal links become plain names, since inside one document a link to a sibling file
+  resolves to nothing.
+
+Every skill is at most three files and 85–131K — `/write-prd` and `/write-reqs` are two, having
+no `REFERENCE.md`. Verified by resolving every name cited in `SKILL.md` and `REFERENCE.md`
+against the part headings of `STANDARDS.md`: zero unresolved across all five.
+
+**The Codex plugin keeps `standards/` as separate files.** It installs as a unit onto a real
+filesystem and has no paste-into-a-chat mode, so the concatenation buys it nothing. The two
+distributions diverge in how the standards travel, which is the generator doing its job rather
+than the skills falling out of sync.
+
+Also verified under CRLF: the new here-string is normalised at use, and a build from a CRLF copy
+of the script produces byte-identical output. That is the v4.7.8 trap, checked rather than assumed.
+
+---
+
 ## v4.7.8 — 2026-09-07
 
 **The last two ambiguous standard citations were not citations. They were positioning

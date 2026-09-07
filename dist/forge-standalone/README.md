@@ -27,8 +27,8 @@ Restart your session, then invoke a skill by name — `/tdd`, `/review-diff`, `/
 Some skills cite the shared standards in `rules/`. `install.sh` copies those to
 `~/.claude/rules/` alongside the skills.
 
-These carry their standards inside their own folder, so the single-skill copy above is
-enough for them — they need nothing from `rules/`:
+These carry their standards in a `STANDARDS.md` beside the skill, so they need nothing
+from `rules/` — the three files are the whole skill, installed or pasted into a chat:
 
 - `/write-ord`
 - `/write-prd`
@@ -175,7 +175,7 @@ These files are generated, so edits made directly here are overwritten on the ne
 release. Open an issue describing what needs changing and it will be fixed upstream
 and republished.
 
-Release 4.7.8.
+Release 4.8.0.
 
 ## Credits
 

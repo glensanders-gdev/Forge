@@ -43,17 +43,6 @@ $ForgeOnlyHeadings = @(
 #
 # The packs still ship at `rules/` for every other skill. This is a duplicate, not a move,
 # and it is generated on every build -- so the bundled copy cannot drift from the source.
-# `Siblings` names files owned by another shipped skill that this one cites across a `../`
-# path. Those resolve in a full install and in nothing else, so a self-contained skill takes
-# its own generated copy.
-$SelfContainedSkills = [ordered]@{
-    'write-ord'  = @{ Pack = 'requirements' }
-    'write-prd'  = @{ Pack = 'requirements' }
-    'write-brd'  = @{ Pack = 'requirements'; Siblings = @('review-brd/GATE-PROTOCOL.md') }
-    'write-ac'   = @{ Pack = 'requirements' }
-    'write-reqs' = @{ Pack = 'requirements' }
-}
-
 # A bundled pack sits inside the skill folder, so it reads as part of the skill. A command
 # that does not ship must therefore read as prose rather than as an invocation the reader
 # will hunt for. Same contract as the dangling-skill-reference scan, applied to rules text.
@@ -257,81 +246,168 @@ foreach ($pack in @("common", "requirements")) {
 
 # ---------------------------------------------------------------- self-contained bundling
 
+# A self-contained skill ships as three files: SKILL.md, REFERENCE.md and STANDARDS.md.
+#
+# Three files is the target because the skill has to work where there is no filesystem at
+# all -- pasted into a chat rather than installed. Separate standards files fail there the
+# same way an installed `~/.claude/rules/` tree does: the citation names something the model
+# cannot reach, so it drafts the register schema and the modal ban from memory and produces
+# a document that looks conformant. One concatenated document is reachable wherever the
+# skill's own reference is.
+#
+# Each part of STANDARDS.md keeps the name of the file it came from, so the many inline
+# citations -- "per `tables.md`", "where `ai.md` fires" -- resolve unchanged against a
+# section name. Only the path forms are rewritten.
+$SelfContainedSkills = [ordered]@{
+    'write-ord'  = @{ Pack = 'requirements' }
+    'write-prd'  = @{ Pack = 'requirements' }
+    # `Fold` absorbs a file the skill already owns. write-brd's generated pack extract is a
+    # standard in its own right, and `STANDARD.md` beside `STANDARDS.md` is a one-letter
+    # difference in one folder -- a reader picking the wrong one has no way to know.
+    'write-brd'  = @{ Pack = 'requirements'; Siblings = @('review-brd/GATE-PROTOCOL.md'); Fold = @('STANDARD.md') }
+    'write-ac'   = @{ Pack = 'requirements' }
+    'write-reqs' = @{ Pack = 'requirements' }
+}
+
+# Order is the reading order: the scope boundary first, then the two unconditional rulesets,
+# then the conditional ones. A file absent from the pack is skipped, not an error.
+$PackPartOrder = @('README.md', 'language.md', 'tables.md', 'ai.md', 'reporting.md')
+
+# The sentence every self-contained skill carries. The build prefixes it with the one fact a
+# reader of the published tree needs and Forge's own reader does not: the standards are parts
+# of a document, not files on a path.
+$FallbackSentence = '**If an authoring standard above cannot be read, stop and name it.**'
+$FallbackPreamble = @'
+Each standard named above is a part of `STANDARDS.md`, beside this file — a citation such as
+`tables.md` means the part of that document carrying that name, not a separate file to find.
+
+
+'@
+
+function Get-DocumentTitle([string]$Text) {
+    $m = [regex]::Match($Text, '(?m)^#\s+(.*?)\s*$')
+    if ($m.Success) { return $m.Groups[1].Value }
+    return ""
+}
+
+# Demote every heading one level so the concatenated document has a single H1. Fenced
+# blocks are skipped -- the requirements README draws a directory tree inside one, and a
+# `#` comment there is not a heading.
+function Add-HeadingLevel([string]$Text) {
+    $out = New-Object System.Collections.Generic.List[string]
+    $inFence = $false
+    foreach ($line in ($Text -split "`n")) {
+        if ($line -match '^\s*```') { $inFence = -not $inFence; $out.Add($line); continue }
+        if (-not $inFence -and $line -match '^#{1,5}\s') { $out.Add("#$line") } else { $out.Add($line) }
+    }
+    return ($out -join "`n")
+}
+
 $bundled = New-Object System.Collections.Generic.List[object]
 
 foreach ($entry in $SelfContainedSkills.GetEnumerator()) {
     $name     = $entry.Key
     $pack     = $entry.Value.Pack
     $siblings = @($entry.Value.Siblings | Where-Object { $_ })
+    $fold     = @($entry.Value.Fold | Where-Object { $_ })
     if ($shipped -notcontains $name) {
         throw "Self-contained skill '$name' is not shipped, so its standards have nowhere to land."
     }
     $srcPack = Join-Path $ForgeRoot "global" ".claude" "rules" $pack
     if (-not (Test-Path -LiteralPath $srcPack)) { throw "Rules pack '$pack' not found for '$name': $srcPack" }
 
-    $skillDir  = Join-Path $skillsOut $name
-    $bundleDir = Join-Path $skillDir "standards"
-    Ensure-Directory $bundleDir
-    # Get-ChildItem reports resolved paths; $OutRoot carries an unresolved `tools/..` segment.
-    # Comparing the two as strings silently matches nothing, which would repoint the bundled
-    # pack's own sibling links at itself.
-    $bundleDir = (Resolve-Path -LiteralPath $bundleDir).Path
+    $skillDir = (Resolve-Path -LiteralPath (Join-Path $skillsOut $name)).Path
 
-    $packFiles = @(Get-ChildItem -LiteralPath $srcPack -File -Filter "*.md" | Sort-Object Name)
-    if ($packFiles.Count -eq 0) { throw "Rules pack '$pack' holds no markdown for '$name'." }
-
-    foreach ($file in $packFiles) {
-        $text = Convert-StandaloneText ([IO.File]::ReadAllText($file.FullName, [Text.Encoding]::UTF8)) $file.FullName $held
-        # Normalise both sides: a multi-line rewrite key is a here-string in this file, so its
-        # line endings follow the checkout. `.gitattributes` does not cover tools/, so on a
-        # Windows checkout the key is CRLF while the text it searches has been normalised to
-        # LF -- the replacement silently finds nothing and the rewrite never happens.
+    # Gather the parts: the pack in reading order, then any declared sibling, taken from the
+    # already-adapted output tree so it has been through Convert-StandaloneText.
+    $parts = New-Object System.Collections.Generic.List[object]
+    $packFiles = @(Get-ChildItem -LiteralPath $srcPack -File -Filter "*.md")
+    $ordered = @($PackPartOrder | Where-Object { $n = $_; $packFiles | Where-Object { $_.Name -eq $n } })
+    $unlisted = @($packFiles | Where-Object { $PackPartOrder -notcontains $_.Name } | ForEach-Object { $_.Name } | Sort-Object)
+    foreach ($fileName in @($ordered + $unlisted)) {
+        $src = Join-Path $srcPack $fileName
+        $text = Convert-StandaloneText ([IO.File]::ReadAllText($src, [Text.Encoding]::UTF8)) $src $held
         foreach ($r in $BundledPackRewrites.GetEnumerator()) {
             $find = $r.Key   -replace "\r\n?", "`n"
             $repl = $r.Value -replace "\r\n?", "`n"
             $text = $text.Replace($find, $repl)
         }
-        [IO.File]::WriteAllText((Join-Path $bundleDir $file.Name), $text, [Text.UTF8Encoding]::new($false))
+        $parts.Add([pscustomobject]@{ Name = $fileName; Text = $text })
     }
-
     foreach ($sib in $siblings) {
         $sibSrc = Join-Path $skillsOut $sib
         if (-not (Test-Path -LiteralPath $sibSrc)) { throw "Sibling file '$sib' declared by '$name' is not in the output tree." }
-        Copy-Item -LiteralPath $sibSrc -Destination (Join-Path $bundleDir (Split-Path -Leaf $sib)) -Force
+        $parts.Add([pscustomobject]@{
+            Name = (Split-Path -Leaf $sib)
+            Text = [IO.File]::ReadAllText($sibSrc, [Text.Encoding]::UTF8)
+        })
     }
+    foreach ($own in $fold) {
+        $ownSrc = Join-Path $skillDir $own
+        if (-not (Test-Path -LiteralPath $ownSrc)) { throw "Fold target '$own' declared by '$name' is not in its folder." }
+        $parts.Add([pscustomobject]@{
+            Name = $own
+            Text = [IO.File]::ReadAllText($ownSrc, [Text.Encoding]::UTF8)
+        })
+        Remove-Item -LiteralPath $ownSrc -Force
+    }
+    if ($parts.Count -eq 0) { throw "Rules pack '$pack' holds no markdown for '$name'." }
 
-    $stems       = @($packFiles | ForEach-Object { [IO.Path]::GetFileNameWithoutExtension($_.Name) })
+    # Assemble.
+    $doc = New-Object System.Collections.Generic.List[string]
+    $doc.Add("# Authoring Standards")
+    $doc.Add("")
+    $doc.Add("The standards ``/$name`` cites, gathered into one document so the skill works where")
+    $doc.Add("there is no filesystem to read them from. Each part keeps the name of the file it came")
+    $doc.Add("from: a citation such as ``tables.md`` means the part below with that name.")
+    $doc.Add("")
+    foreach ($p in $parts) {
+        $doc.Add("- **``$($p.Name)``** — $(Get-DocumentTitle $p.Text)")
+    }
+    foreach ($p in $parts) {
+        $body = Add-HeadingLevel $p.Text
+        # Inside one document a link to a sibling file resolves to nothing. The name is what
+        # the citations use, so keep the name and drop the link.
+        $body = [regex]::Replace($body, '\[([A-Za-z0-9_.-]+\.md)\]\(\1\)', '`$1`')
+        $doc.Add("")
+        $doc.Add("---")
+        $doc.Add("")
+        $doc.Add("## ``$($p.Name)``")
+        $doc.Add("")
+        # The part's own H1 is now redundant beside the heading above it.
+        $doc.Add(($body -replace '(?m)\A##\s+.*?\r?\n', '').TrimStart())
+    }
+    [IO.File]::WriteAllText((Join-Path $skillDir "STANDARDS.md"), (($doc -join "`n").TrimEnd() + "`n"), [Text.UTF8Encoding]::new($false))
+
+    $stems       = @($parts | ForEach-Object { [IO.Path]::GetFileNameWithoutExtension($_.Name) })
     $alternation = (($stems | ForEach-Object { [regex]::Escape($_) }) -join '|')
-    # The bare form is rewritten on filename alone, so `README` is excluded from it: a skill
-    # citing `README.md` almost always means the consuming project's, not the pack's. The two
-    # path forms carry the pack directory and stay unambiguous.
-    $bareAlternation = (($stems | Where-Object { $_ -ne 'README' } | ForEach-Object { [regex]::Escape($_) }) -join '|')
 
-    # Repoint every citation at the bundled copy. Three forms exist in the source -- an
-    # installed home path, a pack-relative path, and a bare filename. The bare form is both
-    # the most used and the least resolvable: a model reading `tables.md` from inside the
-    # skill folder looks for a sibling that is not there. Longest first, so an earlier
-    # rewrite is not re-matched by a later pattern.
-    $skillFiles = @(Get-ChildItem -LiteralPath $skillDir -Recurse -File -Filter "*.md" |
-        Where-Object { $_.DirectoryName -ne $bundleDir })
+    # Normalise every path form to the bare name the parts are keyed by. Inline citations are
+    # already bare and stay untouched, which is what keeps the prose grammatical.
+    $skillFiles = @(Get-ChildItem -LiteralPath $skillDir -File -Filter "*.md" |
+        Where-Object { $_.Name -ne "STANDARDS.md" })
     $rewritten = 0
     foreach ($f in $skillFiles) {
         $text   = [IO.File]::ReadAllText($f.FullName, [Text.Encoding]::UTF8)
         $before = $text
-        $text = $text -replace "~/\.claude/rules/$([regex]::Escape($pack))/($alternation)\.md", 'standards/$1.md'
-        $text = $text -replace "(?<![\w./-])rules/$([regex]::Escape($pack))/($alternation)\.md", 'standards/$1.md'
-        $text = $text -replace "``($bareAlternation)\.md``", '`standards/$1.md`'
+        $text = $text -replace "~/\.claude/rules/$([regex]::Escape($pack))/($alternation)\.md", '$1.md'
+        $text = $text -replace "(?<![\w./-])rules/$([regex]::Escape($pack))/($alternation)\.md", '$1.md'
         foreach ($sib in $siblings) {
-            $text = $text.Replace("../$sib", "standards/" + (Split-Path -Leaf $sib))
+            $leaf = Split-Path -Leaf $sib
+            $text = $text.Replace("[$leaf](../$sib)", "``$leaf``")
+            $text = $text.Replace("../$sib", $leaf)
         }
+        foreach ($own in $fold) {
+            $text = $text.Replace("[$own]($own)", "``$own``")
+        }
+        $text = $text.Replace($FallbackSentence, (($FallbackPreamble -replace "\r\n?", "`n") + $FallbackSentence))
         if ($text -ne $before) {
             [IO.File]::WriteAllText($f.FullName, $text, [Text.UTF8Encoding]::new($false))
             $rewritten++
         }
     }
-    $bundleCount = $packFiles.Count + $siblings.Count
-    $bundled.Add([pscustomobject]@{ Skill = $name; Pack = $pack; Files = $bundleCount; Rewritten = $rewritten })
-    Write-Host "Bundled $bundleCount file(s) into skills/$name/standards/ ($pack pack + $($siblings.Count) sibling; $rewritten file(s) repointed)"
+    $bundled.Add([pscustomobject]@{ Skill = $name; Pack = $pack; Files = $parts.Count; Rewritten = $rewritten })
+    Write-Host "Wrote skills/$name/STANDARDS.md from $($parts.Count) part(s) ($rewritten file(s) repointed)"
 }
 
 # ---------------------------------------------------------------- reference resolution
@@ -365,8 +441,9 @@ $skillsOutResolved = (Resolve-Path -LiteralPath $skillsOut).Path
 foreach ($file in (Get-ChildItem -LiteralPath $skillsOut -Recurse -File -Filter "*.md")) {
     $rel       = $file.FullName.Substring($skillsOutResolved.Length).TrimStart("\", "/") -replace "\\", "/"
     $skillName = ($rel -split "/")[0]
-    # A bundled pack's cross-references are sibling links and are correct by construction.
-    $inBundle  = ($rel -match "(^|/)standards/")
+    # STANDARDS.md is the assembled pack: its own text cites the parts it is made of, and
+    # those citations resolve against its own section names.
+    $inBundle  = ($rel -match "(^|/)STANDARDS\.md$")
     $lineNo    = 0
     foreach ($line in ([IO.File]::ReadAllText($file.FullName, [Text.Encoding]::UTF8) -split "`n")) {
         $lineNo++
@@ -386,7 +463,7 @@ foreach ($file in (Get-ChildItem -LiteralPath $skillsOut -Recurse -File -Filter 
                 $checked = $false
             } elseif ($cited -like 'rules/*') {
                 $resolved = Join-Path $OutRoot $cited
-            } elseif ($cited -like 'standards/*') {
+            } elseif ($cited -eq 'STANDARDS.md') {
                 $resolved = Join-Path $file.DirectoryName $cited
             } else {
                 $checked = $false
@@ -478,7 +555,7 @@ $report.Add("- Dangling file references: $($danglingFiles.Count)")
 $report.Add("- Ambiguous bare standard citations: $($ambiguousRefs.Count)")
 $report.Add("- Self-contained skills citing outside their folder: $($escapees.Count)")
 foreach ($b in $bundled) {
-    $report.Add("- Self-contained: ``$($b.Skill)`` bundles the ``$($b.Pack)`` pack ($($b.Files) files, $($b.Rewritten) repointed)")
+    $report.Add("- Self-contained: ``$($b.Skill)`` ships STANDARDS.md from $($b.Files) ``$($b.Pack)`` part(s), $($b.Rewritten) file(s) repointed")
 }
 $report.Add("")
 if ($residual.Count -gt 0) {
@@ -589,8 +666,8 @@ $readme.Add('`~/.claude/rules/` alongside the skills.')
 $readme.Add("")
 if ($bundled.Count -gt 0) {
     $verb = if ($bundled.Count -eq 1) { 'carries' } else { 'carry' }
-    $readme.Add("These $verb their standards inside their own folder, so the single-skill copy above is")
-    $readme.Add('enough for them — they need nothing from `rules/`:')
+    $readme.Add("These $verb their standards in a ``STANDARDS.md`` beside the skill, so they need nothing")
+    $readme.Add('from `rules/` — the three files are the whole skill, installed or pasted into a chat:')
     $readme.Add("")
     foreach ($b in $bundled) { $readme.Add("- ``/$($b.Skill)``") }
 }
@@ -707,6 +784,13 @@ if ($leaks.Count -gt 0) {
 
 # A skill that cites a file the distribution does not contain fails silently at run time --
 # the model drafts from memory instead of reading the standard. That is not a warning.
+foreach ($b in $bundled) {
+    $doc = Join-Path (Join-Path $skillsOut $b.Skill) "STANDARDS.md"
+    if (-not (Test-Path -LiteralPath $doc)) {
+        throw "Self-contained skill '$($b.Skill)' has no STANDARDS.md for its citations to resolve against."
+    }
+}
+
 if ($escapees.Count -gt 0) {
     Write-Host "Self-contained skills cite paths outside their own folder:"
     foreach ($r in ($escapees | Sort-Object Skill, File, Line)) {

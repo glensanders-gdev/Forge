@@ -32,9 +32,9 @@ reviews the solution, not the demand, so the PRD carries no SAR reference and th
 has no SAR column. Verification of the stories themselves is the `Test` column's job.
 
 **Authoring standards — read before writing any requirement:**
-- `standards/language.md` — wording, voice, banned modals and constructions
-- `standards/tables.md` — presentation, canonical schemas, ID namespaces
-- `standards/ai.md` — **conditional.** Applies on top of both, and relaxes
+- `language.md` — wording, voice, banned modals and constructions
+- `tables.md` — presentation, canonical schemas, ID namespaces
+- `ai.md` — **conditional.** Applies on top of both, and relaxes
   neither, where the trigger test fires: a delivered component whose output for a given input is not fully determined by written logic — a trained model, an LLM call, a retrieval-augmented pipeline, an agent, or a third-party AI service consumed as an API. It supplies the evaluative criterion
   form, the `EVL-NNN` / `MDL-NNN` schemas, and the class map that puts intended purpose and
   prohibited uses in this document. Apply the test in Phase 1 — a wrong "no" silently skips the
@@ -44,6 +44,9 @@ has no SAR column. Verification of the stories themselves is the `Test` column's
   for `/write-ord` to write back. Prefix such a criterion **[AI]**.
 
 These are authoritative and shared with `/write-ord`, `/write-reqs` and `/write-ac`. Never restate them here.
+
+Each standard named above is a part of `STANDARDS.md`, beside this file — a citation such as
+`tables.md` means the part of that document carrying that name, not a separate file to find.
 
 **If an authoring standard above cannot be read, stop and name it.** The register and criteria
 schemas, the modal ban and the scenario values live there and nowhere else. Drafting them from
@@ -68,7 +71,7 @@ was not read.
 | Requirement form — the 29148 characteristics, the ★ sections, the anatomy | unchanged | **The pack** |
 
 Where the pack and `rules/requirements/*` meet, the rules win on **form** — criteria are noun-first
-declarative rows per `standards/tables.md`, not the pack's Given/When/Then — and the pack wins on **what a PRD
+declarative rows per `tables.md`, not the pack's Given/When/Then — and the pack wins on **what a PRD
 must contain**. Both are deliberate; see the criteria note in the template.
 
 ---
@@ -102,7 +105,7 @@ Runs unattended. Gathers all context needed to write the PRD without asking the 
     2. The delivery agent named for this work — a vendor or a non-engineering department determines *Conventional*.
 
     Where neither fires, the mode is **not determined**. Repository context is **not** a determining signal: almost every repo this skill runs in is agent-driven, so treating that as evidence would make the mode auto-resolve to AI-assisted every time and the human would never see the question. Offer it as a *suggestion* in Open Questions — "no statement found; this repo is agent-driven, so AI-assisted is likely — confirm" — and let the human settle it at the gate.
-11. **Apply the AI trigger test** from `standards/ai.md` — is any delivered component's
+11. **Apply the AI trigger test** from `ai.md` — is any delivered component's
     behaviour learned or generated rather than specified? Answer it explicitly and state the answer
     in the Phase 1 Summary; do not leave it unasked. Where it fires, that ruleset governs the
     criteria for every story touching such a component, and this document owns the intended purpose
@@ -145,7 +148,7 @@ and risks only — no module decomposition, no interface or schema design. Those
 **In:** [What will be built]
 **Out:** [What will not be built]
 
-### AI Trigger — `standards/ai.md`
+### AI Trigger — `ai.md`
 **Fired:** Yes — [components whose behaviour is learned or generated] | No — [why the test does not fire]
 This asks about the **delivered solution**, not the toolchain. It is independent of Delivery Mode below.
 [Where fired:] **Intended purpose:** [PRD § Scope boundary owns it] · **Prohibited uses:** [PRD § Out of Scope owns it]
@@ -217,7 +220,7 @@ Runs after human confirms Phase 1 summary. Writes the PRD and cleans up.
    - **★ Success Metrics present** — at least one measurable metric (Metric / Baseline / Target / Measurement), with one marked **primary**. These are **product outcome metrics, not operational targets**: a metric measuring whether the feature achieved its purpose belongs here; the latency or availability figure that makes it attainable is the SOAP's. If none genuinely apply, write `Success Metrics: none — [reason]` explicitly; never omit the section.
    - **★ Every user story has ≥1 acceptance criterion** — block finalisation if any story has none. Warn (do not block) if a story carries only `Sunny Day` criteria with no `Rainy Day` or `Edge Case` row, and name the missing scenario: *"PRD-003 is Sunny Day only — no Rainy Day criterion states what is true when the payment service is unavailable."* A story specified for fair weather alone is specified for the demo, not for production.
    - **★ Traceability populated** — every story has a stable ID (`PRD-NNN`), a MoSCoW priority, and traces up to a `BO-N` / `BR-N` or a named proximate source.
-   Each requirement meets the ISO/IEC/IEEE 29148:2018 characteristics — necessary, appropriate, unambiguous, complete, singular, feasible, verifiable, correct, conforming — as modified by the two deviations recorded in `standards/language.md`. Rewrite vague requirements ("fast", "intuitive") into testable form or flag them.
+   Each requirement meets the ISO/IEC/IEEE 29148:2018 characteristics — necessary, appropriate, unambiguous, complete, singular, feasible, verifiable, correct, conforming — as modified by the two deviations recorded in `language.md`. Rewrite vague requirements ("fast", "intuitive") into testable form or flag them.
    **Scan the draft for pre-empted SOAP content before saving.** Any latency figure, availability percentage, RTO/RPO, module decomposition, interface contract or schema is a boundary breach — remove it, and where the demand behind it is real, restate it as observable behaviour or route it to the BRD's cost-of-failure.
 5. Save to `docs/prd/active/[feature-name].md`.
 6. Add Phase 2 kanban tickets to `docs/kanban.md`. These track **this skill's own authoring work**, which is AI-run under either delivery mode — do not branch them on `Delivery Mode`, and carry an estimate tag only where one was produced:
@@ -344,7 +347,7 @@ weather, and the boundaries.*
 | PRD-001.2 | Payment-service timeout leaves the basket intact and the customer on the checkout page. | Rainy Day |
 | PRD-001.3 | A saved card past its expiry date is rejected at checkout and re-entry is requested. | Edge Case |
 
-> **Criteria are noun-first declarative statements** per `standards/language.md` — state what
+> **Criteria are noun-first declarative statements** per `language.md` — state what
 > is true, not what a user *can* do. Not *"Then they can complete the purchase"*: `can [verb]` is
 > banned, and a criterion saying a customer *can* do something cannot fail a test. This is a
 > **declared divergence from the pack**, which writes criteria as Given/When/Then: the rules win on
@@ -376,7 +379,7 @@ weather, and the boundaries.*
 - Story IDs are flat and sequential — `PRD-001`, `PRD-002`, … in order of first appearance, never encoding the story's theme. Criterion IDs are `PRD-NNN.N` within their story, so `/write-ac` maps each `AC-NNN` to a precise criterion rather than a whole story.
 - `Scenario` is `Sunny Day` / `Rainy Day` / `Edge Case` — **the same requirement examined under three conditions**, not three kinds of criterion. Sunny Day: everything available and behaving. Rainy Day: something failing — dependency down, timeout, refusal. Edge Case: a valid but boundary condition — empty, maximum, expired, first, last. The column is `Scenario`, never `Type`: a reader who sees `Type` asks what kind of criterion this is, and the answer is always "an acceptance criterion".
 - A story with only `Sunny Day` rows triggers the coverage warning at finalisation — it has been specified for the demo, not for production. Name the missing weather in the warning rather than reporting a count.
-- The labels describe the condition, never the certainty. A `Rainy Day` criterion states what *is* true when the dependency fails — the modal ban in `standards/language.md` applies to all three scenarios equally.
+- The labels describe the condition, never the certainty. A `Rainy Day` criterion states what *is* true when the dependency fails — the modal ban in `language.md` applies to all three scenarios equally.
 - `MoSCoW` gates altitude in `/write-ac`: `Won't` produces no AC at all, `Could` never reaches Capability level. It is a per-story scope decision, distinct from the document-level `Priority:` field, which ranks this whole feature against other features for PI planning. Never collapse the two.
 - IDs are retired when a story or criterion is dropped — never reused.
 
@@ -394,7 +397,7 @@ belong to the SOAP, which answers this document. Two things only live here:
 - A **demand-side given** is a constraint the business imposes regardless of design — a named system
   that must be integrated with, a regulatory obligation, a contractual commitment. It states the
   constraint and its source, never how it is met. It **binds**, so it carries a `CON-NNN` ID per
-  `standards/tables.md`; a SOAP reference is a citation, not a commitment, and carries `—`.
+  `tables.md`; a SOAP reference is a citation, not a commitment, and carries `—`.
 - A **SOAP reference** is only valid where the SOAP already exists. Apply the existence test: where
   architecture's answer does not yet exist, the figure is not this document's to invent.
 - A **structural accessibility constraint** carried out of `/prototype` is a demand-side given like any other: the accessibility floor is regulatory in source (in Australia, WCAG 2.2 Level AA under the Disability Discrimination Act 1992 for any public-facing service), and the layout that satisfies it was fixed when the variant won. Cite the SC and name it structural, so a reader knows it cannot be traded away at build time. Implementational accessibility — contrast, names and roles, live regions — is not a `CON-NNN`; it is ordinary delivery work and belongs to `/accessibility`.
@@ -519,7 +522,7 @@ narrative, so provenance has no row to live in. This matrix is that home, not a 
 - Never ask the user questions during Phase 1 — gather, then present.
 - Never finalise a PRD with an empty Success Metrics section — require at least one measurable metric, or an explicit `none — [reason]`.
 - Never finalise a PRD with a user story that has no acceptance criterion.
-- Never write a requirement in unverifiable or hedged form — see `standards/language.md`. Quantification alone is not enough: a quantified requirement carrying `should` or `can` still fails. Quantify, write it as a declarative end state, or flag it as `[TBD — source: "quoted vague statement"]`.
+- Never write a requirement in unverifiable or hedged form — see `language.md`. Quantification alone is not enough: a quantified requirement carrying `should` or `can` still fails. Quantify, write it as a declarative end state, or flag it as `[TBD — source: "quoted vague statement"]`.
 - Never delete `/prototype` from the working tree without a typed `CONFIRM`, and never present that gate unless preservation to the throwaway branch already succeeded.
 - Never write a story without a MoSCoW priority — `/write-ac` gates altitude on it, and an unset priority silently bypasses that gate.
 - Never record an assumption without an `If false` consequence, and never leave a falsified assumption unescalated — set `Status: Falsified` and raise it via `/raid add risk`.
