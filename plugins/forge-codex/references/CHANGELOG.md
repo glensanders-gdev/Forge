@@ -29,6 +29,16 @@ instead of a file, which reads correctly in Forge, in the standalone and in the 
 
 `$git-guardrails` 1.0.1 · `$security-assessment` 1.0.1. Ambiguous bare standard citations: **0**.
 
+**A cross-platform trap, caught by CI on Windows and not by the local build.** The multi-line
+entry in `$BundledPackRewrites` is a here-string, so its line endings follow the checkout —
+and `.gitattributes` normalises `global/`, `dist/`, `plugins/` and `project-template/` but not
+`tools/`. On Windows the key was CRLF while the text it searched had been normalised to LF, so
+`.Replace` found nothing, the rewrite never happened, and the self-containment invariant fired on
+five bundled copies. Both sides of every rewrite are now normalised at use, which makes the match
+independent of how the script was checked out. Verified by running the builder from a CRLF copy of
+itself: byte-identical output. The Codex builder carries no multi-line rewrite key and was already
+identical under both.
+
 Both are Codex-native overrides, so `compatibility.json` was restamped after comparing each
 variant against the changed source — `$security-assessment` carried the identical line and got the
 same edit; `$git-guardrails` names `git-safety` nowhere in its Codex variant. Two hashes moved;

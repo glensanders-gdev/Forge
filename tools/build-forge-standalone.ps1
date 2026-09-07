@@ -282,7 +282,15 @@ foreach ($entry in $SelfContainedSkills.GetEnumerator()) {
 
     foreach ($file in $packFiles) {
         $text = Convert-StandaloneText ([IO.File]::ReadAllText($file.FullName, [Text.Encoding]::UTF8)) $file.FullName $held
-        foreach ($r in $BundledPackRewrites.GetEnumerator()) { $text = $text.Replace($r.Key, $r.Value) }
+        # Normalise both sides: a multi-line rewrite key is a here-string in this file, so its
+        # line endings follow the checkout. `.gitattributes` does not cover tools/, so on a
+        # Windows checkout the key is CRLF while the text it searches has been normalised to
+        # LF -- the replacement silently finds nothing and the rewrite never happens.
+        foreach ($r in $BundledPackRewrites.GetEnumerator()) {
+            $find = $r.Key   -replace "\r\n?", "`n"
+            $repl = $r.Value -replace "\r\n?", "`n"
+            $text = $text.Replace($find, $repl)
+        }
         [IO.File]::WriteAllText((Join-Path $bundleDir $file.Name), $text, [Text.UTF8Encoding]::new($false))
     }
 
