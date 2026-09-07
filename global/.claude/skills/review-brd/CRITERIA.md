@@ -5,7 +5,7 @@
 > everything below. Editing this file puts it out of step with the pack; regenerate
 > instead.
 
-**Pack version:** v1.10 · **Pack commit:** `b11241bcce4f`
+**Pack version:** v1.11 · **Pack commit:** `d2f74eca4885`
 **Generated:** 2026-09-07 · **Content hash:** `397b4a4489d959ef`
 
 **Quote the version in every review this extract is used for.**

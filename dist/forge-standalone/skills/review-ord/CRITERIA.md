@@ -5,8 +5,8 @@
 > everything below. Editing this file puts it out of step with the pack; regenerate
 > instead.
 
-**Pack version:** v1.10 · **Pack commit:** `b11241bcce4f`
-**Generated:** 2026-09-07 · **Content hash:** `7e3e8804ff9489d6`
+**Pack version:** v1.11 · **Pack commit:** `d2f74eca4885`
+**Generated:** 2026-09-07 · **Content hash:** `581e00b30e5d53b8`
 
 **Quote the version in every review this extract is used for.**
 A reader needs to know which revision was applied — a verdict, and a document
@@ -63,6 +63,14 @@ either: an objective's baseline and a requirement's adverse-outcome obligation b
 the change *achieves* anything, not to whether the SOAP can be written. They sit below the bar under
 the same rule that put the other six there, and the same rule governs them — a `[TBD]` with a named
 owner and a date is a declared gap; without both it is an absence.
+
+**Where a requirement's subject is generated or learned output, OH-15 extends.** The favourable and
+adverse outcomes remain what it names, and the requirement additionally carries the obligation
+attaching to an answer that is **incorrect** — the capability ran, returned an answer, and the answer
+was wrong. That is neither an adverse outcome, which is a correct determination returning unwelcome
+news, nor a Rainy Day, which is the capability failing to determine anything at all. It is the case a
+reader most often assumes one of the other two already covers. How a wrong answer is detected, what
+corrects it and who is told is the requirement's to state; the gate asks only that it be stated.
 
 **Where the change creates, alters or retires a reported measure, OH-11 extends.** Data volumes and
 retention remain the operational facts it names, and the reported measure additionally carries its
@@ -160,6 +168,8 @@ Three things in this standard set a tier, and they are one rule seen at three po
 **Rule.** An Assumed entry without an owner and a confirm-by date is not an assumption. It is an invented number, and it is the single largest audit exposure in an ORD. A figure traceable only to analyst judgement is not defensible.
 
 **Rule.** A **competing methodology is never recorded as an assumption.** Where current operational practice differs from contractual, regulatory or documented reporting practice — two defensible ways to count the same thing — that is not something believed true pending confirmation. It is a live disagreement, and filing it as an assumption removes the owner and quietly picks a side by omission. Preserve both methods, state the decision criteria that distinguish them, raise a decision item with an owner and a required-by point, and name the requirements and reported outcomes each option changes. Where interim direction has been given, record the interim method **and** that it is interim. **The document does not choose**, because choosing is not the convenor's to do — and a conflict hidden inside an assumption is the form in which this failure is hardest to see.
+
+**Rule.** A tolerance over **generated or learned output reaches Committed on its own evidence**, and the absence of an evaluation set is not a bar to it. The tolerance is the population the measure is taken over and the consequence of breaching it — both demand-side, and both stateable by a business owner from an obligation, a contract or an incident record with no model in existence and no set built. The evaluation set, the scorer and the pass mark are the **instrument** that measures it, and the instrument belongs to the design response (§2.1). Treating a missing set as a reason to hold the requirement at Provisional conflates the two, and it holds a whole class of document at a maturity its evidence does not warrant.
 
 **Rule.** ISO/IEC/IEEE 29148:2018 requires **traceability, not finality**. A TBD with an owner and a date is standards-compliant. A silent gap is not. Declaring an assumption transfers the open item to its named owner; concealing one retains it as the author's defect.
 
