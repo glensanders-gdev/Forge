@@ -11,6 +11,61 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
+## v4.7.1 — 2026-09-07
+
+**The `reporting.md` standards anchors verified, and one of them was already being cited wrongly.**
+
+v4.7.0 shipped `rules/requirements/reporting.md` with its four standards claims stamped *adopted
+from knowledge, not from the standard texts*. All four were checked. **None was wrong, and one
+exposed a live defect** — an AS/NZS adoption of ISO/IEC 25012 exists, so `ai.md`'s own rule that an
+ISO designation is never cited alone where an AS adoption exists was being broken by its sibling
+file.
+
+### Verified
+
+| Claim | Outcome |
+|---|---|
+| ISO/IEC 25012 supplies the `DAT-NNN` characteristic names | Holds — fifteen characteristics, all names used are among them. Secondary sources only |
+| An AS/NZS adoption of ISO/IEC 25012 exists | **It does** — `AS/NZS ISO/IEC 25012:2013`, identical, reconfirmed 2024 |
+| ISO/IEC 20000-1:2018 carries the service-reporting clauses | Holds — **clause 9.4 Service reporting**. Read in ISO's own preview |
+| DMN's decision / decision-logic separation matches `Required Decision` | Holds — read in the OMG DMN 1.5 specification |
+
+DMN §5.3.1 defines a decision as *the act of determining an output value from a number of input
+values, using logic defining how the output is determined* — the split the `BRL-NNN` column was
+drafted to hold, confirmed in the primary text rather than assumed.
+
+### Changed — `rules/requirements/reporting.md`
+
+- **Standards of record carry editions and AS designations.** `AS/NZS ISO/IEC 25012:2013`,
+  `AS ISO/IEC 25024:2019`, `AS/NZS ISO/IEC 20000.1:2019`, `OMG DMN 1.5`.
+- **The `DAT-NNN` bullet's "and the rest" is resolved.** All fifteen 25012 characteristic names are
+  listed, which is what makes *never coin a data quality term* mechanically checkable instead of a
+  gesture at a paywalled list.
+- **The stamp is rewritten as verified**, recording what was **not** read as plainly as what was —
+  three named consequences, not a clean tick. The ISO texts are paywalled and were not purchased.
+- **Three `Never` items added** — cite the AS designation where one exists; never cite
+  ISO/IEC 20000-1:2018 without Amendment 1:2024; the fifteen names are the whole list.
+
+### Recorded — two findings that were not claims
+
+- **ISO/IEC 20000-1:2018 has been amended** (`/Amd 1:2024`). A document citing the 2018 edition bare
+  cites a superseded state of the text.
+- **The Australian designations are not uniform.** `AS/NZS ISO/IEC 25012:2013` and
+  `AS/NZS ISO/IEC 20000.1:2019` are joint; `AS ISO/IEC 25024:2019` is Australian only. The 20000
+  series uses a **dot** before the part number where the ISO original uses a hyphen. Each
+  designation is checked, never inferred from its sibling.
+
+### Known
+
+- **Open Decision 2 is narrowed, not closed.** 25012's normative definitions were not read, the
+  inherent / system-dependent split is unresolved between sources, and only 20000-1's front matter
+  was read rather than clause 9.4's requirements. The bar stands: no document claims conformance to
+  25012 or 25024 until the characteristic list is read in the standard.
+- The requirements-documents pack cites none of these anchors, so `review-ord/CRITERIA.md` is
+  unaffected and remains current against pack v1.10.
+
+---
+
 ## v4.7.0 — 2026-09-07
 
 **`write-ord` converged onto the demand-side ORD standard, and the requirements rules pack gained a
