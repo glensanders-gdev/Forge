@@ -11,6 +11,74 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
+## v4.7.6 — 2026-09-07
+
+**The four requirements skills beside `$write-ord` had the same standalone hole, plus two it
+did not.**
+
+`$write-prd`, `$write-brd`, `$write-ac` and `$write-reqs` join `$SelfContainedSkills`, each bundling
+the `requirements` pack into `skills/<name>/standards/`. Two findings the mechanical fix would have
+missed:
+
+- **`$write-brd` cited `../review-brd/GATE-PROTOCOL.md` three times** — a markdown link, so the
+  citation scan never saw it, and a cross-skill path resolves in a full install and nothing else.
+  `$SelfContainedSkills` entries now carry a `Siblings` list; the file is copied out of the adapted
+  output tree and the links repointed.
+- **`$write-prd` carried a Forge-internal maintenance note** about `tools/build-review-criteria.py`
+  and a `STANDARD.md` extract that deliberately does not exist — fenced ``.
+
+A new build invariant enforces the property rather than the fix: **a self-contained skill may cite
+nothing outside its own folder.** Backticked paths, markdown links and `../` references all count;
+runtime state under the user's home (an idea folder, a sprint calendar, a company style guide) does
+not, being read-if-present and nobody's to bundle. It caught all thirteen escapes on first run,
+including one inside the bundled pack — `ai.md`'s pointer to research upstream documents as
+deliberately unpublished, now stated without the dead path.
+
+Content fixes, all four skills: an unreadable authoring standard is a blocked run rather than a
+degraded one. `$write-prd` also carries `[R-TBD]` on a falsified assumption where no RAID log
+exists, matching `$write-ord`.
+
+`$write-prd` 2.7.4 · `$write-brd` 1.1.4 · `$write-ac` 1.6.1 · `$write-reqs` 1.4.1.
+
+**Still open:** two ambiguous bare citations of the `common` pack in `$git-guardrails` and
+`$security-assessment`, listed in the build report. The Codex plugin's dead
+`~/.codex/forge/rules/requirements/` paths are untouched.
+
+---
+
+## v4.7.5 — 2026-09-07
+
+**`$write-ord` shipped in the standalone distribution citing four authoring standards a
+single-skill install never provides. It ran anyway.**
+
+The README offers `cp -r skills/<name> ~/.agents/skills/`. Under that install `$write-ord` lost the
+`requirements` pack — and with it the §3 register schema, the modal ban, and two of the three
+`Scenario` values, none of which are restated in `SKILL.md` or `REFERENCE.md`. Nothing errored: the
+skill produced a plausible ORD with an invented column set. The citations also existed in three
+inconsistent forms, of which the most-used (a bare `` `tables.md` ``) resolved from nowhere at all.
+
+`tools/build-forge-standalone.ps1`:
+
+- **`$SelfContainedSkills`** bundles a skill's rules pack into `skills/<name>/standards/` and
+  repoints all three citation forms at it. Generated every build, so the copy cannot drift.
+  `write-ord` is the first entry; the report names the skills that should follow.
+- **Reference resolution** resolves every framework path a shipped skill cites — `~/.codex/forge/rules/`
+  and `~/.agents/skills/` through the mapping `install.sh` performs, `rules/` and `standards/`
+  against the output tree — and fails the build on a miss. The existing scan checked skill *names*
+  only, which is why this shipped. Runtime state under `~/` (a backlog, a token ledger) is the
+  user's and is not resolved.
+- **Ambiguous bare citations** are reported, not fatal: 21 remain across `$write-prd`, `$write-brd`,
+  `$write-ac` and `$write-reqs`, each listed with the pack that would fix it.
+
+`$write-ord` 2.0.1 — an unreadable standard is now a blocked run rather than a degraded one, and
+§9.1 / §9.2 carry `[R-TBD]` / `[D-TBD]` where no RAID log exists rather than dropping the row.
+
+**Not fixed here:** the Codex plugin cites `~/.codex/forge/rules/requirements/` for the same four
+files, which nothing creates — they ship at `references/coding-guidance/requirements/`. That is a
+blind `~/.codex/forge` → `~/.codex/forge` rewrite in `tools/build-forge-codex.ps1` and it is untouched.
+
+---
+
 ## v4.7.4 — 2026-09-07
 
 **The Codex plugin was four releases stale and had never received `reporting.md`. Caught by CI on

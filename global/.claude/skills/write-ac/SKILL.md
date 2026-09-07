@@ -23,6 +23,11 @@ one is a defect to flag, never one to silently inherit. The source row's **[AI]*
 across to the criterion, and an unresolved `[EVL-TBD]` in a source requirement is a blocker: an AC
 cannot name the set that proves it.
 
+**If an authoring standard above cannot be read, stop and name it.** The register and criteria
+schemas, the modal ban and the scenario values live there and nowhere else. Drafting them from
+memory produces a document that looks conformant and is not, and no reviewer can see the
+difference. An unreadable standard is a blocked run, never a degraded one.
+
 ---
 
 ## Phase 1 — AFK Select [AFK]

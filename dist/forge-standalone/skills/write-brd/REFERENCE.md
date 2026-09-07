@@ -73,7 +73,7 @@ carrying a declared gap.
 
 ## Phase 3 — self-assessment report
 
-The report format in [GATE-PROTOCOL.md](../review-brd/GATE-PROTOCOL.md), with three changes that
+The report format in [GATE-PROTOCOL.md](standards/GATE-PROTOCOL.md), with three changes that
 follow from the reviewer being the author:
 
 1. **The reviewer line says so.** `**Reviewer:** /write-brd — the author's own assessment, not an

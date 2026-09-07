@@ -19,13 +19,13 @@ See [REFERENCE.md](REFERENCE.md) for the ISO/IEC 25010:2023 taxonomy, the demand
 the status taxonomy, the KPP guide and the full ORD template.
 
 **Authoring standards — read before writing any requirement:**
-- `~/.claude/rules/requirements/language.md` — wording, voice, banned modals, demand-not-design
-- `~/.claude/rules/requirements/tables.md` — table-first presentation, canonical schemas, ID namespaces
-- `~/.claude/rules/requirements/ai.md` — **conditional.** Fires where a delivered component's output
+- `standards/language.md` — wording, voice, banned modals, demand-not-design
+- `standards/tables.md` — table-first presentation, canonical schemas, ID namespaces
+- `standards/ai.md` — **conditional.** Fires where a delivered component's output
   for a given input is not fully determined by written logic — a trained model, an LLM call, a
   retrieval-augmented pipeline, an agent, or a third-party AI service consumed as an API. Supplies
   the evaluative criterion, the `EVL-NNN` / `MDL-NNN` schemas, and the ISO/IEC 25059 class map.
-- `~/.claude/rules/requirements/reporting.md` — **conditional.** Fires where the change creates,
+- `standards/reporting.md` — **conditional.** Fires where the change creates,
   alters or retires a measure somebody reports. Supplies the measure definition, the `DAT-NNN`
   schema and the ISO/IEC 25012 data-quality anchor.
 
@@ -34,6 +34,11 @@ independent: a change can fire both, one, or neither.
 
 These are authoritative and shared with `/write-prd`, `/write-reqs` and `/write-ac`. Never restate
 them here.
+
+**If a standard above cannot be read, stop and name it.** The register schema, the modal ban and the
+scenario values live there and nowhere else. Drafting them from memory produces a document that
+looks conformant and is not — an invented column set, hedged criteria, and no way for a reviewer to
+see it. An unreadable standard is a blocked run, never a degraded one.
 
 ---
 
@@ -103,10 +108,10 @@ assumption with an owner and a confirm-by date, or a decision item.
 14. Identify **Key Performance Parameters** — requirements whose failure means the capability is
     unfit for purpose, not merely degraded. State each as a business-failure threshold carrying
     **threshold and objective** as two labelled values.
-15. **Apply both conditional trigger tests** — `ai.md` and `reporting.md`. Answer each explicitly in
+15. **Apply both conditional trigger tests** — `standards/ai.md` and `standards/reporting.md`. Answer each explicitly in
     the Phase 1 Summary; do not leave either unasked. Judge the **delivered solution**, never the
-    toolchain that builds it. Where `ai.md` fires, classify against the ISO/IEC 25059
-    sub-characteristics too. Where `reporting.md` fires, check every class in its map and extract
+    toolchain that builds it. Where `standards/ai.md` fires, classify against the ISO/IEC 25059
+    sub-characteristics too. Where `standards/reporting.md` fires, check every class in its map and extract
     the `DAT-NNN` data elements.
 16. **Detect competing methodologies** — where current operational practice differs from
     contractual, regulatory or documented reporting practice, preserve both, and raise it for the
@@ -147,11 +152,11 @@ assumption with an owner and a confirm-by date, or a decision item.
 [or "none — source stated demand throughout"]
 Technical figures whose underlying tolerance could not be recovered: [list, or "none"]
 
-### Trigger — `rules/requirements/ai.md`
+### Trigger — `standards/ai.md`
 **Fired:** Yes — [components] | No — [why]
 [Where fired:] 25059 sub-characteristics engaged · EVL/MDL candidates
 
-### Trigger — `rules/requirements/reporting.md`
+### Trigger — `standards/reporting.md`
 **Fired:** Yes — [the reported measures] | No — [why]
 [Where fired:] data elements identified · reconciliation classes checked
 
@@ -222,7 +227,7 @@ Runs after the human confirms the Phase 1 summary. Writes the ORD using the temp
    mints `AC-NNN`), B (assumptions), C (referred requirements), D (conformance, left pending until
    the design response is issued), E (interface detail), F (scenario catalogue), G (business rules —
    only where no functional requirements document is produced, with the deviation declared),
-   H (data elements — only where `reporting.md` fires).
+   H (data elements — only where `standards/reporting.md` fires).
 7. **Check traceability at Appendix A**, which is its single home — the register carries `Source`
    only. Flag any row with no objective **and** no source as **orphan scope**, and any BRD objective
    with no resulting register row as a **coverage gap**. Do not silently resolve either.
@@ -266,7 +271,8 @@ Runs after the human confirms the Phase 1 summary. Writes the ORD using the temp
   Day scenario — state what is true when the answer is adverse.
 - Never add a fourth `Scenario` value. Condition and outcome are two axes.
 - Never mint an `AC-NNN` — Appendix A carries a `Proposed AC`, and `/write-ac` owns the namespace.
-- Never mint a `D-NNN` — `/raid` owns decisions. Raise them and cite the ID.
+- Never mint a `D-NNN` — `/raid` owns decisions. Raise them and cite the ID. Where no RAID log
+  exists, carry `[D-TBD]` with the owner and what must be decided; never drop the row.
 - Never file a methodology conflict as an assumption — it is a decision, and it has an owner.
 - Never carry business rules without declaring the deviation and naming why no functional
   requirements document holds them.
@@ -279,7 +285,8 @@ Runs after the human confirms the Phase 1 summary. Writes the ORD using the temp
   Phase 1 gate and record the human's answer — the designation is a human decision.
 - Never reuse a retired ID. Never use a single-letter prefix — it collides with `/raid`.
 - Never record an assumption without an `If false` consequence, and never leave a falsified
-  assumption unescalated — set `Status: Falsified` and raise it via `/raid add risk`.
+  assumption unescalated — set `Status: Falsified` and raise it via `/raid add risk`, or carry
+  `[R-TBD]` where no RAID log exists.
 - Never omit a requirement that falls outside scope — refer it (Appendix C) with a named recipient.
   An omitted requirement is indistinguishable from one nobody had.
 - Never read or trace to a PRD — a standalone ORD is a sibling of the PRD. Joint authoring is
@@ -300,6 +307,8 @@ Runs after the human confirms the Phase 1 summary. Writes the ORD using the temp
 | Invoked by `/write-reqs` with a joint-authoring brief | Treat the brief's ORD-bound half as the extraction scope. Own the NFRs the PRD cites; still never read the PRD. Business rules go to the PRD, so Appendix G is omitted. Suppress the standalone next-steps block |
 | KPP cannot be identified from source material | Ask at the Phase 1 gate. Do not write "KPPs not yet designated" on your own authority |
 | ORD already exists at the target path | Stop. "An ORD already exists at docs/ord/. Confirm overwrite or provide a new name." |
+| No RAID log exists in the project | Record the matter in full at §9.2 (decisions) or §9.1 (risks) with `[D-TBD]` or `[R-TBD]` in the ID cell, plus a named owner and a required-by date. A placeholder is not a mint; a dropped row is a lost decision |
+| An authoring standard cannot be read | Stop and name the file. Do not draft the register, the scenarios or any criterion from memory — the output would be indistinguishable from a conformant one |
 | Requirements conflict (e.g. same measure defined two ways) | Preserve both, record each method's decision criteria, raise `/raid add decision`, and identify the affected requirements. Never resolve it without decision authority |
 | No BRD found | Note "No BRD found." Proceed — trace each requirement to its `OBJ-NNN` and to its proximate source (contract, incident record, named stakeholder) instead of a BRD objective |
 | BRD objective produces no register row, or a row has no objective and no source | Flag as a coverage gap or orphan scope. Do not silently resolve |

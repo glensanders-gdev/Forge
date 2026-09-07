@@ -25,6 +25,11 @@ behaviour is learned or generated rather than specified, this document records t
 classification decision** once, per that ruleset's class map, and every downstream document reads it
 from here.
 
+**If an authoring standard above cannot be read, stop and name it.** The register and criteria
+schemas, the modal ban and the scenario values live there and nowhere else. Drafting them from
+memory produces a document that looks conformant and is not, and no reviewer can see the
+difference. An unreadable standard is a blocked run, never a degraded one.
+
 ---
 
 ## Phase 1 — Ingest and classify [AFK]

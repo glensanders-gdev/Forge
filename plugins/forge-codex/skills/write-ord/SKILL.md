@@ -37,6 +37,11 @@ independent: a change can fire both, one, or neither.
 These are authoritative and shared with `$write-prd`, `$write-reqs` and `$write-ac`. Never restate
 them here.
 
+**If a standard above cannot be read, stop and name it.** The register schema, the modal ban and the
+scenario values live there and nowhere else. Drafting them from memory produces a document that
+looks conformant and is not — an invented column set, hedged criteria, and no way for a reviewer to
+see it. An unreadable standard is a blocked run, never a degraded one.
+
 ---
 
 ## Phase 1 — AFK Ingest [AFK]
@@ -268,7 +273,8 @@ Runs after the human confirms the Phase 1 summary. Writes the ORD using the temp
   Day scenario — state what is true when the answer is adverse.
 - Never add a fourth `Scenario` value. Condition and outcome are two axes.
 - Never mint an `AC-NNN` — Appendix A carries a `Proposed AC`, and `$write-ac` owns the namespace.
-- Never mint a `D-NNN` — `$raid` owns decisions. Raise them and cite the ID.
+- Never mint a `D-NNN` — `$raid` owns decisions. Raise them and cite the ID. Where no RAID log
+  exists, carry `[D-TBD]` with the owner and what must be decided; never drop the row.
 - Never file a methodology conflict as an assumption — it is a decision, and it has an owner.
 - Never carry business rules without declaring the deviation and naming why no functional
   requirements document holds them.
@@ -281,7 +287,8 @@ Runs after the human confirms the Phase 1 summary. Writes the ORD using the temp
   Phase 1 gate and record the human's answer — the designation is a human decision.
 - Never reuse a retired ID. Never use a single-letter prefix — it collides with `$raid`.
 - Never record an assumption without an `If false` consequence, and never leave a falsified
-  assumption unescalated — set `Status: Falsified` and raise it via `$raid add risk`.
+  assumption unescalated — set `Status: Falsified` and raise it via `$raid add risk`, or carry
+  `[R-TBD]` where no RAID log exists.
 - Never omit a requirement that falls outside scope — refer it (Appendix C) with a named recipient.
   An omitted requirement is indistinguishable from one nobody had.
 - Never read or trace to a PRD — a standalone ORD is a sibling of the PRD. Joint authoring is
@@ -302,6 +309,8 @@ Runs after the human confirms the Phase 1 summary. Writes the ORD using the temp
 | Invoked by `$write-reqs` with a joint-authoring brief | Treat the brief's ORD-bound half as the extraction scope. Own the NFRs the PRD cites; still never read the PRD. Business rules go to the PRD, so Appendix G is omitted. Suppress the standalone next-steps block |
 | KPP cannot be identified from source material | Ask at the Phase 1 gate. Do not write "KPPs not yet designated" on your own authority |
 | ORD already exists at the target path | Stop. "An ORD already exists at docs/ord/. Confirm overwrite or provide a new name." |
+| No RAID log exists in the project | Record the matter in full at §9.2 (decisions) or §9.1 (risks) with `[D-TBD]` or `[R-TBD]` in the ID cell, plus a named owner and a required-by date. A placeholder is not a mint; a dropped row is a lost decision |
+| An authoring standard cannot be read | Stop and name the file. Do not draft the register, the scenarios or any criterion from memory — the output would be indistinguishable from a conformant one |
 | Requirements conflict (e.g. same measure defined two ways) | Preserve both, record each method's decision criteria, raise `$raid add decision`, and identify the affected requirements. Never resolve it without decision authority |
 | No BRD found | Note "No BRD found." Proceed — trace each requirement to its `OBJ-NNN` and to its proximate source (contract, incident record, named stakeholder) instead of a BRD objective |
 | BRD objective produces no register row, or a row has no objective and no source | Flag as a coverage gap or orphan scope. Do not silently resolve |
