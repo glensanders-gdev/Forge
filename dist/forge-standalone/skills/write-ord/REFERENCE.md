@@ -97,7 +97,7 @@ Does the system protect against risk of injury or harm to people, property, or t
 
 ## ISO/IEC 25059:2023 — AI Extension *(conditional)*
 
-**Applies only where the trigger test in `~/.claude/rules/requirements/ai.md` fires** — a delivered
+**Applies only where the trigger test in `standards/ai.md` fires** — a delivered
 component whose output for a given input is not fully determined by written logic. 25059 sits inside
 the same SQuaRE series as 25010 and **extends it**: it adds the sub-characteristics below and
 inherits everything above unchanged. It is not a replacement taxonomy and does not restructure §3.
@@ -111,7 +111,7 @@ inherits everything above unchanged. It is not a replacement taxonomy and does n
 | **Transparency** | 6. Interaction Capability | Output labelling, explanation of a decision, disclosure that a component is AI |
 
 *ORD relevance:* every one of these needs a threshold on a named held-out `EVL-NNN` evaluation set,
-a floor, and a review hook — see `rules/requirements/ai.md` § *The evaluative criterion*. Accuracy
+a floor, and a review hook — see `standards/ai.md` § *The evaluative criterion*. Accuracy
 and fairness are **not** new sub-characteristics: they are Functional Correctness measured the AI
 way, which is why they sit under §3.8 in the template below rather than here.
 
@@ -138,7 +138,7 @@ AI consumed as a service. Re-check before treating this patch as stable.
 ## Demand-side scope — what this ORD is, and is not
 
 **The ORD states quantified business demand. It never states the technical target that satisfies
-it.** See `~/.claude/rules/requirements/language.md` § *Demand, not design*. The ORD precedes
+it.** See `standards/language.md` § *Demand, not design*. The ORD precedes
 solutioning: architecture, security, operations and service management sit **downstream** and
 answer this document. They do not contribute to it.
 
@@ -206,7 +206,7 @@ Typical KPP candidates:
 - The change produces an unauthorised effect on existing customer, SLA or financial treatment.
 
 **Not every Must is a KPP.** MoSCoW, `KPP` and `Status` are three orthogonal axes — see
-`~/.claude/rules/requirements/tables.md`. A KPP that cannot reach at least `Provisional` inside the
+`standards/tables.md`. A KPP that cannot reach at least `Provisional` inside the
 window is the one item warranting escalation rather than quiet degradation.
 
 ---
@@ -217,7 +217,7 @@ Save output to `docs/ord/[system-name]-ORD.md`.
 
 **The register schema, the objective, scenario, business-rule, impact, referred-requirement,
 assumption and dependency schemas are defined once** in
-`~/.claude/rules/requirements/tables.md` and are authoritative there. This template shows where each
+`standards/tables.md` and are authoritative there. This template shows where each
 lands and what each section is for — it does not restate a column set.
 
 ```markdown
@@ -233,7 +233,7 @@ lands and what each section is for — it does not restate a column set.
 **Classification:** [Internal / Confidential / Restricted]
 **Conformance:** ISO/IEC/IEEE 29148:2018 (stakeholder and system requirements), organised by
 ISO/IEC 25010:2023 quality characteristics at §3. Deviations recorded in
-`rules/requirements/language.md`.
+`standards/language.md`.
 
 ---
 
@@ -272,7 +272,7 @@ The operational mission this change serves. Prose by design.
 
 ### 2.2 Impact register
 What the change touches and who owns it — identification and accountability, never target state.
-`IMP-NNN` schema in `tables.md`. Naming the as-is estate is identification; naming the to-be estate
+`IMP-NNN` schema in `standards/tables.md`. Naming the as-is estate is identification; naming the to-be estate
 is design and belongs to the response.
 
 ### 2.3 Entry position
@@ -293,7 +293,7 @@ Recorded at assignment. **A record, not an escalation.**
 State size, allocation, available working days, and the tier those inputs support.
 
 ### 2.4 Operational objectives
-The outcome layer. `OBJ-NNN` schema in `tables.md` — objective, baseline, target, target date,
+The outcome layer. `OBJ-NNN` schema in `standards/tables.md` — objective, baseline, target, target date,
 traceability. **Every §3 register row traces to one.** Where baseline or target is unavailable,
 carry `[TBD — source: "…"]`; never invent a baseline.
 
@@ -302,9 +302,9 @@ carry `[TBD — source: "…"]`; never invent a baseline.
 ## 3. Operational Requirements
 
 Organised by ISO/IEC 25010:2023 characteristic. **All nine appear, every time.** Register schema in
-`tables.md` § *Requirement register — the demand-side ORD*.
+`standards/tables.md` § *Requirement register — the demand-side ORD*.
 
-> **[AI]** prefixes a `Business Tolerance` governed by `rules/requirements/ai.md`.
+> **[AI]** prefixes a `Business Tolerance` governed by `standards/ai.md`.
 > **KPP** is its own column and carries threshold and objective as two labelled values.
 > **`Ver`** is the requirement's own version, and it travels with the proposed acceptance criterion
 > as inline provenance. **Traceability is not a register column** — it lives once, at Appendix A.
@@ -326,11 +326,11 @@ Organised by ISO/IEC 25010:2023 characteristic. **All nine appear, every time.**
 | 3.8 | Functional Suitability | Functional Completeness · **Functional Adaptability** *(AI)* · **Accuracy and Fairness Thresholds** *(AI)* |
 | 3.9 | Safety *(if applicable)* | Fail Safe · Hazard Warning · **Prohibited Outputs** *(AI)* |
 
-Subsections marked *(AI)* are live only where the trigger test in `rules/requirements/ai.md` fires.
+Subsections marked *(AI)* are live only where the trigger test in `standards/ai.md` fires.
 Where it does not, they are omitted from the body **and** from §3.10 — an inapplicable subsection is
 not a gap — and §3.10 states once that the trigger did not fire.
 
-Where `rules/requirements/reporting.md` fires, its class map routes reporting and data requirements
+Where `standards/reporting.md` fires, its class map routes reporting and data requirements
 into the subsections above. **It adds no subsection**; its `DAT-NNN` register lands at Appendix H.
 
 ### 3.10 Coverage Gaps
@@ -397,7 +397,7 @@ interpretation, thresholds, population, ownership or historical comparability ap
 |---|---|---|---|---|---|---|
 
 ### 9.3 Dependencies
-`DEP-NNN` schema in `tables.md`. Model and provider dependencies (`MDL-NNN`) where `ai.md` fires.
+`DEP-NNN` schema in `standards/tables.md`. Model and provider dependencies (`MDL-NNN`) where `standards/ai.md` fires.
 
 ---
 
@@ -419,12 +419,12 @@ criterion here is the author's input to a handoff performed by someone else; pre
 assigned AC misrepresents whose decision it was.
 
 ### B. Assumption register
-`ASM-NNN` schema in `tables.md`. Owner and confirm-by are mandatory for any assumption a register
+`ASM-NNN` schema in `standards/tables.md`. Owner and confirm-by are mandatory for any assumption a register
 row cites as its `Source`. State the expected trajectory — when these are expected to reach
 `Committed`.
 
 ### C. Referred requirements register
-`REF-NNN` schema in `tables.md`. Content raised during elicitation that this ORD will not deliver.
+`REF-NNN` schema in `standards/tables.md`. Content raised during elicitation that this ORD will not deliver.
 No row is classified against a 25010 characteristic and no row becomes a requirement here.
 
 ### D. Conformance — ORD to design response
@@ -440,18 +440,18 @@ demand not carried into the response is absent from every artefact anyone downst
 
 Where a tolerance governs generated output, the response is the **evaluation instrument**: the ORD
 names the population, the response draws the set, picks the scorer and sets the pass mark. Recorded
-here; `ai.md`'s `EVL-NNN` schema governs its form.
+here; `standards/ai.md`'s `EVL-NNN` schema governs its form.
 
 ### E. Interface detail
 Per-interface technical attributes keyed to §3.4.1 rows by `ORD#`. Specification, not commitment.
 
 ### F. Scenario catalogue
-`SCN-NNN` schema in `tables.md`. Requirement-level scenarios and the consolidated catalogue are one
+`SCN-NNN` schema in `standards/tables.md`. Requirement-level scenarios and the consolidated catalogue are one
 table. Every requirement carries at least a Sunny Day row; a determination, measurement or
 eligibility requirement carries both a Favourable and an Adverse Sunny Day row.
 
 ### G. Business rule register *(conditional)*
-`BRL-NNN` schema in `tables.md`. **Present only where no functional requirements document is
+`BRL-NNN` schema in `standards/tables.md`. **Present only where no functional requirements document is
 produced in the chain.** Where present, state that plainly:
 
 > Business rules are functional content. They are carried here because no functional requirements
@@ -462,7 +462,7 @@ produced in the chain.** Where present, state that plainly:
 Where a PRD is produced, the rules live there and this appendix is omitted.
 
 ### H. Data element register *(conditional)*
-`DAT-NNN` schema in `rules/requirements/reporting.md`. Present only where that file's trigger fires.
+`DAT-NNN` schema in `standards/reporting.md`. Present only where that file's trigger fires.
 
 ### I. Acronyms and abbreviations
 ### J. Change history

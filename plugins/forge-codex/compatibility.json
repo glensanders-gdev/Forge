@@ -39,7 +39,7 @@
     "git-guardrails": {
       "source": "global/.claude/skills/git-guardrails/SKILL.md",
       "codex": "plugins/forge-codex/skills/git-guardrails/SKILL.md",
-      "reviewedSourceSha256": "44160239D7832FA8B7513AB4C80995417037E3E99E1719C02028A2AFD1C1F3C0"
+      "reviewedSourceSha256": "104907D3C6553B72710B1904024ADEE9DF5D70FB1C9324005C40094224FAB307"
     },
     "grill-with-peer": {
       "source": "global/.claude/skills/grill-with-peer/SKILL.md",
@@ -59,7 +59,7 @@
     "security-assessment": {
       "source": "global/.claude/skills/security-assessment/SKILL.md",
       "codex": "plugins/forge-codex/skills/security-assessment/SKILL.md",
-      "reviewedSourceSha256": "33D58EEDA9C73EC0103EA6E8946CBB4331FF78C35455B650BC39330E96A335BD"
+      "reviewedSourceSha256": "2FA9387D84C6E47BA664163556F9801634DA1B8531871B95BB48BF43D68CBDDD"
     },
     "resolve-findings": {
       "source": "global/.claude/skills/resolve-findings/SKILL.md",

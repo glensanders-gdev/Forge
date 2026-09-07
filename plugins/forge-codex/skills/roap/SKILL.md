@@ -74,7 +74,7 @@ Write to `docs/roles/[role-slug]-roap.md`, creating `docs/roles/` if absent. Slu
 
 - Ask one question at a time and wait — a batch of nine questions returns nine thin answers.
 - Accountabilities are outcomes the role owns; activities are how time is spent. Route every answer to the right one.
-- Success measures follow `~/.codex/forge/rules/requirements/language.md` — declarative present, no modals, no "the system".
+- Success measures follow `standards/language.md` — declarative present, no modals, no "the system".
 - Development focus areas describe the growth edge of the **role**, not the shortcomings of a person.
 - A ROAP describes a position. The reporting line and every relationship is a position title.
 - Never name an individual, and never record performance history, salary, or any other personal data on the page.

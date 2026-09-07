@@ -1,6 +1,6 @@
 {
   "repository": "https://github.com/glensanders-gdev/skills",
-  "version": "4.7.4",
+  "version": "4.7.8",
   "skill_count": 65,
   "skills": [
     {
@@ -113,9 +113,9 @@
     },
     {
       "name": "git-guardrails",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "category": "code-quality",
-      "description": "Set up a PreToolUse hook that hard-blocks dangerous git commands (push, reset --hard, clean -f, branch -D, checkout ., restore .) before Claude can execute them. Complements git-safety.md (AI soft rules) with OS-level enforcement. Use when user wants to prevent Claude from running destructive git operations even if the AI ignores its own rules."
+      "description": "Set up a PreToolUse hook that hard-blocks dangerous git commands (push, reset --hard, clean -f, branch -D, checkout ., restore .) before Claude can execute them. Complements the soft git-safety rules with OS-level enforcement. Use when user wants to prevent Claude from running destructive git operations even if the AI ignores its own rules."
     },
     {
       "name": "graphify",
@@ -269,7 +269,7 @@
     },
     {
       "name": "security-assessment",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "category": "code-quality",
       "description": "Structured security audit of project code. AI-led threat modelling and OWASP Top 10 review, layered with optional external tool invocation (semgrep, npm audit, bandit, trivy). Writes a gitignored report to docs/security/. Critical and High findings can be promoted to kanban tickets as SEC-NNN references. Use when user runs /security-assessment, before a major release, or when the last assessment is overdue."
     },
@@ -353,7 +353,7 @@
     },
     {
       "name": "write-ac",
-      "version": "1.6.0",
+      "version": "1.6.1",
       "category": "pipeline",
       "description": "Transform a PRD and ORD into Jira acceptance criteria — promote KPPs and headline outcomes to Capability-level AC, flow story detail to child Epics/Stories, carry PRD-NNN/ORD-NNN traceability into each criterion, and optionally push to the linked Jira Capability behind a confirmation gate. Use when the user runs /write-ac, has a PRD and/or ORD ready to turn into Jira acceptance criteria, or is promoting a project to a Jira Capability."
     },
@@ -371,25 +371,25 @@
     },
     {
       "name": "write-brd",
-      "version": "1.1.3",
+      "version": "1.1.4",
       "category": "pipeline",
       "description": "Author a Business Requirements Document to the pack's BABOK v3 standard — SMART objectives carrying baseline, target and date, outcomes rather than solutions, and a cost-of-failure case for each objective carrying operational exposure — then self-assess it against the BH-1 – BH-10 handoff gate that decides whether ORD development can start. Runs AFK ingest, HITL write, then the gate. The standard is read at authoring time, never recalled. Use when a BRD is needed from a request brief, idea, transcript or notes, when /write-brd is run, or when an ORD task turns out to be a BRD task in disguise."
     },
     {
       "name": "write-ord",
-      "version": "2.0.0",
+      "version": "2.0.1",
       "category": "pipeline",
       "description": "Synthesize a call transcript, document, conversation context, or structured notes into a compliant demand-side Operational Requirements Document (ORD) — quantified business tolerances organised by ISO/IEC 25010:2023 quality characteristics, with operational objectives, scenarios, business rules and referred requirements. Use when the user runs /write-ord, provides a transcript or document to convert into an ORD, or wants to formalise operational requirements from a conversation."
     },
     {
       "name": "write-prd",
-      "version": "2.7.3",
+      "version": "2.7.4",
       "category": "pipeline",
       "description": "Synthesize the current conversation, grill session, research, and prototype findings into a structured PRD aligned with ISO/IEC/IEEE 29148:2018 — the functional demand document sitting between the BRD and the SOAP, stating what is built and for whom and carrying no technical figure. Executes in two phases — AFK explore then HITL write — with a confirmation gate between them. Use when user runs /write-prd or when grill-me confirms shared understanding is reached."
     },
     {
       "name": "write-reqs",
-      "version": "1.4.0",
+      "version": "1.4.1",
       "category": "pipeline",
       "description": "Author a PRD and an ORD together from one source — classify needs into functional (PRD) and operational (ORD), delegate each document end-to-end to /write-prd and /write-ord via a binding authoring brief (each keeping its own confirmation gate), then own the bidirectional BRD↔PRD↔ORD cross-link neither sibling can complete alone. Use when the user runs /write-reqs, or wants both a PRD and an ORD from a single grill, transcript, or BRD rather than authoring either standalone."
     }

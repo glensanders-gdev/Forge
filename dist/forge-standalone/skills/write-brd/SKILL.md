@@ -12,23 +12,28 @@ off — then establish whether it clears **the bar** for ORD development.
 Execution mode: Phase 1 **[AFK]** · Phase 2 **[HITL]** behind a confirmation gate · Phase 3 **[AFK]**.
 The standard owns the anatomy, both forms and the gate; this skill locates it and applies it.
 
-**Authoring standards** — `~/.claude/rules/requirements/language.md` and
-`~/.claude/rules/requirements/tables.md`, shared with `/write-prd`, `/write-ord` and `/write-ac`,
+**Authoring standards** — `standards/language.md` and
+`standards/tables.md`, shared with `/write-prd`, `/write-ord` and `/write-ac`,
 never restated here. **Where they meet the pack, the pack wins on BRD-specific forms:** the SMART
 objective is verb-first by the pack's own form, and a `[TBD]` carries **a named owner and a date**
-rather than `language.md`'s source quote — the gate reads both, and a `[TBD]` missing either is a
+rather than `standards/language.md`'s source quote — the gate reads both, and a `[TBD]` missing either is a
 hole that fails the bar.
 
-`~/.claude/rules/requirements/ai.md` applies **conditionally** — where a delivered component's
+`standards/ai.md` applies **conditionally** — where a delivered component's
 behaviour is learned or generated rather than specified, this document records the **risk
 classification decision** once, per that ruleset's class map, and every downstream document reads it
 from here.
+
+**If an authoring standard above cannot be read, stop and name it.** The register and criteria
+schemas, the modal ban and the scenario values live there and nowhere else. Drafting them from
+memory produces a document that looks conformant and is not, and no reviewer can see the
+difference. An unreadable standard is a blocked run, never a degraded one.
 
 ---
 
 ## Phase 1 — Ingest and classify [AFK]
 
-1. **Source the standard, never recall it.** Per [GATE-PROTOCOL.md](../review-brd/GATE-PROTOCOL.md)
+1. **Source the standard, never recall it.** Per [GATE-PROTOCOL.md](standards/GATE-PROTOCOL.md)
    § *Sourcing the criteria* — the live pack's `reference/brd-standard.md` where held, otherwise the
    stamped extract in [STANDARD.md](STANDARD.md). Name the pack version in the summary. Read the
    anatomy and its five **★** sections, both forms, the solution-vs-outcome test, the gate, and
@@ -61,7 +66,7 @@ date; and every figure the source did not state is an open question at the gate 
 1. Incorporate the corrections and gap-fills from the Phase 1 confirmation.
 2. **Write every section of the anatomy**, in the standard's order, to
    `docs/brd/[change-name]-BRD.md`. Objectives are `BO-N`, business requirements `BR-N`, assumptions
-   and dependencies `ASM-NNN` / `DEP-NNN` per `tables.md`. Carry `/idea` assumptions forward with
+   and dependencies `ASM-NNN` / `DEP-NNN` per `standards/tables.md`. Carry `/idea` assumptions forward with
    their Status rather than as prose; every assumption states `If false`.
 3. **Keep an unquantified objective in the register.** One carrying `[TBD]` with an owner and a date
    is a tracked gap; the same objective omitted is invisible.
@@ -80,7 +85,7 @@ no cell holds a figure the source did not supply.
 ## Phase 3 — Run the gate [AFK]
 
 Assess the document just written against **BH-1 – BH-10**, applying the verdict vocabulary, the
-evidence rule and the outcome derivation in [GATE-PROTOCOL.md](../review-brd/GATE-PROTOCOL.md), and
+evidence rule and the outcome derivation in [GATE-PROTOCOL.md](standards/GATE-PROTOCOL.md), and
 emit the protocol's report format adapted per [REFERENCE.md](REFERENCE.md).
 
 **The standard puts this gate in the author's hands** — a document's readiness is its author's to

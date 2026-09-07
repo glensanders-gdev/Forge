@@ -26,6 +26,11 @@ One source → one classification → two briefs → two documents (two gates) �
 learned or generated rather than specified. Classification (Phase 1) settles the trigger once for
 both halves, so the siblings never disagree about whether that ruleset is in force.
 
+**If an authoring standard above cannot be read, stop and name it.** The register and criteria
+schemas, the modal ban and the scenario values live there and nowhere else. Drafting them from
+memory produces a document that looks conformant and is not, and no reviewer can see the
+difference. An unreadable standard is a blocked run, never a degraded one.
+
 ## Phase 1 — AFK Joint Classification [AFK]
 
 Route the source into two clean halves so the siblings never fight over or drop a need. No gate

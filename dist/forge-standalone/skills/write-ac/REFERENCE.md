@@ -64,7 +64,7 @@ AC-001 (PRD-001.1): Checkout for a returning customer with a saved payment
 
 > If a criterion arrives hedged — *"then they can complete the purchase"* — rewrite it to the
 > declarative end-state form rather than carrying it through. `can [verb]` is banned by
-> `language.md`, and a criterion saying a customer *can* do something cannot fail a test. A
+> `standards/language.md`, and a criterion saying a customer *can* do something cannot fail a test. A
 > criterion inherits a requirement's meaning, never its defects.
 
 ### Operational (ORD requirement → AC)

@@ -11,6 +11,146 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
+## v4.7.8 — 2026-09-07
+
+**The last two ambiguous standard citations were not citations. They were positioning
+statements wearing a filename.**
+
+`/git-guardrails` and `/security-assessment` were the two rows left in the standalone build
+report. Neither skill ever reads the file it names:
+
+- *"These guardrails complement `git-safety.md`, they do not replace it"*
+- *"Goes beyond the pre-commit checklist in `security.md`"*
+
+Bundling a six-file pack into each would have been the wrong fix — it implies a read the skill
+never performs. The backticked filename was the defect: it offers a path the reader cannot open,
+and in the Codex plugin it resolves to nothing under any install. Both now name the ruleset
+instead of a file, which reads correctly in Forge, in the standalone and in the plugin.
+
+`/git-guardrails` 1.0.1 · `/security-assessment` 1.0.1. Ambiguous bare standard citations: **0**.
+
+**A cross-platform trap, caught by CI on Windows and not by the local build.** The multi-line
+entry in `$BundledPackRewrites` is a here-string, so its line endings follow the checkout —
+and `.gitattributes` normalises `global/`, `dist/`, `plugins/` and `project-template/` but not
+`tools/`. On Windows the key was CRLF while the text it searched had been normalised to LF, so
+`.Replace` found nothing, the rewrite never happened, and the self-containment invariant fired on
+five bundled copies. Both sides of every rewrite are now normalised at use, which makes the match
+independent of how the script was checked out. Verified by running the builder from a CRLF copy of
+itself: byte-identical output. The Codex builder carries no multi-line rewrite key and was already
+identical under both.
+
+Both are Codex-native overrides, so `compatibility.json` was restamped after comparing each
+variant against the changed source — `/security-assessment` carried the identical line and got the
+same edit; `/git-guardrails` names `git-safety` nowhere in its Codex variant. Two hashes moved;
+the other fifteen were unchanged.
+
+**Known, not fixed:** the Codex `/test-coverage` relationship table cites `quality-checklist.md`
+by bare filename. Same class, but Codex is a full distribution where that file exists, and the row
+is a relationship note rather than a read instruction. The standalone build strips that section
+already.
+
+---
+
+## v4.7.7 — 2026-09-07
+
+**The Codex plugin cited `~/.codex/forge/rules/` twenty-one times. Nothing has ever created
+that directory.**
+
+The path is what a blind `~/.claude` → `~/.codex/forge` rewrite produces
+(`tools/build-forge-codex.ps1`). The packs actually land in `references/coding-guidance/`, which
+only `$lang-rules` knows about. So every requirements skill in the plugin ran with its authoring
+standards unreadable — the same silent failure v4.7.5 and v4.7.6 fixed for the standalone build,
+present in the plugin the whole time.
+
+`tools/build-forge-codex.ps1` gains the same `$SelfContainedSkills` stage: the adapted pack is
+copied into `skills/<name>/standards/` and all three citation forms are repointed. Copying from
+`references/coding-guidance/` rather than upstream means the bundle is already Codex-adapted —
+`$raid`, not `/raid`.
+
+Seven skills, not five. `$roap` cites `language.md` and `$grill-me`'s `FRONTIER.md` cites
+`common/model-selection.md` through the same dead path; leaving them would have made "the plugin is
+fixed" false.
+
+**Cross-skill `../` links are deliberately left alone.** A Codex plugin installs as a unit, so
+`$write-brd`'s links to `../review-brd/GATE-PROTOCOL.md` resolve. The standalone bundles that file
+because its README offers a single-skill copy; the plugin has no such install path, and the
+self-containment invariant that fires for the standalone would be cargo-cult here.
+
+A build check enforces the two things that were actually wrong: no skill names
+`~/.codex/forge/rules/`, and every `standards/…` citation resolves beside the skill making it.
+`plugin.json` declares `"skills": "./skills/"` and says nothing about the rest of the tree, which is
+why the standards sit beside the skill rather than being cited at `../../references/`.
+
+---
+
+## v4.7.6 — 2026-09-07
+
+**The four requirements skills beside `/write-ord` had the same standalone hole, plus two it
+did not.**
+
+`/write-prd`, `/write-brd`, `/write-ac` and `/write-reqs` join `$SelfContainedSkills`, each bundling
+the `requirements` pack into `skills/<name>/standards/`. Two findings the mechanical fix would have
+missed:
+
+- **`/write-brd` cited `../review-brd/GATE-PROTOCOL.md` three times** — a markdown link, so the
+  citation scan never saw it, and a cross-skill path resolves in a full install and nothing else.
+  `$SelfContainedSkills` entries now carry a `Siblings` list; the file is copied out of the adapted
+  output tree and the links repointed.
+- **`/write-prd` carried a Forge-internal maintenance note** about `tools/build-review-criteria.py`
+  and a `STANDARD.md` extract that deliberately does not exist — fenced `<!--forge-only-->`.
+
+A new build invariant enforces the property rather than the fix: **a self-contained skill may cite
+nothing outside its own folder.** Backticked paths, markdown links and `../` references all count;
+runtime state under the user's home (an idea folder, a sprint calendar, a company style guide) does
+not, being read-if-present and nobody's to bundle. It caught all thirteen escapes on first run,
+including one inside the bundled pack — `ai.md`'s pointer to research upstream documents as
+deliberately unpublished, now stated without the dead path.
+
+Content fixes, all four skills: an unreadable authoring standard is a blocked run rather than a
+degraded one. `/write-prd` also carries `[R-TBD]` on a falsified assumption where no RAID log
+exists, matching `/write-ord`.
+
+`/write-prd` 2.7.4 · `/write-brd` 1.1.4 · `/write-ac` 1.6.1 · `/write-reqs` 1.4.1.
+
+**Still open:** two ambiguous bare citations of the `common` pack in `/git-guardrails` and
+`/security-assessment`, listed in the build report. The Codex plugin's dead
+`~/.codex/forge/rules/requirements/` paths are untouched.
+
+---
+
+## v4.7.5 — 2026-09-07
+
+**`/write-ord` shipped in the standalone distribution citing four authoring standards a
+single-skill install never provides. It ran anyway.**
+
+The README offers `cp -r skills/<name> ~/.claude/skills/`. Under that install `/write-ord` lost the
+`requirements` pack — and with it the §3 register schema, the modal ban, and two of the three
+`Scenario` values, none of which are restated in `SKILL.md` or `REFERENCE.md`. Nothing errored: the
+skill produced a plausible ORD with an invented column set. The citations also existed in three
+inconsistent forms, of which the most-used (a bare `` `tables.md` ``) resolved from nowhere at all.
+
+`tools/build-forge-standalone.ps1`:
+
+- **`$SelfContainedSkills`** bundles a skill's rules pack into `skills/<name>/standards/` and
+  repoints all three citation forms at it. Generated every build, so the copy cannot drift.
+  `write-ord` is the first entry; the report names the skills that should follow.
+- **Reference resolution** resolves every framework path a shipped skill cites — `~/.claude/rules/`
+  and `~/.claude/skills/` through the mapping `install.sh` performs, `rules/` and `standards/`
+  against the output tree — and fails the build on a miss. The existing scan checked skill *names*
+  only, which is why this shipped. Runtime state under `~/` (a backlog, a token ledger) is the
+  user's and is not resolved.
+- **Ambiguous bare citations** are reported, not fatal: 21 remain across `/write-prd`, `/write-brd`,
+  `/write-ac` and `/write-reqs`, each listed with the pack that would fix it.
+
+`/write-ord` 2.0.1 — an unreadable standard is now a blocked run rather than a degraded one, and
+§9.1 / §9.2 carry `[R-TBD]` / `[D-TBD]` where no RAID log exists rather than dropping the row.
+
+**Not fixed here:** the Codex plugin cites `~/.codex/forge/rules/requirements/` for the same four
+files, which nothing creates — they ship at `references/coding-guidance/requirements/`. That is a
+blind `~/.claude` → `~/.codex/forge` rewrite in `tools/build-forge-codex.ps1` and it is untouched.
+
+---
+
 ## v4.7.4 — 2026-09-07
 
 **The Codex plugin was four releases stale and had never received `reporting.md`. Caught by CI on

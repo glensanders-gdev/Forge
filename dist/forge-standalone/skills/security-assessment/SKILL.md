@@ -7,7 +7,7 @@ description: Structured security audit of project code. AI-led threat modelling 
 # Security Assessment
 
 Structured security audit of the current project codebase. Goes beyond the pre-commit
-checklist in `security.md` — covers threat modelling, attack surface mapping, trust
+checklist in the common `security` ruleset — covers threat modelling, attack surface mapping, trust
 boundaries, and OWASP Top 10 systematically across the full codebase or a targeted scope.
 
 This skill produces a sensitive report. `docs/security/` is gitignored on first run —
