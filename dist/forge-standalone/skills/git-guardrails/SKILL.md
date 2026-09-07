@@ -1,7 +1,7 @@
 ---
 name: git-guardrails
 category: code-quality
-description: Set up a PreToolUse hook that hard-blocks dangerous git commands (push, reset --hard, clean -f, branch -D, checkout ., restore .) before Claude can execute them. Complements git-safety.md (AI soft rules) with OS-level enforcement. Use when user wants to prevent Claude from running destructive git operations even if the AI ignores its own rules.
+description: Set up a PreToolUse hook that hard-blocks dangerous git commands (push, reset --hard, clean -f, branch -D, checkout ., restore .) before Claude can execute them. Complements the soft git-safety rules with OS-level enforcement. Use when user wants to prevent Claude from running destructive git operations even if the AI ignores its own rules.
 origin: Adapted from Matt Pocock (AIHero.dev / github.com/mattpocock/skills)
 ---
 
@@ -9,7 +9,7 @@ origin: Adapted from Matt Pocock (AIHero.dev / github.com/mattpocock/skills)
 
 Sets up a `PreToolUse` hook that intercepts and hard-blocks dangerous git commands before
 Claude executes them. This is the **hard enforcement layer** for git safety — it complements
-the soft AI-level rules in `rules/common/git-safety.md` by enforcing them at the Claude Code
+the soft AI-level rules of the common `git-safety` ruleset by enforcing them at the Claude Code
 hook level, where they cannot be forgotten or overridden mid-session.
 
 ---
@@ -233,7 +233,7 @@ BLOCKED_PATTERNS=(
 - Never block patterns outside the configured list — no silent scope creep
 - Never modify project source files — this skill only touches `.claude/` directories and settings files
 - Never skip verification (Phase 5) — always run the test and report the result
-- These guardrails complement `git-safety.md`, they do not replace it — both layers should remain active
+- These guardrails complement the git-safety rules, they do not replace them — both layers should remain active
 - Never claim the hook is working without a successful verification exit code 2
 
 ---

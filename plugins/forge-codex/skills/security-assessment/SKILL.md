@@ -13,7 +13,7 @@ metadata:
 This is the Forge governance wrapper for security work. When the Codex Security plugin is available, delegate repository-wide discovery, validation, and reporting to its security-scan workflows, then use this skill to apply Forge compliance tiers, records, kanban promotion, and release gates.
 
 Structured security audit of the current project codebase. Goes beyond the pre-commit
-checklist in `security.md` — covers threat modelling, attack surface mapping, trust
+checklist in the common `security` ruleset — covers threat modelling, attack surface mapping, trust
 boundaries, and OWASP Top 10 systematically across the full codebase or a targeted scope.
 
 This skill produces a sensitive report. `docs/security/` is gitignored on first run —

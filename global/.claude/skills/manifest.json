@@ -1,5 +1,5 @@
 {
-  "forge_version": "4.7.7",
+  "forge_version": "4.7.8",
   "skills": {
     "setup-brain": "2.0.0",
     "scan-first": "1.0.0",
@@ -89,11 +89,11 @@
     "link-jira": "1.0.0",
     "review-performance": "2.0.0",
     "publish": "1.0.0",
-    "security-assessment": "1.0.0",
+    "security-assessment": "1.0.1",
     "resolve-findings": "2.0.0",
     "setup-confluence": "1.0.0",
     "tech-debt": "1.0.0",
-    "git-guardrails": "1.0.0",
+    "git-guardrails": "1.0.1",
     "jira": "1.0.1",
     "skill-health": "1.6.0",
     "test-coverage": "1.0.1",

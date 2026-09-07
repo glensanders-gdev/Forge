@@ -11,6 +11,36 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
+## v4.7.8 — 2026-09-07
+
+**The last two ambiguous standard citations were not citations. They were positioning
+statements wearing a filename.**
+
+`/git-guardrails` and `/security-assessment` were the two rows left in the standalone build
+report. Neither skill ever reads the file it names:
+
+- *"These guardrails complement `git-safety.md`, they do not replace it"*
+- *"Goes beyond the pre-commit checklist in `security.md`"*
+
+Bundling a six-file pack into each would have been the wrong fix — it implies a read the skill
+never performs. The backticked filename was the defect: it offers a path the reader cannot open,
+and in the Codex plugin it resolves to nothing under any install. Both now name the ruleset
+instead of a file, which reads correctly in Forge, in the standalone and in the plugin.
+
+`/git-guardrails` 1.0.1 · `/security-assessment` 1.0.1. Ambiguous bare standard citations: **0**.
+
+Both are Codex-native overrides, so `compatibility.json` was restamped after comparing each
+variant against the changed source — `/security-assessment` carried the identical line and got the
+same edit; `/git-guardrails` names `git-safety` nowhere in its Codex variant. Two hashes moved;
+the other fifteen were unchanged.
+
+**Known, not fixed:** the Codex `/test-coverage` relationship table cites `quality-checklist.md`
+by bare filename. Same class, but Codex is a full distribution where that file exists, and the row
+is a relationship note rather than a read instruction. The standalone build strips that section
+already.
+
+---
+
 ## v4.7.7 — 2026-09-07
 
 **The Codex plugin cited `~/.codex/forge/rules/` twenty-one times. Nothing has ever created

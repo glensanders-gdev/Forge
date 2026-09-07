@@ -1,6 +1,6 @@
 {
   "repository": "https://github.com/glensanders-gdev/skills",
-  "version": "4.7.7",
+  "version": "4.7.8",
   "skill_count": 65,
   "skills": [
     {
@@ -113,9 +113,9 @@
     },
     {
       "name": "git-guardrails",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "category": "code-quality",
-      "description": "Set up a PreToolUse hook that hard-blocks dangerous git commands (push, reset --hard, clean -f, branch -D, checkout ., restore .) before Claude can execute them. Complements git-safety.md (AI soft rules) with OS-level enforcement. Use when user wants to prevent Claude from running destructive git operations even if the AI ignores its own rules."
+      "description": "Set up a PreToolUse hook that hard-blocks dangerous git commands (push, reset --hard, clean -f, branch -D, checkout ., restore .) before Claude can execute them. Complements the soft git-safety rules with OS-level enforcement. Use when user wants to prevent Claude from running destructive git operations even if the AI ignores its own rules."
     },
     {
       "name": "graphify",
@@ -269,7 +269,7 @@
     },
     {
       "name": "security-assessment",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "category": "code-quality",
       "description": "Structured security audit of project code. AI-led threat modelling and OWASP Top 10 review, layered with optional external tool invocation (semgrep, npm audit, bandit, trivy). Writes a gitignored report to docs/security/. Critical and High findings can be promoted to kanban tickets as SEC-NNN references. Use when user runs /security-assessment, before a major release, or when the last assessment is overdue."
     },
