@@ -87,15 +87,20 @@ and it never gets built.
 
 ## Marking an AI-governed row
 
-**Prefix `Requirement Description` with `[AI]`** on every ORD register row this file governs, and
+**Prefix `Business Tolerance` with `[AI]`** on every ORD register row this file governs, and
 prefix the `Acceptance Criterion` cell the same way on a PRD criteria row. The trigger is
 per-component, so an ORD holds governed and ungoverned rows side by side and a finished register
 otherwise gives a reviewer no way to tell which is which — this ruleset becomes uncheckable at
-exactly the point someone tries to check it. The convention mirrors **[KPP]** in
-[tables.md](tables.md) deliberately: same column, same bracket form, one thing to learn.
+exactly the point someone tries to check it.
 
-- **Where both apply, write `[KPP][AI]`** — in that order, always. KPP first because it is the
-  older convention and the one a stakeholder reads for priority.
+- **`[AI]` stays a prefix; `KPP` is a column.** The two were once both prefixes, written
+  `[KPP][AI]`. Under the demand-side register in [tables.md](tables.md), `KPP` has its own column
+  because a KPP carries threshold and objective as two labelled values and a prefix cannot hold
+  them. `[AI]` remains a prefix deliberately: it records which *ruleset governs the row's form*,
+  which is not a property a column should imply is severity. **A row can be both** — the `KPP`
+  column reads `[KPP]` and the tolerance begins `[AI]`.
+- **An ORD authored before that change carries `[KPP][AI]` inline.** Read it as the same marking;
+  do not rewrite the source document.
 - **`[AI]` is not a priority and not a MoSCoW value.** It records which ruleset governs the row's
   form. A `[AI]` row is still `Must` / `Should` / `Could` / `Won't` like any other.
 - **A row carrying `[AI]` and no `EVL-NNN` reference is incomplete** — that is precisely what the
@@ -303,6 +308,8 @@ this file are **engineering practice, not regulation**, and apply either way.
   the minimum required.
 - Never leave an AI-governed row unmarked — `[AI]` is what makes this ruleset checkable by someone
   who was not in the room.
+- Never move `[AI]` into the `KPP` column, and never collapse the two markings into one — they
+  record different things: severity, and which ruleset governs the row's form.
 - Never cite an AI Act application date for a conformity certification without reading the
   consolidated Article 113 — the stamp above records exactly what was and was not checked.
 - Never cite a VAISS or GfAA guardrail as the authority for a requirement. Both are voluntary; a

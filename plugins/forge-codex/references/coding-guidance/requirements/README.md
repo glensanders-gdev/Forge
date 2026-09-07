@@ -8,13 +8,22 @@ rules/requirements/
 ├── README.md      ← this file
 ├── language.md    ← voice, modality, banned constructions
 ├── tables.md      ← table-first presentation, canonical schemas, ID namespaces
-└── ai.md          ← conditional: learned or generated behaviour (see trigger test)
+├── ai.md          ← conditional: learned or generated behaviour (see trigger test)
+└── reporting.md   ← conditional: a measure that is reported (see trigger test)
 ```
 
 `language.md` and `tables.md` are unconditional — every requirements document obeys both.
-`ai.md` is **conditional**: it applies on top of the other two when a delivered component's
-behaviour is learned or generated rather than specified, and it never relaxes either. See
-ADR-0003 for why AI requirements extend the pack rather than forming a fourth document.
+
+`ai.md` and `reporting.md` are **conditional**: each applies on top of the unconditional two, and
+neither relaxes either. They are independent — a change can fire both, one, or neither.
+
+| File | Fires when | Adds |
+|---|---|---|
+| `ai.md` | a delivered component's behaviour is learned or generated rather than specified | the evaluative criterion, `EVL-NNN` / `MDL-NNN`, the ISO/IEC 25059 class map |
+| `reporting.md` | the change creates, alters or retires a measure somebody reports | the measure definition, `DAT-NNN`, the ISO/IEC 25012 data-quality anchor |
+
+See ADR-0003 for why AI requirements extend the pack rather than forming a fourth document;
+`reporting.md` follows the same precedent rather than adding a reporting document.
 
 ## Why this is a separate rules category
 

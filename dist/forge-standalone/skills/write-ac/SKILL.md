@@ -29,7 +29,11 @@ cannot name the set that proves it.
 Runs unattended. Reads the source requirements and sorts them by altitude — no authoring, no questions.
 
 1. Read the PRD at `docs/prd/active/*.md` if present — stories (`PRD-NNN`), their `MoSCoW` priority, and their acceptance-criteria rows (`PRD-NNN.N`, each with a `Scenario` of Sunny Day / Rainy Day / Edge Case). A PRD authored before v2.6.0 carries the earlier column heading `Type` with the values `Happy path` / `Edge` / `Error` — read it as the same three scenarios (Happy path → Sunny Day, Error → Rainy Day, Edge → Edge Case) and do not rewrite the source document.
-2. Read the ORD at `docs/ord/*.md` if present — the requirement register in §§3–8. Each row carries `ORD#`, a declarative `Requirement Description` holding its own value, a `Verification` method, `MoSCoW`, and any **[KPP]** tag. Note which rows already carry a `Capability` / `Epic` — those are prior mappings, not gaps.
+2. Read the ORD at `docs/ord/*.md` if present — the requirement register at §§3–5, 7 and 9. Each row carries `ORD#`, an active `Requirement Title`, a declarative `Business Tolerance` holding its own value, a `KPP` column, `MoSCoW`, a `Status`, a named `Owner`, `Traces to` and `Source`.
+   - **A demand-side ORD carries no `Verification` column.** The measurement *population* is inside the tolerance sentence; the *instrument* is the design response's and is recorded at **Appendix D** once that response is issued. Read Appendix D where it is populated; where it is still pending, the AC carries the population and names the instrument as pending — never invent one.
+   - **A KPP carries threshold and objective as two labelled values.** Carry both across. Collapsing them to one figure is the defect this handoff is most prone to.
+   - `Capability` / `Epic` write-back lives at **Appendix A**, alongside `Proposed AC`. A `Proposed AC` is the ORD author's input, not an assigned criterion — `/write-ac` owns `AC-NNN` and mints it. Reuse a proposed criterion where it holds; never treat it as already numbered.
+   - An ORD authored before the demand-side convergence carries the earlier columns (`Requirement Description`, `Verification`, `Delivery Agent`, `Timing`, inline `[KPP]` prefix). Read it as the same register — `Requirement Description` → `Business Tolerance`, inline `[KPP]` → the `KPP` column — and do not rewrite the source document.
 3. Read the PRD↔ORD cross-links if present — the PRD's traceability matrix and the ORD's Appendix B. Reuse them rather than re-deriving. A standalone ORD has no Appendix B; that is expected, not a gap.
 4. Resolve the target Jira Capability — read `external_ids.jira` (type `capability`) from the linked idea/project file. If none, note it; the run still produces the AC document.
 5. Classify every requirement by altitude (see REFERENCE.md § Altitude). Apply the **MoSCoW gate first** — `Won't` produces no AC at all, `Could` never reaches Capability level — then the altitude tests:
@@ -71,7 +75,7 @@ Runs after the human confirms the split.
 1. Incorporate altitude re-assignments from the confirmation.
 2. Translate each selected requirement into a testable AC (see REFERENCE.md § Translation):
    - **Functional (PRD)** → the criterion is already a declarative row. Carry it across verbatim with its `PRD-NNN.N` ID. Do not carry the story's "As a… I want…" narrative — that is context, not a criterion.
-   - **Operational (ORD)** → the register row's `Requirement Description` + its `Verification`, carrying the `ORD-NNN` ID and keeping the verification method verbatim.
+   - **Operational (ORD)** → the register row's `Business Tolerance`, carrying the `ORD-NNN` ID, both labelled values of a KPP, and the measurement population stated in the tolerance. Where Appendix D is populated, carry the instrument verbatim; where it is pending, say so rather than inventing a method.
 3. Assign each AC a stable `AC-NNN` ID with a Source column tracing to its `PRD-NNN`/`ORD-NNN`.
 4. Write the AC document to `docs/ac/[capability-name]-AC.md` using the template in REFERENCE.md.
 5. **Jira push is optional and gated.** If a Capability is linked and the human wants it pushed:

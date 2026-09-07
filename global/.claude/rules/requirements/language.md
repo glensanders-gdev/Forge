@@ -58,6 +58,33 @@ the most common offender and the easiest to miss:
 product, service, or component. Where no name exists yet, use the `[SYSTEM-NAME-TBD]`
 placeholder the skill already defines, and resolve it before the document is approved.
 
+## Demand, not design
+
+**Quantify the business tolerance, not the engineering figure that satisfies it.**
+
+A requirement can be fully quantified and testable — as ISO/IEC/IEEE 29148:2018 requires — without
+presupposing a design. The discipline is one level down from the rule that a BRD never names a
+solution.
+
+| Business demand (belongs in the requirement) | Technical target (the design response, downstream) |
+|---|---|
+| An agent retrieves a customer's account without the customer noticing a wait | Sub-200ms API response at the 99th percentile |
+| Service is restorable within one business day; beyond that, obligation X is breached at cost Y | RTO 4h, active-active across two zones |
+| No more than one working day of transactions is lost in any failure | RPO 1h |
+| A field technician completes a job through a 30-minute connectivity gap | Offline cache with conflict resolution on reconnect |
+
+Every left-hand statement is quantified, testable and traceable to a business source — a contract, a
+regulatory obligation, an incident cost, a named stakeholder. **None requires an architect to
+write.** That is what makes a requirements document producible by a business-side role.
+
+**Where a document states a technical target, it pre-empts the review it exists to inform.** The
+figure is asserted rather than derived, and the design review becomes ratification of a number an
+analyst chose. Supply the demand; let the design response supply the target.
+
+**This is not a ban on numbers.** A tolerance without a number is a vagueness defect under the next
+section. The test is not *is there a figure* but *whose figure is it* — the business's tolerance, or
+the engineer's answer to it.
+
 ## Vagueness
 
 Unquantified adjectives are not requirements: `fast`, `reliable`, `intuitive`, `robust`,
@@ -82,6 +109,12 @@ as a row (see [tables.md](tables.md)).
 1. **Declarative present is preferred over `shall`.** 29148 makes `shall` the canonical binding
    verb. We prefer the end-state form because it is shorter and verifiable as a statement of
    fact. `shall` remains valid, so this is a preference, not a conflict.
+
+   **The same deviation applies to the INCOSE *Guide to Writing Requirements*,** which is more
+   prescriptive than the ISO text on this point and is the practitioner authority most likely to be
+   cited against a document authored under these rules. Recording the deviation once, against both
+   sources, is deliberate: a deviation noted against 29148 alone silently extends to INCOSE, which
+   is how a documented choice becomes an apparent defect in review.
 2. **Passive voice is mandated for acceptance criteria.** 29148 recommends active voice on the
    grounds that passive hides the actor. Accepted and mitigated: where the actor is
    load-bearing — authorisation, non-repudiation, audit, and anything in ORD §3.3 Security —
@@ -98,6 +131,10 @@ independently; requirements documents do not.
 ## Never
 
 - Never use `could`, `should`, `would`, `may`, or `might` in a requirement, criterion, or commitment.
+- Never state a technical target where a business tolerance belongs — no RTO, RPO, latency figure,
+  availability percentage, instance count or protocol choice in a demand-side requirement.
+- Never coin a term where ISO/IEC/IEEE 24765 (systems and software vocabulary) or, for AI,
+  ISO/IEC 22989:2022 supplies one. Record the adopted term via `/add-term`.
 - Never write `enables`, `is able to`, `allows … to`, or `can [verb]` in a criterion.
 - Never refer to "the system", "the platform", "the application", or "the solution".
 - Never treat quantification as sufficient — a hedged number is still a hedge.

@@ -20,39 +20,161 @@ not also appear as a row somewhere.
 Use these exactly. A document that invents a column set drifts from its sibling, which is the
 failure this file exists to prevent.
 
-### Requirement register
+### Requirement register — the demand-side ORD
 
 Every operational requirement, in every section. The subsection heading supplies the ISO/IEC 25010
 characteristic, so there is no characteristic column.
 
-| BRD# | ORD# | Requirement Description | MoSCoW | Timing | Source | Delivery Agent | Verification | Capability | Epic | Comments |
-|---|---|---|---|---|---|---|---|---|---|---|
-| [BO-N / BR-N or —] | ORD-NNN | [declarative end state, carrying its own value] | Must | [when live] | [BU, Function, Name] | [Department] | [how proven] | [CAP-NN or —] | [EPIC-NN or —] | |
+| ORD# | Ver | Requirement Title | Business Tolerance | KPP | MoSCoW | Status | Owner | Source |
+|---|---|---|---|---|---|---|---|---|
+| ORD-NNN | 1.0 | [active, verb-first] | [declarative end state, carrying its own quantified value] | [KPP] or blank | Must | Committed | [named business owner] | [contract, obligation, incident record, or BU/Function/Name] |
 
-- **`BRD#` holds the IDs the BRD actually emits** — `BO-N` for a business objective, `BR-N` for a
-  business requirement, per the namespace table below. **Never `BRD-NN`**: no skill produces that
-  form, so a row carrying it traces to nothing. `BRD-NNNN` remains valid as a *document* reference
-  (e.g. `BRD-2026-041`) and is not an item ID.
-- **The threshold lives inside `Requirement Description`, not in its own column.** Under
+**Column-name equivalence.** The requirements-documents pack writes the first column `Ref` and uses
+sentence case (`Requirement title`, `Business tolerance`). They are the same columns; `ORD#` is used
+here for consistency with `PRD#` and `BRD#` elsewhere in this file. `MoSCoW` is an extension the
+pack does not require — see below.
+
+**The register states business demand, never the technical target that satisfies it.** *"Service is
+restorable within one business day, beyond which obligation X is breached"* is a requirement;
+*"RTO 4h"* is the design response to it. See [language.md](language.md) § *Demand, not design*.
+
+- **`Requirement Title` is active and verb-first** — `Restore service within one business day` —
+  while `Business Tolerance` is noun-first and passive. That split is the existing rule in
+  [language.md](language.md) § *Voice by Altitude*, applied at one altitude: titles command,
+  criteria state. It is not a summary of the tolerance and never carries a value of its own.
+- **`Business Tolerance` carries its own quantified value.** No separate threshold column — under
   [language.md](language.md) the requirement is a declarative end state, so the number is part of
-  the sentence: *"Service availability is 99.9% per calendar month."* A separate Threshold column
-  would restate it, which the view rule below forbids.
-- **`Verification` is required.** `/write-ac` rejects an operational criterion with no measurement
-  method, so a blank here breaks the downstream skill.
-- **`Capability` and `Epic` are written back by `/write-ac`**, not filled at authoring time. They
-  are `—` until it runs.
-- **`Comments` never holds a commitment.** It is a refinement scratch column; if a statement binds,
-  it belongs in `Requirement Description`.
-- Mark a Key Performance Parameter by prefixing `Requirement Description` with **[KPP]**.
-- Mark a row governed by [ai.md](ai.md) by prefixing `Requirement Description` with **[AI]**; where
-  both apply the order is **[KPP][AI]**, always. See [ai.md](ai.md) § *Marking an AI-governed row*.
+  the sentence. Prefix **[AI]** where [ai.md](ai.md) governs the row.
+- **`KPP` is a column, not a prefix.** A KPP carries **threshold** (minimum acceptable) and
+  **objective** (desired) as two labelled values inside `Business Tolerance`; collapsing them to one
+  figure is how KPP intent is lost downstream. `[AI]` remains a prefix — it records which ruleset
+  governs the row's form, which is not a property a column should imply is severity.
+- **`Status` is `Committed` / `Provisional` / `Assumed`** — the maturity of the demand statement, not
+  of a technical threshold. An `Assumed` row without a named owner and a confirm-by date in the
+  assumption register is an invented number, not an assumption.
+- **`Owner` is the named business owner of the tolerance.** Not the delivery team and not the
+  operating team — both are response-side and neither is knowable at ORD time.
+- **`Ver` is the requirement's own version**, not the document's. It rises when the tolerance
+  changes after first issue, and it is what makes inline provenance work: a proposed acceptance
+  criterion carries `[ORD-003 · v1.0 · Provisional · owner: … · confirm by …]` so the criterion's
+  standing travels with it to whoever writes the Capability AC. Without it a downstream reader
+  cannot tell an agreed tolerance from a revised one.
+- **Traceability is not a register column.** The up-link — the `OBJ-NNN` objective and the BRD
+  objective it serves via its business requirement — lives once, in Appendix A. Carrying it in both
+  places is the restatement the § *View Tables* rule forbids. A row tracing only as far as a `BR-N`
+  has no funded outcome behind it, which is what Appendix A's `via` makes visible.
+- **`Source` is the evidence, not the speaker alone.** A contract clause, a regulatory obligation, an
+  incident record or an `ASM-NNN`. Where the only source is a stakeholder, name Business Unit,
+  Function and Name.
+- **There is no `Verification` column.** The measurement *population* belongs inside the tolerance
+  sentence; the *instrument* that measures it is the design response, recorded at Appendix D when
+  the SOAP is issued. A demand-side ORD that names its own instrument has pre-empted the review it
+  exists to inform.
 
-**MoSCoW and [KPP] are orthogonal.** A KPP is a program-failure threshold; a Must is required for
-this release. Most KPPs are Musts; most Musts are not KPPs. Keep both.
+**MoSCoW, `KPP` and `Status` are three orthogonal axes and all three are kept.** A KPP is a
+business-failure threshold; a Must is required for this release; a Status is how well evidenced the
+statement is. Most KPPs are Musts; most Musts are not KPPs; a KPP may sit at any status, and one at
+`Assumed` is the single item that warrants escalation.
 
 **`Should` and `Could` as MoSCoW values are not a `language.md` violation.** That rule bans hedging
 verbs inside requirement *text*; a controlled enum in a priority column is unambiguous. Do not
-"correct" it.
+"correct" it. **MoSCoW is DSDM, and KPP is US DoD JCIDS** — neither is ISO-backed. Both are retained
+as house convention; neither is cited as a standards obligation.
+
+**Delivery Agent, Operational Owner, Timing and Verification are deliberately absent.** Each names
+something the demand side does not know and cannot commit: who will build it, who will run it, when
+it will be scheduled, and what instrument will prove it. Timing lives at the objective
+(`OBJ-NNN` § *Target Date*), which the requirement inherits through Appendix A. Traceability and the
+written-back downstream links both live in Appendix A, not in the register.
+
+**`MoSCoW` is an extension to the demand-side standard.** The standard does not require it; these
+rules keep it because `/write-ac` gates AC altitude on it. It is business prioritisation, so it sits
+on the demand side legitimately — but an ORD authored to the pack alone carrying no `MoSCoW` column
+is conforming, not defective.
+
+### Operational objective
+
+The outcome layer between a BRD objective and an operational requirement. Every register row traces
+to one.
+
+| ID | Objective | Baseline | Target | Target Date | Traces to |
+|---|---|---|---|---|---|
+| OBJ-NNN | [operational outcome, never the solution] | [current measurable position] | [required outcome] | [date or milestone] | [BO-N via BR-N] · [ORD-NNN, …] |
+
+`Baseline`, `Target` and `Target Date` are measures under ISO/IEC 25022 / 25023. Where any of the
+three is unavailable, write `[TBD — source: "quoted vague statement"]` and leave the gap visible.
+**Never invent a baseline** — an objective whose baseline is guessed cannot show improvement.
+
+### Scenario
+
+Requirement-level scenarios and the consolidated scenario catalogue are **one table**, keyed by
+`ORD#`. Building a second catalogue would restate every row.
+
+| ID | ORD# | Scenario | Outcome | Condition | Expected end state |
+|---|---|---|---|---|---|
+| SCN-NNN | ORD-NNN | Sunny Day | Favourable | [in-distribution, everything available] | [declarative end state] |
+| SCN-NNN | ORD-NNN | Sunny Day | Adverse | [processing succeeds, result is unfavourable] | [declarative end state] |
+| SCN-NNN | ORD-NNN | Rainy Day | — | [dependency down, data unavailable, retrieval failed] | [declarative end state] |
+| SCN-NNN | ORD-NNN | Edge Case | — | [empty, maximum, expired, first, last] | [declarative end state] |
+
+**`Scenario` and `Outcome` are two axes, not one.** `Scenario` is the condition the *capability* is
+put through — the three values in this file, unchanged. `Outcome` is whether the *subject being
+measured* passes or fails, and it applies only on a Sunny Day: a determination that runs correctly
+and returns bad news is not a capability failure. That is why a fourth `Scenario` value was not
+added — it would conflate the two axes.
+
+- **`Outcome` is `Favourable` / `Adverse`, and `—` where the axis does not apply.** A Rainy Day has
+  no outcome because nothing was determined.
+- **A determination, measurement or eligibility requirement carrying only a Favourable Sunny Day row
+  is incomplete.** What must be true when the answer is unfavourable is a separate obligation, and
+  it is the one most often left unstated.
+- Each row stays a declarative statement under [language.md](language.md). A Rainy Day row states
+  what *is* true when the dependency fails, never what might happen.
+- A story or requirement whose scenarios are all `Sunny Day` has been specified for the demo, not
+  for production.
+
+### Business rule
+
+Where classification, eligibility, calculation or reporting logic exists. **Business rules are
+functional content**; an ORD carrying them is a declared deviation from its own scope, taken only
+where no functional requirements document is produced in the chain — see [README.md](README.md)
+§ *Scope boundary*. Say so in the document rather than letting the ORD absorb functional content
+silently.
+
+| ID | Rule Group | Required Decision | Status | Owner | Effective Date | Affects |
+|---|---|---|---|---|---|---|
+| BRL-NNN | Classification / Inclusion / Exclusion / Calculation / Exception / Reconciliation / Restatement | [the business decision the rule makes] | Confirmed / Provisional / Unresolved | [named, or TBD with confirm-by] | [where supplied] | [ORD-NNN, …] |
+
+- **`Required Decision` states the decision, not the logic.** Follow OMG **DMN**'s separation:
+  the decision is what must be determined; the decision logic is how. An ORD carries the first.
+- **This register records business policy, never implementation design.**
+- An `Unresolved` rule affecting a KPP-bearing requirement is raised via `/raid add decision`.
+
+### Impact register
+
+What the change touches and who owns it. Identification and accountability — never target state.
+
+| ID | Impact | Kind | Owner | Referred |
+|---|---|---|---|---|
+| IMP-NNN | [named L4 workflow or system in the current estate] | Process / System | [named owner] | [REF-NNN or —] |
+
+Naming the as-is estate is identification; naming the to-be estate is design. A row says what is
+touched and who owns it, and says nothing about what happens to it. **Where tier numbers are cited,
+name the scheme they belong to** — an unqualified "L4" resolves differently in APQC, eTOM and a
+house scheme.
+
+### Referred requirement
+
+Content raised during elicitation that this document will not deliver. No row is classified against
+a 25010 characteristic and no row becomes a requirement of this document.
+
+| ID | Requirement | Raised by | Kind | Related impact | Resolver group | Referred to | Date | Status |
+|---|---|---|---|---|---|---|---|---|
+| REF-NNN | [what was raised] | [name] | Functional / Wrong resolver / Out of scope | [IMP-NNN] | [group, or **None in chain**] | [named recipient] | [date] | Referred / Accepted / **Referred, not accepted** |
+
+An omitted requirement is indistinguishable from one nobody had; a referred requirement with a named
+recipient is a handoff. **`Resolver group: None in chain` is a real answer** and the row stays open —
+it is the visible form of a gap in the delivery chain, not a defect in the document.
 
 ### PRD story criteria
 
@@ -85,6 +207,11 @@ outcome, which a register row cannot. Its **acceptance criteria** are rows:
 - **These are labels for the condition, not a licence to hedge.** Each row stays a declarative
   statement under [language.md](language.md) — a Rainy Day criterion states what *is* true when the
   dependency fails, never what *might* happen.
+- **A determination or eligibility story carries two Sunny Day criteria** — one where the answer is
+  favourable and one where it is adverse. The capability succeeding and returning bad news is not a
+  Rainy Day, and stating only the favourable case leaves the larger obligation unwritten. See
+  § *Scenario* above for the `Outcome` axis; a PRD story may carry the column or say it in the
+  criterion, but it states both cases either way.
 
 ### Statements that carry no ID
 
@@ -109,11 +236,17 @@ commitment — the binding statement is the register row, so this carries no pri
 Carries forward the table `/idea` already produces, so an assumption tracked at idea stage keeps
 its identity and lifecycle into the requirements documents rather than collapsing back to prose.
 
-| ID | Assumption | Status | If false | Owner |
-|---|---|---|---|---|
-| ASM-NNN | [declarative statement] | Unvalidated / Validated / Falsified | [consequence] | [role] |
+| ID | Assumption | Status | If false | Owner | Confirm by |
+|---|---|---|---|---|---|
+| ASM-NNN | [declarative statement] | Unvalidated / Validated / Falsified | [consequence] | [named role] | [date] |
 
 `If false` is mandatory — an assumption with no stated consequence is a note, not an assumption.
+
+**`Owner` and `Confirm by` are mandatory wherever a register row cites the assumption as its
+`Source`.** A requirement at `Status: Assumed` resting on an assumption with no named owner and no
+date is an invented number, and it is the largest audit exposure a requirements document carries.
+ISO/IEC/IEEE 29148:2018 requires traceability, not finality: a TBD with an owner and a date
+conforms; a silent gap does not.
 
 **Escalation:** The RAID log is Risks, Actions, Issues, Decisions — it has **no Assumptions
 quadrant**. A falsified assumption therefore has no home in RAID and must be raised as a risk:
@@ -137,6 +270,12 @@ Authorised prefixes. See ADR-0001 for the requirement prefixes and their extensi
 | `CON-NNN` | Solution constraints — demand-side givens (regulatory, contractual, mandated integration) | `/write-prd` |
 | `ORD-NNN` | Operational requirements | `/write-ord` |
 | `AC-NNN` | Acceptance criteria | `/write-ac` |
+| `OBJ-NNN` | Operational objectives — the outcome layer every ORD row traces to | `/write-ord` |
+| `BRL-NNN` | Business rules — conditional, see § *Business rule* | `/write-ord` (or `/write-prd` where a PRD is produced) |
+| `SCN-NNN` | Scenarios — requirement-level and catalogue, one namespace | `/write-ord` |
+| `IMP-NNN` | Impacts — workflows and systems touched, with named owners | `/write-ord` |
+| `REF-NNN` | Referred requirements — raised here, delivered elsewhere | `/write-ord` |
+| `DAT-NNN` | Data elements — conditional, schema in [reporting.md](reporting.md) | `/write-ord` |
 | `ASM-NNN` | Assumptions | whichever document records it |
 | `DEP-NNN` | Dependencies | whichever document records it |
 | `EVL-NNN` | Evaluation sets — schema in [ai.md](ai.md) | `/write-ord` (the PRD cites, never mints — see below) |
@@ -164,8 +303,15 @@ populated ones.
 **Do not scaffold an empty table per absent subsection.** Instead:
 
 - A subsection with **at least one** requirement gets its table, populated.
-- A subsection with **no** requirement is omitted from the body entirely, and listed as one row
-  in a single **Coverage Gaps** table at the end of the section.
+- A sub-characteristic with **no** requirement is omitted from the body entirely, and listed as one
+  row in a single **Coverage Gaps** table at the end of the section.
+
+**The collapse applies at sub-characteristic level only. All nine ISO/IEC 25010:2023 characteristics
+appear in every ORD, without exception** — §3.1 through §3.9, each present even where it carries
+nothing. A characteristic with nothing to state carries an explicit statement of that fact and its
+status, never an omission. The two rules are not in tension: a characteristic is a heading a
+reviewer checks for, and its absence is invisible; a sub-characteristic is a table, and thirty empty
+ones bury the document.
 
 | Absent subsection | Reason | Action |
 |---|---|---|
@@ -190,6 +336,20 @@ prevents.
 
 ## Never
 
+- Never add a fourth `Scenario` value. A capability that runs correctly and returns an unfavourable
+  answer is a Sunny Day with `Outcome: Adverse` — condition and outcome are two axes, and collapsing
+  them into one column is what a fourth value would do.
+- Never leave a determination, measurement or eligibility requirement with only a Favourable Sunny
+  Day scenario. What is true when the answer is adverse is a separate obligation.
+- Never put `Delivery Agent`, `Operational Owner`, `Timing` or `Verification` in the ORD register —
+  each is response-side, and stating one pre-empts the design review the document exists to inform.
+- Never state a technical target where a business tolerance belongs (see [language.md](language.md)).
+- Never collapse a KPP's threshold and objective into a single figure.
+- Never carry an `Assumed` row whose assumption has no named owner and no confirm-by date.
+- Never omit one of the nine ISO/IEC 25010 characteristics from an ORD — collapse sub-characteristics
+  to the Coverage Gaps table, never the characteristic itself.
+- Never let an ORD absorb business rules without declaring the deviation and naming why no functional
+  requirements document holds them.
 - Never write `Happy path`, `Happy Path`, `Error`, `Error Case` or `Edge` as a scenario value, and
   never head the column `Type`. The three values are `Sunny Day`, `Rainy Day` and `Edge Case`, and
   the column is `Scenario` — written exactly so, capitalised so, in every document and in every

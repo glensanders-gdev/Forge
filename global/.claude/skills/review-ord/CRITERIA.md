@@ -5,8 +5,8 @@
 > everything below. Editing this file puts it out of step with the pack; regenerate
 > instead.
 
-**Pack version:** v1.9 · **Pack commit:** `719eecb78e35`
-**Generated:** 2026-09-02 · **Content hash:** `d42f01562ab54517`
+**Pack version:** v1.11 · **Pack commit:** `d2f74eca4885`
+**Generated:** 2026-09-07 · **Content hash:** `581e00b30e5d53b8`
 
 **Quote the version in every review this extract is used for.**
 A reader needs to know which revision was applied — a verdict, and a document
@@ -43,7 +43,7 @@ Architecture cannot design against a document missing any of these.
 | **OH-4** | Operational demand quantified as **business tolerance** (§2.1), each traced to a contract, obligation or incident record | A tolerance traced to no consequence is an invented figure. Architecture designs against a number nobody can defend |
 | **OH-5** | KPPs tagged, each carrying **threshold and objective** as two labelled values | Threshold/objective collapse, one hop past the convenor's involvement. The KPP intent is lost silently downstream |
 | **OH-6** | Regulatory, compliance, security and consumer obligations touched, **named specifically** | The obligation reaches design as a category rather than a clause, and is answered generically or not at all |
-| **OH-7** | Traceability from every requirement to a BRD objective, or an **explicit orphan-scope flag** | Nobody can assess downstream impact when the objective changes |
+| **OH-7** | Traceability from every requirement to a BRD objective — through its operational objective (OH-14) where one is stated — or an **explicit orphan-scope flag** | Nobody can assess downstream impact when the objective changes |
 
 #### Supporting items — absent, these are recorded and drive the tier
 
@@ -55,12 +55,35 @@ Architecture cannot design against a document missing any of these.
 | **OH-11** | Data **volumes and retention** as operational facts — capacity and compliance inputs, not data design | Capacity and retention are sized on assumption |
 | **OH-12** | A **proposed acceptance criterion per requirement**, in final form with provenance embedded (§6.2) — supplied whether or not the convenor authors the Capability AC | The provenance is re-derived downstream, or lost |
 | **OH-13** | Named **business decision-maker** and their pre-approved decision boundaries | Acceptance of delivered work has no holder other than the author. **This is a Tier 1 control at §8, listed there as one to be established** — its absence is normal today and is recorded rather than treated as an authoring failure |
+| **OH-14** | **Operational objectives** — the outcome layer between a BRD objective and a requirement, each carrying a **baseline**, a **target** and a **target date**. Every requirement traces to one | Improvement is claimed without a starting position. A target with no baseline cannot be shown to have been met, and the ORD's requirements trace to an intent rather than to a measurable outcome |
+| **OH-15** | **Scenario coverage** — every requirement carrying at least the successful case, and every *determination, measurement or eligibility* requirement carrying the **adverse outcome** as well as the favourable one | The obligation when the answer is unfavourable is never stated. The capability runs correctly, returns bad news, and nobody specified what happens next — the most common blind spot in a measurement change |
+
+**OH-14 and OH-15 are supporting items, not bar items.** Architecture demonstrably designs without
+either: an objective's baseline and a requirement's adverse-outcome obligation both matter to whether
+the change *achieves* anything, not to whether the SOAP can be written. They sit below the bar under
+the same rule that put the other six there, and the same rule governs them — a `[TBD]` with a named
+owner and a date is a declared gap; without both it is an absence.
+
+**Where a requirement's subject is generated or learned output, OH-15 extends.** The favourable and
+adverse outcomes remain what it names, and the requirement additionally carries the obligation
+attaching to an answer that is **incorrect** — the capability ran, returned an answer, and the answer
+was wrong. That is neither an adverse outcome, which is a correct determination returning unwelcome
+news, nor a Rainy Day, which is the capability failing to determine anything at all. It is the case a
+reader most often assumes one of the other two already covers. How a wrong answer is detected, what
+corrects it and who is told is the requirement's to state; the gate asks only that it be stated.
+
+**Where the change creates, alters or retires a reported measure, OH-11 extends.** Data volumes and
+retention remain the operational facts it names, and the reported measure additionally carries its
+**population**, the **rule set and version** that produced it, its **lineage**, and its **correction
+path**. These are operational facts in exactly the sense OH-11 already means — capacity, compliance
+and defensibility inputs — and none of them is data design. A reported figure missing any of the four
+is unreproducible at audit, which is the point at which somebody asks.
 
 #### The four outcomes
 
 | Outcome | Condition | What follows |
 |---|---|---|
-| **Ready for handoff** | OH-1 – OH-13 met, no declared gaps | Handed to solution architecture. §6.3 conformance review scheduled against E7 |
+| **Ready for handoff** | OH-1 – OH-15 met, no declared gaps | Handed to solution architecture. §6.3 conformance review scheduled against E7 |
 | **Handed off with recorded gaps** | OH-1 – OH-7 met; one or more items outstanding, **each with a named owner and a date** — a declared gap on a bar item, a supporting item outstanding, or both | Handed off. The gaps are recorded under §3.3 and are reflected in the committed maturity tier where they reach a KPP-bearing requirement |
 | **Handed off with an unowned gap** | OH-1 – OH-7 met; an outstanding item has **no owner to carry it** | Handed off. The item is recorded under §3.3 and **raised with the approving GMs at sign-off rather than referred, because a referral needs a recipient** (§7.2). It stays open until someone accepts it, and that it stayed open is the finding |
 | **Not ready for handoff** | Any of OH-1 – OH-7 absent | Handoff declared not-ready, with the absent items named |
@@ -85,6 +108,14 @@ A Capability is refinable only when this content exists too — and **the ORD is
 | Business-observable functional acceptance criteria | **Functional requirements** |
 
 **Where no functional requirements document is produced in the chain** — which is the current position, though the standard for one exists (§1.1) — the right-hand column has no home. In practice one of two things then happens: the ORD silently absorbs functional content and stops being an ORD, or the technology BA infers the business rules during Epic decomposition. The second is the more damaging, because inferred rules are indistinguishable from elicited ones once written into an Epic, and nobody reviews them against a business stakeholder. Where this is the case, apply §7.2 — and note that requirements belonging to non-technology resolver groups fail the same way, for the same reason.
+
+**There is a third option, and it is the one to prefer where a referral has no recipient.** A referred row whose `Resolver group` is *None in chain* is routed nowhere: it stays open, and the rules it names are inferred during decomposition exactly as if the row had never been written. Where that is the case, the ORD **may carry the business rules in a business-rule register of its own** — provided the carry is **declared**, in the document, as a deviation from this scope rule and not as an extension of it:
+
+> Business rules are functional content. They are carried here because no functional requirements document exists between this ORD and delivery; unrecorded, they are inferred during decomposition rather than elicited. This is a declared deviation from this document's scope, not an extension of it.
+
+**The defect this section exists to catch is silence, not carrying.** An ORD that absorbs functional content without saying so has stopped being an ORD and nobody can tell; an ORD that carries it under a declaration remains assessable, and the declaration is itself the evidence for establishing the missing document. A review therefore fails an ORD carrying business rules **undeclared**, and passes one carrying them **declared** — and in both cases records that the chain is missing a functional requirements document.
+
+**A carried business-rule register is not a licence to carry the rest of the right-hand column.** Data entities and functional acceptance criteria stay referred; the rules are singled out because they are the half that is adjudicated with the business over weeks and then has nowhere to live.
 
 ---
 
@@ -135,6 +166,10 @@ Three things in this standard set a tier, and they are one rule seen at three po
 **Three statuses, four tiers — the labels do not map one-to-one.** Tiers A, B and C are named for the weakest KPP-bearing requirement status the document carries. **Tier D — Indicative has no counterpart here, and that is the point:** it denotes a document produced without a decision workshop, so no requirement in it has been confirmed by anybody. Its entries are Assumed by status; what Tier D adds is that nobody has seen them. Do not read "Indicative" as a fourth requirement status.
 
 **Rule.** An Assumed entry without an owner and a confirm-by date is not an assumption. It is an invented number, and it is the single largest audit exposure in an ORD. A figure traceable only to analyst judgement is not defensible.
+
+**Rule.** A **competing methodology is never recorded as an assumption.** Where current operational practice differs from contractual, regulatory or documented reporting practice — two defensible ways to count the same thing — that is not something believed true pending confirmation. It is a live disagreement, and filing it as an assumption removes the owner and quietly picks a side by omission. Preserve both methods, state the decision criteria that distinguish them, raise a decision item with an owner and a required-by point, and name the requirements and reported outcomes each option changes. Where interim direction has been given, record the interim method **and** that it is interim. **The document does not choose**, because choosing is not the convenor's to do — and a conflict hidden inside an assumption is the form in which this failure is hardest to see.
+
+**Rule.** A tolerance over **generated or learned output reaches Committed on its own evidence**, and the absence of an evaluation set is not a bar to it. The tolerance is the population the measure is taken over and the consequence of breaching it — both demand-side, and both stateable by a business owner from an obligation, a contract or an incident record with no model in existence and no set built. The evaluation set, the scorer and the pass mark are the **instrument** that measures it, and the instrument belongs to the design response (§2.1). Treating a missing set as a reason to hold the requirement at Provisional conflates the two, and it holds a whole class of document at a maturity its evidence does not warrant.
 
 **Rule.** ISO/IEC/IEEE 29148:2018 requires **traceability, not finality**. A TBD with an owner and a date is standards-compliant. A silent gap is not. Declaring an assumption transfers the open item to its named owner; concealing one retains it as the author's defect.
 
@@ -384,6 +419,7 @@ Fixed structure. **Section 3 keeps its numbering unchanged**, so every §3.x ref
 | **App. B** | Assumption register | Owners, confirm-by dates, consequence if wrong |
 | **App. C** | Referred requirements register | What this ORD will not deliver, and who it went to |
 | **App. D** | ORD→SOAP conformance | Completed when the SOAP is issued |
+| **App. E** | Scenario catalogue | One row per scenario, keyed to the requirement it exercises (OH-15). `Condition` is Sunny Day / Rainy Day / Edge Case; `Outcome` is Favourable / Adverse and applies only where the capability ran successfully |
 
 **Sections 6 and 8 are numbered and left empty on purpose.** Renumbering around them would break every existing §-reference, and a declared gap is visible where a silent omission is not — the same rule this standard applies to the nine characteristics, applied to its own template.
 
@@ -499,13 +535,13 @@ threshold on generated output is held to that rule, not to a stricter one.
 **§3 carries no `Verification` column, so the population belongs inside the tolerance sentence** —
 the same place *"two billing cycles"* sits:
 
-| Ref | Ver | Business tolerance | KPP | Status | Owner | Source |
-|---|---|---|---|---|---|---|
-| ORD-NN | 1.0 | An unsupported claim reaching a customer in a rebate-eligibility answer is unacceptable above 2 per thousand answers. **Threshold:** 2 per thousand. **Objective:** 0.5 per thousand | | Provisional | GM Customer Care | [TBD — source: "we can't have it telling customers things that aren't true"] |
+| Ref | Ver | Requirement title | Business tolerance | KPP | Status | Owner | Source |
+|---|---|---|---|---|---|---|---|
+| ORD-NN | 1.0 | [active, verb-first] | An unsupported claim reaching a customer in a rebate-eligibility answer is unacceptable above 2 per thousand answers. **Threshold:** 2 per thousand. **Objective:** 0.5 per thousand | | Provisional | GM Customer Care | [TBD — source: "we can't have it telling customers things that aren't true"] |
 
 The instrument that measures it — the held-out set, the scorer, the pass mark — is **derived by the
 design response and recorded at Appendix D** when the SOAP answers. The ORD does not author it.
-**Appendix D is where an evaluation set is recorded; no fifth appendix is added.**
+**Appendix D is where an evaluation set is recorded — it gets no appendix of its own.**
 
 **A population is quantifiable, or it is a hedge.** *"Customer-facing determinations"* names no
 boundary and fails at verification exactly as *"fast"* does. A population states what is counted,
@@ -686,6 +722,20 @@ load-bearing elements:
 | B2 | Outcome, not solution | A customer whose installation appointment is missed receives the contracted rebate without contacting Acme |
 | B3 | Constraints with operational weight | Consumer contract clause 14.3 — rebate payable within two billing cycles of the missed appointment. Field services agreement §9 — contractor attendance data supplied within 24 hours |
 
+**Operational objectives (OH-14).** The outcome layer between B1 and the requirements at §3. Every
+requirement at §3 traces to one of these, and each carries the position it starts from.
+
+| ID | Objective | Baseline | Target | Target date | Traces to |
+|---|---|---|---|---|---|
+| OBJ-01 | A customer owed a rebate receives it without contacting Acme | 0% — every rebate to date has followed a customer complaint | 95% of owed rebates applied without customer contact | FY27 Q2 | B1 · B2 · ORD-03, ORD-04, ORD-05, ORD-15, ORD-16 |
+| OBJ-02 | A care agent answers a rebate question at first contact | 38% first-contact resolution on rebate queries (FY25 Q4 call-coding extract) | 85% first-contact resolution | FY27 Q1 | B1 · ORD-01, ORD-12, ORD-13, ORD-14 |
+| OBJ-03 | Rebate rules change without a software release | [TBD — GM Billing, due 2026-09-19] | Parameter change effective within one business day of approval | FY27 Q2 | B3 · ORD-10, ORD-11 |
+
+**OBJ-03 carries no baseline and says so.** Nobody counted parameter changes, so there is no
+starting position to improve on and one has not been invented. It is a declared gap carrying an
+owner and a confirm-by date, which is what OH-14 asks for — not a reason to write a plausible
+number.
+
 ### 1.3 Operational scope
 
 **In scope.** The operational behaviour of appointment completion, rebate determination, rebate
@@ -798,61 +848,61 @@ labelled values.
 
 ### 3.1 Performance Efficiency
 
-| Ref | Ver | Business tolerance | KPP | Status | Owner | Source |
-|---|---|---|---|---|---|---|
-| ORD-01 | 1.0 | A customer-care agent establishes a customer's rebate position within the customer's call, without a transfer or a call-back | | Provisional | GM Customer Care | INC-4471 · complaint theme analysis FY25 Q4 |
-| ORD-02 | 1.0 | Rebate determination absorbs a peak of one day's national installation volume arriving in a single reconciliation window | | Assumed | GM Field Operations | Assumption ASM-02 |
+| Ref | Ver | Requirement title | Business tolerance | KPP | Status | Owner | Source |
+|---|---|---|---|---|---|---|---|
+| ORD-01 | 1.0 | Establish rebate position within the call | A customer-care agent establishes a customer's rebate position within the customer's call, without a transfer or a call-back | | Provisional | GM Customer Care | INC-4471 · complaint theme analysis FY25 Q4 |
+| ORD-02 | 1.0 | Absorb a single-window national volume peak | Rebate determination absorbs a peak of one day's national installation volume arriving in a single reconciliation window | | Assumed | GM Field Operations | Assumption ASM-02 |
 
 ### 3.2 Reliability
 
-| Ref | Ver | Business tolerance | KPP | Status | Owner | Source |
-|---|---|---|---|---|---|---|
-| ORD-03 | 1.0 | A rebate owed under clause 14.3 is applied within two billing cycles of the missed appointment. **Threshold:** two cycles. **Objective:** one cycle | **[KPP]** | Provisional | GM Billing | Consumer contract cl. 14.3 |
-| ORD-04 | **1.1** | Rebate determination continues through a 24-hour interruption to any single attendance source, and no determination is lost. **Threshold:** 24 hours. **Objective:** 72 hours | **[KPP]** | Provisional | GM Field Operations | INC-5012 — 19-hour contractor portal outage, 2,300 jobs unreconciled |
-| ORD-05 | 1.0 | A missed appointment already determined as rebate-owing is not re-determined, and no customer receives a duplicate credit | | Committed | GM Billing · 2026-07-29, Rebate Design Forum | Consumer contract cl. 14.5 |
+| Ref | Ver | Requirement title | Business tolerance | KPP | Status | Owner | Source |
+|---|---|---|---|---|---|---|---|
+| ORD-03 | 1.0 | Apply an owed rebate within two billing cycles | A rebate owed under clause 14.3 is applied within two billing cycles of the missed appointment. **Threshold:** two cycles. **Objective:** one cycle | **[KPP]** | Provisional | GM Billing | Consumer contract cl. 14.3 |
+| ORD-04 | **1.1** | Determine rebates through an attendance-source outage | Rebate determination continues through a 24-hour interruption to any single attendance source, and no determination is lost. **Threshold:** 24 hours. **Objective:** 72 hours | **[KPP]** | Provisional | GM Field Operations | INC-5012 — 19-hour contractor portal outage, 2,300 jobs unreconciled |
+| ORD-05 | 1.0 | Prevent duplicate rebate credit | A missed appointment already determined as rebate-owing is not re-determined, and no customer receives a duplicate credit | | Committed | GM Billing · 2026-07-29, Rebate Design Forum | Consumer contract cl. 14.5 |
 
 *Proposed acceptance criterion, ORD-03:* `Rebate applied within two billing cycles (threshold) / one cycle (objective) [ORD-03 · v1.0 · Provisional · owner: GM Billing · confirm by 2026-08-29]`
 
 ### 3.3 Security
 
-| Ref | Ver | Business tolerance | KPP | Status | Owner | Source |
-|---|---|---|---|---|---|---|
-| ORD-06 | 1.0 | A rebate credit is attributable to the appointment record, the attendance evidence and the person or process that applied it, for seven years | | Committed | GM Billing · 2026-07-29 | Records retention policy; consumer contract cl. 14.6 |
-| ORD-07 | 1.0 | Contractor attendance data is visible only to the contracting party that submitted it | | Provisional | GM Field Operations | Field services agreement §12 |
+| Ref | Ver | Requirement title | Business tolerance | KPP | Status | Owner | Source |
+|---|---|---|---|---|---|---|---|
+| ORD-06 | 1.0 | Restrict rebate parameter changes to authorised roles | A rebate credit is attributable to the appointment record, the attendance evidence and the person or process that applied it, for seven years | | Committed | GM Billing · 2026-07-29 | Records retention policy; consumer contract cl. 14.6 |
+| ORD-07 | 1.0 | Evidence every rebate determination | Contractor attendance data is visible only to the contracting party that submitted it | | Provisional | GM Field Operations | Field services agreement §12 |
 
 ### 3.4 Compatibility
 
-| Ref | Ver | Business tolerance | KPP | Status | Owner | Source |
-|---|---|---|---|---|---|---|
-| ORD-08 | 1.0 | A rebate determination made while an upstream source is unavailable is reconciled without manual intervention once that source returns | | Provisional | GM Billing | INC-5388 |
-| ORD-09 | 1.0 | Contractor attendance submitted through the existing contractor channel is accepted without change to the contractor's own process | | Assumed | GM Field Operations | Assumption ASM-03 |
+| Ref | Ver | Requirement title | Business tolerance | KPP | Status | Owner | Source |
+|---|---|---|---|---|---|---|---|
+| ORD-08 | 1.0 | Exchange attendance evidence with the contractor estate | A rebate determination made while an upstream source is unavailable is reconciled without manual intervention once that source returns | | Provisional | GM Billing | INC-5388 |
+| ORD-09 | 1.0 | Preserve rebate treatment for existing customers | Contractor attendance submitted through the existing contractor channel is accepted without change to the contractor's own process | | Assumed | GM Field Operations | Assumption ASM-03 |
 
 ### 3.5 Flexibility
 
-| Ref | Ver | Business tolerance | KPP | Status | Owner | Source |
-|---|---|---|---|---|---|---|
-| ORD-10 | 1.0 | A change to the rebate amount or the qualifying window is in effect within one billing cycle of the contract change taking effect, without a release | | Provisional | GM Billing | Consumer contract cl. 14.3 — amended twice since 2023 |
+| Ref | Ver | Requirement title | Business tolerance | KPP | Status | Owner | Source |
+|---|---|---|---|---|---|---|---|
+| ORD-10 | 1.0 | Change rebate parameters without a release | A change to the rebate amount or the qualifying window is in effect within one billing cycle of the contract change taking effect, without a release | | Provisional | GM Billing | Consumer contract cl. 14.3 — amended twice since 2023 |
 
 ### 3.6 Maintainability
 
-| Ref | Ver | Business tolerance | KPP | Status | Owner | Source |
-|---|---|---|---|---|---|---|
-| ORD-11 | 1.0 | A rebate not applied is diagnosable by Billing operations to the point of failure, without engineering involvement | | Provisional | GM Billing | INC-5012 post-incident review |
-| ORD-12 | 1.0 | The rebate position of any appointment is reportable for a regulatory enquiry within one business day | | Committed | GM Billing · 2026-07-29 | Regulatory Affairs standing requirement |
+| Ref | Ver | Requirement title | Business tolerance | KPP | Status | Owner | Source |
+|---|---|---|---|---|---|---|---|
+| ORD-11 | 1.0 | Reproduce a historical rebate determination | A rebate not applied is diagnosable by Billing operations to the point of failure, without engineering involvement | | Provisional | GM Billing | INC-5012 post-incident review |
+| ORD-12 | 1.0 | Diagnose a disputed rebate without engineering | The rebate position of any appointment is reportable for a regulatory enquiry within one business day | | Committed | GM Billing · 2026-07-29 | Regulatory Affairs standing requirement |
 
 ### 3.7 Interaction Capability
 
-| Ref | Ver | Business tolerance | KPP | Status | Owner | Source |
-|---|---|---|---|---|---|---|
-| ORD-13 | 1.0 | A customer establishes their rebate position through the channel they already use, without a separate account or a new channel | | Provisional | GM Customer Care | BRD-2026-041 §8 BR-2 |
-| ORD-14 | 1.0 | A customer-care agent reaches competency on rebate handling within one shift | | Assumed | GM Customer Care | Assumption ASM-01 |
+| Ref | Ver | Requirement title | Business tolerance | KPP | Status | Owner | Source |
+|---|---|---|---|---|---|---|---|
+| ORD-13 | 1.0 | Establish rebate position through an existing channel | A customer establishes their rebate position through the channel they already use, without a separate account or a new channel | | Provisional | GM Customer Care | BRD-2026-041 §8 BR-2 |
+| ORD-14 | 1.0 | Handle a rebate query without specialist referral | A customer-care agent reaches competency on rebate handling within one shift | | Assumed | GM Customer Care | Assumption ASM-01 |
 
 ### 3.8 Functional Suitability
 
-| Ref | Ver | Business tolerance | KPP | Status | Owner | Source |
-|---|---|---|---|---|---|---|
-| ORD-15 | 1.0 | A missed appointment is determinable from data captured during the field job, with no re-keying by a field operative or an agent | | Committed | GM Field Operations · 2026-07-29 | Rebate Design Forum decision |
-| ORD-16 | 1.0 | At go-live, rebate determination covers residential installation appointments. Business and assurance appointments are phased | | Committed | GM Customer Care · 2026-07-29 | BRD-2026-041 §7 |
+| Ref | Ver | Requirement title | Business tolerance | KPP | Status | Owner | Source |
+|---|---|---|---|---|---|---|---|
+| ORD-15 | 1.0 | Determine a missed appointment without re-keying | A missed appointment is determinable from data captured during the field job, with no re-keying by a field operative or an agent | | Committed | GM Field Operations · 2026-07-29 | Rebate Design Forum decision |
+| ORD-16 | 1.0 | Reconcile the rebate population before publication | At go-live, rebate determination covers residential installation appointments. Business and assurance appointments are phased | | Committed | GM Customer Care · 2026-07-29 | BRD-2026-041 §7 |
 
 ### 3.9 Safety
 
@@ -1048,3 +1098,30 @@ handoff instead of discovered when someone looks for a log nobody kept.
 
 *The illustrative rows above and at §9 are placeholders for a worked AI exemplar that is not yet
 written. This document is the Acme rebate change and carries no AI component.*
+
+---
+
+## Appendix E — Scenario catalogue (OH-15)
+
+One row per scenario, keyed to the requirement it exercises. `Condition` is the weather the
+capability is put through; `Outcome` is whether the thing being measured passes or fails, and it
+applies only where the capability ran successfully.
+
+| ID | Ref | Condition | Outcome | Situation | Expected end state |
+|---|---|---|---|---|---|
+| SCN-01 | ORD-03 | Sunny Day | Favourable | Attendance evidence complete; the appointment was missed and clause 14.3 applies | The rebate is applied within two billing cycles and the customer is notified |
+| SCN-02 | ORD-03 | Sunny Day | **Adverse** | Attendance evidence complete; the appointment was attended, or the customer cancelled inside the qualifying window | No rebate is owed, the determination and the rule version that produced it are recorded, and the reason is available to a care agent handling a dispute |
+| SCN-03 | ORD-03 | Rainy Day | — | Contractor attendance feed unavailable at the determination window | No determination is made, the affected population is held as an exception rather than defaulted either way, and it is re-determined when evidence arrives |
+| SCN-04 | ORD-03 | Edge Case | — | The missed appointment falls on the last day of a billing cycle | The two-cycle obligation runs from the appointment date, not the cycle boundary |
+| SCN-05 | ORD-16 | Sunny Day | Favourable | Source, included, excluded and exception populations reconcile | The figure is publishable |
+| SCN-06 | ORD-16 | Sunny Day | **Adverse** | The populations reconcile and the resulting figure is worse than the prior period | The figure is publishable unchanged. A movement against the objective is a result, never a reconciliation failure, and it is not withheld or adjusted |
+| SCN-07 | ORD-16 | Rainy Day | — | An unresolved variance remains at the publication point | The figure is not represented as reconciled, and publication does not proceed on an unapproved tolerance |
+
+**SCN-02 and SCN-06 are the rows OH-15 exists to force.** Both describe the capability working
+perfectly and returning an unwelcome answer, and both carry an obligation that nothing else in this
+document states. Without them ORD-03 is specified only for the customer who is owed a rebate, and
+ORD-16 only for the month the numbers improve.
+
+**The catalogue is not complete.** Seven rows cover three of seventeen requirements; the remainder
+carry Sunny Day rows in the register's own reading and are listed as a declared gap at §3.3, owned
+by the convenor with a confirm-by date of 2026-09-26. Stated rather than presented as coverage.

@@ -69,7 +69,9 @@ AC-001 (PRD-001.1): Checkout for a returning customer with a saved payment
 
 ### Operational (ORD requirement → AC)
 
-An ORD register row is already a declarative statement plus a `Verification` method — that *is* an acceptance criterion. Carry the `Requirement Description` and the `Verification` across verbatim; never drop the verification method.
+An ORD register row is already a declarative statement carrying its own quantified value and its measurement population — that *is* an acceptance criterion. Carry the `Business Tolerance` across verbatim, with both labelled values where the row is a KPP.
+
+**The instrument is not in the register.** A demand-side ORD names the population and leaves the instrument to the design response, recorded at the ORD's Appendix D. Carry the instrument from Appendix D where it is populated; where it is pending, write `Verification: pending design response` rather than guessing. An AC that invents an instrument re-introduces exactly the pre-emption the demand-side rule exists to prevent.
 
 ORD-004 [KPP] →
 ```
@@ -106,9 +108,9 @@ Conditions of satisfaction for the Capability. KPPs + headline outcomes only.
 | AC ID | Criterion | Source | Verification |
 |-------|-----------|--------|--------------|
 | AC-001 | [declarative testable condition, carried verbatim] | PRD-002 | [test / measure] |
-| AC-002 | [declarative testable condition, carried verbatim] | ORD-004 (KPP) | [carried from the register's Verification] |
+| AC-002 | [declarative testable condition, carried verbatim] | ORD-004 (KPP) | [carried from Appendix D, or "pending design response"] |
 
-`Verification` is a carried copy — the source PRD/ORD stays authoritative. Change it there and
+`Verification` is a carried copy, from the ORD's Appendix D or the PRD — the source stays authoritative. Change it there and
 re-run `/write-ac`; never edit it here.
 
 ## Child Epic / Story Acceptance Criteria

@@ -57,9 +57,14 @@ discipline applied to tests.
 
 Run once per release, not per feature.
 
-1. Read the ORD at `docs/ord/*.md` — the requirement register in §§3–8. Each row carries `ORD#`, a
-   declarative `Requirement Description` holding its own value, a `Verification` method, `MoSCoW`,
-   `Timing`, `Delivery Agent`, and any **[KPP]** tag.
+1. Read the ORD at `docs/ord/*.md` — the requirement register at §§3–5, 7 and 9. Each row carries
+   `ORD#`, an active `Requirement Title`, a declarative `Business Tolerance` holding its own value
+   and its measurement population, a `KPP` column, `MoSCoW`, a `Status` and a named `Owner`.
+   Also read **Appendix D** (conformance) — a demand-side ORD carries no `Verification` column, and
+   Appendix D is where the design response's instrument is recorded once it is issued.
+   An ORD authored before the demand-side convergence carries the earlier columns
+   (`Requirement Description`, `Verification`, `Delivery Agent`, `Timing`, inline `[KPP]`). Read it
+   as the same register and do not rewrite the source document.
 2. Read `docs/CONTEXT.md` — test names must use domain language.
 3. Read relevant `~/.claude/knowledge/systems/*/known-issues.md`.
 4. **Triage every register row by verification venue** (see ORD Verification Triage below). Every
@@ -80,8 +85,15 @@ Run once per release, not per feature.
 
 ### ORD Verification Triage
 
-Read each row's **`Verification`** cell — not its `Requirement Description`. The verification
-method is what determines whether a requirement can become a test case.
+Read the row's **measurement population** — stated inside the `Business Tolerance` — together with
+its **Appendix D** instrument where one has been recorded. Population plus instrument is what
+determines whether a requirement can become a test case.
+
+**Where Appendix D is still pending**, the design response has not been issued and no instrument
+exists yet. Triage the row on its population alone: it still lands in a venue, and its TC records
+`instrument: pending design response`. A row is never dropped for want of an instrument, and an
+instrument is never invented to fill the gap — inventing one re-introduces the pre-emption the
+demand-side rule exists to prevent.
 
 | Ask | Answer | Venue | Gets a TC? |
 |---|---|---|---|
@@ -97,16 +109,19 @@ verified by monitoring and failover drill"* yields a **Test** row (the failover 
 now) and an **In service** row (the monthly threshold). Record both against the same `ORD-NNN`. A
 forced binary either invents a test that cannot pass or discards a test that could.
 
-**Check `Delivery Agent` before absorbing a row.** A row owned by another department still gets
-triaged and still appears in the plan, but its `Owner` names that department. Never silently move
-another team's verification into this repo's test suite.
+**Check `Owner` before absorbing a row.** A demand-side register names the *business* owner of the
+tolerance, not a delivery team — so a row's verification may well belong to another department. It
+still gets triaged and still appears in the plan, with the owner named. Never silently move another
+team's verification into this repo's test suite.
 
 **Rows that yield no TC in any bucket:**
 
 - `MoSCoW` = `Won't` — no verification for this release. Consistent with `/write-ac`.
-- `Requirement Description` still `[TBD — source: "…"]` — record it in Not Verifiable Yet. Never
+- `Business Tolerance` still `[TBD — source: "…"]` — record it in Not Verifiable Yet. Never
   invent a threshold to make a row testable (`rules/requirements/language.md`).
-- `Verification` blank — an authoring defect in the ORD. Report it; do not guess a method.
+- No measurement population stated in the tolerance — an authoring defect in the ORD. Report it; do
+  not guess one. A pending Appendix D is **not** a defect: it is the expected state before the
+  design response is issued.
 
 ---
 
@@ -276,8 +291,8 @@ Register rows read: **N.** Rows placed: **N.** *(These must match.)*
 
 | TC | ORD# | Requirement | Verification Method | Level | Owner | Priority |
 |----|------|-------------|--------------------|-------|-------|----------|
-| TC-NNN | ORD-004 | [declarative end state, carrying its value] | [verbatim from register] | System | [Delivery Agent] | P1 |
-| TC-NNN | ORD-009 | [requirement] | [verbatim] | Environment | [Delivery Agent] | P2 |
+| TC-NNN | ORD-004 | [declarative end state, carrying its value] | [verbatim from Appendix D] | System | [Owner, from the register] | P1 |
+| TC-NNN | ORD-009 | [requirement] | instrument: pending design response | Environment | [Owner, from the register] | P2 |
 
 `Level`: Unit / Integration / System / Environment.
 
@@ -292,7 +307,7 @@ Proven before release by evidence, not by execution. Routed to the Go/No Go evid
 
 | ORD# | Requirement | Evidence Required | Owner | Due |
 |------|-------------|------------------|-------|-----|
-| ORD-NNN | [requirement] | [document / config / sign-off] | [Delivery Agent] | [milestone] |
+| ORD-NNN | [requirement] | [document / config / sign-off] | [Owner, from the register] | [milestone] |
 
 ---
 
@@ -303,7 +318,7 @@ waived is not a gate.
 
 | ORD# | Requirement | Monitoring Method | Owner | First Review |
 |------|-------------|------------------|-------|--------------|
-| ORD-NNN | [threshold, verbatim] | [verbatim from register] | [Delivery Agent] | [date or milestone] |
+| ORD-NNN | [threshold, verbatim] | [verbatim from Appendix D] | [Owner, from the register] | [date or milestone] |
 
 ---
 
@@ -312,7 +327,7 @@ waived is not a gate.
 | ORD# | Reason |
 |------|--------|
 | ORD-NNN | Threshold still `[TBD]` — no measurable target to test against |
-| ORD-NNN | `Verification` blank in the register — method undefined |
+| ORD-NNN | No measurement population stated in the tolerance — undefined |
 | ORD-NNN | `MoSCoW: Won't` — out of scope for this release |
 
 ---
@@ -343,7 +358,7 @@ waived is not a gate.
 - Never pull an ORD register row into a feature testplan — reference the operational TC instead.
 - Never issue two TCs for the same commitment. One requirement, one test, referenced everywhere else.
 - Never put an in-service threshold on the Go/No Go critical path — it cannot pass at the gate, and a routinely waived gate stops being a gate.
-- Never invent a threshold to make a `[TBD]` row testable, and never guess a `Verification` method the register does not state.
+- Never invent a threshold to make a `[TBD]` row testable, and never guess an instrument the ORD's Appendix D does not state.
 - Never edit a value carried from the ORD — the register is authoritative; change it there and re-run.
 - Never silently drop a register row. If it fits no bucket, present it for a human call.
 - Never assign TC IDs before the human confirms the draft, and never assign them ad hoc outside `docs/tests/registry.md`.
@@ -361,7 +376,8 @@ waived is not a gate.
 | `docs/tests/registry.md` missing | Create it with all seven columns and start numbering from TC-001 — never assign TC IDs ad hoc. |
 | Registry exists without a `Requirement` column | Offer the migration and require `CONFIRM`. On decline, use the six-column shape and report the loss of traceability. |
 | A user story has no test item | Add one — every story needs at least one test before the plan is saved. |
-| An ORD row's `Verification` is blank | Do not guess. List it under Not Verifiable Yet and report it as an ORD authoring defect. |
+| An ORD row states no measurement population | Do not guess. List it under Not Verifiable Yet and report it as an ORD authoring defect. |
+| The ORD's Appendix D is pending | Expected before the design response is issued. Triage on the population and record `instrument: pending design response`. Not a defect. |
 | An ORD row is still `[TBD]` | List it under Not Verifiable Yet. Never invent a threshold. |
 | Triage counts do not reconcile | Stop before issuing TCs. A missing row is a defect in this run — find it. |
 | A row has both an executable and an in-service part | Split it. Record both against the same `ORD-NNN` in their respective sections. |

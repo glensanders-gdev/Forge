@@ -5,8 +5,8 @@
 > everything below. Editing this file puts it out of step with the pack; regenerate
 > instead.
 
-**Pack version:** v1.9 · **Pack commit:** `719eecb78e35`
-**Generated:** 2026-09-02 · **Content hash:** `9d3e57310592cd19`
+**Pack version:** v1.11 · **Pack commit:** `d2f74eca4885`
+**Generated:** 2026-09-07 · **Content hash:** `2f1b62fc3836b797`
 
 **Quote the version in every BRD authored from this extract.**
 A reader needs to know which revision was applied — a verdict, and a document
@@ -231,13 +231,18 @@ the ORD's — or a **technical figure** — the SOAP's.
 | "99.99% monthly availability" | Technical target | **SOAP** |
 | "PCI-DSS applies; a breach carries penalty X and loss of acquiring" | Compliance obligation | **ORD** §3.3.6 |
 | "Card data tokenised, no PAN at rest" | Technical control | **SOAP** |
+| "A customer acting on a generated summary that misstates their entitlement breaches obligation Y, at $X per occurrence" | Business tolerance, accuracy of generated output | **ORD** §3.8 |
+| "Summary quality scores ≥ 4.0 of 5 mean on a held-out evaluation set, no single case below 2.5" | Technical target — the evaluation instrument | **SOAP** |
 | "Customer pays in one tap with a saved card" | Functional behaviour | **No document** — inferred at Epic decomposition, or registered as a referred requirement |
 | "Refunds over $500 require supervisor approval" | Business rule | **No document** — as above |
 | "Tier 2 support staffed at 4 FTE, follow-the-sun" | Staffing | **Referred requirements register** |
 
 > **The test when a detail resists placement.** **Existence:** does architecture's answer to this
 > document already exist? If not, a technical figure in the ORD is an antipattern regardless of how
-> well it traces — a well-justified RTO is still architecture's to set.
+> well it traces — a well-justified RTO is still architecture's to set. **The test reaches an evaluation
+> instrument unchanged:** a set that does not yet exist cannot carry a pass mark here, because the
+> pass mark *is* the answer. The population the measure is taken over, and the consequence of
+> breaching it, are the demand side and belong in the ORD.
 
 > **Net:** the BRD deliberately holds no detail. The decision made day to day is **tolerance or
 > figure** — and, for anything functional, **which register receives it**, since no document will.

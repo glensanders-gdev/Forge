@@ -1,7 +1,7 @@
 ---
 name: review-ord
 category: pipeline
-description: Assess a submitted ORD against the published §7.1 handoff gate — OH-1 to OH-13, the four outcomes, the §7.3 refuse-to-produce scan and the §5 tier rule — returning a per-item verdict table with evidence and a mechanically derived outcome. Criteria are read from the requirements-documents pack at review time, never recalled. Use when an ORD is ready for solution architecture, when /review-ord is run, or before handoff is declared.
+description: Assess a submitted ORD against the published §7.1 handoff gate — OH-1 to OH-15, the four outcomes, the §7.3 refuse-to-produce scan and the §5 tier rule — returning a per-item verdict table with evidence and a mechanically derived outcome. Criteria are read from the requirements-documents pack at review time, never recalled. Use when an ORD is ready for solution architecture, when /review-ord is run, or before handoff is declared.
 ---
 
 # ORD Review
@@ -27,7 +27,7 @@ Source them per [GATE-PROTOCOL.md](../review-brd/GATE-PROTOCOL.md) § *Sourcing 
 live pack's `reference/` where held, otherwise the stamped extract in [CRITERIA.md](CRITERIA.md),
 which carries every file named below. Name the pack version in the report.
 
-Read in full: **§7.1** (the bar OH-1 – OH-7, the supporting items OH-8 – OH-13, the four outcomes,
+Read in full: **§7.1** (the bar OH-1 – OH-7, the supporting items OH-8 – OH-15, the four outcomes,
 and *What the ORD does not supply*), **§7.3**, **§5** with its tier rule, **§5.2** on KPPs, and
 **§2.1**. Read `reference/example-ORD.md` as the **worked reference implementation**.
 
@@ -36,13 +36,13 @@ Three desk references answer specific questions — read each when its question 
 `nine-characteristics-quickref.md` (the ISO/IEC 25010 set), `kpp-identification-guide.md` (is this
 genuinely a KPP).
 
-**Completion:** the standard and the ORD under review are both read end to end, and the thirteen
+**Completion:** the standard and the ORD under review are both read end to end, and the fifteen
 item definitions are in hand as written rather than as remembered.
 
 ## Step 2 — Verdict every item, with evidence
 
 Apply the verdict vocabulary and the evidence rule in
-[GATE-PROTOCOL.md](../review-brd/GATE-PROTOCOL.md) to each of OH-1 – OH-13.
+[GATE-PROTOCOL.md](../review-brd/GATE-PROTOCOL.md) to each of OH-1 – OH-15.
 
 ORD-specific criteria to apply while doing so, each defined in the standard rather than here:
 
@@ -54,10 +54,28 @@ ORD-specific criteria to apply while doing so, each defined in the standard rath
   **regardless of how well it traces**: it pre-empts the review the document exists to inform.
 - **OH-5 and §5.2** — KPPs carry **threshold and objective as two labelled values**, at every
   altitude. A single collapsed figure is the failure this item exists to catch.
+- **OH-12** — a proposed acceptance criterion carries **inline provenance** (§6.2): the requirement's
+  `Ver`, its status, its owner and its confirm-by date travel with the criterion. A criterion
+  supplied without them fails the item — the provenance is the whole point of supplying it.
 - **OH-13** — its absence is **normal today**, recorded rather than treated as an authoring failure;
   the standard lists it as a Tier 1 control to be established.
+- **OH-14** — each operational objective carries a **baseline**, a target and a target date. A
+  target with no baseline is the failure this item catches: improvement cannot be demonstrated from
+  a starting position nobody recorded. A baseline marked `[TBD]` **with a named owner and a date**
+  is a declared gap and is met for this item; an invented baseline is worse than either.
+- **OH-15** — a *determination, measurement or eligibility* requirement carries the **adverse
+  outcome** as well as the favourable one. Check the substance, not the label: the question is
+  whether the document states what is true when the capability runs correctly and returns an
+  unwelcome answer. A catalogue covering only some requirements is met where the remainder are
+  **declared** as a gap with an owner and a date, and failed where partial coverage is presented as
+  coverage.
+- **Business rules present in the ORD** — assess the **declaration**, not the presence. §7.1
+  *What the ORD does not supply* permits a carried rule register where the carry is declared as a
+  deviation. Undeclared functional content fails; declared content passes and is recorded as
+  evidence that the chain lacks a functional requirements document. Data entities and functional
+  acceptance criteria are not covered by that permission and stay referred.
 
-**Completion:** all thirteen carry a verdict, and every verdict cites the section or requirement ID
+**Completion:** all fifteen carry a verdict, and every verdict cites the section or requirement ID
 it was read from, or names precisely what is absent.
 
 ## Step 3 — Scan §7.3 for defects, and check the tier
@@ -66,6 +84,11 @@ it was read from, or names precisely what is absent.
 are content that does not belong in the document at all, and the two are reported separately.
 Scan all seven — solution design, Epic or story decomposition, technical targets, interface and data
 mapping, estimates and sequencing, written Epics, and sole acceptance of delivered work.
+
+**Also scan the assumption register for a competing methodology filed as an assumption** (§5). Two
+defensible ways to count the same thing is a decision with an owner, not something believed true
+pending confirmation. Filed as an assumption it has no owner and a side has been picked by omission
+— report it as a defect, and name the requirements and reported outcomes it reaches.
 
 Then check the declared tier against **§5's tier rule**: the tier is the **weakest status carried by
 any KPP-bearing requirement** — the KPPs and the recovery, availability and capacity demands they
@@ -92,7 +115,7 @@ from gaps, and each of the five checks is answered or explicitly marked not-yet-
 
 - **Never restate a criterion in this skill's own prose.** The pack is the source of truth, and
   `CRITERIA.md` is a generated extract of it — never a second copy to hand-edit.
-- **Never emit a score or a percentage** — thirteen verdicts and one of four outcomes.
+- **Never emit a score or a percentage** — fifteen verdicts and one of four outcomes.
 - **Never report a §7.3 item as a gap.** It is a defect, and folding it into the tier hides it.
 - Report an assessment; approval is the General Managers'. This skill declares.
 - Where the standard and this skill disagree, the standard wins — and say so in the report.
