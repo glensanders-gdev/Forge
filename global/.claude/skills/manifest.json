@@ -1,5 +1,5 @@
 {
-  "forge_version": "4.9.0",
+  "forge_version": "4.9.1",
   "skills": {
     "setup-brain": "2.0.0",
     "scan-first": "1.0.0",
@@ -95,7 +95,7 @@
     "tech-debt": "1.0.0",
     "git-guardrails": "1.0.1",
     "jira": "1.0.1",
-    "skill-health": "1.6.0",
+    "skill-health": "1.7.0",
     "test-coverage": "1.0.1",
     "seo": "1.0.0",
     "caveman": "1.0.0",

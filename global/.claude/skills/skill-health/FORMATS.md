@@ -65,6 +65,13 @@ outside this repository.
 | Skill | Flag | In `dist/`? | Action |
 |-------|------|-------------|--------|
 
+### Declared exception drifted (the invariant it was granted on no longer holds)
+| Skill | Check | Granted | Invariant | Now | Action |
+|-------|-------|---------|-----------|-----|--------|
+
+*An exception is relief from a finding, never from the failure the finding catches. A broken
+invariant ranks above the finding it exempts.*
+
 ---
 
 ## ⚠️ Amber — Should Fix
@@ -105,6 +112,14 @@ changed behaviour still needs its bumps; review the list before dismissing it.*
 |------|---------|-----------|--------|
 | Release version | N.N.N | N.N.N | Run `tools/sync-standalone-skills.sh` |
 
+### Frontmatter versions (`manifest.json` owns the version)
+| Skill | Frontmatter | Manifest | Action |
+|-------|-------------|----------|--------|
+
+*Delete the line, whatever its value. Correcting it to match the manifest restores the second
+source of truth this check exists to remove. Skills listed under Declared exceptions below are
+excluded from this table.*
+
 ### Attribution gaps (origin: in frontmatter, no body credit)
 | Skill | Origin | Action |
 |-------|--------|--------|
@@ -121,9 +136,17 @@ changed behaviour still needs its bumps; review the list before dismissing it.*
 | Command | Action |
 |---------|--------|
 
-### Version mismatches (SKILL.md version != manifest version)
-| Skill | SKILL.md | Manifest | Action |
-|-------|----------|----------|--------|
+### Declared exceptions (`EXCEPTIONS.md` — finding produced, severity lowered)
+| Skill | Check | Granted | Reason | Invariant |
+|-------|-------|---------|--------|-----------|
+
+*Listed every run. An exception the reader cannot see is indistinguishable from a check that was
+not run. Where `EXCEPTIONS.md` could not be read, say so here and treat the register as unread,
+never as empty.*
+
+### Stale exceptions (row outlived the condition it was granted for)
+| Skill | Check | Granted | Why stale | Action |
+|-------|-------|---------|-----------|--------|
 
 ### Publication state unverified
 | Item | Value |
