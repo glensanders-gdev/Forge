@@ -111,6 +111,27 @@ from gaps, and each of the five checks is answered or explicitly marked not-yet-
 
 ---
 
+## Failure Modes
+
+| Condition | Behaviour |
+|-----------|-----------|
+| Neither the live pack nor `CRITERIA.md` is readable | Stop, per [GATE-PROTOCOL.md](../review-brd/GATE-PROTOCOL.md) § *Sourcing the criteria*. Never substitute recollection — a gate applied from memory drifts from the published one silently, and the drift is invisible in the output |
+| `CRITERIA.md` carries the ⚠️ **dirty working tree** warning in its provenance line | The extract was generated from uncommitted pack state, corresponds to no committed version, and cannot be reproduced. Prefer the live pack and say the extract was bypassed; where it is the only source, run the review and record in *Assessed against* that the bar itself is unreproducible |
+| The live pack and `CRITERIA.md` disagree | The pack wins and the extract is stale — say so in the report and regenerate with `tools/build-review-criteria.py`. Never prefer the extract because it is closer to hand |
+| The pack defines an item this skill does not name — an OH-16, or a renumbered §7.1 | Verdict every item the pack defines, and report the ones this skill does not name. The skill is the defect, not the document: where the standard and this skill disagree, the standard wins |
+| The reviewer authored the ORD | Run the review and record the non-independence in the *Reviewer* line. §8 names a reviewer *"who did not author it"* as its highest-value Tier 1 control and its absence as the cause of silent defect survival — an unmarked self-review is exactly the condition the record exists to make countable |
+| A BRD, PRD or SOAP is submitted to this gate | Stop and name the mismatch. OH-1 – OH-15 are the ORD's bar; applying them to a document written to a different one produces verdicts against a bar it was never authored to |
+| The ORD names a pack version other than the one being applied | Name both in the report. A verdict is meaningful only against a named bar, and an ORD authored to one revision assessed against another is a finding about the pair, not about the document |
+| The ORD carries no KPP-bearing requirement | §5's tier rule has no input. Report the declared tier as underivable and name the absence — never accept a declared tier by default, and never substitute the weakest status anywhere in the register, which is the substitution the rule exists to refuse |
+| A §7.3 item is present **and** the demand it displaced is absent | Report the defect under *Defects (§7.3)* and the absence under its own item's verdict. A §7.3 item is never a gap; folding it into the tier hides it |
+| A characteristic is missing from §3 with no explicit statement | OH-1 fails — an omission fails the item rather than passing it quietly. Never read a §3.10 Coverage Gaps row as that explicit statement: the gap table collapses **sub**-characteristics, and all nine characteristics appear regardless |
+| `reference/example-ORD.md` is unavailable from both sources | Run the review and say so. The worked reference is the calibration for what a conforming register looks like — without it the verdicts stand, but the reviewer's sense of the bar does not |
+| One of the three desk references is unavailable | Answer its question from the standard itself and record which reference was missing. Never leave the question unanswered because its shortcut was absent |
+| A check from `reference/traceability-matrix.md` cannot be answered at this hop | Mark it *not answerable at this hop* with the reason. A check reported clean because it could not be run is worse than one reported unanswerable |
+| The outcome is the refusal | Apply [GATE-PROTOCOL.md](../review-brd/GATE-PROTOCOL.md) § *Refusal and authority* before emitting. The right to declare an ORD not-ready and refuse handoff is not currently held, so the refusal is recorded rather than exercised — and the accumulation of those records is the argument for establishing the control |
+
+---
+
 ## Rules
 
 - **Never restate a criterion in this skill's own prose.** The pack is the source of truth, and

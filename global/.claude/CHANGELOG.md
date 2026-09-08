@@ -11,7 +11,7 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
-## v4.9.1 — 2026-09-08
+## v4.9.5 — 2026-09-08
 
 **A standing Amber is a check the reader learns to skip.**
 
@@ -63,6 +63,86 @@ tables, and drift on an exempted skill gets its own Critical section.
   skills carry no version in frontmatter, the override checks none, and its own Rules already refuse
   to read Forge's upstream manifest as the plugin's. An empty second register for an absent rule is
   worse than no register.
+
+- **`forge_version` 4.9.4 → 4.9.5.** Renumbered from 4.9.1 on merge — #76 and #75 landed first,
+  taking 4.9.3 and 4.9.4. The number is sequential by merge, not by when the work was done.
+
+---
+
+## v4.9.4 — 2026-09-08
+
+**Both gate skills said what to do when a document fails. Neither said what to do when the *review*
+fails.**
+
+`/review-brd` and `/review-ord` were the last two skills in the portfolio with no `## Failure Modes`
+section — surfaced by `/skill-health`, and the reason they were missed is instructive: both cite
+`GATE-PROTOCOL.md`, which already handles the obvious cases. Unreadable sources, a stale extract, a
+pack that disagrees with it, a refusal nobody has the authority to exercise — all four were covered,
+which made the skills look complete. What neither file covered is everything the protocol has no
+view of.
+
+**The extract can be unreproducible, and nothing said so.** `tools/build-review-criteria.py` stamps
+a ⚠️ dirty-working-tree warning into `CRITERIA.md`'s provenance line when it is generated from
+uncommitted pack state — the extract then corresponds to no committed version and cannot be
+reproduced. Both skills now prefer the live pack in that case and, where the extract is the only
+source, record in *Assessed against* that the bar itself is unreproducible. A review whose criteria
+cannot be reproduced is not a conformance review; it just looks like one.
+
+**The reviewer who authored the document.** §8 names *"a named independent reviewer on every ORD,
+who did not author it"* as its highest-value Tier 1 control and its absence as the cause of silent
+defect survival — which is the reason both skills exist. Neither said what to do when the reviewer
+*is* the author. They now run the review and record the non-independence in the *Reviewer* line: an
+unmarked self-review is the exact condition the record exists to make countable.
+
+**The skill can be the defect.** Both Rules sections already said the standard wins where the two
+disagree. Neither said what that means operationally when the pack defines an item the skill does
+not name — a BH-11, a renumbered §7.1. Verdict every item the pack defines, report the ones the
+skill does not name, and treat the skill as out of step rather than the document.
+
+Also added, per skill: a wrong document type submitted to the wrong gate (stop, never map items
+across bars); a document authored to a different pack revision (name both — a verdict is meaningful
+only against a named bar). For `/review-brd`, a BRD with no objectives at all, and the case where
+every absence is declared with an owner and a date, which makes the bar unfailable without the two
+limits. For `/review-ord`, an ORD with no KPP-bearing requirement, where §5's tier rule has no input
+and a declared tier is underivable rather than acceptable by default; a §7.3 item present while the
+demand it displaced is absent, which is one defect and one verdict, never a gap; a characteristic
+missing from §3, which fails OH-1 and is never satisfied by a §3.10 Coverage Gaps row, because that
+table collapses **sub**-characteristics and all nine characteristics appear regardless.
+
+**No criterion moved into either skill.** Every row cites the pack or the protocol and states only
+what the skill does when a condition fires — the § *What this file is not* boundary in
+`GATE-PROTOCOL.md`, applied to the tables that sit beside it.
+
+- **`/review-brd` 2.0.4 → 2.1.0** — 12-row `## Failure Modes` table.
+- **`/review-ord` 2.2.2 → 2.3.0** — 14-row `## Failure Modes` table.
+- **`forge_version` 4.9.3 → 4.9.4.** Renumbered from 4.9.2 on merge: #76 landed first, taking
+  4.9.3, and carried `review-brd` to 2.0.4 and `review-ord` to 2.2.2 — so the bumps below are
+  measured from those, not from 2.0.3 and 2.2.1.
+
+---
+
+## v4.9.3 — 2026-09-08
+
+**The BRD standard is Approved, and the three skills that carry it now say which revision they
+carry.**
+
+Pack v1.13 moves `write-brd/STANDARD.md` from *Draft for review* to **Approved** and regenerates
+both review criteria extracts against pack commit `ac32d882c846`. The content change landed in
+`77d3110`; the version numbers did not, which left three skills claiming a revision they no longer
+carried — the `stale_skill_versions` condition `/skill-health` exists to catch, and the reason it is
+Amber rather than cosmetic: the number is a claim that nothing changed, and it was wrong.
+
+**Stamp-only, so patch on each.** The same treatment the v4.7.x entry gave `review-brd` 2.0.0 → 2.0.1
+and `write-brd` 1.1.1 → 1.1.2 for exactly this shape of change. Nothing in any skill's instructions
+moved; what moved is the revision of the bar they apply, and a reviewer reading a report needs the
+extract's stamp and the skill's version to agree about which one that was.
+
+- **`/write-brd` 1.2.0 → 1.2.1** — `STANDARD.md` at pack v1.13, status Approved.
+- **`/review-brd` 2.0.3 → 2.0.4** — `CRITERIA.md` regenerated at pack v1.13.
+- **`/review-ord` 2.2.1 → 2.2.2** — `CRITERIA.md` regenerated at pack v1.13.
+- **`forge_version` 4.9.0 → 4.9.3.** 4.9.1 and 4.9.2 are claimed by the `/skill-health`
+  declared-exceptions and gate-failure-modes branches, both open in parallel. This entry is older
+  work than either; the number is sequential, not chronological.
 
 ---
 
