@@ -11,6 +11,37 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
+## v4.9.7 — 2026-09-08
+
+**v4.9.6 argued that three stale-version findings were wrong. It left them in a CHANGELOG entry,
+where the check cannot read them.**
+
+`$knowledge-health`, `$write-article` and `$dashboard-tokens` were the three `stale_skill_versions`
+findings v4.9.6 refused to bump, with the reasoning recorded in prose. The reasoning was sound and
+the placement was not: a check re-reports what it re-computes, and nothing in the audit reads the
+changelog. All three would have surfaced as ⚠️ Amber on every run, and the entry explaining why they
+should not be acted on gets further away with each release.
+
+`skill-health/EXCEPTIONS.md` is where a refusal belongs, and it now holds all three.
+
+**Each carries the invariant its own case rests on** — that the commit the exception was reasoned
+about is still the most recent one to touch the skill. `066a680` for the first two, `a6020fb` for
+the third. The moment a real edit lands, that invariant breaks, the row goes 🔴 Critical, and the
+fix is to bump the skill and delete the row. Without it an exception would quietly absorb the next
+real change, which is the failure the check exists to catch, granted a licence.
+
+**They are still reported, at ℹ️ Info, carrying their reasons.** The register lowers a finding's
+severity and never removes it — so the audit still names all three every run, and a reader can see
+both that they were considered and why they were left. Silencing them would have traded an Amber
+nobody should act on for a check nobody can audit.
+
+- **`$skill-health` 1.7.0 → 1.7.1** — three `stale_skill_versions` rows added to `EXCEPTIONS.md`,
+  and the register now documents what a `stale_skill_versions` invariant means, alongside the
+  `frontmatter_versions` case it was written for.
+- **`forge_version` 4.9.6 → 4.9.7.**
+
+---
+
 ## v4.9.6 — 2026-09-08
 
 **Fourteen version numbers were claiming that nothing had changed, and they were wrong.**
