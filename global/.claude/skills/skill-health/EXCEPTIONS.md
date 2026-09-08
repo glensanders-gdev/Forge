@@ -16,6 +16,9 @@ report, at ℹ️ Info, carrying its reason.
 | Skill | Check | Granted | Invariant | Reason |
 |---|---|---|---|---|
 | `write-ord` | `frontmatter_versions` | 2026-09-08 | Frontmatter `version:` equals the `write-ord` value in `manifest.json` | `write-ord` is published to `glensanders-gdev/skills`, where `manifest.json` does not travel with the skill. The version is carried in frontmatter at the maintainer's instruction so a reader of the public artefact can tell which version they hold. Granted at v4.9.0 |
+| `knowledge-health` | `stale_skill_versions` | 2026-09-08 | The most recent commit touching `skills/knowledge-health/` is still `066a680` | `066a680`'s only change to this skill was `version: 1.0.0` → `1.1.0` in `SKILL.md` frontmatter — the field v4.1.0 deleted from all 32 skills for being a second source of truth. The directory changed only in that a duplicate of the manifest value was synced to it, and the duplicate is now gone. The manifest value has been correct throughout. Analysis at v4.9.6 |
+| `write-article` | `stale_skill_versions` | 2026-09-08 | The most recent commit touching `skills/write-article/` is still `066a680` | The same commit, the same edit, the same deleted field as the row above. Analysis at v4.9.6 |
+| `dashboard-tokens` | `stale_skill_versions` | 2026-09-08 | The most recent commit touching `skills/dashboard-tokens/` is still `a6020fb` | `a6020fb`'s only change to this skill was the removal of one trailing space. Analysis at v4.9.6 |
 
 ---
 
@@ -51,6 +54,13 @@ report, at ℹ️ Info, carrying its reason.
 exempts.** An ordinary Amber says a rule was not followed. A broken invariant says a rule was
 deliberately set aside on a promise, and the promise has failed — which is worse than never
 having granted it, because the finding that would have caught it is the one being suppressed.
+
+**A `stale_skill_versions` invariant names the commit the exception was reasoned about.** The
+finding fires because a skill's directory changed after its version was set; the exception says
+*that particular change was not a content change*. It can only stand while that is still the most
+recent change — so the moment a real edit lands, the invariant breaks, the row goes 🔴 Critical, and
+the fix is to bump the skill and delete the row. An exception that quietly absorbed the next real
+change would be the failure the check exists to catch, granted a licence.
 
 **`frontmatter_versions` is the sharpest case of that.** The check exists because a frontmatter
 copy of a version drifts from `manifest.json` silently. An exempted skill has two copies by
