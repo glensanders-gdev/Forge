@@ -56,6 +56,13 @@ tables, and drift on an exempted skill gets its own Critical section.
   (broken invariant 🔴, granted exception ℹ️, stale row ℹ️); tallies `declared_exceptions`,
   `broken_exceptions`, `stale_exceptions`; six Failure Modes rows; two Rules; `FORMATS.md`
   sections as above.
+- **Codex-native `skill-health` reviewed, unchanged, hash refreshed.** The parity gate holds the
+  override for review whenever its shared source moves, which is what it is for. Reviewed and left
+  alone: the Codex override audits the *plugin*, and the register it would inherit exists to guard a
+  rule the plugin does not have — `manifest.json` as the sole source of a skill's version. Codex
+  skills carry no version in frontmatter, the override checks none, and its own Rules already refuse
+  to read Forge's upstream manifest as the plugin's. An empty second register for an absent rule is
+  worse than no register.
 
 ---
 
