@@ -802,7 +802,7 @@ to prevent. A capture with no consumer is theatre.
 - **`/prototype` SKILL.md gains the enforcement surface.** A `Never` rule against handing over an
   unscreened variant set, plus two failure-mode rows — set not screened, and winner's constraints not
   captured. The parent skill is what an agent reads first; the method file is a link away.
-- **`/accessibility` Forge Integration Points now lists `/prototype`.** The cross-reference was
+- **`/accessibility` 1.0.0 → 1.0.1 — Forge Integration Points now lists `/prototype`.** The cross-reference was
   one-way: the prototype pointed at the skill, and the skill did not know the stage existed.
 
 ### Not changed, deliberately
