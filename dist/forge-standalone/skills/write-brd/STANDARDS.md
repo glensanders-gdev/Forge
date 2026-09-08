@@ -1375,7 +1375,7 @@ reason. A check reported clean because it could not be run is worse than one rep
 > everything below. Editing this file puts it out of step with the pack; regenerate
 > instead.
 
-**Pack version:** v1.12 · **Pack commit:** `c998c4001441`
+**Pack version:** v1.12 · **Pack commit:** `aa770fff4fd9`
 **Generated:** 2026-09-08 · **Content hash:** `555246f4fa9b6da8`
 
 **Quote the version in every BRD authored from this extract.**
