@@ -1,5 +1,5 @@
 {
-  "forge_version": "4.9.3",
+  "forge_version": "4.9.4",
   "skills": {
     "setup-brain": "2.0.0",
     "scan-first": "1.0.0",
@@ -112,7 +112,7 @@
     "write-reqs": "1.4.2",
     "write-ac": "1.6.2",
     "roap": "1.0.0",
-    "review-brd": "2.0.4",
-    "review-ord": "2.2.2"
+    "review-brd": "2.1.0",
+    "review-ord": "2.3.0"
   }
 }
