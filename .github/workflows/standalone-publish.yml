@@ -1,0 +1,76 @@
+name: Publish standalone skills
+
+# forge-parity.yml proves dist/forge-standalone matches source. Nothing proved the
+# published repository matches dist/, because publishing was a manual step run from a
+# laptop -- so the published tree sat four releases behind while every check here
+# stayed green. This workflow removes the manual step rather than nagging about it.
+#
+# Publishing is safe to automate because it derives nothing: dist/ is committed and
+# reviewed in the PR that changed it, and the sync script rebuilds from source and
+# refuses to run when the rebuild disagrees with what was committed. The mirror is a
+# byte copy of content a human already read.
+on:
+  push:
+    branches: [main]
+  schedule:
+    # Self-heals drift that arrives without a Forge commit -- an upstream force-push,
+    # or a run that failed and was never retried.
+    # (GitHub disables scheduled workflows after 60 days of repository inactivity.)
+    - cron: '17 20 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  # Two merges in quick succession would otherwise race and one push would be rejected
+  # as non-fast-forward. Queue instead of cancelling: every release gets published.
+  group: standalone-publish
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    # Never from a fork -- a fork has no key, and should not be publishing anyway.
+    if: github.repository == 'glensanders-gdev/Forge'
+    # ubuntu, not the windows-latest that forge-parity.yml uses: the sync script
+    # mirrors with rsync, which the Windows runners do not carry.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Install the publish key
+        id: key
+        env:
+          DEPLOY_KEY: ${{ secrets.SKILLS_DEPLOY_KEY }}
+        run: |
+          set -euo pipefail
+          if [ -z "${DEPLOY_KEY:-}" ]; then
+            echo "have_key=0" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          mkdir -p ~/.ssh
+          printf '%s\n' "$DEPLOY_KEY" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          ssh-keyscan -t ed25519 github.com >> ~/.ssh/known_hosts 2>/dev/null
+          echo "have_key=1" >> "$GITHUB_OUTPUT"
+
+      - name: Publish the standalone distribution
+        if: steps.key.outputs.have_key == '1'
+        env:
+          FORGE_STANDALONE_REMOTE: git@github.com:glensanders-gdev/skills.git
+        run: |
+          git config --global user.name  "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          ./tools/sync-standalone-skills.sh --push
+
+      # A key that is missing, expired or revoked must not degrade to silence -- silence
+      # is the exact failure this workflow exists to remove. Drop back to the read-only
+      # guard, which needs no credential because the skills repository is public: green
+      # while the published tree is current, red the moment it falls behind.
+      - name: No publish key -- fall back to the drift guard
+        if: steps.key.outputs.have_key != '1'
+        env:
+          FORGE_STANDALONE_REMOTE: https://github.com/glensanders-gdev/skills.git
+        run: |
+          echo "::warning::SKILLS_DEPLOY_KEY is not configured, so this run cannot publish. Checking for drift instead."
+          ./tools/sync-standalone-skills.sh --check

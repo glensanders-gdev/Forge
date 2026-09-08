@@ -273,6 +273,19 @@ $SelfContainedSkills = [ordered]@{
 # then the conditional ones. A file absent from the pack is skipped, not an error.
 $PackPartOrder = @('README.md', 'language.md', 'tables.md', 'ai.md', 'reporting.md')
 
+# The conditional half of the pack. Both fire only on their own trigger test, and together they
+# are over half the assembled document -- a normal ORD loads roughly ten thousand tokens of them
+# to answer "no" twice. They stay in the document, because a skill pasted into a chat cannot go
+# and find them when a trigger does fire; what they get is a stop line, so a reader who has
+# already answered both triggers knows the rest is skippable. Order is what makes that possible:
+# $PackPartOrder puts the unconditional parts first, and this set has to be its tail.
+$ConditionalPackParts = @('ai.md', 'reporting.md')
+$ConditionalStopLine  = @(
+    'Everything below this line is **conditional**. Each part fires only where its own trigger'
+    'test does, and the tests are independent -- a change can fire both, one, or neither. Where'
+    'you have answered both and neither fired, the parts above are the whole of the standard.'
+)
+
 # The sentence every self-contained skill carries. The build prefixes it with the one fact a
 # reader of the published tree needs and Forge's own reader does not: the standards are parts
 # of a document, not files on a path.
@@ -362,9 +375,18 @@ foreach ($entry in $SelfContainedSkills.GetEnumerator()) {
     $doc.Add("from: a citation such as ``tables.md`` means the part below with that name.")
     $doc.Add("")
     foreach ($p in $parts) {
-        $doc.Add("- **``$($p.Name)``** — $(Get-DocumentTitle $p.Text)")
+        $flag = if ($ConditionalPackParts -contains $p.Name) { " *(conditional)*" } else { "" }
+        $doc.Add("- **``$($p.Name)``** — $(Get-DocumentTitle $p.Text)$flag")
     }
+    $stopEmitted = $false
     foreach ($p in $parts) {
+        if (-not $stopEmitted -and $ConditionalPackParts -contains $p.Name) {
+            $doc.Add("")
+            $doc.Add("---")
+            $doc.Add("")
+            foreach ($l in $ConditionalStopLine) { $doc.Add($l) }
+            $stopEmitted = $true
+        }
         $body = Add-HeadingLevel $p.Text
         # Inside one document a link to a sibling file resolves to nothing. The name is what
         # the citations use, so keep the name and drop the link.
