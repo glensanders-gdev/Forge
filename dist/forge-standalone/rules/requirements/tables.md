@@ -154,14 +154,64 @@ silently.
 
 What the change touches and who owns it. Identification and accountability — never target state.
 
-| ID | Impact | Kind | Owner | Referred |
-|---|---|---|---|---|
-| IMP-NNN | [named L4 workflow or system in the current estate] | Process / System | [named owner] | [REF-NNN or —] |
+| ID | Impact | Kind | Treatment | Owner | Referred |
+|---|---|---|---|---|---|
+| IMP-NNN | [named L4 workflow or system in the current estate] | Process / System | Addressed / No change required / Out of scope | [named owner] | [REF-NNN or —] |
 
 Naming the as-is estate is identification; naming the to-be estate is design. A row says what is
-touched and who owns it, and says nothing about what happens to it. **Where tier numbers are cited,
-name the scheme they belong to** — an unqualified "L4" resolves differently in APQC, eTOM and a
-house scheme.
+touched, who owns it, and whether **this document** addresses it — and says nothing about what
+becomes of it. **Where tier numbers are cited, name the scheme they belong to** — an unqualified
+"L4" resolves differently in APQC, eTOM and a house scheme.
+
+**`Treatment` is a scope disposition, and the enum is closed.** Three values, no others:
+
+| Value | Means |
+|---|---|
+| `Addressed` | This document carries requirements for the impact |
+| `No change required` | The impact was identified and assessed as needing nothing |
+| `Out of scope` | Identified, and deliberately excluded from this document |
+
+**A design disposition is not a treatment.** *Migrated*, *decommissioned*, *extended*, *replaced*,
+*rebuilt* — each names what becomes of the impact, which is the response's answer and not the
+demand's. A row carrying one has crossed the line this register exists to hold.
+
+**`Referred` is the pointer, `Treatment` is the disposition, and neither substitutes for the
+other.** A referred impact still carries a treatment — usually `Out of scope`, because referral is
+what happens *after* this document excludes it. Reading a populated `Referred` cell as a treatment
+loses the distinction between an exclusion that went somewhere and one that did not.
+
+**Where a document states an exclusion for a named impact, this cell is the authoritative value**
+and any prose scope statement is a view of it. Prose keeps the exclusions that are not impacts —
+populations, geographies, timeframes — which have no row to be authoritative in.
+
+`Treatment` is additive. A register predating it reads `[TBD]` in that cell and is not retrofitted;
+the value is written when the document is next reissued.
+
+### Operational actor
+
+Who and what the operational process runs through. **Identification, like the impact register** —
+never authority the source did not state, and never a target operating model.
+
+| Actor | Kind | Operational role | Owner |
+|---|---|---|---|
+| [named person-role, system or organisation] | User / System / Party | [what it does in the operational process] | [named owner, or TBD with confirm-by] |
+
+- **`Kind` is `User` / `System` / `Party`.** `Party` is an external organisation — a retail service
+  provider, a contractor, a regulator. Without it a cross-party consequence has no subject to name,
+  and cross-party consequence is the class most often left derived and unconfirmed.
+- **This table carries no ID, and that is deliberate.** The actor name is the key. An actor row
+  identifies a subject; it commits nothing, so nothing traces *to* it — which is the test the
+  § *Statements that carry no ID* rule applies, and this row sits outside that list rather than
+  extending it. A prefix here would buy reference precision and cost a namespace every sibling
+  skill must avoid colliding with.
+- **Governance roles are not actors.** The SME who informed the document, the business owner who
+  approves it and the convenor who wrote it belong in the document header and the entry-position
+  record. A table mixing *the billing platform* with *the SME who reviewed this* serves neither
+  purpose.
+- **Notification is a view, not a column.** Who is told what, and when, cites the requirement rows
+  that carry it.
+- `Owner` accepts `[TBD]` with a confirm-by date. Where no stakeholder list arrives at assignment,
+  a `[TBD]` per actor is what makes the absence countable; one entry-position row is not.
 
 ### Referred requirement
 
@@ -341,6 +391,12 @@ prevents.
   them into one column is what a fourth value would do.
 - Never leave a determination, measurement or eligibility requirement with only a Favourable Sunny
   Day scenario. What is true when the answer is adverse is a separate obligation.
+- Never write a design disposition into `Treatment` — *migrated*, *decommissioned*, *extended* and
+  *replaced* each name what becomes of an impact, which is the response's answer and not the
+  demand's. The enum is three values and it is closed.
+- Never read a populated `Referred` cell as a treatment, and never leave a referred impact without
+  one — referral is what happens after an exclusion, not the exclusion itself.
+- Never give the operational actor table an ID prefix, and never put a governance role in it.
 - Never put `Delivery Agent`, `Operational Owner`, `Timing` or `Verification` in the ORD register —
   each is response-side, and stating one pre-empts the design review the document exists to inform.
 - Never state a technical target where a business tolerance belongs (see [language.md](language.md)).

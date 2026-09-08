@@ -7,8 +7,8 @@ from: a citation such as `tables.md` means the part below with that name.
 - **`README.md`** — Requirements Rules
 - **`language.md`** — Requirements Language
 - **`tables.md`** — Requirements Tables
-- **`ai.md`** — Requirements — AI Solutions
-- **`reporting.md`** — Requirements — Reporting and Data
+- **`ai.md`** — Requirements — AI Solutions *(conditional)*
+- **`reporting.md`** — Requirements — Reporting and Data *(conditional)*
 
 ---
 
@@ -381,14 +381,64 @@ silently.
 
 What the change touches and who owns it. Identification and accountability — never target state.
 
-| ID | Impact | Kind | Owner | Referred |
-|---|---|---|---|---|
-| IMP-NNN | [named L4 workflow or system in the current estate] | Process / System | [named owner] | [REF-NNN or —] |
+| ID | Impact | Kind | Treatment | Owner | Referred |
+|---|---|---|---|---|---|
+| IMP-NNN | [named L4 workflow or system in the current estate] | Process / System | Addressed / No change required / Out of scope | [named owner] | [REF-NNN or —] |
 
 Naming the as-is estate is identification; naming the to-be estate is design. A row says what is
-touched and who owns it, and says nothing about what happens to it. **Where tier numbers are cited,
-name the scheme they belong to** — an unqualified "L4" resolves differently in APQC, eTOM and a
-house scheme.
+touched, who owns it, and whether **this document** addresses it — and says nothing about what
+becomes of it. **Where tier numbers are cited, name the scheme they belong to** — an unqualified
+"L4" resolves differently in APQC, eTOM and a house scheme.
+
+**`Treatment` is a scope disposition, and the enum is closed.** Three values, no others:
+
+| Value | Means |
+|---|---|
+| `Addressed` | This document carries requirements for the impact |
+| `No change required` | The impact was identified and assessed as needing nothing |
+| `Out of scope` | Identified, and deliberately excluded from this document |
+
+**A design disposition is not a treatment.** *Migrated*, *decommissioned*, *extended*, *replaced*,
+*rebuilt* — each names what becomes of the impact, which is the response's answer and not the
+demand's. A row carrying one has crossed the line this register exists to hold.
+
+**`Referred` is the pointer, `Treatment` is the disposition, and neither substitutes for the
+other.** A referred impact still carries a treatment — usually `Out of scope`, because referral is
+what happens *after* this document excludes it. Reading a populated `Referred` cell as a treatment
+loses the distinction between an exclusion that went somewhere and one that did not.
+
+**Where a document states an exclusion for a named impact, this cell is the authoritative value**
+and any prose scope statement is a view of it. Prose keeps the exclusions that are not impacts —
+populations, geographies, timeframes — which have no row to be authoritative in.
+
+`Treatment` is additive. A register predating it reads `[TBD]` in that cell and is not retrofitted;
+the value is written when the document is next reissued.
+
+#### Operational actor
+
+Who and what the operational process runs through. **Identification, like the impact register** —
+never authority the source did not state, and never a target operating model.
+
+| Actor | Kind | Operational role | Owner |
+|---|---|---|---|
+| [named person-role, system or organisation] | User / System / Party | [what it does in the operational process] | [named owner, or TBD with confirm-by] |
+
+- **`Kind` is `User` / `System` / `Party`.** `Party` is an external organisation — a retail service
+  provider, a contractor, a regulator. Without it a cross-party consequence has no subject to name,
+  and cross-party consequence is the class most often left derived and unconfirmed.
+- **This table carries no ID, and that is deliberate.** The actor name is the key. An actor row
+  identifies a subject; it commits nothing, so nothing traces *to* it — which is the test the
+  § *Statements that carry no ID* rule applies, and this row sits outside that list rather than
+  extending it. A prefix here would buy reference precision and cost a namespace every sibling
+  skill must avoid colliding with.
+- **Governance roles are not actors.** The SME who informed the document, the business owner who
+  approves it and the convenor who wrote it belong in the document header and the entry-position
+  record. A table mixing *the billing platform* with *the SME who reviewed this* serves neither
+  purpose.
+- **Notification is a view, not a column.** Who is told what, and when, cites the requirement rows
+  that carry it.
+- `Owner` accepts `[TBD]` with a confirm-by date. Where no stakeholder list arrives at assignment,
+  a `[TBD]` per actor is what makes the absence countable; one entry-position row is not.
 
 #### Referred requirement
 
@@ -568,6 +618,12 @@ prevents.
   them into one column is what a fourth value would do.
 - Never leave a determination, measurement or eligibility requirement with only a Favourable Sunny
   Day scenario. What is true when the answer is adverse is a separate obligation.
+- Never write a design disposition into `Treatment` — *migrated*, *decommissioned*, *extended* and
+  *replaced* each name what becomes of an impact, which is the response's answer and not the
+  demand's. The enum is three values and it is closed.
+- Never read a populated `Referred` cell as a treatment, and never leave a referred impact without
+  one — referral is what happens after an exclusion, not the exclusion itself.
+- Never give the operational actor table an ID prefix, and never put a governance role in it.
 - Never put `Delivery Agent`, `Operational Owner`, `Timing` or `Verification` in the ORD register —
   each is response-side, and stating one pre-empts the design review the document exists to inform.
 - Never state a technical target where a business tolerance belongs (see `language.md`).
@@ -592,6 +648,12 @@ prevents.
   let the owning skill write it back.
 - Never silently drop a gap to keep a document looking complete.
 
+
+---
+
+Everything below this line is **conditional**. Each part fires only where its own trigger
+test does, and the tests are independent -- a change can fire both, one, or neither. Where
+you have answered both and neither fired, the parts above are the whole of the standard.
 
 ---
 
@@ -947,28 +1009,37 @@ Everything below lands in the existing register, in the section the class map as
 
 ### The Rule
 
-**A reported measure is not specified until its population, its rules, its lineage and its
-correction path are stated. The figure alone is a display; the four together are a measure.**
+**A reported measure is not specified until its population, its clock, its rules, its lineage and
+its correction path are stated. The figure alone is a display; the five together are a measure.**
 
 The failure this file exists to prevent is a requirement that names an output — *"a monthly
 compliance report is produced"* — and leaves unstated which records it counts, which it excludes,
-which version of the rules produced it, and what happens when it is later found wrong. Every one of
-those is discovered during an audit rather than during design.
+when its clock starts and stops, which version of the rules produced it, and what happens when it is
+later found wrong. Every one of those is discovered during an audit rather than during design.
 
 ### The measure definition
 
-A requirement over a reported measure is a declarative end state carrying four parts. Missing any
+A requirement over a reported measure is a declarative end state carrying five parts. Missing any
 one, the figure is unreproducible.
 
 | Part | Supplies | Never written as |
 |---|---|---|
 | **Population** | which records are in, which are out, and on what evidence | "all relevant records" |
+| **Clock** | the measurement period, and for an elapsed measure the start event, the stop event and any duration excluded from it | "monthly", with no period boundary and no stop event |
 | **Rule set and version** | the `BRL-NNN` rules that classify and calculate, and which version was in force | "as per the business rules" |
 | **Lineage** | the source of each input and the identifier that survives to the output | "sourced from the data warehouse" |
 | **Correction path** | what happens when a published figure is later found wrong | omitted, because it has not happened yet |
 
+**The clock is the part most often assumed and least often written.** For a period measure it states
+the period boundary, the cut-off, and how a record arriving after the cut-off is treated. For an
+elapsed measure it states what starts the clock, what stops it, and every interval excluded — a
+pause, a hold, a suspension, a wait on a third party — because an elapsed figure with an unstated
+exclusion cannot be reproduced by anyone who did not compute it. A period expressed in business days
+carries its calendar basis: the timezone, and the holiday jurisdiction — state, territory, national
+or contractual — that determines which days count.
+
 > ✗ `A monthly compliance report is produced`
-> ✓ `The monthly compliance figure counts every service order closed in the calendar month, excluding orders cancelled by the customer, classified under the BRL-004 rule set version in force at closure, and each counted order is traceable to its source record by a stable identifier that survives restatement.`
+> ✓ `The monthly compliance figure counts every service order closed in the calendar month in the reporting entity's local time, excluding orders cancelled by the customer, classified under the BRL-004 rule set version in force at closure, counted to a cut-off five business days after month end with later-arriving closures carried into a restatement of that month, and each counted order is traceable to its source record by a stable identifier that survives restatement.`
 
 **Do not nominate a system or dataset as authoritative unless the source material confirms that
 status.** Which system is the book of record is a governance fact, not a drafting choice.
@@ -991,6 +1062,9 @@ rules.
 | Requirement class | Home |
 |---|---|
 | The reported measure itself — population, threshold, obligation behind it | ORD § 3.8.1 Functional Completeness |
+| The measurement clock — period boundary, start event, stop event, excluded duration | ORD § 3.8.1 |
+| Cut-off, and treatment of data arriving after it | ORD § 3.8.1 |
+| Granularity and the dimensions the measure is disaggregated by | ORD § 3.8.1 |
 | Accuracy, completeness, currentness of a named data element | ORD § 3.8.1, keyed to a `DAT-NNN` row |
 | Reproduction of a historical figure under the rules in force at the time | ORD § 3.6.2 Analyzability |
 | Lineage — source of each input, identifier surviving to the output | ORD § 3.6.2 Analyzability |
@@ -1121,6 +1195,10 @@ to 25012 or 25024.
 
 - Never state a reported measure without its population — "all relevant records" specifies nothing.
 - Never state a measure without naming the rule set version that produced it.
+- Never state an elapsed measure without its start event, its stop event and its excluded durations —
+  an unstated exclusion makes the figure unreproducible by anyone who did not compute it.
+- Never state a period measure without its cut-off and the treatment of data arriving after it.
+- Never express a period in business days without its timezone and its holiday jurisdiction.
 - Never nominate a system or dataset as authoritative unless the source material confirms it.
 - Never represent a report as reconciled while unresolved variances remain, absent an approved
   tolerance carried as its own row with a named approver.
