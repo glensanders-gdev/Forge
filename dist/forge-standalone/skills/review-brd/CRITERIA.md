@@ -5,8 +5,8 @@
 > everything below. Editing this file puts it out of step with the pack; regenerate
 > instead.
 
-**Pack version:** v1.11 · **Pack commit:** `d2f74eca4885`
-**Generated:** 2026-09-07 · **Content hash:** `397b4a4489d959ef`
+**Pack version:** v1.12 · **Pack commit:** `aa770fff4fd9`
+**Generated:** 2026-09-08 · **Content hash:** `02c3e80ee2906d41`
 
 **Quote the version in every review this extract is used for.**
 A reader needs to know which revision was applied — a verdict, and a document
@@ -71,7 +71,7 @@ consumes immediately.
 |---|---|---|---|
 | **BH-1** | A named business objective carrying a **baseline, a target and a date**. Assessed per objective; the two limits above govern how many may be declared gaps | Every tolerance traces here. It is what establishes *why* two billing cycles rather than three | Every ORD requirement is orphan scope, and no tolerance is auditable |
 | **BH-2** | Each objective stated as an **outcome, not a solution** — no feature, system, vendor or asserted figure | Leaves the ORD something to add | The BRD has pre-empted the ORD. The figure is asserted rather than derived, and the architecture review becomes ratification |
-| **BH-3** | **Constraints and dependencies carrying operational weight** — regulatory obligations, contractual commitments, platform dependencies, named specifically | Seeds Security, Compatibility and Reliability | The ORD author invents them or misses them |
+| **BH-3** | **Constraints and dependencies carrying operational weight** — regulatory obligations, contractual commitments, platform dependencies, named specifically, each elicited against the categories at § *Constraints, assumptions and dependencies* rather than recalled | Seeds Security, Compatibility and Reliability | The ORD author invents them or misses them |
 | **BH-4** | A **cost-of-failure case** for each objective carrying operational exposure | The input every tolerance is derived from | A tolerance traced to no consequence is an invented figure, however well it is written. The single most common upstream cause of a low-maturity ORD |
 
 > **BH-1 to BH-3 are the three load-bearing elements at [§3.4](#entry); BH-4 is the fourth, and it
@@ -85,12 +85,12 @@ fixed date, and each is recorded under [§3.3](#entry) at assignment.
 
 | # | Required | Absent means |
 |---|---|---|
-| **BH-5** | **Stakeholder register** naming who approves, who funds and who is affected | The author is least placed to compile it. A late list does not cost the days it was late — it costs the back half of the ORD |
-| **BH-6** | The **approving GMs named**, one per business unit in scope | Unknown approvers surface at sign-off rather than at the start |
-| **BH-7** | **Business scope, in and out**, with the out-list explicit | Silent scope growth, and the ORD extends the operational boundary beyond what was authorised |
+| **BH-5** | **Stakeholder register** naming who is interested, who funds and who is affected, each with their role | The author is least placed to compile it. A late list does not cost the days it was late — it costs the back half of the ORD |
+| **BH-6** | An **approving GM register** — one row per business unit in scope, each naming the GM who approves the ORD for that unit | Unknown approvers surface at sign-off rather than at the start. A unit in scope with no row is the case this item exists to find |
+| **BH-7** | **Business scope, in and out**, with the out-list explicit, and — where the change is phased — the phase this document covers | Silent scope growth, and the ORD extends the operational boundary beyond what was authorised |
 | **BH-8** | **Appendix A — process and system scope**, each row carrying a named owner | The ORD is not sizeable at assignment, so it is sized on a guess and re-sized later. Half the impact register has to be reconstructed from stakeholder recall, at stakeholder cost |
-| **BH-9** | A **traceability skeleton** — each objective against the tolerance expected to quantify it, or an explicit blank | A funded objective with no operational demand stated is invisible until nobody delivers it |
-| **BH-10** | **Business requirements stated at business altitude** — no workflow, system or figure | Solution detail leaks downstream and the ORD inherits an answer instead of a question |
+| **BH-9** | A **traceability skeleton**, both directions — each stakeholder requirement against the objective it serves, and each objective against the tolerance expected to quantify it, or an explicit blank | A requirement serving no objective is unfunded scope; a funded objective with no operational demand stated is invisible until nobody delivers it. Tracing one direction only finds one of the two |
+| **BH-10** | **Stakeholder requirements stated at stakeholder altitude** — a named stakeholder's outcome, no workflow, system or figure — with everything declined recorded in the routing register rather than dropped | Solution detail leaks downstream and the ORD inherits an answer instead of a question. Functional detail elicited and not routed is simply lost, because no document in this chain catches it |
 
 ### The four outcomes
 
@@ -102,8 +102,8 @@ fixed date, and each is recorded under [§3.3](#entry) at assignment.
 | **Not accepted for ORD development** | Any of BH-1 – BH-4 absent, per the `[TBD]` rule above | Returned to the author with the absent items named. **The ORD task is a BRD task in disguise** — see the antipatterns at [§3.4](#entry) |
 
 **Where more than one row applies, the outcome is the most serious of them** — the refusal first,
-then the unowned gap, then recorded gaps. The worked assessment below carries declared gaps at BH-1
-and BH-4 *and* an unowned one at BH-8, and lands on the third outcome rather than the second.
+then the unowned gap, then recorded gaps. The worked assessment below carries declared gaps at BH-1,
+BH-3 and BH-4 *and* an unowned one at BH-8, and lands on the third outcome rather than the second.
 
 **The second row covers a declared gap wherever it sits, including on the bar.** A bar item carrying
 `[TBD]` with an owner and a date is met *for the bar* under the rule above, but the document is not
@@ -145,18 +145,19 @@ Run against the [gate above](#brd). This is what a real assessment looks like �
 | # | Verdict | Evidence |
 |---|---|---|
 | BH-1 | **Met, with one declared gap** | BO-1, BO-2, BO-3 and BO-5 each carry a baseline, a target and FY27 Q2. **BO-4 carries `[TBD]` with Regulatory Affairs and 2026-08-15** — a declared gap under the rule above: owned, dated, and not the objective the case rests on, with BO-1 fully quantified. It propagates rather than vanishing — §12 leaves its row empty, and so does the [traceability matrix](#traceability) |
-| BH-2 | **Met** | No objective or business requirement names a system, workflow or figure. This BRD's §8 states three outcomes |
-| BH-3 | **Met** | §9 — consumer contract cl. 14.3 / 14.5 / 14.6, field services agreement §9, and the billing-cycle boundary, each with its operational weight stated |
+| BH-2 | **Met** | No objective or stakeholder requirement names a system, workflow or figure. This BRD's §9 states four outcomes, and the four statements that would have breached the altitude are in its routing register instead |
+| BH-3 | **Met, with one declared gap** | §10 — consumer contract cl. 14.3 / 14.5 / 14.6, field services agreement §9 and the billing-cycle boundary, each with its operational weight stated, and three categories recorded as *none found*. The privacy constraint is `[TBD]` with Legal Counsel and 2026-08-29; it propagates as an unquantified confidentiality tolerance in the ORD. DEP-001 and DEP-002 carry statuses, and DEP-001's exposure is `R-115` in the RAID log rather than a risk table here |
 | BH-4 | **Met, with one declared gap** | §11 — three consequences, two sourced to the contract and INC-5012. The third is BO-4's, `[TBD]` with Regulatory Affairs and 2026-08-15; it is the same gap as BH-1's, propagating from the objective to its cost case |
-| BH-5 | **Met** | §5, nine rows with interest and role |
-| BH-6 | **Met** | Three GMs named — Customer Care, Field Operations, Billing |
-| BH-7 | **Met** | §7, with the out-list explicit and the phasing reason stated |
+| BH-5 | **Met** | §5, nine rows with interest and role. Approval is not among them, by design — it is §6's |
+| BH-6 | **Met** | §6, three rows against the three business units §8 puts in scope, each naming its GM and each Confirmed. The row count agrees with §8's scope and Appendix A's process owners |
+| BH-7 | **Met** | §8, with the out-list explicit, Phase 1 named as this document's scope, and Phase 2 carrying its own Doc ID rather than a deferred section here |
 | BH-8 | **Unowned gap** | Appendix A is complete **except the customer notification service, which has no owning team.** There is nobody to carry it, so it is neither met nor owned — the case the third outcome exists for |
-| BH-9 | **Met** | §12, with BO-4's row explicitly blank rather than omitted |
-| BH-10 | **Met** | BR-1 – BR-3 hold no workflow, system or figure |
+| BH-9 | **Met** | §12, both directions. Upward: BR-1 – BR-4 each against the objective they serve, with BO-4's row explicitly blank rather than omitted. Downward: six objectives against ORD tolerances, with two explicit blanks — BO-4's, and BR-4's unquantified complaint-path demand. Tracing one direction would have found one of them |
+| BH-10 | **Met** | §9, BR-1 – BR-4 at stakeholder altitude, each naming a stakeholder present at §5 and none naming a workflow, system or figure. The routing register carries four statements declined, one written back as ORD-04 and three awaiting a register — recorded, which is what this item asks, rather than resolved, which it does not |
 
 > **Outcome: Accepted with an unowned gap.** The bar is met — BH-1 and BH-4 carry one declared gap
-> between them, owned by Regulatory Affairs and dated. BH-8 is the unowned one: it is carried
+> between them, owned by Regulatory Affairs and dated, and BH-3 carries a second, owned by Legal
+> Counsel and dated. BH-8 is the unowned one: it is carried
 > forward into the ORD as entry criterion **E9 — Partial** and as **IMP-07**, raised with the
 > approving GMs at sign-off rather than referred, and it stays open until someone accepts it.
 > **That it stayed open is the finding** — about Acme's ownership records, not about this change.

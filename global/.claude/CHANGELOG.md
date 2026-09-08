@@ -11,6 +11,167 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
+## v4.9.0 — 2026-09-08
+
+**`/write-ord` extracted what the source said. It did not ask what an operations team would
+have asked.**
+
+The skill was already strong on *form* — the demand-side ban, the status taxonomy, the KPP
+split, the scenario axes. It was thin on *discovery*. A source that names three statuses and no
+transitions, or an individual transaction and no bulk case, or a charge with no cessation event,
+produced a conformant ORD with those questions silently unasked. Fifteen **elicitation lenses**
+now sit in `write-ord/REFERENCE.md`, each gated by its own trigger and each constrained to six
+governed outputs — a register row *only* where the source carries the tolerance and its evidence,
+otherwise a `[TBD]`, a §3.10 gap, an explicit assumption, a decision item, or a referred
+requirement.
+
+**A lens finds a question, never an answer.** That is the whole of the anti-invention position and
+it is stated once, at the top of the section, rather than repeated per lens. Two lenses run
+unconditionally — operational purpose, and the consistency sweep. The other thirteen do not run
+without their trigger, and **an inapplicable lens is not a coverage gap** — the same rule the
+*(AI)* subsections already follow at §3.
+
+Six traps are named because each is a place where a plausible inference is wrong:
+
+- **Rollback is not reversal.** One is what is true after processing failed; the other is what is
+  true after it succeeded and was later undone, with its own trigger, authority, notification and
+  billing consequence. A source stating one has not stated the other.
+- **A correctly processed rejection is not a failure** — it is a Sunny Day with `Outcome: Adverse`.
+  Restated here only as the discovery consequence; the rule itself stays in `tables.md`.
+- **Bulk is not individual repeated**, and automation does not remove exception handling.
+- **A cross-party consequence is derived**, and derived is not stated — it goes to the affected
+  business owner at the gate.
+- **An engineering threshold is not a business tolerance.** Keep the technical wording as `Source`
+  evidence; carry the tolerance as a `[TBD]`.
+- **A defined period is still incomplete without its calendar basis** — timezone, and the holiday
+  jurisdiction that decides which days count.
+
+**The repetition the maintainer actually reported was in the skill, not the ORD.** Fourteen of
+`SKILL.md`'s rules were verbatim restatements of the *Never* lists in `language.md` and
+`tables.md` — the same rule in two independently editable places, which is how the two drift. They
+are now named collectively and cited once, and the rules that remain are write-ord's own, grouped
+under Process · Authorship · Consolidation · Structure. `SKILL.md` gained two Phase 1 steps, one
+Phase 2 step, two Phase 1 Summary blocks and ten failure modes for **+61 lines net** — the rules
+trim paid for roughly a third of it, and the fifteen lenses themselves cost `SKILL.md` six lines
+because they live in `REFERENCE.md` (+155).
+
+**The Executive Summary is now governed, because that is where the duplication lands.** It was
+never in the template, so an author who wanted one wrote it free-hand against §1.1 and §2.1 and
+restated them. It is now optional front matter — unnumbered, so no §-reference moves — headed as a
+narrative that cites `ORD-NNN` and restates no value, **written last from the register that
+exists**, and *omitted* where §1.1 and §2.1 already carry the narrative.
+
+**One shared standard changed: a reported measure now has five parts, not four.**
+`reporting.md` § *The measure definition* gains **the clock** — the period boundary and cut-off for
+a period measure; the start event, stop event and every excluded interval for an elapsed one. An
+elapsed figure with an unstated exclusion cannot be reproduced by anyone who did not compute it,
+and that was the gap: the file governed population, rules, lineage and correction, and left the
+clock to be assumed. Three class-map rows, four `Never` lines, and the worked example updated to
+satisfy its own rule. `/write-prd`, `/write-ac` and `/write-reqs` are patch-bumped
+because they consume the pack; `/write-brd` moves for its own reasons, below.
+
+**Structural additions, all appended — nothing renumbers.** A second review round settled six more
+changes, and the constraint that shaped every one of them is that `review-ord`'s criteria extract is
+generated, pinned to the pack and marked *never hand-edit*. Its § *The demand-side ORD section
+template* declares the ORD structure fixed. Inserting a subsection desynchronises a file this skill
+does not own, so:
+
+- **§1.6 Operational problem statement.** The BRD's §3 problem is enterprise-level; this is the
+  operational drill-down, stated so the solution is unknown. Prose, tracing to `BO-N`, with each
+  `OBJ-NNN` naming the problem it closes. **No `PRB-NNN`** — an objective already holds the
+  measurable form, and a problem register is that content inverted into a second editable place.
+- **§2.5 Target operational state.** §2 has been called *Operational Concept and Impact* throughout
+  and contained no operational concept — a reader never saw the end state whole. A view of §2.4,
+  outcomes only. **It is deliberately not called "solution vision"**: the name draws solution
+  content from every author who reads it, whatever the guidance underneath says.
+- **§2.6 Operational actor register.** Users, systems and — the value that was missing — external
+  **parties**. Lens 7 findings and every cross-party consequence need a named subject. ID-less: the
+  actor name is the key, an actor row commits nothing, and a prefix would cost a namespace every
+  sibling must avoid. Governance roles are not actors and go to the header and E2/E3.
+- **`IMP-NNN.Treatment`**, a closed three-value scope enum — `Addressed` / `No change required` /
+  `Out of scope`. "Targeting vs not targeting" per impact had no home. **The design dispositions are
+  refused by name** — *migrated*, *decommissioned*, *extended*, *replaced* each say what becomes of
+  an impact, which is the response's answer. `Referred` stays the pointer; a referred impact still
+  carries a treatment, because referral is what happens *after* an exclusion. Additive: existing
+  rows read `[TBD]` and are not retrofitted.
+- **Exclusion authority.** For a named impact, `Treatment` is authoritative and §1.3 is a view of
+  it. §1.3 keeps prose for exclusions with no row — populations, geographies, timeframes.
+- **Executive Summary and §2.5 divided by rule.** The summary says why, how mature, what is open —
+  for someone who reads nothing else. §2.5 paints the operating picture. **The summary never
+  describes the operating state**, or the two become one paragraph written twice, which is the
+  defect that opened this release.
+
+**Every extension is now declared** in a `REFERENCE.md` deviation table naming what the pack has and
+why this document departs. A deviation declared is visible; one carried silently becomes an apparent
+defect the first time someone reviews against the pack alone.
+
+**The style problem was multi-author, so the fix had to work without the skill.** Authors write the
+register in different voices; `language.md` § *Voice by Altitude* already governs it and nothing
+checked. `write-ord` now carries a **worked register extract** — six rows and a matching wrong-form
+table, so an author who copies the shape gets the rule right without having read it. It cites
+`review-ord`'s full worked ORD and reproduces none of its values. Phase 2 gains a form self-check
+that reports rows checked and rows corrected. A standalone human style card was **rejected** — it
+would restate `language.md` in a second editable place.
+
+**`STANDARDS.md` was 54% conditional and said so nowhere.** `ai.md` and `reporting.md` are 41,079 of
+its 75,541 bytes, and an ORD that is neither AI nor reporting loaded ~10,270 tokens to answer "no"
+twice. The parts were already ordered unconditional-first; what was missing was the stop line.
+`tools/build-forge-standalone.ps1` now marks both parts *(conditional)* in the contents and emits an
+explicit stop before them. **The three-file shape is kept** — a fourth file re-creates the
+unreachable-citation failure that shape exists to remove. Whole skill: ~139 KB, ~34,850 tokens,
+about a third of the smart zone before any source is read.
+
+**Canonical schemas: two changed, and both are `tables.md`'s.** `IMP-NNN` gains `Treatment`; the
+operational actor table is added, ID-less. No ID namespace, scenario value or numbered section
+moved, and `IMP-NNN` is used only by `write-ord` and `tables.md` — verified, no sibling skill
+affected. The fifteen lenses needed no schema at all.
+
+**A second standard changed in the same train: the BRD anatomy, from a stakeholder review.**
+Pack **v1.12** removes two sections and adds one. §10 *Risks* goes to the RAID log, where a risk has
+an owner, a status and a review cadence that outlive the document that first noticed it. The
+cost–benefit half of §11 goes nowhere, because it was restating §4 — an objective already carries a
+baseline, a target and a date, and the benefit *is* the movement between them. **Cost of failure
+stays**, since nothing else states it and BH-4 consumes it. §6, an **approving GM register**, splits
+approval out of the stakeholder register: interest and authority are different things, and collapsed
+together the approver is hard to find at exactly the moment sign-off is chased.
+
+**The finding underneath all three was repetition, and it was structural rather than stylistic.**
+The same fact appeared in four sections, and the second copy is always the one that goes stale.
+§ *State it once* is the rule that came out of it; the removals are it applied.
+
+Four sections changed shape. §3 opens with **one problem statement** at business altitude, with the
+rest of the section as evidence for it. §9 holds **stakeholder** requirements in the BABOK sense and
+carries a **routing register** of what it declined — no functional requirements document exists in
+this chain, so a functional statement elicited and not routed is simply lost. §12 traces **both
+directions**, because tracing downward alone finds an objective with no operational demand and
+tracing upward alone finds an objective nobody stated a need against. §10 carries assumptions at
+`Unvalidated / Validated / Falsified` and dependencies at `Open / Met / At risk` — and a **validated
+assumption moves to the constraint table**, because leaving it at `Validated` keeps a confirmed given
+looking provisional to everyone downstream.
+
+Three additions are elicitation rather than structure: six **constraint categories** asked against
+with *none found* recorded as an answer, **optional phasing** with a BRD-per-phase recommendation for
+a large change, and the **Doc ID** in front matter, assigned at first draft rather than at approval.
+`BH-3`, `BH-5` – `BH-7`, `BH-9` and `BH-10` were reworded to read the new shape; no gate item was
+added or removed, and the four outcomes are unchanged.
+
+**§2 is now an answer set rather than a paragraph** — the review's opening finding, and the anatomy
+was the cause, since it *prescribed* "the business case in one paragraph". Five labelled lines in a
+fixed order: **Problem · What will be true · Cost of not acting · Open · Asked of you.** It was also
+the document's worst breach of § *State it once* — the worked example's summary carried five values
+owned by §4, §10 and §11 — so §2 now carries **no figure of its own** and is written *last, from the
+sections that exist*, never from the brief.
+
+**An unfillable label is a finding**, which is what earns the form its place over a paragraph: no
+*Asked of you* means no decision was ever established, and no *Cost of not acting* is BH-4 absent,
+caught at §2 instead of at handoff. No gate item was added — BH-1 – BH-10 already reach everything §2
+summarises.
+
+`/write-ord` 2.1.0 · `/write-prd` 2.7.5 · `/write-ac` 1.6.2 · `/write-reqs` 1.4.2 ·
+`/write-brd` 1.2.0 · `/review-brd` 2.0.3 · `/review-ord` 2.2.1 · pack v1.12
+
+---
+
 ## v4.8.0 — 2026-09-08
 
 **A skill folder is not the only way a skill is consumed. The standalone requirements skills

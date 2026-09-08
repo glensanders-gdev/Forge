@@ -21,28 +21,37 @@ Everything below lands in the existing register, in the section the class map as
 
 ## The Rule
 
-**A reported measure is not specified until its population, its rules, its lineage and its
-correction path are stated. The figure alone is a display; the four together are a measure.**
+**A reported measure is not specified until its population, its clock, its rules, its lineage and
+its correction path are stated. The figure alone is a display; the five together are a measure.**
 
 The failure this file exists to prevent is a requirement that names an output — *"a monthly
 compliance report is produced"* — and leaves unstated which records it counts, which it excludes,
-which version of the rules produced it, and what happens when it is later found wrong. Every one of
-those is discovered during an audit rather than during design.
+when its clock starts and stops, which version of the rules produced it, and what happens when it is
+later found wrong. Every one of those is discovered during an audit rather than during design.
 
 ## The measure definition
 
-A requirement over a reported measure is a declarative end state carrying four parts. Missing any
+A requirement over a reported measure is a declarative end state carrying five parts. Missing any
 one, the figure is unreproducible.
 
 | Part | Supplies | Never written as |
 |---|---|---|
 | **Population** | which records are in, which are out, and on what evidence | "all relevant records" |
+| **Clock** | the measurement period, and for an elapsed measure the start event, the stop event and any duration excluded from it | "monthly", with no period boundary and no stop event |
 | **Rule set and version** | the `BRL-NNN` rules that classify and calculate, and which version was in force | "as per the business rules" |
 | **Lineage** | the source of each input and the identifier that survives to the output | "sourced from the data warehouse" |
 | **Correction path** | what happens when a published figure is later found wrong | omitted, because it has not happened yet |
 
+**The clock is the part most often assumed and least often written.** For a period measure it states
+the period boundary, the cut-off, and how a record arriving after the cut-off is treated. For an
+elapsed measure it states what starts the clock, what stops it, and every interval excluded — a
+pause, a hold, a suspension, a wait on a third party — because an elapsed figure with an unstated
+exclusion cannot be reproduced by anyone who did not compute it. A period expressed in business days
+carries its calendar basis: the timezone, and the holiday jurisdiction — state, territory, national
+or contractual — that determines which days count.
+
 > ✗ `A monthly compliance report is produced`
-> ✓ `The monthly compliance figure counts every service order closed in the calendar month, excluding orders cancelled by the customer, classified under the BRL-004 rule set version in force at closure, and each counted order is traceable to its source record by a stable identifier that survives restatement.`
+> ✓ `The monthly compliance figure counts every service order closed in the calendar month in the reporting entity's local time, excluding orders cancelled by the customer, classified under the BRL-004 rule set version in force at closure, counted to a cut-off five business days after month end with later-arriving closures carried into a restatement of that month, and each counted order is traceable to its source record by a stable identifier that survives restatement.`
 
 **Do not nominate a system or dataset as authoritative unless the source material confirms that
 status.** Which system is the book of record is a governance fact, not a drafting choice.
@@ -65,6 +74,9 @@ rules.
 | Requirement class | Home |
 |---|---|
 | The reported measure itself — population, threshold, obligation behind it | ORD § 3.8.1 Functional Completeness |
+| The measurement clock — period boundary, start event, stop event, excluded duration | ORD § 3.8.1 |
+| Cut-off, and treatment of data arriving after it | ORD § 3.8.1 |
+| Granularity and the dimensions the measure is disaggregated by | ORD § 3.8.1 |
 | Accuracy, completeness, currentness of a named data element | ORD § 3.8.1, keyed to a `DAT-NNN` row |
 | Reproduction of a historical figure under the rules in force at the time | ORD § 3.6.2 Analyzability |
 | Lineage — source of each input, identifier surviving to the output | ORD § 3.6.2 Analyzability |
@@ -195,6 +207,10 @@ to 25012 or 25024.
 
 - Never state a reported measure without its population — "all relevant records" specifies nothing.
 - Never state a measure without naming the rule set version that produced it.
+- Never state an elapsed measure without its start event, its stop event and its excluded durations —
+  an unstated exclusion makes the figure unreproducible by anyone who did not compute it.
+- Never state a period measure without its cut-off and the treatment of data arriving after it.
+- Never express a period in business days without its timezone and its holiday jurisdiction.
 - Never nominate a system or dataset as authoritative unless the source material confirms it.
 - Never represent a report as reconciled while unresolved variances remain, absent an approved
   tolerance carried as its own row with a named approver.

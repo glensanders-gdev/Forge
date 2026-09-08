@@ -34,3 +34,6 @@ forge-sequence-v*.mmd
 
 # Working clone used by tools/sync-standalone-skills.sh
 .standalone-sync/
+
+# Local Claude Code settings — personal, per-machine
+.claude/settings.local.json

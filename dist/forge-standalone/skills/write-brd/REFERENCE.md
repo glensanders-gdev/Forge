@@ -29,11 +29,28 @@ at authoring time from the live pack or from `STANDARD.md`.
 |---|---|---|
 | BO-1 | [what is lost] | [contract clause / incident ID / obligation, or **none found**] |
 
-### Statements routed out of the BRD
-| Statement | BABOK type | Destination |
-|---|---|---|
-| "[quote]" | Solution — non-functional | ORD, as business tolerance |
-| "[quote]" | Solution — functional | No document in this chain — referred requirements register |
+### Statements routed out of the BRD — §9's routing register
+| Statement | BABOK type | Routed to | ID there |
+|---|---|---|---|
+| "[quote as elicited]" | Solution — non-functional | ORD, as business tolerance | `[ORD-TBD]`, written back |
+| "[quote as elicited]" | Solution — functional | Referred requirements register | `[REF-TBD]`, written back |
+
+### Constraints — every category asked, every answer recorded
+| Category | Found |
+|---|---|
+| Regulatory and statutory | [the constraint, or **none found**] |
+| Contractual | [the constraint, or **none found**] |
+| Time | [the constraint, or **none found**] |
+| Financial | [the constraint, or **none found**] |
+| Organisational | [the constraint, or **none found**] |
+| Prior commitment | [the constraint, or **none found**] |
+
+**A category answered *none found* is a record; a category left blank is a hole.** The two are
+indistinguishable in the finished document, which is why this table has no empty cells.
+
+### Phasing
+[**Single release** — no phasing section — or: this document covers Phase n of m, with the deferred
+scope named and whether the later phases are separate BRDs.]
 
 ### Sizing read
 [business units] · [objectives] · [stakeholders] · [impacted workflows and systems] → **S / M / L**
@@ -60,13 +77,16 @@ really a drafting preference belongs in the draft, not at the gate.
 ```markdown
 # BRD-YYYY-NNN — [change name]
 
-**Status:** Draft · **Priority:** [P1–P4]
+**Doc ID:** BRD-YYYY-NNN · **Version:** N.N · **Status:** Draft · **Priority:** [P1–P4]
 **Executive sponsor:** [role] · **Author:** [name or role]
-**Horizon:** [FYnn Hn – FYnn Qn] · **Standard:** BABOK v3
+**Horizon:** [FYnn Hn – FYnn Qn] · **Phase:** [n of m, or "single release"] · **Standard:** BABOK v3
 **Assessed against:** [standard path] · **Pack version:** [vN.N]
 ```
 
-Sections follow the anatomy in the standard, in its order, with the five **★** sections populated or
+**The Doc ID is assigned here, at first draft, not at approval.** The RAID entries and referred
+requirements raised while the document is being written cite it, and that is when they are raised.
+
+Sections follow the anatomy in the standard, in its order, with the six **★** sections populated or
 carrying a declared gap.
 
 ---
