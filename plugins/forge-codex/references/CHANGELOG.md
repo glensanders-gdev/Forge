@@ -11,6 +11,31 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
+## v4.9.3 — 2026-09-08
+
+**The BRD standard is Approved, and the three skills that carry it now say which revision they
+carry.**
+
+Pack v1.13 moves `write-brd/STANDARD.md` from *Draft for review* to **Approved** and regenerates
+both review criteria extracts against pack commit `ac32d882c846`. The content change landed in
+`77d3110`; the version numbers did not, which left three skills claiming a revision they no longer
+carried — the `stale_skill_versions` condition `$skill-health` exists to catch, and the reason it is
+Amber rather than cosmetic: the number is a claim that nothing changed, and it was wrong.
+
+**Stamp-only, so patch on each.** The same treatment the v4.7.x entry gave `review-brd` 2.0.0 → 2.0.1
+and `write-brd` 1.1.1 → 1.1.2 for exactly this shape of change. Nothing in any skill's instructions
+moved; what moved is the revision of the bar they apply, and a reviewer reading a report needs the
+extract's stamp and the skill's version to agree about which one that was.
+
+- **`$write-brd` 1.2.0 → 1.2.1** — `STANDARD.md` at pack v1.13, status Approved.
+- **`$review-brd` 2.0.3 → 2.0.4** — `CRITERIA.md` regenerated at pack v1.13.
+- **`$review-ord` 2.2.1 → 2.2.2** — `CRITERIA.md` regenerated at pack v1.13.
+- **`forge_version` 4.9.0 → 4.9.3.** 4.9.1 and 4.9.2 are claimed by the `$skill-health`
+  declared-exceptions and gate-failure-modes branches, both open in parallel. This entry is older
+  work than either; the number is sequential, not chronological.
+
+---
+
 ## v4.9.0 — 2026-09-08
 
 **`$write-ord` extracted what the source said. It did not ask what an operations team would
