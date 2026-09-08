@@ -81,6 +81,25 @@ protocol's refusal-and-authority handling before emitting it.
 
 ---
 
+## Failure Modes
+
+| Condition | Behaviour |
+|-----------|-----------|
+| Neither the live pack nor `CRITERIA.md` is readable | Stop, per [GATE-PROTOCOL.md](GATE-PROTOCOL.md) § *Sourcing the criteria*. Never substitute recollection — a gate applied from memory drifts from the published one silently, and the drift is invisible in the output |
+| `CRITERIA.md` carries the ⚠️ **dirty working tree** warning in its provenance line | The extract was generated from uncommitted pack state, corresponds to no committed version, and cannot be reproduced. Prefer the live pack and say the extract was bypassed; where it is the only source, run the review and record in *Assessed against* that the bar itself is unreproducible |
+| The live pack and `CRITERIA.md` disagree | The pack wins and the extract is stale — say so in the report and regenerate with `tools/build-review-criteria.py`. Never prefer the extract because it is closer to hand |
+| The pack defines an item this skill does not name — a BH-11, or a renumbered bar | Verdict every item the pack defines, and report the ones this skill does not name. The skill is the defect, not the document: where the standard and this skill disagree, the standard wins |
+| The reviewer authored the BRD | Run the review and record the non-independence in the *Reviewer* line. §8 names a reviewer *"who did not author it"* as its highest-value control and its absence as the cause of silent defect survival — an unmarked self-review is exactly the condition the record exists to make countable |
+| An ORD, PRD or other document is submitted to this gate | Stop and name the mismatch. BH-1 – BH-10 are the BRD's bar; applying them to a document written to a different one produces verdicts against a bar it was never authored to |
+| The BRD names a pack version other than the one being applied | Name both in the report. A verdict is meaningful only against a named bar, and a BRD authored to one revision assessed against another is a finding about the pair, not about the document |
+| The BRD declares no business objectives at all | BH-1 is *Absent*, not unassessable. Say the two limits cannot be applied — both are scoped to objectives, and without them the bar has no floor |
+| Every absence in the BRD is declared with an owner and a date | Apply the two limits as the pack scopes them, and say so. Without them every absence converts to `[TBD]` + owner + date and the bar becomes unfailable, which is a gate that cannot fail rather than a document that passed |
+| An unstarred section is thin | Record it as an observation outside the verdicts, never as a gate finding. The five ★ sections carry the load, and inflating the gate to cover the rest is how a conformance review turns into critique |
+| A check from `reference/traceability-matrix.md` cannot be answered at the BRD hop | Mark it *not answerable at this hop* with the reason. Most are not answerable upstream of the ORD, and a check reported clean because it could not be run is worse than one reported unanswerable |
+| The outcome is the refusal | Apply [GATE-PROTOCOL.md](GATE-PROTOCOL.md) § *Refusal and authority* before emitting. The right to refuse handoff is not currently held, so the refusal is recorded rather than exercised — and the accumulation of those records is the argument for establishing the control |
+
+---
+
 ## Rules
 
 - **Never restate a criterion in this skill's own prose.** The pack is the source of truth.

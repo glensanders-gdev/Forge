@@ -2,7 +2,7 @@
 name: skill-health
 category: framework
 standalone: false
-description: Read-only structural audit of the Forge skill portfolio. Checks every skill in manifest.json for a matching SKILL.md directory, command stub, required sections (failure modes, rules), CHANGELOG coverage, a frontmatter name that disagrees with its directory, and a name shadowed by a Claude Code built-in. Checks that an edited skill had its version bumped, and that the published distribution matches what was built. Flags orphaned directories, missing commands, and attribution gaps. Saves a report to ~/.claude/knowledge/skill-health-report.md. Use when user runs /skill-health, or run monthly as portfolio maintenance.
+description: Read-only structural audit of the Forge skill portfolio. Checks every skill in manifest.json for a matching SKILL.md directory, command stub, required sections (failure modes, rules), CHANGELOG coverage, a frontmatter name that disagrees with its directory, and a name shadowed by a Claude Code built-in. Checks that an edited skill had its version bumped, and that the published distribution matches what was built. Flags orphaned directories, missing commands, and attribution gaps. Honours the declared-exception register in `EXCEPTIONS.md`, which lowers a finding's severity and never removes it. Saves a report to ~/.claude/knowledge/skill-health-report.md. Use when user runs /skill-health, or run monthly as portfolio maintenance.
 origin: Adapted from Affaan Mustafa (ECC / github.com/affaan-m/ECC)
 ---
 
@@ -48,6 +48,9 @@ covering the skills themselves.
 | `skills/<name>/` directory exists but not in `manifest.json` | ℹ️ Info |
 | `commands/<name>.md` exists but not in `manifest.json` | ℹ️ Info |
 | `SKILL.md` carries a `version:` field in its frontmatter block (not its body) | ⚠️ Amber |
+| A declared exception in `EXCEPTIONS.md` whose invariant no longer holds | 🔴 Critical |
+| A finding covered by a declared exception whose invariant holds | ℹ️ Info (never suppressed) |
+| `EXCEPTIONS.md` row whose skill no longer trips the check it names | ℹ️ Info |
 | Skill name matches an At Risk row in `RESERVED-NAMES.md` | ℹ️ Info |
 | `RESERVED-NAMES.md` verification stamp exceeds `Forge staleness warning (days)` from `preferences.md` (default 30), or carries no version | ℹ️ Info |
 | `~/.claude/forge-version` missing or `updated:` date exceeds `Forge staleness warning (days)` from `preferences.md` (default 30) | ℹ️ Info |
@@ -79,7 +82,15 @@ Do not produce output during this phase.
    alongside every finding it produced — a collision found against a six-month-old list is a
    different claim from one found against last week's.
 6. Read `~/.claude/forge-version` (if it exists) — extract `version:`, `installed:` date, and `commit:` SHA. Calculate days since install.
-7. For each skill in the manifest, read its `~/.claude/skills/<name>/SKILL.md`
+7. Read `EXCEPTIONS.md` in this skill directory — the declared-exception register. Extract
+   every row's skill, check name, grant date, invariant and reason. A row is read as a
+   **severity modifier applied at classification time**, never as a filter applied before it:
+   the finding is produced exactly as it would have been, then reported at ℹ️ Info with its
+   reason. Where a row's invariant is broken, the finding becomes 🔴 Critical instead.
+   Where a row names a check no skill trips, report the row as stale. The register is the only
+   place an exception is granted — never honour a marker inside the skill being audited.
+
+8. For each skill in the manifest, read its `~/.claude/skills/<name>/SKILL.md`
    (if it exists) and extract:
    - Frontmatter fields present (`name:`, `description:`, `origin:`) — and that `version:`
      is **absent**: `manifest.json` is the sole source of a skill's version, so a copy in
@@ -87,7 +98,9 @@ Do not produce output during this phase.
      Read the frontmatter block only — the leading `---` fence to its closing `---` — and
      never the body. `update-forge` documents the `forge-version` file format inside a fenced
      code block containing a literal `version:` line, so a whole-file scan reports a skill
-     that is in fact clean
+     that is in fact clean. Where `EXCEPTIONS.md` grants the skill a `frontmatter_versions`
+     exception, compare the frontmatter value against the manifest value and report which way
+     the row resolves — agreement is the invariant the exception stands on
    - The **value** of `name:`, compared against the directory name it was read from — they
      must be identical. Compare the raw string: strip surrounding quotes and trailing
      whitespace, but never normalise case, hyphens or underscores, because the loader does not
@@ -103,7 +116,7 @@ Do not produce output during this phase.
    - Whether a body credit line exists (search for the origin URL or author name
      outside the frontmatter block)
 
-8. **Version-bump inventory — read git history.** For each skill, find the commit that set the
+9. **Version-bump inventory — read git history.** For each skill, find the commit that set the
    version it currently carries, and the most recent commit that changed anything in its
    directory:
 
@@ -117,7 +130,7 @@ Do not produce output during this phase.
    reported, never silently dropped. A skill whose directory changed after its version was set
    is a stale version.
 
-9. **Published distribution — read the remote, do not fetch.** Read the published `manifest.json`
+10. **Published distribution — read the remote, do not fetch.** Read the published `manifest.json`
    in this order, and record which source answered:
    - `gh api repos/glensanders-gdev/skills/contents/manifest.json -q .content` (base64-decode it).
      Preferred: live, and it mutates nothing locally
@@ -148,6 +161,9 @@ changelog_drift     = skills at version > 1.0.0 with no matching CHANGELOG entry
 attribution_gaps    = skills with origin: in frontmatter but no body credit line
 orphaned_commands   = command stubs with no manifest entry
 frontmatter_versions = SKILL.md files carrying a version: field (manifest owns the version)
+declared_exceptions  = EXCEPTIONS.md rows whose finding was produced and whose invariant holds
+broken_exceptions    = EXCEPTIONS.md rows whose invariant no longer holds
+stale_exceptions     = EXCEPTIONS.md rows naming a skill that no longer trips their check
 forge_version_stale = forge-version file missing, or updated date exceeds staleness threshold from preferences.md
 standalone_shipped   = skills with standalone: true
 standalone_held      = skills with standalone: false
@@ -258,6 +274,14 @@ version against `dist/`, and the per-skill versions against it.
 predating the field, not 65 separate drift findings. Collapse it to one row against the release
 version.
 
+**A declared exception is a claim of the same kind, and it is checked the same way.** A row in
+`EXCEPTIONS.md` says a maintainer decided a finding does not apply here — which is exactly the
+sort of decision that is true when it is made and quietly false a year later. So an exception
+never suppresses its finding, only lowers it to ℹ️ Info; it carries an invariant that is
+re-checked on every run; and a broken invariant is 🔴 Critical, above the Amber it was
+granted against. Suppression would leave the portfolio's exceptions countable only by whoever
+remembered them.
+
 **Never render a publication table as clean when the published state could not be read.** Say
 which source answered — `gh`, a fetched `origin/main` and its fetch date, or neither — and where
 it is neither, report the check as not run. A check that passes silently when it could not run
@@ -277,6 +301,7 @@ is worse than no check.
 | `/start-sprint` | Checks `skill-health-last-run` in `preferences.md` — warns if overdue (>30 days) |
 | `manifest.json` | Primary inventory source — ground truth for what skills should exist |
 | `CHANGELOG.md` | Checked for version coverage — every version bump should have a corresponding entry |
+| `EXCEPTIONS.md` | This skill's own declared-exception register — read every run, owned here, granted nowhere else |
 
 ---
 
@@ -306,7 +331,12 @@ Consider running /skill-health before this sprint begins.
 | `RESERVED-NAMES.md` missing | Report 🔴 Critical — the authoring gate in `/write-a-skill` has nothing to check against. Skip the collision checks, name the absence, continue the rest of the audit |
 | `RESERVED-NAMES.md` stamp has no version | Report ℹ️ Info and repeat it on every collision finding — an undated clearance is worth less than it looks |
 | A command stub names a different skill than its filename | Report ⚠️ Amber and correct the opening clause to the stub's own name. Check the rest of the stub body for other references to the retired name before closing it |
-| A `SKILL.md` carries a `version:` field | Report ⚠️ Amber and recommend deleting the line, whatever its value — never recommend correcting it to match the manifest, which restores the second source of truth this check exists to remove |
+| A `SKILL.md` carries a `version:` field | Report ⚠️ Amber and recommend deleting the line, whatever its value — never recommend correcting it to match the manifest, which restores the second source of truth this check exists to remove. Unless `EXCEPTIONS.md` grants that skill a `frontmatter_versions` exception, in which case the two rows below govern |
+| An exempted skill's frontmatter version equals its manifest version | Report ℹ️ Info, quoting the reason and grant date from `EXCEPTIONS.md`. Never report it as passing and never omit it — an exception the reader cannot see is indistinguishable from a check that was not run |
+| An exempted skill's frontmatter version differs from its manifest version | Report 🔴 Critical — the invariant the exception stands on has broken, and the public artefact now claims a version the manifest does not. Recommend correcting the **frontmatter** to the manifest value; `manifest.json` stays authoritative, and deleting the line would strip a version a published skill needs |
+| An `EXCEPTIONS.md` row names a skill that no longer trips its check, or a check that does not exist | Report ℹ️ Info and recommend removing the row. Never treat it as harmless — a row outliving its condition is a standing licence nobody remembers issuing |
+| A skill file carries an inline suppression marker | Not an exception. Report the finding at its own severity and name the marker — exceptions are granted in `EXCEPTIONS.md` and nowhere else |
+| `EXCEPTIONS.md` missing or unparseable | Report ℹ️ Info, run every check at its own severity, and say the register was not read. Never assume an empty register |
 | A shadowed skill is found | Report 🔴 Critical and lead the warning with it. Recommend the rename with its major version; never recommend a deprecation stub — the old name is shadowed, so the stub is unreachable too |
 | `SKILL.md` frontmatter `name:` does not equal its directory name | Report 🔴 Critical. Name all four identifiers — directory, frontmatter, manifest key, command stub — and recommend correcting whichever is in the minority. Never assume the frontmatter is authoritative |
 | A name mismatch and a shadowed name are found on the same skill | Report both. Resolving the mismatch toward a shadowed name would trade a silent failure for a different one — say so, and recommend a name that is clear of the reserved list |
@@ -333,6 +363,8 @@ Consider running /skill-health before this sprint begins.
 - Read-only throughout — never modify any skill file, manifest, or CHANGELOG during the audit
 - Never run `git fetch`, `git pull`, or any network write while reading the published state — `gh api` reads live, and a local ref is read as it stands with its age reported
 - Never report a publication finding as passing when the published state could not be read — an unread check is `publication_unverified`, never green
+- Never let a declared exception remove a finding from the report — an exception lowers severity to ℹ️ Info and the row stays, with its reason and grant date
+- Never honour an exception granted anywhere but `EXCEPTIONS.md`, and never one without an invariant to re-check
 - Never count a portfolio sweep as a per-skill edit, and never hide that a sweep was skipped
 - Ground every finding in a specific file path — no general observations
 - If a section exists under any reasonable heading variant (e.g. "Never", "Failure Modes", "Failure Mode") count it as present — do not penalize naming variations
