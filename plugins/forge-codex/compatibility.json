@@ -69,7 +69,7 @@
     "skill-health": {
       "source": "global/.claude/skills/skill-health/SKILL.md",
       "codex": "plugins/forge-codex/skills/skill-health/SKILL.md",
-      "reviewedSourceSha256": "BBDB792D7DFF80D63EAB9079A3B37D95D9022C3BB0E2FD10B6C7E88D9C039670"
+      "reviewedSourceSha256": "55913B688ED03218D0DC69C6CCAAE1EE42A0373F8FBABF05D05EAD79352EF785"
     },
     "end-sprint": {
       "source": "global/.claude/skills/end-sprint/SKILL.md",

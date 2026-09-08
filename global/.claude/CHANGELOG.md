@@ -11,6 +11,64 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
+## v4.9.5 — 2026-09-08
+
+**A standing Amber is a check the reader learns to skip.**
+
+`write-ord` 2.1.0 carries `version: 2.1.0` in its `SKILL.md` frontmatter, deliberately and at the
+maintainer's instruction: the skill is published to `glensanders-gdev/skills`, where
+`manifest.json` does not travel with it, so a reader of the public artefact has no other way to
+tell which version they hold. `/skill-health` reported that Amber and recommended deleting the
+line — a recommendation that contradicted the instruction, on a file that is now public, with the
+reason recorded only in a commit message.
+
+The exception belongs in the check, not in the skill. `/skill-health` 1.7.0 gains
+`skill-health/EXCEPTIONS.md`, a declared-exception register, and `write-ord`'s row is its first
+and only entry.
+
+**An exception lowers a finding's severity. It never removes the finding from the report.** A
+suppressed check is a check nobody can audit: the reader loses the ability to tell an exception
+that was granted from one that was never noticed, and the grant goes invisible the moment its
+author moves on. Every exempted finding is still produced, still listed, and still carries its
+reason and grant date — at ℹ️ Info instead of ⚠️ Amber.
+
+**Every row carries an invariant, re-checked on every run, and a broken one is 🔴 Critical.** An
+exception is relief from a *finding*, never from the failure the finding exists to catch. A row
+with nothing left to check is not an exception, it is a deletion. `write-ord`'s invariant is that
+its frontmatter version equals its manifest version; where those diverge, the report ranks it
+above the Amber it was granted against, and recommends correcting the **frontmatter** —
+`manifest.json` stays authoritative, and deleting the line would strip a version a published
+skill needs. That is the opposite instruction from the one an unexempted skill gets, and both are
+the same rule: one source of truth, and where a second copy is unavoidable it is a copy, never a
+claim of its own.
+
+**Granted in one place only.** An exception is per-skill and per-check — never portfolio-wide,
+never by category, never by wildcard, and never by a marker inside the file being audited. A
+check that needs exempting everywhere is a wrong check, and the fix belongs in the check.
+
+`FORMATS.md` had no home for `frontmatter_versions` at all — the tally existed with nothing to
+render it into — and still carried a `Version mismatches (SKILL.md version != manifest version)`
+section left over from before v4.1.0, when a mismatch was the finding and mere presence was not.
+The Amber table is added, the stale section is replaced by the declared-exception and stale-row
+tables, and drift on an exempted skill gets its own Critical section.
+
+- **`/skill-health` 1.6.0 → 1.7.0** — `EXCEPTIONS.md` added and read in Phase 1; three new checks
+  (broken invariant 🔴, granted exception ℹ️, stale row ℹ️); tallies `declared_exceptions`,
+  `broken_exceptions`, `stale_exceptions`; six Failure Modes rows; two Rules; `FORMATS.md`
+  sections as above.
+- **Codex-native `skill-health` reviewed, unchanged, hash refreshed.** The parity gate holds the
+  override for review whenever its shared source moves, which is what it is for. Reviewed and left
+  alone: the Codex override audits the *plugin*, and the register it would inherit exists to guard a
+  rule the plugin does not have — `manifest.json` as the sole source of a skill's version. Codex
+  skills carry no version in frontmatter, the override checks none, and its own Rules already refuse
+  to read Forge's upstream manifest as the plugin's. An empty second register for an absent rule is
+  worse than no register.
+
+- **`forge_version` 4.9.4 → 4.9.5.** Renumbered from 4.9.1 on merge — #76 and #75 landed first,
+  taking 4.9.3 and 4.9.4. The number is sequential by merge, not by when the work was done.
+
+---
+
 ## v4.9.4 — 2026-09-08
 
 **Both gate skills said what to do when a document fails. Neither said what to do when the *review*
@@ -55,11 +113,14 @@ table collapses **sub**-characteristics and all nine characteristics appear rega
 what the skill does when a condition fires — the § *What this file is not* boundary in
 `GATE-PROTOCOL.md`, applied to the tables that sit beside it.
 
-- **`/review-brd` 2.0.3 → 2.1.0** — 12-row `## Failure Modes` table.
-- **`/review-ord` 2.2.1 → 2.3.0** — 14-row `## Failure Modes` table.
+- **`/review-brd` 2.0.4 → 2.1.0** — 12-row `## Failure Modes` table.
+- **`/review-ord` 2.2.2 → 2.3.0** — 14-row `## Failure Modes` table.
 - **`forge_version` 4.9.3 → 4.9.4.** Renumbered from 4.9.2 on merge: #76 landed first, taking
   4.9.3, and carried `review-brd` to 2.0.4 and `review-ord` to 2.2.2 — so the bumps below are
   measured from those, not from 2.0.3 and 2.2.1.
+
+---
+
 ## v4.9.3 — 2026-09-08
 
 **The BRD standard is Approved, and the three skills that carry it now say which revision they
