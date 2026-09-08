@@ -11,6 +11,69 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
+## v4.9.6 — 2026-09-08
+
+**Fourteen version numbers were claiming that nothing had changed, and they were wrong.**
+
+`/skill-health`'s `stale_skill_versions` compares two commit dates: the one that set the version a
+skill carries, and the most recent one that changed its directory. Later directory, stale version.
+Twenty were outstanding; three belonged to pack v1.13 and were cleared in v4.9.3. This entry closes
+the remaining seventeen — by bumping fourteen and, more usefully, by **refusing to bump three.**
+
+**The three that are not stale, and why the check said they were.**
+
+| Skill | The only change after its version was set |
+|---|---|
+| `/knowledge-health` | `066a680` edited `version: 1.0.0` → `1.1.0` **in `SKILL.md` frontmatter** |
+| `/write-article` | `066a680`, the same edit to the same field |
+| `/dashboard-tokens` | `a6020fb` removed one trailing space |
+
+The first two are the residue of a field that no longer exists. v4.1.0 deleted `version:` from all
+32 frontmatters precisely because it was a second source of truth — so the directory "changed" only
+in the sense that a duplicate of the manifest value was brought into line with it, and then later
+deleted outright. The manifest value was right the whole time. **Bumping those two would assert a
+content change that never happened**, which is the same defect as the stale number, pointed the
+other way. The third is whitespace.
+
+Recorded rather than dropped: the check is mechanical and it cannot see this, so the next run will
+report all three again unless someone reads this entry. That is a real limitation of
+`stale_skill_versions` and not a reason to distrust it — nineteen of twenty findings were sound.
+
+**Patch on all fourteen, deliberately uniform.** The changes are three to four months old, and
+reconstructing whether a May 2026 edit was a feature or a fix — from the diff alone, with no ticket
+behind it — would be inventing a claim about significance nobody can check. A patch says what is
+actually known: the content moved after the number was set, and the number is corrected. The
+substance is in the table, where it can be read.
+
+| Skill | Version | The change the number now covers |
+|---|---|---|
+| `/testplan` | 1.2.0 → 1.2.1 | `4764267` — emitted templates rewired off removed register columns |
+| `/commands` | 1.0.1 → 1.0.2 | `6cc6fc1` — `/write-a-skill`'s row covers company and standalone skills |
+| `/front-gate` | 1.0.0 → 1.0.1 | `9a6be21` company context checks; `8eb4f32` Phase 5 submission gate |
+| `/ai-first-engineering` | 1.0.0 → 1.0.1 | `a44f38f` — body attribution credit added |
+| `/ingest` | 1.1.0 → 1.1.1 | `336cda3` scope prompt; `4c50890`, `8f2f194` critic fixes |
+| `/standup` | 1.0.0 → 1.0.1 | `b4e7365` staleness threshold from `preferences.md`; three earlier edits |
+| `/add-project` | 1.0.0 → 1.0.1 | `4c50890` — +92 lines |
+| `/add-system` | 1.0.0 → 1.0.1 | `4c50890` +92 lines; `28f1f96`, `25b6f42`, `2959811` |
+| `/go-nogo` | 1.0.0 → 1.0.1 | `4c50890` `FORMATS.md` extraction; `a1e7af8`, `014805e`, `5051e79` |
+| `/deploy` | 1.0.0 → 1.0.1 | `33d9aca`, `014805e` — critic rounds |
+| `/diagnose` | 1.0.0 → 1.0.1 | `a1c1e94` — metrics tracking, +27 lines |
+| `/idea` | 1.0.0 → 1.0.1 | `2959811` company-aware paths; `a251212` Jira ID mapping |
+| `/lookup` | 1.0.0 → 1.0.1 | `1b01c97` SEC/PERF/INC IDs; `a1c1e94` |
+| `/push-standards` | 1.0.0 → 1.0.1 | `17eb3f0` — lang-rules layer |
+
+**No skill file is touched.** Only `manifest.json` moves, so no skill directory changes and this
+commit creates no new stale findings of its own. It is also not a portfolio sweep under
+`/skill-health`'s own definition — a sweep touches ten or more skill *directories*, and this touches
+none.
+
+- **`forge_version` 4.9.5 → 4.9.6.** Renumbered from 4.9.4 on merge — #76, #75, #74 and #77 all
+  landed first, taking 4.9.3 through 4.9.5. The number is sequential by merge, not by when the
+  work was done. The fourteen skill bumps below are unaffected: none of those merges touched
+  any of the fourteen.
+
+---
+
 ## v4.9.5 — 2026-09-08
 
 **A standing Amber is a check the reader learns to skip.**

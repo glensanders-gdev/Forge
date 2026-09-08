@@ -1,6 +1,6 @@
 {
   "repository": "https://github.com/glensanders-gdev/skills",
-  "version": "4.9.5",
+  "version": "4.9.6",
   "skill_count": 65,
   "skills": [
     {
@@ -17,7 +17,7 @@
     },
     {
       "name": "ai-first-engineering",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "category": "code-quality",
       "description": "Operating principles for teams delivering software with AI-assisted code generation. Shapes how planning, review, architecture, and testing work when AI generates a significant share of implementation output. Use during /grill-with-docs, /review-diff, /write-prd, and /testplan to apply AI-first thinking to design and process decisions."
     },
@@ -95,7 +95,7 @@
     },
     {
       "name": "diagnose",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "category": "code-quality",
       "description": "Systematically diagnose a failing ticket, bug, or repeated error. Use when /diagnose is invoked manually, or when the AI has failed the same ticket twice during implementation."
     },
@@ -155,7 +155,7 @@
     },
     {
       "name": "idea",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "category": "ideation",
       "description": "Capture and stress-test a new idea through structured grilling — problem statement, baseline measurements, destination targets, journey, impact vs effort, and assumptions. Produces idea.md and living Mermaid diagrams. Use when user runs /idea, pitches an idea formally, or uses informal idea language like \"I've been thinking about...\" or \"what if we...\"."
     },
@@ -191,7 +191,7 @@
     },
     {
       "name": "push-standards",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "category": "code-quality",
       "description": "Extract coding patterns from the current codebase and append them to .claude/CODING-STANDARDS.md under a Project-Specific Patterns section. Use when user runs /push-standards, patterns have emerged that should be enforced, or after /approve when new conventions were established."
     },
@@ -281,7 +281,7 @@
     },
     {
       "name": "standup",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "category": "session",
       "description": "Summarise the last session, state today's goals, and surface any blockers. Use when user wants a session summary, runs /standup, or wants to orient themselves at the start of a working session."
     },
@@ -311,7 +311,7 @@
     },
     {
       "name": "testplan",
-      "version": "1.2.0",
+      "version": "1.2.1",
       "category": "pipeline",
       "description": "Design the testing strategy for a feature or a release — what to test, at what level, automated vs manual, and which behaviours are critical. Runs in feature mode against a PRD, or operational mode (--operational) against an ORD register. Produces a testplan.md that feeds into /tdd and /qa-plan. Use when user runs /testplan, a PRD or ORD is written, or before implementation begins."
     },
