@@ -11,6 +11,41 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
+## v4.10.0 — 2026-09-16
+
+**`/idea-ai` — an evidence-led reviewer for AI proposals.**
+
+`/idea` stress-tests your own idea as a participant. There was nothing that reviewed *someone
+else's* AI proposal as a reviewer — against the evidence they actually supplied, with the authority
+boundary held. `/idea-ai` is that: it normalises the problem away from the proposed technology,
+tests reuse and non-AI alternatives before recommending new capability, registers every claim, and
+assigns a maturity and a recommended disposition.
+
+**It grants nothing**, and says so in its own header. Architecture, security, privacy, legal,
+Responsible AI, funding and production approval each stay where they live; the review names the
+gate rather than standing in for it. Maturity is not approval, and Stage 22's disposition is a
+recommendation that stops at a HITL gate — only the authorised decision-maker types `APPROVED`,
+`HOLD`, `REDIRECT` or `DECLINE`.
+
+**Twenty-three stages, disclosed as six phases.** The source draft ran 1220 lines in one file, which
+is twelve times the `SKILL.md` target and — worse — let an agent at Stage 4 see Stage 23. Split by
+sequence per `CRAFT.md`: `SKILL.md` carries the six-phase spine with a completion criterion each,
+`STAGES.md` the stage detail and registers, `TEMPLATES.md` the two output documents and three
+diagrams.
+
+**It borrows namespaces rather than minting them.** The draft numbered assumptions `A-01`, which
+collides with `/raid`'s Actions prefix — `tables.md` bans single-letter prefixes for exactly this
+reason. Assumptions are now `ASM-NNN`. `AC-NNN` belongs to `/write-ac` and `EVL-NNN` / `MDL-NNN` to
+`/write-ord`, so the review writes `[AC-TBD — …]`, `[EVL-TBD — …]` and `[MDL-TBD — …]` and lets the
+owning skill write the real ID back. Its own prefixes are `EVD-`, `FND-`, `FM-` and `AI-IDEA-`.
+
+**Stage 15 points at `rules/requirements/ai.md` instead of restating it.** The draft rebuilt an
+evaluation-set discipline the ruleset already owns — scorer calibration, threshold, floor,
+prohibited outputs, re-run trigger. One authoritative copy, per PRINCIPLE 6, so the two cannot
+drift.
+
+---
+
 ## v4.9.7 — 2026-09-08
 
 **v4.9.6 argued that three stale-version findings were wrong. It left them in a CHANGELOG entry,
