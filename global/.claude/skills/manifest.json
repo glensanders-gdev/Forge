@@ -1,5 +1,5 @@
 {
-  "forge_version": "4.10.1",
+  "forge_version": "4.11.0",
   "skills": {
     "setup-brain": "2.0.0",
     "scan-first": "1.0.0",
@@ -64,7 +64,7 @@
     "pickup": "3.0.2",
     "pir": "1.0.0",
     "add-term": "1.0.0",
-    "knowledge-health": "1.1.0",
+    "knowledge-health": "1.2.0",
     "learn": "1.0.0",
     "evolve": "1.0.0",
     "accessibility": "1.0.1",
@@ -86,7 +86,7 @@
     "feature-flag": "1.0.0",
     "review-fy": "2.0.0",
     "incident": "1.0.0",
-    "ingest": "1.1.1",
+    "ingest": "2.0.0",
     "link-jira": "1.0.0",
     "review-performance": "2.0.0",
     "publish": "1.0.0",

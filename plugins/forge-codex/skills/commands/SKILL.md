@@ -100,7 +100,7 @@ Print the following reference exactly:
 | `ia` | Impact assessment — sharpen a proposed change, search all knowledge sources, produce a severity-tagged summary, change brief or PRD, and draft artefacts in an isolated IA folder |
 | `onboard-knowledge` | Guided company knowledge setup — style guide, acronyms, domain terms, and core systems in sequence |
 | `check-style` | Review any deliverable against the company style guide — CRITICAL/HIGH/LOW findings, pass/fail gate |
-| `knowledge-health` | Read-only diagnostic across all knowledge layers — coverage scorecard, stale files, cross-reference conflicts, interesting connections |
+| `knowledge-health` | Read-only diagnostic across all knowledge layers — coverage scorecard, stale files, Raw archive integrity, cross-reference conflicts, interesting connections |
 | `add-term` | Add a term to the company-level glossary — acronyms or domain concepts, lightweight quick-add |
 | `add-system` | Scaffold a new system folder in ~/.codex/forge/knowledge/systems/ |
 | `teach` | Teach a subject across sessions — mission-grounded, ZPD-pitched HTML lessons with curated resources, spaced practice, and learning records under ~/.codex/forge/knowledge/learning/ |
@@ -108,7 +108,7 @@ Print the following reference exactly:
 | `setup-brain` | Scaffold or audit the three-tier second-brain model (global/company/project Raw+Wiki) — enforce per-project personal-or-company scope, establish the company pending-changes record |
 | `summarise-system` | Draft overview.md for a system from docs or description |
 | `update-context` | Flush session discoveries into CONTEXT.md and knowledge files |
-| `ingest` | Compile Raw/ items into Wiki articles — handles files in Raw/, uploaded files, and pasted text |
+| `ingest` | Compile Raw/ items into Wiki articles, then archive each source under `Raw/_archive/YYYY-MM/` so the top of Raw/ stays an inbox — handles files in Raw/, uploaded files, and pasted text |
 | `publish` | Publish wiki articles to Confluence — pushes changed articles since last run or all with --all |
 | `setup-confluence` | Configure Confluence publishing — connection details, auth, and validation before writing config |
 

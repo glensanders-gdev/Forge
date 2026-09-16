@@ -99,7 +99,7 @@ Print the following reference exactly:
 | `/user:ia` | Impact assessment — sharpen a proposed change, search all knowledge sources, produce a severity-tagged summary, change brief or PRD, and draft artefacts in an isolated IA folder |
 | `/user:onboard-knowledge` | Guided company knowledge setup — style guide, acronyms, domain terms, and core systems in sequence |
 | `/user:check-style` | Review any deliverable against the company style guide — CRITICAL/HIGH/LOW findings, pass/fail gate |
-| `/user:knowledge-health` | Read-only diagnostic across all knowledge layers — coverage scorecard, stale files, cross-reference conflicts, interesting connections |
+| `/user:knowledge-health` | Read-only diagnostic across all knowledge layers — coverage scorecard, stale files, Raw archive integrity, cross-reference conflicts, interesting connections |
 | `/user:add-term` | Add a term to the company-level glossary — acronyms or domain concepts, lightweight quick-add |
 | `/user:add-system` | Scaffold a new system folder in ~/.claude/knowledge/systems/ |
 | `/user:teach` | Teach a subject across sessions — mission-grounded, ZPD-pitched HTML lessons with curated resources, spaced practice, and learning records under ~/.claude/knowledge/learning/ |
@@ -107,7 +107,7 @@ Print the following reference exactly:
 | `/user:setup-brain` | Scaffold or audit the three-tier second-brain model (global/company/project Raw+Wiki) — enforce per-project personal-or-company scope, establish the company pending-changes record |
 | `/user:summarise-system` | Draft overview.md for a system from docs or description |
 | `/user:update-context` | Flush session discoveries into CONTEXT.md and knowledge files |
-| `/user:ingest` | Compile Raw/ items into Wiki articles — handles files in Raw/, uploaded files, and pasted text |
+| `/user:ingest` | Compile Raw/ items into Wiki articles, then archive each source under `Raw/_archive/YYYY-MM/` so the top of Raw/ stays an inbox — handles files in Raw/, uploaded files, and pasted text |
 | `/user:publish` | Publish wiki articles to Confluence — pushes changed articles since last run or all with --all |
 | `/user:setup-confluence` | Configure Confluence publishing — connection details, auth, and validation before writing config |
 
