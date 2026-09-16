@@ -20,11 +20,11 @@ Each stage produces an artifact that feeds the next. The AI agent orients itself
 
 ## What's Included
 
-**113 shared skills** covering the full software delivery lifecycle, adapted for Claude Code and Codex:
+**114 shared skills** covering the full software delivery lifecycle, adapted for Claude Code and Codex:
 
 | Category | Skills |
 |----------|--------|
-| Ideation | `/idea`, `/create-project`, `/front-gate`, `/onboard` |
+| Ideation | `/idea`, `/idea-ai`, `/create-project`, `/front-gate`, `/onboard` |
 | Pipeline | `/grill-with-docs`, `/grill-me`, `/grill-with-peer`, `/research`, `/prototype`, `/write-brd`, `/write-prd`, `/write-ord`, `/review-brd`, `/review-ord`, `/write-reqs`, `/write-ac`, `/testplan`, `/estimate`, `/break-down`, `/to-tickets`, `/build`, `/tdd`, `/test-coverage`, `/qa-plan`, `/qa-report`, `/check-pii`, `/approve` |
 | Session Management | `/pickup`, `/standup`, `/handoff`, `/debrief`, `/save-state`, `/check-scope`, `/caveman`, `/backlog-list`, `/backlog-proj`, `/add-backlog-item`, `/lookup`, `/ia` |
 | Code Quality | `/scan-first`, `/review-diff`, `/critic`, `/diagnose`, `/write-adr`, `/push-standards`, `/lang-rules`, `/update-readme`, `/git-guardrails`, `/accessibility`, `/ai-first-engineering`, `/write-article`, `/seo`, `/security-assessment`, `/resolve-findings`, `/review-performance`, `/vibe-security`, `/codex-review` |
