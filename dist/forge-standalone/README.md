@@ -1,6 +1,6 @@
 # Skills
 
-65 skills for [Claude Code](https://claude.com/claude-code) — practical, self-contained
+66 skills for [Claude Code](https://claude.com/claude-code) — practical, self-contained
 workflows for getting real work done with an AI assistant.
 
 They cover the parts of software delivery that benefit most from structure: writing
@@ -156,6 +156,7 @@ from `rules/` — the three files are the whole skill, installed or pasted into 
 | Skill | What it does |
 |---|---|
 | [`/intent-layers`](skills/intent-layers/SKILL.md) | Alias for /context-health. Audits token load and recommends directory-scoped AGENTS.md child nodes. Use when thinking about context structure in terms… |
+| [`/write-a-skill`](skills/write-a-skill/SKILL.md) | Create a new skill with the right structure, file locations, and registry updates. Use when user wants to create, write, or add a new skill, or mentio… |
 
 ### Other
 
@@ -175,7 +176,7 @@ These files are generated, so edits made directly here are overwritten on the ne
 release. Open an issue describing what needs changing and it will be fixed upstream
 and republished.
 
-Release 4.9.7.
+Release 4.10.1.
 
 ## Credits
 

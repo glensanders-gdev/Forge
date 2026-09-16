@@ -1,7 +1,7 @@
 {
   "repository": "https://github.com/glensanders-gdev/skills",
-  "version": "4.9.7",
-  "skill_count": 65,
+  "version": "4.10.1",
+  "skill_count": 66,
   "skills": [
     {
       "name": "accessibility",
@@ -350,6 +350,12 @@
       "version": "1.0.1",
       "category": "security",
       "description": "Active security auditor for AI-generated (\"vibe-coded\") codebases. Loads technology-specific reference files and produces severity-ranked findings with before/after fixes. Covers secrets, database access control, auth, rate limiting, payments, mobile, AI/LLM integration, deployment, and data access. Trigger proactively when writing or reviewing auth, payments, database, API keys, or user data — not just on explicit security requests."
+    },
+    {
+      "name": "write-a-skill",
+      "version": "1.8.0",
+      "category": "framework",
+      "description": "Create a new skill with the right structure, file locations, and registry updates. Use when user wants to create, write, or add a new skill, or mentions /write-a-skill."
     },
     {
       "name": "write-ac",

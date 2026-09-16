@@ -11,6 +11,34 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
+## v4.10.1 — 2026-09-16
+
+**`/write-a-skill` now ships in the public distribution.**
+
+The skill was held at `standalone: false` while its text already carried seven `<!--forge-only-->`
+fences — authored for a public cut that the flag never let run. Flipped to `standalone: true`, with
+the fencing finished across all three files so the published copy names no framework, no company
+destination, and no registry the reader does not have.
+
+**What the standalone reader gets:** the five-step process, the reserved-name gate, the craft
+reference, and the failure-mode table. **What stays held:** the three-way destination table,
+`manifest.json` / `CHANGELOG.md` / `README.md` / `/commands` bookkeeping, the company path, the
+Codex host-name fence, the release-tag step, and every `PRINCIPLES.md` citation.
+
+**One structural change to the Forge copy.** The destination question moved out of the numbered
+process into a fenced `## Destination` section referenced from step 1, so neither build ends up
+with a gap in its step numbering. The bookkeeping items in *After Writing Files* were reordered for
+the same reason — confirm and remind now precede the registry updates. Nothing else about Forge's
+behaviour changes.
+
+`RESERVED-NAMES.md` and `CRAFT.md` were reworded to state their generic content generically —
+"a skill", not "a Forge skill" — with the framework-specific citations fenced rather than deleted.
+The Forge reader loses nothing.
+
+Build verified: 66 skills shipping, 0 surviving framework mentions, 0 dangling references.
+
+---
+
 ## v4.10.0 — 2026-09-16
 
 **`/idea-ai` — an evidence-led reviewer for AI proposals.**
