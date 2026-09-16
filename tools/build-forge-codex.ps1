@@ -324,6 +324,7 @@ $SelfContainedSkills = [ordered]@{
     'write-ac'   = 'requirements'
     'write-reqs' = 'requirements'
     'roap'       = 'requirements'
+    'idea-ai'    = 'requirements'
     'grill-me'   = 'common'
 }
 

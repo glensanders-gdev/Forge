@@ -11,6 +11,64 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
+## v4.10.1 — 2026-09-16
+
+**`/write-a-skill` now ships in the public distribution.**
+
+The skill was held at `standalone: false` while its text already carried seven `<!--forge-only-->`
+fences — authored for a public cut that the flag never let run. Flipped to `standalone: true`, with
+the fencing finished across all three files so the published copy names no framework, no company
+destination, and no registry the reader does not have.
+
+**What the standalone reader gets:** the five-step process, the reserved-name gate, the craft
+reference, and the failure-mode table. **What stays held:** the three-way destination table,
+`manifest.json` / `CHANGELOG.md` / `README.md` / `/commands` bookkeeping, the company path, the
+Codex host-name fence, the release-tag step, and every `PRINCIPLES.md` citation.
+
+**One structural change to the Forge copy.** The destination question moved out of the numbered
+process into a fenced `## Destination` section referenced from step 1, so neither build ends up
+with a gap in its step numbering. The bookkeeping items in *After Writing Files* were reordered for
+the same reason — confirm and remind now precede the registry updates. Nothing else about Forge's
+behaviour changes.
+
+`RESERVED-NAMES.md` and `CRAFT.md` were reworded to state their generic content generically —
+"a skill", not "a Forge skill" — with the framework-specific citations fenced rather than deleted.
+The Forge reader loses nothing.
+
+Build verified: 66 skills shipping, 0 surviving framework mentions, 0 dangling references.
+
+**Codex plugin build unblocked, and the Codex-native `write-a-skill` override reviewed.**
+
+`/idea-ai` (v4.10.0) cited the requirements pack in the same forms `/write-ord` and `/write-prd`
+use, but was never added to `$SelfContainedSkills` in `tools/build-forge-codex.ps1`. Its pack was
+therefore never copied to `skills/idea-ai/standards/` and none of the three repointer forms ran
+against it, so seven citations survived to the reference check and failed the build. One line
+registers it; no skill prose changed. The build had not completed since before v4.10.0.
+
+**A correction to the record:** the failure was reported as leaving the plugin tree
+half-regenerated, with ~97 files differing. It did not. The reference check runs after all copying,
+and the build is deterministic and idempotent — only 6 files actually differed from the committed
+tree.
+
+The v4.10.1 restructure above moved write-a-skill's shared source, which tripped the Codex-native
+override review gate. Reviewed and changed: the new rule *"the destination sets `standalone:` —
+never put both questions to the author"* was violated by the override, which asked destination in
+its intro and `standalone:` again at step 3. Its Forge bullet is now split into Forge and
+Standalone so destination is determinative, the redundant step is gone, and six missing Failure
+Modes rows were added — including host-name falsification, which the override's own checklist
+demanded but never named.
+
+`RESERVED-NAMES.md` and `CRAFT.md` stay frozen deliberately. Diffed against a clean-room
+adaptation: the v4.10.1 changes to them were purely standalone-fencing — no reserved name added or
+removed, no stamp date change. Regenerating `RESERVED-NAMES.md` would produce "Names Codex already
+claims" and "Run `Codex --version`" for a Claude Code list.
+
+**The refreshed hash is branch-coupled.** `A67A022…` matches the v4.10.1 text only; at `main` the
+source still hashes to `13CDC30…`. The stamp is correct on this branch and would fail parity on
+`main` until v4.10.1 lands there.
+
+---
+
 ## v4.10.0 — 2026-09-16
 
 **`/idea-ai` — an evidence-led reviewer for AI proposals.**

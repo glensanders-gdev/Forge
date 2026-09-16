@@ -3,8 +3,7 @@
 Names Claude Code already claims. A skill given one of these names is **shadowed** — the
 vendor's command runs and the skill never loads, with no error to explain the absence.
 
-Cited by `/write-a-skill` at authoring time.<!--forge-only--> `/skill-health` reads the same list
-for the portfolio audit. One copy, two readers — per PRINCIPLE 6, neither restates it.<!--/forge-only-->
+Cited by `/write-a-skill` at authoring time.
 
 ---
 
@@ -15,7 +14,7 @@ for the portfolio audit. One copy, two readers — per PRINCIPLE 6, neither rest
 | **Last verified** | 2026-08-22 |
 | **Claude Code version** | **Not determined** — see below |
 | **Verified by** | Session-environment inspection (bundled skills) + recall (slash commands) |
-| **Staleness threshold** | 30 days<!--forge-only-->, set by `Forge staleness warning (days)` in `preferences.md`<!--/forge-only--> |
+| **Staleness threshold** | 30 days |
 
 The version could not be captured: `claude` was not on `PATH` in the session that produced this
 stamp, so `claude --version` returned nothing. **The next refresh must fill this in** — an undated
@@ -39,7 +38,7 @@ Two consequences, both deliberate:
 ## Refresh Procedure
 
 Run this whenever the stamp is older than the staleness threshold, before a batch of new skills,
-or after a Claude Code upgrade.<!--forge-only--> `/skill-health` flags the stale stamp for you.<!--/forge-only-->
+or after a Claude Code upgrade.
 
 1. **Capture the version.** Run `claude --version` in a terminal where the CLI is installed, or
    read it from the app's status panel. Record it in the stamp — never leave it blank twice.
@@ -50,8 +49,7 @@ or after a Claude Code upgrade.<!--forge-only--> `/skill-health` flags the stale
 4. **Diff against this file.** Add new names, and move withdrawn ones to Withdrawn with the date.
    Never delete a row outright — a name that stops being reserved may return.
 5. **Re-run the collision check.** Compare the refreshed list against every skill installed and
-   report any that has become shadowed since the last audit.<!--forge-only--> `/skill-health` does
-   this against `manifest.json`.<!--/forge-only-->
+   report any that has become shadowed since the last audit.
 6. **Update the stamp** — date, version, and how it was verified.
 
 ---
@@ -156,7 +154,7 @@ existing skill name — a collision here costs a major version and breaks every 
 | `teach` | Short generic verb carrying no distinguishing signal |
 
 One name per row, always — a scan reads the first column, and a cell holding two names drops
-the second silently.<!--forge-only--> `/skill-health` is that scan.<!--/forge-only-->
+the second silently.
 
 Renaming pre-emptively is **not** the recommendation — churn is its own cost, and the At Risk list
 is a watch list, not a work list. Check it at each refresh.
@@ -172,8 +170,7 @@ Collisions already steered around. Recorded so a later tidy-up does not walk bac
 | `review-diff` | `code-review`, `review` | Both reserved. Names the pinned diff it reviews |
 | `pickup` | `continue` | Reserved. Pairs with `/handoff` |
 | `security-assessment` | `security-review` | Bundled skill name. The `*-review` family stops short of this one on purpose |
-| `context-health` | `context` | Near-miss only — distinct names, no collision. Keep the suffix |<!--forge-only-->
-| `init-forge` | `init` | Reserved as both a built-in and a bundled skill |<!--/forge-only-->
+| `context-health` | `context` | Near-miss only — distinct names, no collision. Keep the suffix |
 
 ---
 

@@ -1,6 +1,6 @@
 ---
 name: "write-a-skill"
-description: "Create new Forge, company, repository, or user skills with proper structure, correct file locations, and updated manifest. Use when user wants to create, write, or add a new skill, or mentions $write-a-skill."
+description: "Create new Forge, standalone, repository, user, or company skills with proper structure, correct file locations, and updated manifest. Use when user wants to create, write, or add a new skill, or mentions $write-a-skill."
 metadata:
   category: framework
   origin: Adapted from Glen Sanders (Forge / https://github.com/glensanders-gdev/Forge)
@@ -10,12 +10,22 @@ metadata:
 
 Create or update a skill without confusing Forge's canonical source, its generated Codex plugin, and normal Codex discovery locations.
 
-- **Forge framework skill:** author `global/.claude/skills/[name]/`, then generate `plugins/forge-codex/skills/[name]/`. Keep a separate reviewed Codex copy when runtime behavior differs.
-- **Repository Codex skill:** use `.agents/skills/[name]/SKILL.md`.
-- **User Codex skill:** use `~/.agents/skills/[name]/SKILL.md`.
+**Confirm the destination — ask, do not guess.** It settles where the files land, which
+registries are updated, whether the text becomes public, and the `standalone:` value. Put it to
+the author plainly: *"Is this a Forge skill, a standalone skill, a repository or user Codex skill,
+or a company skill?"*
+
+- **Forge framework skill:** author `global/.claude/skills/[name]/` with `standalone: false` — it reads or writes Forge's document estate, sprint state or company config. Then generate `plugins/forge-codex/skills/[name]/`; keep a separate reviewed Codex copy when runtime behavior differs.
+- **Standalone skill:** the same location and the same generated copy, with `standalone: true` — it is useful to someone with no kanban, no sprint and no knowledge base, just a coding agent and a repository. **`true` means public:** the text, including its examples and failure modes, is published under the author's name to a repository anyone can read. Say so when asking — an author who knows that writes differently. Unsure between this and Forge? Take Forge.
+- **Repository Codex skill:** use `.agents/skills/[name]/SKILL.md`. No `standalone:` key — it is not part of the Forge registry the standalone build reads.
+- **User Codex skill:** use `~/.agents/skills/[name]/SKILL.md`. No `standalone:` key, as above.
 - **Company skill:** author it in the company repo under `.claude/skills/[name]/SKILL.md`, which `add-company` installs. The Codex-side discovery location for company skills is undefined — `add-company` scaffolds `~/.codex/forge/companies/[name]/` but says nothing about skills. Settle it there before writing one; do not invent a path here.
 
-Confirm which of these four the author means before scaffolding. Never infer it from the skill's topic — a skill can be entirely about code and still be company-private.
+**The destination sets `standalone:` — never put both questions to the author.** The key is
+mandatory in `global/.claude/skills/`: the standalone build refuses to run when any skill lacks
+it, so one unanswered question blocks the distribution for every other skill. Never infer the
+destination from the skill's topic — a skill can be entirely about code and still be
+company-private.
 
 > **Writing well** — this file covers *structure* (which files, what to update). For the
 > *craft* of the prose inside them — **leading words**, checkable **completion criteria**,
@@ -45,32 +55,17 @@ Confirm which of these four the author means before scaffolding. Never infer it 
 
    A hit in the At Risk table is not a block. Say so and continue.
 
-3. **Decide `standalone:` — Forge framework skills only, and ask rather than guess.** A subset
-   of Forge skills is published to a public repository for people running neither Forge nor this
-   plugin. The key is mandatory in `global/.claude/skills/`: the standalone build refuses to run
-   when any skill lacks it, so an unanswered question blocks the distribution for every skill.
-
-   Put it to the author plainly: *"Does this skill do something useful for someone with no kanban,
-   no sprint, no knowledge base — just a coding agent and a repository?"* Yes → `standalone: true`;
-   it reads or writes Forge's document estate, sprint state or company config → `standalone: false`.
-
-   **`true` means public** — the skill's text is published under the author's name to a repository
-   anyone can read. Where the answer is genuinely unclear, set `false`.
-
-   A repository-only or user-only Codex skill under `.agents/skills/` needs no `standalone:` key;
-   it is not part of the Forge registry the standalone build reads.
-
-4. **Draft the skill** — create:
+3. **Draft the skill** — create:
    - `SKILL.md` with concise instructions — target under 100 lines; if workflow logic exceeds this, extract supporting content (reference tables, templates, examples, scripts) to additional files (`REFERENCE.md`, `FORMATS.md`, `scripts/`, etc.)
    - Additional files for any content that would push `SKILL.md` over 100 lines or has a distinct domain
    - No Codex command stub; Codex discovers `SKILL.md` directly
 
-5. **Review with user** — present the draft and ask:
+4. **Review with user** — present the draft and ask:
    - Does this cover your use cases?
    - Anything missing or unclear?
    - Should any section be more or less detailed?
 
-6. **Write the files** — once confirmed, create all files and update the manifest.
+5. **Write the files** — once confirmed, create all files and update the manifest.
 
 ## File Structure
 
@@ -91,7 +86,7 @@ plugins/forge-codex/skills/[skill-name]/  ← generated or reviewed Codex adapta
 ---
 name: skill-name
 category: [pipeline|ideation|session|code-quality|knowledge|metrics|pi-release|sprint|maintenance|company|framework]
-standalone: [true|false]   # Forge framework skills only
+standalone: [true|false]   # Forge and standalone skills only
 description: What this skill does. Use when [specific triggers].
 ---
 
@@ -162,7 +157,8 @@ Split into separate files when:
 Before finalising, verify:
 - [ ] Read `global/.claude/PRINCIPLES.md` — does this skill follow the 8 design principles?
 - [ ] Read [CRAFT.md](CRAFT.md) — description front-loads a **leading word**, every step has a **checkable completion criterion**, and the prose survives the **no-op test** (no line that changes nothing versus the agent's default)
-- [ ] For a Forge framework skill, `standalone:` set to `true` or `false` — asked of the author, never inferred; the standalone build fails without it
+- [ ] **Destination confirmed** — Forge, standalone, repository, user, or company; put to the author, never inferred from the skill's topic
+- [ ] For a Forge or standalone skill, `standalone:` set to `true` or `false` — derived from the confirmed destination, never asked as a second question; the standalone build fails without it
 - [ ] `category:` field set — valid values: `pipeline`, `ideation`, `session`, `code-quality`, `knowledge`, `metrics`, `pi-release`, `sprint`, `maintenance`, `company`, `framework`
 - [ ] Description includes "Use when [triggers]"
 - [ ] **If adapting from an external source** — use `assimilate` instead. It handles attribution, fit evaluation, and adaptation automatically.
@@ -191,4 +187,10 @@ When the skill you just wrote misbehaves, the cause is usually one of these. Ful
 | Skill is too long though every line is live | **Sprawl** — disclose tier-3 reference behind context pointers in a sibling file |
 | A line that changes nothing versus the agent's default | **No-op** — delete it, or replace a weak leading word with a stronger one |
 | A "never" rule that's really steering intended behaviour | **Negation** — reframe as a positive leading word; keep "never" only for guardrails on consequential/irreversible actions |
+| Skill was authored and never loads, with no error | **Shadowed name** — a vendor command won it. Check [RESERVED-NAMES.md](RESERVED-NAMES.md); a rename is a major version, and no stub or alias survives at the old name |
+| Proposed name matches a Reserved row | Stop and gate — offer a rename, or a typed `CONFIRM` to proceed. Never decide it alone |
+| Reserved list stamp is older than the staleness threshold | Say so at the point of the check, run the refresh procedure in [RESERVED-NAMES.md](RESERVED-NAMES.md), then check the name |
+| `SKILL.md` frontmatter has a `version:` field | Delete the line, whatever it says. Never reconcile it against the manifest instead — that keeps the second source of truth alive |
+| Destination inferred from the skill's topic | Ask. A skill can be entirely about code and still be company-private |
 | Source is an external skill/article | Stop — use `assimilate`, which handles fit evaluation and attribution |
+| Generated Codex copy states something untrue about its host | **Host-name falsification** — an unfenced product name was rewritten by the build; fence the span at source and rerun `tools/build-forge-codex.ps1` |

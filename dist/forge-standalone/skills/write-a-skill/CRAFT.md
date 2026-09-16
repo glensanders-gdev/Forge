@@ -11,8 +11,7 @@ The mechanics of *good* skill prose — distinct from `SKILL.md`'s structural ch
 the words inside them work.
 
 Adapted from Matt Pocock's "Writing Great Skills" (github.com/mattpocock/skills), with a
-negative-space and failure-mode lens added.<!--forge-only--> Forge already credits Pocock in
-`~/.claude/PRINCIPLES.md`; this file translates his craft guidance into Forge conventions.<!--/forge-only-->
+negative-space and failure-mode lens added.
 
 ---
 
@@ -22,8 +21,7 @@ A good skill makes the agent follow the **same process every run** — not produ
 output, but take the same disciplined path. Every technique below serves predictability.
 When two pieces of advice conflict, pick the one that makes behaviour more repeatable.
 
-The process is the protection.<!--forge-only--> Same instinct as Forge's PRINCIPLE 5
-(*Structure Is the Default*).<!--/forge-only-->
+The process is the protection.
 
 ---
 
@@ -72,8 +70,7 @@ not the target file — decides when and how reliably the agent reaches it. Writ
 to name the condition: "When adapting from an external source, read CRAFT.md", not "see CRAFT.md".
 
 **Co-locate**: keep a concept's definition, its rules, and its caveats under one heading so
-the agent meets them together.<!--forge-only--> This is Forge PRINCIPLE 6 (*Reference, Don't
-Duplicate*) applied at paragraph scale.<!--/forge-only-->
+the agent meets them together.
 
 ---
 
@@ -105,8 +102,7 @@ command file (user-invokable), so the choice never arises. But the tradeoff stil
 - The `description` is paid for on *every* turn — prune it harder than the body. One trigger
   per genuine branch; collapse synonyms that just rename the same branch.
 - Answer cognitive load with a **router** — one index of every command a human can reach —
-  rather than by inflating individual descriptions to make a skill easier to stumble on.<!--forge-only-->
-  Forge's router already exists: `/commands` (the `commands` skill).<!--/forge-only-->
+  rather than by inflating individual descriptions to make a skill easier to stumble on.
 
 ---
 
