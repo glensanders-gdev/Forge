@@ -1,17 +1,13 @@
 ---
-name: "ingest"
-description: "Compile unprocessed Raw/ items into the Wiki, then archive each compiled source under Raw/_archive/YYYY-MM/ so the top of Raw/ stays an inbox. Handles three intake modes — files already in Raw/, uploaded files, and pasted text. Prompts for scope when none is given; use --all to process every Raw/ folder. Use when user runs $ingest, drops files into Raw/, uploads a file in session, or pastes content to be added to the knowledge base."
-metadata:
-  category: knowledge
-  origin: Adapted from Glen Sanders (Forge / https://github.com/glensanders-gdev/Forge)
+name: ingest
+category: knowledge
+description: Compile unprocessed Raw/ items into the Wiki, then archive each compiled source under Raw/_archive/YYYY-MM/ so the top of Raw/ stays an inbox. Handles three intake modes — files already in Raw/, uploaded files, and pasted text. Prompts for scope when none is given; use --all to process every Raw/ folder. Use when user runs /ingest, drops files into Raw/, uploads a file in session, or pastes content to be added to the knowledge base.
 ---
 
 # Ingest
 
 **Execution mode:** `[HITL]` — every prompt in the pipeline waits for a human answer.
 Everything between them is `[AFK]`.
-
-> **Company-aware:** When `active_company` is set in `~/.codex/forge/preferences.md` (configured by `$add-company`), all Raw/ and Wiki/ paths resolve under `~/.codex/forge/companies/[active_company]/knowledge/` instead of `~/.codex/forge/knowledge/`.
 
 Compile unprocessed source material into the Wiki. Raw is always the origin — all intake
 modes save to `Raw/` first, then flow through the same pipeline.
@@ -20,7 +16,7 @@ modes save to `Raw/` first, then flow through the same pipeline.
 
 ## Folder Layout
 
-A knowledge space is three tiers. `$ingest` reads the first and writes the second.
+A knowledge space is three tiers. `/ingest` reads the first and writes the second.
 
 ```
 [knowledge-root]/
@@ -34,8 +30,6 @@ A knowledge space is three tiers. `$ingest` reads the first and writes the secon
   Outputs/
 ```
 
-The knowledge root is `~/.codex/forge/knowledge/`, or a `systems/[name]/` or `projects/[name]/`
-folder beneath it. `$add-system` and `$add-project` scaffold the three tiers.
 Where no knowledge root exists yet, create `knowledge/Raw/` and `knowledge/Wiki/` at the
 repository root and carry on — an empty `_compiled.log` is a valid starting state.
 
@@ -52,7 +46,7 @@ the archive is rebuilt to match.
 ## Intake Modes
 
 ### Mode 1 — Raw/ folder (default)
-Material already exists in `Raw/`. Run `$ingest` to process anything at the **top level** of
+Material already exists in `Raw/`. Run `/ingest` to process anything at the **top level** of
 `Raw/` not yet logged as `compiled`. A `failed:` line does not count — a failed item is still
 pending, which is what makes the automatic retry work. Never descend into `_archive/` when scanning.
 Before processing: run the scope prompt (see Scope section) to determine which `Raw/` folder to scan.
@@ -77,18 +71,18 @@ User pastes text content into the session. Before processing:
 
 | Invocation | Scope |
 |---|---|
-| `$ingest` | Run scope prompt (see below) |
-| `$ingest --all` | Every `Raw/` folder in the knowledge base |
-| `$ingest [system-name]` | Named system only |
-| `$ingest projects/[name]` | Named project only |
-| `$ingest --global` | Top-level `knowledge/Raw/` only |
-| `$ingest --recompile [filename]` | One already-archived source, read in place (see Re-compiling an Archived Source) |
+| `/ingest` | Run scope prompt (see below) |
+| `/ingest --all` | Every `Raw/` folder in the knowledge base |
+| `/ingest [system-name]` | Named system only |
+| `/ingest projects/[name]` | Named project only |
+| `/ingest --global` | Top-level `knowledge/Raw/` only |
+| `/ingest --recompile [filename]` | One already-archived source, read in place (see Re-compiling an Archived Source) |
 
 ### Scope Prompt (no flag or name provided)
 
 When no scope is specified, run the following before doing anything else:
 
-1. Collect the candidate spaces. Read `~/.codex/forge/registry.md` and collect all active projects (PROJ-NNN rows with status Active).
+1. Collect the candidate spaces.
 2. **No candidates found:** default silently to the top-level knowledge root and show:
    ```
    ℹ️ No projects registered — ingesting to global Raw/.
@@ -148,11 +142,7 @@ For each item at the top level of `Raw/` not yet logged as `compiled`:
    sub-category's `Wiki/` folder. If `top` is chosen, route to `technology/Wiki/` and
    note `⚠️ No sub-category assigned` in the compile log for later review.
 5. **Check for cross-system scope** — if the concept requires two or more system names to
-   explain, it belongs in the top-level `Wiki/`. Check `cross_system_gate` in
-   `~/.codex/forge/preferences.md`:
-   - `open` (or missing) → pause and confirm with the human before creating the article;
-     write `cross_system_gate: confirmed` to `preferences.md` on approval
-   - `confirmed` → proceed without confirmation
+   explain, it belongs in the top-level `Wiki/`.
 6. **Create or update** the relevant concept article(s) in the appropriate `Wiki/`
 7. **Add backlinks** from the concept article to the Raw source, at the source's
    **archive path** — never its top-level path, which stops resolving at step 9.
@@ -197,7 +187,6 @@ After all items:
     - Cross-system articles created (if any)
     - Failures (with reasons), still in the inbox
     - Items remaining in the inbox
-    - Reminder to run `$knowledge-health` if failure count > 0
 
 ---
 
@@ -205,7 +194,7 @@ After all items:
 
 - Never stop mid-batch on a single failure — log it and continue
 - Failed items appear in `_compiled.log` as `failed: [reason]` and stay at the top level of `Raw/`
-- On the next `$ingest` run, failed items are retried automatically
+- On the next `/ingest` run, failed items are retried automatically
 - If the same item fails twice, flag it in the summary for human review
 
 ---
@@ -217,11 +206,11 @@ first, then into a module extraction weeks later. Archiving must not make that s
 impossible, and the inbox scan will never find the file again, so it is an explicit invocation:
 
 ```
-$ingest --recompile 2026-07-10_sfaa-wba-operations-manual-20260601.pdf
+/ingest --recompile 2026-07-10_sfaa-wba-operations-manual-20260601.pdf
 ```
 
 1. Locate the source under `_archive/` via its earliest `compiled` line. If it has no
-   `compiled` line, it is not archived — refuse, and say to run plain `$ingest` instead.
+   `compiled` line, it is not archived — refuse, and say to run plain `/ingest` instead.
 2. **Read it in place.** The file does not move, is not copied, and is not re-dated.
 3. Run pipeline steps 1–8 against it. Step 7 resolves the backlink to the source's existing
    archive month, which is its earliest — never today's.
@@ -258,21 +247,6 @@ reconstruct, and a guess written into the archive is worse than a gap that is vi
 
 ---
 
-## Company Sync
-
-After a successful compile run, if `active_company` is set and a company git remote is
-configured, offer to push the new Wiki articles to the team:
-
-```
-✅ Ingest complete — N articles created/updated, N archived.
-
-   Share with your team? Run $sync-company --push-only
-```
-
-Do not run `$sync-company` automatically — always offer and let the user decide.
-
----
-
 ## Rules
 
 - Raw is always the origin — never compile content that hasn't been saved to `Raw/` first
@@ -304,7 +278,7 @@ Do not run `$sync-company` automatically — always offer and let the user decid
 | No scope flag and no candidate spaces | Default silently to the top-level `Raw/` and proceed. |
 | Content not yet in `Raw/` | Save it to `Raw/` first — never compile unsaved content. |
 | Item is feedback content | Route to `customer-feedback.md` / `stakeholder-feedback.md` — don't create a concept article. |
-| Concept spans 2+ systems | It belongs in the top-level `Wiki/` — confirm via `cross_system_gate` before creating. |
+| Concept spans 2+ systems | It belongs in the top-level `Wiki/`. |
 | A single item fails to compile | Log `failed: [reason]`, leave it in the inbox, and continue — never stop mid-batch. |
 | Same item fails twice | Flag it in the summary for human review. |
 | `_archive/YYYY-MM/` does not exist | Create it on first use — never scaffold empty month folders ahead of time. |
@@ -313,8 +287,7 @@ Do not run `$sync-company` automatically — always offer and let the user decid
 | Logged as `compiled` but the file is gone | Report a broken provenance link — the Wiki backlink is dead and only the human can decide what replaces it. |
 | One source with several `compiled` lines | One file, one move, filed under the earliest compile month. |
 | Source needs compiling into a further article | Use `--recompile [filename]` — the inbox scan cannot reach an archived file. |
-| `--recompile` names a file with no `compiled` line | Refuse — it is not archived. Run plain `$ingest` instead. |
+| `--recompile` names a file with no `compiled` line | Refuse — it is not archived. Run plain `/ingest` instead. |
 | Article sits in a sub-category `Wiki/` | Count the levels to the owning `Raw/` — the backlink is never a fixed `../`. |
 | Item logged `failed:` only | Still pending — the scan picks it up, because only a `compiled` line marks an item done. |
 | Log line names a parenthetical note, not a file | Skip it — the compile had no source file by design. |
-| `active_company` set with a git remote | Offer `$sync-company --push-only` after the run — never push automatically. |

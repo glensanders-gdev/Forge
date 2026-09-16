@@ -11,6 +11,67 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
+## v4.11.0 — 2026-09-16
+
+**`Raw/` is now an inbox, not a dump — `$ingest` archives each compiled source.**
+
+Compiled sources move to `Raw/_archive/YYYY-MM/`, filed by compile month. What remains at the
+top level of `Raw/` is exactly the pending queue, which is also what `$ingest` and
+`$knowledge-health` scan — neither ever descends into `_archive/`.
+
+**The archive is derived, never authoritative.** Every archived file's location is recoverable
+from the date column of its `_compiled.log` line, so the log format is unchanged and
+`$add-project` and `$add-system` needed no edit. If the two disagree, the log wins.
+
+**Ordering is load-bearing.** Write the article, write the backlink at the archive path, append
+`_compiled.log`, *then* move. A crash between the last two leaves a file logged but unarchived —
+detectable and fixed by one move. Moving first would leave a file archived but unlogged, which
+no later scan would ever see again. Failed items are never archived; they stay in the inbox so
+the automatic retry still finds them.
+
+Two rules came out of migrating the existing corpus. A source compiled into three articles
+carries three `compiled` lines but is still one file — it moves once, under its **earliest**
+compile month. And a log line whose filename field is a parenthetical note
+(`(direct session research)`) records a compile that never had a source file; reconciliation
+skips it rather than reporting a missing file that was never expected.
+
+**`$knowledge-health` gains an archive integrity check** reporting three classes separately —
+*unarchived*, *unlogged*, *missing source*. It reports and never repairs: the skill is read-only
+throughout, and the one mechanically repairable class routes to `$ingest` § Archive Reconciliation.
+
+**Migration applied:** 18 sources archived across 7 knowledge spaces, 65 backlinks rewritten in
+55 files. Reconciliation is clean — 0 unarchived, 0 unlogged, 0 missing sources.
+
+**An archived source is still re-compilable.** A 250-page manual compiled into an overview in
+July and a module extraction in September is the real pattern in `nbn/legal`, and the inbox scan
+can never reach an archived file. `$ingest --recompile [filename]` reads the source in place —
+it does not move, copy or re-date it — and writes a new `compiled` line dated today. The log
+records when each article was written; the archive records when the source arrived.
+
+Three corrections fell out of that. Step 7 now **resolves the backlink month by lookup**, using
+the source's earliest `compiled` line rather than today's date — dating it from today would have
+pointed every re-compile's backlink at a month the file was not in. Step 9 leaves an
+already-archived source where it is. And the backlink path is **counted to the owning space**,
+not written as a fixed `../Raw/` — `technology/HFC/hardware/Wiki/` is three levels up, and the
+fixed form was wrong for every sub-category wiki.
+
+**An item is pending until it is logged `compiled`.** Both skills scanned for items "not in
+`_compiled.log`", which silently included the `failed:` lines — so under the old predicate a
+failure was never retried. The predicate is now `compiled` specifically, in the `$ingest` scan
+and in the `$knowledge-health` orphan check.
+
+**`$knowledge-health` cites the reconciliation rule rather than restating it.** The three
+mismatch classes are defined once, in `$ingest` § Archive Reconciliation. Two copies of the same
+table in independently editable files is the drift this framework exists to prevent.
+
+**`$ingest` now ships in the public distribution.** Flipped to `standalone: true` with eight
+`` fences. The standalone reader gets the three intake modes, the pipeline, the
+archive discipline and the reconciliation table, against a `knowledge/` root at the repository
+root. Held: the company-aware path resolution, the registry-driven scope prompt, the
+`cross_system_gate`, the company sync offer, and the `$knowledge-health` reminder.
+
+---
+
 ## v4.10.1 — 2026-09-16
 
 **`$write-a-skill` now ships in the public distribution.**

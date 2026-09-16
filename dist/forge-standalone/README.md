@@ -1,6 +1,6 @@
 # Skills
 
-66 skills for [Claude Code](https://claude.com/claude-code) — practical, self-contained
+67 skills for [Claude Code](https://claude.com/claude-code) — practical, self-contained
 workflows for getting real work done with an AI assistant.
 
 They cover the parts of software delivery that benefit most from structure: writing
@@ -136,6 +136,7 @@ from `rules/` — the three files are the whole skill, installed or pasted into 
 |---|---|
 | [`/check-style`](skills/check-style/SKILL.md) | Review any deliverable against the company style guide in ~/.claude/knowledge/company/style-guide.md. Produces a findings report with CRITICAL, HIGH,… |
 | [`/ia`](skills/ia/SKILL.md) | Impact assessment for a proposed change — searches all knowledge sources, conducts a full grill-with-docs session to sharpen the change, then produces… |
+| [`/ingest`](skills/ingest/SKILL.md) | Compile unprocessed Raw/ items into the Wiki, then archive each compiled source under Raw/_archive/YYYY-MM/ so the top of Raw/ stays an inbox. Handles… |
 | [`/teach`](skills/teach/SKILL.md) | Teach a subject across multiple sessions, grounded in the learner's real mission. Curates trusted resources, delivers short HTML lessons pitched at th… |
 | [`/update-context`](skills/update-context/SKILL.md) | Review the current session and flush new terms, decisions, and system behaviour into CONTEXT.md and relevant knowledge files. Use when user runs /upda… |
 
@@ -176,7 +177,7 @@ These files are generated, so edits made directly here are overwritten on the ne
 release. Open an issue describing what needs changing and it will be fixed upstream
 and republished.
 
-Release 4.10.1.
+Release 4.11.0.
 
 ## Credits
 

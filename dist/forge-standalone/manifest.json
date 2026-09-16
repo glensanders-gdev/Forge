@@ -1,7 +1,7 @@
 {
   "repository": "https://github.com/glensanders-gdev/skills",
-  "version": "4.10.1",
-  "skill_count": 66,
+  "version": "4.11.0",
+  "skill_count": 67,
   "skills": [
     {
       "name": "accessibility",
@@ -164,6 +164,12 @@
       "version": "1.0.0",
       "category": "pi-release",
       "description": "Manage the full lifecycle of a production incident — declare, investigate, resolve, and write a post-mortem. Coordinates /diagnose and /rollback as sub-steps. Records at ~/.claude/companies/[active_company]/incidents/INC-NNN/. Drafts stakeholder communications at each stage. Use when user runs /incident, a production issue is detected, or /rollback is triggered without a prior incident."
+    },
+    {
+      "name": "ingest",
+      "version": "2.0.0",
+      "category": "knowledge",
+      "description": "Compile unprocessed Raw/ items into the Wiki, then archive each compiled source under Raw/_archive/YYYY-MM/ so the top of Raw/ stays an inbox. Handles three intake modes — files already in Raw/, uploaded files, and pasted text. Prompts for scope when none is given; use --all to process every Raw/ folder. Use when user runs /ingest, drops files into Raw/, uploads a file in session, or pastes content to be added to the knowledge base."
     },
     {
       "name": "intent-layers",

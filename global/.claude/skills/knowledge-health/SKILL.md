@@ -32,8 +32,15 @@ Read `~/.claude/knowledge/health-report.md` if it exists — extract last check 
 
 For each knowledge space (global, each system in `systems/`, each project in `projects/`):
 
-- **Raw orphans** — read `Raw/_compiled.log`; identify any Raw files not listed as `compiled`.
+- **Raw orphans** — read `Raw/_compiled.log`; identify any file at the **top level** of `Raw/`
+  not logged as `compiled`. A `failed:` line does not clear an item — it is still pending, and
+  still an orphan if it has sat there long enough. Never descend into `Raw/_archive/`:
+  everything filed there is compiled by definition, and counting it would flag the whole corpus.
   Flag as orphans if older than 7 days (recently added files get a grace period).
+- **Archive integrity** — apply the check defined in `/ingest` § Archive Reconciliation, which
+  owns the expected-location rule, the three mismatch classes (*unarchived*, *unlogged*,
+  *missing source*) and what each one means. Record the classes separately and report the
+  counts; this skill adds no definition of its own.
 - **Wiki conflicts** — scan all `.md` files in `Wiki/` for `conflict: true` in frontmatter.
   Collect title, `conflict_sources`, and `last_updated` for each.
 - **Stale Outputs** — list files in `Outputs/` older than `outputs_ttl_days` from
@@ -134,6 +141,18 @@ Calculate and present at the top of the report:
 | global | 2026-04-10_some-article.md | 44 days |
 
 → Run /ingest [space] to compile.
+
+### Archive Integrity (Raw/_compiled.log vs Raw/_archive/)
+| Space | File | Class | Cited by |
+|-------|------|-------|----------|
+| nbn/legal | 2026-08-02_contract-note.pdf | Unarchived | — |
+| projects/my-project | 2026-05-11_notes.md | Unlogged | — |
+| systems/legacy-crm | 2026-03-04_schema-dump.txt | Missing source | `wba-head-terms.md` |
+
+→ Report only — this check never moves a file. Repair belongs to `/ingest` § Archive
+   Reconciliation, which also defines which class is repairable. Suggest running it.
+→ For a *missing source*, name the Wiki articles whose backlinks cite it, so the human can
+   judge whether each article still stands without its source.
 
 ### Stale Outputs (no filed-back Wiki entry, older than TTL)
 | Space | File | Age | Action |
@@ -260,7 +279,8 @@ Consider running /user:knowledge-health before this sprint begins.
 
 ## Rules
 
-- Never modify any file during the health check — read-only throughout
+- Never modify any file during the health check — read-only throughout, including every
+  archive mismatch this check reports
 - Ground all P3 connections in specific file references — no speculation
 - P1 findings are problems to fix — always include a specific skill suggestion
 - P2 findings are risks to assess — always include the specific file conflict
@@ -277,5 +297,7 @@ Consider running /user:knowledge-health before this sprint begins.
 | No active projects | Run health check on global knowledge only |
 | No projects/ folder | Note "No project knowledge base found. Run /add-project to start building." |
 | Previous report missing | Run as first check, show "—" for all change fields |
+| `Raw/_archive/` does not exist | Not a finding — the space has compiled nothing since archiving was introduced. Skip the integrity check for that space. |
+| Archive mismatch found | Report it in all three classes and suggest `/ingest` — never move, create or delete a file to resolve it. |
 | `preferences.md` missing staleness threshold | Default to 90 days |
 | `CLAUDE.md` missing `outputs_ttl_days` | Default to 90 days for stale Outputs check |
