@@ -1,57 +1,57 @@
 # Brain Setup — Formats
 
-Templates written by `$setup-brain`. Replace `[Project Name]` / `[Company]` with real
-values and stamp real dates. Base tier stubs match `$add-project` exactly — a folder
+Templates written by `$setup-brain`. Replace `[Project Name]` and `[Space Name]` with real values
+and stamp real dates. Base space stubs match `$add-project` exactly — a folder
 scaffolded by either skill passes the other's audit.
 
 ---
 
-## `_scope.md` (project knowledge folder root)
+## `_scope.md` (project space root)
 
-The sole source of truth for a project's scope. **A folder without this file is
-company-restricted** — never shared, moved, or compiled into the global tier. Nothing is
-ever written to record restriction; the restricted state is the file's absence.
+The sole source of truth for a project's scope. **A space without this file is restricted** —
+never shared, moved, or compiled into the shared space. Nothing is ever written to record
+restriction; the restricted state is the file's absence.
 
 ```markdown
 # Scope: [Project Name]
 
-scope: personal | company
-company: [company-name, blank for personal]
-merge_on_deploy: [yes for company, no for personal]
+scope: private | shared
+shared_with: [company name, blank for private]
+merge_on_ship: [yes for shared, no for private]
 declared: YYYY-MM-DD
 declared_by: [username]
 ```
 
-- `scope: company` requires `company:` naming an existing `~/.codex/forge/companies/[name]/`
-  and `merge_on_deploy: yes`.
-- `scope: personal` requires `company:` blank and `merge_on_deploy: no`.
+- `scope: shared` requires `merge_on_ship: yes` and `shared_with:` naming an
+  existing `~/.codex/forge/companies/[name]/`.
+- `scope: private` requires `merge_on_ship: no` and `shared_with:` left
+  blank.
 
-## `Wiki/pending-changes.md` (company tier only)
+## `Wiki/pending-changes.md` (shared space only)
 
 ```markdown
-# Pending Changes — [Company]
+# Pending Changes — [Space Name]
 
-Upcoming changes to company knowledge from in-flight company-scoped projects. Add a row
-whenever a change crystallises; set Status to Confirmed once it is certain. Rows are
-resolved only when the project deploys and its Wiki merges into this one (the $deploy
-post-deployment cleanup) — never resolve a row before deployment.
+Upcoming changes to this space's knowledge from in-flight shared projects. Add a row whenever a
+change crystallises; set Status to Confirmed once it is certain. Rows are resolved only when the
+project ships and its Wiki merges into this one — never resolve a row before the project ships.
 
 | Date raised | Project | Change | Status | Resolved |
 |-------------|---------|--------|--------|----------|
 | | | | | |
 ```
 
-- **Status:** `Potential` (might happen) or `Confirmed` (will happen on deploy).
+- **Status:** `Potential` (might happen) or `Confirmed` (will happen when the project ships).
 - **Resolved:** blank while open; on merge, the date plus the Wiki article(s) updated.
 
 ---
 
-## Base tier stubs (create only when missing)
+## Base space stubs (create only when missing)
 
 ### `Raw/_compiled.log`
 
 ```
-# Compiled Log — [Tier or Project Name]
+# Compiled Log — [Space Name]
 # Format: YYYY-MM-DD | filename | compiled | articles updated
 #          YYYY-MM-DD | filename | failed   | reason
 ```
@@ -59,7 +59,7 @@ post-deployment cleanup) — never resolve a row before deployment.
 ### `Wiki/_index.md`
 
 ```markdown
-# [Tier or Project Name] — Wiki Index
+# [Space Name] — Wiki Index
 
 ## Recently Updated
 | Date | Article | Summary |
@@ -70,7 +70,7 @@ post-deployment cleanup) — never resolve a row before deployment.
 ### `Wiki/_changelog.md`
 
 ```markdown
-# Wiki Changelog — [Tier or Project Name]
+# Wiki Changelog — [Space Name]
 
 | Date | Type | Article | Notes |
 |------|------|---------|-------|
