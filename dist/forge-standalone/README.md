@@ -178,7 +178,7 @@ These files are generated, so edits made directly here are overwritten on the ne
 release. Open an issue describing what needs changing and it will be fixed upstream
 and republished.
 
-Release 4.11.0.
+Release 4.12.0.
 
 ## Credits
 
