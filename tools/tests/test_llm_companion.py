@@ -10,6 +10,7 @@ import contextlib
 import hashlib
 import importlib.util
 import io
+import sys
 import tempfile
 import unittest
 from pathlib import Path
@@ -17,6 +18,9 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parents[2]
 SCRIPT = REPO / "global" / ".claude" / "skills" / "write-ord" / "scripts" / "llm_companion.py"
 
+# Importing the script would write __pycache__/ into the skill folder, and the Codex and standalone
+# builds copy a skill folder whole — CI then fails on untracked generated output.
+sys.dont_write_bytecode = True
 _spec = importlib.util.spec_from_file_location("llm_companion", SCRIPT)
 llm = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(llm)
