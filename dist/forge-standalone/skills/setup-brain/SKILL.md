@@ -22,8 +22,9 @@ Set up or audit the second-brain model. Every knowledge space follows the same p
 Where no root space exists yet, create `knowledge/Raw/` and `knowledge/Wiki/` at
 the repository root; a project space is `projects/[name]/` beneath it.
 
-**The shared space** is whichever space a shared project's Wiki merges into — the root
-space.
+**The shared space** is where a shared project's Wiki merges when the project ships. That is the
+root space.
+A private project's Wiki never reaches it.
 
 **Scope** decides whether a project's knowledge ever leaves its own folder. The sole source of
 truth is the `_scope.md` marker in the project space (template in FORMATS.md), and **absence means

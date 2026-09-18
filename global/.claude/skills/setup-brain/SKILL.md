@@ -28,8 +28,9 @@ beneath either. (`systems/` and `learning/` under the root space belong to `/add
 <!--/forge-only-->Where no root space exists yet, create `knowledge/Raw/` and `knowledge/Wiki/` at
 the repository root; a project space is `projects/[name]/` beneath it.
 
-**The shared space** is whichever space a shared project's Wiki merges into — the root
-space<!--forge-only-->, or the company space wherever `active_company` is set<!--/forge-only-->.
+**The shared space** is where a shared project's Wiki merges when the project ships. That is the
+root space<!--forge-only-->, or the company space wherever `active_company` is set<!--/forge-only-->.
+A private project's Wiki never reaches it.
 
 **Scope** decides whether a project's knowledge ever leaves its own folder. The sole source of
 truth is the `_scope.md` marker in the project space (template in FORMATS.md), and **absence means
