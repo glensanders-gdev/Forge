@@ -5,8 +5,8 @@
 > everything below. Editing this file puts it out of step with the pack; regenerate
 > instead.
 
-**Pack version:** v1.13 · **Pack commit:** `ac32d882c846`
-**Generated:** 2026-09-08 · **Content hash:** `581e00b30e5d53b8`
+**Pack version:** v1.14 · **Pack commit:** `3845e97d0a40`
+**Generated:** 2026-09-18 · **Content hash:** `2dc3f2733ecdb6d2`
 
 **Quote the version in every review this extract is used for.**
 A reader needs to know which revision was applied — a verdict, and a document
@@ -867,15 +867,15 @@ labelled values.
 
 | Ref | Ver | Requirement title | Business tolerance | KPP | Status | Owner | Source |
 |---|---|---|---|---|---|---|---|
-| ORD-06 | 1.0 | Restrict rebate parameter changes to authorised roles | A rebate credit is attributable to the appointment record, the attendance evidence and the person or process that applied it, for seven years | | Committed | GM Billing · 2026-07-29 | Records retention policy; consumer contract cl. 14.6 |
-| ORD-07 | 1.0 | Evidence every rebate determination | Contractor attendance data is visible only to the contracting party that submitted it | | Provisional | GM Field Operations | Field services agreement §12 |
+| ORD-06 | 1.0 | Attribute every rebate credit to its evidence | A rebate credit is attributable to the appointment record, the attendance evidence and the person or process that applied it, for seven years | | Committed | GM Billing · 2026-07-29 | Records retention policy; consumer contract cl. 14.6 |
+| ORD-07 | 1.0 | Segregate contractor attendance data by submitting party | Contractor attendance data is visible only to the contracting party that submitted it | | Provisional | GM Field Operations | Field services agreement §12 |
 
 ### 3.4 Compatibility
 
 | Ref | Ver | Requirement title | Business tolerance | KPP | Status | Owner | Source |
 |---|---|---|---|---|---|---|---|
-| ORD-08 | 1.0 | Exchange attendance evidence with the contractor estate | A rebate determination made while an upstream source is unavailable is reconciled without manual intervention once that source returns | | Provisional | GM Billing | INC-5388 |
-| ORD-09 | 1.0 | Preserve rebate treatment for existing customers | Contractor attendance submitted through the existing contractor channel is accepted without change to the contractor's own process | | Assumed | GM Field Operations | Assumption ASM-03 |
+| ORD-08 | 1.0 | Reconcile outage-period determinations without manual intervention | A rebate determination made while an upstream source is unavailable is reconciled without manual intervention once that source returns | | Provisional | GM Billing | INC-5388 |
+| ORD-09 | 1.0 | Accept contractor attendance through the existing channel | Contractor attendance submitted through the existing contractor channel is accepted without change to the contractor's own process | | Assumed | GM Field Operations | Assumption ASM-03 |
 
 ### 3.5 Flexibility
 
@@ -887,22 +887,22 @@ labelled values.
 
 | Ref | Ver | Requirement title | Business tolerance | KPP | Status | Owner | Source |
 |---|---|---|---|---|---|---|---|
-| ORD-11 | 1.0 | Reproduce a historical rebate determination | A rebate not applied is diagnosable by Billing operations to the point of failure, without engineering involvement | | Provisional | GM Billing | INC-5012 post-incident review |
-| ORD-12 | 1.0 | Diagnose a disputed rebate without engineering | The rebate position of any appointment is reportable for a regulatory enquiry within one business day | | Committed | GM Billing · 2026-07-29 | Regulatory Affairs standing requirement |
+| ORD-11 | 1.0 | Diagnose an unapplied rebate without engineering | A rebate not applied is diagnosable by Billing operations to the point of failure, without engineering involvement | | Provisional | GM Billing | INC-5012 post-incident review |
+| ORD-12 | 1.0 | Report any appointment's rebate position for a regulatory enquiry | The rebate position of any appointment is reportable for a regulatory enquiry within one business day | | Committed | GM Billing · 2026-07-29 | Regulatory Affairs standing requirement |
 
 ### 3.7 Interaction Capability
 
 | Ref | Ver | Requirement title | Business tolerance | KPP | Status | Owner | Source |
 |---|---|---|---|---|---|---|---|
 | ORD-13 | 1.0 | Establish rebate position through an existing channel | A customer establishes their rebate position through the channel they already use, without a separate account or a new channel | | Provisional | GM Customer Care | BRD-2026-041 §8 BR-2 |
-| ORD-14 | 1.0 | Handle a rebate query without specialist referral | A customer-care agent reaches competency on rebate handling within one shift | | Assumed | GM Customer Care | Assumption ASM-01 |
+| ORD-14 | 1.0 | Bring care agents to rebate-handling competency | A customer-care agent reaches competency on rebate handling within one shift | | Assumed | GM Customer Care | Assumption ASM-01 |
 
 ### 3.8 Functional Suitability
 
 | Ref | Ver | Requirement title | Business tolerance | KPP | Status | Owner | Source |
 |---|---|---|---|---|---|---|---|
 | ORD-15 | 1.0 | Determine a missed appointment without re-keying | A missed appointment is determinable from data captured during the field job, with no re-keying by a field operative or an agent | | Committed | GM Field Operations · 2026-07-29 | Rebate Design Forum decision |
-| ORD-16 | 1.0 | Reconcile the rebate population before publication | At go-live, rebate determination covers residential installation appointments. Business and assurance appointments are phased | | Committed | GM Customer Care · 2026-07-29 | BRD-2026-041 §7 |
+| ORD-16 | 1.0 | Phase rebate coverage from residential appointments | At go-live, rebate determination covers residential installation appointments. Business and assurance appointments are phased | | Committed | GM Customer Care · 2026-07-29 | BRD-2026-041 §7 |
 
 ### 3.9 Safety
 
@@ -1022,8 +1022,9 @@ All references are to BRD-2026-041. **Every row resolves to an objective**, not 
 requirement — a tolerance tracing only as far as a `BR-` has no funded outcome behind it, and the
 `via` column is what makes that visible rather than assumed.
 
-*The full matrix covers all seventeen requirements. Every requirement traces to a BRD objective
-or carries an explicit orphan-scope flag.*
+*This extract shows five of the seventeen rows; the exemplar does not reproduce the full matrix. In
+a complete ORD every requirement has a row here, tracing to a BRD objective or carrying an explicit
+orphan-scope flag.*
 
 ## Appendix B — Assumption register
 
@@ -1113,15 +1114,20 @@ applies only where the capability ran successfully.
 | SCN-02 | ORD-03 | Sunny Day | **Adverse** | Attendance evidence complete; the appointment was attended, or the customer cancelled inside the qualifying window | No rebate is owed, the determination and the rule version that produced it are recorded, and the reason is available to a care agent handling a dispute |
 | SCN-03 | ORD-03 | Rainy Day | — | Contractor attendance feed unavailable at the determination window | No determination is made, the affected population is held as an exception rather than defaulted either way, and it is re-determined when evidence arrives |
 | SCN-04 | ORD-03 | Edge Case | — | The missed appointment falls on the last day of a billing cycle | The two-cycle obligation runs from the appointment date, not the cycle boundary |
-| SCN-05 | ORD-16 | Sunny Day | Favourable | Source, included, excluded and exception populations reconcile | The figure is publishable |
-| SCN-06 | ORD-16 | Sunny Day | **Adverse** | The populations reconcile and the resulting figure is worse than the prior period | The figure is publishable unchanged. A movement against the objective is a result, never a reconciliation failure, and it is not withheld or adjusted |
-| SCN-07 | ORD-16 | Rainy Day | — | An unresolved variance remains at the publication point | The figure is not represented as reconciled, and publication does not proceed on an unapproved tolerance |
+| SCN-05 | *ORD-NN* | Sunny Day | Favourable | Source, included, excluded and exception populations reconcile | The figure is publishable |
+| SCN-06 | *ORD-NN* | Sunny Day | **Adverse** | The populations reconcile and the resulting figure is worse than the prior period | The figure is publishable unchanged. A movement against the objective is a result, never a reconciliation failure, and it is not withheld or adjusted |
+| SCN-07 | *ORD-NN* | Rainy Day | — | An unresolved variance remains at the publication point | The figure is not represented as reconciled, and publication does not proceed on an unapproved tolerance |
 
 **SCN-02 and SCN-06 are the rows OH-15 exists to force.** Both describe the capability working
 perfectly and returning an unwelcome answer, and both carry an obligation that nothing else in this
-document states. Without them ORD-03 is specified only for the customer who is owed a rebate, and
-ORD-16 only for the month the numbers improve.
+document states. Without them ORD-03 is specified only for the customer who is owed a rebate, and a
+reported figure only for the month the numbers improve.
 
-**The catalogue is not complete.** Seven rows cover three of seventeen requirements; the remainder
-carry Sunny Day rows in the register's own reading and are listed as a declared gap at §3.3, owned
-by the convenor with a confirm-by date of 2026-09-26. Stated rather than presented as coverage.
+**SCN-05 to SCN-07 are illustrative, keyed to `ORD-NN`.** This change carries no requirement over a
+reported figure, so no register row exists for them to examine. They show the Adverse outcome for a
+reconciliation requirement, as Appendix D's illustrative row shows an evaluation instrument, and bind
+nothing here.
+
+**The catalogue is not complete.** Four rows cover one of seventeen requirements; the remainder
+carry Sunny Day rows in the register's own reading and are a declared gap, owned by the convenor
+with a confirm-by date of 2026-09-26. Stated rather than presented as coverage.

@@ -1,6 +1,6 @@
 ---
 name: write-ord
-version: 2.1.0
+version: 2.2.0
 category: pipeline
 description: Synthesize a call transcript, document, conversation context, or structured notes into a compliant demand-side Operational Requirements Document (ORD) — quantified business tolerances organised by ISO/IEC 25010:2023 quality characteristics, with operational objectives, scenarios, business rules and referred requirements. Use when the user runs /write-ord, provides a transcript or document to convert into an ORD, or wants to formalise operational requirements from a conversation.
 ---
@@ -9,6 +9,11 @@ description: Synthesize a call transcript, document, conversation context, or st
 
 Synthesize source material into a structured **demand-side** Operational Requirements Document.
 Runs in two phases with a mandatory confirmation gate between them.
+
+**Two files are written, one reviewed.** The ORD is for its human reviewer; beside it goes an **LLM
+companion**, `docs/ord/[system-name]-ORD.llm.md`, generated from the saved ORD for a language model
+to consume. Run with `--llm-only [ORD path]` **[AFK]** to regenerate the companion from an existing
+ORD without running either phase.
 
 **Demand-side means the ORD states quantified business tolerance and never the technical target that
 satisfies it.** *"Service is restorable within one business day, beyond which obligation X is
@@ -29,6 +34,9 @@ the status taxonomy, the KPP guide and the full ORD template.
 - `reporting.md` — **conditional.** Fires where the change creates,
   alters or retires a measure somebody reports. Supplies the measure definition, the `DAT-NNN`
   schema and the ISO/IEC 25012 data-quality anchor.
+
+- `llm-companion.md` — the form of the LLM companion written beside
+  the ORD in Phase 2.
 
 Apply both trigger tests in Phase 1 — a wrong "no" silently skips a whole ruleset. They are
 independent: a change can fire both, one, or neither.
@@ -311,13 +319,20 @@ Runs after the human confirms the Phase 1 summary. Writes the ORD using the temp
    with no resulting register row as a **coverage gap**. Do not silently resolve either.
 11. **State the document tier** in the header — the weakest `Status` on any KPP-bearing requirement.
 12. Save to `docs/ord/[system-name]-ORD.md`.
-13. Present a coverage summary: sub-characteristics fully / partially specified or listed in §3.10;
+13. **Generate the LLM companion** from the saved ORD by running
+    `python3 scripts/llm_companion.py docs/ord/[system-name]-ORD.md --generator "/write-ord 2.2.0"`,
+    per `llm-companion.md`. It writes `docs/ord/[system-name]-ORD.llm.md` only when every row
+    reconciles and every value arrived verbatim. On a refusal, report the reason; never write the
+    companion by hand instead.
+14. Present a coverage summary: sub-characteristics fully / partially specified or listed in §3.10;
     traceability completeness; the document tier and what would raise it; counts of assumptions,
-    dependencies, referred requirements and open decisions.
+    dependencies, referred requirements and open decisions; and the companion line with its row and
+    record counts.
 
 ### Phase 2 Output
 
 - ORD document at `docs/ord/[system-name]-ORD.md`
+- LLM companion at `docs/ord/[system-name]-ORD.llm.md`
 - Coverage summary in the terminal, including the document tier
 
 ---
@@ -335,6 +350,9 @@ how the two drift. The rules below are write-ord's own.
 
 - Never write the ORD without Phase 1 confirmation — the gate is mandatory.
 - Never ask the user questions during Phase 1 — extract, classify, then present.
+- Never hand the companion to review or sign-off in place of the ORD, and never edit it by hand —
+  when the ORD changes, regenerate it with `--llm-only`. Never save a companion whose rows and
+  records do not reconcile; name the rows missing or duplicated instead.
 - Never read or trace to a PRD — a standalone ORD is a sibling of the PRD. Joint authoring is
   `/write-reqs`.
 - Never skip a conditional trigger test. A wrong "no" silently skips a whole ruleset; both answers
