@@ -11,6 +11,33 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
+## v4.12.0 — 2026-09-18
+
+**`$setup-brain` ships standalone** — 68 skills published, 46 held.
+
+It was held because its tier model assumed Forge's company scaffolding: `active_company`,
+`~/.codex/forge/companies/`, and a gated move that relocates a project folder between tiers. The
+standalone version keeps one root knowledge space plus a space per project, and the property the
+skill exists for survives intact — a project space without `_scope.md` is restricted, and
+`shared` → `private` is refused because the content may already be in git history.
+
+**Standalone, scope governs merge and not location.** There is no second root to move into, so
+the misplacement step and its typed `CONFIRM` are forge-only. In Forge a shared project still
+lives under, and merges into, the company space.
+
+**`$setup-brain` 3.0.0 renames its scope vocabulary**, because a fence removes text and never
+substitutes it, so the base wording had to be the generic one:
+
+| Was | Now |
+|---|---|
+| `scope: personal \| company` | `scope: private \| shared` |
+| `company:` | `shared_with:` (Forge only) |
+| `merge_on_deploy` | `merge_on_ship` |
+
+No migration: no `_scope.md` or `pending-changes.md` existed anywhere when the rename landed.
+
+---
+
 ## v4.11.0 — 2026-09-16
 
 **`Raw/` is now an inbox, not a dump — `$ingest` archives each compiled source.**
