@@ -1,8 +1,7 @@
 # Brain Setup — Formats
 
 Templates written by `/setup-brain`. Replace `[Project Name]` and `[Space Name]` with real values
-and stamp real dates.<!--forge-only--> Base space stubs match `/add-project` exactly — a folder
-scaffolded by either skill passes the other's audit.<!--/forge-only-->
+and stamp real dates.
 
 ---
 
@@ -16,16 +15,13 @@ restriction; the restricted state is the file's absence.
 # Scope: [Project Name]
 
 scope: private | shared
-<!--forge-only-->shared_with: [company name, blank for private]<!--/forge-only-->
 merge_on_ship: [yes for shared, no for private]
 declared: YYYY-MM-DD
 declared_by: [username]
 ```
 
-- `scope: shared` requires `merge_on_ship: yes`<!--forge-only--> and `shared_with:` naming an
-  existing `~/.claude/companies/[name]/`<!--/forge-only-->.
-- `scope: private` requires `merge_on_ship: no`<!--forge-only--> and `shared_with:` left
-  blank<!--/forge-only-->.
+- `scope: shared` requires `merge_on_ship: yes`.
+- `scope: private` requires `merge_on_ship: no`.
 
 ## `Wiki/pending-changes.md` (shared space only)
 

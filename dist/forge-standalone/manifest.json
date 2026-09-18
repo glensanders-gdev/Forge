@@ -1,7 +1,7 @@
 {
   "repository": "https://github.com/glensanders-gdev/skills",
   "version": "4.11.0",
-  "skill_count": 67,
+  "skill_count": 68,
   "skills": [
     {
       "name": "accessibility",
@@ -284,6 +284,12 @@
       "version": "1.0.0",
       "category": "code-quality",
       "description": "SEO audit and remediation planning — technical SEO (crawlability, canonical, redirects), on-page (titles, meta, headings), structured data (JSON-LD), Core Web Vitals, and content quality. Reads source files directly, ranks findings by severity, confirms remediation scope, writes a dated report, and optionally creates kanban tickets. Use when user runs /seo, before a major release, or when SEO regressions are suspected."
+    },
+    {
+      "name": "setup-brain",
+      "version": "3.0.0",
+      "category": "knowledge",
+      "description": "Scaffold and audit the Karpathy second-brain knowledge model — a root knowledge space plus one space per project, each with Raw/ and Wiki/, a mandatory human-declared scope for every project space, and a pending-changes ledger for in-flight shared work. Use when user runs /setup-brain, sets up the knowledge base on a new machine, or when project spaces need scope declared or the structure audited."
     },
     {
       "name": "standup",
