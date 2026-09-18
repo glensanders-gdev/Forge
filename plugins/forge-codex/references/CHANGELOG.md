@@ -11,6 +11,27 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
+## v4.13.0 — 2026-09-18
+
+**`$write-brd` 1.3.0 and `$write-ord` 2.2.0 write an LLM companion beside the document.**
+
+Each run now writes two files: the BRD or ORD a human reviews, and `[name]-BRD.llm.md` /
+`[name]-ORD.llm.md` beside it — the same content restructured for a language model to consume. The
+form is defined once, in the new `rules/requirements/llm-companion.md`, so the two skills cannot
+drift.
+
+**The companion is a view, never a second author.** It is generated from the saved document alone,
+copies every value verbatim, and reconciles row-for-row with the document or is not saved. What it
+changes is structure: one labelled record per table row keyed by its ID, traceability folded into
+the record it describes, every `[TBD]` and unowned row indexed up front with an instruction not to
+fill it, and only the vocabulary the document actually uses. A `source_sha256` in its front matter
+detects a companion gone stale against an edited document.
+
+**The document is reviewed; the companion is not.** Both skills accept `--llm-only [path]` to
+regenerate the companion after the document changes — it is never edited by hand.
+
+---
+
 ## v4.12.0 — 2026-09-18
 
 **`$setup-brain` ships standalone** — 68 skills published, 46 held.

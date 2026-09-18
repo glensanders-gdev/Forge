@@ -6,7 +6,9 @@ origin: Adapted from Glen Sanders (Forge / https://github.com/glensanders-gdev/F
 
 # Write BRD — output formats
 
-The three things this skill emits. It holds **no criterion and no section template**: the BRD
+The three formats this skill presents. The fourth thing it writes, the LLM companion, takes its form
+from `standards/llm-companion.md` and is not restated here. This file holds
+**no criterion and no section template**: the BRD
 anatomy, the objective form, the cost-of-failure form and the ten gate items are the standard's, read
 at authoring time from the live pack or from [STANDARD.md](STANDARD.md).
 

@@ -1,7 +1,7 @@
 # Requirements Rules
 
 Authoring standards for requirements documents — how a requirement is *worded* and how it is
-*presented*. Consumed by `/write-prd`, `/write-ord`, `/write-reqs`, and `/write-ac`.
+*presented*. Consumed by `/write-brd`, `/write-prd`, `/write-ord`, `/write-reqs`, and `/write-ac`.
 
 ```
 rules/requirements/
@@ -9,7 +9,8 @@ rules/requirements/
 ├── language.md    ← voice, modality, banned constructions
 ├── tables.md      ← table-first presentation, canonical schemas, ID namespaces
 ├── ai.md          ← conditional: learned or generated behaviour (see trigger test)
-└── reporting.md   ← conditional: a measure that is reported (see trigger test)
+├── reporting.md   ← conditional: a measure that is reported (see trigger test)
+└── llm-companion.md ← the machine-readable companion /write-brd and /write-ord write beside the document
 ```
 
 `language.md` and `tables.md` are unconditional — every requirements document obeys both.
@@ -21,6 +22,10 @@ neither relaxes either. They are independent — a change can fire both, one, or
 |---|---|---|
 | `ai.md` | a delivered component's behaviour is learned or generated rather than specified | the evaluative criterion, `EVL-NNN` / `MDL-NNN`, the ISO/IEC 25059 class map |
 | `reporting.md` | the change creates, alters or retires a measure somebody reports | the measure definition, `DAT-NNN`, the ISO/IEC 25012 data-quality anchor |
+
+`llm-companion.md` governs no requirement. It defines the `.llm.md` view `/write-brd` and
+`/write-ord` generate from the saved document for a language model to consume — a view that adds,
+drops and rewords nothing, and is never the reviewed artefact.
 
 See ADR-0003 for why AI requirements extend the pack rather than forming a fourth document;
 `reporting.md` follows the same precedent rather than adding a reporting document.
