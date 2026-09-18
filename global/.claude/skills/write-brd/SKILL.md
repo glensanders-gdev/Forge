@@ -111,9 +111,11 @@ date; and every figure the source did not state is an open question at the gate 
    rather than deleting the line.
 9. **Give every Appendix A row a named owner.** Where the estate has none, write **Unowned — open**;
    recording it is the finding, and resolving it is not this document's to do.
-10. **Write the LLM companion** from the saved BRD, to `docs/brd/[change-name]-BRD.llm.md`, per
-   `llm-companion.md` — restructured, never reworded, every row reconciled to a record before it is
-   saved.
+10. **Generate the LLM companion** from the saved BRD by running
+   `python3 ../write-ord/scripts/llm_companion.py docs/brd/[change-name]-BRD.md --generator "/write-brd 1.3.0"`,
+   per `llm-companion.md`. It writes `docs/brd/[change-name]-BRD.llm.md` only when every row
+   reconciles and every value arrived verbatim. On a refusal, report the reason; never write the
+   companion by hand instead.
 11. Present the coverage summary — objectives quantified against declared gaps, cost-of-failure
    statements against objectives carrying exposure, routed statements and their destinations, the
    size read, and the companion line with its row and record counts.
@@ -176,6 +178,7 @@ reappear downstream.
 | An Appendix A row has no owning team | Write **Unowned — open**. It is the unowned-gap outcome at Phase 3, not a blank cell |
 | Phase 3 derives *Not accepted for ORD development* | Name the absent bar items and offer to return to Phase 2. No authority question arises — refusing your own document needs no right |
 | A BRD already exists at the target path | Stop. "A BRD already exists at docs/brd/. Confirm overwrite or provide a new name." |
-| Companion rows and records do not reconcile | Do not save the companion. Name the rows missing or duplicated and regenerate — a companion that drops a row delivers a smaller document than the one reviewed |
+| The companion script refuses | Nothing is written. Report the reason it names — a value that did not arrive verbatim, or rows that did not reconcile — and fix the BRD, never the companion |
+| No Python is available to run the script | Write the companion by hand to `llm-companion.md`, run its integrity check by hand, and say in the coverage summary that the check was manual |
 | `--llm-only` given a path with no BRD | Stop and say so. The companion is generated from a saved BRD and nothing else |
 | `/write-ord` is asked for and no BRD exists | Say so and offer this skill — an ORD task against a missing BRD is a BRD task in disguise |

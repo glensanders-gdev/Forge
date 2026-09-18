@@ -317,9 +317,11 @@ Runs after the human confirms the Phase 1 summary. Writes the ORD using the temp
    with no resulting register row as a **coverage gap**. Do not silently resolve either.
 11. **State the document tier** in the header — the weakest `Status` on any KPP-bearing requirement.
 12. Save to `docs/ord/[system-name]-ORD.md`.
-13. **Write the LLM companion** from the saved ORD, to `docs/ord/[system-name]-ORD.llm.md`, per
-    `llm-companion.md` — restructured, never reworded, every row reconciled to a record before it
-    is saved. §7 and §2.5 are views and are named, not emitted.
+13. **Generate the LLM companion** from the saved ORD by running
+    `python3 scripts/llm_companion.py docs/ord/[system-name]-ORD.md --generator "/write-ord 2.2.0"`,
+    per `llm-companion.md`. It writes `docs/ord/[system-name]-ORD.llm.md` only when every row
+    reconciles and every value arrived verbatim. On a refusal, report the reason; never write the
+    companion by hand instead.
 14. Present a coverage summary: sub-characteristics fully / partially specified or listed in §3.10;
     traceability completeness; the document tier and what would raise it; counts of assumptions,
     dependencies, referred requirements and open decisions; and the companion line with its row and
