@@ -403,7 +403,7 @@ def assemble(path, out_path, text, generator, date):
             for p in prefixes:
                 fold_names_by_prefix.setdefault(p, []).append(fold_name(t["heading"]))
 
-    rel = os.path.relpath(path, os.path.dirname(os.path.abspath(out_path)))
+    rel = os.path.relpath(path, os.path.dirname(os.path.abspath(out_path))).replace(os.sep, "/")
     digest = hashlib.sha256(open(path, "rb").read()).hexdigest()
     doc_ref = meta["doc_id"] or meta["title"]
     front = ["---", f"doc_id: {yaml_value(meta['doc_id'])}", f"doc_type: {meta['doc_type']}",
@@ -499,6 +499,9 @@ def main(argv=None):
     ap.add_argument("--generator", default="llm_companion.py", help="skill name and version")
     ap.add_argument("--date", default=datetime.date.today().isoformat())
     args = ap.parse_args(argv)
+    for stream in (sys.stdout, sys.stderr):
+        if hasattr(stream, "reconfigure"):  # a Windows console defaults to a code page without "—"
+            stream.reconfigure(encoding="utf-8", errors="replace")
 
     if not os.path.isfile(args.document):
         print(f"REFUSED: no document at {args.document}", file=sys.stderr)
@@ -511,7 +514,7 @@ def main(argv=None):
     except Refusal as err:
         print(f"REFUSED: {err}. No companion written.", file=sys.stderr)
         return 1
-    with open(out, "w", encoding="utf-8") as fh:
+    with open(out, "w", encoding="utf-8", newline="\n") as fh:
         fh.write(companion)
     print(f"Companion: {out} — {stats['rows']} rows, {stats['records']} records, "
           f"{stats['folded']} folded, {stats['views']} view(s) omitted ({stats['view_rows']} rows), "

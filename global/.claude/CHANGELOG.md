@@ -36,6 +36,10 @@ asked to copy a thousand lines verbatim rewords some of them invisibly; the scri
 construction and then proves it, refusing to write unless every row reconciles and every prose line
 and cell value arrived. A hand-written companion is the fallback where no Python exists, and says so.
 
+`tools/tests/test_llm_companion.py` covers it with 36 `unittest` cases on synthetic fixtures — the
+pack is not in this repo — and CI runs them first, on the Windows runner, which is where the LF-only
+write, the forward-slash `companion_of` and the UTF-8 console output earn their keep.
+
 The first trial run, against the pack's worked ORD, found eight requirement titles sitting on the
 wrong rows since pack v1.10 — setting title and tolerance side by side as labelled fields made a
 contradiction visible that four releases of prose review had read past. Fixed at pack v1.14.
