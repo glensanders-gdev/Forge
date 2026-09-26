@@ -76,7 +76,7 @@ from `rules/` — the three files are the whole skill, installed or pasted into 
 | [`/diagnose`](skills/diagnose/SKILL.md) | Systematically diagnose a failing ticket, bug, or repeated error. Use when /diagnose is invoked manually, or when the AI has failed the same ticket tw… |
 | [`/git-guardrails`](skills/git-guardrails/SKILL.md) | Set up a PreToolUse hook that hard-blocks dangerous git commands (push, reset --hard, clean -f, branch -D, checkout ., restore .) before Claude can ex… |
 | [`/lang-rules`](skills/lang-rules/SKILL.md) | Install and activate language-specific coding rule sets for the current project. Detects project languages, checks ~/.claude/rules/<lang>/ for availab… |
-| [`/push-standards`](skills/push-standards/SKILL.md) | Extract coding patterns from the current codebase and append them to .claude/CODING-STANDARDS.md under a Project-Specific Patterns section. Use when u… |
+| [`/push-standards`](skills/push-standards/SKILL.md) | Record coding standards in .claude/CODING-STANDARDS.md under a Project-Specific Patterns section — either extracted from codebase patterns, or written… |
 | [`/resolve-findings`](skills/resolve-findings/SKILL.md) | Mark a security finding as resolved. Records resolution date, resolver, and fix description in the assessment report. Closes the kanban ticket if one… |
 | [`/review-diff`](skills/review-diff/SKILL.md) | Two-axis structured code review of a pinned diff — a Spec axis (does the change fulfil its originating requirement) and a Standards axis (project docs… |
 | [`/review-performance`](skills/review-performance/SKILL.md) | Structured performance audit of project code. AI-led static analysis and architectural review, layered with optional tool invocation (Lighthouse, webp… |
@@ -178,7 +178,7 @@ These files are generated, so edits made directly here are overwritten on the ne
 release. Open an issue describing what needs changing and it will be fixed upstream
 and republished.
 
-Release 4.13.0.
+Release 4.14.0.
 
 ## Credits
 

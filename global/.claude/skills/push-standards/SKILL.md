@@ -31,13 +31,12 @@ The file is only useful if it grows from real mistakes. Extract mode runs at fea
 
 Invoked as `/push-standards --correction "what was wrong"`, or by the agent itself under the project `CLAUDE.md` rule *Corrections Become Standards*.
 
-1. **Qualify it.** Record only a mistake likely to recur in this project that a written rule would have prevented. Skip typos, one-off slips, and a change of mind about requirements — a requirement change belongs in the PRD, not a coding standard.
-2. **Route it.** A habit that applies across every project is an instinct — hand it to `/learn` instead and stop.
-3. **Check for an existing standard.** Read the Project-Specific Patterns section and the active language rules (`.claude/rules/active.md`).
+1. **Qualify it.** Record only a mistake likely to recur in this project that a written rule would have prevented. Skip typos, one-off slips, and a change of mind about requirements — a requirement change belongs in the PRD, not a coding standard.<!--forge-only--> A habit that applies across every project is an instinct — hand it to `/learn` instead and stop.<!--/forge-only-->
+2. **Check for an existing standard.** Read the Project-Specific Patterns section and the active language rules (`.claude/rules/active.md`).
    - **Already covered by a language rule:** write nothing — the agent broke a rule it had. Say so in one line.
    - **Already covered by a project standard:** do not add a duplicate. Append today's date to that entry's `Source:` line, so a repeat is visible, and sharpen its wording if the miss shows the rule was ambiguous.
-4. **Write it.** Append one entry in the Output Format below, with `Source: correction YYYY-MM-DD`. Phrase the rule as what to do, not what went wrong — "Every new component ships light and dark variants", not "Forgot dark mode". Include an Example only when a snippet makes the rule clearer.
-5. **Tell.** One line, after writing, never a question:
+3. **Write it.** Append one entry in the Output Format below, with `Source: correction YYYY-MM-DD`. Phrase the rule as what to do, not what went wrong — "Every new component ships light and dark variants", not "Forgot dark mode". Include an Example only when a snippet makes the rule clearer.
+4. **Tell.** One line, after writing, never a question:
 
    ```
    Standard added → .claude/CODING-STANDARDS.md: "[Rule]" — reply to reword or remove.
@@ -45,7 +44,7 @@ Invoked as `/push-standards --correction "what was wrong"`, or by the agent itse
 
    If the human rewords or rejects it, edit or delete that entry — correction-sourced entries are the one kind this skill removes, and only on the human's word.
 
-6. Continue the interrupted task. Correction mode is a side-step, not a context switch.
+5. Continue the interrupted task. Correction mode is a side-step, not a context switch.
 
 ## Extract Mode
 
@@ -119,5 +118,5 @@ Append under `## Project-Specific Patterns` at the bottom of `.claude/CODING-STA
 | Correction is a typo, one-off slip, or requirement change | Record nothing. Requirement changes go to the PRD. |
 | Correction repeats an existing project standard | Don't duplicate — add today's date to its `Source:` line, and sharpen the wording if it was ambiguous. |
 | Correction is already covered by an active language rule | Write nothing; say in one line that the rule existed and was missed. |
-| Correction applies across all projects | Route to `/learn` instead — this file is project-specific. |
+<!--forge-only-->| Correction applies across all projects | Route to `/learn` instead — this file is project-specific. |<!--/forge-only-->
 | Human rejects or rewords a correction entry | Delete or edit that entry as instructed. |

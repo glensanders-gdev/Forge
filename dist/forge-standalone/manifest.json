@@ -1,6 +1,6 @@
 {
   "repository": "https://github.com/glensanders-gdev/skills",
-  "version": "4.13.0",
+  "version": "4.14.0",
   "skill_count": 68,
   "skills": [
     {
@@ -95,7 +95,7 @@
     },
     {
       "name": "diagnose",
-      "version": "1.0.1",
+      "version": "1.1.0",
       "category": "code-quality",
       "description": "Systematically diagnose a failing ticket, bug, or repeated error. Use when /diagnose is invoked manually, or when the AI has failed the same ticket twice during implementation."
     },
@@ -197,9 +197,9 @@
     },
     {
       "name": "push-standards",
-      "version": "1.0.1",
+      "version": "1.1.0",
       "category": "code-quality",
-      "description": "Extract coding patterns from the current codebase and append them to .claude/CODING-STANDARDS.md under a Project-Specific Patterns section. Use when user runs /push-standards, patterns have emerged that should be enforced, or after /approve when new conventions were established."
+      "description": "Record coding standards in .claude/CODING-STANDARDS.md under a Project-Specific Patterns section — either extracted from codebase patterns, or written immediately from a single correction (--correction) when the agent gets something wrong. Use when user runs /push-standards, after /approve when new conventions were established, or the moment the human corrects a meaningful mistake in agent-written code."
     },
     {
       "name": "qa-plan",
@@ -239,7 +239,7 @@
     },
     {
       "name": "review-diff",
-      "version": "4.0.2",
+      "version": "4.1.0",
       "category": "code-quality",
       "description": "Two-axis structured code review of a pinned diff — a Spec axis (does the change fulfil its originating requirement) and a Standards axis (project docs + an immutable code-smell baseline), judged by isolated parallel sub-agents and reported without merging. Runs per-ticket after /build and on demand. Advisory by default."
     },
