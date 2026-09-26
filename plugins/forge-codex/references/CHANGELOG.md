@@ -11,6 +11,33 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
+## v4.14.0 — 2026-09-27
+
+**Corrections become coding standards the moment they happen.** `$push-standards` 1.1.0,
+`$diagnose` 1.1.0, `$review-diff` 4.1.0, and the project template.
+
+`.codex/forge/CODING-STANDARDS.md` was only ever written by `$push-standards` extracting patterns at
+feature close, so a mistake the human corrected mid-build left no trace and could be repeated in the
+next ticket. The file's Project-Specific Patterns section stayed empty in practice.
+
+- **`$push-standards --correction "what was wrong"`** records one corrected mistake as a standard —
+  rule phrased as what to do, a reason, and `Source: correction YYYY-MM-DD`. **Write, then tell:** it
+  never asks first; it reports the entry in one line and edits or removes it if the human replies.
+  The confirmation step is what stops capture, and the file is in git.
+- **Repeats are visible, not duplicated.** A correction matching an existing project standard adds
+  today's date to that entry's `Source:` line. One already covered by an active language rule writes
+  nothing — the rule existed and was missed. A cross-project habit routes to `$learn`.
+- **Project template `AGENTS.md`** gains *Corrections Become Standards*: when the human corrects a
+  meaningful mistake in agent-written code, the agent runs correction mode itself. Typos, one-off
+  slips and requirement changes are excluded.
+- **`$diagnose`** runs correction mode when a root cause is a gap a written project rule would have
+  closed. **`$review-diff`** runs it after fixing a finding no documented standard backed, so the next
+  review cites a standard rather than an opinion.
+
+Existing projects keep their old `AGENTS.md` — copy the new section in to opt in.
+
+---
+
 ## v4.13.0 — 2026-09-18
 
 **`$write-brd` 1.3.0 and `$write-ord` 2.2.0 write an LLM companion beside the document.**

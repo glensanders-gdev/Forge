@@ -117,6 +117,6 @@ A session going wrong:
 
 ## Project-Specific Patterns
 
-*This section is populated by `push-standards`. Forge defaults above are never modified.*
+*This section is populated by `push-standards` — from codebase patterns after `$approve`, and from corrections the moment the agent gets something wrong (`--correction`). Forge defaults above are never modified.*
 
 _No project-specific patterns documented yet._
