@@ -1,5 +1,5 @@
 {
-  "forge_version": "4.13.0",
+  "forge_version": "4.14.0",
   "skills": {
     "setup-brain": "3.0.0",
     "scan-first": "1.0.0",
@@ -13,7 +13,7 @@
     "research": "1.0.0",
     "prototype": "2.2.0",
     "write-prd": "2.7.5",
-    "diagnose": "1.0.1",
+    "diagnose": "1.1.0",
     "approve": "1.2.0",
     "add-system": "1.0.1",
     "teach": "1.0.0",
@@ -27,8 +27,8 @@
     "qa-plan": "1.1.0",
     "update-context": "1.0.0",
     "summarise-system": "1.0.0",
-    "review-diff": "4.0.2",
-    "push-standards": "1.0.1",
+    "review-diff": "4.1.0",
+    "push-standards": "1.1.0",
     "commands": "1.0.2",
     "start-sprint": "2.0.0",
     "end-sprint": "2.0.0",

@@ -120,6 +120,18 @@ Suggest the next stage at the end of each stage. Wait for human confirmation bef
 
 ---
 
+## Corrections Become Standards
+
+When the human corrects a meaningful mistake in code the agent wrote — a missed requirement (no dark mode), a skipped validation rule, the wrong framework primitive, a convention ignored — record it immediately with `/push-standards --correction`. **Write, then tell:** do not ask first; state the entry in one line after writing it, so the human can veto or reword it.
+
+- **Record:** a mistake likely to recur in this project that a written rule would have prevented.
+- **Skip:** typos, one-off slips, a change of mind about requirements, and anything the active language rules or an existing standard already cover — the fix there is to follow the rule, not restate it.
+- **Route elsewhere:** a habit that applies across every project goes to `/learn`, not this file.
+
+The file should stop being empty within the first few corrections. An agent that is corrected twice for the same thing has failed this rule.
+
+---
+
 ## Stale Estimate Detection
 
 When scope changes, check the active PRD's `Estimate Status` field:

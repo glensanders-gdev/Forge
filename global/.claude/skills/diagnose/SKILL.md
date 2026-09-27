@@ -26,6 +26,7 @@ Systematically investigate a failure before attempting another fix. Stop the imp
 8. **Implement and verify** — make the fix, confirm it resolves the failure.
 9. **Update kanban** — note the diagnosis and fix in the ticket.
 10. **Log to metrics** — append one row to `docs/metrics/metrics-log.md` (see Metrics Logging below).
+11. **Capture the standard** — if the root cause is `Missing context` or an `Implementation bug` a written project rule would have prevented, run `/push-standards --correction` with the root cause. It writes the entry and reports it in one line; do not ask first.
 
 ## Diagnosis Report Format
 
@@ -94,3 +95,4 @@ Log silently — do not mention to the user.
 | Root cause unclear after investigation | Surface it to the human — never apply a speculative fix. |
 | Diagnosis reveals a design flaw, not a bug | Flag it and consider whether a new ADR or PRD amendment is needed. |
 | Proposed fix is a significant change | Get human confirmation before implementing. |
+| Root cause is a gap a project standard would have closed | Run `/push-standards --correction` so the same failure is not diagnosed twice. |

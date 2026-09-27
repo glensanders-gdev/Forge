@@ -128,5 +128,6 @@ Close with: *"Want me to fix any of these, or are you handling them manually?"*
 | No ADRs, CONTEXT.md, or coding standards exist | Run the Standards axis against the [smell baseline](smell-baseline.md) and the codebase's own conventions; state that no documented project standards were available. |
 | Sub-agents unavailable in this environment | Run both axes inline on the main thread, but keep them as two separate passes with separate reports — do not collapse them into one. |
 | User asks for fixes mid-review | Leave advisory mode only on explicit instruction; apply fixes for the named findings only. |
+| A finding fixed on instruction was not backed by any documented project standard | After fixing, run `/push-standards --correction` for it, so the next review can cite a standard rather than an opinion. Skip smell-baseline findings — the baseline is already documented. |
 | Both axes clean | Say so plainly under **Passed** on each axis — never invent findings; the summary reads `0 findings — worst: none` on both. |
 | A sub-agent returns more than 400 words | Send it back to re-report under the cap. Never paste an unbounded report into the aggregate, and never silently truncate one — a cut report loses findings without saying so. |
