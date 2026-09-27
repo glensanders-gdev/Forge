@@ -11,6 +11,37 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
+## v4.15.1 — 2026-09-27
+
+**`/write-ord` 2.2.1 — §3.8 gains Functional Correctness, and three colliding section numbers are
+fixed.** The §3.8 numbering disagreement carried since v4.7.2 is resolved, and it was not the
+disagreement recorded there.
+
+- **The pack and this skill never disagreed.** Both numbered §3.8 as 3.8.1 Functional Completeness
+  alone. The defect was here: `REFERENCE.md` held that accuracy and fairness *are* Functional
+  Correctness, then gave Correctness no slot and scaffolded a separate *(AI)* subsection instead. A
+  deterministic correctness tolerance had no home and no §3.10 coverage-gap row.
+- **§3.8 is now 3.8.1 Functional Completeness · 3.8.2 Functional Correctness · 3.8.3 Functional
+  Adaptability *(AI)*.** Correctness is present in every ORD; accuracy and fairness land in it as
+  `[AI]` rows. *Accuracy and Fairness Thresholds* is no longer a subsection. Functional
+  Appropriateness carries none — it is functional content, referred via `REF-NNN`, never a gap.
+- **Subsection numbers are fixed by position**, stated in the template for the first time, and do
+  not close up when a subsection is omitted. *(AI)* subsections always follow the 25010 ones.
+- **`rules/requirements/ai.md`** — the class map follows: adaptability and drift cite §3.8.3,
+  accuracy and fairness cite §3.8.2. Record-keeping moves **§3.6.3 → §3.6.4**; 3.6.3 is
+  Supportability, which `REFERENCE.md` already cited. A new paragraph exempts §3.8.2 from the rule
+  that the subsections the map names are conditional on the trigger.
+- **`rules/requirements/tables.md`** — the coverage-gap example read *3.5.3 Replaceability*; 3.5.3 is
+  Installability in the template and the pack's worked ORD. Now 3.5.4.
+
+All three collisions were found by tallying every numbered §3 citation against the template's
+positional order — the check prose review had not been doing.
+
+Extracts regenerated from pack v1.15: `review-ord/CRITERIA.md` gains the Functional Correctness row
+and the 3.8.2 citations; `review-brd` and `write-brd` change only in pack version and commit stamp.
+
+---
+
 ## v4.15.0 — 2026-09-27
 
 **`/learn` 1.1.0 ships standalone** — 69 skills published, 45 held.

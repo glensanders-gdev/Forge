@@ -365,7 +365,7 @@ ones bury the document.
 
 | Absent subsection | Reason | Action |
 |---|---|---|
-| [e.g. 3.5.3 Replaceability] | No source material | Stakeholder workshop |
+| [e.g. 3.5.4 Replaceability] | No source material | Stakeholder workshop |
 
 A requirement known to exist but unquantified is **not** a coverage gap — it is a populated row
 carrying `[TBD — source: "quoted vague statement"]`.

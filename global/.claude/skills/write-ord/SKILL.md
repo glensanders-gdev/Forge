@@ -1,6 +1,6 @@
 ---
 name: write-ord
-version: 2.2.0
+version: 2.2.1
 category: pipeline
 standalone: true
 description: Synthesize a call transcript, document, conversation context, or structured notes into a compliant demand-side Operational Requirements Document (ORD) — quantified business tolerances organised by ISO/IEC 25010:2023 quality characteristics, with operational objectives, scenarios, business rules and referred requirements. Use when the user runs /write-ord, provides a transcript or document to convert into an ORD, or wants to formalise operational requirements from a conversation.
@@ -318,7 +318,7 @@ Runs after the human confirms the Phase 1 summary. Writes the ORD using the temp
 11. **State the document tier** in the header — the weakest `Status` on any KPP-bearing requirement.
 12. Save to `docs/ord/[system-name]-ORD.md`.
 13. **Generate the LLM companion** from the saved ORD by running
-    `python3 scripts/llm_companion.py docs/ord/[system-name]-ORD.md --generator "/write-ord 2.2.0"`,
+    `python3 scripts/llm_companion.py docs/ord/[system-name]-ORD.md --generator "/write-ord 2.2.1"`,
     per `llm-companion.md`. It writes `docs/ord/[system-name]-ORD.llm.md` only when every row
     reconciles and every value arrived verbatim. On a refusal, report the reason; never write the
     companion by hand instead.

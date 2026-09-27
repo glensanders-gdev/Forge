@@ -113,7 +113,7 @@ inherits everything above unchanged. It is not a replacement taxonomy and does n
 *ORD relevance:* every one of these needs a threshold on a named held-out `EVL-NNN` evaluation set,
 a floor, and a review hook — see `ai.md` § *The evaluative criterion*. Accuracy
 and fairness are **not** new sub-characteristics: they are Functional Correctness measured the AI
-way, which is why they sit under §3.8 in the template below rather than here.
+way, which is why they sit under §3.8.2 Functional Correctness in the template below rather than here.
 
 **Watch item (ADR-0003):** the 25059 second edition awaits member-body vote. Its AI *service*
 quality model — traceability, service adaptability, customizability — is the part most relevant to
@@ -603,12 +603,25 @@ IDs and adds no value of its own.
 | 3.5 | Flexibility | Scalability · Adaptability · Installability · Replaceability |
 | 3.6 | Maintainability | Modifiability · Analyzability · Supportability · **Record-Keeping and Inference Logging** *(AI)* |
 | 3.7 | Interaction Capability | Accessibility · Learnability · Self-Descriptiveness · **User Controllability and Intervenability** *(AI)* · **Transparency and Explainability** *(AI)* |
-| 3.8 | Functional Suitability | Functional Completeness · **Functional Adaptability** *(AI)* · **Accuracy and Fairness Thresholds** *(AI)* |
+| 3.8 | Functional Suitability | Functional Completeness · Functional Correctness · **Functional Adaptability** *(AI)* |
 | 3.9 | Safety *(if applicable)* | Fail Safe · Hazard Warning · **Prohibited Outputs** *(AI)* |
+
+**Numbers are fixed by position in this table** — 3.8.2 is Functional Correctness in every ORD —
+and do not close up when a subsection is omitted. *(AI)* subsections always follow the 25010 ones,
+so the trigger firing or not never moves a 25010 number.
 
 Subsections marked *(AI)* are live only where the trigger test in `ai.md` fires.
 Where it does not, they are omitted from the body **and** from §3.10 — an inapplicable subsection is
 not a gap — and §3.10 states once that the trigger did not fire.
+
+**Functional Correctness is not an *(AI)* subsection.** A deterministic tolerance on a correct result
+— a rebate calculated to the cent, a determination matching its rule — belongs there, and so do
+accuracy and fairness thresholds on a learned or generated component, as `[AI]` rows. They are the
+same sub-characteristic measured two ways, not two subsections.
+
+**Functional Appropriateness carries no subsection.** Whether a function serves the user's goal is
+functional content, owned by the product side under the ownership test; it is referred via
+`REF-NNN`, never a §3.10 gap.
 
 Where `reporting.md` fires, its class map routes reporting and data requirements
 into the subsections above. **It adds no subsection**; its `DAT-NNN` register lands at Appendix H.

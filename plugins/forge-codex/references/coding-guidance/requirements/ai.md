@@ -116,15 +116,15 @@ The class map. A row that does not appear here has no AI-specific home and follo
 | Intended purpose | PRD § Scope boundary | AI Act Art. 11 / Annex IV |
 | Prohibited uses | PRD § Out of Scope | AI Act Art. 11 |
 | User-facing quality or accuracy outcome | PRD story criteria | 29148 |
-| Functional adaptability | ORD § 3.8.2 Functional Adaptability | 25059 |
-| Accuracy and fairness thresholds (operational) | ORD § 3.8.3 Accuracy and Fairness Thresholds | 25059, AI Act Art. 15 |
+| Functional adaptability | ORD § 3.8.3 Functional Adaptability | 25059 |
+| Accuracy and fairness thresholds (operational) | ORD § 3.8.2 Functional Correctness, as `[AI]` rows | 25059, AI Act Art. 15 |
 | Robustness — out-of-distribution and adversarial input | ORD § 3.2.5 Robustness | 25059, AI Act Art. 15 |
 | User controllability and intervenability | ORD § 3.7.4 User Controllability and Intervenability | 25059 |
 | Transparency, explainability, output labelling | ORD § 3.7.5 Transparency and Explainability | 25059, AI Act Arts. 13, 50 |
 | Human oversight — who intervenes, when, with what authority | ORD § 3.7.4 and § 5 Support Model | AI Act Art. 14 |
-| Record-keeping and inference logging | ORD § 3.6.3 Record-Keeping and Inference Logging, § 5.4 Monitoring | AI Act Art. 12 |
+| Record-keeping and inference logging | ORD § 3.6.4 Record-Keeping and Inference Logging, § 5.4 Monitoring | AI Act Art. 12 |
 | Data governance, provenance, labelling method | ORD § 4.3 Regulatory and Compliance Constraints | AI Act Art. 10, ISO/IEC 5259 |
-| Drift detection and re-verification cadence | ORD § 3.8.2, § 5.4 Monitoring, § 7 Service Level Requirements | ISO/IEC 5338 |
+| Drift detection and re-verification cadence | ORD § 3.8.3, § 5.4 Monitoring, § 7 Service Level Requirements | ISO/IEC 5338 |
 | Model and provider dependency | ORD § 9.3 Dependencies, keyed to `MDL-NNN` | — |
 | Prompt-injection and model-specific attack surface | ORD § 3.3.7 Prompt Injection and Model Attack Surface | AI Act Art. 15 |
 | Prohibited output — unacceptable at any rate, zero tolerance | ORD § 3.9.3 Prohibited Outputs, or § 3.3 Security where it is a disclosure | AI Act Art. 15 |
@@ -134,6 +134,10 @@ The class map. A row that does not appear here has no AI-specific home and follo
 25059:2023 — AI Extension* and are scaffolded in its §3 template marked *(AI — 25059)*. They are
 conditional on this file's trigger test: where it does not fire they do not apply, and are omitted
 from the body *and* from the §3.10 Coverage Gaps table — an inapplicable subsection is not a gap.
+
+**§3.8.2 Functional Correctness is the exception** — a 25010 subsection present in every ORD. Accuracy
+and fairness land there as `[AI]` rows beside any deterministic correctness tolerance, so the trigger
+not firing removes those rows and never the subsection.
 
 **Where no PRD is produced**, intended purpose and prohibited uses are held in the ORD's scope
 section rather than dropped. The class map assigns a *home*, not a document that must exist.
