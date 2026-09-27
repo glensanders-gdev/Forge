@@ -1,15 +1,13 @@
 ---
-name: "learn"
-description: "Capture a pattern observed during a session as an instinct — a recurring behaviour change the agent carries into future sessions. Accepts an optional inline description. Checks for duplicates and increments observation count if a match exists. Use when a recurring pattern, failure mode, or useful heuristic is noticed during any session phase."
-metadata:
-  category: framework
-  argument_hint: What pattern was observed? (optional — will ask if not provided)
-  origin: Adapted from Glen Sanders (Forge / https://github.com/glensanders-gdev/Forge)
+name: learn
+category: framework
+description: Capture a pattern observed during a session as an instinct — a recurring behaviour change the agent carries into future sessions. Accepts an optional inline description. Checks for duplicates and increments observation count if a match exists. Use when a recurring pattern, failure mode, or useful heuristic is noticed during any session phase.
+argument-hint: What pattern was observed? (optional — will ask if not provided)
 ---
 
 # Learn
 
-Capture a pattern from the current session into `~/.codex/forge/instincts/` so it accumulates over time and can eventually be promoted into a formal skill via `$evolve`.
+Capture a pattern from the current session into `~/.claude/instincts/` so it accumulates over time and can eventually be promoted into a formal skill.
 
 This skill's folder carries the two formats it writes: [instinct-template.md](instinct-template.md) for each instinct and [registry-template.md](registry-template.md) for the index.
 
@@ -21,7 +19,7 @@ This skill's folder carries the two formats it writes: [instinct-template.md](in
 
 ### 1. Capture the Observation
 
-If the user provided an inline description (e.g. `$learn "XL DB tickets consistently land at 2× actual"`), use it as the starting observation.
+If the user provided an inline description (e.g. `/learn "XL DB tickets consistently land at 2× actual"`), use it as the starting observation.
 
 If no description provided, ask: "What pattern or recurring behaviour did you notice this session?"
 
@@ -37,7 +35,7 @@ This is the most important question. An observation without a behaviour change i
 
 ### 3. Check for Duplicates
 
-Read `~/.codex/forge/instincts/registry.md` and all existing instinct files. If the registry does not exist, this is the first instinct — skip to step 4. Look for:
+Read `~/.claude/instincts/registry.md` and all existing instinct files. If the registry does not exist, this is the first instinct — skip to step 4. Look for:
 - Similar patterns (same phase, similar observation)
 - Matching behaviour changes
 
@@ -68,9 +66,9 @@ Override to High if you're confident this is a well-established pattern? (Y/N)
 
 ### 5. Assign ID and Create File
 
-1. Read `~/.codex/forge/instincts/registry.md` — get next instinct number. If it does not exist, create `~/.codex/forge/instincts/` and the registry from [registry-template.md](registry-template.md); the first number is `instinct-001`
+1. Read `~/.claude/instincts/registry.md` — get next instinct number. If it does not exist, create `~/.claude/instincts/` and the registry from [registry-template.md](registry-template.md); the first number is `instinct-001`
 2. Generate a slug from the observation (3–5 words, hyphenated, lowercase)
-3. Create `~/.codex/forge/instincts/instinct-NNN-[slug].md` from [instinct-template.md](instinct-template.md)
+3. Create `~/.claude/instincts/instinct-NNN-[slug].md` from [instinct-template.md](instinct-template.md)
 4. Fill in all frontmatter and body fields
 5. Update registry — add row and update counter
 
@@ -83,11 +81,10 @@ Phase: [phase]
 Confidence: Low | High (overridden)
 Behaviour change: [behaviour change in one sentence]
 
-File: ~/.codex/forge/instincts/instinct-NNN-[slug].md
+File: ~/.claude/instincts/instinct-NNN-[slug].md
 
 This instinct will reach Medium confidence after 2 more observations
-and High confidence after 4 more. Run $evolve when ready to
-consider promoting it to a skill.
+and High confidence after 4 more.
 ```
 
 ---
@@ -107,11 +104,11 @@ When an instinct crosses a threshold, update `confidence` in the frontmatter and
 
 ## Session End Prompt
 
-At the end of any session (when `$debrief` or `$handoff` runs), include:
+At the end of any session (when `/debrief` or `/handoff` runs), include:
 
 ```
 💡 Did anything this session produce a pattern worth capturing?
-   Run $learn to capture it before it's forgotten.
+   Run /learn to capture it before it's forgotten.
 ```
 
 This is a suggestion only — never mandatory.
@@ -123,14 +120,14 @@ This is a suggestion only — never mandatory.
 - The behaviour change question is mandatory — never create an instinct without it
 - Always check for duplicates before creating — increment, don't fragment
 - New instincts start at Low unless human overrides
-- Never auto-promote an instinct to a skill — promotion is a human decision, made through `$evolve`
+- Never auto-promote an instinct to a skill — promotion is a human decision
 - Slug should be descriptive enough to recognise in the registry without reading the file
 
 ## Failure Modes
 
 | Condition | Behaviour |
 |-----------|-----------|
-| Registry missing | Create `~/.codex/forge/instincts/` and the registry from [registry-template.md](registry-template.md), with the new instinct as `instinct-001` |
+| Registry missing | Create `~/.claude/instincts/` and the registry from [registry-template.md](registry-template.md), with the new instinct as `instinct-001` |
 | Template file missing from this skill's folder | Reinstall the skill — never improvise the instinct format, or the duplicate check stops matching |
 | Human provides no behaviour change | Prompt once more: "What should the agent do differently?" — if still none, note "Behaviour change pending" in the file and flag for later enrichment |
 | Duplicate check inconclusive | Present the 2 most similar instincts and ask the human to confirm |

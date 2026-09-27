@@ -1,5 +1,5 @@
 {
-  "forge_version": "4.14.0",
+  "forge_version": "4.15.0",
   "skills": {
     "setup-brain": "3.0.0",
     "scan-first": "1.0.0",
@@ -28,7 +28,7 @@
     "update-context": "1.0.0",
     "summarise-system": "1.0.0",
     "review-diff": "4.1.0",
-    "push-standards": "1.1.0",
+    "push-standards": "1.1.1",
     "commands": "1.0.2",
     "start-sprint": "2.0.0",
     "end-sprint": "2.0.0",
@@ -65,7 +65,7 @@
     "pir": "1.0.0",
     "add-term": "1.0.0",
     "knowledge-health": "1.2.0",
-    "learn": "1.0.0",
+    "learn": "1.1.0",
     "evolve": "1.0.0",
     "accessibility": "1.0.1",
     "ai-first-engineering": "1.0.1",

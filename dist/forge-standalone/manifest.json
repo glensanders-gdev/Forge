@@ -1,7 +1,7 @@
 {
   "repository": "https://github.com/glensanders-gdev/skills",
-  "version": "4.14.0",
-  "skill_count": 68,
+  "version": "4.15.0",
+  "skill_count": 69,
   "skills": [
     {
       "name": "accessibility",
@@ -184,6 +184,12 @@
       "description": "Install and activate language-specific coding rule sets for the current project. Detects project languages, checks ~/.claude/rules/<lang>/ for available rule sets, copies them into .claude/rules/, and writes an active.md activation file so /review-diff, /build, and /push-standards know which baselines apply. Use when starting a project or when /push-standards should reference a language baseline rather than starting from scratch."
     },
     {
+      "name": "learn",
+      "version": "1.1.0",
+      "category": "framework",
+      "description": "Capture a pattern observed during a session as an instinct — a recurring behaviour change the agent carries into future sessions. Accepts an optional inline description. Checks for duplicates and increments observation count if a match exists. Use when a recurring pattern, failure mode, or useful heuristic is noticed during any session phase."
+    },
+    {
       "name": "pickup",
       "version": "3.0.2",
       "category": "session",
@@ -197,7 +203,7 @@
     },
     {
       "name": "push-standards",
-      "version": "1.1.0",
+      "version": "1.1.1",
       "category": "code-quality",
       "description": "Record coding standards in .claude/CODING-STANDARDS.md under a Project-Specific Patterns section — either extracted from codebase patterns, or written immediately from a single correction (--correction) when the agent gets something wrong. Use when user runs /push-standards, after /approve when new conventions were established, or the moment the human corrects a meaningful mistake in agent-written code."
     },
