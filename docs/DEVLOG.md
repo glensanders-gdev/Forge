@@ -2,6 +2,20 @@
 
 ---
 
+## Session 2026-09-27 — corrections become coding standards
+
+**Stream:** `correction-standards` (opened and closed at debrief — `docs/handoffs/archive/2026-09-27-correction-standards.md`)
+**Version range:** 4.13.0 → 4.15.0 ([PR #86](https://github.com/glensanders-gdev/Forge/pull/86) merged as `624fa18`; [PR #87](https://github.com/glensanders-gdev/Forge/pull/87) merged as `6e7c6e2`; CI parity green; standalone published to `glensanders-gdev/skills`)
+**Goals this session:** Make `.claude/CODING-STANDARDS.md` grow from mistakes the agent makes, not only from pattern extraction at feature close; ship `/learn` standalone; roll the change out to existing projects.
+**Tickets Completed:** None on kanban — ad-hoc framework change.
+**Decisions Made:** (1) Capture is **write, then tell** — no confirmation before writing a correction entry; the one-line notice is the veto point, and the file is in git. (2) An instruction, not a hook — only the agent can recognise a correction. (3) Repeats add a date to the existing entry's `Source:` line rather than duplicating; misses of an active language rule write nothing; cross-project habits route to `/learn`. (4) `/learn`'s templates moved into its own folder — no installer ever seeded `~/.claude/instincts/`. (5) `/evolve` stays held; promotion text is fenced `forge-only`.
+**Assumptions Made:** Rolling the section out to projects not built from the template needs a standards file and a load-before-code line, or recorded corrections are never read (confirmed by reading both projects' `CLAUDE.md`). Pushing the one-section change straight to each project's `main` — confirmed by the user.
+**Blockers:** None
+**Next Up:** Observe whether corrections are captured in the four projects' `.claude/CODING-STANDARDS.md` over the next few build sessions; resume `requirements-pack` (workspace stream, Active, last updated 2026-09-07).
+**Status:** Complete
+
+---
+
 ## Session 2026-06-19 — requirements-document skill alignment
 
 **Version range:** 3.11.0 → 3.12.0 ([PR #19](https://github.com/glensanders-gdev/Forge/pull/19) squash-merged to main as `fadcfaf`; tag `v3.12.0` pushed; CI parity green)

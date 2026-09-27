@@ -1,6 +1,6 @@
 # Handoffs: Forge Framework
 
-**Last updated:** 2026-09-07 21:10
+**Last updated:** 2026-09-27 10:34
 **Register version:** 2
 
 Pointer rows only — each stream's handoff lives at `docs/handoffs/<slug>.md`. Schema, resolution
@@ -9,7 +9,7 @@ rules, lifecycle and the conflict guard are specified in `~/.claude/skills/hando
 | Stream | Title | Status | Updated | Next action | Touches |
 |---|---|---|---|---|---|
 
-**No Active streams.** `standalone-skills` closed on 2026-09-07 with v4.7.4 published to
+**No Active streams.** `correction-standards` was opened and closed at `/debrief` on 2026-09-27 — v4.14.0 and v4.15.0 merged and published. `standalone-skills` closed on 2026-09-07 with v4.7.4 published to
 `glensanders-gdev/skills` — the stream's purpose is discharged. `skill-naming` (v4.1.2) and
 `ai-requirements` (v4.2.0) closed on 2026-08-23.
 

@@ -6,7 +6,7 @@
 **PI:** —
 **Status:** In Progress
 **Created:** 2026-06-11
-**Last updated:** 2026-06-19
+**Last updated:** 2026-09-27
 
 ---
 
@@ -40,3 +40,12 @@ _Updated at each session close (`/debrief`) from ccusage actuals — see `~/.cla
 **Total:** 1,888k (XL)
 **Source:** ccusage actuals
 **Notes:** Full-day machine total for 2026-06-19 across models — opus 279k/1,544k, sonnet ~0/55k, haiku 5k/5k. Covers the `/write-ord` standards review (vs ISO/IEC 25010:2023 + ISO/IEC/IEEE 29148:2018), a `/grill-me` session resolving the BRD-sibling model + `PRD-001`/`ORD-001` ID scheme, implementation of `/write-ord` v1.1.0 + the `/write-prd` v2.1.1 rename, one Codex regen + parity run, ADR-0001, and the v3.12.0 release (PR #19 squash-merged, tag pushed). Cache: 8.6M creation / 286.1M read (not counted in total). Notional API-rate cost $267.42 — informational only on a subscription plan.
+
+### Framework Maintenance — 2026-09-27 (corrections → standards, v4.14.0 + v4.15.0)
+**Date range:** 2026-09-27
+**Sessions:** 1 (stream `correction-standards`, opened and closed at debrief)
+**Input:** 0k tokens
+**Output:** 185k tokens
+**Total:** 185k (L)
+**Source:** ccusage actuals
+**Notes:** Machine total for 2026-09-27 at 10:34, not a full day — input 442, output 184,558. **Not attributable to this session alone:** a concurrent session was authoring `/fix-one-thing` (v4.16.0) in the same repo, and ccusage daily totals cannot be split between them. Covers PR #86 (v4.14.0), PR #87 (v4.15.0), one CI fix, three Codex and three standalone rebuilds, and the section rollout to four projects. Cache: 0.7M creation / 31.6M read (not counted in total). Notional API-rate cost $15.99 — informational only on a subscription plan.
