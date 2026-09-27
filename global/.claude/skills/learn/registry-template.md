@@ -1,6 +1,6 @@
-# Forge — Instincts Registry
+# Instincts Registry
 
-Patterns learned from real sessions, accumulated over time. Updated by `/learn`. Promoted to skills via `/evolve`.
+Patterns learned from real sessions, accumulated over time. Updated by `/learn`.<!--forge-only--> Promoted to skills via `/evolve`.<!--/forge-only-->
 
 **Last updated:** YYYY-MM-DD
 
@@ -29,6 +29,6 @@ Promoted: skill name or None
 
 ## High Confidence — Promotion Candidates
 
-_Instincts at High confidence not yet promoted to skills. Run `/user:evolve` to review._
+_Instincts at High confidence not yet promoted to skills.<!--forge-only--> Run `/evolve` to review.<!--/forge-only-->_
 
 _None yet._

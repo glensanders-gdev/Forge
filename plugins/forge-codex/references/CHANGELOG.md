@@ -11,6 +11,25 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
+## v4.15.0 — 2026-09-27
+
+**`$learn` 1.1.0 ships standalone** — 69 skills published, 45 held.
+
+v4.14.0 gave `$push-standards --correction` a route for cross-project habits — hand them to
+`$learn` — but `$learn` was held, so the standalone copy had to fence that route out. It now ships,
+and `$push-standards` 1.1.1 carries the route in both distributions.
+
+- **The instinct formats live in the skill's folder.** `instincts/_template.md` and
+  `instincts/registry.md` moved to `skills/learn/instinct-template.md` and `registry-template.md`.
+  Neither installer ever copied them into `~/.codex/forge/instincts/`, so a first run anywhere fell back
+  to "create it manually using the standard format" with no format to hand. `$learn` now creates the
+  registry from its own template on first use, and treats a missing template as a broken install
+  rather than improvising — an improvised format defeats the duplicate check.
+- **Promotion is Forge-only.** `$evolve` stays held; the standalone skill keeps "never auto-promote
+  — promotion is a human decision" and drops the pointer to the command.
+
+---
+
 ## v4.14.0 — 2026-09-27
 
 **Corrections become coding standards the moment they happen.** `$push-standards` 1.1.0,

@@ -30,7 +30,7 @@ The file is only useful if it grows from real mistakes. Extract mode runs at fea
 
 Invoked as `/push-standards --correction "what was wrong"`, or by the agent itself under the project `CLAUDE.md` rule *Corrections Become Standards*.
 
-1. **Qualify it.** Record only a mistake likely to recur in this project that a written rule would have prevented. Skip typos, one-off slips, and a change of mind about requirements — a requirement change belongs in the PRD, not a coding standard.
+1. **Qualify it.** Record only a mistake likely to recur in this project that a written rule would have prevented. Skip typos, one-off slips, and a change of mind about requirements — a requirement change belongs in the PRD, not a coding standard. A habit that applies across every project is an instinct — hand it to `/learn` instead and stop.
 2. **Check for an existing standard.** Read the Project-Specific Patterns section and the active language rules (`.claude/rules/active.md`).
    - **Already covered by a language rule:** write nothing — the agent broke a rule it had. Say so in one line.
    - **Already covered by a project standard:** do not add a duplicate. Append today's date to that entry's `Source:` line, so a repeat is visible, and sharpen its wording if the miss shows the rule was ambiguous.
@@ -117,4 +117,5 @@ Append under `## Project-Specific Patterns` at the bottom of `.claude/CODING-STA
 | Correction is a typo, one-off slip, or requirement change | Record nothing. Requirement changes go to the PRD. |
 | Correction repeats an existing project standard | Don't duplicate — add today's date to its `Source:` line, and sharpen the wording if it was ambiguous. |
 | Correction is already covered by an active language rule | Write nothing; say in one line that the rule existed and was missed. |
+| Correction applies across all projects | Route to `/learn` instead — this file is project-specific. |
 | Human rejects or rewords a correction entry | Delete or edit that entry as instructed. |
