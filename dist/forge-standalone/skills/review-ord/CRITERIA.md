@@ -5,8 +5,8 @@
 > everything below. Editing this file puts it out of step with the pack; regenerate
 > instead.
 
-**Pack version:** v1.14 · **Pack commit:** `3845e97d0a40`
-**Generated:** 2026-09-18 · **Content hash:** `2dc3f2733ecdb6d2`
+**Pack version:** v1.15 · **Pack commit:** `6dfb69f0e31a`
+**Generated:** 2026-09-27 · **Content hash:** `e114521e8d45a6b6`
 
 **Quote the version in every review this extract is used for.**
 A reader needs to know which revision was applied — a verdict, and a document
@@ -454,6 +454,7 @@ Fixed structure. **Section 3 keeps its numbering unchanged**, so every §3.x ref
 | operator training, time-to-competency | Interaction Capability | 3.7.2 Learnability |
 | runbooks, in-system help, documentation | Interaction Capability | 3.7.3 Self-Descriptiveness |
 | what functions must exist at go-live | Functional Suitability | 3.8.1 Functional Completeness |
+| a result being correct — a calculation, determination or classification matching its rule | Functional Suitability | 3.8.2 Functional Correctness |
 | fail-safe state, hazard alerting (safety-critical) | Safety | 3.9 |
 | what support must be able to observe, diagnose and resolve without engineering | Maintainability | 3.6.2 Analyzability |
 | operational hours and escalation *tolerance* — the business consequence of a gap | *(business demand)* | 5. Operational hours and escalation tolerance |
@@ -479,8 +480,8 @@ Fixed structure. **Section 3 keeps its numbering unchanged**, so every §3.x ref
 |---|---|---|
 | behaviour under unseen, out-of-distribution or adversarial input | Reliability (Robustness) | 3.2 |
 | prompt injection, jailbreak, model-specific attack surface | Security | 3.3.5 Resistance |
-| accuracy, quality or error rate of a generated output | Functional Suitability | 3.8 |
-| difference in error rate between groups or cases — fairness, unfair bias | Functional Suitability | 3.8 |
+| accuracy, quality or error rate of a generated output | Functional Suitability | 3.8.2 Functional Correctness |
+| difference in error rate between groups or cases — fairness, unfair bias | Functional Suitability | 3.8.2 Functional Correctness |
 | behaviour changing as the component learns from data or prior actions | Functional Suitability (Functional adaptability) | 3.8 |
 | a user stopping, overriding or correcting the component | Interaction Capability (User controllability) | 3.7 |
 | an operator intervening to prevent harm | Interaction Capability (Intervenability) | 3.7 |
