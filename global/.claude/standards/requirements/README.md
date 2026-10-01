@@ -1,16 +1,16 @@
 # Requirements Rules
 
 Authoring standards for requirements documents — how a requirement is *worded* and how it is
-*presented*. Consumed by `$write-brd`, `$write-prd`, `$write-ord`, `$write-reqs`, and `$write-ac`.
+*presented*. Consumed by `/write-brd`, `/write-prd`, `/write-ord`, `/write-reqs`, and `/write-ac`.
 
 ```
-rules/requirements/
+standards/requirements/
 ├── README.md      ← this file
 ├── language.md    ← voice, modality, banned constructions
 ├── tables.md      ← table-first presentation, canonical schemas, ID namespaces
 ├── ai.md          ← conditional: learned or generated behaviour (see trigger test)
 ├── reporting.md   ← conditional: a measure that is reported (see trigger test)
-└── llm-companion.md ← the machine-readable companion $write-brd and $write-ord write beside the document
+└── llm-companion.md ← the machine-readable companion /write-brd and /write-ord write beside the document
 ```
 
 `language.md` and `tables.md` are unconditional — every requirements document obeys both.
@@ -23,24 +23,32 @@ neither relaxes either. They are independent — a change can fire both, one, or
 | `ai.md` | a delivered component's behaviour is learned or generated rather than specified | the evaluative criterion, `EVL-NNN` / `MDL-NNN`, the ISO/IEC 25059 class map |
 | `reporting.md` | the change creates, alters or retires a measure somebody reports | the measure definition, `DAT-NNN`, the ISO/IEC 25012 data-quality anchor |
 
-`llm-companion.md` governs no requirement. It defines the `.llm.md` view `$write-brd` and
-`$write-ord` generate from the saved document for a language model to consume — a view that adds,
+`llm-companion.md` governs no requirement. It defines the `.llm.md` view `/write-brd` and
+`/write-ord` generate from the saved document for a language model to consume — a view that adds,
 drops and rewords nothing, and is never the reviewed artefact.
 
 See ADR-0003 for why AI requirements extend the pack rather than forming a fourth document;
 `reporting.md` follows the same precedent rather than adding a reporting document.
 
-## Why this is a separate rules category
+## Why this lives in `standards/`, not `rules/`
 
 `rules/common/` is the always-applied baseline for **code**. `rules/[lang]/` is activated
-per-project via `$lang-rules`. Neither fits: these rules govern **documents**, and they apply
+per-project via `/lang-rules`. Neither fits: these rules govern **documents**, and they apply
 whenever a requirements document is authored regardless of the project's language or whether
 any code exists yet.
 
 This ruleset is not auto-loaded. The requirement skills cite it by path, per PRINCIPLE 6
 (reference, don't duplicate). It exists so the sibling documents share one definition of a
-requirement's form — neither `$write-prd` nor `$write-ord` can own it without the other
-drifting, and `$write-reqs` is barred from owning templates.
+requirement's form — neither `/write-prd` nor `/write-ord` can own it without the other
+drifting, and `/write-reqs` is barred from owning templates.
+
+<!--no-adapt-->It cannot sit under `rules/`. Claude Code and VS Code load every file under
+`~/.claude/rules/` without `paths:` frontmatter into every session, so a ruleset kept there is
+paid for in every session whether or not a requirements document is in play. Neither loads
+`~/.claude/standards/`. A path-scoped pointer in `~/.claude/rules/`, named `requirements`, covers
+the gap: it loads only when a session reads a document under `docs/brd/`, `docs/prd/`, `docs/ord/`
+or `docs/ac/`, and names these files, so a requirements document edited outside a skill still
+meets them.<!--/no-adapt-->
 
 ## Scope boundary — read this first
 
@@ -53,7 +61,7 @@ skill files themselves would strip the directives that make the skills work.
 | Text | Governed? |
 |---|---|
 | A requirement, criterion, assumption or commitment written into a PRD/ORD/AC document | Yes |
-| A skill's instructions to Codex, its rules, its failure-mode table | No |
+| A skill's instructions to Claude, its rules, its failure-mode table | No |
 | Template placeholder text and worked examples inside a template | Yes — examples teach the form |
 | Narrative context sections (background, mission, operational scenarios) | Partially — see `language.md` § Narrative sections |
 
@@ -63,6 +71,6 @@ governed here.
 
 ## Enforcement
 
-`$check-style` reads `~/.codex/forge/knowledge/company/style-guide.md`, not this ruleset — a company
+`/check-style` reads `~/.claude/knowledge/company/style-guide.md`, not this ruleset — a company
 style guide may add to these rules but never relaxes them. Where the two conflict, the stricter
 requirement wins and the conflict is flagged rather than silently resolved.

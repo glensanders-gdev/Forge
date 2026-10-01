@@ -70,7 +70,7 @@ was not read.
 | The PRD and the ORD are siblings, both answered by one SOAP; a criterion cites the ORD tolerance | The ORD is downstream of the SOAP; tolerance is cited from the BRD's cost-of-failure | **This chain**, on the citation target |
 | Requirement form — the 29148 characteristics, the ★ sections, the anatomy | unchanged | **The pack** |
 
-Where the pack and `rules/requirements/*` meet, the rules win on **form** — criteria are noun-first
+Where the pack and `standards/requirements/*` meet, the rules win on **form** — criteria are noun-first
 declarative rows per `tables.md`, not the pack's Given/When/Then — and the pack wins on **what a PRD
 must contain**. Both are deliberate; see the criteria note in the template.
 

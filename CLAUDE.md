@@ -8,7 +8,9 @@ Forge is a skill/workflow framework for Claude Code and Codex. It ships as:
 - **Claude Code** — skills in `global/.claude/skills/`, commands in `global/.claude/commands/`
 - **Codex plugin** — generated output committed to `plugins/forge-codex/`
 
-`install.sh` symlinks `~/.claude/skills/`, `~/.claude/commands/`, and `~/.claude/rules/` directly into `global/.claude/`. Edits in `~/.claude/` are edits to this repo — no copy step.
+`install.sh` symlinks `~/.claude/skills/`, `~/.claude/commands/`, `~/.claude/rules/` and `~/.claude/standards/` directly into `global/.claude/`. Edits in `~/.claude/` are edits to this repo — no copy step.
+
+Every `.md` under `global/.claude/rules/` without `paths:` frontmatter loads into every Claude Code session on every project, through that link. Material a skill reads on demand belongs in `global/.claude/standards/`, which nothing loads automatically.
 
 ## Key Commands
 
@@ -51,7 +53,9 @@ global/.claude/         ← source of truth for all shared skills
   skills/               ← one folder per skill; each contains SKILL.md + assets
   commands/             ← one .md per skill, command entry points
   rules/common/         ← language-agnostic coding standards (always active)
-  rules/[lang]/         ← language-specific rule sets, installed via /lang-rules
+  rules/[lang]/         ← language-specific rule sets, path-scoped to their sources; installed via /lang-rules
+  rules/requirements.md ← path-scoped pointer; loads only when a requirements document is read
+  standards/requirements/ ← requirements authoring standards, cited by path, never auto-loaded
   manifest.json         ← version registry for all 113 skills
   SOUL.md               ← agent identity and behavioural constraints
   PRINCIPLES.md         ← design philosophy; read before writing a new skill

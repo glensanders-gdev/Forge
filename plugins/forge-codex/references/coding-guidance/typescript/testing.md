@@ -1,3 +1,12 @@
+---
+paths:
+  - "**/*.ts"
+  - "**/*.tsx"
+  - "**/*.mts"
+  - "**/*.cts"
+origin: Adapted from Glen Sanders (Forge / https://github.com/glensanders-gdev/Forge)
+---
+
 # TypeScript Testing
 
 > This file extends [common/quality-checklist.md](../common/quality-checklist.md) with TypeScript specific content.

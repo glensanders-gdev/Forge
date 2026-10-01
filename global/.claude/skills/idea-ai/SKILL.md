@@ -66,7 +66,7 @@ Run the **Final Consistency Check** in [STAGES.md](STAGES.md) before completing 
 
 ## Requirements Ruleset
 
-Reviews feed `/write-prd`, `/write-ord` and `/write-ac`, so they borrow those namespaces rather than minting their own. Read `~/.claude/rules/requirements/ai.md` and `tables.md` before writing any register.
+Reviews feed `/write-prd`, `/write-ord` and `/write-ac`, so they borrow those namespaces rather than minting their own. Read `~/.claude/standards/requirements/ai.md` and `tables.md` before writing any register.
 
 - **Own prefixes:** `EVD-NNN` evidence · `FND-NNN` findings · `FM-NNN` failure modes · `AI-IDEA-NNN` the idea itself.
 - **Borrowed:** `ASM-NNN` for assumptions (never `A-NNN` — `/raid` owns `A-` for Actions).

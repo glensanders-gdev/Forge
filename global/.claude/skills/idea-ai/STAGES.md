@@ -173,7 +173,7 @@ Assign data readiness: **Ready** · **Partially ready** · **Unknown** · **Not 
 
 For generative AI, also define the prompt owner, approved purpose, versioning, test and approval process, change and release control, rollback, **separation of trusted instructions from untrusted source text**, prompt and response logging, and review cadence.
 
-Where a specific model or provider is named, record it as `[MDL-TBD — <component, provider, model and version>]` for `/write-ord` to resolve into an `MDL-NNN` row. See `~/.claude/rules/requirements/ai.md` § *Model dependency* for the register's columns — pinning, deprecation notice, fallback behaviour and re-evaluation trigger.
+Where a specific model or provider is named, record it as `[MDL-TBD — <component, provider, model and version>]` for `/write-ord` to resolve into an `MDL-NNN` row. See `~/.claude/standards/requirements/ai.md` § *Model dependency* for the register's columns — pinning, deprecation notice, fallback behaviour and re-evaluation trigger.
 
 Assign platform feasibility: **Confirmed** · **Plausible** · **Unknown** · **Material constraint identified** · **Not supported by current evidence**
 
@@ -197,7 +197,7 @@ Assess the **use case** separately from the underlying **AI system or model**. C
 
 Assign one governance finding: **Formal governance engagement indicated** · **Governance applicability requires confirmation** · **Existing approval may apply, subject to confirmation** · **Insufficient information to determine**
 
-Where a regulatory regime is in play, name which one applies and why. `~/.claude/rules/requirements/ai.md` § *Australian adoptions and instruments* records that a purely domestic Australian system carries no mandatory AI-specific requirement classes — never import the EU AI Act's classes by default.
+Where a regulatory regime is in play, name which one applies and why. `~/.claude/standards/requirements/ai.md` § *Australian adoptions and instruments* records that a purely domestic Australian system carries no mandatory AI-specific requirement classes — never import the EU AI Act's classes by default.
 
 ### Stage 12: Operational Ownership
 
@@ -271,7 +271,7 @@ A tester judges an output against this contract without relying on subjective pr
 
 Specify an evaluation set covering representative standard cases, complex and long histories, missing-data cases, contradictory-data cases, reopened or superseded cases, incorrect structured codes, sensitive or internal-only notes, and cases where generation must be refused or escalated.
 
-**The evaluation-set schema lives in `~/.claude/rules/requirements/ai.md` § *Evaluation set register*.** Read it rather than restating it — it mandates the scorer (including the calibration set, agreement statistic and minimum for an LLM-judge), the threshold, the **floor** on the worst single case, the prohibited-output row IDs, the re-run trigger and the owner. Two of its rules bind every review:
+**The evaluation-set schema lives in `~/.claude/standards/requirements/ai.md` § *Evaluation set register*.** Read it rather than restating it — it mandates the scorer (including the calibration set, agreement statistic and minimum for an LLM-judge), the threshold, the **floor** on the worst single case, the prohibited-output row IDs, the re-run trigger and the owner. Two of its rules bind every review:
 
 - **A threshold measured on training data is not a threshold** — every set is held out from whatever tuned the component.
 - **A categorical prohibition is never scored.** An output unacceptable at *any* rate — a leaked secret, an unauthorised commitment, a protected-attribute inference — is a zero-tolerance row of its own, not a low score to be averaged.
@@ -344,7 +344,7 @@ Number findings so an insertion never forces renumbering — `FND-01`, `FND-02`,
 | Significance | Why it matters |
 | Confidence | High / Medium / Low |
 
-Record assumptions separately, using the `ASM-NNN` prefix from `~/.claude/rules/requirements/tables.md`:
+Record assumptions separately, using the `ASM-NNN` prefix from `~/.claude/standards/requirements/tables.md`:
 
 | ID | Assumption | Area | Status | Validation Method | Owner | Decision Impact |
 |---|---|---|---|---|---|---|
@@ -358,7 +358,7 @@ A falsified assumption has no home in RAID's four quadrants — raise it via `/r
 
 Review supplied criteria across functional behaviour · eligibility and scope · data availability and authority · source conflicts · output quality · human review and approval · safety and exception handling · security and privacy · auditability · operational monitoring · benefit validation · rollback and suspension.
 
-Convert vague statements into testable **proposed** criteria in the declarative present with no modals, per `~/.claude/rules/requirements/language.md`. `/write-ac` owns the `AC-NNN` namespace, so write `[AC-TBD — <behaviour>]`:
+Convert vague statements into testable **proposed** criteria in the declarative present with no modals, per `~/.claude/standards/requirements/language.md`. `/write-ac` owns the `AC-NNN` namespace, so write `[AC-TBD — <behaviour>]`:
 
 ```text
 [AC-TBD — eligible case generation]
@@ -471,4 +471,4 @@ Verify before completing any review:
 12. Maturity matches the available evidence.
 13. The disposition follows from evidence, blockers and readiness.
 14. The top five discovery actions are those most likely to change the decision.
-15. No ID was minted from a namespace `~/.claude/rules/requirements/tables.md` assigns to another skill.
+15. No ID was minted from a namespace `~/.claude/standards/requirements/tables.md` assigns to another skill.

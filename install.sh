@@ -4,8 +4,11 @@
 # Or from GitHub: bash <(curl -fsSL https://raw.githubusercontent.com/glensanders-gdev/Forge/main/install.sh)
 #
 # Creates junctions (Windows) or symlinks (Mac/Linux) from ~/.claude/ into the repo's
-# global/.claude/ so that ~/.claude/skills/, ~/.claude/commands/, and ~/.claude/rules/
-# ARE the repo — no copy step, no drift possible.
+# global/.claude/ so that ~/.claude/skills/, ~/.claude/commands/, ~/.claude/rules/ and
+# ~/.claude/standards/ ARE the repo — no copy step, no drift possible.
+#
+# rules/ holds only what every session loads. standards/ holds what skills read on demand,
+# which is why it is a separate link: Claude Code loads every file under ~/.claude/rules/.
 
 set -e
 
@@ -157,6 +160,7 @@ echo "Linking framework directories..."
 link_dir "$GLOBAL_SRC/skills"   "$CLAUDE_DIR/skills"
 link_dir "$GLOBAL_SRC/commands" "$CLAUDE_DIR/commands"
 link_dir "$GLOBAL_SRC/rules"    "$CLAUDE_DIR/rules"
+link_dir "$GLOBAL_SRC/standards" "$CLAUDE_DIR/standards"
 echo ""
 
 # ── link framework files ──────────────────────────────────────────────────────
@@ -217,7 +221,7 @@ echo -e "${GREEN}║     Forge v${FORGE_VERSION} installed ✓          ║${NC}
 echo -e "${GREEN}╚════════════════════════════════════════╝${NC}"
 echo ""
 echo "How sync works:"
-echo "  ~/.claude/skills/, commands/, rules/ are now linked to:"
+echo "  ~/.claude/skills/, commands/, rules/, standards/ are now linked to:"
 echo "  $SCRIPT_DIR/global/.claude/"
 echo ""
 echo "  Editing a skill in ~/.claude/ edits the repo directly."

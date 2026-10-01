@@ -1,3 +1,12 @@
+---
+paths:
+  - "**/*.ts"
+  - "**/*.tsx"
+  - "**/*.mts"
+  - "**/*.cts"
+origin: Adapted from Glen Sanders (Forge / https://github.com/glensanders-gdev/Forge)
+---
+
 # TypeScript Security
 
 > This file extends [common/security.md](../common/security.md) with TypeScript specific content.

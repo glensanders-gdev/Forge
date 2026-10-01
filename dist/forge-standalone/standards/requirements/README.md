@@ -4,7 +4,7 @@ Authoring standards for requirements documents — how a requirement is *worded*
 *presented*. Consumed by `/write-brd`, `/write-prd`, `/write-ord`, `/write-reqs`, and `/write-ac`.
 
 ```
-rules/requirements/
+standards/requirements/
 ├── README.md      ← this file
 ├── language.md    ← voice, modality, banned constructions
 ├── tables.md      ← table-first presentation, canonical schemas, ID namespaces
@@ -30,7 +30,7 @@ drops and rewords nothing, and is never the reviewed artefact.
 See ADR-0003 for why AI requirements extend the pack rather than forming a fourth document;
 `reporting.md` follows the same precedent rather than adding a reporting document.
 
-## Why this is a separate rules category
+## Why this lives in `standards/`, not `rules/`
 
 `rules/common/` is the always-applied baseline for **code**. `rules/[lang]/` is activated
 per-project via `/lang-rules`. Neither fits: these rules govern **documents**, and they apply
@@ -41,6 +41,14 @@ This ruleset is not auto-loaded. The requirement skills cite it by path, per PRI
 (reference, don't duplicate). It exists so the sibling documents share one definition of a
 requirement's form — neither `/write-prd` nor `/write-ord` can own it without the other
 drifting, and `/write-reqs` is barred from owning templates.
+
+It cannot sit under `rules/`. Claude Code and VS Code load every file under
+`~/.claude/rules/` without `paths:` frontmatter into every session, so a ruleset kept there is
+paid for in every session whether or not a requirements document is in play. Neither loads
+`~/.claude/standards/`. A path-scoped pointer in `~/.claude/rules/`, named `requirements`, covers
+the gap: it loads only when a session reads a document under `docs/brd/`, `docs/prd/`, `docs/ord/`
+or `docs/ac/`, and names these files, so a requirements document edited outside a skill still
+meets them.
 
 ## Scope boundary — read this first
 

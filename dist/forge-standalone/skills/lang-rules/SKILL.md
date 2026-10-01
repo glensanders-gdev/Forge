@@ -42,7 +42,7 @@ For each language with no global rule set, offer:
 
 ### Phase 3 — AFK: Write
 
-1. Copy `~/.claude/rules/<lang>/` into `.claude/rules/<lang>/` for each confirmed language.
+1. Copy `~/.claude/rules/<lang>/` into `.claude/rules/<lang>/` for each confirmed language. The copy keeps the pack's `paths:` frontmatter.
 2. Write `.claude/rules/active.md`:
 
 ```markdown
@@ -73,10 +73,17 @@ When a detected language has no global rule set, offer to scaffold one. A new la
 └── security.md       # Secret management, security scanning tools
 ```
 
-Every file must open with:
+Every file must open with `paths:` frontmatter naming the language's source files, then the extends line:
 ```
+---
+paths:
+  - "**/*.<ext>"
+---
+
 > This file extends [common/xxx.md](../common/xxx.md) with <Language> specific content.
 ```
+
+List one glob per source extension the language uses (`**/*.ts`, `**/*.tsx`, …). Claude Code loads every file under `~/.claude/rules/` that has no `paths:` frontmatter into every session in every project, so a pack without it costs every session, whatever its language.
 
 When scaffolding, generate minimal stubs — one or two concrete rules per section — and flag them for the human to review and extend. Never generate fabricated rules; only include what is verifiably idiomatic for that language.
 
@@ -87,6 +94,7 @@ When scaffolding, generate minimal stubs — one or two concrete rules per secti
 - Common rules (`~/.claude/rules/common/`) always apply — they are never deactivated.
 - Language rules extend common rules; they do not replace them.
 - If the project mixes languages, activate all detected rule sets.
+- Every language rule file carries `paths:` frontmatter naming that language's source files.
 
 ## Failure Modes
 
@@ -102,3 +110,4 @@ When scaffolding, generate minimal stubs — one or two concrete rules per secti
 - Never assume a language without clear file-level evidence.
 - Never activate rule sets for languages not present in the project.
 - Never skip the HITL confirmation before writing.
+- Never scaffold a language pack without `paths:` frontmatter — it would load into every session in every project.

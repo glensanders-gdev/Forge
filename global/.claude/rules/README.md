@@ -1,3 +1,8 @@
+---
+paths:
+  - "**/.claude/rules/**"
+---
+
 # Forge Rules
 
 Language-agnostic coding standards and language-specific rule sets for AI-assisted development.
@@ -14,11 +19,19 @@ rules/
 │   ├── quality-checklist.md  # Pre-ship checklist
 │   ├── research-first.md     # Search-before-writing rule
 │   └── security.md           # Pre-commit security checklist
-├── typescript/               # TypeScript/JavaScript rules (install via /lang-rules)
+├── typescript/               # TypeScript rules; path-scoped to TypeScript sources (install via /lang-rules)
 ├── python/                   # Python rules
 ├── golang/                   # Go rules
-└── [other languages]/        # Added via /user:lang-rules
+├── [other languages]/        # Added via /user:lang-rules; path-scoped like typescript/
+├── requirements.md           # Path-scoped pointer to ../standards/requirements/
+└── README.md                 # This file; path-scoped to .claude/rules/ folders
 ```
+
+<!--no-adapt-->Claude Code and VS Code load every `.md` file under `~/.claude/rules/` into every
+session unless it carries `paths:` frontmatter. A file belongs here only if every session needs it
+or it is path-scoped. Only `common/` loads everywhere: each language pack is scoped to its own
+source files, `requirements.md` to requirements documents and this README to rules folders.
+Standards a skill reads on demand live in `../standards/`.<!--/no-adapt-->
 
 ## How Rules Are Used
 
@@ -29,8 +42,12 @@ rules/
 
 ## Project Activation
 
-Each project declares which rule sets apply via `.claude/rules/active.md`.
-If no activation file exists, only common rules apply.
+Each project declares which rule sets apply via `.claude/rules/active.md`. `/review-diff`,
+`/build` and `/push-standards` read it, and without it they apply only the common rules.
+
+<!--no-adapt-->Claude Code also loads a language pack on its own whenever a session reads a file
+the pack's `paths:` covers, activated or not.<!--/no-adapt--> A pack that `/lang-rules` copies into a
+project keeps that frontmatter.
 
 ## Rules vs Skills
 

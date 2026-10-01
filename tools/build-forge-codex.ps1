@@ -274,13 +274,21 @@ foreach ($file in $frameworkFiles) {
 }
 
 $codingGuidance = Join-Path $references "coding-guidance"
+# Standards a skill reads on demand. Kept apart from coding-guidance/ for the reason the source
+# keeps them out of rules/: hosts that load ~/.claude/rules/ load every file in it, every session.
+$standardsReference = Join-Path $references "standards"
 $projectTemplate = Join-Path $references "project-template"
-foreach ($generatedReference in @($codingGuidance, $projectTemplate)) {
+foreach ($generatedReference in @($codingGuidance, $standardsReference, $projectTemplate)) {
     if (Test-Path -LiteralPath $generatedReference) {
         Remove-Item -LiteralPath $generatedReference -Recurse -Force
     }
 }
 Copy-AdaptedTree (Join-Path $ForgeRoot "global\.claude\rules") $codingGuidance $skillNames
+# rules/requirements.md is a path-scoped pointer for hosts that auto-load ~/.claude/rules/. Codex
+# loads nothing from coding-guidance/, so the pointer would only name a path Codex never creates.
+$rulesPointer = Join-Path $codingGuidance "requirements.md"
+if (Test-Path -LiteralPath $rulesPointer) { Remove-Item -LiteralPath $rulesPointer -Force }
+Copy-AdaptedTree (Join-Path $ForgeRoot "global\.claude\standards") $standardsReference $skillNames
 Copy-AdaptedTree (Join-Path $ForgeRoot "project-template") $projectTemplate $skillNames
 Convert-ProjectTemplate $projectTemplate
 
@@ -308,15 +316,16 @@ Get-ChildItem -LiteralPath $projectTemplate -Recurse -File -Filter "*.md" | ForE
 
 # Skills whose authoring standards travel inside their own folder.
 #
-# These skills cited `~/.codex/forge/rules/<pack>/...`, which nothing creates -- the path is
-# what a blind `~/.claude` -> `~/.codex/forge` rewrite produces, and the packs actually land
-# in references/coding-guidance/. The citation resolved to nothing, so the model drafted the
-# register schema and the modal ban from memory and produced a document that looked right.
+# These skills cited `~/.codex/forge/rules/<pack>/...` (now `~/.codex/forge/standards/<pack>/...`
+# for the requirements pack), which nothing creates -- the path is what a blind `~/.claude` ->
+# `~/.codex/forge` rewrite produces, and the packs actually land in references/. The citation
+# resolved to nothing, so the model drafted the register schema and the modal ban from memory
+# and produced a document that looked right.
 #
-# The packs stay at references/coding-guidance/ for `$lang-rules`. This is a duplicate placed
-# beside the skill that needs it, generated every build, so it cannot drift. A sibling folder
-# under skills/ is reachable wherever Codex installs the plugin -- plugin.json points the
-# loader at ./skills/ and says nothing about the rest of the tree.
+# The packs stay at references/coding-guidance/ (for `$lang-rules`) and references/standards/.
+# This is a duplicate placed beside the skill that needs it, generated every build, so it cannot
+# drift. A sibling folder under skills/ is reachable wherever Codex installs the plugin --
+# plugin.json points the loader at ./skills/ and says nothing about the rest of the tree.
 $SelfContainedSkills = [ordered]@{
     'write-ord'  = 'requirements'
     'write-prd'  = 'requirements'
@@ -326,6 +335,13 @@ $SelfContainedSkills = [ordered]@{
     'roap'       = 'requirements'
     'idea-ai'    = 'requirements'
     'grill-me'   = 'common'
+}
+
+# Where each pack's adapted copy lands -- the same split as global/.claude/rules/ and
+# global/.claude/standards/.
+$PackRoots = @{
+    'common'       = $codingGuidance
+    'requirements' = $standardsReference
 }
 
 $bundled = New-Object System.Collections.Generic.List[object]
@@ -338,7 +354,8 @@ foreach ($entry in $SelfContainedSkills.GetEnumerator()) {
 
     # Copy from the adapted pack, not from upstream: it has already been through
     # Convert-ForgeText, so its `$skill` invocations and Codex paths are correct.
-    $srcPack = Join-Path $codingGuidance $pack
+    if (-not $PackRoots.ContainsKey($pack)) { throw "Pack '$pack' has no entry in `$PackRoots." }
+    $srcPack = Join-Path $PackRoots[$pack] $pack
     if (-not (Test-Path -LiteralPath $srcPack)) { throw "Adapted rules pack '$pack' not found at $srcPack" }
 
     $bundleDir = Join-Path $skillDir "standards"
@@ -367,8 +384,8 @@ foreach ($entry in $SelfContainedSkills.GetEnumerator()) {
     foreach ($f in $skillFiles) {
         $text   = [IO.File]::ReadAllText($f.FullName, [Text.Encoding]::UTF8)
         $before = $text
-        $text = $text -replace "~/\.codex/forge/rules/$([regex]::Escape($pack))/($alternation)\.md", 'standards/$1.md'
-        $text = $text -replace "(?<![\w./-])rules/$([regex]::Escape($pack))/($alternation)\.md", 'standards/$1.md'
+        $text = $text -replace "~/\.codex/forge/(?:rules|standards)/$([regex]::Escape($pack))/($alternation)\.md", 'standards/$1.md'
+        $text = $text -replace "(?<![\w./-])(?:rules|standards)/$([regex]::Escape($pack))/($alternation)\.md", 'standards/$1.md'
         $text = $text -replace "``($bareAlternation)\.md``", '`standards/$1.md`'
         if ($text -ne $before) {
             [IO.File]::WriteAllText($f.FullName, $text, [Text.UTF8Encoding]::new($false))
@@ -381,7 +398,8 @@ foreach ($entry in $SelfContainedSkills.GetEnumerator()) {
 # ---------------------------------------------------------------- reference resolution
 
 # Two checks, both on the defect this stage exists to remove.
-#   1. No skill names `~/.codex/forge/rules/` -- that tree is never created.
+#   1. No skill names `~/.codex/forge/rules/` or `~/.codex/forge/standards/` -- neither tree is
+#      ever created.
 #   2. Every `standards/...` citation resolves beside the skill that makes it.
 $badRefs = New-Object System.Collections.Generic.List[string]
 $skillsResolved = (Resolve-Path -LiteralPath $destinationSkills).Path
@@ -390,8 +408,8 @@ foreach ($file in (Get-ChildItem -LiteralPath $destinationSkills -Recurse -File 
     $i = 0
     foreach ($line in ([IO.File]::ReadAllText($file.FullName, [Text.Encoding]::UTF8) -split "`n")) {
         $i++
-        if ($line -match "~/\.codex/forge/rules/") {
-            $badRefs.Add("  ${rel}:${i}: names ~/.codex/forge/rules/, which nothing creates")
+        if ($line -match "~/\.codex/forge/(rules|standards)/") {
+            $badRefs.Add("  ${rel}:${i}: names ~/.codex/forge/$($Matches[1])/, which nothing creates")
         }
         foreach ($m in [regex]::Matches($line, '`(standards/[A-Za-z0-9_.-]+\.md)`|\]\((standards/[A-Za-z0-9_.-]+\.md)\)')) {
             $cited = if ($m.Groups[1].Success) { $m.Groups[1].Value } else { $m.Groups[2].Value }

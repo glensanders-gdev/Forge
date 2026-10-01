@@ -21,8 +21,8 @@ and read in both directions rather than mirrored as a column in each document.
 One source → one classification → two briefs → two documents (two gates) → one gated cross-link.
 
 **Authoring standards** — shared with both siblings, never restated here:
-`~/.claude/rules/requirements/language.md` and `~/.claude/rules/requirements/tables.md`, plus
-`~/.claude/rules/requirements/ai.md` **conditionally** — where a delivered component's behaviour is
+`~/.claude/standards/requirements/language.md` and `~/.claude/standards/requirements/tables.md`, plus
+`~/.claude/standards/requirements/ai.md` **conditionally** — where a delivered component's behaviour is
 learned or generated rather than specified. Classification (Phase 1) settles the trigger once for
 both halves, so the siblings never disagree about whether that ruleset is in force.
 
@@ -44,7 +44,7 @@ here — each document is confirmed at its own gate in Phase 2.
    dual-nature need into a linked PRD story + ORD requirement — never hand the same whole need to
    both.
 4. **Settle the AI trigger once, for both halves.** Apply the trigger test in
-   `rules/requirements/ai.md` — is any delivered component's behaviour learned or generated rather
+   `standards/requirements/ai.md` — is any delivered component's behaviour learned or generated rather
    than specified? Record the answer in the split below and pass it in both briefs, so neither
    sibling re-decides it and they cannot disagree. Judge the **delivered solution**, never the
    toolchain that builds it. Where it fires, name the affected components: the trigger is
@@ -60,7 +60,7 @@ PRD-bound (functional):  N needs
 ORD-bound (operational): N needs
 Cross-links foreseen:    N
 Assumptions / dependencies carried: N / N
-AI trigger (rules/requirements/ai.md): [fired — components: ... | not fired]
+AI trigger (standards/requirements/ai.md): [fired — components: ... | not fired]
 BRD objectives with no coverage in either: [list or none]
 Unclassified (blocks authoring): [list or none]
 ```

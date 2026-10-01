@@ -10,12 +10,13 @@
 <!-- 2026-06-18: ad-hoc assimilation — PR #12 (write-a-skill CRAFT.md, v3.10.1), PR #13 (/teach, v3.11.0). No kanban tickets. -->
 <!-- 2026-06-18: P3 skill-completeness sweep — PR #15 (Failure Modes + Rules on all 104 skills), PR #16 (attribution/alias/CHANGELOG follow-ups), PR #17 (track CLAUDE.md + docs artifacts). Tags v3.10.1/v3.11.0 pushed. No kanban tickets — backlog-driven. -->
 <!-- 2026-06-19: ad-hoc requirements-document alignment — PR #19 (/write-ord v1.1.0 public + /write-prd v2.1.1 PRD-001 rename + ADR-0001), v3.12.0 squash-merged, tag v3.12.0 pushed. /write-reqs backlogged (P3). No kanban tickets — ad-hoc. -->
+<!-- 2026-10-01: ad-hoc — requirements ruleset moved out of the always-loaded rules/ into standards/, with a path-scoped pointer left in rules/; rules/typescript/ and rules/README.md path-scoped (v4.15.2). PR #90 open, Auto-fix on. Rules loaded at launch 27.7k → 2.9k tokens. No kanban tickets — ad-hoc; the merge-and-link step is tracked under In Progress. -->
 
 ---
 
 ## In Progress
 
-_None_
+- [ ] [HITL] Merge PR #90 (requirements ruleset → `standards/`, v4.15.2), then pull into the main checkout and run `install.sh` in the same sitting to link `~/.claude/standards` — ad-hoc, no ticket
 
 ---
 

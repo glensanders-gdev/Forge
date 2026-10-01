@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Generate the LLM companion for a saved BRD or ORD.
 
-Implements rules/requirements/llm-companion.md mechanically, so every value reaches the
+Implements standards/requirements/llm-companion.md mechanically, so every value reaches the
 companion by copy rather than by retyping:
 
     python3 llm_companion.py docs/ord/Rebate-ORD.md --generator "/write-ord 2.2.0"
@@ -46,7 +46,7 @@ generated from.
 - Section 4 is narrative context. Section 5 holds the binding statements.
 """
 
-# Vocabulary: emitted only where the term occurs. Definitions follow rules/requirements.
+# Vocabulary: emitted only where the term occurs. Definitions follow standards/requirements.
 PREFIXES = {
     "BO": "business objective in a BRD — the outcome the money is spent for, with baseline, target and date",
     "BR": "business requirement in a BRD — a named stakeholder's need stated as an outcome",

@@ -2,7 +2,7 @@
 # DEPRECATED — this script is no longer needed.
 #
 # Since Forge v3.6.0, ~/.claude/skills/, commands/, and rules/ are junctions/symlinks
-# pointing directly into the repo. Updating Forge is simply:
+# pointing directly into the repo (standards/ joined them in v4.15.2). Updating Forge is simply:
 #
 #   cd ~/forge && git pull
 #
@@ -51,6 +51,13 @@ cp -r "$CLAUDE_DIR/commands" "$BACKUP-commands" 2>/dev/null || true
 echo "Installing updated skills..."
 cp -r "$FORGE_DIR/global/.claude/skills/." "$CLAUDE_DIR/skills/"
 cp -r "$FORGE_DIR/global/.claude/commands/." "$CLAUDE_DIR/commands/"
+
+# Update standards/ — authoring standards the skills read by path. They are kept out of
+# rules/ because Claude Code loads every file under ~/.claude/rules/ into every session.
+if [ -d "$FORGE_DIR/global/.claude/standards" ] && [ ! -L "$CLAUDE_DIR/standards" ]; then
+  mkdir -p "$CLAUDE_DIR/standards"
+  cp -r "$FORGE_DIR/global/.claude/standards/." "$CLAUDE_DIR/standards/"
+fi
 
 # Update framework files (not user data)
 for file in PRINCIPLES.md SOUL.md CHANGELOG.md forge-sequence.mmd; do
