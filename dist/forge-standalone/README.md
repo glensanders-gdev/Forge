@@ -24,11 +24,13 @@ cp -r skills/tdd ~/.claude/skills/
 
 Restart your session, then invoke a skill by name — `/tdd`, `/review-diff`, `/write-prd`.
 
-Some skills cite the shared standards in `rules/`. `install.sh` copies those to
-`~/.claude/rules/` alongside the skills.
+Some skills cite shared standards. `install.sh` copies `rules/` to `~/.claude/rules/`, which
+Claude Code loads into every session, and `standards/` to `~/.claude/standards/`, which loads
+only when a skill reads it. `rules/requirements.md` is the exception in `rules/`: its `paths:`
+frontmatter loads it only when a session reads a requirements document.
 
 These carry their standards in a `STANDARDS.md` beside the skill, so they need nothing
-from `rules/` — the three files are the whole skill, installed or pasted into a chat:
+from `rules/` or `standards/` — the three files are the whole skill, installed or pasted into a chat:
 
 - `/write-ord`
 - `/write-prd`
@@ -179,7 +181,7 @@ These files are generated, so edits made directly here are overwritten on the ne
 release. Open an issue describing what needs changing and it will be fixed upstream
 and republished.
 
-Release 4.15.1.
+Release 4.15.2.
 
 ## Credits
 

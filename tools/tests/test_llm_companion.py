@@ -4,7 +4,7 @@ Run: python3 -m unittest discover -s tools/tests -v
 
 The fixtures are synthetic on purpose. The requirements pack the script was first run against
 is held locally and is not in this repo, so CI can only exercise what lives here. Each fixture
-row exists to hit one clause of rules/requirements/llm-companion.md.
+row exists to hit one clause of standards/requirements/llm-companion.md.
 """
 import contextlib
 import hashlib

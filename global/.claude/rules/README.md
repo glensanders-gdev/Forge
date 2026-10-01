@@ -17,8 +17,13 @@ rules/
 ├── typescript/               # TypeScript/JavaScript rules (install via /lang-rules)
 ├── python/                   # Python rules
 ├── golang/                   # Go rules
-└── [other languages]/        # Added via /user:lang-rules
+├── [other languages]/        # Added via /user:lang-rules
+└── requirements.md           # Path-scoped pointer to ../standards/requirements/
 ```
+
+<!--no-adapt-->Claude Code and VS Code load every `.md` file under `~/.claude/rules/` into every
+session unless it carries `paths:` frontmatter. A file belongs here only if every session needs it
+or it is path-scoped; standards a skill reads on demand live in `../standards/`.<!--/no-adapt-->
 
 ## How Rules Are Used
 

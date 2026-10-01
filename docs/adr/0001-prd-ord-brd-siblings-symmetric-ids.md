@@ -2,6 +2,10 @@
 
 **Date:** 2026-06-19
 **Status:** Active
+**Amended:** 2026-10-01 — the shared ruleset moved from `global/.claude/rules/requirements/` to
+`global/.claude/standards/requirements/` (v4.15.2), because Claude Code and VS Code load every file
+under `~/.claude/rules/` into every session. The decision is unchanged; paths below are as written
+at the time.
 
 ## Context
 

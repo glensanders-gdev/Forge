@@ -49,7 +49,7 @@ git clone https://github.com/glensanders-gdev/Forge.git ~/forge
 bash ~/forge/install.sh
 ```
 
-`install.sh` creates **junctions** (Windows) or **symlinks** (Mac/Linux) from `~/.claude/skills/`, `~/.claude/commands/`, and `~/.claude/rules/` directly into the cloned repo. Edits to skills in `~/.claude/` are immediately visible in `git status` — no copy step required. User-owned directories (`knowledge/`, `instincts/`, `tokens/`, etc.) are never touched.
+`install.sh` creates **junctions** (Windows) or **symlinks** (Mac/Linux) from `~/.claude/skills/`, `~/.claude/commands/`, `~/.claude/rules/` and `~/.claude/standards/` directly into the cloned repo. Edits to skills in `~/.claude/` are immediately visible in `git status` — no copy step required. User-owned directories (`knowledge/`, `instincts/`, `tokens/`, etc.) are never touched.
 
 ### Codex Plugin
 

@@ -11,6 +11,37 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
+## v4.15.2 — 2026-10-01
+
+**The requirements ruleset moves out of `rules/`, so it stops loading into every session.**
+`rules/requirements/README.md` said the ruleset was not auto-loaded. It was:
+<!--no-adapt-->Claude Code loads every file under `~/.claude/rules/` that carries no `paths:`
+frontmatter into every session in every project, and VS Code does the same, so the six files
+cost about 22.9k tokens (characters ÷ 4) of the 27.7k the rules folder carried.<!--/no-adapt-->
+
+- **`global/.claude/rules/requirements/` → `global/.claude/standards/requirements/`**, linked as
+  `~/.claude/standards/` by `install.sh`. Nothing loads that folder; the requirement skills read it
+  by path, as the ruleset's README always said they did. ADR-0001 and ADR-0003 carry an amendment
+  note; their decisions are unchanged.
+- **Every citation repointed** — 58 lines across `/write-ord` 2.2.2, `/write-prd` 2.7.6,
+  `/idea-ai` 1.0.1, `/write-brd` 1.3.1, `/write-reqs` 1.4.3, `/write-ac` 1.6.3, `/testplan` 1.2.2,
+  `/handoff` 2.0.1, `/roap` 1.0.1 and `/prototype` 2.2.1, plus `build-reqs-bundle.py`.
+- **`rules/requirements.md` is a path-scoped pointer.** Its `paths:` frontmatter loads it only when
+  a session reads a document under `docs/brd/`, `docs/prd/`, `docs/ord/` or `docs/ac/`, so a
+  requirements document edited outside a skill still names its standards.
+- **Existing installs need one new link.** `/update-forge` 3.1.0 gains step 6a, which links any
+  framework folder a release adds, and `/install-forge` 3.1.0 no longer takes a linked `skills/` as
+  proof that every link exists. `bash ~/forge/install.sh` also works — it links only what is missing.
+- **Codex:** the pack is copied to `references/standards/` as well as into each bundled skill's
+  `standards/`. The pointer is left out, since Codex loads nothing from `coding-guidance/`, and the
+  dead-path check now covers `~/.codex/forge/standards/` as well as `rules/`.
+- **Standalone:** `install.sh` installs the pack to `~/.claude/standards/` and the pointer to
+  `~/.claude/rules/`. Where an earlier install left `~/.claude/rules/requirements/`, it prints a
+  notice with the command to remove it, and never deletes it. A pack missing from its source path
+  now fails the build instead of being skipped.
+
+---
+
 ## v4.15.1 — 2026-09-27
 
 **`/write-ord` 2.2.1 — §3.8 gains Functional Correctness, and three colliding section numbers are

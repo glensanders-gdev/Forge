@@ -228,12 +228,20 @@ foreach ($name in $shipped) {
     }
 }
 
-# Rules packs the shipped skills cite by path.
-foreach ($pack in @("common", "requirements")) {
-    $srcPack = Join-Path $ForgeRoot "global" ".claude" "rules" $pack
-    if (-not (Test-Path -LiteralPath $srcPack)) { continue }
+# Packs the shipped skills cite by path, and the root each one installs under. `rules/` installs
+# to ~/.claude/rules/, which Claude Code loads into every session; `standards/` installs to
+# ~/.claude/standards/, which nothing loads until a skill reads it.
+$PackRoots = [ordered]@{
+    'common'       = 'rules'
+    'requirements' = 'standards'
+}
+foreach ($packEntry in $PackRoots.GetEnumerator()) {
+    $pack = $packEntry.Key
+    $srcPack = Join-Path $ForgeRoot "global" ".claude" $packEntry.Value $pack
+    # Loud, not skipped: a pack that moved would otherwise vanish from the distribution unnoticed.
+    if (-not (Test-Path -LiteralPath $srcPack)) { throw "Pack '$pack' not found: $srcPack" }
     $srcPack = (Resolve-Path -LiteralPath $srcPack).Path
-    $dstPack = Join-Path $OutRoot "rules" $pack
+    $dstPack = Join-Path $OutRoot $packEntry.Value $pack
     Ensure-Directory $dstPack
     Get-ChildItem -LiteralPath $srcPack -Recurse -File -Force | ForEach-Object {
         $relative = $_.FullName.Substring($srcPack.Length).TrimStart("\", "/")
@@ -242,6 +250,14 @@ foreach ($pack in @("common", "requirements")) {
         $text = [IO.File]::ReadAllText($_.FullName, [Text.Encoding]::UTF8)
         [IO.File]::WriteAllText($target, (Convert-StandaloneText $text $_.FullName $held), [Text.UTF8Encoding]::new($false))
     }
+}
+
+# The path-scoped pointer that names the requirements standards. Its `paths:` frontmatter means
+# it loads only when a session reads a requirements document, so it costs nothing elsewhere.
+$pointerSrc = Join-Path $ForgeRoot "global" ".claude" "rules" "requirements.md"
+if (Test-Path -LiteralPath $pointerSrc) {
+    $text = [IO.File]::ReadAllText($pointerSrc, [Text.Encoding]::UTF8)
+    [IO.File]::WriteAllText((Join-Path $OutRoot "rules" "requirements.md"), (Convert-StandaloneText $text $pointerSrc $held), [Text.UTF8Encoding]::new($false))
 }
 
 # ---------------------------------------------------------------- self-contained bundling
@@ -326,7 +342,8 @@ foreach ($entry in $SelfContainedSkills.GetEnumerator()) {
     if ($shipped -notcontains $name) {
         throw "Self-contained skill '$name' is not shipped, so its standards have nowhere to land."
     }
-    $srcPack = Join-Path $ForgeRoot "global" ".claude" "rules" $pack
+    if (-not $PackRoots.Contains($pack)) { throw "Pack '$pack' for '$name' has no entry in `$PackRoots." }
+    $srcPack = Join-Path $ForgeRoot "global" ".claude" $PackRoots[$pack] $pack
     if (-not (Test-Path -LiteralPath $srcPack)) { throw "Rules pack '$pack' not found for '$name': $srcPack" }
 
     $skillDir = (Resolve-Path -LiteralPath (Join-Path $skillsOut $name)).Path
@@ -412,8 +429,8 @@ foreach ($entry in $SelfContainedSkills.GetEnumerator()) {
     foreach ($f in $skillFiles) {
         $text   = [IO.File]::ReadAllText($f.FullName, [Text.Encoding]::UTF8)
         $before = $text
-        $text = $text -replace "~/\.claude/rules/$([regex]::Escape($pack))/($alternation)\.md", '$1.md'
-        $text = $text -replace "(?<![\w./-])rules/$([regex]::Escape($pack))/($alternation)\.md", '$1.md'
+        $text = $text -replace "~/\.claude/(?:rules|standards)/$([regex]::Escape($pack))/($alternation)\.md", '$1.md'
+        $text = $text -replace "(?<![\w./-])(?:rules|standards)/$([regex]::Escape($pack))/($alternation)\.md", '$1.md'
         foreach ($sib in $siblings) {
             $leaf = Split-Path -Leaf $sib
             $text = $text.Replace("[$leaf](../$sib)", "``$leaf``")
@@ -445,8 +462,8 @@ $ambiguousRefs = New-Object System.Collections.Generic.List[object]
 $escapees      = New-Object System.Collections.Generic.List[object]
 
 $packBasenames = @{}
-foreach ($pack in @("common", "requirements")) {
-    $probe = Join-Path $ForgeRoot "global" ".claude" "rules" $pack
+foreach ($pack in $PackRoots.Keys) {
+    $probe = Join-Path $ForgeRoot "global" ".claude" $PackRoots[$pack] $pack
     if (-not (Test-Path -LiteralPath $probe)) { continue }
     foreach ($f in (Get-ChildItem -LiteralPath $probe -File -Filter "*.md")) {
         # `README.md` is every project's own file too. Flagging it would bury the signal.
@@ -478,12 +495,14 @@ foreach ($file in (Get-ChildItem -LiteralPath $skillsOut -Recurse -File -Filter 
                 $resolved = Join-Path $skillsOut ($cited -replace '^~/\.claude/skills/', '')
             } elseif ($cited -like '~/.claude/rules/*') {
                 $resolved = Join-Path $OutRoot ('rules/' + ($cited -replace '^~/\.claude/rules/', ''))
+            } elseif ($cited -like '~/.claude/standards/*') {
+                $resolved = Join-Path $OutRoot ('standards/' + ($cited -replace '^~/\.claude/standards/', ''))
             } elseif ($cited -like '~/*') {
                 # Everything else under the user's home is runtime state a skill creates or
                 # reads -- a backlog, a token ledger, a company style guide. install.sh
-                # populates exactly two roots, and only those two are the build's to prove.
+                # populates exactly three roots, and only those three are the build's to prove.
                 $checked = $false
-            } elseif ($cited -like 'rules/*') {
+            } elseif ($cited -like 'rules/*' -or $cited -like 'standards/*') {
                 $resolved = Join-Path $OutRoot $cited
             } elseif ($cited -eq 'STANDARDS.md') {
                 $resolved = Join-Path $file.DirectoryName $cited
@@ -518,9 +537,10 @@ foreach ($file in (Get-ChildItem -LiteralPath $skillsOut -Recurse -File -Filter 
                     $cite = $m.Groups[1].Value
                     # Runtime state under the user's home -- an idea folder, a sprint calendar,
                     # a company style guide -- is read if present and is nobody's to bundle.
-                    # Only the two roots install.sh populates make a skill non-portable.
+                    # Only the three roots install.sh populates make a skill non-portable.
                     if ($cite.StartsWith('~/') -and
-                        -not ($cite -like '~/.claude/rules/*' -or $cite -like '~/.claude/skills/*')) { continue }
+                        -not ($cite -like '~/.claude/rules/*' -or $cite -like '~/.claude/standards/*' -or
+                              $cite -like '~/.claude/skills/*')) { continue }
                     $escapees.Add([pscustomobject]@{
                         Skill = $skillName; File = $rel; Line = $lineNo; Cited = $cite
                     })
@@ -611,8 +631,8 @@ if ($danglingFiles.Count -gt 0) {
 if ($ambiguousRefs.Count -gt 0) {
     $report.Add("## Ambiguous bare standard citations")
     $report.Add("")
-    $report.Add("A skill names a rules-pack file by bare filename. It resolves against the installed")
-    $report.Add("``~/.claude/rules/`` tree but not from inside the skill folder, so a single-skill")
+    $report.Add("A skill names a pack file by bare filename. It resolves against the installed")
+    $report.Add("``~/.claude/rules/`` or ``~/.claude/standards/`` tree but not from inside the skill folder, so a single-skill")
     $report.Add('install silently loses it. Add the skill to `$SelfContainedSkills` to bundle the pack.')
     $report.Add("")
     $report.Add("| Skill | File | Line | Cited | Pack |")
@@ -683,13 +703,15 @@ $readme.Add('```')
 $readme.Add("")
 $readme.Add('Restart your session, then invoke a skill by name — `/tdd`, `/review-diff`, `/write-prd`.')
 $readme.Add("")
-$readme.Add('Some skills cite the shared standards in `rules/`. `install.sh` copies those to')
-$readme.Add('`~/.claude/rules/` alongside the skills.')
+$readme.Add('Some skills cite shared standards. `install.sh` copies `rules/` to `~/.claude/rules/`, which')
+$readme.Add('Claude Code loads into every session, and `standards/` to `~/.claude/standards/`, which loads')
+$readme.Add('only when a skill reads it. `rules/requirements.md` is the exception in `rules/`: its `paths:`')
+$readme.Add('frontmatter loads it only when a session reads a requirements document.')
 $readme.Add("")
 if ($bundled.Count -gt 0) {
     $verb = if ($bundled.Count -eq 1) { 'carries' } else { 'carry' }
     $readme.Add("These $verb their standards in a ``STANDARDS.md`` beside the skill, so they need nothing")
-    $readme.Add('from `rules/` — the three files are the whole skill, installed or pasted into a chat:')
+    $readme.Add('from `rules/` or `standards/` — the three files are the whole skill, installed or pasted into a chat:')
     $readme.Add("")
     foreach ($b in $bundled) { $readme.Add("- ``/$($b.Skill)``") }
 }
@@ -736,14 +758,16 @@ $readme.Add("[Matt Pocock's skills](https://github.com/mattpocock/skills) and fr
 
 $installer = @'
 #!/usr/bin/env bash
-# Installs these skills into ~/.claude/skills/ (and the rules they cite into ~/.claude/rules/).
+# Installs these skills into ~/.claude/skills/, the rules they cite into ~/.claude/rules/, and the
+# standards they read on demand into ~/.claude/standards/.
 set -euo pipefail
 
 here="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 skills_dst="${HOME}/.claude/skills"
 rules_dst="${HOME}/.claude/rules"
+standards_dst="${HOME}/.claude/standards"
 
-mkdir -p "$skills_dst" "$rules_dst"
+mkdir -p "$skills_dst" "$rules_dst" "$standards_dst"
 
 installed=0
 for dir in "$here"/skills/*/; do
@@ -763,8 +787,33 @@ for dir in "$here"/rules/*/; do
     cp -R "$dir" "$rules_dst/$name"
 done
 
+# Single rule files: the path-scoped pointer that names the requirements standards.
+for file in "$here"/rules/*.md; do
+    [ -f "$file" ] || continue
+    cp "$file" "$rules_dst/$(basename "$file")"
+done
+
+for dir in "$here"/standards/*/; do
+    [ -d "$dir" ] || continue
+    name="$(basename "$dir")"
+    rm -rf "${standards_dst:?}/$name"
+    cp -R "$dir" "$standards_dst/$name"
+done
+
 echo "Installed $installed skills to $skills_dst"
 echo "Installed rules to $rules_dst"
+echo "Installed standards to $standards_dst"
+
+# Earlier releases installed the requirements standards into ~/.claude/rules/requirements/, where
+# Claude Code loads every file into every session. Report it; never delete it.
+if [ -d "$rules_dst/requirements" ]; then
+    echo ""
+    echo "Note: $rules_dst/requirements/ is from an earlier install. Those standards now install"
+    echo "to $standards_dst/requirements/, and the old copy still loads into every Claude Code"
+    echo "session. Once you have checked it holds nothing of your own, remove it with:"
+    echo "  rm -rf \"$rules_dst/requirements\""
+    echo ""
+fi
 echo "Restart your Claude Code session to pick them up."
 '@
 # The published repository is cloned on Windows too, where core.autocrlf rewrites

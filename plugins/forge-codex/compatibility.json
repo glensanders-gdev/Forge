@@ -29,12 +29,12 @@
     "install-forge": {
       "source": "global/.claude/skills/install-forge/SKILL.md",
       "codex": "plugins/forge-codex/skills/install-forge/SKILL.md",
-      "reviewedSourceSha256": "A2DAD9464D46D46C554B708C4CFE1CB99B33380FDA0CA7471CDB158B21DF81CE"
+      "reviewedSourceSha256": "CE135CC01D15A33A9E2C9B1093D65498C6B8C63C9CBF1661F2A0DC7F874C617D"
     },
     "update-forge": {
       "source": "global/.claude/skills/update-forge/SKILL.md",
       "codex": "plugins/forge-codex/skills/update-forge/SKILL.md",
-      "reviewedSourceSha256": "35CBE200C6C17CACCE0E92EF05D92F2FD7B6B1321F93A1BF45670106EF2050A0"
+      "reviewedSourceSha256": "02B6727649DA18EEB9254DAE1E16DFF61A16BE6E9612F753152E2B19B138FDF3"
     },
     "git-guardrails": {
       "source": "global/.claude/skills/git-guardrails/SKILL.md",

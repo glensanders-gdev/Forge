@@ -22,7 +22,7 @@ The two source documents have different scopes, so they produce different artefa
 
 An ORD requirement belongs to the release, not to one feature. Pulling register rows into a
 feature testplan restates the same commitment in every feature that touches it and issues a fresh
-TC for each — the duplication that `rules/requirements/tables.md` § View Tables forbids.
+TC for each — the duplication that `standards/requirements/tables.md` § View Tables forbids.
 
 **A feature testplan never restates an operational requirement.** Where a feature depends on one,
 reference the TC ID issued by the operational testplan and add no new value — the same view-table
@@ -119,7 +119,7 @@ team's verification into this repo's test suite.
 
 - `MoSCoW` = `Won't` — no verification for this release. Consistent with `/write-ac`.
 - `Business Tolerance` still `[TBD — source: "…"]` — record it in Not Verifiable Yet. Never
-  invent a threshold to make a row testable (`rules/requirements/language.md`).
+  invent a threshold to make a row testable (`standards/requirements/language.md`).
 - No measurement population stated in the tolerance — an authoring defect in the ORD. Report it; do
   not guess one. A pending Appendix D is **not** a defect: it is the expected state before the
   design response is issued.

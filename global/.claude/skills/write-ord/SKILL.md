@@ -26,17 +26,17 @@ See [REFERENCE.md](REFERENCE.md) for the ISO/IEC 25010:2023 taxonomy, the demand
 the status taxonomy, the KPP guide and the full ORD template.
 
 **Authoring standards — read before writing any requirement:**
-- `~/.claude/rules/requirements/language.md` — wording, voice, banned modals, demand-not-design
-- `~/.claude/rules/requirements/tables.md` — table-first presentation, canonical schemas, ID namespaces
-- `~/.claude/rules/requirements/ai.md` — **conditional.** Fires where a delivered component's output
+- `~/.claude/standards/requirements/language.md` — wording, voice, banned modals, demand-not-design
+- `~/.claude/standards/requirements/tables.md` — table-first presentation, canonical schemas, ID namespaces
+- `~/.claude/standards/requirements/ai.md` — **conditional.** Fires where a delivered component's output
   for a given input is not fully determined by written logic — a trained model, an LLM call, a
   retrieval-augmented pipeline, an agent, or a third-party AI service consumed as an API. Supplies
   the evaluative criterion, the `EVL-NNN` / `MDL-NNN` schemas, and the ISO/IEC 25059 class map.
-- `~/.claude/rules/requirements/reporting.md` — **conditional.** Fires where the change creates,
+- `~/.claude/standards/requirements/reporting.md` — **conditional.** Fires where the change creates,
   alters or retires a measure somebody reports. Supplies the measure definition, the `DAT-NNN`
   schema and the ISO/IEC 25012 data-quality anchor.
 
-- `~/.claude/rules/requirements/llm-companion.md` — the form of the LLM companion written beside
+- `~/.claude/standards/requirements/llm-companion.md` — the form of the LLM companion written beside
   the ORD in Phase 2.
 
 Apply both trigger tests in Phase 1 — a wrong "no" silently skips a whole ruleset. They are
@@ -197,11 +197,11 @@ Problems stated as a solution rather than a problem: [list, or "none"]
 [or "none — source stated demand throughout"]
 Technical figures whose underlying tolerance could not be recovered: [list, or "none"]
 
-### Trigger — `rules/requirements/ai.md`
+### Trigger — `standards/requirements/ai.md`
 **Fired:** Yes — [components] | No — [why]
 [Where fired:] 25059 sub-characteristics engaged · EVL/MDL candidates
 
-### Trigger — `rules/requirements/reporting.md`
+### Trigger — `standards/requirements/reporting.md`
 **Fired:** Yes — [the reported measures] | No — [why]
 [Where fired:] data elements identified · reconciliation classes checked
 

@@ -31,7 +31,7 @@ overwrite another's.
 | `docs/handoffs/unassigned-YYYY-MM-DD-HHMM.md` | Emergency save with no resolvable stream. | `$save-state` only |
 
 The stream file is the source of truth. The register **restates by reference and introduces
-nothing new** — the same discipline as a view table in `rules/requirements/tables.md`. A value
+nothing new** — the same discipline as a view table in `standards/requirements/tables.md`. A value
 carried in both is edited in the stream file first, then the row is brought into line.
 
 ---
@@ -130,7 +130,7 @@ _None_ if nothing is blocked.
 - Name it for the work, not the date: `ord-pack`, `capacity-report`, `login-flow`.
 - Where a git branch maps one-to-one to the work, the branch name (minus any `Codex/` prefix) is
   the default **suggestion** — never applied silently.
-- A retired slug is never reused, matching the ID rules in `rules/requirements/tables.md`.
+- A retired slug is never reused, matching the ID rules in `standards/requirements/tables.md`.
 - Reserved: `archive`, and any `unassigned-*` name.
 
 ---

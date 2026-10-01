@@ -17,7 +17,7 @@ Bootstrap or migrate Forge on this device. Auto-detects which scenario applies a
 | Detected State | Branch |
 |---------------|--------|
 | No repo, no `~/.claude/skills/` | A — Fresh install |
-| Repo present, skills is junction/symlink | B — Already linked (no-op) |
+| Repo present, skills is junction/symlink | B — Already linked (links any folder still missing) |
 | No repo, skills is real directory | C — Legacy migration |
 | Repo present, skills is real directory | D — Re-link |
 | No `ln` or `cmd` available (iOS) | iOS guidance |
@@ -82,7 +82,23 @@ Branch on the result.
 
 ---
 
-## Scenario B — Already Linked (No-Op)
+## Scenario B — Already Linked
+
+A linked `skills/` does not prove the other links exist — a release can add a folder, as v4.15.2
+added `standards/`. Check the rest:
+
+```bash
+for d in commands rules standards; do [ -e ~/.claude/$d ] || echo "missing: $d"; done
+```
+
+If any is missing [HITL]:
+```
+Forge is linked, but ~/.claude/[dir]/ is not.
+Run install.sh to link it? It leaves existing links alone. (yes/no)
+```
+On `yes` → `bash ~/forge/install.sh`. On anything else, stop and leave the links as they are.
+
+If nothing is missing:
 
 ```
 ✓ Forge is already installed and linked (v[X.Y.Z]).
@@ -105,7 +121,7 @@ Present the plan:
 
 Migration plan:
   1. Locate or clone repo to ~/forge
-  2. Remove real ~/.claude/skills/, commands/, rules/ directories
+  2. Remove real ~/.claude/skills/, commands/, rules/, standards/ directories
   3. Create junctions/symlinks pointing to ~/forge/global/.claude/
   4. User data (knowledge/, instincts/, tokens/, etc.) is NOT touched.
 
@@ -194,6 +210,7 @@ To contribute skill changes from iOS:
 | Remote URL wrong | Stop. "Resolve the remote manually before retrying." |
 | Cross-device move fails | Fall back to copy + delete. Warn if source deletion fails — user must delete manually. |
 | Skills junction points to wrong target | Warn with current target. Offer to re-create: `bash ~/forge/install.sh`. |
+| Skills is linked but another framework folder is not | Scenario B — confirm, then run `install.sh`, which links only what is missing. |
 
 ## Rules
 

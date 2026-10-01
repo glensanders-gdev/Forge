@@ -1,6 +1,6 @@
 {
   "repository": "https://github.com/glensanders-gdev/skills",
-  "version": "4.15.1",
+  "version": "4.15.2",
   "skill_count": 69,
   "skills": [
     {
@@ -143,7 +143,7 @@
     },
     {
       "name": "handoff",
-      "version": "2.0.0",
+      "version": "2.0.1",
       "category": "session",
       "description": "Compact the current session into a structured handoff so the next session can continue without re-reading the conversation. Writes one handoff per stream of work to docs/handoffs/[stream].md and keeps the register at docs/HANDOFF.md. References artifacts by path rather than reproducing content. Suggests skills for the next session. Use /handoff for any planned pause — same-day resume, passing to another agent, or handing to a colleague. Use /debrief for a thorough end-of-day close that updates kanban, DEVLOG, and backlog."
     },
@@ -197,7 +197,7 @@
     },
     {
       "name": "prototype",
-      "version": "2.2.0",
+      "version": "2.2.1",
       "category": "pipeline",
       "description": "Spike throwaway code to answer a specific design question before writing the PRD. Pick a branch first — a logic/state question builds an interactive Logic Prototype (see logic-prototype.md); a visual/UX question builds structurally different UI variants behind a switcher (see ui-prototype.md). Findings feed /write-prd; the spike is preserved on a throwaway branch, then cleaned from the working tree. Use when a design question is cheaper to answer in code than in discussion."
     },
@@ -329,7 +329,7 @@
     },
     {
       "name": "testplan",
-      "version": "1.2.1",
+      "version": "1.2.2",
       "category": "pipeline",
       "description": "Design the testing strategy for a feature or a release — what to test, at what level, automated vs manual, and which behaviours are critical. Runs in feature mode against a PRD, or operational mode (--operational) against an ORD register. Produces a testplan.md that feeds into /tdd and /qa-plan. Use when user runs /testplan, a PRD or ORD is written, or before implementation begins."
     },
@@ -377,7 +377,7 @@
     },
     {
       "name": "write-ac",
-      "version": "1.6.2",
+      "version": "1.6.3",
       "category": "pipeline",
       "description": "Transform a PRD and ORD into Jira acceptance criteria — promote KPPs and headline outcomes to Capability-level AC, flow story detail to child Epics/Stories, carry PRD-NNN/ORD-NNN traceability into each criterion, and optionally push to the linked Jira Capability behind a confirmation gate. Use when the user runs /write-ac, has a PRD and/or ORD ready to turn into Jira acceptance criteria, or is promoting a project to a Jira Capability."
     },
@@ -395,25 +395,25 @@
     },
     {
       "name": "write-brd",
-      "version": "1.3.0",
+      "version": "1.3.1",
       "category": "pipeline",
       "description": "Author a Business Requirements Document to the pack's BABOK v3 standard — SMART objectives carrying baseline, target and date, outcomes rather than solutions, and a cost-of-failure case for each objective carrying operational exposure — then self-assess it against the BH-1 – BH-10 handoff gate that decides whether ORD development can start. Runs AFK ingest, HITL write, then the gate. The standard is read at authoring time, never recalled. Use when a BRD is needed from a request brief, idea, transcript or notes, when /write-brd is run, or when an ORD task turns out to be a BRD task in disguise."
     },
     {
       "name": "write-ord",
-      "version": "2.2.1",
+      "version": "2.2.2",
       "category": "pipeline",
       "description": "Synthesize a call transcript, document, conversation context, or structured notes into a compliant demand-side Operational Requirements Document (ORD) — quantified business tolerances organised by ISO/IEC 25010:2023 quality characteristics, with operational objectives, scenarios, business rules and referred requirements. Use when the user runs /write-ord, provides a transcript or document to convert into an ORD, or wants to formalise operational requirements from a conversation."
     },
     {
       "name": "write-prd",
-      "version": "2.7.5",
+      "version": "2.7.6",
       "category": "pipeline",
       "description": "Synthesize the current conversation, grill session, research, and prototype findings into a structured PRD aligned with ISO/IEC/IEEE 29148:2018 — the functional demand document sitting between the BRD and the SOAP, stating what is built and for whom and carrying no technical figure. Executes in two phases — AFK explore then HITL write — with a confirmation gate between them. Use when user runs /write-prd or when grill-me confirms shared understanding is reached."
     },
     {
       "name": "write-reqs",
-      "version": "1.4.2",
+      "version": "1.4.3",
       "category": "pipeline",
       "description": "Author a PRD and an ORD together from one source — classify needs into functional (PRD) and operational (ORD), delegate each document end-to-end to /write-prd and /write-ord via a binding authoring brief (each keeping its own confirmation gate), then own the bidirectional BRD↔PRD↔ORD cross-link neither sibling can complete alone. Use when the user runs /write-reqs, or wants both a PRD and an ORD from a single grill, transcript, or BRD rather than authoring either standalone."
     }

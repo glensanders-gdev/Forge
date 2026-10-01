@@ -97,7 +97,7 @@ Does the system protect against risk of injury or harm to people, property, or t
 
 ## ISO/IEC 25059:2023 — AI Extension *(conditional)*
 
-**Applies only where the trigger test in `~/.claude/rules/requirements/ai.md` fires** — a delivered
+**Applies only where the trigger test in `~/.claude/standards/requirements/ai.md` fires** — a delivered
 component whose output for a given input is not fully determined by written logic. 25059 sits inside
 the same SQuaRE series as 25010 and **extends it**: it adds the sub-characteristics below and
 inherits everything above unchanged. It is not a replacement taxonomy and does not restructure §3.
@@ -111,7 +111,7 @@ inherits everything above unchanged. It is not a replacement taxonomy and does n
 | **Transparency** | 6. Interaction Capability | Output labelling, explanation of a decision, disclosure that a component is AI |
 
 *ORD relevance:* every one of these needs a threshold on a named held-out `EVL-NNN` evaluation set,
-a floor, and a review hook — see `rules/requirements/ai.md` § *The evaluative criterion*. Accuracy
+a floor, and a review hook — see `standards/requirements/ai.md` § *The evaluative criterion*. Accuracy
 and fairness are **not** new sub-characteristics: they are Functional Correctness measured the AI
 way, which is why they sit under §3.8.2 Functional Correctness in the template below rather than here.
 
@@ -138,7 +138,7 @@ AI consumed as a service. Re-check before treating this patch as stable.
 ## Demand-side scope — what this ORD is, and is not
 
 **The ORD states quantified business demand. It never states the technical target that satisfies
-it.** See `~/.claude/rules/requirements/language.md` § *Demand, not design*. The ORD precedes
+it.** See `~/.claude/standards/requirements/language.md` § *Demand, not design*. The ORD precedes
 solutioning: architecture, security, operations and service management sit **downstream** and
 answer this document. They do not contribute to it.
 
@@ -206,7 +206,7 @@ Typical KPP candidates:
 - The change produces an unauthorised effect on existing customer, SLA or financial treatment.
 
 **Not every Must is a KPP.** MoSCoW, `KPP` and `Status` are three orthogonal axes — see
-`~/.claude/rules/requirements/tables.md`. A KPP that cannot reach at least `Provisional` inside the
+`~/.claude/standards/requirements/tables.md`. A KPP that cannot reach at least `Provisional` inside the
 window is the one item warranting escalation rather than quiet degradation.
 
 ---
@@ -305,7 +305,7 @@ preserve both documented positions, name the affected requirements, and raise a 
 
 ## Extraction — splitting, consolidating and transforming
 
-Wording is governed by `~/.claude/rules/requirements/language.md` and is not restated here. What
+Wording is governed by `~/.claude/standards/requirements/language.md` and is not restated here. What
 follows is the extraction judgement that precedes it.
 
 **Transforming a source statement.** Preserve the operational intent and the business rationale.
@@ -331,7 +331,7 @@ duplicates.
 
 ## Supporting views
 
-`~/.claude/rules/requirements/tables.md` § *View Tables* governs every view: it cites IDs, restates
+`~/.claude/standards/requirements/tables.md` § *View Tables* governs every view: it cites IDs, restates
 no value, introduces no new commitment, and is headed as a view. These are the views this document
 permits, each placed in the section it serves:
 
@@ -425,7 +425,7 @@ Save output to `docs/ord/[system-name]-ORD.md`.
 
 **The register schema, the objective, scenario, business-rule, impact, referred-requirement,
 assumption and dependency schemas are defined once** in
-`~/.claude/rules/requirements/tables.md` and are authoritative there. This template shows where each
+`~/.claude/standards/requirements/tables.md` and are authoritative there. This template shows where each
 lands and what each section is for — it does not restate a column set.
 
 ```markdown
@@ -441,7 +441,7 @@ lands and what each section is for — it does not restate a column set.
 **Classification:** [Internal / Confidential / Restricted]
 **Conformance:** ISO/IEC/IEEE 29148:2018 (stakeholder and system requirements), organised by
 ISO/IEC 25010:2023 quality characteristics at §3. Deviations recorded in
-`rules/requirements/language.md`.
+`standards/requirements/language.md`.
 
 ---
 
@@ -581,7 +581,7 @@ which makes the absence countable where a single entry-position row does not.
 Organised by ISO/IEC 25010:2023 characteristic. **All nine appear, every time.** Register schema in
 `tables.md` § *Requirement register — the demand-side ORD*.
 
-> **[AI]** prefixes a `Business Tolerance` governed by `rules/requirements/ai.md`.
+> **[AI]** prefixes a `Business Tolerance` governed by `standards/requirements/ai.md`.
 > **KPP** is its own column and carries threshold and objective as two labelled values.
 > **`Ver`** is the requirement's own version, and it travels with the proposed acceptance criterion
 > as inline provenance. **Traceability is not a register column** — it lives once, at Appendix A.
@@ -610,7 +610,7 @@ IDs and adds no value of its own.
 and do not close up when a subsection is omitted. *(AI)* subsections always follow the 25010 ones,
 so the trigger firing or not never moves a 25010 number.
 
-Subsections marked *(AI)* are live only where the trigger test in `rules/requirements/ai.md` fires.
+Subsections marked *(AI)* are live only where the trigger test in `standards/requirements/ai.md` fires.
 Where it does not, they are omitted from the body **and** from §3.10 — an inapplicable subsection is
 not a gap — and §3.10 states once that the trigger did not fire.
 
@@ -623,7 +623,7 @@ same sub-characteristic measured two ways, not two subsections.
 functional content, owned by the product side under the ownership test; it is referred via
 `REF-NNN`, never a §3.10 gap.
 
-Where `rules/requirements/reporting.md` fires, its class map routes reporting and data requirements
+Where `standards/requirements/reporting.md` fires, its class map routes reporting and data requirements
 into the subsections above. **It adds no subsection**; its `DAT-NNN` register lands at Appendix H.
 
 ### 3.10 Coverage Gaps
@@ -755,7 +755,7 @@ produced in the chain.** Where present, state that plainly:
 Where a PRD is produced, the rules live there and this appendix is omitted.
 
 ### H. Data element register *(conditional)*
-`DAT-NNN` schema in `rules/requirements/reporting.md`. Present only where that file's trigger fires.
+`DAT-NNN` schema in `standards/requirements/reporting.md`. Present only where that file's trigger fires.
 
 ### I. Acronyms and abbreviations
 ### J. Change history

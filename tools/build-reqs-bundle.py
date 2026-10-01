@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Build a self-contained paste bundle for joint PRD/ORD authoring.
 
-`/write-reqs` holds no schemas by design — it references `rules/requirements/*.md`
+`/write-reqs` holds no schemas by design — it references `standards/requirements/*.md`
 and delegates to `/write-prd` and `/write-ord`. Pasted alone onto a machine with no
 Forge install it carries no scenario naming, no criteria schema and no templates,
 and the model invents them. This concatenates the minimum set that authors correctly
@@ -29,10 +29,10 @@ PARTS = [
     ("ORD authoring", FORGE / "global/.claude/skills/write-ord/SKILL.md"),
     ("ORD template and ISO/IEC 25010 taxonomy", FORGE / "global/.claude/skills/write-ord/REFERENCE.md"),
     ("Table schemas — carries the Sunny Day / Rainy Day / Edge Case naming",
-     FORGE / "global/.claude/rules/requirements/tables.md"),
-    ("Requirement language rules", FORGE / "global/.claude/rules/requirements/language.md"),
+     FORGE / "global/.claude/standards/requirements/tables.md"),
+    ("Requirement language rules", FORGE / "global/.claude/standards/requirements/language.md"),
     ("AI requirement rules — conditional on learned or generated behaviour",
-     FORGE / "global/.claude/rules/requirements/ai.md"),
+     FORGE / "global/.claude/standards/requirements/ai.md"),
     ("PRD standard of record (pack)", PACK / "reference/prd-standard.md"),
 ]
 
@@ -42,7 +42,7 @@ Generated {stamp} from Forge {version}. **Generated file — do not edit.**
 Regenerate with `python3 tools/build-reqs-bundle.py`.
 
 Paste this whole file. It replaces a Forge install for one task: authoring a PRD and
-an ORD together. Every path reference below (`~/.claude/rules/...`, `/write-prd`,
+an ORD together. Every path reference below (`~/.claude/standards/...`, `/write-prd`,
 `/write-ord`) resolves to a section *of this file*, not to a file on disk.
 
 Omitting any part changes the output. The table schemas section is where the

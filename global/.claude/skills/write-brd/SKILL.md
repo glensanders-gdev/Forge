@@ -14,21 +14,21 @@ Execution mode: Phase 1 **[AFK]** · Phase 2 **[HITL]** behind a confirmation ga
 `--llm-only` is **[AFK]**: it regenerates the companion and writes nothing else.
 The standard owns the anatomy, both forms and the gate; this skill locates it and applies it.
 
-**Authoring standards** — `~/.claude/rules/requirements/language.md` and
-`~/.claude/rules/requirements/tables.md`, shared with `/write-prd`, `/write-ord` and `/write-ac`,
+**Authoring standards** — `~/.claude/standards/requirements/language.md` and
+`~/.claude/standards/requirements/tables.md`, shared with `/write-prd`, `/write-ord` and `/write-ac`,
 never restated here. **Where they meet the pack, the pack wins on BRD-specific forms:** the SMART
 objective is verb-first by the pack's own form, and a `[TBD]` carries **a named owner and a date**
 rather than `language.md`'s source quote — the gate reads both, and a `[TBD]` missing either is a
 hole that fails the bar.
 
-`~/.claude/rules/requirements/ai.md` applies **conditionally** — where a delivered component's
+`~/.claude/standards/requirements/ai.md` applies **conditionally** — where a delivered component's
 behaviour is learned or generated rather than specified, this document records the **risk
 classification decision** once, per that ruleset's class map, and every downstream document reads it
 from here.
 
 **Two files are written, one reviewed.** The BRD is for its human reviewer; beside it goes an **LLM
 companion**, `docs/brd/[change-name]-BRD.llm.md`, generated from the saved BRD for a language model
-to consume, to the form in `~/.claude/rules/requirements/llm-companion.md`. Run with
+to consume, to the form in `~/.claude/standards/requirements/llm-companion.md`. Run with
 `--llm-only [BRD path]` to regenerate the companion from an existing BRD without running any phase.
 
 **If an authoring standard above cannot be read, stop and name it.** The register and criteria
