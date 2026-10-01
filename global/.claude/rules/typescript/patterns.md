@@ -1,3 +1,11 @@
+---
+paths:
+  - "**/*.ts"
+  - "**/*.tsx"
+  - "**/*.mts"
+  - "**/*.cts"
+---
+
 # TypeScript Patterns
 
 > This file extends [common/coding-style.md](../common/coding-style.md) with TypeScript specific content.

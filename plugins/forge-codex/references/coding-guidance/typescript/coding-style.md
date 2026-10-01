@@ -1,3 +1,12 @@
+---
+paths:
+  - "**/*.ts"
+  - "**/*.tsx"
+  - "**/*.mts"
+  - "**/*.cts"
+origin: Adapted from Glen Sanders (Forge / https://github.com/glensanders-gdev/Forge)
+---
+
 # TypeScript Coding Style
 
 > This file extends [common/coding-style.md](../common/coding-style.md) with TypeScript specific content.

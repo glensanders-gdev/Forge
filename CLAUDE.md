@@ -53,7 +53,7 @@ global/.claude/         ← source of truth for all shared skills
   skills/               ← one folder per skill; each contains SKILL.md + assets
   commands/             ← one .md per skill, command entry points
   rules/common/         ← language-agnostic coding standards (always active)
-  rules/[lang]/         ← language-specific rule sets, installed via /lang-rules
+  rules/[lang]/         ← language-specific rule sets, path-scoped to their sources; installed via /lang-rules
   rules/requirements.md ← path-scoped pointer; loads only when a requirements document is read
   standards/requirements/ ← requirements authoring standards, cited by path, never auto-loaded
   manifest.json         ← version registry for all 113 skills

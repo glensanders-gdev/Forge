@@ -54,7 +54,7 @@
     "lang-rules": {
       "source": "global/.claude/skills/lang-rules/SKILL.md",
       "codex": "plugins/forge-codex/skills/lang-rules/SKILL.md",
-      "reviewedSourceSha256": "6E07AEE27C429390AC742A3FA912FDF948012A0F8D85302D8A28D360364DBE47"
+      "reviewedSourceSha256": "02CBD706B825D3B39C01EFA1A437FDCAD270412E85FB39B746C6AD76236889B1"
     },
     "security-assessment": {
       "source": "global/.claude/skills/security-assessment/SKILL.md",

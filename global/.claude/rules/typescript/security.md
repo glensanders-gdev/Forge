@@ -1,3 +1,11 @@
+---
+paths:
+  - "**/*.ts"
+  - "**/*.tsx"
+  - "**/*.mts"
+  - "**/*.cts"
+---
+
 # TypeScript Security
 
 > This file extends [common/security.md](../common/security.md) with TypeScript specific content.

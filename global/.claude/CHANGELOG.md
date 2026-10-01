@@ -13,11 +13,13 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ## v4.15.2 — 2026-10-01
 
-**The requirements ruleset moves out of `rules/`, so it stops loading into every session.**
-`rules/requirements/README.md` said the ruleset was not auto-loaded. It was:
+**Only `rules/common/` still loads into every session.** `rules/requirements/README.md` said the
+requirements ruleset was not auto-loaded. It was:
 <!--no-adapt-->Claude Code loads every file under `~/.claude/rules/` that carries no `paths:`
 frontmatter into every session in every project, and VS Code does the same, so the six files
-cost about 22.9k tokens (characters ÷ 4) of the 27.7k the rules folder carried.<!--/no-adapt-->
+cost about 22.9k tokens (characters ÷ 4) of the 27.7k the rules folder carried. The TypeScript
+pack and the folder's README cost another 1.9k on the same terms.<!--/no-adapt--> Rules loaded at
+launch fall from 27.7k to about 2.9k.
 
 - **`global/.claude/rules/requirements/` → `global/.claude/standards/requirements/`**, linked as
   `~/.claude/standards/` by `install.sh`. Nothing loads that folder; the requirement skills read it
@@ -29,12 +31,19 @@ cost about 22.9k tokens (characters ÷ 4) of the 27.7k the rules folder carried.
 - **`rules/requirements.md` is a path-scoped pointer.** Its `paths:` frontmatter loads it only when
   a session reads a document under `docs/brd/`, `docs/prd/`, `docs/ord/` or `docs/ac/`, so a
   requirements document edited outside a skill still names its standards.
+- **`rules/typescript/` and `rules/README.md` are path-scoped.** The TypeScript pack loads only when
+  a session reads a `.ts`, `.tsx`, `.mts` or `.cts` file, and the README only when it reads a file in
+  a `.claude/rules/` folder. Both stay where they are: `/lang-rules` copies language packs from
+  `~/.claude/rules/<lang>/`, and Codex's `lang-rules` reads them from `coding-guidance/`.
+  `/lang-rules` 1.1.0 scaffolds every new pack with `paths:` frontmatter, so no future language pack
+  loads everywhere either.
 - **Existing installs need one new link.** `/update-forge` 3.1.0 gains step 6a, which links any
   framework folder a release adds, and `/install-forge` 3.1.0 no longer takes a linked `skills/` as
   proof that every link exists. `bash ~/forge/install.sh` also works — it links only what is missing.
 - **Codex:** the pack is copied to `references/standards/` as well as into each bundled skill's
   `standards/`. The pointer is left out, since Codex loads nothing from `coding-guidance/`, and the
-  dead-path check now covers `~/.codex/forge/standards/` as well as `rules/`.
+  dead-path check now covers `~/.codex/forge/standards/` as well as `rules/`. The `install-forge`,
+  `update-forge` and `lang-rules` overrides needed no change and were re-signed after review.
 - **Standalone:** `install.sh` installs the pack to `~/.claude/standards/` and the pointer to
   `~/.claude/rules/`. Where an earlier install left `~/.claude/rules/requirements/`, it prints a
   notice with the command to remove it, and never deletes it. A pack missing from its source path
