@@ -12,7 +12,7 @@ Open a new sprint for the current project. Pulls context automatically from the 
 
 ## Process
 
-**Step 0 — Resolve active company:** Read `~/.codex/forge/preferences.md`. If `active-company:` is set, use that value in place of `[active_company]` throughout this run. If not set, skip all company-config reads and apply defaults.
+**Step 0 — Resolve active company:** Read `~/.codex/forge/preferences.md`. If `active_company:` is set, use that value in place of `[active_company]` throughout this run. If not set, skip all company-config reads and apply defaults.
 
 1. **Read the sprint calendar** — `~/.codex/forge/sprints/calendar.md`
    - Identify the current sprint by today's date.

@@ -17,7 +17,7 @@ Execute the current sprint's tickets. The human signals `/build` once — the ag
 
 ## Pre-Flight Checks
 
-**Step 0 — Resolve active company:** Read `~/.claude/preferences.md`. If `active-company:` is set, use that value in place of `[active_company]` throughout this run. If not set, skip all company-config reads and apply defaults.
+**Step 0 — Resolve active company:** Read `~/.claude/preferences.md`. If `active_company:` is set, use that value in place of `[active_company]` throughout this run. If not set, skip all company-config reads and apply defaults.
 
 Before executing any ticket:
 

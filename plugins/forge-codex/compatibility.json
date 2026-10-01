@@ -59,7 +59,7 @@
     "security-assessment": {
       "source": "global/.claude/skills/security-assessment/SKILL.md",
       "codex": "plugins/forge-codex/skills/security-assessment/SKILL.md",
-      "reviewedSourceSha256": "2FA9387D84C6E47BA664163556F9801634DA1B8531871B95BB48BF43D68CBDDD"
+      "reviewedSourceSha256": "2B05BF601A2ACD646B5FAC98C116901F764E35C3DCCDEA690CC77E295CCDF480"
     },
     "resolve-findings": {
       "source": "global/.claude/skills/resolve-findings/SKILL.md",

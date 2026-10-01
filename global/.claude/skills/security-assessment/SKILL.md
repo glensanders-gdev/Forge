@@ -54,7 +54,7 @@ If no company config, default to `standard` behaviour.
 
 ### 0 — Resolve active company
 
-Read `~/.claude/preferences.md`. If `active-company:` is set, use that value in place of `[active_company]` throughout this run. If not set, skip all company-config reads and treat compliance tier as `standard`.
+Read `~/.claude/preferences.md`. If `active_company:` is set, use that value in place of `[active_company]` throughout this run. If not set, skip all company-config reads and treat compliance tier as `standard`.
 
 ### 1 — Gitignore setup
 

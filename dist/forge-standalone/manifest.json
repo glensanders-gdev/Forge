@@ -1,6 +1,6 @@
 {
   "repository": "https://github.com/glensanders-gdev/skills",
-  "version": "4.16.0",
+  "version": "4.16.1",
   "skill_count": 69,
   "skills": [
     {
@@ -41,7 +41,7 @@
     },
     {
       "name": "build",
-      "version": "1.3.0",
+      "version": "1.3.1",
       "category": "pipeline",
       "description": "Execute the current sprint's AFK tickets in sequence, running /tdd for each. Pauses at HITL tickets and blockers with clear prompts. Updates kanban in real time. Resumable across sessions. Use when user runs /build or is ready to begin implementation work on the current sprint."
     },
@@ -281,7 +281,7 @@
     },
     {
       "name": "security-assessment",
-      "version": "1.0.1",
+      "version": "1.0.2",
       "category": "code-quality",
       "description": "Structured security audit of project code. AI-led threat modelling and OWASP Top 10 review, layered with optional external tool invocation (semgrep, npm audit, bandit, trivy). Writes a gitignored report to docs/security/. Critical and High findings can be promoted to kanban tickets as SEC-NNN references. Use when user runs /security-assessment, before a major release, or when the last assessment is overdue."
     },
@@ -299,7 +299,7 @@
     },
     {
       "name": "standup",
-      "version": "1.0.1",
+      "version": "1.0.2",
       "category": "session",
       "description": "Summarise the last session, state today's goals, and surface any blockers. Use when user wants a session summary, runs /standup, or wants to orient themselves at the start of a working session."
     },
@@ -323,7 +323,7 @@
     },
     {
       "name": "test-coverage",
-      "version": "1.0.1",
+      "version": "1.0.2",
       "category": "pipeline",
       "description": "Analyze test coverage gaps in an existing codebase, identify under-covered files and functions, then generate missing tests to reach the project coverage threshold (default 80%). Reactive complement to /tdd (which writes tests first for new code). Use when user runs /test-coverage, or coverage is below threshold before a release."
     },
