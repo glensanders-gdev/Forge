@@ -12,7 +12,7 @@ Generate a concise standup summary from the project's living documents. No input
 
 ## Process
 
-**Step 0 — Resolve active company:** Read `~/.codex/forge/preferences.md`. If `active-company:` is set, use that value in place of `[active_company]` throughout this run. If not set, skip all company-config reads and apply defaults.
+**Step 0 — Resolve active company:** Read `~/.codex/forge/preferences.md`. If `active_company:` is set, use that value in place of `[active_company]` throughout this run. If not set, skip all company-config reads and apply defaults.
 
 1. Read `~/.codex/forge/priorities.md` — global feature priority order.
 2. Read `~/.codex/forge/pi/[current-pi]/plan.md` — current PI release dates and Go/No Go dates.

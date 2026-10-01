@@ -18,7 +18,7 @@ Prepare the Go/No Go brief for an upcoming monthly release. The AI assembles all
 
 ## Process
 
-**Step 0 — Resolve active company:** Read `~/.codex/forge/preferences.md`. If `active-company:` is set, use that value in place of `[active_company]` throughout this run. If not set, skip all company-config reads and apply defaults.
+**Step 0 — Resolve active company:** Read `~/.codex/forge/preferences.md`. If `active_company:` is set, use that value in place of `[active_company]` throughout this run. If not set, skip all company-config reads and apply defaults.
 
 1. **Read company config** — read `~/.codex/forge/companies/[active_company]/config.md` (if set) for:
    - `freeze_periods` — check if the deployment date falls within or near a freeze window

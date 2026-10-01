@@ -11,6 +11,21 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
+## v4.16.1 — 2026-10-01
+
+**Company config now resolves in six skills.** `$build` 1.3.1, `$go-nogo` 1.0.2,
+`$security-assessment` 1.0.2, `$standup` 1.0.2, `$start-sprint` 2.0.1 and `$test-coverage` 1.0.2
+read the active company from `preferences.md` under the key `active-company:`. The file — and
+`$add-company` and `$init-forge`, which write and read it — use `active_company:`. The lookup never
+matched, so each skill silently ran as if no company were set: no `ai_human_signoff_required` gate
+in `$build`, no company tools check, and the `standard` compliance tier in `$security-assessment`
+whatever the company's actual tier.
+
+Each now reads `active_company:`. Found by the `$fix-one-thing` 1.1.0 trial, which had the same
+defect.
+
+---
+
 ## v4.16.0 — 2026-10-01
 
 **`$fix-one-thing` 1.1.0 — new, held** (`standalone: false`) — 69 skills published, 46 held.

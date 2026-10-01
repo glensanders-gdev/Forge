@@ -36,7 +36,7 @@ If `--threshold N` is passed, use that value for this run only — do not persis
 
 ## Phase 1 [AFK] — Detect Framework and Threshold
 
-**Step 0 — Resolve active company:** Read `~/.claude/preferences.md`. If `active-company:` is set, use that value in place of `[active_company]` throughout this run. If not set, skip all company-config reads and check only `~/.claude/tools/global.md` for the test-runner category.
+**Step 0 — Resolve active company:** Read `~/.claude/preferences.md`. If `active_company:` is set, use that value in place of `[active_company]` throughout this run. If not set, skip all company-config reads and check only `~/.claude/tools/global.md` for the test-runner category.
 
 ### 1a. Read project context
 

@@ -11,7 +11,7 @@ Open a new sprint for the current project. Pulls context automatically from the 
 
 ## Process
 
-**Step 0 — Resolve active company:** Read `~/.claude/preferences.md`. If `active-company:` is set, use that value in place of `[active_company]` throughout this run. If not set, skip all company-config reads and apply defaults.
+**Step 0 — Resolve active company:** Read `~/.claude/preferences.md`. If `active_company:` is set, use that value in place of `[active_company]` throughout this run. If not set, skip all company-config reads and apply defaults.
 
 1. **Read the sprint calendar** — `~/.claude/sprints/calendar.md`
    - Identify the current sprint by today's date.
