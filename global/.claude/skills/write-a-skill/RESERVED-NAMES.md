@@ -79,6 +79,7 @@ is shadowed.
 | `security-review` | Name a security skill something else — `security-assessment` reads the same and collides with nothing |
 | `simplify` | |
 | `update-config` | |
+| `workflow-authoring` | Observed 2026-09-27 in the session skills listing; stamp not refreshed — partial check only |
 
 Plugin-namespaced skills (`anthropic-skills:approve`, `anthropic-skills:build`, …) carry a prefix
 and **never** collide with a bare skill name. Do not add them here.

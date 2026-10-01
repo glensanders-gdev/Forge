@@ -11,6 +11,51 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
+## v4.16.0 — 2026-10-01
+
+**`$fix-one-thing` 1.1.0 — new, held** (`standalone: false`) — 69 skills published, 46 held.
+
+One run fixes one coding-standards violation as a single behaviour-preserving commit. The
+blast radius is a hard table, not a judgement: one rule, one file plus its co-located test,
+≤ 50 changed lines, no change to an exported name, signature, dependency or config. Only
+**checkable** rules are candidates — KISS, DRY and naming taste never are.
+
+- **Standards sources are `$review-diff`'s Standards axis**, plus the rule set for each detected
+  language where no `.codex/forge/rules/active.md` exists.
+- **Oversized violations go to `docs/tech-debt.md` as one row per rule**, never per instance, left
+  uncommitted and without a per-row confirmation, so unattended runs under `/loop` or `/schedule`
+  do not stall. Deliberate departure from `$tech-debt add`'s confirm step.
+- **Tests run before and after.** A red baseline stops the run; uncovered code gets a
+  characterisation test inside the blast radius, or the next candidate is taken.
+- **Ends at a push gate.** Branch `fix-one-thing/*`, one commit, named paths staged, fixed-template
+  PR body in `REFERENCE.md`. Open `fix-one-thing/` branches exclude their files from later runs.
+
+**1.1.0 is 1.0.0 revised after its first real run** (glensanders-gdev/Indoor-Cricket-Team-Manager#2):
+
+- **Moved lines count once.** Size is the larger of lines added and removed. The trial's 6-line
+  extraction cost 48 of 50 under added + removed, so most function-length fixes could not qualify.
+- **One tech-debt row per rule.** The 50-line function cap flagged 30 React components; 1.0.0
+  would have created a 30-row register in a project that had none.
+- **The company gate applies to company work only** — a repo listed in
+  `companies/[active_company]/projects/registry.md` or under the company directory. 1.0.0 gated
+  every project while a company was active, personal ones included.
+- **`active_company`, not `active-company`.** 1.0.0 read a key `preferences.md` does not use, so
+  the gate never resolved. Six other skills share the bug; not fixed here.
+- **A process-only `CODING-STANDARDS.md` is reported, not trusted.** The Forge template holds patch
+  protocol and versioning, not code rules; the PR body now says so.
+- **Commit subjects follow the repo's own style**, falling back to `fix([scope]):` only where the
+  repo uses it.
+- **The checkout returns to its starting branch** after the push.
+
+**`write-a-skill` `RESERVED-NAMES.md`:** `workflow-authoring` added to Reserved — Bundled Skills,
+observed in the session skills listing. The stamp is **not** refreshed: the version capture and
+slash-command enumeration need an interactive terminal, so the list stays past its 30-day
+threshold.
+
+README: skill count 114 → 115; the file-structure count, which had drifted to 113, corrected to 115.
+
+---
+
 ## v4.15.2 — 2026-10-01
 
 **Only `rules/common/` still loads into every session.** `rules/requirements/README.md` said the

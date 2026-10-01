@@ -83,6 +83,7 @@ Print the following reference exactly:
 | `/user:accessibility` | Design, implement, and audit WCAG 2.2 Level AA compliance — Web/iOS/Android, QA checklist, anti-patterns |
 | `/user:diagnose` | Systematically debug a failing ticket — hypothesis before fix |
 | `/user:review-diff` | Structured code review against ADRs, CONTEXT.md, and standards |
+| `/user:fix-one-thing` | Fix one coding-standards violation as a single small-blast-radius commit with a drafted PR body; oversized violations go to /tech-debt; stops at push confirmation |
 | `/user:critic` | Honest prioritised critique of a framework, PRD, plan, or design |
 | `/user:lang-rules` | Install and activate language-specific coding rule sets for the current project |
 | `/user:push-standards` | Extract codebase patterns into .claude/CODING-STANDARDS.md project-specific section |

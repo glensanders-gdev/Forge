@@ -84,6 +84,7 @@ Print the following reference exactly:
 | `accessibility` | Design, implement, and audit WCAG 2.2 Level AA compliance — Web/iOS/Android, QA checklist, anti-patterns |
 | `diagnose` | Systematically debug a failing ticket — hypothesis before fix |
 | `review-diff` | Structured code review against ADRs, CONTEXT.md, and standards |
+| `fix-one-thing` | Fix one coding-standards violation as a single small-blast-radius commit with a drafted PR body; oversized violations go to $tech-debt; stops at push confirmation |
 | `critic` | Honest prioritised critique of a framework, PRD, plan, or design |
 | `lang-rules` | Install and activate language-specific coding rule sets for the current project |
 | `push-standards` | Extract codebase patterns into .codex/forge/CODING-STANDARDS.md project-specific section |
