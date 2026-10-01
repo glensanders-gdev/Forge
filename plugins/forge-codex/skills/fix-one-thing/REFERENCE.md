@@ -47,6 +47,8 @@ to look.
 
 Source: `[path to the standards file]`
 
+Standards read: [each source, and any that contributed no checkable rules — e.g. "CODING-STANDARDS.md: process guidance only"]
+
 ## Violation
 
 `[file]:[line]` — [one sentence: what the code did that broke the rule]
@@ -60,7 +62,7 @@ Runners-up: [file:line — rule], [file:line — rule] (or "none")
 ## Not changed
 
 - [what was deliberately left alone — neighbouring violations, callers, public surface]
-- Logged to tech-debt this run: [TD-NNN, …] (or "none")
+- Tech-debt rows written this run, uncommitted: [TD-NNN — rule, N instances, …] (or "none")
 
 ## Evidence
 
@@ -70,5 +72,5 @@ Runners-up: [file:line — rule], [file:line — rule] (or "none")
 | After | [command] | [N passed, 0 failed] |
 
 Characterisation test added: [path] (or "no — existing tests cover the change")
-Diff: [N files, +A −R lines]
+Diff: [N files, +A −R lines; size = max(A, R) of the 50-line limit]
 ```
