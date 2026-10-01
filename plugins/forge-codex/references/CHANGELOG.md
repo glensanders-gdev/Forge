@@ -11,6 +11,34 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
+## v4.16.0 — 2026-10-01
+
+**`$fix-one-thing` 1.0.0 — new, held** (`standalone: false`) — 69 skills published, 46 held.
+
+One run fixes one coding-standards violation as a single behaviour-preserving commit. The
+blast radius is a hard table, not a judgement: one rule, one file plus its co-located test,
+≤ 50 changed lines, no change to an exported name, signature, dependency or config. Only
+**checkable** rules are candidates — KISS, DRY and naming taste never are.
+
+- **Standards sources are `$review-diff`'s Standards axis**, and company policy is read the way
+  `$build` reads it, so `ai_human_signoff_required` adds the sign-off line at the push gate.
+- **Oversized violations go to `docs/tech-debt.md`** without a per-row confirmation, tagged
+  `logged by $fix-one-thing`, so unattended runs under `/loop` or `/schedule` do not stall.
+  Deliberate departure from `$tech-debt add`'s confirm step.
+- **Tests run before and after.** A red baseline stops the run; uncovered code gets a
+  characterisation test inside the blast radius, or the next candidate is taken.
+- **Ends at a push gate.** Branch `fix-one-thing/*`, one commit, named paths staged, fixed-template
+  PR body in `REFERENCE.md`. Open `fix-one-thing/` branches exclude their files from later runs.
+
+**`write-a-skill` `RESERVED-NAMES.md`:** `workflow-authoring` added to Reserved — Bundled Skills,
+observed in the session skills listing. The stamp is **not** refreshed: the version capture and
+slash-command enumeration need an interactive terminal, so the list stays past its 30-day
+threshold.
+
+README: skill count 114 → 115; the file-structure count, which had drifted to 113, corrected to 115.
+
+---
+
 ## v4.15.2 — 2026-10-01
 
 **Only `rules/common/` still loads into every session.** `rules/requirements/README.md` said the

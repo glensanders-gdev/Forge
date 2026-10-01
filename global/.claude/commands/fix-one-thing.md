@@ -1,0 +1,3 @@
+Invoke the fix-one-thing skill. Find one violation of the project's checkable coding standards (.claude/CODING-STANDARDS.md, rules/common, active language rules) and fix it as a single behaviour-preserving commit inside hard blast-radius limits — one rule, one file plus its test, 50 changed lines or fewer, no public-API change. Runs tests before and after, logs violations too large to fix small to docs/tech-debt.md, and drafts a fixed-template PR body. Stops at push confirmation; never pushes without a typed reply. Use when user runs /fix-one-thing, or wants steady standards cleanup one reviewable PR at a time, including under /loop or /schedule.
+
+Skill: global/.claude/skills/fix-one-thing/SKILL.md

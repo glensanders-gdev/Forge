@@ -1,8 +1,9 @@
 {
-  "forge_version": "4.15.2",
+  "forge_version": "4.16.0",
   "skills": {
     "setup-brain": "3.0.0",
     "scan-first": "1.0.0",
+    "fix-one-thing": "1.0.0",
     "raid": "1.0.0",
     "add-tool": "2.0.0",
     "check-tools": "2.0.0",
