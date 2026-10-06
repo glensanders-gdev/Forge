@@ -198,11 +198,20 @@ def fold_name(heading):
 
 # ------------------------------------------------------------------- roles --
 
+def last_paragraph(prose):
+    """The prose's final paragraph as one line — a view note may wrap across blockquote lines."""
+    paragraph = []
+    for ln in prose.splitlines():
+        text = re.sub(r"^\s*(?:>\s?)+", "", ln).strip()
+        paragraph = paragraph + [text] if text else []
+    return " ".join(paragraph)
+
+
 def assign_roles(tables):
     defined = set()
     for t in tables:
         keys = [row_key(r) for r in t["rows"]]
-        if VIEW_RE.search(t["lead"].splitlines()[-1] if t["lead"].strip() else ""):
+        if VIEW_RE.search(last_paragraph(t["lead"])):
             t["role"] = "view"
         elif t["rows"] and all(k and k in defined for k in keys):
             t["role"] = "fold"

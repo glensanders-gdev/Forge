@@ -11,6 +11,21 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
+## v4.16.2 — 2026-10-07
+
+**`$write-ord` 2.2.3 — a view note that wraps is still a view.** `llm_companion.py` decided a
+table was a view by testing only the last physical line of the prose above it. A note wrapped
+across two blockquote lines — `> *View of §7.1–§7.12. … this table adds no new` /
+`> commitments.*` — carries neither "view of" nor "adds no new commitments" on its last line, so
+the table was folded into records and the companion reported `0 view(s) omitted`.
+
+The test now runs against the lead's last paragraph: the lines since the last blank line, with
+blockquote `>` markers stripped and joined. A single-line note classifies as before. The
+frontmatter `version:` is also brought back into line with `manifest.json`, which had drifted to
+2.2.2 while the frontmatter still read 2.2.1.
+
+---
+
 ## v4.16.1 — 2026-10-01
 
 **Company config now resolves in six skills.** `$build` 1.3.1, `$go-nogo` 1.0.2,
