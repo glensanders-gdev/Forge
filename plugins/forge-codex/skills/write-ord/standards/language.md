@@ -117,7 +117,7 @@ as a row (see [tables.md](tables.md)).
    is how a documented choice becomes an apparent defect in review.
 2. **Passive voice is mandated for acceptance criteria.** 29148 recommends active voice on the
    grounds that passive hides the actor. Accepted and mitigated: where the actor is
-   load-bearing — authorisation, non-repudiation, audit, and anything in ORD §3.3 Security —
+   load-bearing — authorisation, non-repudiation, audit, and anything in ORD §7.3 Security —
    name the actor explicitly and use the active voice. Elsewhere the passive is what makes
    noun-first possible once "the system" is banned.
 

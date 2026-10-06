@@ -19,7 +19,7 @@ The two source documents have different scopes, so they produce different artefa
 | Mode | Source | Scope | Output | Issued |
 |---|---|---|---|---|
 | **Feature** (default) | PRD stories + Definition of Done | one feature | `docs/testplan-[feature-name].md` | once per feature |
-| **Operational** (`--operational`) | ORD requirement register §§3–8 | the release | `docs/testplan-operational.md` | once per release |
+| **Operational** (`--operational`) | ORD requirement register §7 | the release | `docs/testplan-operational.md` | once per release |
 
 An ORD requirement belongs to the release, not to one feature. Pulling register rows into a
 feature testplan restates the same commitment in every feature that touches it and issues a fresh
@@ -59,11 +59,11 @@ discipline applied to tests.
 
 Run once per release, not per feature.
 
-1. Read the ORD at `docs/ord/*.md` — the requirement register at §§3–5, 7 and 9. Each row carries
+1. Read the ORD at `docs/ord/*.md` — the requirement register at §7. Each row carries
    `ORD#`, an active `Requirement Title`, a declarative `Business Tolerance` holding its own value
    and its measurement population, a `KPP` column, `MoSCoW`, a `Status` and a named `Owner`.
-   Also read **Appendix D** (conformance) — a demand-side ORD carries no `Verification` column, and
-   Appendix D is where the design response's instrument is recorded once it is issued.
+   Also read **§17** (conformance) — a demand-side ORD carries no `Verification` column, and
+   §17 is where the design response's instrument is recorded once it is issued.
    An ORD authored before the demand-side convergence carries the earlier columns
    (`Requirement Description`, `Verification`, `Delivery Agent`, `Timing`, inline `[KPP]`). Read it
    as the same register and do not rewrite the source document.
@@ -88,10 +88,10 @@ Run once per release, not per feature.
 ### ORD Verification Triage
 
 Read the row's **measurement population** — stated inside the `Business Tolerance` — together with
-its **Appendix D** instrument where one has been recorded. Population plus instrument is what
+its **§17** instrument where one has been recorded. Population plus instrument is what
 determines whether a requirement can become a test case.
 
-**Where Appendix D is still pending**, the design response has not been issued and no instrument
+**Where §17 is still pending**, the design response has not been issued and no instrument
 exists yet. Triage the row on its population alone: it still lands in a venue, and its TC records
 `instrument: pending design response`. A row is never dropped for want of an instrument, and an
 instrument is never invented to fill the gap — inventing one re-introduces the pre-emption the
@@ -122,7 +122,7 @@ team's verification into this repo's test suite.
 - `Business Tolerance` still `[TBD — source: "…"]` — record it in Not Verifiable Yet. Never
   invent a threshold to make a row testable (`standards/requirements/language.md`).
 - No measurement population stated in the tolerance — an authoring defect in the ORD. Report it; do
-  not guess one. A pending Appendix D is **not** a defect: it is the expected state before the
+  not guess one. A pending §17 is **not** a defect: it is the expected state before the
   design response is issued.
 
 ---
@@ -310,7 +310,7 @@ Register rows read: **N.** Rows placed: **N.** *(These must match.)*
 
 | TC | ORD# | Requirement | Verification Method | Level | Owner | Priority |
 |----|------|-------------|--------------------|-------|-------|----------|
-| TC-NNN | ORD-004 | [declarative end state, carrying its value] | [verbatim from Appendix D] | System | [Owner, from the register] | P1 |
+| TC-NNN | ORD-004 | [declarative end state, carrying its value] | [verbatim from §17] | System | [Owner, from the register] | P1 |
 | TC-NNN | ORD-009 | [requirement] | instrument: pending design response | Environment | [Owner, from the register] | P2 |
 
 `Level`: Unit / Integration / System / Environment.
@@ -337,7 +337,7 @@ waived is not a gate.
 
 | ORD# | Requirement | Monitoring Method | Owner | First Review |
 |------|-------------|------------------|-------|--------------|
-| ORD-NNN | [threshold, verbatim] | [verbatim from Appendix D] | [Owner, from the register] | [date or milestone] |
+| ORD-NNN | [threshold, verbatim] | [verbatim from §17] | [Owner, from the register] | [date or milestone] |
 
 ---
 
@@ -377,7 +377,7 @@ waived is not a gate.
 - Never pull an ORD register row into a feature testplan — reference the operational TC instead.
 - Never issue two TCs for the same commitment. One requirement, one test, referenced everywhere else.
 - Never put an in-service threshold on the Go/No Go critical path — it cannot pass at the gate, and a routinely waived gate stops being a gate.
-- Never invent a threshold to make a `[TBD]` row testable, and never guess an instrument the ORD's Appendix D does not state.
+- Never invent a threshold to make a `[TBD]` row testable, and never guess an instrument the ORD's §17 does not state.
 - Never edit a value carried from the ORD — the register is authoritative; change it there and re-run.
 - Never silently drop a register row. If it fits no bucket, present it for a human call.
 - Never assign TC IDs before the human confirms the draft, and never assign them ad hoc outside `docs/tests/registry.md`.
@@ -396,7 +396,7 @@ waived is not a gate.
 | Registry exists without a `Requirement` column | Offer the migration and require `CONFIRM`. On decline, use the six-column shape and report the loss of traceability. |
 | A user story has no test item | Add one — every story needs at least one test before the plan is saved. |
 | An ORD row states no measurement population | Do not guess. List it under Not Verifiable Yet and report it as an ORD authoring defect. |
-| The ORD's Appendix D is pending | Expected before the design response is issued. Triage on the population and record `instrument: pending design response`. Not a defect. |
+| The ORD's §17 is pending | Expected before the design response is issued. Triage on the population and record `instrument: pending design response`. Not a defect. |
 | An ORD row is still `[TBD]` | List it under Not Verifiable Yet. Never invent a threshold. |
 | Triage counts do not reconcile | Stop before issuing TCs. A missing row is a defect in this run — find it. |
 | A row has both an executable and an in-service part | Split it. Record both against the same `ORD-NNN` in their respective sections. |

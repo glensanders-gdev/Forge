@@ -45,7 +45,7 @@ Missing any one of them, the statement is unfalsifiable at verification time.
 An output that is unacceptable *at any rate* — a leaked secret, a medical instruction from a
 component not cleared to give one, a protected-attribute inference — is not a low score to be
 averaged against. Scoring it at all implies a rate at which it passes. It is a **separate register
-row** in ORD § 3.9.3 Prohibited Outputs — or § 3.3 Security where the prohibition is a disclosure
+row** in ORD § 7.9.3 Prohibited Outputs — or § 7.3 Security where the prohibition is a disclosure
 rather than a hazard, in one place and not both — stating the prohibited output, a tolerance of zero,
 and its own verification method; the `EVL-NNN` row references that row's ID in `Prohibited outputs` and
 restates no value. Conflating the two is how a prohibition becomes a percentage.
@@ -116,26 +116,26 @@ The class map. A row that does not appear here has no AI-specific home and follo
 | Intended purpose | PRD § Scope boundary | AI Act Art. 11 / Annex IV |
 | Prohibited uses | PRD § Out of Scope | AI Act Art. 11 |
 | User-facing quality or accuracy outcome | PRD story criteria | 29148 |
-| Functional adaptability | ORD § 3.8.3 Functional Adaptability | 25059 |
-| Accuracy and fairness thresholds (operational) | ORD § 3.8.2 Functional Correctness, as `[AI]` rows | 25059, AI Act Art. 15 |
-| Robustness — out-of-distribution and adversarial input | ORD § 3.2.5 Robustness | 25059, AI Act Art. 15 |
-| User controllability and intervenability | ORD § 3.7.4 User Controllability and Intervenability | 25059 |
-| Transparency, explainability, output labelling | ORD § 3.7.5 Transparency and Explainability | 25059, AI Act Arts. 13, 50 |
-| Human oversight — who intervenes, when, with what authority | ORD § 3.7.4 and § 5 Support Model | AI Act Art. 14 |
-| Record-keeping and inference logging | ORD § 3.6.4 Record-Keeping and Inference Logging, § 5.4 Monitoring | AI Act Art. 12 |
-| Data governance, provenance, labelling method | ORD § 4.3 Regulatory and Compliance Constraints | AI Act Art. 10, ISO/IEC 5259 |
-| Drift detection and re-verification cadence | ORD § 3.8.3, § 5.4 Monitoring, § 7 Service Level Requirements | ISO/IEC 5338 |
-| Model and provider dependency | ORD § 9.3 Dependencies, keyed to `MDL-NNN` | — |
-| Prompt-injection and model-specific attack surface | ORD § 3.3.7 Prompt Injection and Model Attack Surface | AI Act Art. 15 |
-| Prohibited output — unacceptable at any rate, zero tolerance | ORD § 3.9.3 Prohibited Outputs, or § 3.3 Security where it is a disclosure | AI Act Art. 15 |
-| Evaluation sets and model dependencies (registers) | ORD § 9.3 Dependencies, keyed to `EVL-NNN` / `MDL-NNN` | — |
+| Functional adaptability | ORD § 7.8.3 Functional Adaptability | 25059 |
+| Accuracy and fairness thresholds (operational) | ORD § 7.8.2 Functional Correctness, as `[AI]` rows | 25059, AI Act Art. 15 |
+| Robustness — out-of-distribution and adversarial input | ORD § 7.2.5 Robustness | 25059, AI Act Art. 15 |
+| User controllability and intervenability | ORD § 7.7.4 User Controllability and Intervenability | 25059 |
+| Transparency, explainability, output labelling | ORD § 7.7.5 Transparency and Explainability | 25059, AI Act Arts. 13, 50 |
+| Human oversight — who intervenes, when, with what authority | ORD § 7.7.4 and § 7.12 Operational Hours and Escalation Tolerance | AI Act Art. 14 |
+| Record-keeping and inference logging | ORD § 7.6.4 Record-Keeping and Inference Logging, § 7.6.2 Analyzability | AI Act Art. 12 |
+| Data governance, provenance, labelling method | ORD § 7.11 Operating Environment and Constraints | AI Act Art. 10, ISO/IEC 5259 |
+| Drift detection and re-verification cadence | ORD § 7.8.3, § 7.6.2 Analyzability, § 7.13 Service Level Requirements | ISO/IEC 5338 |
+| Model and provider dependency | ORD § 10.1 Dependencies, keyed to `MDL-NNN` | — |
+| Prompt-injection and model-specific attack surface | ORD § 7.3.7 Prompt Injection and Model Attack Surface | AI Act Art. 15 |
+| Prohibited output — unacceptable at any rate, zero tolerance | ORD § 7.9.3 Prohibited Outputs, or § 7.3 Security where it is a disclosure | AI Act Art. 15 |
+| Evaluation sets and model dependencies (registers) | ORD § 10.1 Dependencies, keyed to `EVL-NNN` / `MDL-NNN` | — |
 
-**The ORD subsections named above are defined in** `skills/write-ord/REFERENCE.md` § *ISO/IEC
-25059:2023 — AI Extension* and are scaffolded in its §3 template marked *(AI — 25059)*. They are
+**The ORD subsections named above are defined in** `skills/write-ord/TAXONOMY.md` § *ISO/IEC
+25059:2023 — AI Extension* and are scaffolded in its §7 template marked *(AI — 25059)*. They are
 conditional on this file's trigger test: where it does not fire they do not apply, and are omitted
-from the body *and* from the §3.10 Coverage Gaps table — an inapplicable subsection is not a gap.
+from the body *and* from the §7.10 Coverage Gaps table — an inapplicable subsection is not a gap.
 
-**§3.8.2 Functional Correctness is the exception** — a 25010 subsection present in every ORD. Accuracy
+**§7.8.2 Functional Correctness is the exception** — a 25010 subsection present in every ORD. Accuracy
 and fairness land there as `[AI]` rows beside any deterministic correctness tolerance, so the trigger
 not firing removes those rows and never the subsection.
 
@@ -172,7 +172,7 @@ threshold is never restated in two independently editable places.
 - **`Re-run trigger` is mandatory** — an evaluation with no trigger is a launch gate, not a
   requirement. At minimum: any model version change, any prompt change, any change to an upstream
   data source.
-- **`Prohibited outputs` holds row IDs, never values.** It points at the ORD § 3.9 / § 3.3 rows
+- **`Prohibited outputs` holds row IDs, never values.** It points at the ORD § 7.9 / § 7.3 rows
   carrying the categorical prohibitions this set is scored alongside, per the § View Tables rule in
   [tables.md](tables.md). `—` is a real answer meaning *considered, none apply* — it is not the same
   as leaving the cell blank, and the column exists so the question is asked rather than assumed.
@@ -218,12 +218,12 @@ demonstrated.
 
 | Standard | Status here |
 |---|---|
-| ISO/IEC 25010:2023 | The ORD §3 taxonomy this file extends. Australian adoption: **AS/NZS ISO/IEC 25010:2025**. |
+| ISO/IEC 25010:2023 | The ORD §7 taxonomy this file extends. Australian adoption: **AS/NZS ISO/IEC 25010:2025**. |
 | ISO/IEC 25059:2023 | Extends the ORD's ISO/IEC 25010:2023 taxonomy — adds functional adaptability, robustness, user controllability, transparency, intervenability. Does not replace it. Second edition under member-body vote. Australian adoption: **AS ISO/IEC 25059:2024**. |
 | ISO/IEC/IEEE 29148:2018 | Unchanged for the PRD. The good-requirement characteristics hold; only the evidence satisfying *verifiable* changes. |
 | ISO/IEC 22989:2022 | Vocabulary. Adopt its terms rather than coining local ones — record them via `$add-term`. |
-| ISO/IEC 23894 | AI risk management. Feeds ORD § 9 and `$raid`. |
-| ISO/IEC 5338 | AI system life-cycle processes. Feeds ORD § 5 and § 7. |
+| ISO/IEC 23894 | AI risk management. Feeds ORD § 8.2 and `$raid`. |
+| ISO/IEC 5338 | AI system life-cycle processes. Feeds ORD § 7.12 and § 7.13. |
 | EU AI Act — Regulation (EU) 2024/1689, as amended by (EU) 2026/1744 | Supplies requirement classes (Arts. 9–15, Annex IV), not document structure. Application dates are in the stamp below, verified 2026-08-24. |
 | ISO/IEC 42001:2023 | Organisational management system, above the document layer. Out of scope for this file. |
 | ISO/IEC 5259 series | Data quality for ML. A data-as-subject schema is deferred per ADR-0003. |
@@ -271,7 +271,7 @@ exists** — it is the same text, and it is the one an Australian auditor asks f
 
 | Instrument | Status here |
 |---|---|
-| **AS/NZS ISO/IEC 25010:2025** | Identical adoption of ISO/IEC 25010:2023 — the taxonomy the ORD's §3 is keyed to. Cite this designation in an Australian document. |
+| **AS/NZS ISO/IEC 25010:2025** | Identical adoption of ISO/IEC 25010:2023 — the taxonomy the ORD's §7 is keyed to. Cite this designation in an Australian document. |
 | **AS ISO/IEC 25059:2024** | Australian adoption of ISO/IEC 25059:2023 — the AI extension this file applies. Cite alongside the ISO designation. |
 | **AS ISO/IEC 42001:2023** | Identical adoption, February 2024. Organisational management system, above the document layer — out of scope for this file, as its ISO parent is. |
 | ISO/IEC/IEEE 29148:2018 | **No Australian adoption identified.** Cite the ISO/IEC/IEEE designation. |

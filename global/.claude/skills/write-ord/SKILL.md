@@ -1,9 +1,9 @@
 ---
 name: write-ord
-version: 2.2.1
+version: 3.0.0
 category: pipeline
 standalone: true
-description: Synthesize a call transcript, document, conversation context, or structured notes into a compliant demand-side Operational Requirements Document (ORD) — quantified business tolerances organised by ISO/IEC 25010:2023 quality characteristics, with operational objectives, scenarios, business rules and referred requirements. Use when the user runs /write-ord, provides a transcript or document to convert into an ORD, or wants to formalise operational requirements from a conversation.
+description: Synthesize a call transcript, document, conversation context, or structured notes into a business-focused, demand-side Operational Requirements Document (ORD) — executive summary first, quantified business tolerances organised by ISO/IEC 25010:2023 quality characteristics, with decisions, assumptions and dependencies as first-class registers, and business rules and reporting requirements in their own appendices. Use when the user runs /write-ord, provides a transcript or document to convert into an ORD, or wants to formalise operational requirements from a conversation.
 ---
 
 # Write ORD
@@ -16,14 +16,22 @@ companion**, `docs/ord/[system-name]-ORD.llm.md`, generated from the saved ORD f
 to consume. Run with `--llm-only [ORD path]` **[AFK]** to regenerate the companion from an existing
 ORD without running either phase.
 
+**Business-focused means the core ORD explains what outcome is required — not how it is controlled.**
+Business rules (§13) explain how decisions are made; the Reporting Requirements Appendix (§14)
+explains what reporting consumers need; the design response explains how it is implemented. Every
+requirement passes one test: *could an executive understand it without understanding reporting,
+governance, architecture or implementation?* If not, simplify it and move the detail to an appendix.
+
 **Demand-side means the ORD states quantified business tolerance and never the technical target that
 satisfies it.** *"Service is restorable within one business day, beyond which obligation X is
 breached"* is this document's business; *"RTO 4h"* is the design response's. The ORD precedes
 solutioning — architecture, security, operations and service management answer it downstream and do
 not contribute to it. Stating a technical target pre-empts the review the document exists to inform.
 
-See [REFERENCE.md](REFERENCE.md) for the ISO/IEC 25010:2023 taxonomy, the demand-side scope rule,
-the status taxonomy, the KPP guide and the full ORD template.
+See [REFERENCE.md](REFERENCE.md) for the demand-side scope rule, the status taxonomy, the KPP guide
+and the deviation map, and for the index to [TAXONOMY.md](TAXONOMY.md) (ISO/IEC 25010 and 25059),
+[ELICITATION.md](ELICITATION.md) (lenses and extraction) and [TEMPLATE.md](TEMPLATE.md) (the ORD
+template and worked register extract).
 
 **Authoring standards — read before writing any requirement:**
 - `~/.claude/standards/requirements/language.md` — wording, voice, banned modals, demand-not-design
@@ -57,7 +65,7 @@ difference. An unreadable standard is a blocked run, never a degraded one.
 Runs unattended. Extracts and classifies all operational requirements from source material.
 
 Extraction judgement — what to split, what to consolidate, what to strip from a source
-statement — is in [REFERENCE.md](REFERENCE.md) § *Extraction*. The analysis lenses that decide
+statement — is in [ELICITATION.md](ELICITATION.md) § *Extraction*. The analysis lenses that decide
 **what to look for** are in § *Elicitation lenses*, and each is gated by its own trigger.
 
 ### Inputs accepted
@@ -71,7 +79,7 @@ Where available, also read: the BRD and its version, scope and out-of-scope stat
 objectives, stakeholders, dependencies, known business rules, current-state processes, the target
 date and the milestone it serves, and any Product Manager prioritisation already given.
 
-**Missing inputs are recorded, never inferred** — as an entry-position row (§2.3), a gap, an
+**Missing inputs are recorded, never inferred** — as an entry-position row (§12), a gap, an
 assumption with an owner and a confirm-by date, or a decision item.
 
 ### Phase 1 Process
@@ -120,13 +128,21 @@ assumption with an owner and a confirm-by date, or a decision item.
    will not deliver: functional detail, staffing, training, policy, commercial or process-design
    work. Record the resolver group and the named recipient. `Resolver group: None in chain` is a
    real answer and the row stays open.
-10. **Extract business rules** (`BRL-NNN`) where classification, eligibility, calculation or
-   reporting logic exists. Note whether a PRD is produced in this chain — if one is, the rules
-   belong there and Appendix G is omitted.
+10. **Extract business rules** (`BRL-NNN`) — every classification, eligibility, cut-off,
+   calculation, restatement, reconciliation, exception, retention or rule-versioning statement —
+   into the three groups in `tables.md` § *Business rule*: Classification, Reporting, Governance.
+   **Where a source statement mixes an outcome with its control logic, split it**: the outcome
+   becomes the requirement, the logic becomes the rule it cites. Each rule carries an owner, a
+   status and the requirements it affects. Where a `/write-reqs` brief shows the PRD already states a
+   rule, cite the PRD's ID rather than restating it.
+   **Extract decisions and related initiatives** too: every unresolved business decision becomes a
+   decision item (never an assumption inside a requirement), and every adjacent programme the source
+   names is tested against `tables.md` § *Related initiative* — dependency, related initiative,
+   referred requirement or out-of-scope item.
 11. Classify each extracted statement against the ISO/IEC 25010:2023 nine characteristics. Flag
     statements too vague to classify.
 12. Identify gaps at **sub-characteristic** level — check every sub-characteristic in the
-    REFERENCE.md taxonomy. Characteristic-level checking hides gaps inside a partially-covered
+    TAXONOMY.md taxonomy. Characteristic-level checking hides gaps inside a partially-covered
     characteristic. Also identify BRD objectives with no resulting operational requirement.
 13. **Draft scenarios** (`SCN-NNN`) for each requirement — at minimum a Sunny Day. **Where the
     requirement is a determination, measurement or eligibility decision, draft both a Favourable and
@@ -139,7 +155,7 @@ assumption with an owner and a confirm-by date, or a decision item.
 15. Identify **Key Performance Parameters** — requirements whose failure means the capability is
     unfit for purpose, not merely degraded. State each as a business-failure threshold carrying
     **threshold and objective** as two labelled values.
-16. **Run the applicable elicitation lenses** — REFERENCE.md § *Elicitation lenses*. Apply only
+16. **Run the applicable elicitation lenses** — ELICITATION.md § *Elicitation lenses*. Apply only
     the lenses whose trigger is present in the source; lens 1 (operational purpose) and lens 14
     (consistency) are unconditional. A lens finds a question, and its output is a register row only
     where the source carries the tolerance and its evidence — otherwise a `[TBD]`, a gap, an
@@ -148,16 +164,24 @@ assumption with an owner and a confirm-by date, or a decision item.
 17. **Apply both conditional trigger tests** — `ai.md` and `reporting.md`. Answer each explicitly in
     the Phase 1 Summary; do not leave either unasked. Judge the **delivered solution**, never the
     toolchain that builds it. Where `ai.md` fires, classify against the ISO/IEC 25059
-    sub-characteristics too. Where `reporting.md` fires, check every class in its map and extract
-    the `DAT-NNN` data elements.
+    sub-characteristics too. Where `reporting.md` fires — reporting, KPIs, SLAs, performance metrics
+    or compliance reporting are affected — check every class in its map, **identify the reporting
+    consumers** by class (regulatory, contractual, operational, management, executive, audit) even
+    where their process does not change, draft a measure definition per reported measure, and
+    extract the `DAT-NNN` attributes, dimensions and data elements with `Availability` —
+    `Unconfirmed` unless the source confirms the element exists. Where any element is `New` or
+    `Unconfirmed`, raise a candidate reporting-data requirement at the gate.
 18. **Detect competing methodologies** — where current operational practice differs from
     contractual, regulatory or documented reporting practice, preserve both, and raise it for the
     gate as a decision item. Never file a methodology conflict as an assumption.
-19. **Run the consistency sweep** — REFERENCE.md § *The consistency sweep*. Consolidate
+19. **Run the consistency sweep** — ELICITATION.md § *The consistency sweep*. Consolidate
     duplicates into one authoritative statement. Never resolve a conflict: preserve both documented
     positions, name the affected requirements, and raise a decision item.
-20. **Compute the document tier** — the weakest `Status` carried by any KPP-bearing requirement.
-21. Present the Phase 1 Summary and pause.
+20. **Apply the executive-altitude test** to every extracted tolerance — `tables.md` § *Requirement
+    register*. A tolerance that fails it is rewritten to its outcome, with the detail routed to a
+    `BRL-NNN` rule or a §14 definition. List each rewrite in the summary.
+21. **Compute the document tier** — the weakest `Status` carried by any KPP-bearing requirement.
+22. Present the Phase 1 Summary and pause.
 
 ### Phase 1 Summary Format
 
@@ -170,7 +194,7 @@ assumption with an owner and a confirm-by date, or a decision item.
 ### Entry Position
 | # | Input | Status at assignment |
 |---|---|---|
-| E1–E9 | [per REFERENCE.md §2.3] | Received / Partial / Absent |
+| E1–E9 | [per TEMPLATE.md §12] | Received / Partial / Absent |
 
 ### Operational Problems
 | Problem | Traces to BO-N | Closed by OBJ# |
@@ -209,10 +233,29 @@ Technical figures whose underlying tolerance could not be recovered: [list, or "
 Requirements with only a Favourable Sunny Day scenario: [list — each needs an Adverse row, or a
 reason it is not a determination]
 
-### Business Rules
-| BRL# | Rule group | Required decision | Status | Owner |
+### Business Rules (§13)
+| BRL# | Group | Rule type | Required decision | Status | Owner | Affects |
+|---|---|---|---|---|---|---|
+Rules cited from a PRD in the chain: [list, or "none"]
+
+### Executive-altitude rewrites
+| Source wording (control detail) | Outcome requirement | Detail routed to |
+|---|---|---|
+[or "none — source stated outcomes throughout"]
+
+### Reporting (where `reporting.md` fired)
+| Consumer | Class | Measures used | What moves for them |
+|---|---|---|---|
+Consumer classes not evidenced in the source: [list — questions for the gate, never inferred]
+Data elements `New` or `Unconfirmed`: [list] → candidate reporting-data requirement: [yes / no]
+
+### Decisions
+| D-NNN | Decision required | Affects | Owner | Status |
 |---|---|---|---|---|
-Functional requirements document produced in this chain? [Yes → rules go to the PRD / No → Appendix G, deviation declared]
+
+### Dependencies, Related Initiatives, Referred and Out-of-Scope
+| Item | Classified as | Why (test from tables.md) |
+|---|---|---|
 
 ### Impacts, Actors and Referred Requirements
 | IMP# | Impact | Kind | Treatment | Owner | Referred |
@@ -246,7 +289,7 @@ Requirements whose operational purpose could not be established from the source:
 
 ### Coverage Gaps
 Sub-characteristics with no source material: [list]
-Listed once in §3.10 — not scaffolded as an empty table each. All nine characteristics still appear.
+Listed once in §7.10 — not scaffolded as an empty table each. All nine characteristics still appear.
 BRD objectives with no resulting requirement: [list, or "none"]
 
 ### Assumptions and Dependencies
@@ -259,6 +302,10 @@ BRD objectives with no resulting requirement: [list, or "none"]
 ### Proposed System Name
 [Inferred, or flagged unknown]
 
+### Executive Summary — draft points
+Problem · outcome · what is changing · what is not changing · major unresolved decisions — one line
+each, for the human to correct before Phase 2.
+
 ---
 Confirm to proceed to Phase 2, or provide corrections and gap-fills before I write the ORD.
 ```
@@ -268,13 +315,15 @@ Confirm to proceed to Phase 2, or provide corrections and gap-fills before I wri
 ## Phase 2 — HITL Write [HITL]
 
 Runs after the human confirms the Phase 1 summary. Writes the ORD using the template in
-[REFERENCE.md](REFERENCE.md).
+[TEMPLATE.md](TEMPLATE.md).
 
 ### Phase 2 Process
 
 1. Incorporate all corrections and gap-fills from the Phase 1 confirmation.
-2. Write the ORD following REFERENCE.md's template. **All nine characteristics appear at §3.1–3.9**;
-   a characteristic with nothing to state says so explicitly. §6 and §8 are numbered and left empty.
+2. Write the ORD following TEMPLATE.md. **All eighteen sections appear, in order**;
+   a section with nothing to state says so in one line. **All nine characteristics appear at
+   §7.1–7.9**; a characteristic with nothing to state says so explicitly. §4.2 always names
+   staffing, infrastructure and the support model as out of scope.
 3. **Assign stable IDs** — `ORD-NNN`, `OBJ-NNN`, `SCN-NNN`, `IMP-NNN`, `REF-NNN`, `BRL-NNN`,
    `ASM-NNN`, `DEP-NNN`, flat and sequential in order of first appearance, never reused. The ID
    never encodes the characteristic — the subsection heading supplies it. **This document owns
@@ -283,48 +332,58 @@ Runs after the human confirms the Phase 1 summary. Writes the ORD using the temp
 4. **Write every requirement per the shared rules.** A complete row is a declarative
    `Business Tolerance` carrying its own quantified value, an active verb-first
    `Requirement Title`, a `Ver`, a `Status`, a named `Owner`, and a `Source`. The up-link to its
-   objective and its BRD objective lives once, at Appendix A — never as a register column. A KPP carries
+   objective and its BRD objective lives once, at §11 — never as a register column. A KPP carries
    threshold and objective as two labelled values. Where source material gives no value, write
    `[TBD — source: "quoted vague statement"]` — never invent one, and never leave a cell blank in
    place of a TBD: a blank is indistinguishable from an oversight, a TBD with an owner and a date
    conforms to 29148.
-5. **Every binding statement in Sections 3–5, 7 and 9 is a row with an `ORD-NNN` ID.** Section 7 is
-   a **view**: it cites existing IDs and introduces no new values.
-6. **Write §1.6, §2.5 and §2.6.** §1.6 carries the operational problems, each tracing to a `BO-N`
-   and each named by the `OBJ-NNN` that closes it. §2.5 is the target operational state — a
-   **view of §2.4**, outcomes only, no mechanism; a sentence that would change when architecture
-   picks a different option does not belong. §2.6 is the actor register, governance roles excluded.
-   All three **append**: §1.1–1.5 and §2.1–2.4 keep their numbers. Record the extensions per
-   REFERENCE.md § *Deviations from the requirements-documents pack*.
+5. **Every binding statement in §7.1–§7.12 is a row with an `ORD-NNN` ID**, and every decision,
+   assumption, dependency, referred requirement and business rule is a row in its own register.
+   §7.13 is a **view**: it cites existing IDs and introduces no new values.
+6. **Write §2–§6 for the business reader.** §3 carries the operational problems, each tracing to a
+   `BO-N` and each named by the `OBJ-NNN` that closes it. §2.4 is the target operational state — a
+   **view of §6**, outcomes only, no mechanism; a sentence that would change when architecture
+   picks a different option does not belong. §4.4 is the actor register, governance roles excluded.
+   State the structural deviation in the header's `Conformance` line.
+6a. **Write §13 and §14.** §13 carries every `BRL-NNN`, grouped Classification / Reporting /
+   Governance, each with owner, status and affected requirements. §14 is populated where
+   `reporting.md` fired — consumers, measure definitions, data elements, transparency and audit,
+   proposed reporting criteria — and otherwise carries one line saying it did not fire.
 7. **Run the form self-check before saving.** Every register row: `Requirement Title` active and
    verb-first; `Business Tolerance` noun-first, passive, carrying its own quantified value; no
-   modal; no "the system"; no `can [verb]`; no technical target. Check against REFERENCE.md
+   modal; no "the system"; no `can [verb]`; no technical target; **passes the executive-altitude
+   test**, with no classification, cut-off, reconciliation or evidence mechanism in the row. Check against TEMPLATE.md
    § *Worked register extract*, including its wrong-form table. Report rows checked and rows
    corrected in the coverage summary.
-8. **Add a supporting view only where it improves comprehension** — REFERENCE.md § *Supporting
+8. **Add a supporting view only where it improves comprehension** — TEMPLATE.md § *Supporting
    views*. Every view cites authoritative IDs and adds no value of its own; an entitlement matrix
    carries a legend defining each decision value. **The lenses exist to reduce overlooked
    consequences, not to raise page count** — a document is not more complete for being longer.
-   Where an Executive Summary is written, it restates no value a row carries, and it is omitted
-   where §1.1 and §2.1 already carry the narrative.
-9. **Record the appendices.** A (traceability, with `Proposed AC` — proposed, never assigned; `/write-ac`
-   mints `AC-NNN`), B (assumptions), C (referred requirements), D (conformance, left pending until
-   the design response is issued), E (interface detail), F (scenario catalogue), G (business rules —
-   only where no functional requirements document is produced, with the deviation declared),
-   H (data elements — only where `reporting.md` fires).
-10. **Check traceability at Appendix A**, which is its single home — the register carries `Source`
-   only. Flag any row with no objective **and** no source as **orphan scope**, and any BRD objective
-   with no resulting register row as a **coverage gap**. Do not silently resolve either.
+8a. **Write §1 Executive Summary last**, from the register that exists: the problem, the outcome,
+   what is changing, what is not changing, and the major unresolved decisions with their owners. It
+   cites IDs and restates no value a row carries.
+9. **Record the registers and supplementary appendices.** §8 decisions (with `Resolution`), §9
+   assumptions, §10 dependencies, related initiatives and referred requirements — four
+   classifications, never one table. §11 traceability, with `Proposed AC` — proposed, never
+   assigned; `/write-ac` mints `AC-NNN`. §12 entry position. §15 scenarios, §16 interface detail,
+   §17 conformance (left pending until the design response is issued), §18 change history.
+10. **Check traceability at §11**, which is its single home — the register carries `Source`
+   only. Every requirement traces to its objective, business requirement and business objective;
+   every business rule names its owner, status and affected requirements, and §11's `Business
+   rules` column agrees with each rule's `Affects`. Flag any row with no objective **and** no source
+   as **orphan scope**, and any BRD objective with no resulting register row as a **coverage gap**.
+   Do not silently resolve either.
 11. **State the document tier** in the header — the weakest `Status` on any KPP-bearing requirement.
 12. Save to `docs/ord/[system-name]-ORD.md`.
 13. **Generate the LLM companion** from the saved ORD by running
-    `python3 scripts/llm_companion.py docs/ord/[system-name]-ORD.md --generator "/write-ord 2.2.1"`,
+    `python3 scripts/llm_companion.py docs/ord/[system-name]-ORD.md --generator "/write-ord 3.0.0"`,
     per `llm-companion.md`. It writes `docs/ord/[system-name]-ORD.llm.md` only when every row
     reconciles and every value arrived verbatim. On a refusal, report the reason; never write the
     companion by hand instead.
-14. Present a coverage summary: sub-characteristics fully / partially specified or listed in §3.10;
+14. Present a coverage summary: sub-characteristics fully / partially specified or listed in §7.10;
     traceability completeness; the document tier and what would raise it; counts of assumptions,
-    dependencies, referred requirements and open decisions; and the companion line with its row and
+    dependencies, related initiatives, referred requirements, business rules and open decisions;
+    executive-altitude rewrites; and the companion line with its row and
     record counts.
 
 ### Phase 2 Output
@@ -389,29 +448,43 @@ how the two drift. The rules below are write-ord's own.
 
 **Structure**
 
-- Never renumber around §6 and §8 — they stay numbered and empty, with their content referred.
-- Never insert a subsection. §1.6, §2.5 and §2.6 append; §1.1–1.5 and §2.1–2.4 keep their numbers.
-  Inserting desynchronises `review-ord`'s pinned pack extract, which this skill does not own.
-- Never write "solution vision", and never let §2.5 name a mechanism, product, platform, protocol
+- Never drop, merge or reorder a section of the eighteen. A section with nothing to state says so in
+  one line; numbering never closes up around it.
+- Never write a section from the requirements-documents pack's order into a 3.x ORD — the pack map
+  is in REFERENCE.md § *Deviations*, and a hybrid matches neither.
+- Never omit the Executive Summary, and never write it before the register exists. Never let it
+  restate a value a row carries, or describe the operating state — that is §2.4's job.
+- Never let a register row fail the executive-altitude test. Simplify it and move the detail to §13
+  or §14 — never delete the detail to make the row short.
+- Never write a classification, cut-off, calculation, reconciliation, exception, retention or
+  versioning mechanism into §7 — it is a `BRL-NNN` in §13, cited by the row.
+- Never omit §13. Every ORD carries the Business Rules Appendix, grouped Classification / Reporting /
+  Governance, with the functional-content declaration in its lead.
+- Never add a reporting section to the body — reporting outcomes are §7 rows, and their detail is
+  §14.
+- Never treat a reporting consumer as out of scope because their process does not change — a figure
+  they rely on moving is an impact on them.
+- Never assume a reporting platform already holds a new attribute, dimension or data element.
+- Never put dependencies, related initiatives, referred requirements and out-of-scope items in one
+  table — each has its own register and test.
+- Never leave an unresolved decision or an assumption embedded in a requirement's wording — it is a
+  §8 or §9 row the requirement cites.
+- Never write "solution vision", and never let §2.4 name a mechanism, product, platform, protocol
   or integration pattern. If a sentence would change when architecture picks a different option, it
   is not a target operational state.
-- Never give §1.6 a problem an ID or a threshold — `OBJ-NNN` holds the measurable form, and a
-  problem register is that content inverted into a second editable place.
+- Never give a §3 problem an ID or a threshold — `OBJ-NNN` holds the measurable form, and a problem
+  register is that content inverted into a second editable place.
 - Never write a design disposition into `IMP-NNN.Treatment`. The enum is `Addressed` /
   `No change required` / `Out of scope` and it is closed.
-- Never state an impact exclusion in §1.3 prose as well as in `Treatment` — §1.3 is a view for
-  impacts, and keeps prose only for exclusions that have no row.
+- Never state an impact exclusion in §4.2 prose as well as in `Treatment` — §4.2 cites the ID, and
+  keeps prose only for exclusions that have no row.
 - Never put a governance role in the actor register, and never give that register an ID prefix.
-- Never let the Executive Summary describe the operating state — that is §2.5's job, and the two
-  become one paragraph written twice.
-- Never omit a requirement that falls outside scope — refer it (Appendix C) with a named recipient.
+- Never omit a requirement that falls outside scope — refer it (§10.3) with a named recipient.
   An omitted requirement is indistinguishable from one nobody had.
-- Never mint an `AC-NNN` — Appendix A carries a `Proposed AC`, and `/write-ac` owns the namespace.
+- Never mint an `AC-NNN` — §11 carries a `Proposed AC`, and `/write-ac` owns the namespace.
 - Never mint a `D-NNN` — `/raid` owns decisions. Raise them and cite the ID. Where no RAID log
   exists, carry `[D-TBD]` with the owner and what must be decided; never drop the row.
 - Never let a supporting view carry a value, a symbol or an asterisk it does not define.
-- Never let an Executive Summary restate a value a row carries, or survive where §1.1 and §2.1
-  already carry the narrative.
 - Never lengthen the document because more lenses were run. The lenses reduce overlooked
   consequences; they do not raise page count.
 - If no system name can be determined, flag it in Phase 1 and use `[SYSTEM-NAME-TBD]`.
@@ -423,19 +496,19 @@ how the two drift. The rules below are write-ord's own.
 | Source material is a raw audio transcript with filler words | Clean filler before extracting; note transcript quality in Phase 1 Summary |
 | Source has no operational content (e.g. a sales deck) | Stop. Report: "No operational requirements found in source material. An ORD requires performance, support, or operational constraint content." |
 | Source states technical targets throughout (RTO, uptime %, latency) | Extract the business tolerance behind each and record the rewrite in the Phase 1 Summary. Where the tolerance cannot be recovered, list it as a gap for the gate — never carry the technical figure through as the requirement |
-| All characteristics are gaps | Proceed — all nine still appear, each carrying an explicit statement, and every sub-characteristic is listed in §3.10. Note the ORD is a shell requiring stakeholder workshops. Do not pad it with empty tables |
+| All characteristics are gaps | Proceed — all nine still appear, each carrying an explicit statement, and every sub-characteristic is listed in §7.10. Note the ORD is a shell requiring stakeholder workshops. Do not pad it with empty tables |
 | No business owner named for any requirement | Every row is `Provisional` at best, and `Assumed` where no documentary source exists. State the tier and the E2/E3 entry-position gap. Do not invent an owner |
 | A KPP can reach only `Assumed` inside the window | Flag it at the gate as the one item warranting escalation — it is the demand the design response most needs bounded |
-| Invoked by `/write-reqs` with a joint-authoring brief | Treat the brief's ORD-bound half as the extraction scope. Own the NFRs the PRD cites; still never read the PRD. Business rules go to the PRD, so Appendix G is omitted. Suppress the standalone next-steps block |
+| Invoked by `/write-reqs` with a joint-authoring brief | Treat the brief's ORD-bound half as the extraction scope. Own the NFRs the PRD cites; still never read the PRD. §13 is still written: rules the brief places in the PRD are cited by their PRD ID, not restated. Suppress the standalone next-steps block |
 | KPP cannot be identified from source material | Ask at the Phase 1 gate. Do not write "KPPs not yet designated" on your own authority |
 | ORD already exists at the target path | Stop. "An ORD already exists at docs/ord/. Confirm overwrite or provide a new name." |
-| No RAID log exists in the project | Record the matter in full at §9.2 (decisions) or §9.1 (risks) with `[D-TBD]` or `[R-TBD]` in the ID cell, plus a named owner and a required-by date. A placeholder is not a mint; a dropped row is a lost decision |
+| No RAID log exists in the project | Record the matter in full at §8.1 (decisions) or §8.2 (risks) with `[D-TBD]` or `[R-TBD]` in the ID cell, plus a named owner and a required-by date. A placeholder is not a mint; a dropped row is a lost decision |
 | An authoring standard cannot be read | Stop and name the file. Do not draft the register, the scenarios or any criterion from memory — the output would be indistinguishable from a conformant one |
 | Requirements conflict (e.g. same measure defined two ways) | Preserve both, record each method's decision criteria, raise `/raid add decision`, and identify the affected requirements. Never resolve it without decision authority |
 | No BRD found | Note "No BRD found." Proceed — trace each requirement to its `OBJ-NNN` and to its proximate source (contract, incident record, named stakeholder) instead of a BRD objective |
 | BRD objective produces no register row, or a row has no objective and no source | Flag as a coverage gap or orphan scope. Do not silently resolve |
 | Source states no MoSCoW | Write `TBD` and list it at the gate — priority is the Product Manager's decision, never a drafting choice |
-| Staffing, training, policy or infrastructure requirements raised | Record in Appendix C with a resolver group and a named recipient. Never write them into §6 or §8, and never drop them |
+| Staffing, training, policy or infrastructure requirements raised | Record in §10.3 with a resolver group and a named recipient, and keep the §4.2 exclusion. Never write them as requirements, and never drop them |
 | Source names statuses or a lifecycle but no transitions | Extract the states, raise the missing transitions as gaps, and ask at the gate. Distinguish rollback after failed processing from reversal after successful processing — a source stating one has not stated the other |
 | Source states only the individual case where bulk processing is in scope | Extract the individual requirement. Raise bulk validation, partial bulk failure, bulk summary and manual fallback as gaps. Never carry the individual behaviour across |
 | Source gives an engineering threshold and no business tolerance | Keep the technical wording as `Source` evidence, carry `[TBD — source: "…"]` as the tolerance, and raise it at the gate. Never promote the figure to the requirement |
@@ -445,9 +518,14 @@ how the two drift. The rules below are write-ord's own.
 | A lens has no trigger in the source | Do not run it, do not report it, and do not record it as a coverage gap — an inapplicable lens is not a gap, the same rule the *(AI)* subsections follow |
 | A lens is run and finds nothing | Report "not evidenced". Never report it as satisfied — the two are different findings and only one is safe to act on |
 | Source states an impact but no treatment | `Treatment` is `[TBD]`. Ask at the gate. Never infer `No change required` from silence — that is the disposition most expensive to get wrong |
-| Source states a design disposition — "migrated", "decommissioned", "extended" | Refuse it as a treatment. Record the wording as `Source` evidence, set `Treatment` from the scope enum, and refer the design question (Appendix C) |
+| Source states a design disposition — "migrated", "decommissioned", "extended" | Refuse it as a treatment. Record the wording as `Source` evidence, set `Treatment` from the scope enum, and refer the design question (§10.3) |
 | A role name is the only evidence of authority | Record the actor and its operational role. Leave authority `[TBD]` — attendance, participation, approval and ownership are never inferred from a name |
-| Source has no BRD and no `BO-N` to trace §1.6 to | §1.6 is the ORD's own origin record. Trace each problem to its proximate source — contract, incident record, named stakeholder — and note the absence at E1 |
-| §2.5 cannot be written without naming a mechanism | The source has given a solution, not a target state. Write what is true for the business regardless of the mechanism; refer the rest (Appendix C) and flag it at the gate |
+| Source has no BRD and no `BO-N` to trace §3 to | §3 is the ORD's own origin record. Trace each problem to its proximate source — contract, incident record, named stakeholder — and note the absence at E1 |
+| §2.4 cannot be written without naming a mechanism | The source has given a solution, not a target state. Write what is true for the business regardless of the mechanism; refer the rest (§10.3) and flag it at the gate |
 | Form self-check finds a row failing `language.md` | Correct it and count it. Report rows checked and rows corrected — a self-check reporting zero corrections on a first draft was not run |
+| A source statement mixes an outcome with its control logic | Split it: the outcome is the §7 row, the logic a `BRL-NNN` in §13 the row cites. List the split under *Executive-altitude rewrites* |
+| Reporting is affected but the source names no consumer | Raise each consumer class at the gate as a question. Never infer a consumer, and never conclude there are none |
+| A measure needs an attribute or dimension with no evidence it exists | `DAT-NNN` with `Availability: Unconfirmed`, and a candidate reporting-data requirement at the gate. Never assume the reporting platform holds it |
+| An adjacent programme is named and its relationship is unclear | Apply the four tests in `tables.md` § *Related initiative*. Where none decides it, list it at the gate — never default it to a dependency |
+| An existing ORD in the 2.x structure is to be revised | Do not restructure silently. Ask at the gate whether to migrate it to the 3.x structure using the REFERENCE.md section map, or to revise in place under 2.x |
 | Statement marked out of scope but written as an active commitment | Consistency-sweep finding. Do not delete and do not honour it — raise it at the gate and record the human's answer |

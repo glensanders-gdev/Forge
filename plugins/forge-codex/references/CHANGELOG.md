@@ -11,6 +11,54 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
+## v4.17.0 — 2026-10-07
+
+**`$write-ord` 3.0.0 — a business-focused ORD.** Field feedback from a real reporting ORD: the
+document read as a design and governance specification, and only improved once the executive
+summary was added, the requirements were simplified, and the controls moved into appendices. 3.0.0
+makes that the default.
+
+- **New structure, eighteen fixed sections:** Executive Summary · Objective · Problem Statement ·
+  Scope · Glossary · Operational Objectives · Operational Requirements · Decisions · Assumptions ·
+  Dependencies · Traceability · Entry Position Assessment · Business Rules Appendix · Reporting
+  Requirements Appendix · Scenarios · Interface Detail · Conformance · Change History. The nine
+  ISO/IEC 25010 characteristics keep their sub-numbering, moved from §3.x.y to §7.x.y.
+- **Executive altitude.** Every register row passes one test: could an executive understand it
+  without understanding reporting, governance, architecture or implementation? Mechanism moves to
+  a cited `BRL-NNN` or §14 definition, and is never dropped.
+- **Executive Summary is mandatory**, written last, covering problem, outcome, what changes, what
+  does not, and the major open decisions.
+- **Business Rules Appendix (§13) in every ORD**, grouped Classification / Reporting / Governance;
+  the `BRL-NNN` schema gains `Group` and `Rule Type`.
+- **Reporting Requirements Appendix (§14)** where `reporting.md` fires: reporting consumers
+  (regulatory, contractual, operational, management, executive, audit), measure definitions, data
+  elements with `Availability` (never assumed to exist), transparency and audit, and proposed
+  reporting criteria. Still no reporting section in the body.
+- **Decisions, assumptions, dependencies, related initiatives, referred requirements and
+  out-of-scope items are separate registers**, each with its own test. Decisions gain a
+  `Resolution` column; assumptions are promoted from an appendix to §9; related initiatives are new.
+- **Traceability** gains BR, BO and business-rule columns.
+- **REFERENCE.md split by phase** — it had reached 839 lines. REFERENCE.md keeps scope, status,
+  KPPs and the pack deviation map and indexes the rest: `TAXONOMY.md` (25010, 25059), `ELICITATION.md`
+  (lenses, extraction) and `TEMPLATE.md` (template, views, worked extract). The 25059 table cited
+  characteristics by a third numbering scheme ("6. Interaction Capability" where the taxonomy said 4);
+  each now names the characteristic and its ORD §7 location.
+
+**Declared deviation from the requirements-documents pack.** The pack's ORD template is unchanged;
+write-ord REFERENCE.md carries the pack-to-3.x section map, and `$review-ord` resolves through it.
+Raise the structure to the pack separately. Existing 2.x ORDs are not migrated silently — the skill
+asks at the gate.
+
+Standards updated: `tables.md` (business rule, decision, related initiative, executive altitude),
+`reporting.md` (altitude split, consumers, new reporting data, §14 schemas), `ai.md`,
+`language.md` and `llm-companion.md` (section references).
+
+Section references moved to the 3.x numbering in `$review-ord` 2.3.1 (which also resolves pack
+sections through the 3.x map), `$write-ac` 1.6.4, `$testplan` 1.2.3, `$write-reqs` 1.4.4 (new §11
+headings) and `$write-brd` 1.3.2.
+
+---
+
 ## v4.16.1 — 2026-10-01
 
 **Company config now resolves in six skills.** `$build` 1.3.1, `$go-nogo` 1.0.2,
