@@ -330,6 +330,28 @@ verbs inside requirement *text*; a controlled enum in a priority column is unamb
 "correct" it. **MoSCoW is DSDM, and KPP is US DoD JCIDS** — neither is ISO-backed. Both are retained
 as house convention; neither is cited as a standards obligation.
 
+#### Prioritisation and status definitions
+
+**Emitted verbatim into every ORD at §5.2**, so a reader meets the three axes defined before meeting
+the register. Never reworded per document — the definitions are what make one ORD's `Must` mean the
+same as another's.
+
+| Column | Value | Definition | Assigned by |
+|---|---|---|---|
+| MoSCoW | **Must** | Required for this release. The release is not accepted without it. | Product Manager |
+| MoSCoW | **Should** | Important and of significant value. The release is accepted without it. | Product Manager |
+| MoSCoW | **Could** | Desirable. Delivered where capacity allows. | Product Manager |
+| MoSCoW | **Won't (this release)** | Raised, recorded and deliberately deferred. It stays in the register for a later release and carries no acceptance criterion. | Product Manager |
+| KPP | **[KPP]** | A business-failure threshold: failure means the capability is unfit for purpose, not merely degraded. Carries a threshold (minimum acceptable) and an objective (desired). Independent of MoSCoW — most KPPs are Musts, most Musts are not KPPs. | Business owner, at the Phase 1 gate |
+| Status | **Committed** | The business owner has stated and agreed the tolerance, and it traces to an obligation, contract, incident record or business decision. | Evidence |
+| Status | **Provisional** | The tolerance derives from a real source — an SLA, contract, incident history, analogous service — not yet confirmed by the owner for this change. | Evidence |
+| Status | **Assumed** | No owner confirmation and no documentary source; rests on an `ASM-NNN` with a named owner and a confirm-by date. | Evidence |
+
+**`Won't` is not out of scope.** A `Won't` item is in this document's scope and deferred; an
+out-of-scope item is never delivered by this document (ORD §4.2). **An item removed from scope after
+agreement is descoped, and descoping is a scope change, not a priority** — it is recorded as a §4.2
+exclusion with a §18 change-history entry stating when, by whom and why, never as a `Won't`.
+
 **Delivery Agent, Operational Owner, Timing and Verification are deliberately absent.** Each names
 something the demand side does not know and cannot commit: who will build it, who will run it, when
 it will be scheduled, and what instrument will prove it. Timing lives at the objective

@@ -180,7 +180,10 @@ exclusions that have no row.
 
 An out-of-scope item is excluded and delivered by nobody as a result of this document. Something
 another owner will deliver is a referred requirement (§10.3); adjacent work is a related initiative
-(§10.2).
+(§10.2). A deferred item still in scope is a `Won't` register row, not an exclusion.
+
+**A descoped item** — in scope at an earlier version, removed since — is an exclusion here marked
+`Descoped in v[N]`, with the §18 entry recording when, by whom and why.
 
 ### 4.3 Impact register
 What the change touches, who owns it, and whether this document addresses it — identification and
@@ -200,11 +203,17 @@ BRD, contracts, obligations, incident records, existing SLAs.
 
 ## 5. Glossary
 
+### 5.1 Terms
 Terms and acronyms used here, one table. Adopt ISO/IEC/IEEE 24765 and, for AI, ISO/IEC 22989:2022
 terms rather than coining local ones.
 
 | Term | Definition |
 |---|---|
+
+### 5.2 Prioritisation and status definitions
+The `MoSCoW`, `KPP` and `Status` definitions, copied **verbatim** from `standards/tables.md`
+§ *Prioritisation and status definitions*, including its note distinguishing `Won't` from out of
+scope and descoped. Never reworded per document.
 
 ---
 
@@ -449,4 +458,6 @@ the response is the **evaluation instrument**: the ORD names the population, the
 set, picks the scorer and sets the pass mark. `standards/ai.md`'s `EVL-NNN` schema governs its form.
 
 ## 18. Change History
+
+Every version, and every descoping: what was removed from scope, when, by whom, and why.
 ```

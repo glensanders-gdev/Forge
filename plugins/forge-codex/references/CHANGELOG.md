@@ -38,6 +38,9 @@ makes that the default.
   out-of-scope items are separate registers**, each with its own test. Decisions gain a
   `Resolution` column; assumptions are promoted from an appendix to §9; related initiatives are new.
 - **Traceability** gains BR, BO and business-rule columns.
+- **§5.2 Prioritisation and status definitions** — MoSCoW, KPP and Status defined once in
+  `tables.md` and copied verbatim into every ORD. `Won't (this release)` is deferred and in scope;
+  out of scope is never delivered here; descoped is a scope change recorded in §4.2 and §18.
 - **REFERENCE.md split by phase** — it had reached 839 lines. REFERENCE.md keeps scope, status,
   KPPs and the pack deviation map and indexes the rest: `TAXONOMY.md` (25010, 25059), `ELICITATION.md`
   (lenses, extraction) and `TEMPLATE.md` (template, views, worked extract). The 25059 table cited

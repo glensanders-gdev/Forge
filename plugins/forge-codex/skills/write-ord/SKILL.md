@@ -468,6 +468,8 @@ how the two drift. The rules below are write-ord's own.
 - Never assume a reporting platform already holds a new attribute, dimension or data element.
 - Never put dependencies, related initiatives, referred requirements and out-of-scope items in one
   table — each has its own register and test.
+- Never reword the §5.2 definitions — copy them verbatim from `standards/tables.md`. Never record a descoped
+  item as `Won't`: descoping is a §4.2 exclusion with a §18 entry.
 - Never leave an unresolved decision or an assumption embedded in a requirement's wording — it is a
   §8 or §9 row the requirement cites.
 - Never write "solution vision", and never let §2.4 name a mechanism, product, platform, protocol
