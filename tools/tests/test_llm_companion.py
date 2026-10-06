@@ -282,6 +282,16 @@ class FoldsAndViews(CompanionTestCase):
         self.assertIn("Views omitted: 7. Service level requirements (1 rows).", companion)
         self.assertNotIn("Refund within one cycle, view only", self.section(companion, "5. Records"))
 
+    def test_a_view_note_wrapped_across_blockquote_lines_is_still_a_view(self):
+        wrapped = ORD.replace(
+            "*View of §3. Values are authoritative in the referenced rows; this table adds no new commitments.*",
+            "> *View of §3. Values are authoritative in the referenced rows; this table adds no new\n"
+            "> commitments.*")
+        _, companion, out = self.generate(text=wrapped)
+        self.assertIn("1 view(s) omitted (1 rows)", out)
+        self.assertIn("Views omitted: 7. Service level requirements (1 rows).", companion)
+        self.assertNotIn("Refund within one cycle, view only", self.section(companion, "5. Records"))
+
 
 class OpenItems(CompanionTestCase):
     def open_items(self):
