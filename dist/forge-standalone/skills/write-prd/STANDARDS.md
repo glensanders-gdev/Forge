@@ -1218,8 +1218,9 @@ rules.
 **Nothing here adds a §7 subsection.** Reporting requirements are ordinary operational requirements
 whose *content* this file governs; they land in the 25010 subsections that already exist. A parallel
 reporting section in the body would restate the register. **The §14 appendix is not that section** —
-it holds consumers, measure definitions, data elements, transparency and audit detail, and proposed
-reporting acceptance criteria, and every binding statement in it cites an `ORD#`.
+it holds consumers, measure definitions, data elements, and transparency, audit and acceptance
+evidence, and every binding statement in it cites an `ORD#`. Proposed acceptance criteria stay in
+§11.
 
 ### Canonical schema
 

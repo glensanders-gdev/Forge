@@ -425,13 +425,13 @@ path, dimensions — keyed by the register row it details.
 `DAT-NNN`. `Availability` is `Unconfirmed` until the source confirms an element already exists —
 never assume an existing reporting platform holds it.
 
-### 14.4 Transparency and audit
+### 14.4 Transparency, audit and acceptance
 What a consumer or auditor is shown about how a figure was produced, and what is retained for
-audit — each citing the register row and the §13 governance rule that carries it.
-
-### 14.5 Reporting acceptance criteria
-Proposed criteria for the reporting requirements, in the `Proposed AC` form §11 uses — proposed,
-never assigned.
+audit — each citing the register row and the §13 governance rule that carries it. **Acceptance
+evidence for a reporting requirement is what an auditor would accept as proof** — the figure
+reproduced from retained records under the rule version in force — so it is stated here beside the
+audit need. The proposed acceptance criterion itself is written once, in §11's `Proposed AC`
+column, and never repeated here.
 
 ---
 

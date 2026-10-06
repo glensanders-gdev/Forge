@@ -348,8 +348,8 @@ Runs after the human confirms the Phase 1 summary. Writes the ORD using the temp
    State the structural deviation in the header's `Conformance` line.
 6a. **Write §13 and §14.** §13 carries every `BRL-NNN`, grouped Classification / Reporting /
    Governance, each with owner, status and affected requirements. §14 is populated where
-   `standards/reporting.md` fired — consumers, measure definitions, data elements, transparency and audit,
-   proposed reporting criteria — and otherwise carries one line saying it did not fire.
+   `standards/reporting.md` fired — consumers, measure definitions, data elements, and transparency, audit
+   and acceptance evidence — and otherwise carries one line saying it did not fire.
 7. **Run the form self-check before saving.** Every register row: `Requirement Title` active and
    verb-first; `Business Tolerance` noun-first, passive, carrying its own quantified value; no
    modal; no "the system"; no `can [verb]`; no technical target; **passes the executive-altitude

@@ -32,8 +32,9 @@ makes that the default.
   the `BRL-NNN` schema gains `Group` and `Rule Type`.
 - **Reporting Requirements Appendix (§14)** where `reporting.md` fires: reporting consumers
   (regulatory, contractual, operational, management, executive, audit), measure definitions, data
-  elements with `Availability` (never assumed to exist), transparency and audit, and proposed
-  reporting criteria. Still no reporting section in the body.
+  elements with `Availability` (never assumed to exist), and transparency, audit and acceptance
+  evidence (§14.4). Proposed acceptance criteria stay in §11 only. Still no reporting section in the
+  body.
 - **Decisions, assumptions, dependencies, related initiatives, referred requirements and
   out-of-scope items are separate registers**, each with its own test. Decisions gain a
   `Resolution` column; assumptions are promoted from an appendix to §9; related initiatives are new.
