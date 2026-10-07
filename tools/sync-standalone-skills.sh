@@ -77,7 +77,11 @@ fi
 
 echo "==> Mirroring distribution"
 # --delete so a skill dropped from the shipped set disappears upstream too.
-rsync -a --delete --exclude '.git' "$DIST/" "$WORK/"
+# --checksum so content decides, not size+mtime. Fresh CI checkouts give both trees equal
+# mtimes, and a same-length edit ("Release 4.16.2" -> "Release 4.17.0") then passes rsync's
+# quick check and is never copied -- v4.17.0 shipped a stale README that way. The --check
+# guard reads the same mirror, so this fixes it too.
+rsync -a --checksum --delete --exclude '.git' "$DIST/" "$WORK/"
 
 FORGE_VERSION="$(python3 -c "import json,sys; print(json.load(open('$FORGE_ROOT/global/.claude/skills/manifest.json'))['forge_version'])")"
 FORGE_SHA="$(git -C "$FORGE_ROOT" rev-parse --short HEAD)"
