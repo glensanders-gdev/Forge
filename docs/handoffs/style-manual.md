@@ -2,9 +2,9 @@
 
 **Stream:** `style-manual`
 **Status:** Active
-**Last updated:** 2026-10-07 15:55
+**Last updated:** 2026-10-07 16:00
 **Session type:** Ad Hoc
-**Prepared by:** /debrief: push branch 2, then assimilate batch 3
+**Prepared by:** /debrief: assimilate batch 3
 **Touches:** `global/.claude/standards/requirements/`, `global/.claude/skills/write-{brd,ord,prd}/`, `global/.claude/skills/manifest.json`, `global/.claude/CHANGELOG.md`, `plugins/forge-codex/`, `dist/forge-standalone/`
 
 ---
@@ -12,7 +12,7 @@
 ## Current Ticket
 
 **Ad hoc — Australian Government Style Manual adoption** `[HITL]`
-Status: In Progress. Batches 1 and 2 are done, and batch 2 is committed but not pushed.
+Status: In Progress. Batches 1 and 2 are merged, and batch 3 is ready to start.
 **Current phase:** Assimilation — Session 1 of this phase
 
 ---
@@ -21,9 +21,8 @@ Status: In Progress. Batches 1 and 2 are done, and batch 2 is committed but not 
 
 Batch 1 (voice and tone, sentences, plain language, the 7 grammar pages that matter, and an
 overridable locale) merged as PR #97, v4.17.1. Batch 2 (`/assimilate` of *Structuring content*
-and *Referencing and attribution*) is committed as `179b2ff` on `docs/style-manual-structure-referencing`,
-v4.17.2. It adds the document-structure rules, a reference list in every requirements document,
-and citation forms.
+and *Referencing and attribution*) merged as PR #98 (`ab58ad6`), v4.17.2. It adds the
+document-structure rules, a reference list in every requirements document, and citation forms.
 
 Key artifacts updated this session:
 - `global/.claude/standards/requirements/language.md` — style
@@ -36,15 +35,15 @@ Key artifacts updated this session:
 
 ## Next Action
 
-From the worktree `Forge/.claude/worktrees/style-manual-structure`, summarise the push of
-`docs/style-manual-structure-referencing` (1 commit for the change, 1 for this debrief), get
-confirmation, push, open the PR, and merge on green CI.
+1. Pull `main` into the main checkout (`git -C ~/Documents/Forge/Forge pull --ff-only`) if it
+   has not been pulled since #98.
+2. From a fresh branch off `origin/main`, run `/assimilate` on batch 3, which is listed below.
 
 ---
 
 ## Context the Next Session Will Need
 
-- **Batch 3 for `/assimilate`**, after the PR merges and from a fresh branch off `origin/main`.
+- **Batch 3 for `/assimilate`**, from a fresh branch off `origin/main`.
   These grammar sub-pages were never evaluated:
   - Latin shortened forms (`e.g.`, `i.e.`)
   - abbreviations and contractions
