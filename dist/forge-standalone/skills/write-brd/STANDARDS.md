@@ -23,7 +23,7 @@ Authoring standards for requirements documents — how a requirement is *worded*
 ```
 standards/requirements/
 ├── README.md      ← this file
-├── language.md    ← voice, modality, banned constructions
+├── language.md    ← voice and tone, sentences and word choice, numbers and dates, modality, banned constructions
 ├── tables.md      ← table-first presentation, canonical schemas, ID namespaces
 ├── ai.md          ← conditional: learned or generated behaviour (see trigger test)
 ├── reporting.md   ← conditional: a measure that is reported (see trigger test)
@@ -92,6 +92,11 @@ governed here.
 style guide may add to these rules but never relaxes them. Where the two conflict, the stricter
 requirement wins and the conflict is flagged rather than silently resolved.
 
+**One exception: locale.** A company style guide's `Locale` section *replaces* the Australian
+defaults in `language.md` § *Locale Conventions* (spelling, dictionary, prose dates, times,
+financial year). Replacing them is not a relaxation, so the stricter-wins rule does not apply to
+them. With no `Locale` section, or an incomplete one, the Australian defaults stay in force.
+
 
 ---
 
@@ -115,6 +120,53 @@ either true or false at verification time, and there is no hedge to argue about.
 | Users may be notified of despatch | Customer despatch notification is issued within 5 minutes |
 | The service shall be available 99.9% of the time | Service availability is 99.9% per calendar month |
 
+### Voice and Tone
+
+Adopted from the Australian Government Style Manual, *Voice and tone*
+(stylemanual.gov.au, page updated 21 October 2025). Here, **voice** means who the document speaks
+as. That is a different thing from the grammatical active or passive voice covered in
+§ *Voice by Altitude* below.
+
+**Voice: the definitive source.** A requirements document uses the Style Manual's basic government
+voice. It is respectful, clear and direct, and objective and impartial. A company style guide may
+set a house voice on top of this (see `README.md` § *Enforcement*), but it never
+replaces it.
+
+**Tone: formal.** The Style Manual puts policies, reports and legal writing in formal tone, and a
+document that carries commitments belongs in that group. Formal tone does not excuse unclear
+writing: plain language applies at every level of formality.
+
+| Element of tone | In a generated requirements document |
+|---|---|
+| Word choice | Everyday words. No contractions, metaphor, idiom or slang, and words keep their dictionary meaning. Every acronym and piece of internal shorthand is defined on first use and in the Glossary |
+| Viewpoint | Third person and impersonal. No `I`, `we`, `our` or `you`, because a requirements document has many readers and `you` names none of them. Name the party instead, as the "the system" ban already requires for components |
+| Grammar | Short sentences, one idea each. § *Voice by Altitude* sets the form for each element |
+| Formality | Formal throughout, executive summary included |
+
+**Clear and direct.** Narrative prose uses the active voice with a named actor. An unfavourable
+position is stated plainly: an exclusion, a `Won't`, an Adverse outcome or a refused request leads
+with the answer, not with the process that produced it.
+
+| Instead of | Write |
+|---|---|
+| Items not meeting first-round criteria are deemed unsuccessful subject to FMC review | Bulk reassignment is out of scope for this release |
+| Unfortunately the legacy platform is a mess and constantly falls over | The current dispatch service had 14 unplanned outages in the 12 months to June 2026 |
+
+**Objective and impartial.** State facts with a benchmark, not opinion. An evaluative adjective or
+adverb (`just`, `significantly`, `dramatically`, `unfortunately`, `obviously`, `simply`,
+`seamless`, `world-class`) carries a judgement the source did not make. `only` is evaluative when
+it judges an amount (`only 15 outages`). It is not evaluative when it limits a scope (`visible only
+to the submitting party`), which is a precise restriction and stays. Replace it with the
+baseline, the comparison or the source that supports it. A problem statement presents the
+evidence and does not assign blame to a team, a vendor or an earlier decision.
+
+**Respectful.** Inclusive language. The document neither talks down to its reader nor addresses
+them familiarly.
+
+**Exempt from this section:** verbatim source quotations, such as the text inside
+`[TBD — source: "…"]` or a quoted stakeholder statement, which keep the speaker's own words, and
+controlled vocabulary such as the MoSCoW value `Won't`.
+
 ### Voice by Altitude
 
 Two registers. Applying the wrong one at the wrong level is the most common error.
@@ -125,7 +177,7 @@ Two registers. Applying the wrong one at the wrong level is the most common erro
 | Requirement or story title | **Active, verb-first** | `Notify customer of despatch` |
 | "I want" clause | **Active, verb-first**, solution-agnostic | `Notify the customer when despatch occurs` |
 | Acceptance criterion | **Noun-first, passive, declarative** | `Despatch notification is issued within 5 minutes of consignment scan` |
-| ORD register row | **Active, verb-first** `Requirement Title`; **noun-first, passive** `Business Tolerance` carrying its own value | `Notify customer of despatch` / `Despatch notification is issued within one business hour of consignment scan, beyond which the delivery promise is breached` |
+| ORD register row | **Active, verb-first** `Requirement Title`; **noun-first, passive** `Business Tolerance` carrying its own value | `Notify customer of despatch` / `Despatch notification is issued within 1 business hour of consignment scan, beyond which the delivery promise is breached` |
 
 Titles command. Criteria state. The criterion form is deliberate: leading with the noun and
 using the passive leaves **no grammatical slot for a modal verb**, so the failure this ruleset
@@ -166,8 +218,8 @@ solution.
 | Business demand (belongs in the requirement) | Technical target (the design response, downstream) |
 |---|---|
 | An agent retrieves a customer's account without the customer noticing a wait | Sub-200ms API response at the 99th percentile |
-| Service is restorable within one business day; beyond that, obligation X is breached at cost Y | RTO 4h, active-active across two zones |
-| No more than one working day of transactions is lost in any failure | RPO 1h |
+| Service is restorable within 1 business day; beyond that, obligation X is breached at cost Y | RTO 4h, active-active across two zones |
+| No more than 1 working day of transactions is lost in any failure | RPO 1h |
 | A field technician completes a job through a 30-minute connectivity gap | Offline cache with conflict resolution on reconnect |
 
 Every left-hand statement is quantified, testable and traceable to a business source — a contract, a
@@ -191,6 +243,159 @@ invention.
 
 Quantification alone is **not** sufficient — "The system should respond within 3 seconds" is
 quantified and still fails this ruleset. Both the number and the form are required.
+
+### Sentences and Word Choice
+
+Adopted from the Australian Government Style Manual: *Sentences*, *Plain language and word
+choice* and *Clear language and writing style*.
+
+**Length.** Sentences average 15 words, and none is longer than 25. This applies to narrative
+prose and to every register cell. A longer statement is split into separate sentences or a list,
+and a tolerance that needs more is carrying mechanism, which belongs in a cited `BRL-NNN`. An ID
+or a cited reference counts as one word.
+
+**Structure.**
+- Subject, verb, object, in that order. A modifier goes after the main clause, never inside it.
+  Write `Notification is issued within 1 hour of scan`, not `Notification is, within 1 hour of
+  scan, issued`.
+- Positive statements. State what is true, not what is not, and never use a double negative
+  (`not unacceptable`). A prohibition is written as one, plainly.
+- Never use `if` and `unless` in the same sentence. Split the conditions, or put them in a
+  business rule.
+- `other than` goes directly after the term it qualifies, so the exception is unambiguous.
+- No `such … as` (`such steps as are appropriate`) and no `being` as a joining word. Use `and`.
+- No `there is` or `there are` when they add words but no meaning.
+- No more than 3 nouns or adjectives in a row. `Customer despatch notification` is the limit.
+  `Customer despatch notification exception reporting` is a noun train, so rewrite it as a clause.
+
+**Verbs over hidden verbs.** Write `decide`, not `make a decision`, and `consider`, not `give
+consideration to`. This does not conflict with § *Voice by Altitude*: a criterion starts with a
+noun *subject*. What this rule bans is a verb turned into a noun inside the sentence.
+
+**Cut unnecessary words.** Each word has a job. Adverbs and adjectives go first. Then check that
+the sentence still means the same and is still grammatical.
+
+**Everyday words.** Use the plain alternative unless a term is defined in the Glossary or taken
+from a standard this ruleset cites (ISO/IEC/IEEE 24765, ISO/IEC 25010). A defined term keeps its
+defined form: `impact` names an `IMP-NNN` row and stays.
+
+| Instead of | Write |
+|---|---|
+| in order to | to |
+| prior to / subsequent to | before / after |
+| commence / cease | start / stop |
+| utilise | use |
+| in the event that | if |
+| due to the fact that / as a consequence of | because |
+| in relation to / with regard to / in respect of | about |
+| pursuant to | under |
+| until such time as | until |
+| ascertain | find out |
+| approximately | about |
+| a number of | the number itself, or `some` |
+| at a later date | the date, or the timeframe |
+| leverage | use, build on |
+| deliver / drive (an outcome) | the actual verb: `reduce`, `increase`, `replace` |
+| impact (verb) | affect |
+| require (verb) | state the end state that is needed |
+
+**Shortened forms.**
+- Write the full term first, with the acronym in brackets after it: `Network Operations Centre
+  (NOC)`. A shortened form that is better known than its full form goes first, with the expansion
+  after it.
+- Every acronym goes in the Glossary. A register row is read on its own, so an acronym in a row
+  is also defined in the Glossary, not only in an earlier paragraph.
+- A term used only once or twice is written in full and not shortened.
+- No plural or possessive form at the point of definition, and no full stops inside or after an
+  acronym.
+
+**Reading level.** The executive summary and the narrative sections aim for a lower-secondary
+reading level (WCAG 2.2 success criterion 3.1.5). Specialist content is supported with the
+Glossary and a short summary in plain terms. It is never written down to.
+
+### Numbers, Dates and Units
+
+Adopted from the Style Manual, *Grammar, punctuation and conventions* § *Numbers and
+measurements*.
+
+**Numerals.**
+- In prose, numbers from 2 up are numerals, and `zero` and `one` are words.
+- **Every number in a register cell is a numeral**, `0` and `1` included. So is every number with
+  a unit, every comparison, decimal, percentage, date, time and series. A tolerance is a
+  measurement, so `1 business hour` and `4 business days` are correct.
+- Never start a sentence with a numeral. Reword it: `Rates made up 55% of revenue`, not `55% of
+  revenue came from rates`.
+- Numbers of 4 or more digits use commas, never spaces: `2,500`. Large rounded numbers use a
+  numeral and a word: `2.5 million`, `$50 million`.
+
+**Percentages.** A numeral with no space before `%`: `99.5%`. Use decimals, not fractions. Write
+the noun as `percentage`, and `per cent` as 2 words. **Never describe a change as a percentage
+alone.** State the baseline and the new value, as the BRD objective schema already requires. A
+percentage can sit next to them but never replaces them.
+
+**Dates and times in prose** (locale default, see § *Locale Conventions*).
+- Day, month, year, with no comma or ordinal: `15 October 2026`, `Thursday 15 October 2026`.
+- Spans: `from 3 to 21 December`. Financial years use an en dash: `the 2026–27 financial year`.
+- Times use a colon and a lower-case `am`/`pm`: `9:30 am`, `2 pm`. Use `noon` and `midnight`,
+  never `12 am` or `12 pm`. The 24-hour clock is used where the operation already runs on it.
+- A tolerance that depends on a time zone names it.
+
+**Dates in register cells** use `yyyy-mm-dd` (see § *Recorded Deviations from the Australian
+Government Style Manual*).
+
+**Units.** Numerals with the SI symbol and a non-breaking space: `30 km`, `500 kg`. A symbol the
+reader may not know is spelt out at first use, with the symbol in brackets after it. Symbols take
+no full stop and no plural form.
+
+### Punctuation, Capitalisation and Spelling
+
+Adopted from the Style Manual, *Grammar, punctuation and conventions* § *Punctuation* and
+§ *Spelling*.
+
+**Minimal punctuation.**
+- No full stop at the end of a heading, a caption or a list item that is not a full sentence.
+- No semicolons at the end of list items.
+- One space after a full stop, never two.
+- A sentence that needs a lot of punctuation is too long. Split it.
+
+**Capitals.** Sentence case in all free text. Capitals go on proper nouns only. A role or position
+named in prose is lower case (`the regulatory reporting manager`) unless it is a title the
+organisation sets in legislation or policy. Fixed labels keep their form (see deviations below).
+
+**Spelling** (locale default, see § *Locale Conventions*). Australian English, from one Australian
+dictionary used consistently: the Macquarie Dictionary, unless the company style guide names the
+Australian Oxford. Where a word has more than one spelling, use the first one listed. `-ise`
+endings, `per cent`, and `judgement` (but `judgment` in legal material).
+
+### Locale Conventions
+
+**The Australian locale is on by default.** The rules marked *locale default* above are the only
+ones in this file that depend on where the document is written and read:
+
+| Convention | Australian default |
+|---|---|
+| Spelling and dictionary | Australian English, Macquarie Dictionary, first listed spelling |
+| Dates in prose | `15 October 2026`, with no comma or ordinal |
+| Times | `9:30 am`, `2 pm`, `noon`, `midnight` |
+| Financial year | `2026–27`, running 1 July to 30 June |
+| Percentage in words | `per cent` |
+
+**Before drafting, read `~/.claude/knowledge/company/style-guide.md`.** If the file is missing,
+is a placeholder or has no `Locale` section, the Australian defaults apply and nothing is
+reported.
+
+**A company style guide can replace this whole table.** It does so with a `Locale` section that
+states a value for every row, for example US English with Merriam-Webster and `October 15, 2026`.
+A partial `Locale` section replaces nothing: the rows it leaves out would fall back to Australian
+values and the document would mix 2 conventions. A partial section is reported as a finding and
+the Australian defaults stay in force.
+
+**Nothing else in this file is a locale rule.** Plain language, sentence length, numerals,
+objective tone, acronym handling and every deviation apply whatever the locale. A `Locale`
+section that tries to change them is a relaxation, and § *Enforcement* in `README.md`
+refuses it.
+
+Register cells date as `yyyy-mm-dd` in every locale.
 
 ### Narrative Sections
 
@@ -220,6 +425,29 @@ as a row (see `tables.md`).
 
 Neither deviation is silent: any document claiming 29148 conformance cites this file.
 
+### Recorded Deviations from the Australian Government Style Manual
+
+The Style Manual is written for content that tells a reader what to do. A requirements document
+states what is true once a change is delivered, and it is verified against that statement. Four
+deviations follow from the difference. Each is deliberate:
+
+1. **Passive voice in acceptance criteria and Business Tolerance cells.** The Style Manual's own
+   counter-example, `Applications are assessed within 30 days`, is the exact form this ruleset
+   requires of a criterion. It names no actor because the actor belongs to the design response,
+   not the demand. The mitigation is the one in the 29148 deviation 2: where the actor is
+   load-bearing, name it and use the active voice. Titles and narrative prose use the active voice,
+   as the Style Manual says.
+2. **No second person.** The Style Manual recommends `we` and `you` where they suit the voice and
+   tone. Its tone guidance puts reports and policies in formal tone, which uses the third person,
+   and a requirements document is one of those.
+3. **Fixed labels keep title case.** Section headings, column names, controlled values (`Sunny
+   Day`, `Must`, `Provisional`) and role names in `Owner` cells are labels that reviewers, other
+   skills and tooling match on exactly. They keep the form their schema gives them. Sentence case
+   applies to all other text.
+4. **Register cells date as `yyyy-mm-dd`.** The Style Manual uses `15/10/2026` in tables. Register
+   dates are sorted, compared and read outside Australia, and the Style Manual accepts
+   international standards for data. Prose uses `15 October 2026`.
+
 **Not aligned to ASD-STE100.** Simplified Technical English mandates active voice and the
 imperative, and governs technical *documentation* (procedures, manuals), not requirements.
 Downstream operational artefacts — runbooks, operator and field procedures — may adopt STE
@@ -236,6 +464,20 @@ independently; requirements documents do not.
 - Never refer to "the system", "the platform", "the application", or "the solution".
 - Never treat quantification as sufficient — a hedged number is still a hedge.
 - Never invent a threshold to avoid writing `[TBD]`.
+- Never use a contraction, metaphor, idiom or slang in a generated document, except as controlled
+  vocabulary or inside a verbatim quotation.
+- Never write in the first or second person (`I`, `we`, `our`, `you`) outside a verbatim quotation.
+- Never use an evaluative adjective or adverb that has no benchmark, and never assign blame in a
+  problem statement.
+- Never use an acronym or internal shorthand that is not defined on first use.
+- Never bury an unfavourable position under the process that produced it.
+- Never write a sentence longer than 25 words, in prose or in a register cell.
+- Never use a double negative, or `if` and `unless` in the same sentence.
+- Never string more than 3 nouns or adjectives together.
+- Never write a number in a register cell as a word, and never start a sentence with a numeral.
+- Never describe a change as a percentage alone. State the baseline and the new value.
+- Never mix spellings or date formats. Use the active locale, which is Australian unless a
+  complete company `Locale` section replaces it.
 - Never apply these rules to the skills' own instruction prose (see `README.md`).
 
 
@@ -2047,7 +2289,7 @@ summary.
 | **What will be true.** | Which objectives close it, and by when | §4, by `BO-N` and horizon |
 | **Cost of not acting.** | What is lost if they are not met | §11 |
 | **Open.** | What is unresolved at issue, with its owner and date | §4, §6, §10 and Appendix A |
-| **Asked of you.** | The decision this document wants, and over what scope | §8, and the phase |
+| **Decision sought.** | The decision this document wants, and over what scope | §8, and the phase |
 
 **§2 carries no number of its own.** Every figure sits behind a `BO-N`, a clause reference or a
 section pointer — the reader who wants the baseline reads §4's row, where it is maintained. This is
@@ -2063,7 +2305,7 @@ something specific:
 
 | Cannot fill | What that means |
 |---|---|
-| **Asked of you** | The document has not established what decision it wants. It is a briefing paper, not a BRD |
+| **Decision sought** | The document has not established what decision it wants. It is a briefing paper, not a BRD |
 | **Cost of not acting** | BH-4 is absent, and the gate will refuse the document. §2 found it first |
 | **What will be true** | No objective is quantified — BH-1, and the two limits at § *How a `[TBD]` is treated* |
 | **Problem** | §3 has described where a problem was noticed rather than what the enterprise loses |
@@ -2089,7 +2331,7 @@ costing [the enterprise consequence], because [the business mechanism that cause
 
 | Written too low (wrong for §3) | Written at business altitude (right) |
 |---|---|
-| "Attendance is not recorded distinguishably in the workforce management platform, so the rebate job cannot determine eligibility." | "Customers owed a contractual credit receive it only if they complain, so the enterprise pays the customers who ask and carries an unmeasured liability to those who do not." |
+| "Attendance is not recorded distinguishably in the workforce management platform, so the rebate job cannot determine eligibility." | "Customers owed a contractual credit receive it only if they complain. The enterprise pays the customers who ask, and carries an unmeasured liability to those who do not." |
 | "Complaint handling time averages 11 minutes against a 6-minute target." | "Contact-centre capacity is consumed by customers claiming money the enterprise already owes them." |
 
 > **The altitude test.** A problem statement that names a system, a screen, a team's tooling or an
@@ -2494,7 +2736,7 @@ population never credited (§11).
 **Open.** BO-4 unquantified — Regulatory Affairs, 2026-08-15. One system in scope with no owning team
 (Appendix A).
 
-**Asked of you.** Approval to proceed to ORD development, Phase 1 — residential installation
+**Decision sought.** Approval to proceed to ORD development, Phase 1 — residential installation
 appointments (§8).
 
 **Not one figure appears here, and the section is stronger for it.** The earlier draft of this
@@ -2536,7 +2778,7 @@ carried as a visible gap with a named owner rather than as a number nobody can d
 | BO-2 | Issue the rebate owed under clause 14.3 without the customer making contact | 0% issued unprompted | ≥ 95% of determined rebates | FY27 Q2 |
 | BO-3 | Bring the rebate amount and qualifying window into effect within one billing cycle of a contract change | Release-dependent; two amendments since 2023 | ≤ 1 billing cycle, no release | FY27 Q2 |
 | BO-4 | Close the unclaimed-rebate exposure carried under clause 14.3 | `[TBD — Regulatory Affairs, due 2026-08-15]` | `[TBD]` | FY27 Q2 |
-| BO-5 | Answer a regulatory enquiry into any appointment's rebate position within one business day | Manual reconstruction, duration not measured | ≤ 1 business day | FY27 Q2 |
+| BO-5 | Answer a regulatory enquiry into any appointment's rebate position within 1 business day | Manual reconstruction, duration not measured | ≤ 1 business day | FY27 Q2 |
 
 **BO-1's target is set against residential volume**, which is Phase 1's scope at §8. A target set
 against the population a later phase reaches would be unmeetable on this document's date.
@@ -2571,7 +2813,7 @@ both places is how the two come to disagree.
 | Billing | GM Billing | The ORD's operational tolerance for this unit | Confirmed |
 
 **Three GMs approve the ORD, and none of them approves this document.** The obligation is
-contractual and the consequence lands across three business units, so the operational tolerance is
+contractual and the consequence lands across 3 business units, so the operational tolerance is
 committed by the units that carry it rather than by the sponsor who funds the change.
 
 **Three rows against three in-scope business units at §8, and three process owners at Appendix A.**
@@ -2714,7 +2956,7 @@ recorded as producing none.
 | BO-2 | BR-1 | ORD-15 — a missed appointment is determinable without re-keying |
 | BO-2 | BR-2 | ORD-13 — rebate position established through an existing channel |
 | BO-3 | BR-3 | ORD-10 — rebate parameters changed without a release |
-| BO-5 | BR-2 | ORD-12 — rebate position reportable within one business day |
+| BO-5 | BR-2 | ORD-12 — rebate position reportable within 1 business day |
 | BO-1 | BR-4 | **No tolerance yet.** Complaint-path exception handling not yet quantified |
 | BO-4 | — | **No tolerance yet.** Blocked on the `[TBD]` at §11 |
 
@@ -2744,7 +2986,7 @@ ORD's impact register.
 with its owning team vacant. That is a finding about Acme's ownership records rather than about this
 change, and it is raised at sign-off — a referral needs a recipient, and there is not one.
 
-**Sizing read from this appendix:** three business units, five objectives, **eight stakeholders** —
+**Sizing read from this appendix:** 3 business units, 5 objectives, **8 stakeholders** —
 the §5 register's nine rows less the affected-customer group, which is not consulted directly — and
 nine impacted workflows and systems once the ORD's register is populated
 (three L1–L3 process areas resolving to four L4 workflows, plus five systems) — **Medium**.
@@ -2759,11 +3001,11 @@ Run against the [gate above](#brd). This is what a real assessment looks like �
 | BH-2 | **Met** | No objective or stakeholder requirement names a system, workflow or figure. This BRD's §9 states four outcomes, and the four statements that would have breached the altitude are in its routing register instead |
 | BH-3 | **Met, with one declared gap** | §10 — consumer contract cl. 14.3 / 14.5 / 14.6, field services agreement §9 and the billing-cycle boundary, each with its operational weight stated, and three categories recorded as *none found*. The privacy constraint is `[TBD]` with Legal Counsel and 2026-08-29; it propagates as an unquantified confidentiality tolerance in the ORD. DEP-001 and DEP-002 carry statuses, and DEP-001's exposure is `R-115` in the RAID log rather than a risk table here |
 | BH-4 | **Met, with one declared gap** | §11 — three consequences, two sourced to the contract and INC-5012. The third is BO-4's, `[TBD]` with Regulatory Affairs and 2026-08-15; it is the same gap as BH-1's, propagating from the objective to its cost case |
-| BH-5 | **Met** | §5, nine rows with interest and role. Approval is not among them, by design — it is §6's |
-| BH-6 | **Met** | §6, three rows against the three business units §8 puts in scope, each naming its GM and each Confirmed. The row count agrees with §8's scope and Appendix A's process owners |
+| BH-5 | **Met** | §5, 9 rows with interest and role. Approval is not among them, by design — it is §6's |
+| BH-6 | **Met** | §6, 3 rows against the 3 business units §8 puts in scope, each naming its GM and each Confirmed. The row count agrees with §8's scope and Appendix A's process owners |
 | BH-7 | **Met** | §8, with the out-list explicit, Phase 1 named as this document's scope, and Phase 2 carrying its own Doc ID rather than a deferred section here |
 | BH-8 | **Unowned gap** | Appendix A is complete **except the customer notification service, which has no owning team.** There is nobody to carry it, so it is neither met nor owned — the case the third outcome exists for |
-| BH-9 | **Met** | §12, both directions. Upward: BR-1 – BR-4 each against the objective they serve, with BO-4's row explicitly blank rather than omitted. Downward: six objectives against ORD tolerances, with two explicit blanks — BO-4's, and BR-4's unquantified complaint-path demand. Tracing one direction would have found one of them |
+| BH-9 | **Met** | §12, both directions. Upward: BR-1 – BR-4 each against the objective they serve, with BO-4's row explicitly blank rather than omitted. Downward: 6 objectives against ORD tolerances, with two explicit blanks — BO-4's, and BR-4's unquantified complaint-path demand. Tracing one direction would have found one of them |
 | BH-10 | **Met** | §9, BR-1 – BR-4 at stakeholder altitude, each naming a stakeholder present at §5 and none naming a workflow, system or figure. The routing register carries four statements declined, one written back as ORD-04 and three awaiting a register — recorded, which is what this item asks, rather than resolved, which it does not |
 
 > **Outcome: Accepted with an unowned gap.** The bar is met — BH-1 and BH-4 carry one declared gap
@@ -2794,7 +3036,7 @@ as tolerances, the [traceability matrix](#traceability) for the chain end to end
 
 | Size | Indicators | Effort |
 |---|---|---|
-| **S — Small** | One business unit; 1–3 business objectives; change to an existing service; ≤4 stakeholders; **≤5 impacted workflows and systems combined**; no cross-program dependency; rules already settled | ~4 effort days |
+| **S — Small** | 1 business unit; 1–3 business objectives; change to an existing service; ≤4 stakeholders; **≤5 impacted workflows and systems combined**; no cross-program dependency; rules already settled | ~4 effort days |
 | **M — Medium** | 2–3 business units; 4–6 objectives; ≤8 stakeholders; **6–15 impacted workflows and systems**; one or two cross-program dependencies; some rules to resolve | ~6 effort days |
 | **L — Large** | Multiple business units or programs; novel capability; material regulatory or contractual exposure; >8 stakeholders; **more than 15 impacted workflows and systems, or systems owned by different programs**; cross-program conflicts requiring adjudication | ~9 effort days |
 

@@ -245,7 +245,7 @@ summary.
 | **What will be true.** | Which objectives close it, and by when | §4, by `BO-N` and horizon |
 | **Cost of not acting.** | What is lost if they are not met | §11 |
 | **Open.** | What is unresolved at issue, with its owner and date | §4, §6, §10 and Appendix A |
-| **Asked of you.** | The decision this document wants, and over what scope | §8, and the phase |
+| **Decision sought.** | The decision this document wants, and over what scope | §8, and the phase |
 
 **§2 carries no number of its own.** Every figure sits behind a `BO-N`, a clause reference or a
 section pointer — the reader who wants the baseline reads §4's row, where it is maintained. This is
@@ -261,7 +261,7 @@ something specific:
 
 | Cannot fill | What that means |
 |---|---|
-| **Asked of you** | The document has not established what decision it wants. It is a briefing paper, not a BRD |
+| **Decision sought** | The document has not established what decision it wants. It is a briefing paper, not a BRD |
 | **Cost of not acting** | BH-4 is absent, and the gate will refuse the document. §2 found it first |
 | **What will be true** | No objective is quantified — BH-1, and the two limits at § *How a `[TBD]` is treated* |
 | **Problem** | §3 has described where a problem was noticed rather than what the enterprise loses |
@@ -287,7 +287,7 @@ costing [the enterprise consequence], because [the business mechanism that cause
 
 | Written too low (wrong for §3) | Written at business altitude (right) |
 |---|---|
-| "Attendance is not recorded distinguishably in the workforce management platform, so the rebate job cannot determine eligibility." | "Customers owed a contractual credit receive it only if they complain, so the enterprise pays the customers who ask and carries an unmeasured liability to those who do not." |
+| "Attendance is not recorded distinguishably in the workforce management platform, so the rebate job cannot determine eligibility." | "Customers owed a contractual credit receive it only if they complain. The enterprise pays the customers who ask, and carries an unmeasured liability to those who do not." |
 | "Complaint handling time averages 11 minutes against a 6-minute target." | "Contact-centre capacity is consumed by customers claiming money the enterprise already owes them." |
 
 > **The altitude test.** A problem statement that names a system, a screen, a team's tooling or an
@@ -692,7 +692,7 @@ population never credited (§11).
 **Open.** BO-4 unquantified — Regulatory Affairs, 2026-08-15. One system in scope with no owning team
 (Appendix A).
 
-**Asked of you.** Approval to proceed to ORD development, Phase 1 — residential installation
+**Decision sought.** Approval to proceed to ORD development, Phase 1 — residential installation
 appointments (§8).
 
 **Not one figure appears here, and the section is stronger for it.** The earlier draft of this
@@ -734,7 +734,7 @@ carried as a visible gap with a named owner rather than as a number nobody can d
 | BO-2 | Issue the rebate owed under clause 14.3 without the customer making contact | 0% issued unprompted | ≥ 95% of determined rebates | FY27 Q2 |
 | BO-3 | Bring the rebate amount and qualifying window into effect within one billing cycle of a contract change | Release-dependent; two amendments since 2023 | ≤ 1 billing cycle, no release | FY27 Q2 |
 | BO-4 | Close the unclaimed-rebate exposure carried under clause 14.3 | `[TBD — Regulatory Affairs, due 2026-08-15]` | `[TBD]` | FY27 Q2 |
-| BO-5 | Answer a regulatory enquiry into any appointment's rebate position within one business day | Manual reconstruction, duration not measured | ≤ 1 business day | FY27 Q2 |
+| BO-5 | Answer a regulatory enquiry into any appointment's rebate position within 1 business day | Manual reconstruction, duration not measured | ≤ 1 business day | FY27 Q2 |
 
 **BO-1's target is set against residential volume**, which is Phase 1's scope at §8. A target set
 against the population a later phase reaches would be unmeetable on this document's date.
@@ -769,7 +769,7 @@ both places is how the two come to disagree.
 | Billing | GM Billing | The ORD's operational tolerance for this unit | Confirmed |
 
 **Three GMs approve the ORD, and none of them approves this document.** The obligation is
-contractual and the consequence lands across three business units, so the operational tolerance is
+contractual and the consequence lands across 3 business units, so the operational tolerance is
 committed by the units that carry it rather than by the sponsor who funds the change.
 
 **Three rows against three in-scope business units at §8, and three process owners at Appendix A.**
@@ -912,7 +912,7 @@ recorded as producing none.
 | BO-2 | BR-1 | ORD-15 — a missed appointment is determinable without re-keying |
 | BO-2 | BR-2 | ORD-13 — rebate position established through an existing channel |
 | BO-3 | BR-3 | ORD-10 — rebate parameters changed without a release |
-| BO-5 | BR-2 | ORD-12 — rebate position reportable within one business day |
+| BO-5 | BR-2 | ORD-12 — rebate position reportable within 1 business day |
 | BO-1 | BR-4 | **No tolerance yet.** Complaint-path exception handling not yet quantified |
 | BO-4 | — | **No tolerance yet.** Blocked on the `[TBD]` at §11 |
 
@@ -942,7 +942,7 @@ ORD's impact register.
 with its owning team vacant. That is a finding about Acme's ownership records rather than about this
 change, and it is raised at sign-off — a referral needs a recipient, and there is not one.
 
-**Sizing read from this appendix:** three business units, five objectives, **eight stakeholders** —
+**Sizing read from this appendix:** 3 business units, 5 objectives, **8 stakeholders** —
 the §5 register's nine rows less the affected-customer group, which is not consulted directly — and
 nine impacted workflows and systems once the ORD's register is populated
 (three L1–L3 process areas resolving to four L4 workflows, plus five systems) — **Medium**.
@@ -957,11 +957,11 @@ Run against the [gate above](#brd). This is what a real assessment looks like �
 | BH-2 | **Met** | No objective or stakeholder requirement names a system, workflow or figure. This BRD's §9 states four outcomes, and the four statements that would have breached the altitude are in its routing register instead |
 | BH-3 | **Met, with one declared gap** | §10 — consumer contract cl. 14.3 / 14.5 / 14.6, field services agreement §9 and the billing-cycle boundary, each with its operational weight stated, and three categories recorded as *none found*. The privacy constraint is `[TBD]` with Legal Counsel and 2026-08-29; it propagates as an unquantified confidentiality tolerance in the ORD. DEP-001 and DEP-002 carry statuses, and DEP-001's exposure is `R-115` in the RAID log rather than a risk table here |
 | BH-4 | **Met, with one declared gap** | §11 — three consequences, two sourced to the contract and INC-5012. The third is BO-4's, `[TBD]` with Regulatory Affairs and 2026-08-15; it is the same gap as BH-1's, propagating from the objective to its cost case |
-| BH-5 | **Met** | §5, nine rows with interest and role. Approval is not among them, by design — it is §6's |
-| BH-6 | **Met** | §6, three rows against the three business units §8 puts in scope, each naming its GM and each Confirmed. The row count agrees with §8's scope and Appendix A's process owners |
+| BH-5 | **Met** | §5, 9 rows with interest and role. Approval is not among them, by design — it is §6's |
+| BH-6 | **Met** | §6, 3 rows against the 3 business units §8 puts in scope, each naming its GM and each Confirmed. The row count agrees with §8's scope and Appendix A's process owners |
 | BH-7 | **Met** | §8, with the out-list explicit, Phase 1 named as this document's scope, and Phase 2 carrying its own Doc ID rather than a deferred section here |
 | BH-8 | **Unowned gap** | Appendix A is complete **except the customer notification service, which has no owning team.** There is nobody to carry it, so it is neither met nor owned — the case the third outcome exists for |
-| BH-9 | **Met** | §12, both directions. Upward: BR-1 – BR-4 each against the objective they serve, with BO-4's row explicitly blank rather than omitted. Downward: six objectives against ORD tolerances, with two explicit blanks — BO-4's, and BR-4's unquantified complaint-path demand. Tracing one direction would have found one of them |
+| BH-9 | **Met** | §12, both directions. Upward: BR-1 – BR-4 each against the objective they serve, with BO-4's row explicitly blank rather than omitted. Downward: 6 objectives against ORD tolerances, with two explicit blanks — BO-4's, and BR-4's unquantified complaint-path demand. Tracing one direction would have found one of them |
 | BH-10 | **Met** | §9, BR-1 – BR-4 at stakeholder altitude, each naming a stakeholder present at §5 and none naming a workflow, system or figure. The routing register carries four statements declined, one written back as ORD-04 and three awaiting a register — recorded, which is what this item asks, rather than resolved, which it does not |
 
 > **Outcome: Accepted with an unowned gap.** The bar is met — BH-1 and BH-4 carry one declared gap
@@ -992,7 +992,7 @@ as tolerances, the [traceability matrix](#traceability) for the chain end to end
 
 | Size | Indicators | Effort |
 |---|---|---|
-| **S — Small** | One business unit; 1–3 business objectives; change to an existing service; ≤4 stakeholders; **≤5 impacted workflows and systems combined**; no cross-program dependency; rules already settled | ~4 effort days |
+| **S — Small** | 1 business unit; 1–3 business objectives; change to an existing service; ≤4 stakeholders; **≤5 impacted workflows and systems combined**; no cross-program dependency; rules already settled | ~4 effort days |
 | **M — Medium** | 2–3 business units; 4–6 objectives; ≤8 stakeholders; **6–15 impacted workflows and systems**; one or two cross-program dependencies; some rules to resolve | ~6 effort days |
 | **L — Large** | Multiple business units or programs; novel capability; material regulatory or contractual exposure; >8 stakeholders; **more than 15 impacted workflows and systems, or systems owned by different programs**; cross-program conflicts requiring adjudication | ~9 effort days |
 
