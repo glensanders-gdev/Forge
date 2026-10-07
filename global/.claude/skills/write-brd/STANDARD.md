@@ -139,6 +139,7 @@ important to enforce.
 | 11 | **★ Cost of failure** | What is lost when the objective is not met — the input every operational tolerance is derived from |
 | 12 | **★ Traceability** | Stakeholder requirement → business objective, and each objective onward to the ORD tolerance expected to quantify it. Proves every build traces to a justification |
 | App. A | **Process and system scope** | The L1–L3 process areas and the systems in scope, each with a named owner. Seeds the ORD's impact register |
+| App. B | **References** | Every source the BRD cites, in the reference-list form `tables.md` § *Reference list* defines. `None cited` where there is none |
 
 > **The six ★ sections close the gaps most BRDs miss**: SMART objectives, a real stakeholder
 > register, a named approver per business unit, stakeholder requirements kept free of solution
@@ -838,12 +839,12 @@ elicited, none was carried, and nobody can say so.
 
 | Constraint | Source | Operational weight |
 |---|---|---|
-| Rebate payable within two billing cycles of the missed appointment | Consumer contract cl. 14.3 | Sets the tolerance the ORD quantifies |
-| No duplicate credit for one appointment | Consumer contract cl. 14.5 | Bounds determination |
-| Seven-year retention of rebate determinations | Consumer contract cl. 14.6 | Bounds auditability |
-| Contractor attendance data supplied within 24 hours | Field services agreement §9 | Bounds how current any determination can be |
+| Rebate payable within 2 billing cycles of the missed appointment | Consumer contract cl 14.3 | Sets the tolerance the ORD quantifies |
+| No duplicate credit for one appointment | Consumer contract cl 14.5 | Bounds determination |
+| Rebate determinations retained for 7 years | Consumer contract cl 14.6 | Bounds auditability |
+| Contractor attendance data supplied within 24 hours | Field services agreement cl 9 | Bounds how current any determination can be |
 | Billing cycle boundary — monthly, per customer | Billing operating model | Fixed. Not a design choice, and it bounds every tolerance expressed in cycles |
-| Privacy: rebate position is customer personal information | Privacy Act obligations, Legal to confirm scope | `[TBD — Legal Counsel, due 2026-08-29]` |
+| Privacy: rebate position is customer personal information | *Privacy Act 1988* (Cth), Legal to confirm scope | `[TBD — Legal Counsel, due 2026-08-29]` |
 
 **Elicited and answered *none found*:** financial envelope constraints beyond the approved programme
 funding, organisational change-freeze windows, and prior public commitments. Recorded so the
@@ -855,7 +856,7 @@ categories read as asked rather than as missed.
 |---|---|---|---|---|---|
 | ASM-001 | Contractors submit attendance through the existing channel without process change | Unvalidated | A commercial variation to the field services agreement lands on the critical path | Contract Manager, Field Services | 2026-09-12 |
 | ASM-002 | Clause 14.3's "two billing cycles" runs from the appointment, not from confirmation | Unvalidated | Every tolerance expressed in cycles moves, and BO-2's target with them. Raised as **R-114** | Regulatory Affairs | 2026-08-15 |
-| ASM-003 | Residential appointment volume is a stable base for BO-1's target | **Validated** — FY24–FY25 volume analysis, Commercial Analytics, 2026-07-30 | — moved to the constraint table as a given | Commercial Analytics | Closed |
+| ASM-003 | Residential appointment volume is a stable base for BO-1's target | **Validated** — Commercial Analytics (2026), confirmed 2026-07-30 | — moved to the constraint table as a given | Commercial Analytics | Closed |
 
 **ASM-003 shows the transition.** A validated assumption is no longer an assumption: it is a
 constraint, and the row moves rather than sitting at `Validated` in a register everyone downstream
@@ -943,9 +944,22 @@ with its owning team vacant. That is a finding about Acme's ownership records ra
 change, and it is raised at sign-off — a referral needs a recipient, and there is not one.
 
 **Sizing read from this appendix:** 3 business units, 5 objectives, **8 stakeholders** —
-the §5 register's nine rows less the affected-customer group, which is not consulted directly — and
-nine impacted workflows and systems once the ORD's register is populated
-(three L1–L3 process areas resolving to four L4 workflows, plus five systems) — **Medium**.
+the §5 register's 9 rows less the affected-customer group, which is not consulted directly — and
+9 impacted workflows and systems once the ORD's register is populated
+(3 L1–L3 process areas resolving to 4 L4 workflows, plus 5 systems) — **Medium**.
+
+### Appendix B · References
+
+Every source this BRD cites, in alphabetical order of the form it is cited as.
+
+| Cited as | Full citation | Type |
+|---|---|---|
+| Billing operating model | Acme Communications (n.d.) *Billing operating model*, unpublished internal document | Internal record |
+| Commercial Analytics (2026) | Acme Communications Commercial Analytics (2026) *Residential appointment volume analysis, 2023–24 to 2024–25*, unpublished internal report | Report |
+| Consumer contract | Acme Communications (2025) *Consumer contract: standard terms*, version 7, unpublished | Contract |
+| Field services agreement | Acme Communications and its field contractors (2024) *Field services agreement*, unpublished | Contract |
+| INC-5012 | Acme Communications (2026) Incident record INC-5012, internal service management system | Internal record |
+| Privacy Act | Privacy Act 1988 (Cth) | Legislation |
 
 ### The handoff gate, applied to this document
 
@@ -955,7 +969,7 @@ Run against the [gate above](#brd). This is what a real assessment looks like �
 |---|---|---|
 | BH-1 | **Met, with one declared gap** | BO-1, BO-2, BO-3 and BO-5 each carry a baseline, a target and FY27 Q2. **BO-4 carries `[TBD]` with Regulatory Affairs and 2026-08-15** — a declared gap under the rule above: owned, dated, and not the objective the case rests on, with BO-1 fully quantified. It propagates rather than vanishing — §12 leaves its row empty, and so does the [traceability matrix](#traceability) |
 | BH-2 | **Met** | No objective or stakeholder requirement names a system, workflow or figure. This BRD's §9 states four outcomes, and the four statements that would have breached the altitude are in its routing register instead |
-| BH-3 | **Met, with one declared gap** | §10 — consumer contract cl. 14.3 / 14.5 / 14.6, field services agreement §9 and the billing-cycle boundary, each with its operational weight stated, and three categories recorded as *none found*. The privacy constraint is `[TBD]` with Legal Counsel and 2026-08-29; it propagates as an unquantified confidentiality tolerance in the ORD. DEP-001 and DEP-002 carry statuses, and DEP-001's exposure is `R-115` in the RAID log rather than a risk table here |
+| BH-3 | **Met, with one declared gap** | §10 — consumer contract cl 14.3, 14.5 and 14.6, field services agreement cl 9 and the billing-cycle boundary, each with its operational weight stated, and three categories recorded as *none found*. The privacy constraint is `[TBD]` with Legal Counsel and 2026-08-29; it propagates as an unquantified confidentiality tolerance in the ORD. DEP-001 and DEP-002 carry statuses, and DEP-001's exposure is `R-115` in the RAID log rather than a risk table here |
 | BH-4 | **Met, with one declared gap** | §11 — three consequences, two sourced to the contract and INC-5012. The third is BO-4's, `[TBD]` with Regulatory Affairs and 2026-08-15; it is the same gap as BH-1's, propagating from the objective to its cost case |
 | BH-5 | **Met** | §5, 9 rows with interest and role. Approval is not among them, by design — it is §6's |
 | BH-6 | **Met** | §6, 3 rows against the 3 business units §8 puts in scope, each naming its GM and each Confirmed. The row count agrees with §8's scope and Appendix A's process owners |

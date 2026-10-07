@@ -2,6 +2,37 @@
 
 ---
 
+## Session 2026-10-07 — Australian Government Style Manual for requirements documents
+
+**Stream:** `style-manual` (opened at debrief — `docs/handoffs/style-manual.md`)
+**Version range:** 4.17.0 → 4.17.2 ([PR #97](https://github.com/glensanders-gdev/Forge/pull/97) merged as `3fde2ea`, v4.17.1; v4.17.2 committed as `179b2ff` on `docs/style-manual-structure-referencing`, not pushed)
+**Goals this session:** Answer a user question about the ORD `Scenario` column; apply the Style Manual's writing guidance to every requirements skill; assimilate its structuring and referencing guidance.
+**Tickets Completed:** None on kanban — ad-hoc framework change. PR #90's stale In Progress item moved to Done (merged 2026-10-01).
+**Decisions Made:**
+1. The rules go into the shared `language.md` and `tables.md`, so all 8 requirements skills and their standalone copies pick them up without rewiring.
+2. Tone is formal: third person, no contractions, objective wording.
+3. Recorded deviations from the Style Manual:
+   - passive voice in criteria;
+   - no second person;
+   - fixed labels keep title case (user choice, because reviewers and tooling match on them);
+   - register cells date as `yyyy-mm-dd` (user choice);
+   - numbered section headings;
+   - a row for a single binding statement;
+   - one reference list.
+4. Locale (spelling, dictionary, prose dates, times, financial year) is overridable by a complete `Locale` section in the company style guide, Australian by default (user choice). It is the one documented exception to "a style guide never relaxes".
+5. *Asked of you* becomes *Decision sought*.
+6. Citations: author–date with no footnotes, plus a reference list. The user confirmed both short forms and a list. The list lives in ORD §4.5 (18 sections unchanged), BRD Appendix B and PRD § References.
+7. Of about 60 grammar sub-pages, 7 were adopted; 6 more topics are queued as batch 3.
+**Assumptions Made:** The Style Manual is adapted and credited inline rather than copied, because standards carry no `origin:` frontmatter. The subagent's summary had Act titles italic in reference lists; checked against the source, they are roman.
+**Blockers:** None
+**Next Up:**
+1. Push and open the PR for `docs/style-manual-structure-referencing`, then merge on green CI.
+2. `/assimilate` batch 3 from a fresh branch.
+3. Pull `main` into the main checkout so `~/.claude` serves the new rules.
+**Status:** In Progress
+
+---
+
 ## Session 2026-10-07 — write-ord 3.0.0, a business-focused ORD
 
 **Stream:** `write-ord` (opened this session — `docs/handoffs/write-ord.md`)

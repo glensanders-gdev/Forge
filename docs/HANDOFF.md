@@ -1,6 +1,6 @@
 # Handoffs: Forge Framework
 
-**Last updated:** 2026-10-07 13:00
+**Last updated:** 2026-10-07 15:55
 **Register version:** 2
 
 Pointer rows only — each stream's handoff lives at `docs/handoffs/<slug>.md`. Schema, resolution
@@ -8,8 +8,9 @@ rules, lifecycle and the conflict guard are specified in `~/.claude/skills/hando
 
 | Stream | Title | Status | Updated | Next action | Touches |
 |---|---|---|---|---|---|
+| `style-manual` | Style Manual adoption for requirements documents | Active | 2026-10-07 15:55 | Push `docs/style-manual-structure-referencing`, PR, merge; then assimilate batch 3 | `global/.claude/standards/requirements/`, `global/.claude/skills/write-*`, `plugins/`, `dist/` |
 
-**No Active streams.** `write-ord` was opened and closed on 2026-10-07 — v4.17.0 released
+**One Active stream.** `write-ord` was opened and closed on 2026-10-07 — v4.17.0 released
 (`docs/handoffs/archive/2026-10-07-write-ord.md`). Earlier closed streams: `correction-standards`
 (2026-09-27), `standalone-skills` (2026-09-07), `skill-naming` and `ai-requirements` (2026-08-23).
 

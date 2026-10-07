@@ -11,6 +11,40 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
+## v4.17.2 — 2026-10-07
+
+**Document structure and citations for every requirements document.** Assimilated from the
+Australian Government Style Manual's *Structuring content* and *Referencing and attribution*
+(stylemanual.gov.au). Every skill citing the requirements standards picks this up.
+
+- **`tables.md` § *Document Structure*:**
+  - most important first;
+  - headings under 70 characters, no more than 4 levels, none skipped, and none written as a
+    question;
+  - paragraphs of 1 topic and no more than 6 sentences, opening with a topic sentence;
+  - fragment and sentence lists with their own punctuation, and no `etc.`;
+  - tables introduced in the text, with no merged cells and no meaning carried by colour alone;
+  - link text that names its destination, and `>` callouts used sparingly and never binding.
+- **`tables.md` § *Reference list*:** a `Cited as · Full citation · Type` table. Every cited
+  source has a row, every row is cited, and `None cited` is written where there is none.
+- **`language.md` § *Citing Sources*:** author–date with no footnotes. Forms for Acts
+  (*Privacy Act 1988* (Cth), s 6, subs 6(1)), standards (designation and year, with the AS
+  adoption where there is one), contracts (`cl 14`), reports and internal records. No `ibid.`.
+- **Recorded deviations:**
+  1. numbered section headings, kept as stable citation addresses up to 3 levels;
+  2. a table row for a single binding statement;
+  3. one reference list, not separate legislation and case lists.
+- **`$write-ord` 3.0.2:** §4.5 *Related documents* becomes the reference list, so the ORD keeps its
+  18 sections. Contract citations move from `§14` to `cl 14`.
+- **`$write-brd` 1.4.0:** new **Appendix B · References**, with a step to write it. The worked
+  example gains its reference list and moves to `cl` citations, and the numbers it still wrote as
+  words become numerals.
+- **`$write-prd` 2.8.0:** new **References** section before the traceability appendix.
+- Dropped as not applicable: footnotes, citation forms for classics, music, art and broadcast
+  media, case law and law reports, text boxes, sequential (instruction) structure, and print layout.
+
+---
+
 ## v4.17.1 — 2026-10-07
 
 **Voice and tone for every requirements document.** `standards/requirements/language.md` gains a

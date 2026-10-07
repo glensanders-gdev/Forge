@@ -58,3 +58,12 @@ _Updated at each session close (`/debrief`) from ccusage actuals — see `~/.cla
 **Total:** 129k (L)
 **Source:** ccusage actuals
 **Notes:** Machine total for 2026-10-07 at 10:49, not a full day — input 274, output 129,438, across claude-opus-5-5 and claude-sonnet-5-5 (the Sonnet share is the downstream-reference subagent). **Not attributable to this session alone:** the background `llm_companion.py` view-detection session ran concurrently. Covers the 18-section restructure, the REFERENCE.md split, §5.2 definitions, the §14.5 fold, three rebuild/parity cycles, a synthetic two-phase test run and two `/critic` passes. Cache: 0.4M creation / 26.2M read (not counted in total). Notional API-rate cost $10.78 — informational only on a subscription plan.
+
+### Framework Maintenance — 2026-10-07 (Style Manual adoption, v4.17.1 + v4.17.2)
+**Date range:** 2026-10-07
+**Sessions:** 1 (stream `style-manual`, opened at debrief)
+**Input:** 1k tokens
+**Output:** 279k tokens
+**Total:** 280k (L)
+**Source:** ccusage actuals
+**Notes:** Machine total for 2026-10-07 at 15:54, not a full day — input 794, output 279,163, across claude-opus-5-5, claude-sonnet-5-5 and claude-haiku-4-5 (the Haiku share is the Style Manual summarising subagent). **Not attributable to this session alone:** it includes the morning's `write-ord` 3.0.0 session (129k recorded above) and any concurrent sessions. ccusage daily totals cannot be split between them. Covers PR #97, the batch 2 assimilation, 4 Codex and standalone rebuild and parity cycles, and the debrief. Cache: 1.2M creation / 81.5M read (not counted in total). Notional API-rate cost $30.03 — informational only on a subscription plan.
