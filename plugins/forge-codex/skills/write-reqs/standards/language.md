@@ -295,6 +295,37 @@ refuses it.
 
 Register cells date as `yyyy-mm-dd` in every locale.
 
+## Citing Sources
+
+Adopted from the Australian Government Style Manual, *Referencing and attribution*
+(stylemanual.gov.au). Every source a document relies on is cited in a form a reader can find, and
+every citation resolves to a row in the reference list ([tables.md](tables.md) § *Reference list*).
+
+**The system is author–date.** The Style Manual prefers it to footnotes for accessibility, and it
+survives the move into tables and the `.llm.md` companion. No footnotes or endnotes are used.
+
+| Source | In text and in `Source` cells | Notes |
+|---|---|---|
+| Act of parliament | *Privacy Act 1988* (Cth) at first mention, then Privacy Act | Title case, with the year and the jurisdiction. Italic at first mention only |
+| Pinpoint in an Act | Privacy Act s 6, subs 6(1), para 6(1)(a), Pt 3, Sch 1 | No full stops. In running prose, write `section 6` in full |
+| Delegated legislation or a code | The same pattern as an Act | Use the authorised title from the jurisdiction's legislation register |
+| Standard | ISO/IEC 25010:2023 | The designation and year. Cite the AS or AS/NZS adoption where one exists ([ai.md](ai.md) § *Standards of record*) |
+| Contract or agreement | Retail service agreement cl 14 | `cl` for a clause and `Sch` for a schedule, from the contract's own numbering |
+| Report, webpage or dataset | (Acme Communications 2026) | Author and year with no comma. `n.d.` with no date, and `et al.` for 3 or more authors |
+| Internal record | Incident record INC-2291 | The record's own identifier, so the owning system can find it |
+
+**First mention, then the short form.** An Act takes its full short title in italics at first
+mention, and the short form after that. A shortened form that does more than drop the year goes
+in brackets at first mention: *Work Health and Safety Act 2011* (Cth) (WHS Act). The `Cited as`
+column of the reference list holds the short form.
+
+**Shortened forms.** `s`, `ss`, `subs`, `para`, `cl`, `Pt`, `Div`, `Sch`, `p` and `pp` take no full
+stop. `n.d.` and `et al.` keep theirs. Never use `ibid.`, `op. cit.`, `loc. cit.` or `id.`: repeat
+the short form instead.
+
+**Quote exactly.** A quoted source keeps its own words, spelling and acronyms. An unexplained
+acronym in a quote gets its expansion in square brackets.
+
 ## Narrative Sections
 
 Background, mission context, operational scenarios and day-in-the-life narratives are prose by
@@ -376,4 +407,6 @@ independently; requirements documents do not.
 - Never describe a change as a percentage alone. State the baseline and the new value.
 - Never mix spellings or date formats. Use the active locale, which is Australian unless a
   complete company `Locale` section replaces it.
+- Never cite a source in a form the reference list does not hold, and never use a footnote.
+- Never use `ibid.`, `op. cit.`, `loc. cit.` or `id.`.
 - Never apply these rules to the skills' own instruction prose (see [README.md](README.md)).

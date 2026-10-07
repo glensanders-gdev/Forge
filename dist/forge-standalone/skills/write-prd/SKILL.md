@@ -488,7 +488,17 @@ Write `None` in place of a table only when genuinely empty.
 
 ## Further Notes
 
-[Anything else relevant — links, references, open questions for later.]
+[Anything else relevant — links, open questions for later. Sources go in References.]
+
+## References
+
+Every source this PRD cites — the BRD, the ORD, contracts, legislation, standards, research —
+in the reference-list form of `tables.md` § *Reference list*, with citation forms from
+`language.md` § *Citing Sources*. One row for each source cited, and none that nothing cites.
+`None cited` where there is none.
+
+| Cited as | Full citation | Type |
+|---|---|---|
 
 ## Appendix: Traceability Matrix ★
 

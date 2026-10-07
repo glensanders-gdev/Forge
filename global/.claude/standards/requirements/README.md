@@ -6,8 +6,8 @@ Authoring standards for requirements documents — how a requirement is *worded*
 ```
 standards/requirements/
 ├── README.md      ← this file
-├── language.md    ← voice and tone, sentences and word choice, numbers and dates, modality, banned constructions
-├── tables.md      ← table-first presentation, canonical schemas, ID namespaces
+├── language.md    ← voice and tone, sentences and word choice, numbers and dates, citing sources, modality, banned constructions
+├── tables.md      ← table-first presentation, document structure, reference list, canonical schemas, ID namespaces
 ├── ai.md          ← conditional: learned or generated behaviour (see trigger test)
 ├── reporting.md   ← conditional: a measure that is reported (see trigger test)
 └── llm-companion.md ← the machine-readable companion /write-brd and /write-ord write beside the document

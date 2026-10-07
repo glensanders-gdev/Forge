@@ -349,6 +349,32 @@ outcome, which a register row cannot. Its **acceptance criteria** are rows:
   § *Scenario* above for the `Outcome` axis; a PRD story may carry the column or say it in the
   criterion, but it states both cases either way.
 
+### Reference list
+
+One table holds every source the document cites: the ORD's §4.5, the BRD's Appendix B and the
+PRD's § *References*. The citation forms are in [language.md](language.md) § *Citing Sources*.
+
+| Cited as | Full citation | Type |
+|---|---|---|
+| Privacy Act | Privacy Act 1988 (Cth) | Legislation |
+| ISO/IEC 25010:2023 | ISO/IEC (2023) *ISO/IEC 25010:2023 Systems and software engineering — Systems and software Quality Requirements and Evaluation (SQuaRE) — Product quality model*, International Organization for Standardization, Geneva | Standard |
+| Retail service agreement | Acme Communications and Retailer Pty Ltd (2025) *Retail service agreement*, version 4.2, unpublished | Contract |
+| Acme Communications (2026) | Acme Communications (2026) *Missed appointment rebate review*, unpublished internal report | Report |
+
+- **`Cited as` is the exact form used in `Source` cells and in prose.** A reader who finds the
+  short form anywhere in the document finds it in this column.
+- **Every cited source has a row, and every row is cited.** A source with no row is an
+  untraceable claim. A row that nothing cites is padding.
+- Rows are in alphabetical order of `Cited as`. `Type` is one of `Legislation`, `Standard`,
+  `Contract`, `Report`, `Webpage`, `Dataset` or `Internal record`.
+- `Full citation` follows the Style Manual's author–date form for its type. Act titles are roman
+  in this table, although they are italic at first mention in text. A source with no date
+  takes `n.d.`, and a webpage carries its accessed date.
+- **A document that cites no source says so** with a single row: `None cited`. A list left out
+  hides whether anything was cited.
+- `ASM-NNN`, `D-NNN` and other register IDs are not listed. They already resolve inside the
+  document or the RAID log.
+
 ### Statements that carry no ID
 
 Two kinds of binding row are deliberately ID-less, because nothing ever traces *to* them:
@@ -470,8 +496,83 @@ numbers**. Head it explicitly:
 Two tables carrying the same commitment at independently editable values is the defect this
 prevents.
 
+## Document Structure
+
+Adopted from the Australian Government Style Manual, *Structuring content* (stylemanual.gov.au).
+§ *The Rule* above decides *whether* something is a table. This section governs how headings,
+paragraphs, lists and tables are put together.
+
+**Order: most important first.** Each document leads with its executive summary or problem
+statement, and each section leads with its main point. Supporting detail, mechanism and evidence
+follow, and the appendices take what an executive does not need to read.
+
+**Headings.**
+- Under 70 characters, starting with the keyword. Never a question, and never an empty heading
+  such as `Other` or `More information`.
+- No more than 4 levels, and no level skipped. Section numbers go no deeper than 3 levels
+  (`7.4.1`).
+- A level used once is a stranded heading. Use at least 2 headings at that level, or none.
+- At least 1 sentence between a heading and the next heading.
+- Headings at the same level share a grammatical form, either all noun phrases or all verb
+  phrases.
+
+**Paragraphs.**
+- One topic per paragraph. A new topic starts a new paragraph.
+- The first sentence says what the paragraph is about. The first paragraph of a section
+  summarises the section.
+- No more than 6 sentences. A longer paragraph becomes 2 paragraphs or a list.
+- A paragraph never starts with a pronoun whose noun is in an earlier paragraph.
+
+**Lists.**
+- A lead-in introduces every list. A lead-in phrase ends with a colon.
+- Items share a grammatical form, and words repeated in every item move to the lead-in.
+- **Fragment list:** items complete the lead-in. They start lower case, take no end punctuation,
+  and only the last item takes a full stop. Lead-in and item together stay within 25 words.
+- **Sentence list:** each item is 1 full sentence, with a capital and a full stop.
+- Never end an item with `;`, `,`, `and` or `or`. Never end a list with `etc.`: write `for
+  example` or `including` in the lead-in instead.
+- Numbered lists only where the order matters. No more than 2 levels.
+
+**Tables.**
+- The text introduces every table and says what it shows. The text interprets the table and
+  never repeats its data.
+- Each column holds one kind of content in one grammatical form. Headings sit in the first row,
+  and row labels in the first column.
+- No merged cells and no tables inside tables. Meaning is never carried by colour, bold or
+  position alone.
+- No empty cells: `None`, `—` (for an axis that does not apply, as § *Scenario* defines), or the
+  declared-gap markers this file defines.
+
+**Links.**
+- Link text names the destination and makes sense on its own. Never `click here` or `this
+  page`.
+- A link to a file names its type and size: `Annual report 2025–26 [PDF 1.9 MB]`. Link to the
+  landing page where there is one.
+
+**Callouts.** A `>` callout carries a view note, a rule statement or a test. It is used
+sparingly and never holds a binding statement, because a callout is not a row.
+
+### Recorded deviations from the Style Manual
+
+1. **Numbered headings.** The Style Manual numbers headings only for sequences. Requirements
+   documents number their sections because a section number is a stable address that other
+   documents, reviews and the `.llm.md` companion cite. Numbering stops at 3 levels, which is
+   the Style Manual's own limit. A template's fixed sections are kept as the template gives them,
+   even where one level holds a single heading.
+2. **A table for 1 item.** The Style Manual puts 1 or 2 items in text rather than a table. A
+   binding statement is a row with an ID however few there are, because § *The Rule* is about
+   citability, not volume. The Style Manual's rule applies to everything that does not bind.
+3. **One reference list.** The Style Manual lists legislation and legal cases under their own
+   headings. A requirements document keeps one table and sorts it with the `Type` column.
+
 ## Never
 
+- Never cite a source without a row in the reference list, or keep a row that nothing cites.
+- Never write a heading as a question, or skip a heading level.
+- Never let a paragraph run past 6 sentences or cover 2 topics.
+- Never end a list item with `;`, `,`, `and` or `or`, and never end a list with `etc.`.
+- Never merge table cells, or carry meaning by colour, bold or position alone.
+- Never write link text that only makes sense in its sentence.
 - Never add a fourth `Scenario` value. A capability that runs correctly and returns an unfavourable
   answer is a Sunny Day with `Outcome: Adverse` — condition and outcome are two axes, and collapsing
   them into one column is what a fourth value would do.
