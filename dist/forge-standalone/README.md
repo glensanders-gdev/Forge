@@ -1,6 +1,6 @@
 # Skills
 
-69 skills for [Claude Code](https://claude.com/claude-code) — practical, self-contained
+70 skills for [Claude Code](https://claude.com/claude-code) — practical, self-contained
 workflows for getting real work done with an AI assistant.
 
 They cover the parts of software delivery that benefit most from structure: writing
@@ -37,6 +37,7 @@ from `rules/` or `standards/` — the skill folder is the whole skill:
 - `/write-brd`
 - `/write-ac`
 - `/write-reqs`
+- `/review-language`
 
 To use one in a chat assistant that cannot install skills, paste or attach its single-file
 bundle from `paste/` — for example `paste/write-ord.md`. It holds the same content as the
@@ -61,6 +62,7 @@ skill folder in one file. `install.sh` does not install `paste/`, and nothing re
 | [`/qa-report`](skills/qa-report/SKILL.md) | Record the results of a completed QA session as a datestamped evidence artefact. Reads the qa-plan and TC registry, captures pass/fail per test case,… |
 | [`/research`](skills/research/SKILL.md) | Cache findings from expensive exploration phases into topic-specific markdown files. Use when implementation would require repeated or costly explorat… |
 | [`/review-brd`](skills/review-brd/SKILL.md) | Assess a submitted BRD against the published handoff gate — BH-1 to BH-10, the [TBD] treatment rule and the four outcomes — returning a per-item verdi… |
+| [`/review-language`](skills/review-language/SKILL.md) | Check the wording of a requirements document — BRD, PRD, ORD or AC — against the requirements language standard, including the modal and construction… |
 | [`/review-ord`](skills/review-ord/SKILL.md) | Assess a submitted ORD against the published §7.1 handoff gate — OH-1 to OH-15, the four outcomes, the §7.3 refuse-to-produce scan and the §5 tier rul… |
 | [`/tdd`](skills/tdd/SKILL.md) | Test-driven development with red-green-refactor loop. Use when user wants to build features or fix bugs using TDD, mentions "red-green-refactor", want… |
 | [`/test-coverage`](skills/test-coverage/SKILL.md) | Analyze test coverage gaps in an existing codebase, identify under-covered files and functions, then generate missing tests to reach the project cover… |
@@ -185,7 +187,7 @@ These files are generated, so edits made directly here are overwritten on the ne
 release. Open an issue describing what needs changing and it will be fixed upstream
 and republished.
 
-Release 4.17.2.
+Release 4.18.0.
 
 ## Credits
 

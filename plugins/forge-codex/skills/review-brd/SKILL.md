@@ -75,7 +75,14 @@ hop. Where a check is unanswerable upstream of the ORD, say so rather than repor
 **Completion:** the outcome is stated with the verdicts that forced it, and each of the five checks
 is answered or explicitly marked not-yet-answerable.
 
-## Step 4 — Report
+## Step 4 — Run the language pass
+
+Run the language pass in [GATE-PROTOCOL.md](GATE-PROTOCOL.md) § *The language pass* over the BRD.
+
+**Completion:** the `$review-language` report is in hand, or the reason it could not run is
+recorded.
+
+## Step 5 — Report
 
 Emit the report in [GATE-PROTOCOL.md](GATE-PROTOCOL.md)'s output format, then ask whether to work
 through the findings. Where the outcome is *Not accepted for ORD development*, apply the
@@ -98,6 +105,7 @@ protocol's refusal-and-authority handling before emitting it.
 | Every absence in the BRD is declared with an owner and a date | Apply the two limits as the pack scopes them, and say so. Without them every absence converts to `[TBD]` + owner + date and the bar becomes unfailable, which is a gate that cannot fail rather than a document that passed |
 | An unstarred section is thin | Record it as an observation outside the verdicts, never as a gate finding. The five ★ sections carry the load, and inflating the gate to cover the rest is how a conformance review turns into critique |
 | A check from `reference/traceability-matrix.md` cannot be answered at the BRD hop | Mark it *not answerable at this hop* with the reason. Most are not answerable upstream of the ORD, and a check reported clean because it could not be run is worse than one reported unanswerable |
+| The language standard cannot be read | Emit the gate report anyway, and record under *Language (advisory)* that the pass did not run. The language pass never blocks the gate |
 | The outcome is the refusal | Apply [GATE-PROTOCOL.md](GATE-PROTOCOL.md) § *Refusal and authority* before emitting. The right to refuse handoff is not currently held, so the refusal is recorded rather than exercised — and the accumulation of those records is the argument for establishing the control |
 
 ---

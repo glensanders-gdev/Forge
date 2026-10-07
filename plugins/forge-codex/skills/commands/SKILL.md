@@ -51,6 +51,7 @@ Print the following reference exactly:
 | `write-ac` | Transform a PRD and ORD into Jira acceptance criteria — AFK sorts KPPs/headline outcomes to Capability AC and detail to child issues, HITL writes docs/ac/ and optionally pushes to the linked Jira Capability behind a PUSH gate |
 | `review-brd` | Assess a BRD against the published handoff gate (BH-1 – BH-10, the `[TBD]` rule) — AFK advisory, per-item verdicts with evidence and one of four outcomes derived from them, no score |
 | `review-ord` | Assess an ORD against the §7.1 gate (OH-1 – OH-13) plus the §7.3 defect scan and the §5 tier rule — AFK advisory, per-item verdicts with evidence and one of four outcomes derived from them, no score |
+| `review-language` | Check a BRD, PRD, ORD or AC's wording against the requirements language standard (modal bans, Style Manual rules, locale, citations) — AFK advisory, Defect/Advisory findings with suggested rewrites, no score. Runs inside $review-ord and $review-brd too |
 | `testplan` | Design the testing strategy — automated vs manual, critical path, what's not tested |
 | `estimate` | Estimate token cost bands and story points — table of estimates, human confirms, XL flags $break-down |
 | `break-down` | Split a large ticket into smaller smart-zone tickets |

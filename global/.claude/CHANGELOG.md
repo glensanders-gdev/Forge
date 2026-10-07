@@ -11,6 +11,28 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
+## v4.18.0 — 2026-10-08
+
+**A review check for the requirements language standard.** The Style Manual rules adopted into
+`language.md` in v4.17.1 and v4.17.2 governed what the `/write-*` skills drafted. Nothing checked a
+finished document against them: the gate reviews read only the pack's handoff items, and
+`/check-style` reads only the company style guide.
+
+- **`/review-language` 1.0.0 (new, standalone):** checks a BRD, PRD, ORD or AC against
+  `language.md`, with `tables.md` § *Reference list* for citations. It classifies each section
+  first, so quotations, fixed labels and recorded deviations draw no false findings. It then
+  grades every finding Defect (any rule the standard states as binding) or Advisory (`shall`,
+  plain-word swaps, hidden verbs, the 15-word average, reading level). Each finding gives its
+  location, the rule and a rewrite that never invents a value. No score. Ships self-contained
+  with `STANDARDS.md` and a `paste/` bundle.
+- **`/review-ord` 2.4.0 and `/review-brd` 2.2.0:** a new step runs the language pass after the
+  verdicts. Its report goes in a *Language (advisory)* section. It never changes a verdict, the
+  outcome or the tier, and an unreadable standard never blocks the gate.
+- **`GATE-PROTOCOL.md`:** new § *The language pass*, and a *Language (advisory)* section in the
+  report format.
+- **`standards/requirements/README.md` § *Enforcement*:** names `/review-language` as the check
+  for this ruleset.
+
 ## v4.17.2 — 2026-10-07
 
 **Document structure and citations for every requirements document.** Assimilated from the

@@ -1,6 +1,6 @@
 # Authoring Standards
 
-The standards `/write-reqs` cites, gathered into one document so the skill works where
+The standards `/review-language` cites, gathered into one document so the skill works where
 there is no filesystem to read them from. Each part keeps the name of the file it came
 from: a citation such as `tables.md` means the part below with that name.
 

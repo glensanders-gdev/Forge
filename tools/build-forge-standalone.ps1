@@ -283,6 +283,7 @@ $SelfContainedSkills = [ordered]@{
     'write-brd'  = @{ Pack = 'requirements'; Siblings = @('review-brd/GATE-PROTOCOL.md'); Fold = @('STANDARD.md') }
     'write-ac'   = @{ Pack = 'requirements' }
     'write-reqs' = @{ Pack = 'requirements' }
+    'review-language' = @{ Pack = 'requirements' }
 }
 
 # Order is the reading order: the scope boundary first, then the two unconditional rulesets,

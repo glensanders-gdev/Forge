@@ -56,7 +56,7 @@ global/.claude/         ← source of truth for all shared skills
   rules/[lang]/         ← language-specific rule sets, path-scoped to their sources; installed via /lang-rules
   rules/requirements.md ← path-scoped pointer; loads only when a requirements document is read
   standards/requirements/ ← requirements authoring standards, cited by path, never auto-loaded
-  manifest.json         ← version registry for all 113 skills
+  manifest.json         ← version registry for all 116 skills
   SOUL.md               ← agent identity and behavioural constraints
   PRINCIPLES.md         ← design philosophy; read before writing a new skill
 

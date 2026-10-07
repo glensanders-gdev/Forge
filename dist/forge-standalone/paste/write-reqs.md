@@ -309,6 +309,9 @@ governed here.
 
 ### Enforcement
 
+`/review-language` checks a document against `language.md`, and `/review-ord` and `/review-brd`
+run it as an advisory pass after the gate. It reports findings and never changes a gate verdict.
+
 `/check-style` reads `~/.claude/knowledge/company/style-guide.md`, not this ruleset — a company
 style guide may add to these rules but never relaxes them. Where the two conflict, the stricter
 requirement wins and the conflict is flagged rather than silently resolved.
