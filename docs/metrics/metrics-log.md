@@ -21,3 +21,5 @@
 | 2026-08-12 | /write-prd v2.5.0 — SOAP-chain realignment + delivery-mode branch | 2 | 5 | 6 | 13 |
 | 2026-09-07 | External (standalone + codex) builds of write-ord — portability of file references | 3 | 3 | 3 | 9 |
 | 2026-09-16 | /ingest 2.0.0 + /knowledge-health 1.2.0 archive design | 3 | 3 | 3 | 9 |
+| 2026-10-07 | /write-ord 3.0.0 — business-focused ORD restructure (PR #93) | 2 | 4 | 4 | 10 |
+| 2026-10-07 | /write-ord 3.0.0 — second pass (TAXONOMY/ELICITATION delta) | 0 | 1 | 0 | 1 |

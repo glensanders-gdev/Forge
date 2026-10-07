@@ -49,3 +49,12 @@ _Updated at each session close (`/debrief`) from ccusage actuals — see `~/.cla
 **Total:** 185k (L)
 **Source:** ccusage actuals
 **Notes:** Machine total for 2026-09-27 at 10:34, not a full day — input 442, output 184,558. **Not attributable to this session alone:** a concurrent session was authoring `/fix-one-thing` (v4.16.0) in the same repo, and ccusage daily totals cannot be split between them. Covers PR #86 (v4.14.0), PR #87 (v4.15.0), one CI fix, three Codex and three standalone rebuilds, and the section rollout to four projects. Cache: 0.7M creation / 31.6M read (not counted in total). Notional API-rate cost $15.99 — informational only on a subscription plan.
+
+### Framework Maintenance — 2026-10-07 (write-ord 3.0.0, v4.17.0)
+**Date range:** 2026-10-07
+**Sessions:** 1 (stream `write-ord`)
+**Input:** 0k tokens
+**Output:** 129k tokens
+**Total:** 129k (L)
+**Source:** ccusage actuals
+**Notes:** Machine total for 2026-10-07 at 10:49, not a full day — input 274, output 129,438, across claude-opus-5-5 and claude-sonnet-5-5 (the Sonnet share is the downstream-reference subagent). **Not attributable to this session alone:** the background `llm_companion.py` view-detection session ran concurrently. Covers the 18-section restructure, the REFERENCE.md split, §5.2 definitions, the §14.5 fold, three rebuild/parity cycles, a synthetic two-phase test run and two `/critic` passes. Cache: 0.4M creation / 26.2M read (not counted in total). Notional API-rate cost $10.78 — informational only on a subscription plan.

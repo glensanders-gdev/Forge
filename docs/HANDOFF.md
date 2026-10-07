@@ -1,6 +1,6 @@
 # Handoffs: Forge Framework
 
-**Last updated:** 2026-09-27 10:34
+**Last updated:** 2026-10-07 10:49
 **Register version:** 2
 
 Pointer rows only — each stream's handoff lives at `docs/handoffs/<slug>.md`. Schema, resolution
@@ -8,10 +8,12 @@ rules, lifecycle and the conflict guard are specified in `~/.claude/skills/hando
 
 | Stream | Title | Status | Updated | Next action | Touches |
 |---|---|---|---|---|---|
+| `write-ord` | write-ord 3.0.0 — business-focused ORD | Active | 2026-10-07 10:49 | Confirm push of `72fea7d`, then fix critic P1-1 (review-ord structure marker) | `global/.claude/skills/write-ord/` · `global/.claude/standards/requirements/` · `plugins/forge-codex/` · `dist/forge-standalone/` ⚠️ |
 
-**No Active streams.** `correction-standards` was opened and closed at `/debrief` on 2026-09-27 — v4.14.0 and v4.15.0 merged and published. `standalone-skills` closed on 2026-09-07 with v4.7.4 published to
-`glensanders-gdev/skills` — the stream's purpose is discharged. `skill-naming` (v4.1.2) and
-`ai-requirements` (v4.2.0) closed on 2026-08-23.
+⚠️ **`write-ord` shares paths with the workspace stream `requirements-pack`** (`../docs/HANDOFF.md`,
+Active, last updated 2026-09-07 — stale), which also writes `global/.claude/`,
+`dist/forge-standalone/` and `plugins/forge-codex/`. Earlier closed streams: `correction-standards`
+(2026-09-27), `standalone-skills` (2026-09-07), `skill-naming` and `ai-requirements` (2026-08-23).
 
 Work on this repository is currently driven from the **workspace register** at `../docs/HANDOFF.md`,
 where `requirements-pack` is Active and writes `global/.claude/`, `dist/forge-standalone/` and
