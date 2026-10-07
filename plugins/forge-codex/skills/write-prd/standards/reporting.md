@@ -17,7 +17,9 @@ measure and the obligation behind it — the thing that must still be defensible
 the figure was produced eighteen months later.
 
 Per the same reasoning as ADR-0003 there is **no separate reporting requirements document**.
-Everything below lands in the existing register, in the section the class map assigns.
+Requirements land in the existing register, in the section the class map assigns; the detail that
+makes them reproducible lands in the ORD's **§14 Reporting Requirements Appendix** — see
+§ *Altitude — outcome in the register, detail in the appendix*.
 
 ## The Rule
 
@@ -51,7 +53,50 @@ carries its calendar basis: the timezone, and the holiday jurisdiction — state
 or contractual — that determines which days count.
 
 > ✗ `A monthly compliance report is produced`
-> ✓ `The monthly compliance figure counts every service order closed in the calendar month in the reporting entity's local time, excluding orders cancelled by the customer, classified under the BRL-004 rule set version in force at closure, counted to a cut-off five business days after month end with later-arriving closures carried into a restatement of that month, and each counted order is traceable to its source record by a stable identifier that survives restatement.`
+> ✗ `The monthly compliance figure counts every service order closed in the calendar month in the reporting entity's local time, excluding orders cancelled by the customer, classified under the BRL-004 rule set version in force at closure, counted to a cut-off five business days after month end …` — complete, but written at the wrong altitude: no executive can read it, and the register row has become the rule set
+> ✓ Register row: `The monthly compliance figure is published within five business days of month end and is reproducible from its source records, beyond which obligation X §4 is breached` · §14.2 measure definition for that `ORD#`: population, clock, cut-off, lineage and correction path · §13 rules `BRL-004` (classification) and `BRL-009` (late-arriving closures and restatement)
+
+## Altitude — outcome in the register, detail in the appendix
+
+**The five parts are mandatory; where they are written is not the register.** A register row states
+the business outcome a reporting consumer needs — published, on time, reproducible, auditable — and
+the consequence of breach. The five-part measure definition is written once in the ORD's **§14.2**,
+keyed by the `ORD#` it details, and the classification, cut-off, restatement and reconciliation
+logic is written once as `BRL-NNN` rows in **§13**.
+
+**The test for a register row:** *could an executive understand it without understanding reporting,
+governance, architecture or implementation?* If not, the row states the outcome and cites the
+§14.2 definition or the `BRL-NNN` that carries the detail. A measure missing any of its five parts
+across row, definition and rules is still unspecified — moving detail to the appendix is never a
+licence to drop it.
+
+## Reporting consumers
+
+**Reporting consumers are stakeholders even where no process changes for them.** A change to a
+population, a clock or a rule changes every figure built on it, and the consumer of that figure
+finds out when it moves. Identify each consumer class the source evidences:
+
+| Class | Typically |
+|---|---|
+| Regulatory | A regulator, or an obligation reported to one |
+| Contractual | A counterparty reported to under an agreement |
+| Operational | Teams running the process from the figure |
+| Management | Line management deciding from the figure |
+| Executive | Executive and board reporting |
+| Audit | Internal and external audit |
+
+Each consumer is a row in §14.1 (schema below). Where a consumer's need is a commitment, it is also
+a register row in the section the class map assigns, and the §14.1 row cites it. **A consumer class
+with no evidence in the source is a question for the gate, never an inferred row.**
+
+## New reporting data
+
+**Never assume a reporting platform already holds what a new or changed measure needs.** Where a
+measure needs an attribute, a dimension or a data element, its `DAT-NNN` row carries `Availability`:
+`Existing — confirmed` only where the source confirms it, otherwise `New` or `Unconfirmed`. Where
+any element is `New` or `Unconfirmed`, raise a candidate register row at the Phase 1 gate stating
+that the data the reporting consumers need is captured and available for the measure — it becomes
+a row only on the business owner's confirmation, under the usual status rules.
 
 **Do not nominate a system or dataset as authoritative unless the source material confirms that
 status.** Which system is the book of record is a governance fact, not a drafting choice.
@@ -59,7 +104,7 @@ status.** Which system is the book of record is a governance fact, not a draftin
 ## Data quality — the anchor
 
 **ISO/IEC 25012** (data quality model) is the taxonomy for data requirements, and it sits in the same
-SQuaRE series as the ISO/IEC 25010:2023 characteristics the ORD's §3 is already keyed to.
+SQuaRE series as the ISO/IEC 25010:2023 characteristics the ORD's §7 is already keyed to.
 **ISO/IEC 25024** supplies the measurement side. Use their characteristic names rather than coining
 local ones, exactly as [ai.md](ai.md) defers to ISO/IEC 22989:2022 for AI vocabulary.
 
@@ -73,33 +118,40 @@ rules.
 
 | Requirement class | Home |
 |---|---|
-| The reported measure itself — population, threshold, obligation behind it | ORD § 3.8.1 Functional Completeness |
-| The measurement clock — period boundary, start event, stop event, excluded duration | ORD § 3.8.1 |
-| Cut-off, and treatment of data arriving after it | ORD § 3.8.1 |
-| Granularity and the dimensions the measure is disaggregated by | ORD § 3.8.1 |
-| Accuracy, completeness, currentness of a named data element | ORD § 3.8.1, keyed to a `DAT-NNN` row |
-| Reproduction of a historical figure under the rules in force at the time | ORD § 3.6.2 Analyzability |
-| Lineage — source of each input, identifier surviving to the output | ORD § 3.6.2 Analyzability |
-| Reconciliation — source, included, excluded, exception populations | ORD § 3.8.1 |
-| Duplicate and omission control | ORD § 3.3.2 Integrity |
-| Restatement and correction of a published figure | ORD § 3.6.1 Modifiability |
-| Who may read the report, and at what granularity | ORD § 3.3.1 Confidentiality |
-| Report availability and timeliness against the obligation | ORD § 3.1.1 Time Behavior |
-| Retention of the figure and its supporting records | ORD § 3.3.3 Non-repudiation and Accountability |
-| Definition and rule ownership, effective dating | ORD § 3.6.1, with the rules themselves as `BRL-NNN` |
-| Exception visibility — what could not be determined, and why | ORD § 3.8.1 |
+| The reported measure itself — population, threshold, obligation behind it | ORD § 7.8.1 Functional Completeness |
+| The measurement clock — period boundary, start event, stop event, excluded duration | ORD § 7.8.1 |
+| Cut-off, and treatment of data arriving after it | ORD § 7.8.1 |
+| Granularity and the dimensions the measure is disaggregated by | ORD § 7.8.1 |
+| Accuracy, completeness, currentness of a named data element | ORD § 7.8.1, keyed to a `DAT-NNN` row |
+| Reproduction of a historical figure under the rules in force at the time | ORD § 7.6.2 Analyzability |
+| Lineage — source of each input, identifier surviving to the output | ORD § 7.6.2 Analyzability |
+| Reconciliation — source, included, excluded, exception populations | ORD § 7.8.1 |
+| Duplicate and omission control | ORD § 7.3.2 Integrity |
+| Restatement and correction of a published figure | ORD § 7.6.1 Modifiability |
+| Who may read the report, and at what granularity | ORD § 7.3.1 Confidentiality |
+| Report availability and timeliness against the obligation | ORD § 7.1.1 Time Behavior |
+| Retention of the figure and its supporting records | ORD § 7.3.3 Non-repudiation and Accountability |
+| Definition and rule ownership, effective dating | ORD § 7.6.1, with the rules themselves as `BRL-NNN` |
+| Exception visibility — what could not be determined, and why | ORD § 7.8.1 |
 
-**Nothing here adds a §3 subsection.** Reporting requirements are ordinary operational requirements
+**Nothing here adds a §7 subsection.** Reporting requirements are ordinary operational requirements
 whose *content* this file governs; they land in the 25010 subsections that already exist. A parallel
-reporting section would restate the register.
+reporting section in the body would restate the register. **The §14 appendix is not that section** —
+it holds consumers, measure definitions, data elements, and transparency, audit and acceptance
+evidence, and every binding statement in it cites an `ORD#`. Proposed acceptance criteria stay in
+§11.
 
 ## Canonical schema
 
 ### Data element register
 
-| ID | Data element | Used by | Quality characteristic | Tolerance | Source | Lineage | Owner |
-|---|---|---|---|---|---|---|---|
-| DAT-NNN | [named element] | [ORD-NNN, …] | [ISO/IEC 25012 characteristic] | [declarative, quantified] | [system or process of origin, where confirmed] | [how it reaches the output] | [named, or TBD with confirm-by] |
+Lands at ORD §14.3.
+
+| ID | Data element | Kind | Used by | Quality characteristic | Tolerance | Availability | Source | Lineage | Owner |
+|---|---|---|---|---|---|---|---|---|---|
+| DAT-NNN | [named element] | Attribute / Dimension / Measure input | [ORD-NNN, …] | [ISO/IEC 25012 characteristic] | [declarative, quantified] | Existing — confirmed / New / Unconfirmed | [system or process of origin, where confirmed] | [how it reaches the output] | [named, or TBD with confirm-by] |
+
+- **`Availability` defaults to `Unconfirmed`, never to `Existing`.** See § *New reporting data*.
 
 - **`Quality characteristic` uses ISO/IEC 25012's names.** There are fifteen and this is all of
   them — **accuracy, completeness, consistency, credibility, currentness, accessibility,
@@ -115,9 +167,29 @@ reporting section would restate the register.
 - **`Source` is `[TBD]` until confirmed.** Nominating a system as the book of record on drafting
   authority is the most common way this register becomes wrong.
 
+### Reporting consumer register
+
+Lands at ORD §14.1. **No ID — the consumer name is the key**, on the same reasoning as the
+operational actor register in [tables.md](tables.md): a consumer row identifies a subject and
+commits nothing.
+
+| Consumer | Class | Need | Measures used | Impact of this change | Owner |
+|---|---|---|---|---|---|
+| [named body, team or role] | Regulatory / Contractual / Operational / Management / Executive / Audit | [what they use the figure for] | [ORD-NNN, …] | [what moves for them, or "none — confirmed"] | [named, or TBD with confirm-by] |
+
+### Measure definition
+
+Lands at ORD §14.2, one row per reported measure, keyed by the register row it details. **A
+definition, not a commitment** — the binding statement is the `ORD#` row, so this carries no
+priority, status or owner of its own.
+
+| ORD# | Measure | Population | Clock | Rule set | Lineage | Correction path | Dimensions |
+|---|---|---|---|---|---|---|---|
+
 ## Reconciliation
 
-Where a measure is reported against an obligation, the register carries requirements establishing:
+Where a measure is reported against an obligation, the document establishes — as `BRL-NNN` rules in
+§13 (governance and classification groups), cited by the register row that states the outcome:
 the **source population**; the **included**, **excluded** and **exception** populations; **duplicate
 and omission control**; **record-level** and **aggregate** reconciliation; **variance treatment**;
 and **restatement treatment**.
@@ -171,7 +243,7 @@ this stamp narrows the gap and does not close it.
 | ISO/IEC 25012 defines the data quality characteristic names used by `DAT-NNN` | **Verified — secondary sources only.** Fifteen characteristics; all names used in this file are among them | ISO catalogue abstract; a peer-reviewed application of 25012; the OMG DIDO wiki entry; iso25000.com |
 | An AS/NZS adoption of ISO/IEC 25012 exists | **Verified — it does.** `ai.md`'s rule bites: **AS/NZS ISO/IEC 25012:2013**, identical adoption, current and reconfirmed 2024 | Standards Australia distributor record; corroborated by the scope statement of AS ISO/IEC 25024:2019, which names AS/NZS ISO/IEC 25012 as the source of the characteristics it measures |
 | ISO/IEC 20000-1:2018 carries the service-reporting clauses attributed to it | **Verified — primary text.** Clause **9.4 Service reporting**, under clause 9 Performance evaluation. The foreword's change item (j) records that detailed reporting requirements were moved out of the service reporting clause into the clauses where the reports are produced | ISO's own redline preview of ISO/IEC 20000-1:2018 — table of contents and foreword |
-| DMN's decision / decision-logic separation matches the `BRL-NNN` `Required Decision` column | **Verified — primary text.** DMN §5.3.1 defines a decision as *the act of determining an output value from a number of input values, using logic defining how the output is determined*; clause 7 defines how the decision requirements level and the decision logic level relate. The column states the first and excludes the second | OMG DMN 1.5 specification, §5.3.1 and clause 7 |
+| DMN's decision / decision-logic separation matches the `BRL-NNN` `Required Decision` and `Rule` columns | **Verified — primary text.** DMN §5.3.1 defines a decision as *the act of determining an output value from a number of input values, using logic defining how the output is determined*; clause 7 defines how the decision requirements level and the decision logic level relate. `Required Decision` states the first; `Rule` states the second in business terms, and implementation of the logic stays with the design response | OMG DMN 1.5 specification, §5.3.1 and clause 7 |
 
 **What was not read.** ISO/IEC 25012:2008, ISO/IEC 25024:2015 and the body of ISO/IEC 20000-1:2018
 are paywalled and were not purchased. Three consequences, none of them cosmetic:
@@ -224,5 +296,9 @@ to 25012 or 25024.
   asks for the AS number, and the designations in this series are not uniform.
 - Never cite ISO/IEC 20000-1:2018 without its Amendment 1:2024.
 - Never state a technical data tolerance where a business one belongs (see [language.md](language.md)).
-- Never add a §3 subsection for reporting — these are ordinary requirements in existing subsections.
+- Never add a §7 subsection for reporting — these are ordinary requirements in existing subsections.
+- Never write the five-part measure definition into a register row — the row states the outcome and
+  the §14.2 definition carries the five parts.
+- Never mark a data element `Existing — confirmed` without source confirmation.
+- Never infer a reporting consumer the source does not evidence — raise the class at the gate.
 - Never cite ISAE/ASAE 3402, DAMA-DMBOK or BABOK as the authority for a requirement.

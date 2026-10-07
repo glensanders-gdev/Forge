@@ -42,6 +42,12 @@ restorable within one business day, beyond which obligation X is breached"* is a
   while `Business Tolerance` is noun-first and passive. That split is the existing rule in
   [language.md](language.md) § *Voice by Altitude*, applied at one altitude: titles command,
   criteria state. It is not a summary of the tolerance and never carries a value of its own.
+- **`Business Tolerance` is written at executive altitude.** The test: *could an executive
+  understand it without understanding reporting, governance, architecture or implementation?* If
+  not, it states the outcome and the breach consequence, and the detail moves to a `BRL-NNN` rule
+  (§13) or a §14 reporting definition the row cites — *"published results are auditable and
+  reproducible"*, not *"each included, excluded and exception record retains a stable identifier
+  linking …"*. Moving detail never drops it.
 - **`Business Tolerance` carries its own quantified value.** No separate threshold column — under
   [language.md](language.md) the requirement is a declarative end state, so the number is part of
   the sentence. Prefix **[AI]** where [ai.md](ai.md) governs the row.
@@ -60,14 +66,14 @@ restorable within one business day, beyond which obligation X is breached"* is a
   standing travels with it to whoever writes the Capability AC. Without it a downstream reader
   cannot tell an agreed tolerance from a revised one.
 - **Traceability is not a register column.** The up-link — the `OBJ-NNN` objective and the BRD
-  objective it serves via its business requirement — lives once, in Appendix A. Carrying it in both
+  objective it serves via its business requirement — lives once, in §11 Traceability. Carrying it in both
   places is the restatement the § *View Tables* rule forbids. A row tracing only as far as a `BR-N`
-  has no funded outcome behind it, which is what Appendix A's `via` makes visible.
+  has no funded outcome behind it, which is what §11's `via` makes visible.
 - **`Source` is the evidence, not the speaker alone.** A contract clause, a regulatory obligation, an
   incident record or an `ASM-NNN`. Where the only source is a stakeholder, name Business Unit,
   Function and Name.
 - **There is no `Verification` column.** The measurement *population* belongs inside the tolerance
-  sentence; the *instrument* that measures it is the design response, recorded at Appendix D when
+  sentence; the *instrument* that measures it is the design response, recorded at §17 when
   the SOAP is issued. A demand-side ORD that names its own instrument has pre-empted the review it
   exists to inform.
 
@@ -81,11 +87,37 @@ verbs inside requirement *text*; a controlled enum in a priority column is unamb
 "correct" it. **MoSCoW is DSDM, and KPP is US DoD JCIDS** — neither is ISO-backed. Both are retained
 as house convention; neither is cited as a standards obligation.
 
+### Prioritisation and status definitions
+
+**Emitted verbatim into every ORD at §5.2**, so a reader meets the three axes defined before meeting
+the register. In the ORD the table is headed as a **view** of this section, so the LLM companion
+omits it — the companion's own Vocabulary already carries these definitions. Never reworded per document — the definitions are what make one ORD's `Must` mean the
+same as another's.
+
+| Column | Value | Definition | Assigned by |
+|---|---|---|---|
+| MoSCoW | **Must** | Required for this release. The release is not accepted without it. | Product Manager |
+| MoSCoW | **Should** | Important and of significant value. The release is accepted without it. | Product Manager |
+| MoSCoW | **Could** | Desirable. Delivered where capacity allows. | Product Manager |
+| MoSCoW | **Won't (this release)** | Raised, recorded and deliberately deferred. It stays in the register for a later release and carries no acceptance criterion. | Product Manager |
+| KPP | **[KPP]** | A business-failure threshold: failure means the capability is unfit for purpose, not merely degraded. Carries a threshold (minimum acceptable) and an objective (desired). Independent of MoSCoW — most KPPs are Musts, most Musts are not KPPs. | Business owner, at the Phase 1 gate |
+| Status | **Committed** | The business owner has stated and agreed the tolerance, and it traces to an obligation, contract, incident record or business decision. | Evidence |
+| Status | **Provisional** | The tolerance derives from a real source — an SLA, contract, incident history, analogous service — not yet confirmed by the owner for this change. | Evidence |
+| Status | **Assumed** | No owner confirmation and no documentary source; rests on an `ASM-NNN` with a named owner and a confirm-by date. | Evidence |
+| Rule status | **Confirmed** | The rule owner has agreed the business rule as written in §13. | Rule owner |
+| Rule status | **Provisional** | A source states the rule, but its owner has not confirmed it for this change. The same word as the requirement status, applied to a rule. | Evidence |
+| Rule status | **Unresolved** | The rule is not decided. `Rule` carries a `[TBD]`, and the row cites the decision item that settles it. | Evidence |
+
+**`Won't` is not out of scope.** A `Won't` item is in this document's scope and deferred; an
+out-of-scope item is never delivered by this document (ORD §4.2). **An item removed from scope after
+agreement is descoped, and descoping is a scope change, not a priority** — it is recorded as a §4.2
+exclusion with a §18 change-history entry stating when, by whom and why, never as a `Won't`.
+
 **Delivery Agent, Operational Owner, Timing and Verification are deliberately absent.** Each names
 something the demand side does not know and cannot commit: who will build it, who will run it, when
 it will be scheduled, and what instrument will prove it. Timing lives at the objective
-(`OBJ-NNN` § *Target Date*), which the requirement inherits through Appendix A. Traceability and the
-written-back downstream links both live in Appendix A, not in the register.
+(`OBJ-NNN` § *Target Date*), which the requirement inherits through §11. Traceability and the
+written-back downstream links both live in §11 Traceability, not in the register.
 
 **`MoSCoW` is an extension to the demand-side standard.** The standard does not require it; these
 rules keep it because `$write-ac` gates AC altitude on it. It is business prioritisation, so it sits
@@ -135,20 +167,74 @@ added — it would conflate the two axes.
 
 ### Business rule
 
-Where classification, eligibility, calculation or reporting logic exists. **Business rules are
-functional content**; an ORD carrying them is a declared deviation from its own scope, taken only
-where no functional requirements document is produced in the chain — see [README.md](README.md)
-§ *Scope boundary*. Say so in the document rather than letting the ORD absorb functional content
-silently.
+**The ORD states what must happen; the business rule register states how decisions are made.**
+Every ORD carries the register at §13, grouped into three, whether or not a functional requirements
+document follows — a requirement that embeds its classification, cut-off or reconciliation logic has
+been written at the wrong altitude, and the register is where that detail goes instead. Where a PRD
+in the chain already states a rule, the row cites the PRD criterion (`PRD-NNN.N`) and restates
+nothing — the PRD states rules as criteria and never mints `BRL-NNN`.
 
-| ID | Rule Group | Required Decision | Status | Owner | Effective Date | Affects |
-|---|---|---|---|---|---|---|
-| BRL-NNN | Classification / Inclusion / Exclusion / Calculation / Exception / Reconciliation / Restatement | [the business decision the rule makes] | Confirmed / Provisional / Unresolved | [named, or TBD with confirm-by] | [where supplied] | [ORD-NNN, …] |
+| ID | Group | Rule Type | Required Decision | Rule | Status | Owner | Effective Date | Affects |
+|---|---|---|---|---|---|---|---|---|
+| BRL-NNN | Classification / Reporting / Governance | [from the group's types below] | [what must be determined] | [the rule as the business states it, or `[TBD — source: "…"]` while unresolved] | Confirmed / Provisional / Unresolved | [named, or TBD with confirm-by] | [where supplied] | [ORD-NNN, …] |
 
-- **`Required Decision` states the decision, not the logic.** Follow OMG **DMN**'s separation:
-  the decision is what must be determined; the decision logic is how. An ORD carries the first.
-- **This register records business policy, never implementation design.**
+| Group | Rule types |
+|---|---|
+| **Classification** | Inclusion · Exclusion · Cohort assignment · Eligibility |
+| **Reporting** | Reporting period · Cut-off · Late-arriving data · Calculation · Restatement |
+| **Governance** | Reconciliation · Exception handling · Evidence retention · Rule versioning |
+
+- **`Owner`, `Status` and `Affects` are mandatory on every row** — a rule with no affected
+  requirement governs nothing, and one with no owner has nobody to change it.
+- **Business rules are functional content carried by the ORD by design.** State that in the §13
+  lead so a reviewer reading against a scope that excludes them sees a declaration, not an absorption.
+
+- **`Required Decision` and `Rule` are OMG DMN's two levels, kept in two columns.** The decision
+  is what must be determined — *whether a complaint counts in the measure*. The rule is the decision
+  logic in the business's own words — *a complaint withdrawn by the customer is excluded*. The ORD
+  carries both: the executive-altitude test moves this logic out of the requirement, and this column
+  is where it lands.
+- **`Rule` is business policy, never implementation design.** No query, field name, system
+  behaviour, decision-table encoding or algorithm — those are how the delivered solution applies the
+  rule, and belong to the design response. The test: a business owner reads it and agrees or
+  disagrees without asking how it is built.
+- **An `Unresolved` row carries `[TBD — source: "…"]` in `Rule`**, never a drafted answer. Where two
+  documented positions compete, both go in the decision item the row cites, not in `Rule`.
 - An `Unresolved` rule affecting a KPP-bearing requirement is raised via `$raid add decision`.
+
+### Decision
+
+Every unresolved business decision is a first-class row — never an assumption embedded in a
+requirement. ORD §8.1.
+
+| ID | Decision required | Affects | Options | Owner | Required by | Status | Resolution |
+|---|---|---|---|---|---|---|---|
+| D-NNN | [what must be decided] | [ORD-NNN, BRL-NNN, …] | [the documented positions] | [named] | [date] | Open / Resolved / Superseded | [the decision taken, by whom and when — blank only while Open] |
+
+`$raid` owns `D-NNN`. Where no RAID log exists, the ID cell carries a **numbered placeholder** —
+`[D-TBD-1]`, `[D-TBD-2]`, flat and sequential in order of first appearance — and the row is kept.
+The number is what lets a `BRL-NNN` or `ORD-NNN` row cite *which* open decision governs it; it is
+local to the document and is replaced, everywhere it is cited, when `$raid` mints the real ID.
+A `Resolved` row is kept, not deleted — the resolution is the record the affected requirements
+were changed against.
+
+### Related initiative
+
+Adjacent work this document neither depends on nor delivers. ORD §10.2. **No ID — the initiative
+name is the key**, on the operational-actor reasoning: it identifies, and commits nothing.
+
+| Initiative | Relationship | Owner | Routed items | Status |
+|---|---|---|---|---|
+| [named programme, project or change] | Overlaps / Feeds / Consumes / Supersedes | [named] | [REF-NNN, …, or —] | [as reported by its owner] |
+
+**Four registers, four tests — never one table:**
+
+| It is a… | When |
+|---|---|
+| **Dependency** (`DEP-NNN`) | This document's outcome cannot be delivered until it is |
+| **Related initiative** | It touches the same scope, but this document's outcome does not wait for it |
+| **Referred requirement** (`REF-NNN`) | Content raised here that another owner delivers |
+| **Out-of-scope item** (§4.2, `IMP.Treatment`) | Deliberately excluded, and delivered by nobody as a result of this document |
 
 ### Impact register
 
@@ -268,7 +354,7 @@ outcome, which a register row cannot. Its **acceptance criteria** are rows:
 Two kinds of binding row are deliberately ID-less, because nothing ever traces *to* them:
 
 - **Exclusions** (PRD § Out of Scope) — cited in scope disputes, never referenced by another row.
-- **Coverage gaps** (ORD § 3.10) — a record of absence; the ID would belong to a requirement that
+- **Coverage gaps** (ORD § 7.10) — a record of absence; the ID would belong to a requirement that
   does not exist.
 
 Everything else that binds carries an ID. Do not extend this list to avoid assigning one.
@@ -321,7 +407,7 @@ Authorised prefixes. See ADR-0001 for the requirement prefixes and their extensi
 | `ORD-NNN` | Operational requirements | `$write-ord` |
 | `AC-NNN` | Acceptance criteria | `$write-ac` |
 | `OBJ-NNN` | Operational objectives — the outcome layer every ORD row traces to | `$write-ord` |
-| `BRL-NNN` | Business rules — conditional, see § *Business rule* | `$write-ord` (or `$write-prd` where a PRD is produced) |
+| `BRL-NNN` | Business rules — every ORD, see § *Business rule* | `$write-ord` |
 | `SCN-NNN` | Scenarios — requirement-level and catalogue, one namespace | `$write-ord` |
 | `IMP-NNN` | Impacts — workflows and systems touched, with named owners | `$write-ord` |
 | `REF-NNN` | Referred requirements — raised here, delivered elsewhere | `$write-ord` |
@@ -357,7 +443,7 @@ populated ones.
   row in a single **Coverage Gaps** table at the end of the section.
 
 **The collapse applies at sub-characteristic level only. All nine ISO/IEC 25010:2023 characteristics
-appear in every ORD, without exception** — §3.1 through §3.9, each present even where it carries
+appear in every ORD, without exception** — §7.1 through §7.9, each present even where it carries
 nothing. A characteristic with nothing to state carries an explicit statement of that fact and its
 status, never an omission. The two rules are not in tension: a characteristic is a heading a
 reviewer checks for, and its absence is invisible; a sub-characteristic is a table, and thirty empty
@@ -379,7 +465,7 @@ second source of truth.
 A view table restates the `ID` and the agreed value by reference and introduces **no new
 numbers**. Head it explicitly:
 
-> *View of Section 3. Values are authoritative in the referenced rows; this table adds no new commitments.*
+> *View of Section 7. Values are authoritative in the referenced rows; this table adds no new commitments.*
 
 Two tables carrying the same commitment at independently editable values is the defect this
 prevents.
@@ -404,8 +490,13 @@ prevents.
 - Never carry an `Assumed` row whose assumption has no named owner and no confirm-by date.
 - Never omit one of the nine ISO/IEC 25010 characteristics from an ORD — collapse sub-characteristics
   to the Coverage Gaps table, never the characteristic itself.
-- Never let an ORD absorb business rules without declaring the deviation and naming why no functional
-  requirements document holds them.
+- Never embed classification, cut-off, calculation, reconciliation or retention logic in a register
+  row — state the outcome and cite the `BRL-NNN` rule.
+- Never carry a business rule without an owner, a status and the requirements it affects.
+- Never record a dependency, a related initiative, a referred requirement and an out-of-scope item
+  in one table — each has its own register and its own test.
+- Never leave an unresolved business decision as an assumption inside a requirement — it is a
+  decision row with an owner.
 - Never write `Happy path`, `Happy Path`, `Error`, `Error Case` or `Edge` as a scenario value, and
   never head the column `Type`. The three values are `Sunny Day`, `Rainy Day` and `Edge Case`, and
   the column is `Scenario` — written exactly so, capitalised so, in every document and in every

@@ -9,7 +9,7 @@ Altitude rules, translation patterns, the AC document template, and Jira field m
 A Jira Capability is a portfolio-level container. Its acceptance criteria are **conditions of satisfaction**, not test steps. Keep the set small and outcome-defining; detail belongs on child Epics/Stories.
 
 **Promote to Capability AC:**
-- Every ORD **[KPP]** — a requirement whose failure constitutes system/program failure. A KPP promotes from **any** register section, §3 through §8.
+- Every ORD **[KPP]** — a requirement whose failure constitutes system/program failure. A KPP promotes from **any** register section, §7 (any sub-section).
 - Each *headline* functional outcome — the few PRD stories that define "this Capability is done" (typically the primary user outcome per BRD objective).
 
 **Flow to child Epic/Story AC:**
@@ -71,7 +71,7 @@ AC-001 (PRD-001.1): Checkout for a returning customer with a saved payment
 
 An ORD register row is already a declarative statement carrying its own quantified value and its measurement population — that *is* an acceptance criterion. Carry the `Business Tolerance` across verbatim, with both labelled values where the row is a KPP.
 
-**The instrument is not in the register.** A demand-side ORD names the population and leaves the instrument to the design response, recorded at the ORD's Appendix D. Carry the instrument from Appendix D where it is populated; where it is pending, write `Verification: pending design response` rather than guessing. An AC that invents an instrument re-introduces exactly the pre-emption the demand-side rule exists to prevent.
+**The instrument is not in the register.** A demand-side ORD names the population and leaves the instrument to the design response, recorded at the ORD's §17. Carry the instrument from §17 where it is populated; where it is pending, write `Verification: pending design response` rather than guessing. An AC that invents an instrument re-introduces exactly the pre-emption the demand-side rule exists to prevent.
 
 ORD-004 [KPP] →
 ```
@@ -108,9 +108,9 @@ Conditions of satisfaction for the Capability. KPPs + headline outcomes only.
 | AC ID | Criterion | Source | Verification |
 |-------|-----------|--------|--------------|
 | AC-001 | [declarative testable condition, carried verbatim] | PRD-002 | [test / measure] |
-| AC-002 | [declarative testable condition, carried verbatim] | ORD-004 (KPP) | [carried from Appendix D, or "pending design response"] |
+| AC-002 | [declarative testable condition, carried verbatim] | ORD-004 (KPP) | [carried from §17, or "pending design response"] |
 
-`Verification` is a carried copy, from the ORD's Appendix D or the PRD — the source stays authoritative. Change it there and
+`Verification` is a carried copy, from the ORD's §17 or the PRD — the source stays authoritative. Change it there and
 re-run `/write-ac`; never edit it here.
 
 ## Child Epic / Story Acceptance Criteria

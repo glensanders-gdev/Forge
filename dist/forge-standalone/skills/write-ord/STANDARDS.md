@@ -123,7 +123,7 @@ Two registers. Applying the wrong one at the wrong level is the most common erro
 | Requirement or story title | **Active, verb-first** | `Notify customer of despatch` |
 | "I want" clause | **Active, verb-first**, solution-agnostic | `Notify the customer when despatch occurs` |
 | Acceptance criterion | **Noun-first, passive, declarative** | `Despatch notification is issued within 5 minutes of consignment scan` |
-| ORD requirement-table row | **Noun phrase** in `Requirement`; value in `Threshold` | `Despatch notification latency` / `≤ 5 min` |
+| ORD register row | **Active, verb-first** `Requirement Title`; **noun-first, passive** `Business Tolerance` carrying its own value | `Notify customer of despatch` / `Despatch notification is issued within one business hour of consignment scan, beyond which the delivery promise is breached` |
 
 Titles command. Criteria state. The criterion form is deliberate: leading with the noun and
 using the passive leaves **no grammatical slot for a modal verb**, so the failure this ruleset
@@ -212,7 +212,7 @@ as a row (see `tables.md`).
    is how a documented choice becomes an apparent defect in review.
 2. **Passive voice is mandated for acceptance criteria.** 29148 recommends active voice on the
    grounds that passive hides the actor. Accepted and mitigated: where the actor is
-   load-bearing — authorisation, non-repudiation, audit, and anything in ORD §3.3 Security —
+   load-bearing — authorisation, non-repudiation, audit, and anything in ORD §7.3 Security —
    name the actor explicitly and use the active voice. Elsewhere the passive is what makes
    noun-first possible once "the system" is banned.
 
@@ -283,6 +283,12 @@ restorable within one business day, beyond which obligation X is breached"* is a
   while `Business Tolerance` is noun-first and passive. That split is the existing rule in
   `language.md` § *Voice by Altitude*, applied at one altitude: titles command,
   criteria state. It is not a summary of the tolerance and never carries a value of its own.
+- **`Business Tolerance` is written at executive altitude.** The test: *could an executive
+  understand it without understanding reporting, governance, architecture or implementation?* If
+  not, it states the outcome and the breach consequence, and the detail moves to a `BRL-NNN` rule
+  (§13) or a §14 reporting definition the row cites — *"published results are auditable and
+  reproducible"*, not *"each included, excluded and exception record retains a stable identifier
+  linking …"*. Moving detail never drops it.
 - **`Business Tolerance` carries its own quantified value.** No separate threshold column — under
   `language.md` the requirement is a declarative end state, so the number is part of
   the sentence. Prefix **[AI]** where `ai.md` governs the row.
@@ -301,14 +307,14 @@ restorable within one business day, beyond which obligation X is breached"* is a
   standing travels with it to whoever writes the Capability AC. Without it a downstream reader
   cannot tell an agreed tolerance from a revised one.
 - **Traceability is not a register column.** The up-link — the `OBJ-NNN` objective and the BRD
-  objective it serves via its business requirement — lives once, in Appendix A. Carrying it in both
+  objective it serves via its business requirement — lives once, in §11 Traceability. Carrying it in both
   places is the restatement the § *View Tables* rule forbids. A row tracing only as far as a `BR-N`
-  has no funded outcome behind it, which is what Appendix A's `via` makes visible.
+  has no funded outcome behind it, which is what §11's `via` makes visible.
 - **`Source` is the evidence, not the speaker alone.** A contract clause, a regulatory obligation, an
   incident record or an `ASM-NNN`. Where the only source is a stakeholder, name Business Unit,
   Function and Name.
 - **There is no `Verification` column.** The measurement *population* belongs inside the tolerance
-  sentence; the *instrument* that measures it is the design response, recorded at Appendix D when
+  sentence; the *instrument* that measures it is the design response, recorded at §17 when
   the SOAP is issued. A demand-side ORD that names its own instrument has pre-empted the review it
   exists to inform.
 
@@ -322,11 +328,37 @@ verbs inside requirement *text*; a controlled enum in a priority column is unamb
 "correct" it. **MoSCoW is DSDM, and KPP is US DoD JCIDS** — neither is ISO-backed. Both are retained
 as house convention; neither is cited as a standards obligation.
 
+#### Prioritisation and status definitions
+
+**Emitted verbatim into every ORD at §5.2**, so a reader meets the three axes defined before meeting
+the register. In the ORD the table is headed as a **view** of this section, so the LLM companion
+omits it — the companion's own Vocabulary already carries these definitions. Never reworded per document — the definitions are what make one ORD's `Must` mean the
+same as another's.
+
+| Column | Value | Definition | Assigned by |
+|---|---|---|---|
+| MoSCoW | **Must** | Required for this release. The release is not accepted without it. | Product Manager |
+| MoSCoW | **Should** | Important and of significant value. The release is accepted without it. | Product Manager |
+| MoSCoW | **Could** | Desirable. Delivered where capacity allows. | Product Manager |
+| MoSCoW | **Won't (this release)** | Raised, recorded and deliberately deferred. It stays in the register for a later release and carries no acceptance criterion. | Product Manager |
+| KPP | **[KPP]** | A business-failure threshold: failure means the capability is unfit for purpose, not merely degraded. Carries a threshold (minimum acceptable) and an objective (desired). Independent of MoSCoW — most KPPs are Musts, most Musts are not KPPs. | Business owner, at the Phase 1 gate |
+| Status | **Committed** | The business owner has stated and agreed the tolerance, and it traces to an obligation, contract, incident record or business decision. | Evidence |
+| Status | **Provisional** | The tolerance derives from a real source — an SLA, contract, incident history, analogous service — not yet confirmed by the owner for this change. | Evidence |
+| Status | **Assumed** | No owner confirmation and no documentary source; rests on an `ASM-NNN` with a named owner and a confirm-by date. | Evidence |
+| Rule status | **Confirmed** | The rule owner has agreed the business rule as written in §13. | Rule owner |
+| Rule status | **Provisional** | A source states the rule, but its owner has not confirmed it for this change. The same word as the requirement status, applied to a rule. | Evidence |
+| Rule status | **Unresolved** | The rule is not decided. `Rule` carries a `[TBD]`, and the row cites the decision item that settles it. | Evidence |
+
+**`Won't` is not out of scope.** A `Won't` item is in this document's scope and deferred; an
+out-of-scope item is never delivered by this document (ORD §4.2). **An item removed from scope after
+agreement is descoped, and descoping is a scope change, not a priority** — it is recorded as a §4.2
+exclusion with a §18 change-history entry stating when, by whom and why, never as a `Won't`.
+
 **Delivery Agent, Operational Owner, Timing and Verification are deliberately absent.** Each names
 something the demand side does not know and cannot commit: who will build it, who will run it, when
 it will be scheduled, and what instrument will prove it. Timing lives at the objective
-(`OBJ-NNN` § *Target Date*), which the requirement inherits through Appendix A. Traceability and the
-written-back downstream links both live in Appendix A, not in the register.
+(`OBJ-NNN` § *Target Date*), which the requirement inherits through §11. Traceability and the
+written-back downstream links both live in §11 Traceability, not in the register.
 
 **`MoSCoW` is an extension to the demand-side standard.** The standard does not require it; these
 rules keep it because `/write-ac` gates AC altitude on it. It is business prioritisation, so it sits
@@ -376,20 +408,74 @@ added — it would conflate the two axes.
 
 #### Business rule
 
-Where classification, eligibility, calculation or reporting logic exists. **Business rules are
-functional content**; an ORD carrying them is a declared deviation from its own scope, taken only
-where no functional requirements document is produced in the chain — see `README.md`
-§ *Scope boundary*. Say so in the document rather than letting the ORD absorb functional content
-silently.
+**The ORD states what must happen; the business rule register states how decisions are made.**
+Every ORD carries the register at §13, grouped into three, whether or not a functional requirements
+document follows — a requirement that embeds its classification, cut-off or reconciliation logic has
+been written at the wrong altitude, and the register is where that detail goes instead. Where a PRD
+in the chain already states a rule, the row cites the PRD criterion (`PRD-NNN.N`) and restates
+nothing — the PRD states rules as criteria and never mints `BRL-NNN`.
 
-| ID | Rule Group | Required Decision | Status | Owner | Effective Date | Affects |
-|---|---|---|---|---|---|---|
-| BRL-NNN | Classification / Inclusion / Exclusion / Calculation / Exception / Reconciliation / Restatement | [the business decision the rule makes] | Confirmed / Provisional / Unresolved | [named, or TBD with confirm-by] | [where supplied] | [ORD-NNN, …] |
+| ID | Group | Rule Type | Required Decision | Rule | Status | Owner | Effective Date | Affects |
+|---|---|---|---|---|---|---|---|---|
+| BRL-NNN | Classification / Reporting / Governance | [from the group's types below] | [what must be determined] | [the rule as the business states it, or `[TBD — source: "…"]` while unresolved] | Confirmed / Provisional / Unresolved | [named, or TBD with confirm-by] | [where supplied] | [ORD-NNN, …] |
 
-- **`Required Decision` states the decision, not the logic.** Follow OMG **DMN**'s separation:
-  the decision is what must be determined; the decision logic is how. An ORD carries the first.
-- **This register records business policy, never implementation design.**
+| Group | Rule types |
+|---|---|
+| **Classification** | Inclusion · Exclusion · Cohort assignment · Eligibility |
+| **Reporting** | Reporting period · Cut-off · Late-arriving data · Calculation · Restatement |
+| **Governance** | Reconciliation · Exception handling · Evidence retention · Rule versioning |
+
+- **`Owner`, `Status` and `Affects` are mandatory on every row** — a rule with no affected
+  requirement governs nothing, and one with no owner has nobody to change it.
+- **Business rules are functional content carried by the ORD by design.** State that in the §13
+  lead so a reviewer reading against a scope that excludes them sees a declaration, not an absorption.
+
+- **`Required Decision` and `Rule` are OMG DMN's two levels, kept in two columns.** The decision
+  is what must be determined — *whether a complaint counts in the measure*. The rule is the decision
+  logic in the business's own words — *a complaint withdrawn by the customer is excluded*. The ORD
+  carries both: the executive-altitude test moves this logic out of the requirement, and this column
+  is where it lands.
+- **`Rule` is business policy, never implementation design.** No query, field name, system
+  behaviour, decision-table encoding or algorithm — those are how the delivered solution applies the
+  rule, and belong to the design response. The test: a business owner reads it and agrees or
+  disagrees without asking how it is built.
+- **An `Unresolved` row carries `[TBD — source: "…"]` in `Rule`**, never a drafted answer. Where two
+  documented positions compete, both go in the decision item the row cites, not in `Rule`.
 - An `Unresolved` rule affecting a KPP-bearing requirement is raised via `/raid add decision`.
+
+#### Decision
+
+Every unresolved business decision is a first-class row — never an assumption embedded in a
+requirement. ORD §8.1.
+
+| ID | Decision required | Affects | Options | Owner | Required by | Status | Resolution |
+|---|---|---|---|---|---|---|---|
+| D-NNN | [what must be decided] | [ORD-NNN, BRL-NNN, …] | [the documented positions] | [named] | [date] | Open / Resolved / Superseded | [the decision taken, by whom and when — blank only while Open] |
+
+`/raid` owns `D-NNN`. Where no RAID log exists, the ID cell carries a **numbered placeholder** —
+`[D-TBD-1]`, `[D-TBD-2]`, flat and sequential in order of first appearance — and the row is kept.
+The number is what lets a `BRL-NNN` or `ORD-NNN` row cite *which* open decision governs it; it is
+local to the document and is replaced, everywhere it is cited, when `/raid` mints the real ID.
+A `Resolved` row is kept, not deleted — the resolution is the record the affected requirements
+were changed against.
+
+#### Related initiative
+
+Adjacent work this document neither depends on nor delivers. ORD §10.2. **No ID — the initiative
+name is the key**, on the operational-actor reasoning: it identifies, and commits nothing.
+
+| Initiative | Relationship | Owner | Routed items | Status |
+|---|---|---|---|---|
+| [named programme, project or change] | Overlaps / Feeds / Consumes / Supersedes | [named] | [REF-NNN, …, or —] | [as reported by its owner] |
+
+**Four registers, four tests — never one table:**
+
+| It is a… | When |
+|---|---|
+| **Dependency** (`DEP-NNN`) | This document's outcome cannot be delivered until it is |
+| **Related initiative** | It touches the same scope, but this document's outcome does not wait for it |
+| **Referred requirement** (`REF-NNN`) | Content raised here that another owner delivers |
+| **Out-of-scope item** (§4.2, `IMP.Treatment`) | Deliberately excluded, and delivered by nobody as a result of this document |
 
 #### Impact register
 
@@ -509,7 +595,7 @@ outcome, which a register row cannot. Its **acceptance criteria** are rows:
 Two kinds of binding row are deliberately ID-less, because nothing ever traces *to* them:
 
 - **Exclusions** (PRD § Out of Scope) — cited in scope disputes, never referenced by another row.
-- **Coverage gaps** (ORD § 3.10) — a record of absence; the ID would belong to a requirement that
+- **Coverage gaps** (ORD § 7.10) — a record of absence; the ID would belong to a requirement that
   does not exist.
 
 Everything else that binds carries an ID. Do not extend this list to avoid assigning one.
@@ -562,7 +648,7 @@ Authorised prefixes. See ADR-0001 for the requirement prefixes and their extensi
 | `ORD-NNN` | Operational requirements | `/write-ord` |
 | `AC-NNN` | Acceptance criteria | `/write-ac` |
 | `OBJ-NNN` | Operational objectives — the outcome layer every ORD row traces to | `/write-ord` |
-| `BRL-NNN` | Business rules — conditional, see § *Business rule* | `/write-ord` (or `/write-prd` where a PRD is produced) |
+| `BRL-NNN` | Business rules — every ORD, see § *Business rule* | `/write-ord` |
 | `SCN-NNN` | Scenarios — requirement-level and catalogue, one namespace | `/write-ord` |
 | `IMP-NNN` | Impacts — workflows and systems touched, with named owners | `/write-ord` |
 | `REF-NNN` | Referred requirements — raised here, delivered elsewhere | `/write-ord` |
@@ -598,7 +684,7 @@ populated ones.
   row in a single **Coverage Gaps** table at the end of the section.
 
 **The collapse applies at sub-characteristic level only. All nine ISO/IEC 25010:2023 characteristics
-appear in every ORD, without exception** — §3.1 through §3.9, each present even where it carries
+appear in every ORD, without exception** — §7.1 through §7.9, each present even where it carries
 nothing. A characteristic with nothing to state carries an explicit statement of that fact and its
 status, never an omission. The two rules are not in tension: a characteristic is a heading a
 reviewer checks for, and its absence is invisible; a sub-characteristic is a table, and thirty empty
@@ -620,7 +706,7 @@ second source of truth.
 A view table restates the `ID` and the agreed value by reference and introduces **no new
 numbers**. Head it explicitly:
 
-> *View of Section 3. Values are authoritative in the referenced rows; this table adds no new commitments.*
+> *View of Section 7. Values are authoritative in the referenced rows; this table adds no new commitments.*
 
 Two tables carrying the same commitment at independently editable values is the defect this
 prevents.
@@ -645,8 +731,13 @@ prevents.
 - Never carry an `Assumed` row whose assumption has no named owner and no confirm-by date.
 - Never omit one of the nine ISO/IEC 25010 characteristics from an ORD — collapse sub-characteristics
   to the Coverage Gaps table, never the characteristic itself.
-- Never let an ORD absorb business rules without declaring the deviation and naming why no functional
-  requirements document holds them.
+- Never embed classification, cut-off, calculation, reconciliation or retention logic in a register
+  row — state the outcome and cite the `BRL-NNN` rule.
+- Never carry a business rule without an owner, a status and the requirements it affects.
+- Never record a dependency, a related initiative, a referred requirement and an out-of-scope item
+  in one table — each has its own register and its own test.
+- Never leave an unresolved business decision as an assumption inside a requirement — it is a
+  decision row with an owner.
 - Never write `Happy path`, `Happy Path`, `Error`, `Error Case` or `Edge` as a scenario value, and
   never head the column `Type`. The three values are `Sunny Day`, `Rainy Day` and `Edge Case`, and
   the column is `Scenario` — written exactly so, capitalised so, in every document and in every
@@ -718,7 +809,7 @@ Missing any one of them, the statement is unfalsifiable at verification time.
 An output that is unacceptable *at any rate* — a leaked secret, a medical instruction from a
 component not cleared to give one, a protected-attribute inference — is not a low score to be
 averaged against. Scoring it at all implies a rate at which it passes. It is a **separate register
-row** in ORD § 3.9.3 Prohibited Outputs — or § 3.3 Security where the prohibition is a disclosure
+row** in ORD § 7.9.3 Prohibited Outputs — or § 7.3 Security where the prohibition is a disclosure
 rather than a hazard, in one place and not both — stating the prohibited output, a tolerance of zero,
 and its own verification method; the `EVL-NNN` row references that row's ID in `Prohibited outputs` and
 restates no value. Conflating the two is how a prohibition becomes a percentage.
@@ -789,26 +880,26 @@ The class map. A row that does not appear here has no AI-specific home and follo
 | Intended purpose | PRD § Scope boundary | AI Act Art. 11 / Annex IV |
 | Prohibited uses | PRD § Out of Scope | AI Act Art. 11 |
 | User-facing quality or accuracy outcome | PRD story criteria | 29148 |
-| Functional adaptability | ORD § 3.8.3 Functional Adaptability | 25059 |
-| Accuracy and fairness thresholds (operational) | ORD § 3.8.2 Functional Correctness, as `[AI]` rows | 25059, AI Act Art. 15 |
-| Robustness — out-of-distribution and adversarial input | ORD § 3.2.5 Robustness | 25059, AI Act Art. 15 |
-| User controllability and intervenability | ORD § 3.7.4 User Controllability and Intervenability | 25059 |
-| Transparency, explainability, output labelling | ORD § 3.7.5 Transparency and Explainability | 25059, AI Act Arts. 13, 50 |
-| Human oversight — who intervenes, when, with what authority | ORD § 3.7.4 and § 5 Support Model | AI Act Art. 14 |
-| Record-keeping and inference logging | ORD § 3.6.4 Record-Keeping and Inference Logging, § 5.4 Monitoring | AI Act Art. 12 |
-| Data governance, provenance, labelling method | ORD § 4.3 Regulatory and Compliance Constraints | AI Act Art. 10, ISO/IEC 5259 |
-| Drift detection and re-verification cadence | ORD § 3.8.3, § 5.4 Monitoring, § 7 Service Level Requirements | ISO/IEC 5338 |
-| Model and provider dependency | ORD § 9.3 Dependencies, keyed to `MDL-NNN` | — |
-| Prompt-injection and model-specific attack surface | ORD § 3.3.7 Prompt Injection and Model Attack Surface | AI Act Art. 15 |
-| Prohibited output — unacceptable at any rate, zero tolerance | ORD § 3.9.3 Prohibited Outputs, or § 3.3 Security where it is a disclosure | AI Act Art. 15 |
-| Evaluation sets and model dependencies (registers) | ORD § 9.3 Dependencies, keyed to `EVL-NNN` / `MDL-NNN` | — |
+| Functional adaptability | ORD § 7.8.3 Functional Adaptability | 25059 |
+| Accuracy and fairness thresholds (operational) | ORD § 7.8.2 Functional Correctness, as `[AI]` rows | 25059, AI Act Art. 15 |
+| Robustness — out-of-distribution and adversarial input | ORD § 7.2.5 Robustness | 25059, AI Act Art. 15 |
+| User controllability and intervenability | ORD § 7.7.4 User Controllability and Intervenability | 25059 |
+| Transparency, explainability, output labelling | ORD § 7.7.5 Transparency and Explainability | 25059, AI Act Arts. 13, 50 |
+| Human oversight — who intervenes, when, with what authority | ORD § 7.7.4 and § 7.12 Operational Hours and Escalation Tolerance | AI Act Art. 14 |
+| Record-keeping and inference logging | ORD § 7.6.4 Record-Keeping and Inference Logging, § 7.6.2 Analyzability | AI Act Art. 12 |
+| Data governance, provenance, labelling method | ORD § 7.11 Operating Environment and Constraints | AI Act Art. 10, ISO/IEC 5259 |
+| Drift detection and re-verification cadence | ORD § 7.8.3, § 7.6.2 Analyzability, § 7.13 Service Level Requirements | ISO/IEC 5338 |
+| Model and provider dependency | ORD § 10.1 Dependencies, keyed to `MDL-NNN` | — |
+| Prompt-injection and model-specific attack surface | ORD § 7.3.7 Prompt Injection and Model Attack Surface | AI Act Art. 15 |
+| Prohibited output — unacceptable at any rate, zero tolerance | ORD § 7.9.3 Prohibited Outputs, or § 7.3 Security where it is a disclosure | AI Act Art. 15 |
+| Evaluation sets and model dependencies (registers) | ORD § 10.1 Dependencies, keyed to `EVL-NNN` / `MDL-NNN` | — |
 
-**The ORD subsections named above are defined in** `skills/write-ord/REFERENCE.md` § *ISO/IEC
-25059:2023 — AI Extension* and are scaffolded in its §3 template marked *(AI — 25059)*. They are
+**The ORD subsections named above are defined in** `skills/write-ord/TAXONOMY.md` § *ISO/IEC
+25059:2023 — AI Extension* and are scaffolded in its §7 template marked *(AI — 25059)*. They are
 conditional on this file's trigger test: where it does not fire they do not apply, and are omitted
-from the body *and* from the §3.10 Coverage Gaps table — an inapplicable subsection is not a gap.
+from the body *and* from the §7.10 Coverage Gaps table — an inapplicable subsection is not a gap.
 
-**§3.8.2 Functional Correctness is the exception** — a 25010 subsection present in every ORD. Accuracy
+**§7.8.2 Functional Correctness is the exception** — a 25010 subsection present in every ORD. Accuracy
 and fairness land there as `[AI]` rows beside any deterministic correctness tolerance, so the trigger
 not firing removes those rows and never the subsection.
 
@@ -845,7 +936,7 @@ threshold is never restated in two independently editable places.
 - **`Re-run trigger` is mandatory** — an evaluation with no trigger is a launch gate, not a
   requirement. At minimum: any model version change, any prompt change, any change to an upstream
   data source.
-- **`Prohibited outputs` holds row IDs, never values.** It points at the ORD § 3.9 / § 3.3 rows
+- **`Prohibited outputs` holds row IDs, never values.** It points at the ORD § 7.9 / § 7.3 rows
   carrying the categorical prohibitions this set is scored alongside, per the § View Tables rule in
   `tables.md`. `—` is a real answer meaning *considered, none apply* — it is not the same
   as leaving the cell blank, and the column exists so the question is asked rather than assumed.
@@ -891,12 +982,12 @@ demonstrated.
 
 | Standard | Status here |
 |---|---|
-| ISO/IEC 25010:2023 | The ORD §3 taxonomy this file extends. Australian adoption: **AS/NZS ISO/IEC 25010:2025**. |
+| ISO/IEC 25010:2023 | The ORD §7 taxonomy this file extends. Australian adoption: **AS/NZS ISO/IEC 25010:2025**. |
 | ISO/IEC 25059:2023 | Extends the ORD's ISO/IEC 25010:2023 taxonomy — adds functional adaptability, robustness, user controllability, transparency, intervenability. Does not replace it. Second edition under member-body vote. Australian adoption: **AS ISO/IEC 25059:2024**. |
 | ISO/IEC/IEEE 29148:2018 | Unchanged for the PRD. The good-requirement characteristics hold; only the evidence satisfying *verifiable* changes. |
 | ISO/IEC 22989:2022 | Vocabulary. Adopt its terms rather than coining local ones — record them in the project glossary. |
-| ISO/IEC 23894 | AI risk management. Feeds ORD § 9 and `/raid`. |
-| ISO/IEC 5338 | AI system life-cycle processes. Feeds ORD § 5 and § 7. |
+| ISO/IEC 23894 | AI risk management. Feeds ORD § 8.2 and `/raid`. |
+| ISO/IEC 5338 | AI system life-cycle processes. Feeds ORD § 7.12 and § 7.13. |
 | EU AI Act — Regulation (EU) 2024/1689, as amended by (EU) 2026/1744 | Supplies requirement classes (Arts. 9–15, Annex IV), not document structure. Application dates are in the stamp below, verified 2026-08-24. |
 | ISO/IEC 42001:2023 | Organisational management system, above the document layer. Out of scope for this file. |
 | ISO/IEC 5259 series | Data quality for ML. A data-as-subject schema is deferred per ADR-0003. |
@@ -943,7 +1034,7 @@ exists** — it is the same text, and it is the one an Australian auditor asks f
 
 | Instrument | Status here |
 |---|---|
-| **AS/NZS ISO/IEC 25010:2025** | Identical adoption of ISO/IEC 25010:2023 — the taxonomy the ORD's §3 is keyed to. Cite this designation in an Australian document. |
+| **AS/NZS ISO/IEC 25010:2025** | Identical adoption of ISO/IEC 25010:2023 — the taxonomy the ORD's §7 is keyed to. Cite this designation in an Australian document. |
 | **AS ISO/IEC 25059:2024** | Australian adoption of ISO/IEC 25059:2023 — the AI extension this file applies. Cite alongside the ISO designation. |
 | **AS ISO/IEC 42001:2023** | Identical adoption, February 2024. Organisational management system, above the document layer — out of scope for this file, as its ISO parent is. |
 | ISO/IEC/IEEE 29148:2018 | **No Australian adoption identified.** Cite the ISO/IEC/IEEE designation. |
@@ -1023,7 +1114,9 @@ measure and the obligation behind it — the thing that must still be defensible
 the figure was produced eighteen months later.
 
 Per the same reasoning as ADR-0003 there is **no separate reporting requirements document**.
-Everything below lands in the existing register, in the section the class map assigns.
+Requirements land in the existing register, in the section the class map assigns; the detail that
+makes them reproducible lands in the ORD's **§14 Reporting Requirements Appendix** — see
+§ *Altitude — outcome in the register, detail in the appendix*.
 
 ### The Rule
 
@@ -1057,7 +1150,50 @@ carries its calendar basis: the timezone, and the holiday jurisdiction — state
 or contractual — that determines which days count.
 
 > ✗ `A monthly compliance report is produced`
-> ✓ `The monthly compliance figure counts every service order closed in the calendar month in the reporting entity's local time, excluding orders cancelled by the customer, classified under the BRL-004 rule set version in force at closure, counted to a cut-off five business days after month end with later-arriving closures carried into a restatement of that month, and each counted order is traceable to its source record by a stable identifier that survives restatement.`
+> ✗ `The monthly compliance figure counts every service order closed in the calendar month in the reporting entity's local time, excluding orders cancelled by the customer, classified under the BRL-004 rule set version in force at closure, counted to a cut-off five business days after month end …` — complete, but written at the wrong altitude: no executive can read it, and the register row has become the rule set
+> ✓ Register row: `The monthly compliance figure is published within five business days of month end and is reproducible from its source records, beyond which obligation X §4 is breached` · §14.2 measure definition for that `ORD#`: population, clock, cut-off, lineage and correction path · §13 rules `BRL-004` (classification) and `BRL-009` (late-arriving closures and restatement)
+
+### Altitude — outcome in the register, detail in the appendix
+
+**The five parts are mandatory; where they are written is not the register.** A register row states
+the business outcome a reporting consumer needs — published, on time, reproducible, auditable — and
+the consequence of breach. The five-part measure definition is written once in the ORD's **§14.2**,
+keyed by the `ORD#` it details, and the classification, cut-off, restatement and reconciliation
+logic is written once as `BRL-NNN` rows in **§13**.
+
+**The test for a register row:** *could an executive understand it without understanding reporting,
+governance, architecture or implementation?* If not, the row states the outcome and cites the
+§14.2 definition or the `BRL-NNN` that carries the detail. A measure missing any of its five parts
+across row, definition and rules is still unspecified — moving detail to the appendix is never a
+licence to drop it.
+
+### Reporting consumers
+
+**Reporting consumers are stakeholders even where no process changes for them.** A change to a
+population, a clock or a rule changes every figure built on it, and the consumer of that figure
+finds out when it moves. Identify each consumer class the source evidences:
+
+| Class | Typically |
+|---|---|
+| Regulatory | A regulator, or an obligation reported to one |
+| Contractual | A counterparty reported to under an agreement |
+| Operational | Teams running the process from the figure |
+| Management | Line management deciding from the figure |
+| Executive | Executive and board reporting |
+| Audit | Internal and external audit |
+
+Each consumer is a row in §14.1 (schema below). Where a consumer's need is a commitment, it is also
+a register row in the section the class map assigns, and the §14.1 row cites it. **A consumer class
+with no evidence in the source is a question for the gate, never an inferred row.**
+
+### New reporting data
+
+**Never assume a reporting platform already holds what a new or changed measure needs.** Where a
+measure needs an attribute, a dimension or a data element, its `DAT-NNN` row carries `Availability`:
+`Existing — confirmed` only where the source confirms it, otherwise `New` or `Unconfirmed`. Where
+any element is `New` or `Unconfirmed`, raise a candidate register row at the Phase 1 gate stating
+that the data the reporting consumers need is captured and available for the measure — it becomes
+a row only on the business owner's confirmation, under the usual status rules.
 
 **Do not nominate a system or dataset as authoritative unless the source material confirms that
 status.** Which system is the book of record is a governance fact, not a drafting choice.
@@ -1065,7 +1201,7 @@ status.** Which system is the book of record is a governance fact, not a draftin
 ### Data quality — the anchor
 
 **ISO/IEC 25012** (data quality model) is the taxonomy for data requirements, and it sits in the same
-SQuaRE series as the ISO/IEC 25010:2023 characteristics the ORD's §3 is already keyed to.
+SQuaRE series as the ISO/IEC 25010:2023 characteristics the ORD's §7 is already keyed to.
 **ISO/IEC 25024** supplies the measurement side. Use their characteristic names rather than coining
 local ones, exactly as `ai.md` defers to ISO/IEC 22989:2022 for AI vocabulary.
 
@@ -1079,33 +1215,40 @@ rules.
 
 | Requirement class | Home |
 |---|---|
-| The reported measure itself — population, threshold, obligation behind it | ORD § 3.8.1 Functional Completeness |
-| The measurement clock — period boundary, start event, stop event, excluded duration | ORD § 3.8.1 |
-| Cut-off, and treatment of data arriving after it | ORD § 3.8.1 |
-| Granularity and the dimensions the measure is disaggregated by | ORD § 3.8.1 |
-| Accuracy, completeness, currentness of a named data element | ORD § 3.8.1, keyed to a `DAT-NNN` row |
-| Reproduction of a historical figure under the rules in force at the time | ORD § 3.6.2 Analyzability |
-| Lineage — source of each input, identifier surviving to the output | ORD § 3.6.2 Analyzability |
-| Reconciliation — source, included, excluded, exception populations | ORD § 3.8.1 |
-| Duplicate and omission control | ORD § 3.3.2 Integrity |
-| Restatement and correction of a published figure | ORD § 3.6.1 Modifiability |
-| Who may read the report, and at what granularity | ORD § 3.3.1 Confidentiality |
-| Report availability and timeliness against the obligation | ORD § 3.1.1 Time Behavior |
-| Retention of the figure and its supporting records | ORD § 3.3.3 Non-repudiation and Accountability |
-| Definition and rule ownership, effective dating | ORD § 3.6.1, with the rules themselves as `BRL-NNN` |
-| Exception visibility — what could not be determined, and why | ORD § 3.8.1 |
+| The reported measure itself — population, threshold, obligation behind it | ORD § 7.8.1 Functional Completeness |
+| The measurement clock — period boundary, start event, stop event, excluded duration | ORD § 7.8.1 |
+| Cut-off, and treatment of data arriving after it | ORD § 7.8.1 |
+| Granularity and the dimensions the measure is disaggregated by | ORD § 7.8.1 |
+| Accuracy, completeness, currentness of a named data element | ORD § 7.8.1, keyed to a `DAT-NNN` row |
+| Reproduction of a historical figure under the rules in force at the time | ORD § 7.6.2 Analyzability |
+| Lineage — source of each input, identifier surviving to the output | ORD § 7.6.2 Analyzability |
+| Reconciliation — source, included, excluded, exception populations | ORD § 7.8.1 |
+| Duplicate and omission control | ORD § 7.3.2 Integrity |
+| Restatement and correction of a published figure | ORD § 7.6.1 Modifiability |
+| Who may read the report, and at what granularity | ORD § 7.3.1 Confidentiality |
+| Report availability and timeliness against the obligation | ORD § 7.1.1 Time Behavior |
+| Retention of the figure and its supporting records | ORD § 7.3.3 Non-repudiation and Accountability |
+| Definition and rule ownership, effective dating | ORD § 7.6.1, with the rules themselves as `BRL-NNN` |
+| Exception visibility — what could not be determined, and why | ORD § 7.8.1 |
 
-**Nothing here adds a §3 subsection.** Reporting requirements are ordinary operational requirements
+**Nothing here adds a §7 subsection.** Reporting requirements are ordinary operational requirements
 whose *content* this file governs; they land in the 25010 subsections that already exist. A parallel
-reporting section would restate the register.
+reporting section in the body would restate the register. **The §14 appendix is not that section** —
+it holds consumers, measure definitions, data elements, and transparency, audit and acceptance
+evidence, and every binding statement in it cites an `ORD#`. Proposed acceptance criteria stay in
+§11.
 
 ### Canonical schema
 
 #### Data element register
 
-| ID | Data element | Used by | Quality characteristic | Tolerance | Source | Lineage | Owner |
-|---|---|---|---|---|---|---|---|
-| DAT-NNN | [named element] | [ORD-NNN, …] | [ISO/IEC 25012 characteristic] | [declarative, quantified] | [system or process of origin, where confirmed] | [how it reaches the output] | [named, or TBD with confirm-by] |
+Lands at ORD §14.3.
+
+| ID | Data element | Kind | Used by | Quality characteristic | Tolerance | Availability | Source | Lineage | Owner |
+|---|---|---|---|---|---|---|---|---|---|
+| DAT-NNN | [named element] | Attribute / Dimension / Measure input | [ORD-NNN, …] | [ISO/IEC 25012 characteristic] | [declarative, quantified] | Existing — confirmed / New / Unconfirmed | [system or process of origin, where confirmed] | [how it reaches the output] | [named, or TBD with confirm-by] |
+
+- **`Availability` defaults to `Unconfirmed`, never to `Existing`.** See § *New reporting data*.
 
 - **`Quality characteristic` uses ISO/IEC 25012's names.** There are fifteen and this is all of
   them — **accuracy, completeness, consistency, credibility, currentness, accessibility,
@@ -1121,9 +1264,29 @@ reporting section would restate the register.
 - **`Source` is `[TBD]` until confirmed.** Nominating a system as the book of record on drafting
   authority is the most common way this register becomes wrong.
 
+#### Reporting consumer register
+
+Lands at ORD §14.1. **No ID — the consumer name is the key**, on the same reasoning as the
+operational actor register in `tables.md`: a consumer row identifies a subject and
+commits nothing.
+
+| Consumer | Class | Need | Measures used | Impact of this change | Owner |
+|---|---|---|---|---|---|
+| [named body, team or role] | Regulatory / Contractual / Operational / Management / Executive / Audit | [what they use the figure for] | [ORD-NNN, …] | [what moves for them, or "none — confirmed"] | [named, or TBD with confirm-by] |
+
+#### Measure definition
+
+Lands at ORD §14.2, one row per reported measure, keyed by the register row it details. **A
+definition, not a commitment** — the binding statement is the `ORD#` row, so this carries no
+priority, status or owner of its own.
+
+| ORD# | Measure | Population | Clock | Rule set | Lineage | Correction path | Dimensions |
+|---|---|---|---|---|---|---|---|
+
 ### Reconciliation
 
-Where a measure is reported against an obligation, the register carries requirements establishing:
+Where a measure is reported against an obligation, the document establishes — as `BRL-NNN` rules in
+§13 (governance and classification groups), cited by the register row that states the outcome:
 the **source population**; the **included**, **excluded** and **exception** populations; **duplicate
 and omission control**; **record-level** and **aggregate** reconciliation; **variance treatment**;
 and **restatement treatment**.
@@ -1177,7 +1340,7 @@ this stamp narrows the gap and does not close it.
 | ISO/IEC 25012 defines the data quality characteristic names used by `DAT-NNN` | **Verified — secondary sources only.** Fifteen characteristics; all names used in this file are among them | ISO catalogue abstract; a peer-reviewed application of 25012; the OMG DIDO wiki entry; iso25000.com |
 | An AS/NZS adoption of ISO/IEC 25012 exists | **Verified — it does.** `ai.md`'s rule bites: **AS/NZS ISO/IEC 25012:2013**, identical adoption, current and reconfirmed 2024 | Standards Australia distributor record; corroborated by the scope statement of AS ISO/IEC 25024:2019, which names AS/NZS ISO/IEC 25012 as the source of the characteristics it measures |
 | ISO/IEC 20000-1:2018 carries the service-reporting clauses attributed to it | **Verified — primary text.** Clause **9.4 Service reporting**, under clause 9 Performance evaluation. The foreword's change item (j) records that detailed reporting requirements were moved out of the service reporting clause into the clauses where the reports are produced | ISO's own redline preview of ISO/IEC 20000-1:2018 — table of contents and foreword |
-| DMN's decision / decision-logic separation matches the `BRL-NNN` `Required Decision` column | **Verified — primary text.** DMN §5.3.1 defines a decision as *the act of determining an output value from a number of input values, using logic defining how the output is determined*; clause 7 defines how the decision requirements level and the decision logic level relate. The column states the first and excludes the second | OMG DMN 1.5 specification, §5.3.1 and clause 7 |
+| DMN's decision / decision-logic separation matches the `BRL-NNN` `Required Decision` and `Rule` columns | **Verified — primary text.** DMN §5.3.1 defines a decision as *the act of determining an output value from a number of input values, using logic defining how the output is determined*; clause 7 defines how the decision requirements level and the decision logic level relate. `Required Decision` states the first; `Rule` states the second in business terms, and implementation of the logic stays with the design response | OMG DMN 1.5 specification, §5.3.1 and clause 7 |
 
 **What was not read.** ISO/IEC 25012:2008, ISO/IEC 25024:2015 and the body of ISO/IEC 20000-1:2018
 are paywalled and were not purchased. Three consequences, none of them cosmetic:
@@ -1230,7 +1393,11 @@ to 25012 or 25024.
   asks for the AS number, and the designations in this series are not uniform.
 - Never cite ISO/IEC 20000-1:2018 without its Amendment 1:2024.
 - Never state a technical data tolerance where a business one belongs (see `language.md`).
-- Never add a §3 subsection for reporting — these are ordinary requirements in existing subsections.
+- Never add a §7 subsection for reporting — these are ordinary requirements in existing subsections.
+- Never write the five-part measure definition into a register row — the row states the outcome and
+  the §14.2 definition carries the five parts.
+- Never mark a data element `Existing — confirmed` without source confirmation.
+- Never infer a reporting consumer the source does not evidence — raise the class at the gate.
 - Never cite ISAE/ASAE 3402, DAMA-DMBOK or BABOK as the authority for a requirement.
 
 
@@ -1434,7 +1601,7 @@ pack's worked ORD:
   including one the document leaves blank: `(blank in document)`. A missing field reads as a
   column that does not exist.
 - **A table keyed by another record's ID is folded into that record**, never emitted as a second
-  record under the same ID — traceability (ORD Appendix A), interface detail and SOAP conformance
+  record under the same ID — traceability (ORD §11), interface detail and SOAP conformance
   each become a sub-list named for their table, every column included. A record with no row in a
   folded table says so: `traceability: (no row in document)`. A fold adds structure, never a value.
 - **Every ID-keyed record carries `referenced_by`** — the IDs of other records whose cells name it:

@@ -11,6 +11,67 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
+## v4.17.0 — 2026-10-07
+
+**`$write-ord` 3.0.0 — a business-focused ORD.** Field feedback from a real reporting ORD: the
+document read as a design and governance specification, and only improved once the executive
+summary was added, the requirements were simplified, and the controls moved into appendices. 3.0.0
+makes that the default.
+
+- **New structure, eighteen fixed sections:** Executive Summary · Objective · Problem Statement ·
+  Scope · Glossary · Operational Objectives · Operational Requirements · Decisions · Assumptions ·
+  Dependencies · Traceability · Entry Position Assessment · Business Rules Appendix · Reporting
+  Requirements Appendix · Scenarios · Interface Detail · Conformance · Change History. The nine
+  ISO/IEC 25010 characteristics keep their sub-numbering, moved from §3.x.y to §7.x.y.
+- **Executive altitude.** Every register row passes one test: could an executive understand it
+  without understanding reporting, governance, architecture or implementation? Mechanism moves to
+  a cited `BRL-NNN` or §14 definition, and is never dropped.
+- **Executive Summary is mandatory**, written last, covering problem, outcome, what changes, what
+  does not, and the major open decisions.
+- **Business Rules Appendix (§13) in every ORD**, grouped Classification / Reporting / Governance;
+  the `BRL-NNN` schema gains `Group`, `Rule Type` and `Rule` — DMN's decision and decision logic in
+  two columns, so the logic moved out of a requirement has a place to land.
+- **Reporting Requirements Appendix (§14)** where `reporting.md` fires: reporting consumers
+  (regulatory, contractual, operational, management, executive, audit), measure definitions, data
+  elements with `Availability` (never assumed to exist), and transparency, audit and acceptance
+  evidence (§14.4). Proposed acceptance criteria stay in §11 only. Still no reporting section in the
+  body.
+- **Decisions, assumptions, dependencies, related initiatives, referred requirements and
+  out-of-scope items are separate registers**, each with its own test. Decisions gain a
+  `Resolution` column; assumptions are promoted from an appendix to §9; related initiatives are new.
+- **Traceability** gains BR, BO and business-rule columns.
+- **Critic follow-ups.** TAXONOMY.md's *ORD relevance* notes no longer suggest technical targets
+  (RTO/RPO, encryption standards, hosting model); open decisions without a RAID log are numbered
+  `[D-TBD-N]` so rules can cite them; §5.2 defines rule status; `$write-ac` and `$testplan` read a
+  2.x ORD in its own numbering; three more before-and-after executive-altitude examples.
+  Also: `BRL-NNN` has one assigning skill (`$write-ord`); §5.2 is headed as a view so the companion
+  omits it; `language.md`'s Voice-by-Altitude ORD row matches the register schema; Phase 2 steps
+  renumbered 1–16, with the Executive Summary written after traceability and the tier.
+- **§5.2 Prioritisation and status definitions** — MoSCoW, KPP and Status defined once in
+  `tables.md` and copied verbatim into every ORD. `Won't (this release)` is deferred and in scope;
+  out of scope is never delivered here; descoped is a scope change recorded in §4.2 and §18.
+- **REFERENCE.md split by phase** — it had reached 839 lines. REFERENCE.md keeps scope, status,
+  KPPs and the pack deviation map and indexes the rest: `TAXONOMY.md` (25010, 25059), `ELICITATION.md`
+  (lenses, extraction) and `TEMPLATE.md` (template, views, worked extract). The 25059 table cited
+  characteristics by a third numbering scheme ("6. Interaction Capability" where the taxonomy said 4);
+  each now names the characteristic and its ORD §7 location.
+
+**Declared deviation from the requirements-documents pack.** The pack's ORD template is unchanged;
+write-ord REFERENCE.md carries the pack-to-3.x section map, and `$review-ord` resolves through it.
+Every 3.x ORD carries a verbatim `**Structure:** write-ord 3.x` header line, which
+`$review-ord` matches. Raise the structure to the pack separately. Existing 2.x ORDs are not migrated silently — the skill
+asks at the gate.
+
+Standards updated: `tables.md` (business rule, decision, related initiative, executive altitude),
+`reporting.md` (altitude split, consumers, new reporting data, §14 schemas), `ai.md`,
+`language.md` and `llm-companion.md` (section references).
+
+Section references moved to the 3.x numbering in `$review-ord` 2.3.1 (which also resolves pack
+sections through the 3.x map), `$write-ac` 1.6.4, `$testplan` 1.2.3, `$write-reqs` 1.4.4 (new §11
+headings) and `$write-brd` 1.3.2.
+
+---
+
 ## v4.16.2 — 2026-10-07
 
 **`$write-ord` 2.2.3 — a view note that wraps is still a view.** `llm_companion.py` decided a

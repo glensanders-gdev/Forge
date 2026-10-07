@@ -33,6 +33,11 @@ Read in full: **§7.1** (the bar OH-1 – OH-7, the supporting items OH-8 – OH
 and *What the ORD does not supply*), **§7.3**, **§5** with its tier rule, **§5.2** on KPPs, and
 **§2.1**. Read `reference/example-ORD.md` as the **worked reference implementation**.
 
+Where the ORD's header carries the line `**Structure:** write-ord 3.x` (written verbatim by
+`$write-ord` 3.x — match on that prefix), resolve pack template sections through the section map in `~/.agents/skills/write-ord/REFERENCE.md` § *Deviations
+from the requirements-documents pack* (pack §3.x.y = ORD §7.x.y), and treat the structure difference
+as a declared deviation, not a defect.
+
 Three desk references answer specific questions — read each when its question arises:
 `requirement-to-section-map.md` (is this requirement in the right place),
 `nine-characteristics-quickref.md` (the ISO/IEC 25010 set), `kpp-identification-guide.md` (is this
@@ -73,7 +78,7 @@ ORD-specific criteria to apply while doing so, each defined in the standard rath
   coverage.
 - **Business rules present in the ORD** — assess the **declaration**, not the presence. §7.1
   *What the ORD does not supply* permits a carried rule register where the carry is declared as a
-  deviation. Undeclared functional content fails; declared content passes and is recorded as
+  deviation. Undeclared functional content fails; declared content passes (§13 carries the declaration) and is recorded as
   evidence that the chain lacks a functional requirements document. Data entities and functional
   acceptance criteria are not covered by that permission and stay referred.
 
@@ -126,7 +131,7 @@ from gaps, and each of the five checks is answered or explicitly marked not-yet-
 | The ORD names a pack version other than the one being applied | Name both in the report. A verdict is meaningful only against a named bar, and an ORD authored to one revision assessed against another is a finding about the pair, not about the document |
 | The ORD carries no KPP-bearing requirement | §5's tier rule has no input. Report the declared tier as underivable and name the absence — never accept a declared tier by default, and never substitute the weakest status anywhere in the register, which is the substitution the rule exists to refuse |
 | A §7.3 item is present **and** the demand it displaced is absent | Report the defect under *Defects (§7.3)* and the absence under its own item's verdict. A §7.3 item is never a gap; folding it into the tier hides it |
-| A characteristic is missing from §3 with no explicit statement | OH-1 fails — an omission fails the item rather than passing it quietly. Never read a §3.10 Coverage Gaps row as that explicit statement: the gap table collapses **sub**-characteristics, and all nine characteristics appear regardless |
+| A characteristic is missing from §7 with no explicit statement | OH-1 fails — an omission fails the item rather than passing it quietly. Never read a §7.10 Coverage Gaps row as that explicit statement: the gap table collapses **sub**-characteristics, and all nine characteristics appear regardless |
 | `reference/example-ORD.md` is unavailable from both sources | Run the review and say so. The worked reference is the calibration for what a conforming register looks like — without it the verdicts stand, but the reviewer's sense of the bar does not |
 | One of the three desk references is unavailable | Answer its question from the standard itself and record which reference was missing. Never leave the question unanswered because its shortcut was absent |
 | A check from `reference/traceability-matrix.md` cannot be answered at this hop | Mark it *not answerable at this hop* with the reason. A check reported clean because it could not be run is worse than one reported unanswerable |

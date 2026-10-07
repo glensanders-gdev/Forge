@@ -2,6 +2,20 @@
 
 ---
 
+## Session 2026-10-07 — write-ord 3.0.0, a business-focused ORD
+
+**Stream:** `write-ord` (opened this session — `docs/handoffs/write-ord.md`)
+**Version range:** 4.16.1 → 4.17.0 ([PR #93](https://github.com/glensanders-gdev/Forge/pull/93) open from `write-ord-3.0.0`; `eadf174` and `ddfc79f` pushed, `72fea7d` committed and awaiting push confirmation; Auto-fix on; not merged)
+**Goals this session:** Apply field feedback on `/write-ord` (outcomes over controls, business rules and reporting separated, executive summary, first-class decisions and assumptions); test the result; critique it.
+**Tickets Completed:** None on kanban — ad-hoc framework change.
+**Decisions Made:** (1) Adopt the feedback's business-first order as an 18-section structure, keeping the 25010 sub-numbering (pack §3.x.y = ORD §7.x.y) — user choice over absorbing into the old structure. (2) Business Rules Appendix (§13) in every ORD, grouped Classification / Reporting / Governance. (3) Reporting detail in an appendix (§14), never a body section — `reporting.md`'s no-parallel-section rule holds. (4) Assumptions promoted to their own section (§9). (5) §5.2 defines MoSCoW, KPP and Status verbatim; `Won't` kept over "descoped" — descoping is a §4.2 exclusion plus a §18 entry. (6) Business Priority (Critical/High/…) not adopted. (7) REFERENCE.md split by phase into four files. (8) §14.5 folded into §14.4. (9) The pack is unchanged; 3.0.0 is a declared deviation with a section map, which `/review-ord` resolves through.
+**Assumptions Made:** The Skill tool's 2.2.1 text was a session cache, not the installed skill (confirmed — on-disk SKILL.md reads 3.0.0 on the branch). Test data is synthetic and was kept in the scratchpad, never the repo.
+**Blockers:** None — merge waits on critic P1 fixes, CI and review.
+**Next Up:** Confirm push of `72fea7d`; fix critic P1-1 (review-ord never matches a 3.0.0 ORD) and P1-2 (`BRL` schema bans the decision logic §13 now holds); then the P2 list in `docs/handoffs/write-ord.md`.
+**Status:** In Progress — PR open
+
+---
+
 ## Session 2026-10-01 — only common rules load into every session
 
 **Stream:** none — ad-hoc framework change, following §6 of the workspace research note `docs/research/copilot-as-forge-host.md`

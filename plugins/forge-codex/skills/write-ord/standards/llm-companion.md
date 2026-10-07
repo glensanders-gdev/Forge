@@ -196,7 +196,7 @@ pack's worked ORD:
   including one the document leaves blank: `(blank in document)`. A missing field reads as a
   column that does not exist.
 - **A table keyed by another record's ID is folded into that record**, never emitted as a second
-  record under the same ID — traceability (ORD Appendix A), interface detail and SOAP conformance
+  record under the same ID — traceability (ORD §11), interface detail and SOAP conformance
   each become a sub-list named for their table, every column included. A record with no row in a
   folded table says so: `traceability: (no row in document)`. A fold adds structure, never a value.
 - **Every ID-keyed record carries `referenced_by`** — the IDs of other records whose cells name it:
