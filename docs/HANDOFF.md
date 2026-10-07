@@ -1,6 +1,6 @@
 # Handoffs: Forge Framework
 
-**Last updated:** 2026-10-07 10:49
+**Last updated:** 2026-10-07 13:00
 **Register version:** 2
 
 Pointer rows only — each stream's handoff lives at `docs/handoffs/<slug>.md`. Schema, resolution
@@ -8,11 +8,9 @@ rules, lifecycle and the conflict guard are specified in `~/.claude/skills/hando
 
 | Stream | Title | Status | Updated | Next action | Touches |
 |---|---|---|---|---|---|
-| `write-ord` | write-ord 3.0.0 — business-focused ORD | Active | 2026-10-07 12:40 | All critic findings fixed — merge PR #93, tag v4.17.0 | `global/.claude/skills/write-ord/` · `global/.claude/standards/requirements/` · `plugins/forge-codex/` · `dist/forge-standalone/` ⚠️ |
 
-⚠️ **`write-ord` shares paths with the workspace stream `requirements-pack`** (`../docs/HANDOFF.md`,
-Active, last updated 2026-09-07 — stale), which also writes `global/.claude/`,
-`dist/forge-standalone/` and `plugins/forge-codex/`. Earlier closed streams: `correction-standards`
+**No Active streams.** `write-ord` was opened and closed on 2026-10-07 — v4.17.0 released
+(`docs/handoffs/archive/2026-10-07-write-ord.md`). Earlier closed streams: `correction-standards`
 (2026-09-27), `standalone-skills` (2026-09-07), `skill-naming` and `ai-requirements` (2026-08-23).
 
 Work on this repository is currently driven from the **workspace register** at `../docs/HANDOFF.md`,
