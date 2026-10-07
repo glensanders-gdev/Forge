@@ -106,8 +106,8 @@ date; and every figure the source did not state is an open question at the gate 
    **explicit blank** where there is none. A blank row is the useful one; an omitted row is a gap
    nobody can see, and tracing one direction finds only half of them.
 8. **Write §2 last, from the sections that exist.** Five labelled lines — Problem · What will be
-   true · Cost of not acting · Open · Asked of you — each citing a `BO-N`, a clause or a section, and
-   carrying **no figure of its own**. A label you cannot fill is a finding: no *Asked of you* means no
+   true · Cost of not acting · Open · Decision sought — each citing a `BO-N`, a clause or a section, and
+   carrying **no figure of its own**. A label you cannot fill is a finding: no *Decision sought* means no
    decision was ever established, and no *Cost of not acting* is BH-4 absent. Write `Open: None`
    rather than deleting the line.
 9. **Give every Appendix A row a named owner.** Where the estate has none, write **Unowned — open**;

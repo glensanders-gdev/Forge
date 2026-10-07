@@ -11,6 +11,58 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
+## v4.17.1 — 2026-10-07
+
+**Voice and tone for every requirements document.** `standards/requirements/language.md` gains a
+*Voice and Tone* section adopted from the Australian Government Style Manual (*Voice and tone*,
+updated 21 October 2025). Every skill that cites `language.md` picks it up: `$write-brd`,
+`$write-prd`, `$write-ord`, `$write-reqs`, `$write-ac`, `$testplan`, `$roap` and `$idea-ai`.
+
+- **Voice: the definitive source.** Generated documents are respectful, clear and direct, and
+  objective and impartial.
+- **Tone: formal.** No contractions, metaphor, idiom or slang. Third person, with no `I`, `we`,
+  `our` or `you`. Acronyms and internal shorthand are defined on first use.
+- **Objective.** No evaluative adjective or adverb without a benchmark, and no blame in a problem
+  statement. An unfavourable position is stated plainly and first.
+- Verbatim source quotations and controlled vocabulary (`Won't`) are exempt.
+
+**Sentences, word choice, numbers and punctuation.** Three more sections in `language.md`, from
+the Style Manual's *Sentences*, *Plain language and word choice*, *Clear language and writing
+style* and *Grammar, punctuation and conventions* pages:
+
+- **Sentences and Word Choice:**
+  - sentences average 15 words, with a cap of 25, in prose and in register cells;
+  - subject–verb–object order and positive statements;
+  - no double negatives, no `if` with `unless`, and no noun string longer than 3;
+  - verbs over hidden verbs, and a table of plain alternatives;
+  - acronym rules, with every acronym in the Glossary because a register row is read on its own.
+- **Numbers, Dates and Units:**
+  - numerals from 2 up in prose, and every number in a register cell is a numeral;
+  - a change is stated as a baseline and a new value, never as a percentage alone;
+  - `15 October 2026`, `9:30 am`, `2026–27 financial year`, and SI units.
+- **Punctuation, Capitalisation and Spelling:** minimal punctuation, sentence case for free text,
+  lower-case roles in prose, and Australian English with the Macquarie Dictionary by default.
+- **Four recorded deviations** from the Style Manual, each with its reason:
+  1. passive criteria;
+  2. no second person;
+  3. fixed labels (headings, column names, controlled values, `Owner` roles) keep title case,
+     because reviewers and tooling match on them;
+  4. register cells date as `yyyy-mm-dd`.
+- **Locale is overridable, Australian by default.** Spelling and dictionary, prose dates, times,
+  the financial year and `per cent` are grouped in `language.md` § *Locale Conventions*. A company
+  style guide's complete `Locale` section replaces them. With none, or a partial one, the
+  Australian defaults stay. Every other rule applies in every locale. The standards README's
+  *Enforcement* note records this as the one exception to "a style guide never relaxes".
+- **`$write-brd` 1.3.3:**
+  - the executive-summary label *Asked of you* becomes *Decision sought*, which removes the one
+    second-person label from a generated document;
+  - worked-example numbers become numerals, and the problem-statement example is split to fit
+    the 25-word cap.
+- **`$write-ord` 3.0.1:** template register rows use numerals (`1 business day`, `18 months`), and
+  3 example rows are shortened to fit the 25-word cap.
+
+---
+
 ## v4.17.0 — 2026-10-07
 
 **`$write-ord` 3.0.0 — a business-focused ORD.** Field feedback from a real reporting ORD: the

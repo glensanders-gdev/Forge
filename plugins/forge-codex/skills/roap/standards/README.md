@@ -6,7 +6,7 @@ Authoring standards for requirements documents — how a requirement is *worded*
 ```
 standards/requirements/
 ├── README.md      ← this file
-├── language.md    ← voice, modality, banned constructions
+├── language.md    ← voice and tone, sentences and word choice, numbers and dates, modality, banned constructions
 ├── tables.md      ← table-first presentation, canonical schemas, ID namespaces
 ├── ai.md          ← conditional: learned or generated behaviour (see trigger test)
 ├── reporting.md   ← conditional: a measure that is reported (see trigger test)
@@ -74,3 +74,8 @@ governed here.
 `$check-style` reads `~/.codex/forge/knowledge/company/style-guide.md`, not this ruleset — a company
 style guide may add to these rules but never relaxes them. Where the two conflict, the stricter
 requirement wins and the conflict is flagged rather than silently resolved.
+
+**One exception: locale.** A company style guide's `Locale` section *replaces* the Australian
+defaults in `language.md` § *Locale Conventions* (spelling, dictionary, prose dates, times,
+financial year). Replacing them is not a relaxation, so the stricter-wins rule does not apply to
+them. With no `Locale` section, or an incomplete one, the Australian defaults stay in force.

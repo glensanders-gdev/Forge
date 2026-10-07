@@ -37,10 +37,10 @@ example is the drift this document warns about everywhere else.
 
 | ORD# | Ver | Requirement Title | Business Tolerance | KPP | MoSCoW | Status | Owner | Source |
 |---|---|---|---|---|---|---|---|---|
-| ORD-001 | 1.0 | Restore order capture within one business day | Order capture is restored within one business day of an outage, beyond which the retail service agreement §14 service credit is triggered. Threshold: one business day. Objective: four business hours | [KPP] | Must | Committed | GM Order Management | Retail service agreement §14 |
-| ORD-002 | 1.0 | Notify the affected party on status change | A status change to `Suspended` is notified to the service-owning party within one business day of the change taking effect, in the reporting entity's local time | | Must | Provisional | Head of Service Assurance | Incident 2026-0417 |
-| ORD-003 | 1.1 | Preserve the last valid record on failed update | A failed bulk update leaves every record in the batch at its last valid value, and the records that could not be processed are visible to the operator who submitted them | | Must | Committed | GM Order Management | Incident 2026-0392 |
-| ORD-004 | 1.0 | Evidence every eligibility determination | Every eligibility determination is auditable and reproducible for eighteen months, under the `BRL-002` eligibility rule and the `BRL-011` evidence-retention rule | | Must | Provisional | Regulatory Reporting Manager | [TBD — source: "we need to be able to explain a decision if asked"] |
+| ORD-001 | 1.0 | Restore order capture within 1 business day | Order capture is restored within 1 business day of an outage, beyond which the retail service agreement §14 service credit is triggered. Threshold: 1 business day. Objective: 4 business hours | [KPP] | Must | Committed | GM Order Management | Retail service agreement §14 |
+| ORD-002 | 1.0 | Notify the affected party on status change | A status change to `Suspended` is notified to the service-owning party within 1 business day of taking effect, in the reporting entity's local time | | Must | Provisional | Head of Service Assurance | Incident 2026-0417 |
+| ORD-003 | 1.1 | Preserve the last valid record on failed update | A failed bulk update leaves every record in the batch at its last valid value. Unprocessed records are visible to the operator who submitted them | | Must | Committed | GM Order Management | Incident 2026-0392 |
+| ORD-004 | 1.0 | Evidence every eligibility determination | Every eligibility determination is auditable and reproducible for 18 months, under the `BRL-002` eligibility rule and the `BRL-011` evidence-retention rule | | Must | Provisional | Regulatory Reporting Manager | [TBD — source: "we need to be able to explain a decision if asked"] |
 | ORD-005 | 1.0 | Segregate contractor attendance data | Attendance data is visible only to the contracting party that submitted it | | Must | Committed | GM Field Operations | Field services agreement §12 |
 | ORD-006 | 1.0 | Restore service capacity at peak volume | Order capture sustains the December peak without a customer-visible wait, measured against the volume recorded in December 2025 | | Should | Assumed | [TBD — Head of Capacity Planning to confirm by 2026-10-15, ASM-004] | ASM-004 |
 
@@ -63,9 +63,9 @@ dropped.
 
 | ✗ Written as a control | ✓ Outcome in the register | Detail moves to |
 |---|---|---|
-| `A resolution recorded after 17:00 on the fifth business day after month end is counted in the following month and the prior month is restated` | `The monthly figure is published within five business days of month end and is complete for that month` | `BRL-NNN` Reporting · Cut-off and Late-arriving data |
+| `A resolution recorded after 17:00 on the fifth business day after month end is counted in the following month and the prior month is restated` | `The monthly figure is published within 5 business days of month end and is complete for that month` | `BRL-NNN` Reporting · Cut-off and Late-arriving data |
 | `Source, included, excluded and exception populations are reconciled record by record and in aggregate, and any variance is explained before publication` | `A published figure is reconciled to its source records before it is published` | `BRL-NNN` Governance · Reconciliation · §14.2 |
-| `A figure found wrong after publication is recalculated under the rule version in force at the time, flagged as restated, and resubmitted with a variance explanation` | `A published figure later found wrong is corrected in the next reporting cycle` | `BRL-NNN` Reporting · Restatement · Governance · Rule versioning |
+| `A figure found wrong after publication is recalculated under the rule version then in force. It is flagged as restated and resubmitted with a variance explanation` | `A published figure later found wrong is corrected in the next reporting cycle` | `BRL-NNN` Reporting · Restatement · Governance · Rule versioning |
 
 **The same requirements written wrong**
 
