@@ -55,6 +55,18 @@ example is the drift this document warns about everywhere else.
 | ORD-005 | Active voice where the actor is load-bearing — the second recorded deviation in `language.md` |
 | ORD-006 | `Assumed` status pointing at the `ASM-NNN` that owns it. **A `[TBD]` names an owner and a date** — an unowned one is an invented number. The tolerance quantifies the business's demand ("no customer-visible wait") and leaves the latency figure to the response |
 
+**Executive altitude — before and after**
+
+The test in `tables.md`: an executive understands the row without understanding reporting,
+governance, architecture or implementation. Each pair keeps every detail — it moves, it is never
+dropped.
+
+| ✗ Written as a control | ✓ Outcome in the register | Detail moves to |
+|---|---|---|
+| `A resolution recorded after 17:00 on the fifth business day after month end is counted in the following month and the prior month is restated` | `The monthly figure is published within five business days of month end and is complete for that month` | `BRL-NNN` Reporting · Cut-off and Late-arriving data |
+| `Source, included, excluded and exception populations are reconciled record by record and in aggregate, and any variance is explained before publication` | `A published figure is reconciled to its source records before it is published` | `BRL-NNN` Governance · Reconciliation · §14.2 |
+| `A figure found wrong after publication is recalculated under the rule version in force at the time, flagged as restated, and resubmitted with a variance explanation` | `A published figure later found wrong is corrected in the next reporting cycle` | `BRL-NNN` Reporting · Restatement · Governance · Rule versioning |
+
 **The same requirements written wrong**
 
 | ✗ | Why it fails |
@@ -310,7 +322,8 @@ rows. Severity definitions are context; the response and resolution tolerances a
 ### 8.1 Open and resolved decisions
 `D-NNN` schema in `tables.md` § *Decision* — identifier, decision required, affected requirements,
 options, owner, required by, status, resolution. **`/raid` owns the namespace; this document never
-mints a decision ID** — where no RAID log exists, `[D-TBD]` with the owner and what must be decided.
+mints a decision ID** — where no RAID log exists, a numbered `[D-TBD-N]` with the owner and what must
+be decided, cited by that number from every `BRL-NNN` and `ORD-NNN` row it governs.
 Every unresolved matter affecting scope, methodology, classification, regulatory interpretation,
 thresholds, population, ownership or historical comparability appears here. **An unresolved
 decision is never left as an assumption inside a requirement.** Resolved rows stay, with their

@@ -40,6 +40,10 @@ makes that the default.
   out-of-scope items are separate registers**, each with its own test. Decisions gain a
   `Resolution` column; assumptions are promoted from an appendix to §9; related initiatives are new.
 - **Traceability** gains BR, BO and business-rule columns.
+- **Critic follow-ups.** TAXONOMY.md's *ORD relevance* notes no longer suggest technical targets
+  (RTO/RPO, encryption standards, hosting model); open decisions without a RAID log are numbered
+  `[D-TBD-N]` so rules can cite them; §5.2 defines rule status; `/write-ac` and `/testplan` read a
+  2.x ORD in its own numbering; three more before-and-after executive-altitude examples.
 - **§5.2 Prioritisation and status definitions** — MoSCoW, KPP and Status defined once in
   `tables.md` and copied verbatim into every ORD. `Won't (this release)` is deferred and in scope;
   out of scope is never delivered here; descoped is a scope change recorded in §4.2 and §18.

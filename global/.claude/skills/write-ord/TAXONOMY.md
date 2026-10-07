@@ -18,7 +18,9 @@ Does the system do the right things?
 - **Functional Correctness** — accurate results with required precision
 - **Functional Appropriateness** — functions align with user goals
 
-*ORD relevance:* operational scope, what the system must do in production (not how it is built).
+*ORD relevance:* what must be true in production, never how it is built — the completeness of a
+process or a reported measure (§7.8.1) and the correctness of a result, to the precision the
+business needs (§7.8.2).
 
 ### 2. Performance Efficiency — ORD §7.1
 Does the system perform its functions within required time, throughput, and resource constraints?
@@ -26,14 +28,18 @@ Does the system perform its functions within required time, throughput, and reso
 - **Resource Utilization** — CPU, memory, storage, network, energy usage
 - **Capacity** — maximum concurrent users, peak transaction volumes, data volume limits
 
-*ORD relevance:* quantified thresholds required. "Fast" is not a requirement.
+*ORD relevance:* the wait, delay or deadline the business tolerates, and what is breached beyond
+it — never a latency, throughput or utilisation figure, which is the design response's answer.
+"Fast" is not a requirement.
 
 ### 3. Compatibility — ORD §7.4
 Can the system exchange information and coexist with other systems?
 - **Coexistence** — operates without harming other systems sharing the environment
 - **Interoperability** — exchanges information with specified external systems per defined protocols
 
-*ORD relevance:* interface table, protocol standards, failure behavior on integration errors.
+*ORD relevance:* what must keep working with each named counterpart system or party, and the
+business consequence when an exchange fails or arrives late — never a protocol or integration
+pattern. Technical attributes of an existing interface go to §16 as specification, not commitment.
 
 ### 4. Interaction Capability — ORD §7.7 *(formerly Usability — 2011)*
 Can specified users operate the system to achieve their goals?
@@ -45,7 +51,10 @@ Can specified users operate the system to achieve their goals?
 - **Inclusivity** — designed for diverse abilities and backgrounds *(NEW in 2023)*
 - **Self-Descriptiveness** — system communicates how to use it correctly *(NEW in 2023)*
 
-*ORD relevance:* operator training requirements, accessibility compliance (WCAG 2.2 AA), self-service capability.
+*ORD relevance:* who must be able to use it and to what standard — an accessibility obligation
+(WCAG 2.2 AA where policy or law requires it), how quickly a new operator reaches competence, and
+what a customer completes without assistance. Training itself is referred (§10.3), never a
+requirement here.
 
 ### 5. Reliability — ORD §7.2
 Does the system perform its functions without failure over a specified period under specified conditions?
@@ -54,7 +63,9 @@ Does the system perform its functions without failure over a specified period un
 - **Fault Tolerance** — maintains operation despite hardware or software faults
 - **Recoverability** — restores data and operations following interruption or failure
 
-*ORD relevance:* uptime targets, MTBF, MTTR, RTO, RPO, degraded-mode requirements. KPP candidates live here.
+*ORD relevance:* how long the business tolerates losing the capability, how much completed work
+it can afford to lose, what must still work in a degraded state, and what is breached beyond each —
+never uptime percentages, MTBF, MTTR, RTO or RPO, which answer the demand. KPP candidates live here.
 
 ### 6. Security — ORD §7.3
 Does the system protect information and data with appropriate access controls?
@@ -65,7 +76,9 @@ Does the system protect information and data with appropriate access controls?
 - **Authenticity** — identity of subjects and resources can be verified
 - **Resistance** — system sustains operations under attack *(NEW in 2023)*
 
-*ORD relevance:* compliance frameworks (FedRAMP, HIPAA, ISO 27001, PCI-DSS), encryption standards, penetration test thresholds, access control model.
+*ORD relevance:* the compliance obligations that apply (FedRAMP, HIPAA, ISO 27001, PCI-DSS) and the
+consequence of breach, who may see or change what, and what must be provable afterwards — never an
+encryption algorithm, a penetration-test threshold or an access-control model, which answer it.
 
 ### 7. Maintainability — ORD §7.6
 Can the system be effectively and efficiently modified without degrading quality?
@@ -74,7 +87,9 @@ Can the system be effectively and efficiently modified without degrading quality
 - **Analyzability** — impact of intended changes can be assessed
 - **Modifiability** — changes can be made without introducing defects
 
-*ORD relevance:* patch management cadence, configuration management, change window requirements, version control obligations.
+*ORD relevance:* how quickly a correction or a rule change reaches operation in business terms, the
+change windows the business imposes, what must be diagnosable when something goes wrong, and what a
+support function resolves without engineering — never a patching cadence or tooling choice.
 
 ### 8. Flexibility — ORD §7.5 *(formerly Portability — 2011)*
 Can the system operate effectively in contexts not originally specified?
@@ -83,7 +98,9 @@ Can the system operate effectively in contexts not originally specified?
 - **Replaceability** — can replace another specified product for the same purpose
 - **Scalability** — handles growing or shrinking workloads; elastic capacity *(NEW in 2023)*
 
-*ORD relevance:* cloud hosting model, elasticity requirements, multi-region or multi-tenancy, upgrade and rollback procedures.
+*ORD relevance:* the growth, peaks and new contexts the business expects — volumes, regions,
+tenants, channels — and how much disruption an upgrade or a rollback may cause to operations —
+never a hosting model, an elasticity mechanism or a deployment topology, which are the response's.
 
 ### 9. Safety — ORD §7.9 *(NEW top-level characteristic — 2023)*
 Does the system protect against risk of injury or harm to people, property, or the environment?

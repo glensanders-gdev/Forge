@@ -489,7 +489,8 @@ how the two drift. The rules below are write-ord's own.
   An omitted requirement is indistinguishable from one nobody had.
 - Never mint an `AC-NNN` — §11 carries a `Proposed AC`, and `/write-ac` owns the namespace.
 - Never mint a `D-NNN` — `/raid` owns decisions. Raise them and cite the ID. Where no RAID log
-  exists, carry `[D-TBD]` with the owner and what must be decided; never drop the row.
+  exists, carry a numbered `[D-TBD-N]` with the owner and what must be decided, cite it by number
+  from every row it governs, and never drop the row.
 - Never let a supporting view carry a value, a symbol or an asterisk it does not define.
 - Never lengthen the document because more lenses were run. The lenses reduce overlooked
   consequences; they do not raise page count.
@@ -508,7 +509,7 @@ how the two drift. The rules below are write-ord's own.
 | Invoked by `/write-reqs` with a joint-authoring brief | Treat the brief's ORD-bound half as the extraction scope. Own the NFRs the PRD cites; still never read the PRD. §13 is still written: rules the brief places in the PRD are cited by their PRD ID, not restated. Suppress the standalone next-steps block |
 | KPP cannot be identified from source material | Ask at the Phase 1 gate. Do not write "KPPs not yet designated" on your own authority |
 | ORD already exists at the target path | Stop. "An ORD already exists at docs/ord/. Confirm overwrite or provide a new name." |
-| No RAID log exists in the project | Record the matter in full at §8.1 (decisions) or §8.2 (risks) with `[D-TBD]` or `[R-TBD]` in the ID cell, plus a named owner and a required-by date. A placeholder is not a mint; a dropped row is a lost decision |
+| No RAID log exists in the project | Record the matter in full at §8.1 (decisions) or §8.2 (risks) with a numbered `[D-TBD-N]` or `[R-TBD-N]` in the ID cell, plus a named owner and a required-by date. A placeholder is not a mint; a dropped row is a lost decision |
 | An authoring standard cannot be read | Stop and name the file. Do not draft the register, the scenarios or any criterion from memory — the output would be indistinguishable from a conformant one |
 | Requirements conflict (e.g. same measure defined two ways) | Preserve both, record each method's decision criteria, raise `/raid add decision`, and identify the affected requirements. Never resolve it without decision authority |
 | No BRD found | Note "No BRD found." Proceed — trace each requirement to its `OBJ-NNN` and to its proximate source (contract, incident record, named stakeholder) instead of a BRD objective |

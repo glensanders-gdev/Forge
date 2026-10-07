@@ -2,7 +2,7 @@
 
 **Stream:** `write-ord`
 **Status:** Active
-**Last updated:** 2026-10-07 11:30
+**Last updated:** 2026-10-07 12:10
 **Session type:** Ad Hoc
 **Prepared by:** /debrief
 **Touches:** `global/.claude/skills/write-ord/` · `global/.claude/standards/requirements/` · `global/.claude/skills/{review-ord,write-ac,testplan,write-reqs,write-brd}/` · `plugins/forge-codex/` · `dist/forge-standalone/`
@@ -38,9 +38,8 @@ Commits on the branch: `eadf174` (restructure + split), `ddfc79f` (§5.2 definit
 
 ## Next Action
 
-Fix critic P2-3: rewrite the "ORD relevance" notes in `global/.claude/skills/write-ord/TAXONOMY.md`
-(lines ~36, 57, 68, 86) as the business tolerance to look for — they currently suggest RTO/RPO,
-encryption standards, hosting model and protocol standards, which the demand-side rule bans.
+All P1s and P2s are fixed. Decide with the user whether to take the P3s (items 8–11 below) before
+merging PR #93, or merge now and carry them as follow-ups.
 
 ---
 
@@ -52,11 +51,11 @@ encryption standards, hosting model and protocol standards, which the demand-sid
 |---|---|---|---|
 | 1 | ~~P1~~ Done 2026-10-07 | `/review-ord` keys on "write-ord 3.x" in the Conformance line; the template never writes it | Literal marker in TEMPLATE.md header; review-ord matches it |
 | 2 | ~~P1~~ Done 2026-10-07 | §13 is "how decisions are made" but `tables.md` § *Business rule* still bans decision logic (DMN bullet, line ~187) | Add a `Rule` column beside `Required Decision`; reword the DMN bullet |
-| 3 | P2 | TAXONOMY.md "ORD relevance" notes steer to technical targets (RTO/RPO, encryption standards, hosting model, protocol standards) | Rewrite each as the business tolerance to look for |
-| 4 | P2 | `[D-TBD]` placeholders are uncitable | Numbered `[D-TBD-1]` until `/raid` mints |
-| 5 | P2 | BRL status (Confirmed/Provisional/Unresolved) undefined in §5.2 | Add to the §5.2 definitions in `tables.md` |
-| 6 | P2 | `/write-ac` and `/testplan` read only §17/§11 — 2.x ORDs (Appendix D/A) unhandled | One-line 2.x fallback in each |
-| 7 | P2 | Executive-altitude test has one worked example | Add 2–3 before/after pairs from the reporting class map |
+| 3 | ~~P2~~ Done 2026-10-07 | TAXONOMY.md "ORD relevance" notes steer to technical targets (RTO/RPO, encryption standards, hosting model, protocol standards) | Rewrite each as the business tolerance to look for |
+| 4 | ~~P2~~ Done 2026-10-07 | `[D-TBD]` placeholders are uncitable | Numbered `[D-TBD-1]` until `/raid` mints |
+| 5 | ~~P2~~ Done 2026-10-07 | BRL status (Confirmed/Provisional/Unresolved) undefined in §5.2 | Add to the §5.2 definitions in `tables.md` |
+| 6 | ~~P2~~ Done 2026-10-07 | `/write-ac` and `/testplan` read only §17/§11 — 2.x ORDs (Appendix D/A) unhandled | One-line 2.x fallback in each |
+| 7 | ~~P2~~ Done 2026-10-07 | Executive-altitude test has one worked example | Add 2–3 before/after pairs from the reporting class map |
 | 8 | P3 | `tables.md` says `/write-prd` may assign `BRL-NNN`; write-prd never mentions it | Drop the claim or make it true |
 | 9 | P3 | §5.2 boilerplate emitted as 8 records into every LLM companion | Treat §5.2 as context |
 | 10 | P3 | `language.md` Voice-by-Altitude ORD row still says Requirement/Threshold columns | Align with the register schema |

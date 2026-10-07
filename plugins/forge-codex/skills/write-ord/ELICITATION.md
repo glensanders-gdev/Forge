@@ -18,7 +18,7 @@ job, and closing that question by inference is the failure this section exists t
 | `[TBD — source: "…"]` on an existing row | The requirement is real, the value is not stated |
 | A §7.10 coverage gap | The sub-characteristic has no source material at all |
 | An `ASM-NNN` | The assumption is explicit in the source, with an owner and a confirm-by date |
-| A decision item (`D-NNN`, or `[D-TBD]`) | Two documented positions compete, or authority is unresolved |
+| A decision item (`D-NNN`, or a numbered `[D-TBD-N]`) | Two documented positions compete, or authority is unresolved |
 | A `REF-NNN` | The question is real and another document or resolver group owns the answer |
 
 **A lens that finds nothing is reported as *not evidenced*, never as satisfied.** The two are

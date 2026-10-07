@@ -63,7 +63,9 @@ Run once per release, not per feature.
    `ORD#`, an active `Requirement Title`, a declarative `Business Tolerance` holding its own value
    and its measurement population, a `KPP` column, `MoSCoW`, a `Status` and a named `Owner`.
    Also read **§17** (conformance) — a demand-side ORD carries no `Verification` column, and
-   §17 is where the design response's instrument is recorded once it is issued.
+   §17 is where the design response's instrument is recorded once it is issued. **A 2.x ORD** — one
+   with no `**Structure:** write-ord 3.x` header line — carries the register at §§3–5, 7 and 9 and
+   conformance at **Appendix D**; read it in that numbering.
    An ORD authored before the demand-side convergence carries the earlier columns
    (`Requirement Description`, `Verification`, `Delivery Agent`, `Timing`, inline `[KPP]`). Read it
    as the same register and do not rewrite the source document.

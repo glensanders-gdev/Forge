@@ -103,6 +103,9 @@ same as another's.
 | Status | **Committed** | The business owner has stated and agreed the tolerance, and it traces to an obligation, contract, incident record or business decision. | Evidence |
 | Status | **Provisional** | The tolerance derives from a real source — an SLA, contract, incident history, analogous service — not yet confirmed by the owner for this change. | Evidence |
 | Status | **Assumed** | No owner confirmation and no documentary source; rests on an `ASM-NNN` with a named owner and a confirm-by date. | Evidence |
+| Rule status | **Confirmed** | The rule owner has agreed the business rule as written in §13. | Rule owner |
+| Rule status | **Provisional** | A source states the rule, but its owner has not confirmed it for this change. The same word as the requirement status, applied to a rule. | Evidence |
+| Rule status | **Unresolved** | The rule is not decided. `Rule` carries a `[TBD]`, and the row cites the decision item that settles it. | Evidence |
 
 **`Won't` is not out of scope.** A `Won't` item is in this document's scope and deferred; an
 out-of-scope item is never delivered by this document (ORD §4.2). **An item removed from scope after
@@ -206,7 +209,10 @@ requirement. ORD §8.1.
 |---|---|---|---|---|---|---|---|
 | D-NNN | [what must be decided] | [ORD-NNN, BRL-NNN, …] | [the documented positions] | [named] | [date] | Open / Resolved / Superseded | [the decision taken, by whom and when — blank only while Open] |
 
-`$raid` owns `D-NNN`. Where no RAID log exists, the ID cell carries `[D-TBD]` and the row is kept.
+`$raid` owns `D-NNN`. Where no RAID log exists, the ID cell carries a **numbered placeholder** —
+`[D-TBD-1]`, `[D-TBD-2]`, flat and sequential in order of first appearance — and the row is kept.
+The number is what lets a `BRL-NNN` or `ORD-NNN` row cite *which* open decision governs it; it is
+local to the document and is replaced, everywhere it is cited, when `$raid` mints the real ID.
 A `Resolved` row is kept, not deleted — the resolution is the record the affected requirements
 were changed against.
 
