@@ -29,7 +29,8 @@ makes that the default.
 - **Executive Summary is mandatory**, written last, covering problem, outcome, what changes, what
   does not, and the major open decisions.
 - **Business Rules Appendix (§13) in every ORD**, grouped Classification / Reporting / Governance;
-  the `BRL-NNN` schema gains `Group` and `Rule Type`.
+  the `BRL-NNN` schema gains `Group`, `Rule Type` and `Rule` — DMN's decision and decision logic in
+  two columns, so the logic moved out of a requirement has a place to land.
 - **Reporting Requirements Appendix (§14)** where `reporting.md` fires: reporting consumers
   (regulatory, contractual, operational, management, executive, audit), measure definitions, data
   elements with `Availability` (never assumed to exist), and transparency, audit and acceptance
@@ -50,7 +51,8 @@ makes that the default.
 
 **Declared deviation from the requirements-documents pack.** The pack's ORD template is unchanged;
 write-ord REFERENCE.md carries the pack-to-3.x section map, and `/review-ord` resolves through it.
-Raise the structure to the pack separately. Existing 2.x ORDs are not migrated silently — the skill
+Every 3.x ORD carries a verbatim `**Structure:** write-ord 3.x` header line, which
+`/review-ord` matches. Raise the structure to the pack separately. Existing 2.x ORDs are not migrated silently — the skill
 asks at the gate.
 
 Standards updated: `tables.md` (business rule, decision, related initiative, executive altitude),

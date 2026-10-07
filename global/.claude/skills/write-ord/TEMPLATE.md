@@ -94,8 +94,9 @@ with nothing to state says so in one line — it is never dropped, and nothing c
 **Approvers:** [named business owners — endorsement is not approval]
 **Classification:** [Internal / Confidential / Restricted]
 **Conformance:** ISO/IEC/IEEE 29148:2018 (stakeholder and system requirements), organised by
-ISO/IEC 25010:2023 quality characteristics at §7. Structure deviates from the requirements-documents
-pack — section map in write-ord REFERENCE.md § *Deviations from the requirements-documents pack*.
+ISO/IEC 25010:2023 quality characteristics at §7.
+**Structure:** write-ord 3.x — deviation from the requirements-documents pack declared — section map in
+write-ord REFERENCE.md § *Deviations from the requirements-documents pack*.
 
 ---
 

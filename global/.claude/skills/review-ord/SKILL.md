@@ -32,8 +32,8 @@ Read in full: **§7.1** (the bar OH-1 – OH-7, the supporting items OH-8 – OH
 and *What the ORD does not supply*), **§7.3**, **§5** with its tier rule, **§5.2** on KPPs, and
 **§2.1**. Read `reference/example-ORD.md` as the **worked reference implementation**.
 
-Where the ORD under review declares write-ord 3.x structure in its Conformance line, resolve pack
-template sections through the section map in `~/.claude/skills/write-ord/REFERENCE.md` § *Deviations
+Where the ORD's header carries the line `**Structure:** write-ord 3.x` (written verbatim by
+`/write-ord` 3.x — match on that prefix), resolve pack template sections through the section map in `~/.claude/skills/write-ord/REFERENCE.md` § *Deviations
 from the requirements-documents pack* (pack §3.x.y = ORD §7.x.y), and treat the structure difference
 as a declared deviation, not a defect.
 

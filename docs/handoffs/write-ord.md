@@ -2,7 +2,7 @@
 
 **Stream:** `write-ord`
 **Status:** Active
-**Last updated:** 2026-10-07 10:49
+**Last updated:** 2026-10-07 11:30
 **Session type:** Ad Hoc
 **Prepared by:** /debrief
 **Touches:** `global/.claude/skills/write-ord/` · `global/.claude/standards/requirements/` · `global/.claude/skills/{review-ord,write-ac,testplan,write-reqs,write-brd}/` · `plugins/forge-codex/` · `dist/forge-standalone/`
@@ -38,9 +38,9 @@ Commits on the branch: `eadf174` (restructure + split), `ddfc79f` (§5.2 definit
 
 ## Next Action
 
-Ask the user to confirm pushing `72fea7d`. Then fix critic P1-1: add a literal structure marker to
-the TEMPLATE.md header (e.g. `**Structure:** write-ord 3.x (deviation from the pack declared)`) and
-make `review-ord/SKILL.md:35` match that exact phrase — today no 3.0.0 ORD triggers the section map.
+Fix critic P2-3: rewrite the "ORD relevance" notes in `global/.claude/skills/write-ord/TAXONOMY.md`
+(lines ~36, 57, 68, 86) as the business tolerance to look for — they currently suggest RTO/RPO,
+encryption standards, hosting model and protocol standards, which the demand-side rule bans.
 
 ---
 
@@ -50,8 +50,8 @@ make `review-ord/SKILL.md:35` match that exact phrase — today no 3.0.0 ORD tri
 
 | # | Pri | Finding | Fix |
 |---|---|---|---|
-| 1 | P1 | `/review-ord` keys on "write-ord 3.x" in the Conformance line; the template never writes it | Literal marker in TEMPLATE.md header; review-ord matches it |
-| 2 | P1 | §13 is "how decisions are made" but `tables.md` § *Business rule* still bans decision logic (DMN bullet, line ~187) | Add a `Rule` column beside `Required Decision`; reword the DMN bullet |
+| 1 | ~~P1~~ Done 2026-10-07 | `/review-ord` keys on "write-ord 3.x" in the Conformance line; the template never writes it | Literal marker in TEMPLATE.md header; review-ord matches it |
+| 2 | ~~P1~~ Done 2026-10-07 | §13 is "how decisions are made" but `tables.md` § *Business rule* still bans decision logic (DMN bullet, line ~187) | Add a `Rule` column beside `Required Decision`; reword the DMN bullet |
 | 3 | P2 | TAXONOMY.md "ORD relevance" notes steer to technical targets (RTO/RPO, encryption standards, hosting model, protocol standards) | Rewrite each as the business tolerance to look for |
 | 4 | P2 | `[D-TBD]` placeholders are uncitable | Numbered `[D-TBD-1]` until `/raid` mints |
 | 5 | P2 | BRL status (Confirmed/Provisional/Unresolved) undefined in §5.2 | Add to the §5.2 definitions in `tables.md` |

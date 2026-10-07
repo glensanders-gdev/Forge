@@ -169,9 +169,9 @@ document follows — a requirement that embeds its classification, cut-off or re
 been written at the wrong altitude, and the register is where that detail goes instead. Where a PRD
 in the chain already states a rule, the row cites the PRD's ID and restates nothing.
 
-| ID | Group | Rule Type | Required Decision | Status | Owner | Effective Date | Affects |
-|---|---|---|---|---|---|---|---|
-| BRL-NNN | Classification / Reporting / Governance | [from the group's types below] | [the business decision the rule makes] | Confirmed / Provisional / Unresolved | [named, or TBD with confirm-by] | [where supplied] | [ORD-NNN, …] |
+| ID | Group | Rule Type | Required Decision | Rule | Status | Owner | Effective Date | Affects |
+|---|---|---|---|---|---|---|---|---|
+| BRL-NNN | Classification / Reporting / Governance | [from the group's types below] | [what must be determined] | [the rule as the business states it, or `[TBD — source: "…"]` while unresolved] | Confirmed / Provisional / Unresolved | [named, or TBD with confirm-by] | [where supplied] | [ORD-NNN, …] |
 
 | Group | Rule types |
 |---|---|
@@ -184,9 +184,17 @@ in the chain already states a rule, the row cites the PRD's ID and restates noth
 - **Business rules are functional content carried by the ORD by design.** State that in the §13
   lead so a reviewer reading against a scope that excludes them sees a declaration, not an absorption.
 
-- **`Required Decision` states the decision, not the logic.** Follow OMG **DMN**'s separation:
-  the decision is what must be determined; the decision logic is how. An ORD carries the first.
-- **This register records business policy, never implementation design.**
+- **`Required Decision` and `Rule` are OMG DMN's two levels, kept in two columns.** The decision
+  is what must be determined — *whether a complaint counts in the measure*. The rule is the decision
+  logic in the business's own words — *a complaint withdrawn by the customer is excluded*. The ORD
+  carries both: the executive-altitude test moves this logic out of the requirement, and this column
+  is where it lands.
+- **`Rule` is business policy, never implementation design.** No query, field name, system
+  behaviour, decision-table encoding or algorithm — those are how the delivered solution applies the
+  rule, and belong to the design response. The test: a business owner reads it and agrees or
+  disagrees without asking how it is built.
+- **An `Unresolved` row carries `[TBD — source: "…"]` in `Rule`**, never a drafted answer. Where two
+  documented positions compete, both go in the decision item the row cites, not in `Rule`.
 - An `Unresolved` rule affecting a KPP-bearing requirement is raised via `/raid add decision`.
 
 ### Decision

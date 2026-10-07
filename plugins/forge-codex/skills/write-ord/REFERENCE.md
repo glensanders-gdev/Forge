@@ -104,6 +104,10 @@ the requirements an approver has to sign. The 3.0.0 order leads with the outcome
 at executive altitude, and moves *how decisions are made* (§13) and *what reporting consumers need*
 (§14) into appendices.
 
+**Every 3.x ORD carries the marker line** `**Structure:** write-ord 3.x — deviation from the requirements-documents pack declared` in its header, verbatim. It is
+what `$review-ord` matches to switch to this map; reword it and the review falls back to the pack's
+layout and reports the structure as defects.
+
 **Content is unchanged in kind; only its place moves.** Every item the pack's gate (OH-1 – OH-15)
 assesses is still produced. A reviewer applying the pack resolves each pack section through this
 map:

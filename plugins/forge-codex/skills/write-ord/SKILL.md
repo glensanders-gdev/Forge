@@ -235,8 +235,8 @@ Requirements with only a Favourable Sunny Day scenario: [list — each needs an 
 reason it is not a determination]
 
 ### Business Rules (§13)
-| BRL# | Group | Rule type | Required decision | Status | Owner | Affects |
-|---|---|---|---|---|---|---|
+| BRL# | Group | Rule type | Required decision | Rule | Status | Owner | Affects |
+|---|---|---|---|---|---|---|---|
 Rules cited from a PRD in the chain: [list, or "none"]
 
 ### Executive-altitude rewrites
@@ -468,6 +468,8 @@ how the two drift. The rules below are write-ord's own.
 - Never assume a reporting platform already holds a new attribute, dimension or data element.
 - Never put dependencies, related initiatives, referred requirements and out-of-scope items in one
   table — each has its own register and test.
+- Never reword or drop the header's `**Structure:** write-ord 3.x` marker line — `$review-ord`
+  matches it verbatim to read the document against the 3.x section map.
 - Never reword the §5.2 definitions — copy them verbatim from `standards/tables.md`. Never record a descoped
   item as `Won't`: descoping is a §4.2 exclusion with a §18 entry.
 - Never leave an unresolved decision or an assumption embedded in a requirement's wording — it is a

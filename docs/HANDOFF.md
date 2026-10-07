@@ -8,7 +8,7 @@ rules, lifecycle and the conflict guard are specified in `~/.claude/skills/hando
 
 | Stream | Title | Status | Updated | Next action | Touches |
 |---|---|---|---|---|---|
-| `write-ord` | write-ord 3.0.0 — business-focused ORD | Active | 2026-10-07 10:49 | Confirm push of `72fea7d`, then fix critic P1-1 (review-ord structure marker) | `global/.claude/skills/write-ord/` · `global/.claude/standards/requirements/` · `plugins/forge-codex/` · `dist/forge-standalone/` ⚠️ |
+| `write-ord` | write-ord 3.0.0 — business-focused ORD | Active | 2026-10-07 11:30 | Fix critic P2-3 (TAXONOMY.md relevance notes); P1s done | `global/.claude/skills/write-ord/` · `global/.claude/standards/requirements/` · `plugins/forge-codex/` · `dist/forge-standalone/` ⚠️ |
 
 ⚠️ **`write-ord` shares paths with the workspace stream `requirements-pack`** (`../docs/HANDOFF.md`,
 Active, last updated 2026-09-07 — stale), which also writes `global/.claude/`,
