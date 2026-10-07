@@ -124,6 +124,11 @@ writes `dist/forge-standalone-BUILD-REPORT.md`, an advisory list of remaining `F
 to work down over time. After changing a shared skill, rebuild and commit `dist/` alongside
 `plugins/forge-codex/`.
 
+Each self-contained skill (`$SelfContainedSkills` in the build) also ships as one file at
+`dist/forge-standalone/paste/<skill>.md`, for chat assistants such as M365 Copilot that take one
+pasted or attached file. It exists only in `dist/`: `install.sh` never copies `paste/`, so no
+assistant discovers it as a skill. Never cite it from a skill.
+
 ### Naming a host product
 
 The Codex build rewrites `Claude Code` → `Codex`, `Claude` → `Codex`, `CLAUDE.md` → `AGENTS.md`, and `~/.claude/` → `~/.codex/forge/` unconditionally. That is right when the text means *the host you are running on*, and wrong when it names **Claude Code specifically** — the rewrite turns a true sentence into a false one with no error.
