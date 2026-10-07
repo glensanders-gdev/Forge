@@ -59,8 +59,9 @@ obligation.
 **A correctly processed rejection is not a failure.** An adverse determination, a "Not Met", a
 failure to qualify — each is a Sunny Day with `Outcome: Adverse`, and what must be true then is a
 separate obligation. Where the source supports it, also state the inconclusive or insufficient-data
-behaviour and who reviews it. Scenarios do not discharge this: where the business requires a failed
-update to leave the last valid record unchanged, that is a register row *and* a Rainy Day scenario.
+behaviour and who reviews it. Testable acceptance criteria (§15) do not discharge this: where the
+business requires a failed update to leave the last valid record unchanged, that is a register row
+*and* a Rainy Day testable acceptance criterion.
 
 **Bulk is not individual repeated.** Behaviour valid for one transaction does not carry to a batch,
 and automation does not remove exception handling, attribution or human intervention. Where the

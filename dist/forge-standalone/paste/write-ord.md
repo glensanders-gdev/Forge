@@ -25,7 +25,7 @@ the output that it was skipped; never produce the script's output by hand.
 
 ---
 name: write-ord
-version: 3.0.0
+version: 3.0.3
 category: pipeline
 description: Synthesize a call transcript, document, conversation context, or structured notes into a business-focused, demand-side Operational Requirements Document (ORD) — executive summary first, quantified business tolerances organised by ISO/IEC 25010:2023 quality characteristics, with decisions, assumptions and dependencies as first-class registers, and business rules and reporting requirements in their own appendices. Use when the user runs /write-ord, provides a transcript or document to convert into an ORD, or wants to formalise operational requirements from a conversation.
 ---
@@ -171,9 +171,9 @@ assumption with an owner and a confirm-by date, or a decision item.
 12. Identify gaps at **sub-characteristic** level — check every sub-characteristic in the
     TAXONOMY.md taxonomy. Characteristic-level checking hides gaps inside a partially-covered
     characteristic. Also identify BRD objectives with no resulting operational requirement.
-13. **Draft scenarios** (`SCN-NNN`) for each requirement — at minimum a Sunny Day. **Where the
-    requirement is a determination, measurement or eligibility decision, draft both a Favourable and
-    an Adverse Sunny Day row**: a capability that runs correctly and returns bad news is not a
+13. **Draft testable acceptance criteria** (§15, `SCN-NNN`) for each requirement — at
+    minimum a Sunny Day. **Where the requirement is a determination, measurement or eligibility
+    decision, draft both a Favourable and an Adverse Sunny Day row**: a capability that runs correctly and returns bad news is not a
     failure, and what must be true then is a separate obligation that is routinely left unstated.
     Flag any determination requirement carrying only a Favourable row.
 14. Extract **assumptions and dependencies** as first-class items. Carry `/idea` assumptions forward
@@ -256,8 +256,8 @@ Technical figures whose underlying tolerance could not be recovered: [list, or "
 **Fired:** Yes — [the reported measures] | No — [why]
 [Where fired:] data elements identified · reconciliation classes checked
 
-### Scenarios
-Requirements with only a Favourable Sunny Day scenario: [list — each needs an Adverse row, or a
+### Testable acceptance criteria (§15)
+Requirements with only a Favourable Sunny Day row: [list — each needs an Adverse row, or a
 reason it is not a determination]
 
 ### Business Rules (§13)
@@ -388,8 +388,9 @@ Runs after the human confirms the Phase 1 summary. Writes the ORD using the temp
 10. **Record the registers and supplementary appendices.** §8 decisions (with `Resolution`), §9
     assumptions, §10 dependencies, related initiatives and referred requirements — four
     classifications, never one table. §11 traceability, with `Proposed AC` — proposed, never
-    assigned; `/write-ac` mints `AC-NNN`. §12 entry position. §15 scenarios, §16 interface detail,
-    §17 conformance (left pending until the design response is issued), §18 change history.
+    assigned; `/write-ac` mints `AC-NNN`. §12 entry position. §15 testable acceptance
+    criteria, §16 interface detail, §17 conformance (left pending until the design response is
+    issued), §18 change history.
 11. **Check traceability at §11**, which is its single home — the register carries `Source`
     only. Every requirement traces to its objective, business requirement and business objective;
     every business rule names its owner, status and affected requirements, and §11's `Business
@@ -534,7 +535,7 @@ how the two drift. The rules below are write-ord's own.
 | KPP cannot be identified from source material | Ask at the Phase 1 gate. Do not write "KPPs not yet designated" on your own authority |
 | ORD already exists at the target path | Stop. "An ORD already exists at docs/ord/. Confirm overwrite or provide a new name." |
 | No RAID log exists in the project | Record the matter in full at §8.1 (decisions) or §8.2 (risks) with a numbered `[D-TBD-N]` or `[R-TBD-N]` in the ID cell, plus a named owner and a required-by date. A placeholder is not a mint; a dropped row is a lost decision |
-| An authoring standard cannot be read | Stop and name the file. Do not draft the register, the scenarios or any criterion from memory — the output would be indistinguishable from a conformant one |
+| An authoring standard cannot be read | Stop and name the file. Do not draft the register, the testable acceptance criteria or any criterion from memory — the output would be indistinguishable from a conformant one |
 | Requirements conflict (e.g. same measure defined two ways) | Preserve both, record each method's decision criteria, raise `/raid add decision`, and identify the affected requirements. Never resolve it without decision authority |
 | No BRD found | Note "No BRD found." Proceed — trace each requirement to its `OBJ-NNN` and to its proximate source (contract, incident record, named stakeholder) instead of a BRD objective |
 | BRD objective produces no register row, or a row has no objective and no source | Flag as a coverage gap or orphan scope. Do not silently resolve |
@@ -626,8 +627,9 @@ obligation.
 **A correctly processed rejection is not a failure.** An adverse determination, a "Not Met", a
 failure to qualify — each is a Sunny Day with `Outcome: Adverse`, and what must be true then is a
 separate obligation. Where the source supports it, also state the inconclusive or insufficient-data
-behaviour and who reviews it. Scenarios do not discharge this: where the business requires a failed
-update to leave the last valid record unchanged, that is a register row *and* a Rainy Day scenario.
+behaviour and who reviews it. Testable acceptance criteria (§15) do not discharge this: where the
+business requires a failed update to leave the last valid record unchanged, that is a register row
+*and* a Rainy Day testable acceptance criterion.
 
 **Bulk is not individual repeated.** Behaviour valid for one transaction does not carry to a batch,
 and automation does not remove exception handling, attribution or human intervention. Where the
@@ -834,7 +836,7 @@ map:
 | App. B | Assumption register | **§9** — promoted to the body |
 | App. C | Referred requirements | §10.3 |
 | App. D | ORD → SOAP conformance | §17 |
-| App. E | Scenario catalogue | §15 |
+| App. E | Scenario catalogue | §15 Testable acceptance criteria |
 | 2.3 | Entry position record | §12 |
 | — | Business rules *(pack: conditional, declared)* | §13 — every ORD, declared |
 | — | Reporting detail *(not in pack)* | §14 — where `reporting.md` fires |
@@ -1472,10 +1474,14 @@ column, and never repeated here.
 
 ---
 
-## 15. Scenario Catalogue
+## 15. Testable Acceptance Criteria
 
-`SCN-NNN` schema in `tables.md`. Requirement-level scenarios and the consolidated catalogue are one
-table. Every requirement carries at least a Sunny Day row; a determination, measurement or
+How each requirement is tested: one row per requirement under one condition, with the end state
+that must hold. These rows are inputs to `/write-ac`, which mints `AC-NNN` from them and from §11's
+`Proposed AC` — an `SCN-NNN` row is a testable acceptance criterion, never an `AC-NNN`.
+
+`SCN-NNN` schema in `tables.md` (§ *Scenario*; its `Scenario` column names the condition). The
+requirement-level rows and this section are one table. Every requirement carries at least a Sunny Day row; a determination, measurement or
 eligibility requirement carries both a Favourable and an Adverse Sunny Day row.
 
 ## 16. Interface Detail
