@@ -2,7 +2,7 @@
 
 **Stream:** `write-ord`
 **Status:** Active
-**Last updated:** 2026-10-07 12:10
+**Last updated:** 2026-10-07 12:40
 **Session type:** Ad Hoc
 **Prepared by:** /debrief
 **Touches:** `global/.claude/skills/write-ord/` · `global/.claude/standards/requirements/` · `global/.claude/skills/{review-ord,write-ac,testplan,write-reqs,write-brd}/` · `plugins/forge-codex/` · `dist/forge-standalone/`
@@ -38,8 +38,9 @@ Commits on the branch: `eadf174` (restructure + split), `ddfc79f` (§5.2 definit
 
 ## Next Action
 
-All P1s and P2s are fixed. Decide with the user whether to take the P3s (items 8–11 below) before
-merging PR #93, or merge now and carry them as follow-ups.
+All eleven critic findings are fixed. Merge PR #93 once CI is green — the user's call — then tag
+v4.17.0. One small follow-up remains: `llm_companion.py`'s built-in vocabulary has no entries for
+the rule statuses `Confirmed` and `Unresolved`, so a companion lists them undefined.
 
 ---
 
@@ -56,10 +57,10 @@ merging PR #93, or merge now and carry them as follow-ups.
 | 5 | ~~P2~~ Done 2026-10-07 | BRL status (Confirmed/Provisional/Unresolved) undefined in §5.2 | Add to the §5.2 definitions in `tables.md` |
 | 6 | ~~P2~~ Done 2026-10-07 | `/write-ac` and `/testplan` read only §17/§11 — 2.x ORDs (Appendix D/A) unhandled | One-line 2.x fallback in each |
 | 7 | ~~P2~~ Done 2026-10-07 | Executive-altitude test has one worked example | Add 2–3 before/after pairs from the reporting class map |
-| 8 | P3 | `tables.md` says `/write-prd` may assign `BRL-NNN`; write-prd never mentions it | Drop the claim or make it true |
-| 9 | P3 | §5.2 boilerplate emitted as 8 records into every LLM companion | Treat §5.2 as context |
-| 10 | P3 | `language.md` Voice-by-Altitude ORD row still says Requirement/Threshold columns | Align with the register schema |
-| 11 | P3 | SKILL.md Phase 2 steps numbered 6, 6a, 7, 8, 8a, 9 | Renumber |
+| 8 | ~~P3~~ Done 2026-10-07 | `tables.md` says `/write-prd` may assign `BRL-NNN`; write-prd never mentions it | Drop the claim or make it true |
+| 9 | ~~P3~~ Done 2026-10-07 | §5.2 boilerplate emitted as 8 records into every LLM companion | Treat §5.2 as context |
+| 10 | ~~P3~~ Done 2026-10-07 | `language.md` Voice-by-Altitude ORD row still says Requirement/Threshold columns | Align with the register schema |
+| 11 | ~~P3~~ Done 2026-10-07 | SKILL.md Phase 2 steps numbered 6, 6a, 7, 8, 8a, 9 | Renumber |
 
 - The Skill tool served the cached 2.2.1 text in this session; follow the on-disk 3.0.0 files until
   a new session.

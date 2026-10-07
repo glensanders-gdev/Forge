@@ -224,9 +224,12 @@ terms rather than coining local ones.
 |---|---|
 
 ### 5.2 Prioritisation and status definitions
-The `MoSCoW`, `KPP` and `Status` definitions, copied **verbatim** from `standards/tables.md`
+The `MoSCoW`, `KPP`, `Status` and rule-status definitions, copied **verbatim** from `standards/tables.md`
 § *Prioritisation and status definitions*, including its note distinguishing `Won't` from out of
-scope and descoped. Never reworded per document.
+scope and descoped. Never reworded per document. Head the table with this view note, on one
+paragraph immediately above it:
+
+> *View of `standards/tables.md` § Prioritisation and status definitions. Copied verbatim; this table adds no new commitments.*
 
 ---
 

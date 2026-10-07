@@ -123,7 +123,7 @@ Two registers. Applying the wrong one at the wrong level is the most common erro
 | Requirement or story title | **Active, verb-first** | `Notify customer of despatch` |
 | "I want" clause | **Active, verb-first**, solution-agnostic | `Notify the customer when despatch occurs` |
 | Acceptance criterion | **Noun-first, passive, declarative** | `Despatch notification is issued within 5 minutes of consignment scan` |
-| ORD requirement-table row | **Noun phrase** in `Requirement`; value in `Threshold` | `Despatch notification latency` / `≤ 5 min` |
+| ORD register row | **Active, verb-first** `Requirement Title`; **noun-first, passive** `Business Tolerance` carrying its own value | `Notify customer of despatch` / `Despatch notification is issued within one business hour of consignment scan, beyond which the delivery promise is breached` |
 
 Titles command. Criteria state. The criterion form is deliberate: leading with the noun and
 using the passive leaves **no grammatical slot for a modal verb**, so the failure this ruleset
@@ -331,7 +331,8 @@ as house convention; neither is cited as a standards obligation.
 #### Prioritisation and status definitions
 
 **Emitted verbatim into every ORD at §5.2**, so a reader meets the three axes defined before meeting
-the register. Never reworded per document — the definitions are what make one ORD's `Must` mean the
+the register. In the ORD the table is headed as a **view** of this section, so the LLM companion
+omits it — the companion's own Vocabulary already carries these definitions. Never reworded per document — the definitions are what make one ORD's `Must` mean the
 same as another's.
 
 | Column | Value | Definition | Assigned by |
@@ -411,7 +412,8 @@ added — it would conflate the two axes.
 Every ORD carries the register at §13, grouped into three, whether or not a functional requirements
 document follows — a requirement that embeds its classification, cut-off or reconciliation logic has
 been written at the wrong altitude, and the register is where that detail goes instead. Where a PRD
-in the chain already states a rule, the row cites the PRD's ID and restates nothing.
+in the chain already states a rule, the row cites the PRD criterion (`PRD-NNN.N`) and restates
+nothing — the PRD states rules as criteria and never mints `BRL-NNN`.
 
 | ID | Group | Rule Type | Required Decision | Rule | Status | Owner | Effective Date | Affects |
 |---|---|---|---|---|---|---|---|---|
@@ -646,7 +648,7 @@ Authorised prefixes. See ADR-0001 for the requirement prefixes and their extensi
 | `ORD-NNN` | Operational requirements | `/write-ord` |
 | `AC-NNN` | Acceptance criteria | `/write-ac` |
 | `OBJ-NNN` | Operational objectives — the outcome layer every ORD row traces to | `/write-ord` |
-| `BRL-NNN` | Business rules — every ORD, see § *Business rule* | `/write-ord` (or `/write-prd` where the PRD states the rule first) |
+| `BRL-NNN` | Business rules — every ORD, see § *Business rule* | `/write-ord` |
 | `SCN-NNN` | Scenarios — requirement-level and catalogue, one namespace | `/write-ord` |
 | `IMP-NNN` | Impacts — workflows and systems touched, with named owners | `/write-ord` |
 | `REF-NNN` | Referred requirements — raised here, delivered elsewhere | `/write-ord` |

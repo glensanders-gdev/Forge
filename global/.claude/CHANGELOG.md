@@ -44,6 +44,9 @@ makes that the default.
   (RTO/RPO, encryption standards, hosting model); open decisions without a RAID log are numbered
   `[D-TBD-N]` so rules can cite them; §5.2 defines rule status; `/write-ac` and `/testplan` read a
   2.x ORD in its own numbering; three more before-and-after executive-altitude examples.
+  Also: `BRL-NNN` has one assigning skill (`/write-ord`); §5.2 is headed as a view so the companion
+  omits it; `language.md`'s Voice-by-Altitude ORD row matches the register schema; Phase 2 steps
+  renumbered 1–16, with the Executive Summary written after traceability and the tier.
 - **§5.2 Prioritisation and status definitions** — MoSCoW, KPP and Status defined once in
   `tables.md` and copied verbatim into every ORD. `Won't (this release)` is deferred and in scope;
   out of scope is never delivered here; descoped is a scope change recorded in §4.2 and §18.

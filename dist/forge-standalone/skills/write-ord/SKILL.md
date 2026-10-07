@@ -320,7 +320,6 @@ Runs after the human confirms the Phase 1 summary. Writes the ORD using the temp
 [TEMPLATE.md](TEMPLATE.md).
 
 ### Phase 2 Process
-
 1. Incorporate all corrections and gap-fills from the Phase 1 confirmation.
 2. Write the ORD following TEMPLATE.md. **All eighteen sections appear, in order**;
    a section with nothing to state says so in one line. **All nine characteristics appear at
@@ -347,42 +346,42 @@ Runs after the human confirms the Phase 1 summary. Writes the ORD using the temp
    **view of §6**, outcomes only, no mechanism; a sentence that would change when architecture
    picks a different option does not belong. §4.4 is the actor register, governance roles excluded.
    State the structural deviation in the header's `Conformance` line.
-6a. **Write §13 and §14.** §13 carries every `BRL-NNN`, grouped Classification / Reporting /
+7. **Write §13 and §14.** §13 carries every `BRL-NNN`, grouped Classification / Reporting /
    Governance, each with owner, status and affected requirements. §14 is populated where
    `reporting.md` fired — consumers, measure definitions, data elements, and transparency, audit
    and acceptance evidence — and otherwise carries one line saying it did not fire.
-7. **Run the form self-check before saving.** Every register row: `Requirement Title` active and
+8. **Run the form self-check before saving.** Every register row: `Requirement Title` active and
    verb-first; `Business Tolerance` noun-first, passive, carrying its own quantified value; no
    modal; no "the system"; no `can [verb]`; no technical target; **passes the executive-altitude
    test**, with no classification, cut-off, reconciliation or evidence mechanism in the row. Check against TEMPLATE.md
    § *Worked register extract*, including its wrong-form table. Report rows checked and rows
    corrected in the coverage summary.
-8. **Add a supporting view only where it improves comprehension** — TEMPLATE.md § *Supporting
+9. **Add a supporting view only where it improves comprehension** — TEMPLATE.md § *Supporting
    views*. Every view cites authoritative IDs and adds no value of its own; an entitlement matrix
    carries a legend defining each decision value. **The lenses exist to reduce overlooked
    consequences, not to raise page count** — a document is not more complete for being longer.
-8a. **Write §1 Executive Summary last**, from the register that exists: the problem, the outcome,
-   what is changing, what is not changing, and the major unresolved decisions with their owners. It
-   cites IDs and restates no value a row carries.
-9. **Record the registers and supplementary appendices.** §8 decisions (with `Resolution`), §9
-   assumptions, §10 dependencies, related initiatives and referred requirements — four
-   classifications, never one table. §11 traceability, with `Proposed AC` — proposed, never
-   assigned; `/write-ac` mints `AC-NNN`. §12 entry position. §15 scenarios, §16 interface detail,
-   §17 conformance (left pending until the design response is issued), §18 change history.
-10. **Check traceability at §11**, which is its single home — the register carries `Source`
-   only. Every requirement traces to its objective, business requirement and business objective;
-   every business rule names its owner, status and affected requirements, and §11's `Business
-   rules` column agrees with each rule's `Affects`. Flag any row with no objective **and** no source
-   as **orphan scope**, and any BRD objective with no resulting register row as a **coverage gap**.
-   Do not silently resolve either.
-11. **State the document tier** in the header — the weakest `Status` on any KPP-bearing requirement.
-12. Save to `docs/ord/[system-name]-ORD.md`.
-13. **Generate the LLM companion** from the saved ORD by running
+10. **Record the registers and supplementary appendices.** §8 decisions (with `Resolution`), §9
+    assumptions, §10 dependencies, related initiatives and referred requirements — four
+    classifications, never one table. §11 traceability, with `Proposed AC` — proposed, never
+    assigned; `/write-ac` mints `AC-NNN`. §12 entry position. §15 scenarios, §16 interface detail,
+    §17 conformance (left pending until the design response is issued), §18 change history.
+11. **Check traceability at §11**, which is its single home — the register carries `Source`
+    only. Every requirement traces to its objective, business requirement and business objective;
+    every business rule names its owner, status and affected requirements, and §11's `Business
+    rules` column agrees with each rule's `Affects`. Flag any row with no objective **and** no source
+    as **orphan scope**, and any BRD objective with no resulting register row as a **coverage gap**.
+    Do not silently resolve either.
+12. **State the document tier** in the header — the weakest `Status` on any KPP-bearing requirement.
+13. **Write §1 Executive Summary last**, from the register that exists: the problem, the outcome,
+    what is changing, what is not changing, and the major unresolved decisions with their owners. It
+    cites IDs and restates no value a row carries.
+14. Save to `docs/ord/[system-name]-ORD.md`.
+15. **Generate the LLM companion** from the saved ORD by running
     `python3 scripts/llm_companion.py docs/ord/[system-name]-ORD.md --generator "/write-ord 3.0.0"`,
     per `llm-companion.md`. It writes `docs/ord/[system-name]-ORD.llm.md` only when every row
     reconciles and every value arrived verbatim. On a refusal, report the reason; never write the
     companion by hand instead.
-14. Present a coverage summary: sub-characteristics fully / partially specified or listed in §7.10;
+16. Present a coverage summary: sub-characteristics fully / partially specified or listed in §7.10;
     traceability completeness; the document tier and what would raise it; counts of assumptions,
     dependencies, related initiatives, referred requirements, business rules and open decisions;
     executive-altitude rewrites; and the companion line with its row and
