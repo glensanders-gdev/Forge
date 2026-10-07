@@ -1,6 +1,6 @@
 ---
 name: review-brd-gate-protocol
-description: Shared review protocol for the two handoff gates in the requirements-documents pack — verdict vocabulary, evidence rule, outcome derivation and precedence, refusal-and-authority handling, and the report format. Read when running /review-brd or /review-ord.
+description: Shared review protocol for the two handoff gates in the requirements-documents pack — verdict vocabulary, evidence rule, outcome derivation and precedence, refusal-and-authority handling, the advisory language pass, and the report format. Read when running /review-brd or /review-ord.
 ---
 
 # Gate Review Protocol
@@ -117,6 +117,10 @@ control.
 |---|---|
 | Baseline gap | [answered, or *not answerable at this hop* with the reason] |
 
+### Language (advisory)
+
+[The `/review-language` report from its Summary down, per § *The language pass*. Outside the gate.]
+
 ### What this review does not cover
 
 [Anything the gate does not reach — content quality, altitude beyond the items, downstream fit.]
@@ -125,6 +129,19 @@ control.
 **Report what the verdicts did not do, where it matters.** A recorded gap drives the maturity tier
 only where it reaches a KPP-bearing requirement. Recording a gap and tier-driving it are two
 different things, and the pack names conflating them as how a gate becomes theatre.
+
+## The language pass
+
+Every gate review ends with a language pass: the `/review-language` skill's procedure, run over the
+same document. It checks wording against the requirements language standard, which is not part of
+either gate.
+
+**It is advisory and sits outside the gate.** Its findings never change a verdict, the outcome or the
+tier. A Defect that also falls under a gate item, such as a technical target under OH-4, is judged
+for the gate by that item. The language pass only names it.
+
+**It never blocks the gate.** Where the language standard cannot be read, emit the gate report and
+write under *Language (advisory)* that the pass did not run, and why.
 
 ## The five checks
 
@@ -139,4 +156,5 @@ reason. A check reported clean because it could not be run is worse than one rep
 - Never carry a criterion in this file. It holds protocol; the pack holds the bar.
 - Never emit a score, a percentage or a pass rate — four outcomes and a verdict per item.
 - Never report a check clean that could not be run at this hop.
+- Never let a language finding change a verdict, the outcome or the tier.
 - Never let a declared gap pass without naming where it reappears downstream.
