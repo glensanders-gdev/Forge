@@ -1,4 +1,4 @@
-# /write-brd — single-file paste bundle
+# /write-brd — standalone single file
 
 Paste this whole file into a chat assistant as one message, or attach it as one file, then
 give it your source material. It is the complete `/write-brd` skill: `SKILL.md` first, then every

@@ -1,7 +1,7 @@
-# /review-language — single-file paste bundle
+# /write-ac — standalone single file
 
 Paste this whole file into a chat assistant as one message, or attach it as one file, then
-give it your source material. It is the complete `/review-language` skill: `SKILL.md` first, then every
+give it your source material. It is the complete `/write-ac` skill: `SKILL.md` first, then every
 file it cites, each under a heading carrying that file's name. A citation such as
 `TEMPLATE.md` or `tables.md` means that part of this file, not a file to go and find.
 
@@ -13,6 +13,7 @@ the output that it was skipped; never produce the script's output by hand.
 ## Contents
 
 - `SKILL.md`
+- `REFERENCE.md`
 - `STANDARDS.md`
 
 ---
@@ -20,146 +21,302 @@ the output that it was skipped; never produce the script's output by hand.
 # `SKILL.md`
 
 ---
-name: review-language
+name: write-ac
 category: pipeline
-description: Check the wording of a requirements document — BRD, PRD, ORD or AC — against the requirements language standard, including the modal and construction bans and the rules adopted from the Australian Government Style Manual. Returns every finding graded Defect or Advisory, with its location, the rule it breaks and a suggested rewrite. Use when /review-language is run, before a requirements document is shared or handed off, or as the advisory language pass inside /review-ord and /review-brd.
+description: Transform a PRD and ORD into Jira acceptance criteria — promote KPPs and headline outcomes to Capability-level AC, flow story detail to child Epics/Stories, carry PRD-NNN/ORD-NNN traceability into each criterion, and optionally push to the linked Jira Capability behind a confirmation gate. Use when the user runs /write-ac, has a PRD and/or ORD ready to turn into Jira acceptance criteria, or is promoting a project to a Jira Capability.
 ---
 
-# Language Review
+# Write AC
 
-Check how a requirements document is **worded**. This is a conformance check against one published
-standard. It reports findings with a suggested rewrite and changes nothing in the document.
+Turn an authored PRD and ORD into testable acceptance criteria positioned at the right altitude for a Jira Capability and its child Epics/Stories. This skill **consumes** requirements — it never authors them. Runs in two phases with a confirmation gate; any external Jira write is gated separately.
 
-Execution mode: **[AFK]** advisory — the check runs through and produces a report.
+See [REFERENCE.md](REFERENCE.md) for the altitude rules, the PRD-story and ORD-requirement translation patterns, the AC document template, and the Jira field mapping.
 
-Three checks answer three different questions, and a document can pass any one and fail the others.
-`/review-ord` and `/review-brd` ask whether a document is *ready* for handoff. `/check-style` asks
-whether it meets the company's house style. This skill asks whether every statement is *worded* to
-the requirements standard.
+**Authoring standards** — `language.md` governs the wording of every
+criterion written here. Translation carries a requirement's meaning across, not its defects: an AC
+derived from a hedged source requirement is rewritten to the declarative end-state form, never
+copied through. Never restate these rules here.
 
-**Authoring standards** — `language.md` defines every rule this
-skill applies. `tables.md` § *Reference list* defines what a
-citation resolves to. Read both at review time. Never restate a rule here, and never check from
-memory.
+`ai.md` applies **conditionally**, on top of `language.md` and relaxing
+nothing, to any criterion derived from a requirement over learned or generated behaviour: a delivered component whose output for a given input is not fully determined by written logic — a trained model, an LLM call, a retrieval-augmented pipeline, an agent, or a third-party AI service consumed as an API. Such an AC carries its threshold, its named `EVL-NNN` set, its floor and its review
+hook across intact — dropping any of the four makes it untestable, and a source requirement missing
+one is a defect to flag, never one to silently inherit. The source row's **[AI]** prefix carries
+across to the criterion, and an unresolved `[EVL-TBD]` in a source requirement is a blocker: an AC
+cannot name the set that proves it.
 
 Each standard named above is a part of `STANDARDS.md`, beside this file — a citation such as
 `tables.md` means the part of that document carrying that name, not a separate file to find.
 
-**If an authoring standard above cannot be read, stop and name it.** A language check run from
-memory applies a remembered rule set, which drifts from the published one silently, and the report
-looks just as authoritative either way. An unreadable standard is a blocked run, never a degraded
-one.
+**If an authoring standard above cannot be read, stop and name it.** The register and criteria
+schemas, the modal ban and the scenario values live there and nowhere else. Drafting them from
+memory produces a document that looks conformant and is not, and no reviewer can see the
+difference. An unreadable standard is a blocked run, never a degraded one.
 
 ---
 
-## Step 1 — Read the standard and set the locale
+## Phase 1 — AFK Select [AFK]
 
-Read `language.md` end to end, including both *Recorded Deviations* sections, and `tables.md`
-§ *Reference list*.
+Runs unattended. Reads the source requirements and sorts them by altitude — no authoring, no questions.
 
-Then set the locale per `language.md` § *Locale Conventions*: read
-`~/.claude/knowledge/company/style-guide.md` where it exists. Only its `Locale` section matters to
-this skill — every other house-style rule is `/check-style`'s.
+1. Read the PRD at `docs/prd/active/*.md` if present — stories (`PRD-NNN`), their `MoSCoW` priority, and their acceptance-criteria rows (`PRD-NNN.N`, each with a `Scenario` of Sunny Day / Rainy Day / Edge Case). A PRD authored before v2.6.0 carries the earlier column heading `Type` with the values `Happy path` / `Edge` / `Error` — read it as the same three scenarios (Happy path → Sunny Day, Error → Rainy Day, Edge → Edge Case) and do not rewrite the source document.
+2. Read the ORD at `docs/ord/*.md` if present — the requirement register at §7. Each row carries `ORD#`, an active `Requirement Title`, a declarative `Business Tolerance` holding its own value, a `KPP` column, `MoSCoW`, a `Status`, a named `Owner`, `Traces to` and `Source`.
+   - **A demand-side ORD carries no `Verification` column.** The measurement *population* is inside the tolerance sentence; the *instrument* is the design response's and is recorded at **§17** once that response is issued. Read §17 where it is populated; where it is still pending, the AC carries the population and names the instrument as pending — never invent one.
+   - **A KPP carries threshold and objective as two labelled values.** Carry both across. Collapsing them to one figure is the defect this handoff is most prone to.
+   - **A 2.x ORD** — one with no `**Structure:** write-ord 3.x` header line — uses the earlier numbering: the register at §§3–5, 7 and 9, conformance at **Appendix D**, and traceability with the `Capability` / `Epic` / `PRD#` write-back at **Appendix A**. Read and write it in that numbering; never renumber an existing ORD.
+   - `Capability` / `Epic` write-back lives at **§11 Traceability**, alongside `Proposed AC`. A `Proposed AC` is the ORD author's input, not an assigned criterion — `/write-ac` owns `AC-NNN` and mints it. Reuse a proposed criterion where it holds; never treat it as already numbered.
+   - An ORD authored before the demand-side convergence carries the earlier columns (`Requirement Description`, `Verification`, `Delivery Agent`, `Timing`, inline `[KPP]` prefix). Read it as the same register — `Requirement Description` → `Business Tolerance`, inline `[KPP]` → the `KPP` column — and do not rewrite the source document.
+3. Read the PRD↔ORD cross-links if present — the PRD's traceability matrix and the `PRD#` column of the ORD's §11 Traceability. Reuse them rather than re-deriving. A standalone ORD leaves `PRD#` empty; that is expected, not a gap.
+4. Resolve the target Jira Capability — read `external_ids.jira` (type `capability`) from the linked idea/project file. If none, note it; the run still produces the AC document.
+5. Classify every requirement by altitude (see REFERENCE.md § Altitude). Apply the **MoSCoW gate first** — `Won't` produces no AC at all, `Could` never reaches Capability level — then the altitude tests:
+   - **Capability AC** — every **[KPP]** from any register section, and each headline functional outcome.
+   - **Child Epic/Story AC** — detailed story-level criteria, edge and error cases, and every delivery enabler (staffing, training, patch windows, SLA governance, infrastructure) unless tagged **[KPP]**.
+6. Present the Selection Summary and pause.
 
-**Completion:** the standard is read as written, and the active locale is named — Australian
-default, or the company `Locale` section that replaced it.
+### Selection Summary Format
 
-## Step 2 — Classify the text before checking it
+```
+## AC Selection — [Capability name / Feature]
 
-The standard applies differently to different kinds of text, and checking a statement against the
-wrong class is the main source of false findings. Give every section of the document one class:
+Target Jira Capability: [CAP-NN or "none linked"]
+Sources read: [PRD path / "none"] · [ORD path / "none"]
 
-| Class | What applies |
-|---|---|
-| Requirement, criterion, register cell or other commitment | The whole of `language.md` |
-| Narrative section — background, mission, scenarios | All of it except the criterion form, per § *Narrative Sections* |
-| Verbatim quotation, including `[TBD — source: "…"]` | Only the *Quote exactly* rule in § *Citing Sources* |
-| Controlled vocabulary and fixed labels | Exempt as § *Recorded Deviations from the Australian Government Style Manual* sets |
+### Promote to Capability AC
+| Source ID | Type | Why it promotes |
+|-----------|---------|-----------------|
+| ORD-004 | KPP | program-failure threshold |
+| PRD-002 | Outcome | headline user outcome |
 
-**Completion:** every section carries a class, and every quotation and fixed label is marked so no
-finding lands on it.
+### Flow to child Epics/Stories
+| Source ID | Maps to | Note |
+|-----------|---------|------|
+| PRD-005 | Story | edge/error detail |
 
-## Step 3 — Check every statement, and grade each finding
+Unclassifiable / missing source: [list or "none"]
 
-Apply every rule to every statement its class covers. Work section by section through the whole
-document — never sample.
-
-Grade by the strength the standard itself gives the rule:
-
-- **Advisory** — a preference or an aim: `shall` (permitted but avoided), a swap from the
-  *Everyday words* table, *Verbs over hidden verbs*, *Cut unnecessary words*, the 15-word sentence
-  average, and the reading-level aim.
-- **Defect** — every other rule. Anything in § *Never* is always a Defect.
-
-A statement that follows a recorded deviation is **not a finding**. Read both deviation sections
-before flagging a passive criterion, a title-case label or a `yyyy-mm-dd` date.
-
-Each finding carries its location (section, and row ID where there is one), the `language.md`
-section it breaks, the offending text quoted briefly, and a suggested rewrite. **A rewrite never
-invents a value.** Where the fix needs a figure the document does not hold, the rewrite is
-`[TBD — source: "…"]` per § *Vagueness*.
-
-**Completion:** every classified section has been checked, and every finding carries a grade,
-location, rule, quote and rewrite.
-
-## Step 4 — Report
-
-```markdown
-## Language Review — [document ID and title]
-
-**Checked against:** `language.md` · **Locale:** [Australian default | company Locale section] · **Document:** [BRD | PRD | ORD | AC]
-
-### Summary
-
-| `language.md` section | Defects | Advisory |
-|---|---|---|
-
-### Defects
-
-| # | Location | Rule | Text | Suggested rewrite |
-|---|---|---|---|---|
-
-### Advisory
-
-[The same table. Group repeats of one rule into a single row listing every location.]
-
-### Not checked
-
-[Sections exempted in Step 2, and why. Any standard the document cites that this check does not reach.]
+---
+Confirm the split to proceed to Phase 2, or re-assign altitude before I write.
 ```
 
-**One row per statement.** A statement that breaks several rules gets one row, naming every rule
-in the *Rule* cell, with one rewrite that fixes them all. The Summary still counts each rule. Every
-statement with a Defect gets its own row. There is no score, percentage or pass mark.
+---
 
-*Not checked* names exempt text and standards out of reach. It never carries findings against
-another standard, such as a register schema or a missing section. Those belong to the gate review.
+## Phase 2 — HITL Write & Push [HITL]
 
-**Completion:** the report is emitted, and every Defect found in Step 3 appears in it.
+Runs after the human confirms the split.
+
+1. Incorporate altitude re-assignments from the confirmation.
+2. Translate each selected requirement into a testable AC (see REFERENCE.md § Translation):
+   - **Functional (PRD)** → the criterion is already a declarative row. Carry it across verbatim with its `PRD-NNN.N` ID. Do not carry the story's "As a… I want…" narrative — that is context, not a criterion.
+   - **Operational (ORD)** → the register row's `Business Tolerance`, carrying the `ORD-NNN` ID, both labelled values of a KPP, and the measurement population stated in the tolerance. Where §17 is populated, carry the instrument verbatim; where it is pending, say so rather than inventing a method.
+3. Assign each AC a stable `AC-NNN` ID with a Source column tracing to its `PRD-NNN`/`ORD-NNN`.
+4. Write the AC document to `docs/ac/[capability-name]-AC.md` using the template in REFERENCE.md.
+5. **Jira push is optional and gated.** If a Capability is linked and the human wants it pushed:
+   - Show exactly what will be written to which Capability key (Capability AC field + child issue AC).
+   - Require the human to type `PUSH` to confirm. On confirm, write via the `jira` MCP. Never push without it.
+   - List child issues that do not yet exist for the human to create — never auto-create Jira issues.
+6. **Write back the Capability and Epic mapping into the ORD register.** The ORD's `Capability` and `Epic` columns exist for this and stay `—` until this step runs.
+
+   **Only write an ID that exists in Jira.** This skill never creates issues, so an Epic listed in step 5 as "not yet created" has no key — writing one back would put a forward reference to nothing into an approved document. Write `TBD` for those. If no Capability is linked at all, skip this step entirely.
+
+   The ORD is already an approved document, so present the change set and require a typed `CONFIRM`:
+
+   ```
+   ## ORD write-back — [ORD path]
+   | ORD# | Capability | Epic | Exists in Jira? |
+   |------|-----------|------|-----------------|
+   | ORD-004 | CAP-12 | EPIC-31 | yes — both |
+   | ORD-009 | CAP-12 | TBD | Epic not yet created |
+
+   N rows updated. Columns touched: Capability, Epic only.
+   Type CONFIRM to apply.
+   ```
+
+   Never touch any other column. Never write back to a requirement that has no AC.
+7. Suggest next steps: Note that `/qa-plan` generates its checklist from the PRD's user stories and definition of done — it does **not** read `docs/ac/`, so the AC document is the Jira-facing artefact rather than the QA input.
 
 ---
+
+## Rules
+
+- Never emit `Happy path`, `Error` or `Edge` as a scenario label. Where a source PRD carries the pre-2.6.0 wording, read it and write `Sunny Day`, `Rainy Day` or `Edge Case` in the AC — mapping on read never means reproducing the old term on write.
+- Never author or invent requirements — every AC traces to an existing `PRD-NNN` or `ORD-NNN`. A need with no source is out of scope for this skill; flag it.
+- Never write a non-functional AC without its verification method — an ORD requirement with no way to prove it is not an acceptance criterion.
+- Never push to Jira without a typed `PUSH` confirmation showing the exact target Capability and payload.
+- Never put detailed story-level criteria on the Capability — Capability AC are KPPs and headline outcomes only; detail flows to child issues.
+- Never carry a requirement's *narrative* into the AC — no "As a… I want…", no full register row, no priority, timing, delivery agent or comments. Carry the testable condition and its verification method verbatim; that is what makes the criterion readable standalone in Jira. See REFERENCE.md § Verbatim vs reference.
+- Never edit a carried value in the AC document — the source PRD/ORD is authoritative. Change it there and re-run.
+- Never write `could`, `should`, `would`, `may`, `enables`, `is able to`, or `can [verb]` into a criterion, and never refer to "the system" — a criterion derived from a hedged source requirement is rewritten to the declarative end-state form, never copied through. See `language.md`.
+- Never translate a `Won't` requirement into an AC, and never promote a `Could` to Capability level.
+- Never promote a delivery enabler to Capability AC on priority alone — only a **[KPP]** tag promotes one.
+- Never reuse a retired `AC-NNN` ID.
+- Never ask questions during Phase 1 — select, then present.
+- Never resolve BRD↔PRD↔ORD traceability here — that belongs to `/write-prd`, `/write-ord`, `/write-reqs`. The `Capability`/`Epic` write-back is the one exception, and it touches those two columns only.
+- Never write back to the ORD without a typed `CONFIRM` — the ORD is an approved document, and approval of the ORD did not cover this edit.
 
 ## Failure Modes
 
 | Condition | Behaviour |
 |-----------|-----------|
-| `language.md` cannot be read | Stop and name it. Never check from memory |
-| The document is not a requirements document — an article, a skill file, a slide | Stop and name the mismatch, and point to `/check-style`. Skill instruction prose is outside the standard's scope by design |
-| The company `Locale` section is partial | Report it once, above the findings, as a finding about the style guide rather than the document. Check against the Australian defaults, per § *Locale Conventions* |
-| A company style-guide rule is stricter than `language.md` | Not this check's to apply. Name `/check-style` under *Not checked* |
-| A passive criterion is about to be flagged | Check it against both deviation sections first. Where the actor is load-bearing (authorisation, audit, non-repudiation, security), the passive is a Defect. Elsewhere it is no finding |
-| A finding also falls under a gate item, such as a technical target under OH-4 | Report it here and name the gate item. The gate's verdict belongs to the gate review |
-| Run inside `/review-ord` or `/review-brd` | The report becomes that review's *Language (advisory)* section. It never changes a verdict or the outcome |
-| The document is too large for one pass | Check it in sections, and name each section in the finding's location. Never sample |
+| Neither PRD nor ORD found | Stop. "No PRD or ORD found — author requirements with /write-prd, /write-ord, or /write-reqs first." |
+| Only a PRD (no ORD) | Proceed — Capability AC are headline functional outcomes only; note no operational/KPP AC exist. |
+| Only an ORD (no PRD) | Proceed — Capability AC are KPP thresholds only; note no functional AC exist. |
+| No [KPP] tagged in the ORD | Proceed — promote headline outcomes; flag "no KPP designated — confirm the Capability has no program-failure threshold." |
+| An ORD requirement is still `[TBD]` | Do not turn it into an AC. List it as blocked pending the ORD; do not invent a threshold. |
+| No Jira Capability linked | Produce the AC document only; never push. |
+| AC document already exists at target path | Stop. "An AC document already exists at docs/ac/. Confirm overwrite or provide a new name." |
+| jira MCP not configured at push time | Write the document, skip the push, and direct the user to configure the `jira` MCP. |
+| Every ORD requirement is `Won't` | Stop. "All operational requirements are marked Won't for this release — no AC to author." |
+| User declines the write-back `CONFIRM` | The AC document stands; the ORD is untouched. Report which `ORD#` rows remain unmapped. Never apply a partial set without a fresh `CONFIRM`. |
+| ORD not found or not writable at write-back time | Write the AC document, skip the write-back, and list the `ORD# → Capability/Epic` mapping for the human to apply manually. |
+| An ORD row already carries a *different* Capability or Epic | Do not overwrite. List the conflict — existing value vs proposed — and ask which stands. A changed Capability usually means the ORD was re-scoped. |
+| No Jira Capability linked at write-back time | Skip the write-back entirely — there is no key to write. The AC document is still produced. |
+| An Epic does not yet exist in Jira | Write `TBD` in the Epic cell. Never invent or predict an issue key. |
 
-## Rules
+---
 
-- Never edit the document. Report findings and rewrites only.
-- Never restate a rule in this skill or in the report. Cite the `language.md` section by name.
-- Never flag a statement that follows a recorded deviation.
-- Never invent a value in a suggested rewrite.
-- Never emit a score, a percentage or a pass/fail gate.
-- Never apply the standard to a skill's own instruction prose.
+# `REFERENCE.md`
+
+# Write AC — Reference
+
+Altitude rules, translation patterns, the AC document template, and Jira field mapping for `/write-ac`. The workflow and gates live in [SKILL.md](SKILL.md).
+
+---
+
+## Altitude — what sits at Capability level vs flows down
+
+A Jira Capability is a portfolio-level container. Its acceptance criteria are **conditions of satisfaction**, not test steps. Keep the set small and outcome-defining; detail belongs on child Epics/Stories.
+
+**Promote to Capability AC:**
+- Every ORD **[KPP]** — a requirement whose failure constitutes system/program failure. A KPP promotes from **any** register section, §7 (any sub-section).
+- Each *headline* functional outcome — the few PRD stories that define "this Capability is done" (typically the primary user outcome per BRD objective).
+
+**Flow to child Epic/Story AC:**
+- Detailed story-level criteria — Sunny Day variations, Rainy Day states, Edge Cases.
+- Per-story criteria beyond the headline outcome — the `Rainy Day` and `Edge Case` rows, and any `Sunny Day` row that is detail rather than the defining outcome.
+
+Rule of thumb: if removing the criterion would not make a stakeholder say "then the Capability isn't delivered," it belongs on a child issue, not the Capability.
+
+### MoSCoW gate
+
+**Both** sources carry MoSCoW — the ORD register as a column, the PRD as a per-story field. The gate
+applies to each equally; a functional story is not exempt because its priority sits in a different
+place. It runs **before** the tests above:
+
+| MoSCoW | Outcome |
+|---|---|
+| `Won't` | **No AC at all.** Out of scope for this release — never translate it. Note it as deliberately excluded. |
+| `Could` | Child issue only. Never a Capability AC, whatever else it satisfies. |
+| `Should` | Child issue, unless it is a **[KPP]** — a KPP promotes regardless of priority. |
+| `Must` | Eligible for Capability AC if it passes the KPP or headline-outcome test above. Not automatic — most Musts are child-issue detail. |
+
+A `Must` is not a KPP and does not promote on priority alone. Most Musts are ordinary delivery scope.
+
+### Delivery enablers do not promote
+
+Requirements in §§5–8 are frequently *enablers* — staffing establishment, training currency,
+on-call rosters, change-management cadence, patch windows, SLA governance, infrastructure
+provisioning. They are binding, they carry `ORD-NNN`, and they are **not** conditions of
+satisfaction for a Capability: no stakeholder says "the Capability isn't delivered" because
+operator time-to-competency is 6 days rather than 5.
+
+Enablers flow to child issues (or to the delivery plan) even when marked `Must`. The single
+exception is an enabler explicitly tagged **[KPP]** — that promotes like any other KPP.
+
+Test the *nature* of the requirement, not the section it sits in: a §4 data-residency KPP is a
+genuine Capability AC; a §6 training commitment is not.
+
+---
+
+## Translation — requirement → acceptance criterion
+
+### Functional (PRD story → AC)
+
+A PRD acceptance criterion is already a declarative row. Carry it across verbatim with its
+`PRD-NNN.N` ID; drop the "As a… I want…" narrative — that is context, not a criterion.
+
+PRD-001.1 →
+```
+AC-001 (PRD-001.1): Checkout for a returning customer with a saved payment
+  method completes without card re-entry.
+```
+
+> If a criterion arrives hedged — *"then they can complete the purchase"* — rewrite it to the
+> declarative end-state form rather than carrying it through. `can [verb]` is banned by
+> `language.md`, and a criterion saying a customer *can* do something cannot fail a test. A
+> criterion inherits a requirement's meaning, never its defects.
+
+### Operational (ORD requirement → AC)
+
+An ORD register row is already a declarative statement carrying its own quantified value and its measurement population — that *is* an acceptance criterion. Carry the `Business Tolerance` across verbatim, with both labelled values where the row is a KPP.
+
+**The instrument is not in the register.** A demand-side ORD names the population and leaves the instrument to the design response, recorded at the ORD's §17. Carry the instrument from §17 where it is populated; where it is pending, write `Verification: pending design response` rather than guessing. An AC that invents an instrument re-introduces exactly the pre-emption the demand-side rule exists to prevent.
+
+ORD-004 [KPP] →
+```
+AC-002 (ORD-004, KPP): p95 checkout latency ≤ 800ms under 500 concurrent
+  users, verified by load test in staging.
+```
+
+Keep the source ID and the KPP marker in the AC text so traceability survives the move into Jira.
+
+### Verbatim vs reference
+
+These pull in opposite directions, so the boundary is fixed:
+
+- **Carry verbatim:** the testable condition and its verification method. The AC lands in Jira, where the source document is not reachable — a criterion that cannot be read standalone is useless there.
+- **Never carry:** the story narrative, the full register row, priority, timing, delivery agent, or comments. Those stay in the source.
+- **The source document remains authoritative.** The AC is a carried copy, not a second source of truth. A value that needs changing is changed in the PRD/ORD and `/write-ac` re-run — never edited in the AC document.
+
+---
+
+## AC Document Template
+
+Saved to `docs/ac/[capability-name]-AC.md`.
+
+```markdown
+# Acceptance Criteria: [Capability name]
+
+**Date:** YYYY-MM-DD
+**Jira Capability:** [CAP-NN or "not linked"]
+**Sources:** [PRD path / "none"] · [ORD path / "none"]
+
+## Capability Acceptance Criteria
+Conditions of satisfaction for the Capability. KPPs + headline outcomes only.
+
+| AC ID | Criterion | Source | Verification |
+|-------|-----------|--------|--------------|
+| AC-001 | [declarative testable condition, carried verbatim] | PRD-002 | [test / measure] |
+| AC-002 | [declarative testable condition, carried verbatim] | ORD-004 (KPP) | [carried from §17, or "pending design response"] |
+
+`Verification` is a carried copy, from the ORD's §17 or the PRD — the source stays authoritative. Change it there and
+re-run `/write-ac`; never edit it here.
+
+## Child Epic / Story Acceptance Criteria
+Detailed criteria that flow to child issues under the Capability.
+
+### [Epic / Story title] — [PRD-NNN]
+- AC-NNN (PRD-NNN): [declarative testable condition]
+- AC-NNN (PRD-NNN): [edge / error case, declarative]
+
+## Traceability
+| AC ID | Source req | Altitude | Jira issue |
+|-------|-----------|----------|------------|
+| AC-001 | PRD-002 | Capability | [CAP-NN / TBD] |
+| AC-003 | PRD-005 | Story | [TBD] |
+
+- An AC with no source req is invalid — every AC traces to a PRD-NNN or ORD-NNN.
+- A KPP with no Capability AC is a gap — flag it.
+```
+
+---
+
+## Jira Field Mapping
+
+| AC location | Jira target |
+|-------------|-------------|
+| Capability AC | The Capability's Acceptance Criteria field (or description AC block) |
+| Child Epic/Story AC | The corresponding child issue's Acceptance Criteria field |
+
+Push is performed via the `jira` MCP, behind the typed `PUSH` gate in SKILL.md Phase 2. Child issues that do not yet exist in Jira are listed for the human to create — this skill does not auto-create issues.
 
 ---
 
@@ -167,7 +324,7 @@ another standard, such as a register schema or a missing section. Those belong t
 
 # Authoring Standards
 
-The standards `/review-language` cites, gathered into one document so the skill works where
+The standards `/write-ac` cites, gathered into one document so the skill works where
 there is no filesystem to read them from. Each part keeps the name of the file it came
 from: a citation such as `tables.md` means the part below with that name.
 

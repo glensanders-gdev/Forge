@@ -450,17 +450,18 @@ foreach ($entry in $SelfContainedSkills.GetEnumerator()) {
     Write-Host "Wrote skills/$name/STANDARDS.md from $($parts.Count) part(s) ($rewritten file(s) repointed)"
 }
 
-# ---------------------------------------------------------------- paste bundles
+# ---------------------------------------------------------------- single-file bundles
 
 # A self-contained skill is still a folder of files, and a chat assistant that takes no
 # upload -- or takes one file at a time -- makes a user save or paste each one. Missing one
 # fails the way a missing standard does: the citation names a part the model never saw.
-# So each self-contained skill also ships as a single file in `paste/`, every part keyed by
-# the filename the skill cites it by.
+# So each self-contained skill also ships as one file, `<skill>-standalone.md`, every part
+# keyed by the filename the skill cites it by.
 #
-# `paste/` sits outside `skills/` deliberately. install.sh copies only `skills/`, `rules/`
-# and `standards/`, so a bundle never lands where an assistant discovers skills, and an
-# installed skill never reads its own content twice. It is for pasting, nothing else.
+# It sits inside the skill folder because that is where a reader browsing the published tree
+# looks for it. Nothing in the skill names it, so an assistant reading the skill never reaches
+# it, and install.sh deletes it after copying the folder, so it never lands in an installed
+# skill either. It is for pasting, nothing else.
 #
 # Headings are left at their own levels. STANDARDS.md already nests its parts one level
 # down, and demoting it again would push its deepest headings past what markdown renders.
@@ -476,8 +477,7 @@ the output that it was skipped; never produce the script's output by hand.
 **Generated — do not edit.** Regenerated from the skill on every release.
 '@
 
-$pasteOut = Join-Path $OutRoot "paste"
-Ensure-Directory $pasteOut
+$StandaloneSuffix = "-standalone.md"
 foreach ($b in $bundled) {
     $skillDir = Join-Path $skillsOut $b.Skill
     $files = @(Get-ChildItem -LiteralPath $skillDir -File -Filter "*.md" |
@@ -488,7 +488,7 @@ foreach ($b in $bundled) {
         @((Get-Item -LiteralPath (Join-Path $skillDir "STANDARDS.md")))
 
     $doc = New-Object System.Collections.Generic.List[string]
-    $doc.Add("# /$($b.Skill) — single-file paste bundle")
+    $doc.Add("# /$($b.Skill) — standalone single file")
     $doc.Add("")
     $doc.Add(($PastePreamble -replace "\r\n?", "`n") -f $b.Skill)
     $doc.Add("")
@@ -503,9 +503,9 @@ foreach ($b in $bundled) {
         $doc.Add("")
         $doc.Add([IO.File]::ReadAllText($f.FullName, [Text.Encoding]::UTF8).Trim())
     }
-    $outFile = Join-Path $pasteOut "$($b.Skill).md"
-    [IO.File]::WriteAllText($outFile, (($doc -join "`n").TrimEnd() + "`n"), [Text.UTF8Encoding]::new($false))
-    Write-Host "Wrote paste/$($b.Skill).md from $($ordered.Count) file(s)"
+    $outName = "$($b.Skill)$StandaloneSuffix"
+    [IO.File]::WriteAllText((Join-Path $skillDir $outName), (($doc -join "`n").TrimEnd() + "`n"), [Text.UTF8Encoding]::new($false))
+    Write-Host "Wrote skills/$($b.Skill)/$outName from $($ordered.Count) file(s)"
 }
 
 # ---------------------------------------------------------------- reference resolution
@@ -774,9 +774,12 @@ if ($bundled.Count -gt 0) {
     $readme.Add("")
     foreach ($b in $bundled) { $readme.Add("- ``/$($b.Skill)``") }
     $readme.Add("")
-    $readme.Add('To use one in a chat assistant that cannot install skills, paste or attach its single-file')
-    $readme.Add('bundle from `paste/` — for example `paste/write-ord.md`. It holds the same content as the')
-    $readme.Add('skill folder in one file. `install.sh` does not install `paste/`, and nothing reads it.')
+    $readme.Add('To use one in a chat assistant that cannot install skills, such as M365 Copilot, paste or')
+    $readme.Add('attach the single file inside its folder — for example `skills/write-ord/write-ord-standalone.md`.')
+    $readme.Add('It holds the whole skill folder in one file. Nothing in the skill reads it, and `install.sh`')
+    $readme.Add('removes it after copying, so an installed skill never carries it:')
+    $readme.Add("")
+    foreach ($b in $bundled) { $readme.Add("- [``$($b.Skill)$StandaloneSuffix``](skills/$($b.Skill)/$($b.Skill)$StandaloneSuffix)") }
 }
 $readme.Add("")
 $readme.Add("## Skills")
@@ -841,6 +844,8 @@ for dir in "$here"/skills/*/; do
     fi
     rm -rf "${skills_dst:?}/$name"
     cp -R "$dir" "$skills_dst/$name"
+    # The single-file copy is for pasting into a chat assistant. An installed skill never reads it.
+    rm -f "$skills_dst/$name/$name-standalone.md"
     installed=$((installed + 1))
 done
 
