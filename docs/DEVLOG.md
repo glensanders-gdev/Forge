@@ -5,7 +5,7 @@
 ## Session 2026-10-07 — Australian Government Style Manual for requirements documents
 
 **Stream:** `style-manual` (opened at debrief — `docs/handoffs/style-manual.md`)
-**Version range:** 4.17.0 → 4.17.2 ([PR #97](https://github.com/glensanders-gdev/Forge/pull/97) merged as `3fde2ea`, v4.17.1; v4.17.2 committed as `179b2ff` on `docs/style-manual-structure-referencing`, not pushed)
+**Version range:** 4.17.0 → 4.17.2 ([PR #97](https://github.com/glensanders-gdev/Forge/pull/97) merged as `3fde2ea`, v4.17.1; [PR #98](https://github.com/glensanders-gdev/Forge/pull/98) merged as `ab58ad6`, v4.17.2)
 **Goals this session:** Answer a user question about the ORD `Scenario` column; apply the Style Manual's writing guidance to every requirements skill; assimilate its structuring and referencing guidance.
 **Tickets Completed:** None on kanban — ad-hoc framework change. PR #90's stale In Progress item moved to Done (merged 2026-10-01).
 **Decisions Made:**
@@ -26,9 +26,9 @@
 **Assumptions Made:** The Style Manual is adapted and credited inline rather than copied, because standards carry no `origin:` frontmatter. The subagent's summary had Act titles italic in reference lists; checked against the source, they are roman.
 **Blockers:** None
 **Next Up:**
-1. Push and open the PR for `docs/style-manual-structure-referencing`, then merge on green CI.
+1. Pull `main` into the main checkout so `~/.claude` serves batch 2 (it is at `3fde2ea`, before #98).
 2. `/assimilate` batch 3 from a fresh branch.
-3. Pull `main` into the main checkout so `~/.claude` serves the new rules.
+3. Merge this close-of-day state update (`docs/style-manual-close-day`).
 **Status:** In Progress
 
 ---

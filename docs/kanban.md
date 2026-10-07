@@ -11,19 +11,18 @@
 <!-- 2026-06-18: P3 skill-completeness sweep — PR #15 (Failure Modes + Rules on all 104 skills), PR #16 (attribution/alias/CHANGELOG follow-ups), PR #17 (track CLAUDE.md + docs artifacts). Tags v3.10.1/v3.11.0 pushed. No kanban tickets — backlog-driven. -->
 <!-- 2026-06-19: ad-hoc requirements-document alignment — PR #19 (/write-ord v1.1.0 public + /write-prd v2.1.1 PRD-001 rename + ADR-0001), v3.12.0 squash-merged, tag v3.12.0 pushed. /write-reqs backlogged (P3). No kanban tickets — ad-hoc. -->
 <!-- 2026-10-01: ad-hoc — requirements ruleset moved out of the always-loaded rules/ into standards/, with a path-scoped pointer left in rules/; rules/typescript/ and rules/README.md path-scoped (v4.15.2). PR #90 open, Auto-fix on. Rules loaded at launch 27.7k → 2.9k tokens. No kanban tickets — ad-hoc; the merge-and-link step is tracked under In Progress. -->
-<!-- 2026-10-07: ad-hoc — Australian Government Style Manual adopted into the requirements standards: PR #97 merged (v4.17.1, voice and tone, sentences, numbers, locale); v4.17.2 committed on docs/style-manual-structure-referencing (structure, reference list, citations). Stream `style-manual`. -->
+<!-- 2026-10-07: ad-hoc — Australian Government Style Manual adopted into the requirements standards: PR #97 merged (v4.17.1, voice and tone, sentences, numbers, locale); PR #98 merged (v4.17.2, structure, reference list, citations). Stream `style-manual`. -->
 
 ---
 
 ## In Progress
 
-- [ ] [HITL] Push `docs/style-manual-structure-referencing` (v4.17.2), open the PR and merge on green CI — stream `style-manual`, ad-hoc
+- [ ] [HITL] `/assimilate` Style Manual batch 3 — Latin shortened forms, abbreviations and contractions, misspellings and word confusion, hyphens/dashes/colons/quotes, names and terms, inclusive language — stream `style-manual`
 
 ---
 
 ## Backlog
 
-- [ ] [HITL] `/assimilate` Style Manual batch 3 — Latin shortened forms, abbreviations and contractions, misspellings and word confusion, hyphens/dashes/colons/quotes, names and terms, inclusive language — stream `style-manual`
 - [x] [AFK]  #2 Rewrite `install.sh` — platform detection, junction/symlink creation, remove copy step ✓
 - [x] [AFK]  #3 Deprecate `update.sh` — add deprecation notice, retain file ✓
 - [x] [AFK]  #4 Rewrite `/install-forge` skill — auto-detect, migration flow, iOS guidance ✓
@@ -35,6 +34,7 @@
 
 ## Done
 
+- [x] [HITL] Push `docs/style-manual-structure-referencing` (v4.17.2) and merge — PR #98 merged as `ab58ad6` ✓
 - [x] [HITL] Merge PR #90 (requirements ruleset → `standards/`, v4.15.2) and link `~/.claude/standards` ✓ — merged 2026-10-01; link confirmed 2026-10-07
 - [x] [HITL] #1 Confirm PRD scope and module estimates ✓
 
