@@ -11,6 +11,22 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
+## v4.18.1 — 2026-10-08
+
+**`/write-ord` 3.0.3 — §15 is now *Testable Acceptance Criteria*.** The ORD is read by general
+employees, and "scenario" means too many things to say that this section is how a requirement is
+tested.
+
+- §15 is retitled from *Scenario Catalogue*, and every place the skill refers to it now says
+  "testable acceptance criteria". A new intro sentence says these rows are inputs to `/write-ac`:
+  an `SCN-NNN` row is a testable acceptance criterion, never an `AC-NNN`.
+- Only the ORD changes. The `SCN-NNN` prefix, the `tables.md` § *Scenario* schema and its
+  `Scenario` column (Sunny Day / Rainy Day / Edge Case) stay as they are, so `/write-prd`,
+  `/write-ac` and `/review-ord` are unaffected.
+- The LLM companion's `SCN` gloss now uses the same wording.
+
+---
+
 ## v4.18.0 — 2026-10-08
 
 **A review check for the requirements language standard.** The Style Manual rules adopted into

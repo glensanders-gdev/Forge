@@ -458,10 +458,14 @@ column, and never repeated here.
 
 ---
 
-## 15. Scenario Catalogue
+## 15. Testable Acceptance Criteria
 
-`SCN-NNN` schema in `tables.md`. Requirement-level scenarios and the consolidated catalogue are one
-table. Every requirement carries at least a Sunny Day row; a determination, measurement or
+How each requirement is tested: one row per requirement under one condition, with the end state
+that must hold. These rows are inputs to `/write-ac`, which mints `AC-NNN` from them and from §11's
+`Proposed AC` — an `SCN-NNN` row is a testable acceptance criterion, never an `AC-NNN`.
+
+`SCN-NNN` schema in `tables.md` (§ *Scenario*; its `Scenario` column names the condition). The
+requirement-level rows and this section are one table. Every requirement carries at least a Sunny Day row; a determination, measurement or
 eligibility requirement carries both a Favourable and an Adverse Sunny Day row.
 
 ## 16. Interface Detail

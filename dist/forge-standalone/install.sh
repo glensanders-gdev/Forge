@@ -19,6 +19,8 @@ for dir in "$here"/skills/*/; do
     fi
     rm -rf "${skills_dst:?}/$name"
     cp -R "$dir" "$skills_dst/$name"
+    # The single-file copy is for pasting into a chat assistant. An installed skill never reads it.
+    rm -f "$skills_dst/$name/$name-standalone.md"
     installed=$((installed + 1))
 done
 

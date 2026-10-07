@@ -125,9 +125,10 @@ to work down over time. After changing a shared skill, rebuild and commit `dist/
 `plugins/forge-codex/`.
 
 Each self-contained skill (`$SelfContainedSkills` in the build) also ships as one file at
-`dist/forge-standalone/paste/<skill>.md`, for chat assistants such as M365 Copilot that take one
-pasted or attached file. It exists only in `dist/`: `install.sh` never copies `paste/`, so no
-assistant discovers it as a skill. Never cite it from a skill.
+`dist/forge-standalone/skills/<skill>/<skill>-standalone.md`, for chat assistants such as M365
+Copilot that take one pasted or attached file. It exists only in `dist/`, never in
+`global/.claude/skills/`. The generated `install.sh` deletes it after copying a skill folder, so
+no installed skill carries it. Never cite it from a skill.
 
 ### Naming a host product
 

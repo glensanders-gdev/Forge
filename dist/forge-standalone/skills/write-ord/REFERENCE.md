@@ -139,7 +139,7 @@ map:
 | App. B | Assumption register | **§9** — promoted to the body |
 | App. C | Referred requirements | §10.3 |
 | App. D | ORD → SOAP conformance | §17 |
-| App. E | Scenario catalogue | §15 |
+| App. E | Scenario catalogue | §15 Testable acceptance criteria |
 | 2.3 | Entry position record | §12 |
 | — | Business rules *(pack: conditional, declared)* | §13 — every ORD, declared |
 | — | Reporting detail *(not in pack)* | §14 — where `reporting.md` fires |

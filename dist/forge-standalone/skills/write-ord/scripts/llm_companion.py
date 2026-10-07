@@ -56,7 +56,7 @@ PREFIXES = {
     "AC": "acceptance criterion",
     "OBJ": "operational objective — the outcome layer between a BRD objective and a requirement",
     "BRL": "business rule — the business decision a rule makes, not its logic",
-    "SCN": "scenario — one requirement examined under one condition",
+    "SCN": "testable acceptance criterion (§15) — one requirement tested under one condition; an input to /write-ac, never an AC-NNN",
     "IMP": "impact — a workflow or system the change touches, with its owner; identification only",
     "REF": "referred requirement — raised here, not delivered by this document, handed to a named recipient",
     "DAT": "data element over a reported measure, with its ISO/IEC 25012 quality characteristic",

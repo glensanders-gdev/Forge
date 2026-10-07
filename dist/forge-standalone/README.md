@@ -39,9 +39,17 @@ from `rules/` or `standards/` — the skill folder is the whole skill:
 - `/write-reqs`
 - `/review-language`
 
-To use one in a chat assistant that cannot install skills, paste or attach its single-file
-bundle from `paste/` — for example `paste/write-ord.md`. It holds the same content as the
-skill folder in one file. `install.sh` does not install `paste/`, and nothing reads it.
+To use one in a chat assistant that cannot install skills, such as M365 Copilot, paste or
+attach the single file inside its folder — for example `skills/write-ord/write-ord-standalone.md`.
+It holds the whole skill folder in one file. Nothing in the skill reads it, and `install.sh`
+removes it after copying, so an installed skill never carries it:
+
+- [`write-ord-standalone.md`](skills/write-ord/write-ord-standalone.md)
+- [`write-prd-standalone.md`](skills/write-prd/write-prd-standalone.md)
+- [`write-brd-standalone.md`](skills/write-brd/write-brd-standalone.md)
+- [`write-ac-standalone.md`](skills/write-ac/write-ac-standalone.md)
+- [`write-reqs-standalone.md`](skills/write-reqs/write-reqs-standalone.md)
+- [`review-language-standalone.md`](skills/review-language/review-language-standalone.md)
 
 ## Skills
 
@@ -187,7 +195,7 @@ These files are generated, so edits made directly here are overwritten on the ne
 release. Open an issue describing what needs changing and it will be fixed upstream
 and republished.
 
-Release 4.18.0.
+Release 4.18.1.
 
 ## Credits
 
