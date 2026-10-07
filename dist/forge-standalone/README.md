@@ -30,13 +30,17 @@ only when a skill reads it. `rules/requirements.md` is the exception in `rules/`
 frontmatter loads it only when a session reads a requirements document.
 
 These carry their standards in a `STANDARDS.md` beside the skill, so they need nothing
-from `rules/` or `standards/` — the three files are the whole skill, installed or pasted into a chat:
+from `rules/` or `standards/` — the skill folder is the whole skill:
 
 - `/write-ord`
 - `/write-prd`
 - `/write-brd`
 - `/write-ac`
 - `/write-reqs`
+
+To use one in a chat assistant that cannot install skills, paste or attach its single-file
+bundle from `paste/` — for example `paste/write-ord.md`. It holds the same content as the
+skill folder in one file. `install.sh` does not install `paste/`, and nothing reads it.
 
 ## Skills
 

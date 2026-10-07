@@ -449,6 +449,64 @@ foreach ($entry in $SelfContainedSkills.GetEnumerator()) {
     Write-Host "Wrote skills/$name/STANDARDS.md from $($parts.Count) part(s) ($rewritten file(s) repointed)"
 }
 
+# ---------------------------------------------------------------- paste bundles
+
+# A self-contained skill is still a folder of files, and a chat assistant that takes no
+# upload -- or takes one file at a time -- makes a user save or paste each one. Missing one
+# fails the way a missing standard does: the citation names a part the model never saw.
+# So each self-contained skill also ships as a single file in `paste/`, every part keyed by
+# the filename the skill cites it by.
+#
+# `paste/` sits outside `skills/` deliberately. install.sh copies only `skills/`, `rules/`
+# and `standards/`, so a bundle never lands where an assistant discovers skills, and an
+# installed skill never reads its own content twice. It is for pasting, nothing else.
+#
+# Headings are left at their own levels. STANDARDS.md already nests its parts one level
+# down, and demoting it again would push its deepest headings past what markdown renders.
+$PastePreamble = @'
+Paste this whole file into a chat assistant as one message, or attach it as one file, then
+give it your source material. It is the complete `/{0}` skill: `SKILL.md` first, then every
+file it cites, each under a heading carrying that file's name. A citation such as
+`TEMPLATE.md` or `tables.md` means that part of this file, not a file to go and find.
+
+A step that runs a script (`scripts/...`) cannot run in a chat. Skip that step and state in
+the output that it was skipped; never produce the script's output by hand.
+
+**Generated — do not edit.** Regenerated from the skill on every release.
+'@
+
+$pasteOut = Join-Path $OutRoot "paste"
+Ensure-Directory $pasteOut
+foreach ($b in $bundled) {
+    $skillDir = Join-Path $skillsOut $b.Skill
+    $files = @(Get-ChildItem -LiteralPath $skillDir -File -Filter "*.md" |
+        Where-Object { $_.Name -ne "SKILL.md" -and $_.Name -ne "STANDARDS.md" } | Sort-Object Name)
+    # SKILL.md is the instructions, so it is read first; STANDARDS.md is the largest part and
+    # is only ever looked up, so it goes last.
+    $ordered = @((Get-Item -LiteralPath (Join-Path $skillDir "SKILL.md"))) + $files +
+        @((Get-Item -LiteralPath (Join-Path $skillDir "STANDARDS.md")))
+
+    $doc = New-Object System.Collections.Generic.List[string]
+    $doc.Add("# /$($b.Skill) — single-file paste bundle")
+    $doc.Add("")
+    $doc.Add(($PastePreamble -replace "\r\n?", "`n") -f $b.Skill)
+    $doc.Add("")
+    $doc.Add("## Contents")
+    $doc.Add("")
+    foreach ($f in $ordered) { $doc.Add("- ``$($f.Name)``") }
+    foreach ($f in $ordered) {
+        $doc.Add("")
+        $doc.Add("---")
+        $doc.Add("")
+        $doc.Add("# ``$($f.Name)``")
+        $doc.Add("")
+        $doc.Add([IO.File]::ReadAllText($f.FullName, [Text.Encoding]::UTF8).Trim())
+    }
+    $outFile = Join-Path $pasteOut "$($b.Skill).md"
+    [IO.File]::WriteAllText($outFile, (($doc -join "`n").TrimEnd() + "`n"), [Text.UTF8Encoding]::new($false))
+    Write-Host "Wrote paste/$($b.Skill).md from $($ordered.Count) file(s)"
+}
+
 # ---------------------------------------------------------------- reference resolution
 
 # The scan in the copy loop checks skill *names*. It never checked the file paths a skill
@@ -711,9 +769,13 @@ $readme.Add("")
 if ($bundled.Count -gt 0) {
     $verb = if ($bundled.Count -eq 1) { 'carries' } else { 'carry' }
     $readme.Add("These $verb their standards in a ``STANDARDS.md`` beside the skill, so they need nothing")
-    $readme.Add('from `rules/` or `standards/` — the three files are the whole skill, installed or pasted into a chat:')
+    $readme.Add('from `rules/` or `standards/` — the skill folder is the whole skill:')
     $readme.Add("")
     foreach ($b in $bundled) { $readme.Add("- ``/$($b.Skill)``") }
+    $readme.Add("")
+    $readme.Add('To use one in a chat assistant that cannot install skills, paste or attach its single-file')
+    $readme.Add('bundle from `paste/` — for example `paste/write-ord.md`. It holds the same content as the')
+    $readme.Add('skill folder in one file. `install.sh` does not install `paste/`, and nothing reads it.')
 }
 $readme.Add("")
 $readme.Add("## Skills")
