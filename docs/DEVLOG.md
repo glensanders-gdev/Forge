@@ -2,6 +2,32 @@
 
 ---
 
+## Session 2026-10-08/09 — Standards drift: review-language skill mode and skill-health standards
+
+**Stream:** `standards-drift` (opened at debrief — `docs/handoffs/standards-drift.md`)
+**Version range:** 4.20.0 → 4.23.2 ([PR #106](https://github.com/glensanders-gdev/Forge/pull/106), 9 commits plus a merge of `main` at v4.20.1; merged at the close of this session)
+**Goals this session:** Decide whether `/skill-health` should check skills against the language, AI and other standards; build what that needs; fix what it finds.
+**Tickets Completed:** None on kanban — ad-hoc framework change.
+**Decisions Made:**
+1. `/review-language` was extended rather than a new skill created. `--skill` checks only templates, placeholder text and worked examples, because `README.md` § *Scope boundary* excludes skill instruction prose. The user chose this narrowed version.
+2. Template callout notes land in the finished document (user decision), so they are governed text.
+3. `/write-prd`'s Claude-facing guidance moved out of the template fence into *Template notes* (user choice over marking and stripping).
+4. SOAP is Solution on a Page and SAR is Solution Architecture Review (user-supplied). They are now spelled out in the PRD template.
+5. Standards are declared in a register in `/skill-health` (`STANDARDS.md`), not in skill frontmatter. It tracks `standards/requirements/*` and `rules/common/*`. Drift clears with a review stamp, not a version bump. All four were user choices.
+6. `review-brd` and `review-ord` are outside `language.md`'s scope, because they apply it only by running `/review-language` live.
+7. The `/write-brd` header findings (`BABOK v3`, `FYnn Hn`) belong to the requirements pack and were not fixed here.
+**Assumptions Made:**
+- The vendor command reference stands in for the interactive `/` menu in the reserved-names refresh. The stamp says so.
+- The Claude Code version was read from the app-bundled binary, because `claude` is not on `PATH`.
+**Blockers:** None
+**Next Up:**
+1. Confirm #106 merged, run `tools/sync-standalone-skills.sh`, and pull `main` into the main checkout (`standards-drift`).
+2. Work the review backlog in `STANDARDS.md`, starting with `/review-language --skill` on `idea-ai`, `roap`, `testplan` (`standards-drift`).
+3. `/assimilate` Style Manual batch 3 from `main` (`style-manual`).
+**Status:** In Progress
+
+---
+
 ## Session 2026-10-07 — Australian Government Style Manual for requirements documents
 
 **Stream:** `style-manual` (opened at debrief — `docs/handoffs/style-manual.md`)

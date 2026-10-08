@@ -117,7 +117,7 @@ date; and every figure the source did not state is an open question at the gate 
    the BRD, in the form `language.md` § *Citing Sources* sets, and no row that nothing cites. With
    no source cited, write a single `None cited` row.
 11. **Generate the LLM companion** from the saved BRD by running
-   `python3 ../write-ord/scripts/llm_companion.py docs/brd/[change-name]-BRD.md --generator "/write-brd 1.3.0"`,
+   `python3 ../write-ord/scripts/llm_companion.py docs/brd/[change-name]-BRD.md --generator "/write-brd 1.4.3"`,
    per `llm-companion.md`. It writes `docs/brd/[change-name]-BRD.llm.md` only when every row
    reconciles and every value arrived verbatim. On a refusal, report the reason; never write the
    companion by hand instead.

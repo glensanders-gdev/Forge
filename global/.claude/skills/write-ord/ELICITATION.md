@@ -112,7 +112,7 @@ without it; retain the mechanism as `Source` evidence, interface detail (§16), 
 a constraint (§7.11), or referred response-side content (§10.3).
 
 > ✗ `The solution shall ensure the transaction uses database rollback on failure`
-> ✓ `A failed update leaves the last valid record unchanged`
+> ✓ `The last valid record is unchanged after a failed update`
 
 **Split a source statement only where its clauses differ in** actor, trigger, outcome, owner,
 priority, source, verification condition, status, or business consequence. **Never split because

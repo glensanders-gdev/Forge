@@ -16,9 +16,7 @@ report, at ℹ️ Info, carrying its reason.
 | Skill | Check | Granted | Invariant | Reason |
 |---|---|---|---|---|
 | `write-ord` | `frontmatter_versions` | 2026-09-08 | Frontmatter `version:` equals the `write-ord` value in `manifest.json` | `write-ord` is published to `glensanders-gdev/skills`, where `manifest.json` does not travel with the skill. The version is carried in frontmatter at the maintainer's instruction so a reader of the public artefact can tell which version they hold. Granted at v4.9.0 |
-| `knowledge-health` | `stale_skill_versions` | 2026-09-08 | The most recent commit touching `skills/knowledge-health/` is still `066a680` | `066a680`'s only change to this skill was `version: 1.0.0` → `1.1.0` in `SKILL.md` frontmatter — the field v4.1.0 deleted from all 32 skills for being a second source of truth. The directory changed only in that a duplicate of the manifest value was synced to it, and the duplicate is now gone. The manifest value has been correct throughout. Analysis at v4.9.6 |
-| `write-article` | `stale_skill_versions` | 2026-09-08 | The most recent commit touching `skills/write-article/` is still `066a680` | The same commit, the same edit, the same deleted field as the row above. Analysis at v4.9.6 |
-| `dashboard-tokens` | `stale_skill_versions` | 2026-09-08 | The most recent commit touching `skills/dashboard-tokens/` is still `a6020fb` | `a6020fb`'s only change to this skill was the removal of one trailing space. Analysis at v4.9.6 |
+| `dashboard-tokens` | `stale_skill_versions` | 2026-09-08 | The most recent non-sweep commit touching `skills/dashboard-tokens/` is still `a6020fb` | `a6020fb`'s only change to this skill was the removal of one trailing space. Analysis at v4.9.6 |
 
 ---
 
@@ -28,6 +26,9 @@ report, at ℹ️ Info, carrying its reason.
   needs exempting everywhere is a wrong check, and the fix belongs in the check.
 - **`Check`** — exactly one tally name from the Phase 2 list in [SKILL.md](SKILL.md). A row
   naming a check that does not exist is a stale row, not a silent pass.
+- **An invariant about a skill's latest commit names the latest non-sweep commit.** The
+  version-bump check skips portfolio sweeps, so an invariant that counts them breaks on the next
+  sweep while the finding it covers is unchanged.
 - **`Granted`** — the date the exception was made, so the register's age is as visible as the
   `RESERVED-NAMES.md` stamp's. An old grant is not wrong; an old grant nobody has looked at is
   worth less than it appears.

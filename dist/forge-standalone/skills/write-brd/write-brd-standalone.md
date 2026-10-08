@@ -139,7 +139,7 @@ date; and every figure the source did not state is an open question at the gate 
    the BRD, in the form `language.md` § *Citing Sources* sets, and no row that nothing cites. With
    no source cited, write a single `None cited` row.
 11. **Generate the LLM companion** from the saved BRD by running
-   `python3 ../write-ord/scripts/llm_companion.py docs/brd/[change-name]-BRD.md --generator "/write-brd 1.3.0"`,
+   `python3 ../write-ord/scripts/llm_companion.py docs/brd/[change-name]-BRD.md --generator "/write-brd 1.4.3"`,
    per `llm-companion.md`. It writes `docs/brd/[change-name]-BRD.llm.md` only when every row
    reconciles and every value arrived verbatim. On a refusal, report the reason; never write the
    companion by hand instead.
@@ -423,6 +423,8 @@ governed here.
 
 `/review-language` checks a document against `language.md`, and `/review-ord` and `/review-brd`
 run it as an advisory pass after the gate. It reports findings and never changes a gate verdict.
+`/review-language --skill <name>` checks the governed text inside a skill — its templates and
+worked examples — and leaves its instructions out, per the table above.
 
 `/check-style` reads `~/.claude/knowledge/company/style-guide.md`, not this ruleset — a company
 style guide may add to these rules but never relaxes them. Where the two conflict, the stricter

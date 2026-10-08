@@ -1,6 +1,6 @@
 {
   "repository": "https://github.com/glensanders-gdev/skills",
-  "version": "4.20.1",
+  "version": "4.23.2",
   "skill_count": 70,
   "skills": [
     {
@@ -137,7 +137,7 @@
     },
     {
       "name": "grill-with-peer",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "category": "pipeline",
       "description": "Stress-test a plan or design with an independent peer model, then reconcile its critique with the host model. Use when the user asks for cross-model review, model diversity, a second AI opinion, /grill-with-peer, or /grill-with-codex."
     },
@@ -251,9 +251,9 @@
     },
     {
       "name": "review-language",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "category": "pipeline",
-      "description": "Check the wording of a requirements document — BRD, PRD, ORD or AC — against the requirements language standard, including the modal and construction bans and the rules adopted from the Australian Government Style Manual. Returns every finding graded Defect or Advisory, with its location, the rule it breaks and a suggested rewrite. Use when /review-language is run, before a requirements document is shared or handed off, or as the advisory language pass inside /review-ord and /review-brd."
+      "description": "Check the wording of a requirements document — BRD, PRD, ORD or AC — against the requirements language standard, including the modal and construction bans and the rules adopted from the Australian Government Style Manual. With --skill, checks only the templates and worked examples inside a requirements skill, never its instruction prose. Returns every finding graded Defect or Advisory, with its location, the rule it breaks and a suggested rewrite. Use when /review-language is run, before a requirements document is shared or handed off, as the advisory language pass inside /review-ord and /review-brd, or after language.md changes to find skill templates that teach an outdated form."
     },
     {
       "name": "review-ord",
@@ -299,7 +299,7 @@
     },
     {
       "name": "setup-brain",
-      "version": "3.0.0",
+      "version": "3.0.1",
       "category": "knowledge",
       "description": "Scaffold and audit the Karpathy second-brain knowledge model — a root knowledge space plus one space per project, each with Raw/ and Wiki/, a mandatory human-declared scope for every project space, and a pending-changes ledger for in-flight shared work. Use when user runs /setup-brain, sets up the knowledge base on a new machine, or when project spaces need scope declared or the structure audited."
     },
@@ -335,7 +335,7 @@
     },
     {
       "name": "testplan",
-      "version": "1.2.3",
+      "version": "1.2.4",
       "category": "pipeline",
       "description": "Design the testing strategy for a feature or a release — what to test, at what level, automated vs manual, and which behaviours are critical. Runs in feature mode against a PRD, or operational mode (--operational) against an ORD register. Produces a testplan.md that feeds into /tdd and /qa-plan. Use when user runs /testplan, a PRD or ORD is written, or before implementation begins."
     },
@@ -377,13 +377,13 @@
     },
     {
       "name": "write-a-skill",
-      "version": "1.8.0",
+      "version": "1.8.2",
       "category": "framework",
       "description": "Create a new skill with the right structure, file locations, and registry updates. Use when user wants to create, write, or add a new skill, or mentions /write-a-skill."
     },
     {
       "name": "write-ac",
-      "version": "1.6.4",
+      "version": "1.6.5",
       "category": "pipeline",
       "description": "Transform a PRD and ORD into Jira acceptance criteria — promote KPPs and headline outcomes to Capability-level AC, flow story detail to child Epics/Stories, carry PRD-NNN/ORD-NNN traceability into each criterion, and optionally push to the linked Jira Capability behind a confirmation gate. Use when the user runs /write-ac, has a PRD and/or ORD ready to turn into Jira acceptance criteria, or is promoting a project to a Jira Capability."
     },
@@ -401,25 +401,25 @@
     },
     {
       "name": "write-brd",
-      "version": "1.4.2",
+      "version": "1.4.3",
       "category": "pipeline",
       "description": "Author a Business Requirements Document to the pack's BABOK v3 standard — SMART objectives carrying baseline, target and date, outcomes rather than solutions, and a cost-of-failure case for each objective carrying operational exposure — then self-assess it against the BH-1 – BH-10 handoff gate that decides whether ORD development can start. Runs AFK ingest, HITL write, then the gate. The standard is read at authoring time, never recalled. Use when a BRD is needed from a request brief, idea, transcript or notes, when /write-brd is run, or when an ORD task turns out to be a BRD task in disguise."
     },
     {
       "name": "write-ord",
-      "version": "3.0.4",
+      "version": "3.0.6",
       "category": "pipeline",
       "description": "Synthesize a call transcript, document, conversation context, or structured notes into a business-focused, demand-side Operational Requirements Document (ORD) — executive summary first, quantified business tolerances organised by ISO/IEC 25010:2023 quality characteristics, with decisions, assumptions and dependencies as first-class registers, and business rules and reporting requirements in their own appendices. Use when the user runs /write-ord, provides a transcript or document to convert into an ORD, or wants to formalise operational requirements from a conversation."
     },
     {
       "name": "write-prd",
-      "version": "2.8.0",
+      "version": "2.9.0",
       "category": "pipeline",
       "description": "Synthesize the current conversation, grill session, research, and prototype findings into a structured PRD aligned with ISO/IEC/IEEE 29148:2018 — the functional demand document sitting between the BRD and the SOAP, stating what is built and for whom and carrying no technical figure. Executes in two phases — AFK explore then HITL write — with a confirmation gate between them. Use when user runs /write-prd or when grill-me confirms shared understanding is reached."
     },
     {
       "name": "write-reqs",
-      "version": "1.4.4",
+      "version": "1.4.5",
       "category": "pipeline",
       "description": "Author a PRD and an ORD together from one source — classify needs into functional (PRD) and operational (ORD), delegate each document end-to-end to /write-prd and /write-ord via a binding authoring brief (each keeping its own confirmation gate), then own the bidirectional BRD↔PRD↔ORD cross-link neither sibling can complete alone. Use when the user runs /write-reqs, or wants both a PRD and an ORD from a single grill, transcript, or BRD rather than authoring either standalone."
     }

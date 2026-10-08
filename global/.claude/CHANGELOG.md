@@ -11,6 +11,218 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
+## v4.23.2 — 2026-10-09
+
+**`RESERVED-NAMES.md` refreshed against Claude Code 2.1.293.** The list was 48 days old, recorded no
+version, and 30 of its 44 slash commands were `Recalled` from model knowledge.
+
+- **`/write-a-skill` 1.8.2:**
+  - The stamp is now dated 2026-10-09 and records **2.1.293**, the first version the list has ever
+    recorded. It was read from the binary this session ran on, because `claude` was not on `PATH`.
+  - The source is the vendor command reference (119 rows, 17 aliases) plus the session's
+    available-skills listing. The list grows from 61 names to 138: 26 bundled skills and 112
+    commands, aliases and workflows. 79 names are new, including every alias. A skill named like
+    an alias is shadowed just as one named like the command.
+  - Every `Recalled` command is now confirmed by the reference. `todos` is not in it, so it moves
+    to *Withdrawn*, the file's first entry there.
+  - *At Risk* adds `onboard`, because the vendor now ships `/team-onboarding`. The note on
+    `research` now names `/deep-research`.
+- **Codex:** the Codex plugin's own copy of `RESERVED-NAMES.md`, which the build does not
+  regenerate, is updated from the refreshed source. It had kept the August list.
+- **Collision check:** none of the 116 Forge skills or 117 command stubs matches a reserved name.
+- **Found on the way:** Claude Code before 2.1.280 moved skill folders listed in a
+  `~/.claude/skills/manifest.json` into `~/.claude/skills/.trash/`. Forge keeps its manifest at
+  exactly that path. No trash folder exists, so no Forge install has been hit, and 2.1.293 no
+  longer does this.
+
+---
+
+## v4.23.1 — 2026-10-08
+
+**Fixes from the first `/skill-health` run with standards checks.**
+
+- **`/skill-health` 1.8.1:**
+  - The version-bump check now runs `git log -S` with `--diff-merges=first-parent`. Without it, a
+    version set while resolving a merge read as never committed. `write-brd` 1.4.3 and
+    `grill-with-peer` 1.0.0 were both affected.
+  - `EXCEPTIONS.md`: the `dashboard-tokens` invariant now names the latest non-sweep commit. It
+    was false the day it was granted, because the 113-skill sweep `7e60ad1` predates it. The
+    `knowledge-health` and `write-article` rows are removed: both skills were bumped since, and
+    neither trips the check any more. A new note says latest-commit invariants count non-sweep
+    commits only.
+- **Versions for changes that landed without a bump:**
+  - **`/commands` 1.0.3:** table rows for `/fix-one-thing` (`3601646`), `/review-language`
+    (`e287ba6`) and its `--skill` mode (`36702eb`).
+  - **`/write-a-skill` 1.8.1:** `workflow-authoring` added to `RESERVED-NAMES.md` (`3601646`).
+  - **`/testplan` 1.2.4:** reads a 2.x ORD in its own section numbering (`7c51ea8`).
+  - **`/grill-with-peer` 1.0.1:** the note that `/grill-with-codex` is an intentional alias
+    (`a44f38f`). The old pickaxe hid this one, because the 1.0.0 version was set in a merge.
+  - **`/setup-brain` 3.0.1:** the shared-space definition reworded (`fcbfbd8`). It also gains an
+    `## Attribution` section crediting Andrej Karpathy, whom only its frontmatter named.
+- **CHANGELOG:** the v4.10.1 and v4.11.0 entries now name the versions they shipped:
+  `/write-a-skill` 1.8.0, `/ingest` 2.0.0 and `/knowledge-health` 1.2.0.
+
+---
+
+## v4.23.0 — 2026-10-08
+
+**`/skill-health` tracks which skills apply which standards, and flags a standard that changed
+after a skill was last reviewed against it.** A change to `language.md` or a `rules/common/` file
+can leave every skill that applies it teaching an old form. Nothing in the skill changes, so no
+existing check notices. An impact assessment that greps for the standard's path finds only the
+skills that cite it.
+
+- **`/skill-health` 1.8.0:**
+  - A new register, `skill-health/STANDARDS.md`, lists 12 tracked standards: the 5
+    `standards/requirements/` files and 7 `rules/common/` files. Each carries an `Applies to` list.
+    52 declarations record each skill and standard pair, with its relation and the date it was
+    last reviewed.
+  - New checks:
+    - 🔴 A tracked standard is missing, or a declaration names an unknown skill or standard.
+    - ⚠️ A skill in a standard's `Applies to` list has no declaration for it.
+    - ⚠️ A skill cites an on-demand standard without declaring it.
+    - ⚠️ An on-demand standard is declared but never cited.
+    - ⚠️ A standard changed after the `Reviewed` date (**drift**).
+    - ℹ️ A declaration has never been reviewed.
+  - Always-loaded `rules/common/` standards are never required to be cited, because every session
+    loads them.
+  - A `Reviewed` stamp is updated by the maintainer after a review, never by the audit. For
+    `language.md` the review is `/review-language --skill`.
+- **Seeded state:** the 5 requirements-writing skills are stamped as reviewed against
+  `language.md` on 2026-10-08, by the runs in v4.21.0–v4.22.1. The other 46 `Applies`
+  declarations start as never reviewed, so the first run reports them as ℹ️ Info. That is the
+  review backlog.
+- **Not tracked:** language-specific rules (`rules/<lang>/`), which govern project code rather than
+  skills.
+
+---
+
+## v4.22.1 — 2026-10-08
+
+**`/write-reqs` briefs use the BRD's real IDs.** The authoring brief asked for each need's
+provenance as `BRD-NN`. No skill emits that form, and `/write-prd` forbids it, so every jointly
+authored pair was handed an ID its own PRD could not carry. Found during
+`/review-language --skill write-reqs`, which otherwise found no governed text: the skill writes no
+document of its own.
+
+- **`/write-reqs` 1.4.5:** the brief's provenance field and Phase 1 step 5 now name `BO-N`
+  objectives and `BR-N` business requirements, the IDs `/write-brd` emits.
+
+---
+
+## v4.22.0 — 2026-10-08
+
+**The PRD template holds only what a PRD reader needs.** `/review-language --skill write-prd`
+found that the fenced template carried Claude's authoring guidance into every PRD: callout notes,
+rule bullets such as "flag it" and "Do NOT include file paths", and the line "This skill does not
+name them independently; read the pack". Fixing the wording of guidance that should not be in the
+document at all would have been the wrong fix.
+
+- **`/write-prd` 2.9.0:**
+  - All authoring guidance moves out of the fence into a new *Template notes* section after the
+    template, grouped by PRD section. The wording is unchanged apart from the joins needed to move
+    it. The fence keeps headings, fields,
+    placeholders, tables and the worked example.
+  - The conditional-lines note now also covers the Task List and Definition of Done variants:
+    keep the one matching `Delivery Mode` and drop its **Under …** marker.
+  - Language fixes in the template:
+    - The chain-position line spells out each document: Business Requirements Document,
+      Product Requirements Document, Solution on a Page (SOAP), Operational Requirements Document
+      and Solution Architecture Review (SAR).
+    - The idiom "fair weather, foul weather" becomes "normal operation, a failure, or a boundary".
+    - The accessibility constraint example spells out WCAG and the success criterion, and writes
+      "CSS pixels".
+    - The Definition of Done expands QA and drops "explicitly". The AFK description drops
+      `can execute`. The Testing Decisions prompts are bracketed placeholders.
+  - References no longer lists the ORD among a PRD's sources. That contradicted the skill's own
+    rule that the ORD does not exist when a PRD is written.
+- Minor rather than patch, because the saved PRD changes shape: PRDs written from 2.9.0 carry no
+  guidance callouts or rule bullets.
+
+---
+
+## v4.21.3 — 2026-10-08
+
+**LLM companion generator versions.** Both requirements skills passed a hard-coded version to
+`llm_companion.py`, and neither literal moved when the skill was bumped. Every companion recorded
+the wrong generator: `/write-brd` 1.3.0 against 1.4.1, and `/write-ord` 3.0.0 against 3.0.5.
+
+- **`/write-ord` 3.0.6:** the `--generator` argument now takes the version from the skill's own
+  frontmatter, which `EXCEPTIONS.md` already holds equal to the manifest. It cannot drift again.
+- **`/write-brd` 1.4.3:** the literal is corrected. `/write-brd` carries no frontmatter version,
+  and the standalone copy has no manifest to read, so the literal stays and is updated with each
+  bump.
+
+---
+
+## v4.21.2 — 2026-10-08
+
+**`/write-ord` template fixes, found by `/review-language --skill write-ord`.** The worked register
+extract is the form every ORD copies. Three of its rows broke the form they were there to teach.
+
+- **`/write-ord` 3.0.5:**
+  - The `Business Tolerance` cells of ORD-003 and ORD-006 are now noun-first and passive, as
+    `language.md` § *Voice by Altitude* requires. So is the ✓ extraction example in
+    `ELICITATION.md`.
+  - ORD-005 is now in the active voice. The *What each row demonstrates* table says it shows the
+    active voice where the actor is load-bearing, and before this fix it did not.
+  - ORD-001 no longer strings more than 3 nouns together. The Source cells of ORD-002 and ORD-003 use the
+    internal-record citation form.
+  - The ORD template spells out KPP, BRD, ORD and SLA on first use. A callout note and a table
+    cell now write numbers as numerals. Callout notes reach the finished ORD, so they are governed
+    text.
+  - The frontmatter `version:` was still 3.0.3 against a manifest value of 3.0.4, which broke the
+    `EXCEPTIONS.md` invariant. Both now read 3.0.5.
+- **Not changed:** `review-ord/CRITERIA.md` carries the old ORD-005 wording in an extract generated
+  from the local requirements pack. It is corrected when that pack is regenerated.
+
+---
+
+## v4.21.1 — 2026-10-08
+
+**`/write-ac` template fixes, found by the first `/review-language --skill` run.**
+
+- **`/write-ac` 1.6.5:**
+  - `REFERENCE.md`'s operational worked example `AC-002` stated an engineering target: `p95`
+    server latency, a load-test instrument, and no space before the unit. That breaks
+    `language.md` § *Demand, not design*. It now states a business tolerance, the customer's
+    wait at the end-of-month peak. It carries both labelled KPP values, as `SKILL.md` requires,
+    and `Verification: pending design response` where §17 names no instrument.
+  - The AC document template spells out Key Performance Parameters (KPPs) on first use and
+    drops the `+` shorthand. "Source req" in the template's closing notes now reads "source
+    requirement".
+
+---
+
+## v4.21.0 — 2026-10-08
+
+**`/review-language` checks the templates inside a skill.** When `language.md` changes, the
+templates and worked examples inside the requirements skills keep teaching the old form, and every
+document those skills write copies it. An impact assessment finds only the skills that cite the
+changed rule, not the ones whose examples quietly break it. `README.md` § *Scope boundary* already
+puts template and example text in scope and leaves instruction prose out. Nothing checked that
+text.
+
+- **`/review-language` 1.1.0:**
+  - A `--skill <name>` mode reads the skill's folder and checks its templates, placeholder text
+    and worked examples against `language.md`. A `SKILL.md` passed as the document runs in this
+    mode too.
+  - Step 2 gains four classes. A template or example is checked as the class it becomes once it
+    is in a document. Counter-examples, meaning text shown as what not to write, are exempt. Skill
+    instructions, rules and failure modes are exempt, and so are templates for the skill's own chat
+    output, because they never reach a document.
+  - Skill mode checks against the Australian defaults, not a company `Locale` section, because
+    skills are shared across companies.
+  - A skill with no governed text reports "No governed text" and is never reported as passing.
+    Five new failure-mode rows cover skill mode, and the mismatch row no longer stops on a skill
+    file.
+- **`standards/requirements/README.md`:** § *Enforcement* names the skill mode. The scope table
+  is unchanged.
+- **Not adopted:** checking skill instruction prose. `language.md` bans the directives that make a
+  skill work, so that would need a separate standard written for instruction prose.
+
+---
+
 ## v4.20.1 — 2026-10-08
 
 **The review-criteria extracts are regenerated from requirements pack v1.16 (`e5b1e1d`) and are
@@ -536,6 +748,7 @@ No migration: no `_scope.md` or `pending-changes.md` existed anywhere when the r
 ## v4.11.0 — 2026-09-16
 
 **`Raw/` is now an inbox, not a dump — `/ingest` archives each compiled source.**
+`/ingest` 1.1.1 → 2.0.0 · `/knowledge-health` 1.1.0 → 1.2.0.
 
 Compiled sources move to `Raw/_archive/YYYY-MM/`, filed by compile month. What remains at the
 top level of `Raw/` is exactly the pending queue, which is also what `/ingest` and
@@ -596,7 +809,7 @@ root. Held: the company-aware path resolution, the registry-driven scope prompt,
 
 ## v4.10.1 — 2026-09-16
 
-**`/write-a-skill` now ships in the public distribution.**
+**`/write-a-skill` now ships in the public distribution.** `/write-a-skill` 1.7.0 → 1.8.0.
 
 The skill was held at `standalone: false` while its text already carried seven `<!--forge-only-->`
 fences — authored for a public cut that the flag never let run. Flipped to `standalone: true`, with

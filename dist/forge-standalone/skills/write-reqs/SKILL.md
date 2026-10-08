@@ -51,7 +51,8 @@ here — each document is confirmed at its own gate in Phase 2.
    sibling re-decides it and they cannot disagree. Judge the **delivered solution**, never the
    toolchain that builds it. Where it fires, name the affected components: the trigger is
    per-component, so deterministic needs in the same source are unaffected.
-5. Tag provenance per need (BRD objective ID, or proximate source).
+5. Tag provenance per need (the `BO-N` objective or `BR-N` business requirement `/write-brd`
+   emits, or the proximate source).
 6. Collect assumptions and dependencies once, centrally — they are shared, not per-document.
    Carry forward any `/idea` assumptions with their Status rather than restating them.
 7. Print the split as orientation and proceed to Phase 2:
@@ -83,7 +84,7 @@ Scope:        Author the [PRD | ORD] only, from the needs listed below. Do not r
 BRD:          [path, or "none — trace each need to its proximate source"]
 
 Needs (N):
-  - [need] — provenance: [BRD-NN | source quote | named stakeholder]
+  - [need] — provenance: [BO-N / BR-N | source quote | named stakeholder]
 
 Cross-document context:
   [ORD brief] NFRs the PRD must not hold and this ORD owns: [list]
