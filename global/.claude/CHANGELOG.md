@@ -11,6 +11,32 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
+## v4.23.2 — 2026-10-09
+
+**`RESERVED-NAMES.md` refreshed against Claude Code 2.1.293.** The list was 48 days old, recorded no
+version, and 30 of its 44 slash commands were `Recalled` from model knowledge.
+
+- **`/write-a-skill` 1.8.2:**
+  - The stamp is now dated 2026-10-09 and records **2.1.293**, the first version the list has ever
+    recorded. It was read from the binary this session ran on, because `claude` was not on `PATH`.
+  - The source is the vendor command reference (119 rows, 17 aliases) plus the session's
+    available-skills listing. The list grows from 61 names to 138: 26 bundled skills and 112
+    commands, aliases and workflows. 79 names are new, including every alias. A skill named like
+    an alias is shadowed just as one named like the command.
+  - Every `Recalled` command is now confirmed by the reference. `todos` is not in it, so it moves
+    to *Withdrawn*, the file's first entry there.
+  - *At Risk* adds `onboard`, because the vendor now ships `/team-onboarding`. The note on
+    `research` now names `/deep-research`.
+- **Codex:** the Codex plugin's own copy of `RESERVED-NAMES.md`, which the build does not
+  regenerate, is updated from the refreshed source. It had kept the August list.
+- **Collision check:** none of the 116 Forge skills or 117 command stubs matches a reserved name.
+- **Found on the way:** Claude Code before 2.1.280 moved skill folders listed in a
+  `~/.claude/skills/manifest.json` into `~/.claude/skills/.trash/`. Forge keeps its manifest at
+  exactly that path. No trash folder exists, so no Forge install has been hit, and 2.1.293 no
+  longer does this.
+
+---
+
 ## v4.23.1 — 2026-10-08
 
 **Fixes from the first `/skill-health` run with standards checks.**

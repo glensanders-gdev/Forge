@@ -195,7 +195,7 @@ These files are generated, so edits made directly here are overwritten on the ne
 release. Open an issue describing what needs changing and it will be fixed upstream
 and republished.
 
-Release 4.23.1.
+Release 4.23.2.
 
 ## Credits
 

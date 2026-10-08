@@ -1,6 +1,6 @@
 {
   "repository": "https://github.com/glensanders-gdev/skills",
-  "version": "4.23.1",
+  "version": "4.23.2",
   "skill_count": 70,
   "skills": [
     {
@@ -377,7 +377,7 @@
     },
     {
       "name": "write-a-skill",
-      "version": "1.8.1",
+      "version": "1.8.2",
       "category": "framework",
       "description": "Create a new skill with the right structure, file locations, and registry updates. Use when user wants to create, write, or add a new skill, or mentions /write-a-skill."
     },

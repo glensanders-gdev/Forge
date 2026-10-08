@@ -1,5 +1,5 @@
 {
-  "forge_version": "4.23.1",
+  "forge_version": "4.23.2",
   "skills": {
     "setup-brain": "3.0.1",
     "scan-first": "1.0.0",
@@ -18,7 +18,7 @@
     "approve": "1.2.0",
     "add-system": "1.0.1",
     "teach": "1.0.0",
-    "write-a-skill": "1.8.1",
+    "write-a-skill": "1.8.2",
     "standup": "1.0.2",
     "debrief": "2.0.0",
     "check-scope": "2.0.0",

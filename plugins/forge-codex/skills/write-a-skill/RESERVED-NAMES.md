@@ -3,8 +3,8 @@
 Names Claude Code already claims. A Forge skill given one of these names is **shadowed** — the
 vendor's command runs and the skill never loads, with no error to explain the absence.
 
-Cited by `/write-a-skill` (authoring-time check) and `/skill-health` (portfolio audit). One copy,
-two readers — per PRINCIPLE 6, neither restates it.
+Cited by `/write-a-skill` at authoring time. `/skill-health` reads the same list
+for the portfolio audit. One copy, two readers — per PRINCIPLE 6, neither restates it.
 
 ---
 
@@ -12,14 +12,15 @@ two readers — per PRINCIPLE 6, neither restates it.
 
 | | |
 |---|---|
-| **Last verified** | 2026-08-22 |
-| **Claude Code version** | **Not determined** — see below |
-| **Verified by** | Session-environment inspection (bundled skills) + recall (slash commands) |
-| **Staleness threshold** | `Forge staleness warning (days)` in `preferences.md` (default 30) |
+| **Last verified** | 2026-10-09 |
+| **Claude Code version** | 2.1.293 |
+| **Verified by** | The vendor command reference, `code.claude.com/docs/en/commands` (all 119 rows and 17 aliases), and this session's available-skills listing |
+| **Staleness threshold** | 30 days, set by `Forge staleness warning (days)` in `preferences.md` |
 
-The version could not be captured: `claude` is not on `PATH` on this machine (the desktop app is
-`/Applications/Claude.app`), so `claude --version` returns nothing. **The next refresh must fill
-this in** — an undated list is a guess wearing a table.
+The version was read from the binary this session ran on, because `claude` was not on `PATH`. The
+interactive `/` menu was not read. The reference covers the same set, including the commands the
+menu hides until their full name is typed, such as `/heapdump`. A command only some accounts can
+see may still be missing from both.
 
 ---
 
@@ -38,8 +39,8 @@ Two consequences, both deliberate:
 
 ## Refresh Procedure
 
-Run this whenever `/skill-health` flags the stamp as stale, before a batch of new skills, or after
-a Claude Code upgrade.
+Run this whenever the stamp is older than the staleness threshold, before a batch of new skills,
+or after a Claude Code upgrade. `/skill-health` flags the stale stamp for you.
 
 1. **Capture the version.** Run `claude --version` in a terminal where the CLI is installed, or
    read it from the app's status panel. Record it in the stamp — never leave it blank twice.
@@ -49,113 +50,197 @@ a Claude Code upgrade.
    `plugin:skill` prefix are namespaced and **do not** collide; only bare names do.
 4. **Diff against this file.** Add new names, and move withdrawn ones to Withdrawn with the date.
    Never delete a row outright — a name that stops being reserved may return.
-5. **Re-run the collision check.** `/skill-health` compares the refreshed list against
-   `manifest.json` and reports any skill that has become shadowed since the last audit.
+5. **Re-run the collision check.** Compare the refreshed list against every skill installed and
+   report any that has become shadowed since the last audit. `/skill-health` does
+   this against `manifest.json`.
 6. **Update the stamp** — date, version, and how it was verified.
 
 ---
 
 ## Reserved — Bundled Skills
 
-Observed unnamespaced in a live session on the verification date. A Forge skill of the same name
-is shadowed.
+Bundled skills ship with Claude Code. A skill of the same name is shadowed. **Seen in** says
+where each was found on the verification date: the command reference marks bundled skills, and
+the session's available-skills listing shows the ones loaded for this account. 26 names.
 
-| Name | Note |
-|---|---|
-| `artifact-capabilities` | |
-| `artifact-design` | |
-| `artifact-diagramming` | |
-| `claude-api` | |
-| `code-review` | The reason `/review` became `review-diff` rather than `code-review` (v3.25.0) |
-| `dataviz` | |
-| `design` | |
-| `fewer-permission-prompts` | |
-| `init` | Also a built-in slash command |
-| `keybindings-help` | |
-| `loop` | |
-| `run` | |
-| `schedule` | |
-| `security-review` | Forge uses `security-assessment` — see Deliberately Avoided |
-| `simplify` | |
-| `update-config` | |
+| Name | Seen in | Note |
+|---|---|---|
+| `artifact-capabilities` | reference + session |  |
+| `artifact-design` | session |  |
+| `artifact-diagramming` | reference + session |  |
+| `batch` | reference |  |
+| `claude-api` | reference + session |  |
+| `claude-in-chrome` | reference |  |
+| `code-review` | reference + session | The reason `/review` became `review-diff` rather than `code-review` (v3.25.0) |
+| `dataviz` | reference + session |  |
+| `debug` | reference |  |
+| `design` | reference |  |
+| `design-sync` | reference |  |
+| `doctor` | reference |  |
+| `fewer-permission-prompts` | reference + session |  |
+| `init` | reference + session | Also a built-in slash command |
+| `keybindings-help` | session |  |
+| `loop` | reference + session |  |
+| `plugin-authoring` | reference + session |  |
+| `run` | reference + session |  |
+| `run-skill-generator` | reference |  |
+| `schedule` | reference + session |  |
+| `security-review` | reference + session | Name a security skill something else — `security-assessment` reads the same and collides with nothing |
+| `simplify` | reference + session |  |
+| `slides` | reference |  |
+| `update-config` | reference + session |  |
+| `verify` | reference |  |
+| `workflow-authoring` | reference + session | Present only when dynamic workflows are enabled |
 
 Plugin-namespaced skills (`anthropic-skills:approve`, `anthropic-skills:build`, …) carry a prefix
-and **never** collide with a bare Forge name. Do not add them here.
+and **never** collide with a bare skill name. Do not add them here.
 
 ---
 
 ## Reserved — Built-in Slash Commands
 
-**Confirmed** rows appeared in the session environment on the verification date. **Recalled** rows
-come from model knowledge and are the ones step 2 of the refresh exists to check — treat a
-`Recalled` row as a strong prompt to verify, not as proof.
+Every other name in the command reference, including aliases and bundled workflows. A skill named
+like an alias is shadowed exactly as one named like the command. 112 names, all sourced from
+the reference on the verification date.
 
-| Name | Source |
-|---|---|
-| `artifacts` | Confirmed |
-| `clear` | Confirmed |
-| `code-review` | Confirmed |
-| `config` | Confirmed |
-| `continue` | Confirmed — the v3.25.0 collision |
-| `doctor` | Confirmed |
-| `fast` | Confirmed |
-| `help` | Confirmed |
-| `hooks` | Confirmed |
-| `permissions` | Confirmed |
-| `review` | Confirmed — the v3.25.0 collision |
-| `skill-doctor` | Confirmed |
-| `ultrareview` | Confirmed — deprecated alias of `/code-review ultra` |
-| `workflows` | Confirmed |
-| `add-dir` | Recalled |
-| `agents` | Recalled |
-| `bug` | Recalled |
-| `compact` | Recalled |
-| `context` | Recalled |
-| `cost` | Recalled |
-| `export` | Recalled |
-| `ide` | Recalled |
-| `install-github-app` | Recalled |
-| `install-slack-app` | Recalled |
-| `login` | Recalled |
-| `logout` | Recalled |
-| `mcp` | Recalled |
-| `memory` | Recalled |
-| `model` | Recalled |
-| `output-style` | Recalled |
-| `plugin` | Recalled |
-| `pr-comments` | Recalled |
-| `privacy-settings` | Recalled |
-| `release-notes` | Recalled |
-| `resume` | Recalled |
-| `rewind` | Recalled |
-| `sandbox` | Recalled |
-| `status` | Recalled |
-| `statusline` | Recalled |
-| `terminal-setup` | Recalled |
-| `todos` | Recalled |
-| `upgrade` | Recalled |
-| `usage` | Recalled |
-| `vim` | Recalled |
+**Source** is `Reference` for a name in the vendor command reference, or `Recalled` for one taken
+from model knowledge and not yet checked. A `Recalled` row is a prompt to verify, not proof.
+
+| Name | Source | Note |
+|---|---|---|
+| `add-dir` | Reference |  |
+| `advisor` | Reference |  |
+| `agents` | Reference |  |
+| `artifacts` | Reference |  |
+| `auto-mode-setup` | Reference |  |
+| `autocompact` | Reference |  |
+| `autofix-pr` | Reference |  |
+| `background` | Reference |  |
+| `branch` | Reference |  |
+| `btw` | Reference |  |
+| `bug` | Reference |  |
+| `cd` | Reference |  |
+| `chrome` | Reference |  |
+| `clear` | Reference |  |
+| `color` | Reference |  |
+| `compact` | Reference |  |
+| `config` | Reference |  |
+| `context` | Reference |  |
+| `copy` | Reference |  |
+| `cost` | Reference |  |
+| `deep-research` | Reference | Bundled workflow |
+| `design-login` | Reference |  |
+| `desktop` | Reference |  |
+| `diff` | Reference |  |
+| `effort` | Reference |  |
+| `exit` | Reference |  |
+| `export` | Reference |  |
+| `fast` | Reference |  |
+| `feedback` | Reference |  |
+| `focus` | Reference |  |
+| `fork` | Reference |  |
+| `goal` | Reference |  |
+| `heapdump` | Reference | Hidden from the `/` menu until the full name is typed |
+| `help` | Reference |  |
+| `hooks` | Reference |  |
+| `ide` | Reference |  |
+| `import` | Reference |  |
+| `insights` | Reference |  |
+| `install-github-app` | Reference |  |
+| `install-slack-app` | Reference |  |
+| `keybindings` | Reference |  |
+| `list-agents` | Reference |  |
+| `login` | Reference |  |
+| `logout` | Reference |  |
+| `mcp` | Reference |  |
+| `memory` | Reference |  |
+| `mobile` | Reference |  |
+| `model` | Reference |  |
+| `output-style` | Reference |  |
+| `passes` | Reference |  |
+| `permissions` | Reference |  |
+| `plan` | Reference |  |
+| `plugin` | Reference |  |
+| `powerup` | Reference |  |
+| `pr-comments` | Reference |  |
+| `privacy-settings` | Reference |  |
+| `radio` | Reference |  |
+| `rate-limit-options` | Reference |  |
+| `recap` | Reference |  |
+| `release-notes` | Reference |  |
+| `reload-plugins` | Reference |  |
+| `reload-skills` | Reference |  |
+| `remote-control` | Reference |  |
+| `remote-env` | Reference |  |
+| `rename` | Reference |  |
+| `resume` | Reference |  |
+| `review` | Reference | Alias of `/code-review` — the v3.25.0 collision |
+| `rewind` | Reference |  |
+| `sandbox` | Reference |  |
+| `scroll-speed` | Reference |  |
+| `setup-bedrock` | Reference |  |
+| `setup-vertex` | Reference |  |
+| `skill-doctor` | Reference |  |
+| `skills` | Reference |  |
+| `stats` | Reference |  |
+| `status` | Reference |  |
+| `statusline` | Reference |  |
+| `stickers` | Reference |  |
+| `stop` | Reference |  |
+| `subtask` | Reference |  |
+| `tasks` | Reference |  |
+| `team-onboarding` | Reference |  |
+| `teleport` | Reference |  |
+| `terminal-setup` | Reference |  |
+| `theme` | Reference |  |
+| `tui` | Reference |  |
+| `ultraplan` | Reference |  |
+| `ultrareview` | Reference |  |
+| `upgrade` | Reference |  |
+| `usage` | Reference |  |
+| `usage-credits` | Reference |  |
+| `vim` | Reference |  |
+| `voice` | Reference |  |
+| `web-setup` | Reference |  |
+| `workflows` | Reference |  |
+| `allowed-tools` | Reference | Alias of `/permissions` |
+| `android` | Reference | Alias of `/mobile` |
+| `app` | Reference | Alias of `/desktop` |
+| `bg` | Reference | Alias of `/background` |
+| `checkpoint` | Reference | Alias of `/rewind` |
+| `checkup` | Reference | Alias of `/doctor` |
+| `continue` | Reference | Alias of `/resume` — the v3.25.0 collision |
+| `ios` | Reference | Alias of `/mobile` |
+| `new` | Reference | Alias of `/clear` |
+| `proactive` | Reference | Alias of `/loop` |
+| `quit` | Reference | Alias of `/exit` |
+| `rc` | Reference | Alias of `/remote-control` |
+| `reset` | Reference | Alias of `/clear` |
+| `routines` | Reference | Alias of `/schedule` |
+| `settings` | Reference | Alias of `/config` |
+| `share` | Reference | Alias of `/bug` |
+| `undo` | Reference | Alias of `/rewind` |
 
 ---
 
 ## At Risk
 
 Not reserved today. Generic enough that the vendor plausibly claims them next, and each is an
-existing Forge skill — a collision here costs a major version and breaks every reference.
+existing skill name — a collision here costs a major version and breaks every reference.
 
-| Forge skill | Why it is exposed |
+| Name | Why it is exposed |
 |---|---|
 | `build` | Generic verb, and the obvious name for a vendor build command |
 | `deploy` | Same shape as `build` |
 | `publish` | Already a verb the artifact tooling uses in its prose |
-| `research` | Generic, and adjacent to features the vendor ships |
-| `commands` | Describes the vendor's own surface, not Forge's |
-| `learn` | Short generic verb with no Forge-specific signal |
-| `teach` | Short generic verb with no Forge-specific signal |
+| `research` | Generic, and the vendor now ships `/deep-research` as a bundled workflow |
+| `commands` | Describes the vendor's own surface rather than your own |
+| `learn` | Short generic verb carrying no distinguishing signal |
+| `teach` | Short generic verb carrying no distinguishing signal |
+| `onboard` | The vendor now ships `/team-onboarding`. A bare `onboard` is the obvious shorter form |
 
-One name per row, always — `/skill-health` scans the first column, and a cell holding two
-names drops the second silently.
+One name per row, always — a scan reads the first column, and a cell holding two names drops
+the second silently. `/skill-health` is that scan.
 
 Renaming pre-emptively is **not** the recommendation — churn is its own cost, and the At Risk list
 is a watch list, not a work list. Check it at each refresh.
@@ -164,15 +249,15 @@ is a watch list, not a work list. Check it at each refresh.
 
 ## Deliberately Avoided
 
-Collisions Forge already steers around. Recorded so a later tidy-up does not walk back into one.
+Collisions already steered around. Recorded so a later tidy-up does not walk back into one.
 
-| Forge name | Avoided name | Why |
+| Name used | Avoided name | Why |
 |---|---|---|
-| `review-diff` | `code-review`, `review` | Both reserved. Names the pinned diff it reviews (v3.25.0) |
-| `pickup` | `continue` | Reserved. Pairs with `/handoff` (v3.25.0) |
+| `review-diff` | `code-review`, `review` | Both reserved. Names the pinned diff it reviews |
+| `pickup` | `continue` | Reserved. Pairs with `/handoff` |
 | `security-assessment` | `security-review` | Bundled skill name. The `*-review` family stops short of this one on purpose |
-| `init-forge` | `init` | Reserved as both a built-in and a bundled skill |
 | `context-health` | `context` | Near-miss only — distinct names, no collision. Keep the suffix |
+| `init-forge` | `init` | Reserved as both a built-in and a bundled skill |
 
 ---
 
@@ -180,7 +265,9 @@ Collisions Forge already steers around. Recorded so a later tidy-up does not wal
 
 Names once reserved that the vendor has since released. Kept because a withdrawal can reverse.
 
-_None recorded._
+| Name | Withdrawn | Note |
+|---|---|---|
+| `todos` | 2026-10-09 | A `Recalled` row, never confirmed. Absent from the 2.1.293 command reference |
 
 ---
 
