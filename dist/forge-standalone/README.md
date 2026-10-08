@@ -39,24 +39,23 @@ from `rules/` or `standards/` — the skill folder is the whole skill:
 - `/write-reqs`
 - `/review-language`
 
-To use one in a chat assistant that cannot install skills, such as M365 Copilot, paste or
-attach the single file inside its folder — for example `skills/write-ord/write-ord-standalone.md`.
-It holds the whole skill folder in one file. Nothing in the skill reads it, and `install.sh`
-removes it after copying, so an installed skill never carries it:
+To use one in a chat assistant that cannot install skills, such as M365 Copilot, attach its
+single-file copy from `copilot/`. It holds the whole skill folder in one file:
 
-- [`write-ord-standalone.md`](skills/write-ord/write-ord-standalone.md)
-- [`write-prd-standalone.md`](skills/write-prd/write-prd-standalone.md)
-- [`write-brd-standalone.md`](skills/write-brd/write-brd-standalone.md)
-- [`write-ac-standalone.md`](skills/write-ac/write-ac-standalone.md)
-- [`write-reqs-standalone.md`](skills/write-reqs/write-reqs-standalone.md)
-- [`review-language-standalone.md`](skills/review-language/review-language-standalone.md)
+- [`write-ord-standalone.md`](copilot/write-ord-standalone.md)
+- [`write-prd-standalone.md`](copilot/write-prd-standalone.md)
+- [`write-brd-standalone.md`](copilot/write-brd-standalone.md)
+- [`write-ac-standalone.md`](copilot/write-ac-standalone.md)
+- [`write-reqs-standalone.md`](copilot/write-reqs-standalone.md)
+- [`review-language-standalone.md`](copilot/review-language-standalone.md)
 
 ## Microsoft 365 Copilot
 
 [`copilot/`](copilot/README.md) holds 40 of these skills rewritten as prompts for
 Microsoft 365 Copilot Chat, which cannot install skills, read a repository or run commands.
 Paste a prompt as the first message of a new chat, then paste or attach your material. The
-index there lists each prompt and the skills that have no chat version.
+folder also holds the single-file bundles above. Its index lists every file and the skills
+that have no chat version.
 
 ## Skills
 

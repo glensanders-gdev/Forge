@@ -125,15 +125,15 @@ to work down over time. After changing a shared skill, rebuild and commit `dist/
 `plugins/forge-codex/`.
 
 Each self-contained skill (`$SelfContainedSkills` in the build) also ships as one file at
-`dist/forge-standalone/skills/<skill>/<skill>-standalone.md`, for chat assistants such as M365
-Copilot that take one pasted or attached file. It exists only in `dist/`, never in
-`global/.claude/skills/`. The generated `install.sh` deletes it after copying a skill folder, so
-no installed skill carries it. Never cite it from a skill.
+`dist/forge-standalone/copilot/<skill>-standalone.md`, for chat assistants such as M365 Copilot
+that take one pasted or attached file. It exists only in `dist/`, never in
+`global/.claude/skills/`, and never inside a skill folder. Never cite it from a skill.
 
 `global/.claude/copilot/` holds hand-adapted prompts for Microsoft 365 Copilot Chat, one file per
 shipped skill (named `<skill>.md`) plus a `README.md` index. The build copies them to
-`dist/forge-standalone/copilot/` verbatim and fails on a prompt whose skill does not ship. They are
-not generated from the skills: when you change a skill that has a prompt, update the prompt too.
+`dist/forge-standalone/copilot/` verbatim, beside the generated single-file bundles, and fails on
+a prompt whose skill does not ship. They are not generated from the skills: when you change a
+skill that has a prompt, update the prompt too.
 
 ### Naming a host product
 

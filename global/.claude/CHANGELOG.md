@@ -25,7 +25,10 @@ skills now have a prompt written for that, in `global/.claude/copilot/`.
   20,000-character skill limit.
 - **Not converted:** 25 skills need a repo, terminal, git or the agent's own state. The index lists
   each one with its reason. `write-ord`, `write-brd`, `write-ac`, `write-reqs` and
-  `review-language` keep their existing `<skill>-standalone.md` bundles instead.
+  `review-language` are covered by their `<skill>-standalone.md` bundles instead.
+- **Bundles moved:** every `<skill>-standalone.md` single-file bundle now builds into
+  `dist/forge-standalone/copilot/` instead of its skill folder, so all chat material sits in one
+  place. `install.sh` no longer needs to delete it from installed skills, and that step is gone.
 - **Build:** `build-forge-standalone.ps1` copies the prompts to `dist/forge-standalone/copilot/`
   verbatim and adds a *Microsoft 365 Copilot* section to the generated README. It fails if a prompt
   names a skill that does not ship, or if the index is missing.

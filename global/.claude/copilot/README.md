@@ -65,7 +65,18 @@ Long outputs arrive in numbered parts. Type **CONTINUE** to get the next one.
 | write-article | Long-form content: wiki pages, summaries, briefs |
 | write-prd | PRD in two phases with three confirmation gates |
 
-**Other requirements skills.** `write-ord`, `write-brd`, `write-ac`, `write-reqs` and `review-language` have no prompt here. Use their single-file bundles instead: [`write-ord`](../skills/write-ord/write-ord-standalone.md), [`write-brd`](../skills/write-brd/write-brd-standalone.md), [`write-ac`](../skills/write-ac/write-ac-standalone.md), [`write-reqs`](../skills/write-reqs/write-reqs-standalone.md) and [`review-language`](../skills/review-language/review-language-standalone.md). They are large, so attach them as files rather than pasting them.
+## Full single-file skills
+
+The requirements skills also ship whole, every file they cite included, as one generated file each. Attach these rather than pasting them, because they are large (roughly 140,000 to 230,000 characters). `write-prd` has both: the condensed prompt above for pasting, and the full skill here.
+
+| File | Skill |
+|---|---|
+| `review-language-standalone.md` | Check a requirements document's wording against the language standard |
+| `write-ac-standalone.md` | Acceptance criteria from a PRD and ORD |
+| `write-brd-standalone.md` | Business Requirements Document |
+| `write-ord-standalone.md` | Operational Requirements Document |
+| `write-prd-standalone.md` | Product Requirements Document, full version |
+| `write-reqs-standalone.md` | PRD and ORD together from one source |
 
 ## Not converted
 
