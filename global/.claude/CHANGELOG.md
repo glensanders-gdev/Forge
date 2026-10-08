@@ -11,6 +11,37 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
+## v4.22.0 — 2026-10-08
+
+**The PRD template holds only what a PRD reader needs.** `/review-language --skill write-prd`
+found that the fenced template carried Claude's authoring guidance into every PRD: callout notes,
+rule bullets such as "flag it" and "Do NOT include file paths", and the line "This skill does not
+name them independently; read the pack". Fixing the wording of guidance that should not be in the
+document at all would have been the wrong fix.
+
+- **`/write-prd` 2.9.0:**
+  - All authoring guidance moves out of the fence into a new *Template notes* section after the
+    template, grouped by PRD section. The wording is unchanged apart from the joins needed to move
+    it. The fence keeps headings, fields,
+    placeholders, tables and the worked example.
+  - The conditional-lines note now also covers the Task List and Definition of Done variants:
+    keep the one matching `Delivery Mode` and drop its **Under …** marker.
+  - Language fixes in the template:
+    - The chain-position line spells out each document: Business Requirements Document,
+      Product Requirements Document, Solution on a Page (SOAP), Operational Requirements Document
+      and Solution Architecture Review (SAR).
+    - The idiom "fair weather, foul weather" becomes "normal operation, a failure, or a boundary".
+    - The accessibility constraint example spells out WCAG and the success criterion, and writes
+      "CSS pixels".
+    - The Definition of Done expands QA and drops "explicitly". The AFK description drops
+      `can execute`. The Testing Decisions prompts are bracketed placeholders.
+  - References no longer lists the ORD among a PRD's sources. That contradicted the skill's own
+    rule that the ORD does not exist when a PRD is written.
+- Minor rather than patch, because the saved PRD changes shape: PRDs written from 2.9.0 carry no
+  guidance callouts or rule bullets.
+
+---
+
 ## v4.21.3 — 2026-10-08
 
 **LLM companion generator versions.** Both requirements skills passed a hard-coded version to

@@ -1,6 +1,6 @@
 {
   "repository": "https://github.com/glensanders-gdev/skills",
-  "version": "4.21.3",
+  "version": "4.22.0",
   "skill_count": 70,
   "skills": [
     {
@@ -413,7 +413,7 @@
     },
     {
       "name": "write-prd",
-      "version": "2.8.0",
+      "version": "2.9.0",
       "category": "pipeline",
       "description": "Synthesize the current conversation, grill session, research, and prototype findings into a structured PRD aligned with ISO/IEC/IEEE 29148:2018 — the functional demand document sitting between the BRD and the SOAP, stating what is built and for whom and carrying no technical figure. Executes in two phases — AFK explore then HITL write — with a confirmation gate between them. Use when user runs /write-prd or when grill-me confirms shared understanding is reached."
     },
