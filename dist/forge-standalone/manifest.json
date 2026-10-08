@@ -1,6 +1,6 @@
 {
   "repository": "https://github.com/glensanders-gdev/skills",
-  "version": "4.21.0",
+  "version": "4.21.1",
   "skill_count": 70,
   "skills": [
     {
@@ -383,7 +383,7 @@
     },
     {
       "name": "write-ac",
-      "version": "1.6.4",
+      "version": "1.6.5",
       "category": "pipeline",
       "description": "Transform a PRD and ORD into Jira acceptance criteria — promote KPPs and headline outcomes to Capability-level AC, flow story detail to child Epics/Stories, carry PRD-NNN/ORD-NNN traceability into each criterion, and optionally push to the linked Jira Capability behind a confirmation gate. Use when the user runs /write-ac, has a PRD and/or ORD ready to turn into Jira acceptance criteria, or is promoting a project to a Jira Capability."
     },

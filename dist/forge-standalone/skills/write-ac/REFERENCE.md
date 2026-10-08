@@ -75,11 +75,13 @@ An ORD register row is already a declarative statement carrying its own quantifi
 
 ORD-004 [KPP] →
 ```
-AC-002 (ORD-004, KPP): p95 checkout latency ≤ 800ms under 500 concurrent
-  users, verified by load test in staging.
+AC-002 (ORD-004, KPP): 95% of customer checkouts complete within 3 seconds
+  during the end-of-month trading peak. Threshold: 3 seconds.
+  Objective: 1 second. Verification: pending design response.
 ```
 
-Keep the source ID and the KPP marker in the AC text so traceability survives the move into Jira.
+The tolerance is the customer's wait, not a server latency figure, and the instrument stays
+pending until §17 names one. Keep the source ID and the KPP marker in the AC text so traceability survives the move into Jira.
 
 ### Verbatim vs reference
 
@@ -103,7 +105,8 @@ Saved to `docs/ac/[capability-name]-AC.md`.
 **Sources:** [PRD path / "none"] · [ORD path / "none"]
 
 ## Capability Acceptance Criteria
-Conditions of satisfaction for the Capability. KPPs + headline outcomes only.
+Conditions of satisfaction for the Capability: Key Performance Parameters (KPPs) and headline
+outcomes only.
 
 | AC ID | Criterion | Source | Verification |
 |-------|-----------|--------|--------------|
@@ -126,7 +129,7 @@ Detailed criteria that flow to child issues under the Capability.
 | AC-001 | PRD-002 | Capability | [CAP-NN / TBD] |
 | AC-003 | PRD-005 | Story | [TBD] |
 
-- An AC with no source req is invalid — every AC traces to a PRD-NNN or ORD-NNN.
+- An AC with no source requirement is invalid — every AC traces to a PRD-NNN or ORD-NNN.
 - A KPP with no Capability AC is a gap — flag it.
 ```
 

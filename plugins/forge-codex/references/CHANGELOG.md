@@ -11,6 +11,22 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
+## v4.21.1 — 2026-10-08
+
+**`$write-ac` template fixes, found by the first `$review-language --skill` run.**
+
+- **`$write-ac` 1.6.5:**
+  - `REFERENCE.md`'s operational worked example `AC-002` stated an engineering target: `p95`
+    server latency, a load-test instrument, and no space before the unit. That breaks
+    `language.md` § *Demand, not design*. It now states a business tolerance, the customer's
+    wait at the end-of-month peak. It carries both labelled KPP values, as `SKILL.md` requires,
+    and `Verification: pending design response` where §17 names no instrument.
+  - The AC document template spells out Key Performance Parameters (KPPs) on first use and
+    drops the `+` shorthand. "Source req" in the template's closing notes now reads "source
+    requirement".
+
+---
+
 ## v4.21.0 — 2026-10-08
 
 **`$review-language` checks the templates inside a skill.** When `language.md` changes, the
@@ -24,9 +40,10 @@ text.
   - A `--skill <name>` mode reads the skill's folder and checks its templates, placeholder text
     and worked examples against `language.md`. A `SKILL.md` passed as the document runs in this
     mode too.
-  - Step 2 gains three classes. A template or example is checked as the class it becomes once it
+  - Step 2 gains four classes. A template or example is checked as the class it becomes once it
     is in a document. Counter-examples, meaning text shown as what not to write, are exempt. Skill
-    instructions, rules and failure modes are exempt.
+    instructions, rules and failure modes are exempt, and so are templates for the skill's own chat
+    output, because they never reach a document.
   - Skill mode checks against the Australian defaults, not a company `Locale` section, because
     skills are shared across companies.
   - A skill with no governed text reports "No governed text" and is never reported as passing.
