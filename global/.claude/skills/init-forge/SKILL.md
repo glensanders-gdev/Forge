@@ -39,6 +39,8 @@ Read `~/.claude/preferences.md`.
 - If `active_company` is set: read `~/.claude/companies/[active_company]/config.md` and extract:
   - `ai_human_signoff_required`
   - `ai_data_restrictions`
+  - `ai_public_tool_ceiling`
+  - `ai_enterprise_tools`
   - `ai_monthly_spend_cap_usd`
 - If `active_company` is not set: note for the completion message — no conditional instructions will be added.
 
@@ -172,13 +174,20 @@ updating the kanban or marking the task done. Wait for explicit approval.
 Do not include restricted data in prompts or generated outputs.
 ```
 
+**If `ai_public_tool_ceiling` is set (not blank):**
+```markdown
+**Public AI ceiling:** Only information at or below [ai_public_tool_ceiling] may enter public AI
+tools, including web searches, fetched URLs and third-party services.
+[If ai_enterprise_tools is set: Enterprise tools and their limits: [ai_enterprise_tools, comma-separated].]
+```
+
 **If `ai_monthly_spend_cap_usd` is set (not blank):**
 ```markdown
 **Monthly AI spend cap:** $[ai_monthly_spend_cap_usd] USD.
 At the start of each session, note the cap as a reminder for cost awareness.
 ```
 
-If none of the three fields are set, write only the company header and config path — no policy lines.
+If none of these fields are set, write only the company header and config path — no policy lines.
 
 ---
 

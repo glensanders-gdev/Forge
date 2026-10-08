@@ -145,6 +145,7 @@ reappear downstream.
 
 ## Rules
 
+<!--forge-only-->- Before presenting the draft as finished, run the output check in `rules/common/ai-use.md` § *Critically Assess the Output*: accuracy, citations, fairness and bias, expert check, disclosure.<!--/forge-only-->
 - **Never invent a figure, a consequence, an owner or a date to fill a cell.** A `[TBD]` with a named
   owner and a date is a declared gap and passes the bar; a value nobody can defend is the failure the
   standard exists to prevent, and a `[TBD]` missing either half is a hole that fails it.

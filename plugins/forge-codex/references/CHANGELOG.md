@@ -11,6 +11,35 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
+## v4.19.0 — 2026-10-08
+
+**An AI-use baseline, adapted from the Australian Government's guidance on public generative AI.**
+The DTA's staff guidance (*Using public generative AI tools safely and responsibly*, digital.gov.au,
+October 2025) rests on three principles: protect the information, critically assess the output, and
+own the decision. Forge already had the third (Principle 1 and the HITL gates). It also had a
+free-text `ai_data_restrictions` line. It had no notion of a public versus enterprise tool, and no
+check for AI-drafted prose.
+
+- **`rules/common/ai-use.md` (new, always loaded):** company policy first; tool tiers (public versus
+  enterprise, and unknown counts as public); a classification ceiling for public tools; sending the
+  minimum. It adds a five-item output check (accuracy, citations, fairness and bias, expert check,
+  disclosure). AI never makes the final decision and never ranks people or bids for selection.
+  Credited to the DTA. The agency-side guidance (access provisioning, training, workforce
+  monitoring) and the federal PSPF and Hosting Certification material are not adopted.
+- **`$add-company` 2.2.0:** Topic 7 gains Q7.3a (the highest classification allowed in public AI
+  tools) and Q7.3b (approved enterprise AI tools and the classification each may hold). The config
+  template gains `ai_public_tool_ceiling` and `ai_enterprise_tools`, both blank by default.
+  `$update-company` re-runs these questions unchanged.
+- **`$init-forge` 2.1.0:** writes a *Public AI ceiling* standing instruction when the ceiling is set.
+- **`$check-pii` 2.1.0 and `$build` 1.4.0:** surface the ceiling and enterprise tools alongside
+  `ai_data_restrictions`.
+- **`$write-ord` 3.0.4, `$write-brd` 1.4.1, `$write-article` 1.1.1:** a Forge-only rule points to the
+  output check before a draft is presented as finished. Nothing changes in the standalone build.
+- Tool tiers live in the company config's AI Usage Policy, not in `tools.md`. That registry holds
+  installed CLI tools that have check commands, which a hosted AI service does not have.
+
+---
+
 ## v4.18.1 — 2026-10-08
 
 **`$write-ord` 3.0.3 — §15 is now *Testable Acceptance Criteria*.** The ORD is read by general

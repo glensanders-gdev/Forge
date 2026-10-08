@@ -26,18 +26,20 @@ Runs unattended. Never modifies any file during this phase.
 
 ### 1. Load Company AI Policy
 
-Read `~/.codex/forge/companies/[active_company]/config.md` (if set) for `ai_data_restrictions`. If set, surface at the top of the report:
+Read `~/.codex/forge/companies/[active_company]/config.md` (if set) for `ai_data_restrictions`, `ai_public_tool_ceiling` and `ai_enterprise_tools`. If any is set, surface them at the top of the report, omitting lines that are blank:
 
 ```
 ## Company AI Data Policy
 
 ai_data_restrictions: [value from config]
+ai_public_tool_ceiling: [value from config]
+ai_enterprise_tools: [value from config]
 
 Note: This policy governs what data may appear in AI prompts during development.
 Review findings below against this restriction as part of the PII assessment.
 ```
 
-If no company config or no restriction set, skip this section silently.
+If no company config or none of these fields is set, skip this section silently.
 
 ### 2. Load PII Categories
 

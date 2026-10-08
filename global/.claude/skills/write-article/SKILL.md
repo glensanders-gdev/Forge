@@ -137,6 +137,7 @@ Before delivering any written content:
 - Always clarify audience before writing anything substantial
 - Voice consistency matters more than variety — once a voice is established, maintain it
 - The quality gate is not optional for any written deliverable produced here
+<!--forge-only-->- Before presenting the draft as finished, run the output check in `rules/common/ai-use.md` § *Critically Assess the Output*: accuracy, citations, fairness and bias, expert check, disclosure.<!--/forge-only-->
 
 ## Failure Modes
 

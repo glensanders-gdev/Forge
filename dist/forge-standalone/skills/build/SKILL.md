@@ -31,6 +31,7 @@ Before executing any ticket:
 6. Read company config `~/.claude/companies/[active_company]/config.md` (if set):
    - `ai_human_signoff_required: true` → add a mandatory HITL sign-off gate before each ticket is marked Done (Execution Loop Step 4)
    - `ai_data_restrictions` → note at build start: "⚠️ AI policy: [restrictions] — do not include restricted data in prompts or generated code."
+   - `ai_public_tool_ceiling` → note at build start: "⚠️ Public AI ceiling: [value] — nothing above it in web searches, fetched URLs or third-party services."
 7. Check required tools — if a company is set, read `~/.claude/companies/[active_company]/tools.md` and run the `check-command` for each tool marked `required`. If any is missing, stop:
    ```
    ⛔ Required tools missing — install before running /build:

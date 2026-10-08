@@ -288,6 +288,15 @@ If yes:
   > E.g. "No PII in prompts", "No customer data", "Classified data prohibited"
   > Describe briefly, or "None". This surfaces in /check-pii and /build warnings.
 
+- **Q7.3a** What is the highest information classification allowed in *public* AI tools?
+  > Public tools are open-web chat, web search, and third-party services, which may share what
+  > they receive with their provider. Use the company's own classification label, e.g. "Public",
+  > "Internal", or "None — no company information". Leave blank if not yet known.
+
+- **Q7.3b** Which *enterprise* AI tools are approved, and up to what classification?
+  > Tools configured to the company's data-control requirements, e.g. a company AI tenant.
+  > List each as "tool: highest classification", or "None".
+
 - **Q7.4** Is there a monthly AI spend cap?
   > Enter amount in USD, or "None". Used by /dashboard-tokens to show budget status.
 
@@ -600,6 +609,12 @@ ai_human_signoff_required: false
 ai_data_restrictions: none
 # Describe any restrictions — e.g. "No PII in prompts", "No customer data"
 # Surfaces in /check-pii and /build warnings
+ai_public_tool_ceiling:
+# Highest classification allowed in public AI tools (web search, public chat, third-party services).
+# Blank = not recorded. See rules/common/ai-use.md.
+ai_enterprise_tools:
+# Enterprise AI tools and the highest classification each may hold, one per line:
+# - [tool]: [classification]
 ai_monthly_spend_cap_usd:
 # Leave blank for no cap. Used by /dashboard-tokens to show budget vs actual.
 
