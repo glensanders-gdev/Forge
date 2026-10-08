@@ -1,6 +1,6 @@
 {
   "repository": "https://github.com/glensanders-gdev/skills",
-  "version": "4.20.0",
+  "version": "4.21.0",
   "skill_count": 70,
   "skills": [
     {
@@ -251,9 +251,9 @@
     },
     {
       "name": "review-language",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "category": "pipeline",
-      "description": "Check the wording of a requirements document — BRD, PRD, ORD or AC — against the requirements language standard, including the modal and construction bans and the rules adopted from the Australian Government Style Manual. Returns every finding graded Defect or Advisory, with its location, the rule it breaks and a suggested rewrite. Use when /review-language is run, before a requirements document is shared or handed off, or as the advisory language pass inside /review-ord and /review-brd."
+      "description": "Check the wording of a requirements document — BRD, PRD, ORD or AC — against the requirements language standard, including the modal and construction bans and the rules adopted from the Australian Government Style Manual. With --skill, checks only the templates and worked examples inside a requirements skill, never its instruction prose. Returns every finding graded Defect or Advisory, with its location, the rule it breaks and a suggested rewrite. Use when /review-language is run, before a requirements document is shared or handed off, as the advisory language pass inside /review-ord and /review-brd, or after language.md changes to find skill templates that teach an outdated form."
     },
     {
       "name": "review-ord",

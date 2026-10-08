@@ -11,6 +11,34 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
+## v4.21.0 — 2026-10-08
+
+**`$review-language` checks the templates inside a skill.** When `language.md` changes, the
+templates and worked examples inside the requirements skills keep teaching the old form, and every
+document those skills write copies it. An impact assessment finds only the skills that cite the
+changed rule, not the ones whose examples quietly break it. `README.md` § *Scope boundary* already
+puts template and example text in scope and leaves instruction prose out. Nothing checked that
+text.
+
+- **`$review-language` 1.1.0:**
+  - A `--skill <name>` mode reads the skill's folder and checks its templates, placeholder text
+    and worked examples against `language.md`. A `SKILL.md` passed as the document runs in this
+    mode too.
+  - Step 2 gains three classes. A template or example is checked as the class it becomes once it
+    is in a document. Counter-examples, meaning text shown as what not to write, are exempt. Skill
+    instructions, rules and failure modes are exempt.
+  - Skill mode checks against the Australian defaults, not a company `Locale` section, because
+    skills are shared across companies.
+  - A skill with no governed text reports "No governed text" and is never reported as passing.
+    Five new failure-mode rows cover skill mode, and the mismatch row no longer stops on a skill
+    file.
+- **`standards/requirements/README.md`:** § *Enforcement* names the skill mode. The scope table
+  is unchanged.
+- **Not adopted:** checking skill instruction prose. `language.md` bans the directives that make a
+  skill work, so that would need a separate standard written for instruction prose.
+
+---
+
 ## v4.20.0 — 2026-10-08
 
 **AI governance scope, re-assessment and AI incidents, adapted from the Australian Government's AI

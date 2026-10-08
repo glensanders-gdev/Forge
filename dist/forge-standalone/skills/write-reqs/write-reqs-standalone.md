@@ -311,6 +311,8 @@ governed here.
 
 `/review-language` checks a document against `language.md`, and `/review-ord` and `/review-brd`
 run it as an advisory pass after the gate. It reports findings and never changes a gate verdict.
+`/review-language --skill <name>` checks the governed text inside a skill — its templates and
+worked examples — and leaves its instructions out, per the table above.
 
 `/check-style` reads `~/.claude/knowledge/company/style-guide.md`, not this ruleset — a company
 style guide may add to these rules but never relaxes them. Where the two conflict, the stricter
