@@ -20,6 +20,7 @@ Initialize Forge without duplicating plugin skills or bloating Codex's global in
    - consequential actions require explicit human confirmation
    - global Forge data lives under `~/.codex/forge/`
    - project guidance belongs in the closest `AGENTS.md`
+   - if the active company sets `ai_public_tool_ceiling`, only information at or below it may enter public AI tools, including web searches and third-party services
 5. Show the exact proposed change and wait for confirmation before editing `~/.codex/AGENTS.md`.
 6. Report what was created and what was preserved.
 

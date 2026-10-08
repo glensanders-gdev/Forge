@@ -396,6 +396,8 @@ Runs after the human confirms the Phase 1 summary. Writes the ORD using the temp
 
 ## Rules
 
+<!--forge-only-->- Before presenting the draft as finished, run the output check in `rules/common/ai-use.md` § *Critically Assess the Output*: accuracy, citations, fairness and bias, expert check, disclosure.<!--/forge-only-->
+
 **The *Never* lists in `language.md` and `tables.md` bind this skill in full and are not restated
 here** — the modal ban, the technical-target ban, the "the system" ban, the blank-cell and invented-
 threshold bans, KPP threshold/objective, the nine characteristics, the fourth scenario value, the

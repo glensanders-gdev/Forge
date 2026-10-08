@@ -14,6 +14,7 @@ Origin: Adapted from Affaan Mustafa (ECC / github.com/affaan-m/ECC)
 ```
 rules/
 ├── common/                   # Language-agnostic baselines (always apply)
+│   ├── ai-use.md             # What may enter an AI tool, checking AI output, owning the decision
 │   ├── coding-style.md       # KISS/DRY/YAGNI, file limits, naming, error handling
 │   ├── model-selection.md    # Opus main thread, offload grunt work to cheap subagents
 │   ├── quality-checklist.md  # Pre-ship checklist

@@ -25,7 +25,7 @@ When invoked with `--quick`, propose defaults for sprint length, release cadence
    - compliance tier and frameworks
    - external approval gates
    - deployment environments
-   - AI usage and data restrictions
+   - AI usage policy: data restrictions, the highest classification allowed in public AI tools (`ai_public_tool_ceiling`), and approved enterprise AI tools with their limits (`ai_enterprise_tools`)
    - approved tools and integrations
 4. Present a consolidated configuration draft.
 5. On confirmation, create:
