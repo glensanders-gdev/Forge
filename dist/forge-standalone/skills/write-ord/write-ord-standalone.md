@@ -25,7 +25,7 @@ the output that it was skipped; never produce the script's output by hand.
 
 ---
 name: write-ord
-version: 3.0.3
+version: 3.0.5
 category: pipeline
 description: Synthesize a call transcript, document, conversation context, or structured notes into a business-focused, demand-side Operational Requirements Document (ORD) — executive summary first, quantified business tolerances organised by ISO/IEC 25010:2023 quality characteristics, with decisions, assumptions and dependencies as first-class registers, and business rules and reporting requirements in their own appendices. Use when the user runs /write-ord, provides a transcript or document to convert into an ORD, or wants to formalise operational requirements from a conversation.
 ---
@@ -680,7 +680,7 @@ without it; retain the mechanism as `Source` evidence, interface detail (§16), 
 a constraint (§7.11), or referred response-side content (§10.3).
 
 > ✗ `The solution shall ensure the transaction uses database rollback on failure`
-> ✓ `A failed update leaves the last valid record unchanged`
+> ✓ `The last valid record is unchanged after a failed update`
 
 **Split a source statement only where its clauses differ in** actor, trigger, outcome, owner,
 priority, source, verification condition, status, or business consequence. **Never split because
@@ -1053,12 +1053,12 @@ example is the drift this document warns about everywhere else.
 
 | ORD# | Ver | Requirement Title | Business Tolerance | KPP | MoSCoW | Status | Owner | Source |
 |---|---|---|---|---|---|---|---|---|
-| ORD-001 | 1.0 | Restore order capture within 1 business day | Order capture is restored within 1 business day of an outage, beyond which the retail service agreement cl 14 service credit is triggered. Threshold: 1 business day. Objective: 4 business hours | [KPP] | Must | Committed | GM Order Management | Retail service agreement cl 14 |
-| ORD-002 | 1.0 | Notify the affected party on status change | A status change to `Suspended` is notified to the service-owning party within 1 business day of taking effect, in the reporting entity's local time | | Must | Provisional | Head of Service Assurance | Incident 2026-0417 |
-| ORD-003 | 1.1 | Preserve the last valid record on failed update | A failed bulk update leaves every record in the batch at its last valid value. Unprocessed records are visible to the operator who submitted them | | Must | Committed | GM Order Management | Incident 2026-0392 |
+| ORD-001 | 1.0 | Restore order capture within 1 business day | Order capture is restored within 1 business day of an outage, beyond which the service credit under Retail service agreement cl 14 is triggered. Threshold: 1 business day. Objective: 4 business hours | [KPP] | Must | Committed | GM Order Management | Retail service agreement cl 14 |
+| ORD-002 | 1.0 | Notify the affected party on status change | A status change to `Suspended` is notified to the service-owning party within 1 business day of taking effect, in the reporting entity's local time | | Must | Provisional | Head of Service Assurance | Incident record INC-2026-0417 |
+| ORD-003 | 1.1 | Preserve the last valid record on failed update | Every record in a failed bulk update is left at its last valid value. Unprocessed records are visible to the operator who submitted them | | Must | Committed | GM Order Management | Incident record INC-2026-0392 |
 | ORD-004 | 1.0 | Evidence every eligibility determination | Every eligibility determination is auditable and reproducible for 18 months, under the `BRL-002` eligibility rule and the `BRL-011` evidence-retention rule | | Must | Provisional | Regulatory Reporting Manager | [TBD — source: "we need to be able to explain a decision if asked"] |
-| ORD-005 | 1.0 | Segregate contractor attendance data | Attendance data is visible only to the contracting party that submitted it | | Must | Committed | GM Field Operations | Field services agreement cl 12 |
-| ORD-006 | 1.0 | Restore service capacity at peak volume | Order capture sustains the December peak without a customer-visible wait, measured against the volume recorded in December 2025 | | Should | Assumed | [TBD — Head of Capacity Planning to confirm by 2026-10-15, ASM-004] | ASM-004 |
+| ORD-005 | 1.0 | Segregate contractor attendance data | Only the contracting party that submitted attendance data sees it | | Must | Committed | GM Field Operations | Field services agreement cl 12 |
+| ORD-006 | 1.0 | Restore service capacity at peak volume | Order capture is sustained at the December peak without a customer-visible wait, measured against the volume recorded in December 2025 | | Should | Assumed | [TBD — Head of Capacity Planning to confirm by 2026-10-15, ASM-004] | ASM-004 |
 
 **What each row demonstrates**
 
@@ -1117,7 +1117,7 @@ with nothing to state says so in one line — it is never dropped, and nothing c
 **Version:** 1.0
 **Date:** YYYY-MM-DD
 **Status:** Draft | Under Review | Approved
-**Document tier:** [weakest status carried by any KPP-bearing requirement]
+**Document tier:** [weakest status carried by any requirement marked as a Key Performance Parameter (KPP)]
 **Owner (convenor):** [Role / Name]
 **Approvers:** [named business owners — endorsement is not approval]
 **Classification:** [Internal / Confidential / Restricted]
@@ -1163,7 +1163,8 @@ For a reader who reads nothing else. **It never describes the operating state in
 What this document defines and for whom.
 
 ### 2.2 Business objectives
-The BRD objective(s) this ORD serves, by `BO-N`. Where no BRD exists, say so and name the proximate
+The Business Requirements Document (BRD) objective(s) this Operational Requirements Document (ORD)
+serves, by `BO-N`. Where no BRD exists, say so and name the proximate
 source.
 
 ### 2.3 Business context
@@ -1227,7 +1228,7 @@ process.
 
 ### 4.5 Related documents
 The reference list: every source this ORD cites, including the BRD, contracts, legislation,
-standards, incident records and existing SLAs. Schema in `tables.md` § *Reference list*, with
+standards, incident records and existing service level agreements (SLAs). Schema in `tables.md` § *Reference list*, with
 citation forms from `language.md` § *Citing Sources*. One row for each source cited anywhere in the
 document, and no row that nothing cites.
 
@@ -1273,7 +1274,7 @@ Organised by ISO/IEC 25010:2023 characteristic. **All nine appear, every time.**
 > Classification, cut-off, reconciliation and evidence detail is cited from §13 or §14, never
 > written into the row.
 > **[AI]** prefixes a `Business Tolerance` governed by `ai.md`.
-> **KPP** is its own column and carries threshold and objective as two labelled values.
+> **KPP** is its own column and carries threshold and objective as 2 labelled values.
 > **`Ver`** is the requirement's own version. **Traceability is not a register column** — it lives
 > once, at §11. No row states a technical target.
 
@@ -1410,7 +1411,7 @@ Recorded at assignment. **A record, not an escalation.**
 
 | # | Input | Status at assignment |
 |---|---|---|
-| E1 | BRD, or the three load-bearing elements | Received / Partial / Absent |
+| E1 | BRD, or the 3 load-bearing elements | Received / Partial / Absent |
 | E2 | Business stakeholder list | |
 | E3 | Named approving business owners | |
 | E4 | Contracts, obligations, SLAs, incident history | |

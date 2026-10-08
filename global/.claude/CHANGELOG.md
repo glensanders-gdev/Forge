@@ -11,6 +11,29 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
+## v4.21.2 — 2026-10-08
+
+**`/write-ord` template fixes, found by `/review-language --skill write-ord`.** The worked register
+extract is the form every ORD copies. Three of its rows broke the form they were there to teach.
+
+- **`/write-ord` 3.0.5:**
+  - The `Business Tolerance` cells of ORD-003 and ORD-006 are now noun-first and passive, as
+    `language.md` § *Voice by Altitude* requires. So is the ✓ extraction example in
+    `ELICITATION.md`.
+  - ORD-005 is now in the active voice. The *What each row demonstrates* table says it shows the
+    active voice where the actor is load-bearing, and before this fix it did not.
+  - ORD-001 no longer strings more than 3 nouns together. The Source cells of ORD-002 and ORD-003 use the
+    internal-record citation form.
+  - The ORD template spells out KPP, BRD, ORD and SLA on first use. A callout note and a table
+    cell now write numbers as numerals. Callout notes reach the finished ORD, so they are governed
+    text.
+  - The frontmatter `version:` was still 3.0.3 against a manifest value of 3.0.4, which broke the
+    `EXCEPTIONS.md` invariant. Both now read 3.0.5.
+- **Not changed:** `review-ord/CRITERIA.md` carries the old ORD-005 wording in an extract generated
+  from the local requirements pack. It is corrected when that pack is regenerated.
+
+---
+
 ## v4.21.1 — 2026-10-08
 
 **`/write-ac` template fixes, found by the first `/review-language --skill` run.**
