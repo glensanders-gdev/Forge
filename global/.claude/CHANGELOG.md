@@ -11,6 +11,19 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
+## v4.22.1 — 2026-10-08
+
+**`/write-reqs` briefs use the BRD's real IDs.** The authoring brief asked for each need's
+provenance as `BRD-NN`. No skill emits that form, and `/write-prd` forbids it, so every jointly
+authored pair was handed an ID its own PRD could not carry. Found during
+`/review-language --skill write-reqs`, which otherwise found no governed text: the skill writes no
+document of its own.
+
+- **`/write-reqs` 1.4.5:** the brief's provenance field and Phase 1 step 5 now name `BO-N`
+  objectives and `BR-N` business requirements, the IDs `/write-brd` emits.
+
+---
+
 ## v4.22.0 — 2026-10-08
 
 **The PRD template holds only what a PRD reader needs.** `/review-language --skill write-prd`
