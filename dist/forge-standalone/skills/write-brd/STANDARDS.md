@@ -2208,8 +2208,8 @@ reason. A check reported clean because it could not be run is worse than one rep
 > everything below. Editing this file puts it out of step with the pack; regenerate
 > instead.
 
-**Pack version:** v1.15 · **Pack commit:** `6dfb69f0e31a`
-**Generated:** 2026-09-27 · **Content hash:** `91fcb00585c8fe78`
+**Pack version:** v1.16 · **Pack commit:** `e5b1e1da0acc`
+**Generated:** 2026-10-08 · **Content hash:** `d0078b39e2ea3e9c`
 
 **Quote the version in every BRD authored from this extract.**
 A reader needs to know which revision was applied — a verdict, and a document
@@ -2226,7 +2226,7 @@ it and the pack disagree, the pack is right and this file is stale.
 
 ## BRD Standard
 
-**Version:** 1.15 · **Last updated:** 2026-09-08 · **Status:** Approved
+**Version:** 1.16 · **Last updated:** 2026-10-08 · **Status:** Approved
 **Standard of record:** BABOK v3 · **Audience:** Business Analysts, Product Owners, Product
 Managers, Sponsors, Management
 
