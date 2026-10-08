@@ -12,11 +12,14 @@
 <!-- 2026-06-19: ad-hoc requirements-document alignment — PR #19 (/write-ord v1.1.0 public + /write-prd v2.1.1 PRD-001 rename + ADR-0001), v3.12.0 squash-merged, tag v3.12.0 pushed. /write-reqs backlogged (P3). No kanban tickets — ad-hoc. -->
 <!-- 2026-10-01: ad-hoc — requirements ruleset moved out of the always-loaded rules/ into standards/, with a path-scoped pointer left in rules/; rules/typescript/ and rules/README.md path-scoped (v4.15.2). PR #90 open, Auto-fix on. Rules loaded at launch 27.7k → 2.9k tokens. No kanban tickets — ad-hoc; the merge-and-link step is tracked under In Progress. -->
 <!-- 2026-10-07: ad-hoc — Australian Government Style Manual adopted into the requirements standards: PR #97 merged (v4.17.1, voice and tone, sentences, numbers, locale); PR #98 merged (v4.17.2, structure, reference list, citations). Stream `style-manual`. -->
+<!-- 2026-10-08/09: ad-hoc — PR #106 (v4.21.0 → v4.23.2): /review-language --skill mode; template fixes in /write-ac, /write-ord, /write-prd, /write-reqs; /skill-health standards register and drift checks; RESERVED-NAMES.md refreshed against Claude Code 2.1.293. Stream `standards-drift`. -->
 
 ---
 
 ## In Progress
 
+- [ ] [HITL] Merge PR #106 (v4.23.2), run `tools/sync-standalone-skills.sh`, pull `main` into the main checkout — stream `standards-drift`
+- [ ] [HITL] Work the standards review backlog — 46 never-reviewed declarations in `skill-health/STANDARDS.md` — stream `standards-drift`
 - [ ] [HITL] `/assimilate` Style Manual batch 3 — Latin shortened forms, abbreviations and contractions, misspellings and word confusion, hyphens/dashes/colons/quotes, names and terms, inclusive language — stream `style-manual`
 
 ---

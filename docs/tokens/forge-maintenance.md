@@ -67,3 +67,12 @@ _Updated at each session close (`/debrief`) from ccusage actuals — see `~/.cla
 **Total:** 291k (L)
 **Source:** ccusage actuals
 **Notes:** Machine total for 2026-10-07 at 16:00, not a full day — input 842, output 290,132, across claude-opus-5-5, claude-sonnet-5-5 and claude-haiku-4-5 (the Haiku share is the Style Manual summarising subagent). **Not attributable to this session alone:** it includes the morning's `write-ord` 3.0.0 session (129k recorded above) and any concurrent sessions. ccusage daily totals cannot be split between them. Covers PR #97, PR #98, 4 Codex and standalone rebuild and parity cycles, worktree and branch cleanup, and two debriefs. Cache: 1.2M creation / 88.2M read (not counted in total). Notional API-rate cost $31.70 — informational only on a subscription plan.
+
+### Framework Maintenance — 2026-10-08/09 (standards drift, v4.21.0 → v4.23.2)
+**Date range:** 2026-10-08 – 2026-10-09
+**Sessions:** 1 (stream `standards-drift`, opened at debrief)
+**Input:** 1k tokens
+**Output:** 350k tokens
+**Total:** 351k (L)
+**Source:** ccusage actuals
+**Notes:** Machine totals for 2026-10-08 (full day: input 1,076, output 319,850, claude-opus-5-5 and claude-sonnet-5-5) and 2026-10-09 to 08:57 (input 92, output 30,554, claude-opus-5-5). The Sonnet share is the five `/review-language --skill` subagent runs. **Not attributable to this session alone:** PR #105 (v4.20.1) was authored concurrently on 2026-10-08, and ccusage daily totals cannot be split between sessions. Covers PR #106's 9 commits, a merge of `main`, about 10 Codex and standalone rebuild and parity cycles, two `/skill-health` runs and the reserved-names refresh. Cache: 2.2M creation / 107.7M read (not counted in total). Notional API-rate cost $43.33 — informational only on a subscription plan.
