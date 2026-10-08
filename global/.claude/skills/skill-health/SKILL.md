@@ -2,7 +2,7 @@
 name: skill-health
 category: framework
 standalone: false
-description: Read-only structural audit of the Forge skill portfolio. Checks every skill in manifest.json for a matching SKILL.md directory, command stub, required sections (failure modes, rules), CHANGELOG coverage, a frontmatter name that disagrees with its directory, and a name shadowed by a Claude Code built-in. Checks that an edited skill had its version bumped, and that the published distribution matches what was built. Flags orphaned directories, missing commands, and attribution gaps. Honours the declared-exception register in `EXCEPTIONS.md`, which lowers a finding's severity and never removes it. Saves a report to ~/.claude/knowledge/skill-health-report.md. Use when user runs /skill-health, or run monthly as portfolio maintenance.
+description: Read-only structural audit of the Forge skill portfolio. Checks every skill in manifest.json for a matching SKILL.md directory, command stub, required sections (failure modes, rules), CHANGELOG coverage, a frontmatter name that disagrees with its directory, and a name shadowed by a Claude Code built-in. Checks that an edited skill had its version bumped, and that the published distribution matches what was built. Flags orphaned directories, missing commands, and attribution gaps. Checks each skill against the standards register in `STANDARDS.md`: every skill a standard applies to declares it, every on-demand standard a skill applies is cited, and no standard has changed since the skill was last reviewed against it. Honours the declared-exception register in `EXCEPTIONS.md`, which lowers a finding's severity and never removes it. Saves a report to ~/.claude/knowledge/skill-health-report.md. Use when user runs /skill-health, or run monthly as portfolio maintenance.
 origin: Adapted from Affaan Mustafa (ECC / github.com/affaan-m/ECC)
 ---
 
@@ -18,6 +18,13 @@ and the command stub all point at something that is not there — and every one 
 agreeing with each other hides it. Complements `/context-health`
 (token load) and `/knowledge-health` (knowledge articles) with a third health layer
 covering the skills themselves.
+
+**Standards drift is the one check that looks at a skill's inputs rather than the skill.** A
+standard such as `language.md` changes, and every skill that applies it may now teach an old form.
+Nothing in the skill changed, so no other check notices. `STANDARDS.md` records which skills apply
+which standards and when each pairing was last reviewed. This skill reports any standard that
+changed after that date. The impact list is the register, not a grep for the standard's path,
+because a skill can apply a standard without naming it.
 
 ---
 
@@ -53,6 +60,13 @@ covering the skills themselves.
 | `EXCEPTIONS.md` row whose skill no longer trips the check it names | ℹ️ Info |
 | Skill name matches an At Risk row in `RESERVED-NAMES.md` | ℹ️ Info |
 | `RESERVED-NAMES.md` verification stamp exceeds `Forge staleness warning (days)` from `preferences.md` (default 30), or carries no version | ℹ️ Info |
+| A `STANDARDS.md` tracked standard does not exist at its path | 🔴 Critical |
+| A `STANDARDS.md` declaration names a skill not in `manifest.json`, or a standard not in the tracked table | 🔴 Critical |
+| A skill in a standard's `Applies to` list has no `Applies` declaration for it | ⚠️ Amber |
+| A skill's folder cites an on-demand tracked standard and has no declaration for it | ⚠️ Amber |
+| An `Applies` declaration of an on-demand standard that no file in the skill's folder cites | ⚠️ Amber |
+| A tracked standard changed after the declaration's `Reviewed` date, or has an uncommitted change | ⚠️ Amber |
+| An `Applies` declaration whose `Reviewed` is `—` | ℹ️ Info |
 | `~/.claude/forge-version` missing or `updated:` date exceeds `Forge staleness warning (days)` from `preferences.md` (default 30) | ℹ️ Info |
 | `SKILL.md` frontmatter missing `standalone:` | 🔴 Critical |
 | `standalone: true` but no `dist/forge-standalone/skills/<name>/` | 🔴 Critical |
@@ -138,6 +152,24 @@ Do not produce output during this phase.
      fetched — the comparison is against the ref, not the live remote
    - Neither available: record `publication_unverified` and leave every publication finding unstated
 
+11. **Standards register — read `STANDARDS.md` in this skill directory.** Extract both tables.
+   For each tracked standard:
+   - Check the file exists at `~/.claude/<Standard>`.
+   - Read its last change date. An uncommitted change counts as changed today, and is named as
+     uncommitted in the finding:
+
+     ```
+     git log -1 --format=%cs -- global/.claude/<Standard>
+     git status --porcelain -- global/.claude/<Standard>
+     ```
+
+   For each skill, list the tracked on-demand standards cited anywhere in its folder. A citation is
+   the standard's path, from `standards/` onwards, or its bare filename in backticks, such as
+   `` `language.md` ``. Search every file in the folder, because a skill can cite a standard from a
+   bundled file such as `REFERENCE.md`. Always-loaded standards are not searched: a skill applies
+   them without citing them. Skip this skill's own folder: it names every standard in order to
+   track it, not to apply it.
+
 ---
 
 ### Phase 2 [AFK] — Audit
@@ -177,6 +209,13 @@ publication_lag      = published release version vs dist/forge-standalone/manife
 published_skill_drift = skills whose published version differs from dist/, or absent upstream
 publication_source   = gh / .standalone-sync origin-main (fetched YYYY-MM-DD) / unread
 publication_unverified = true when the published state could not be read at all
+missing_standards    = STANDARDS.md tracked standards with no file at their path
+unknown_declarations = STANDARDS.md declarations naming an unknown skill or an untracked standard
+undeclared_scope     = skills in a standard's Applies to list with no Applies declaration for it
+undeclared_citations = skills citing an on-demand tracked standard with no declaration for it
+uncited_declarations = Applies declarations of on-demand standards nothing in the skill's folder cites
+standard_drift       = Applies declarations whose standard changed after Reviewed, or is uncommitted
+unreviewed_declarations = Applies declarations with Reviewed "—"
 ```
 
 ---
@@ -347,6 +386,11 @@ Consider running /skill-health before this sprint begins.
 | `gh` absent and `.standalone-sync` has no `origin/main` | Report `publication_unverified` — leave the publication tables unstated rather than empty |
 | `.standalone-sync` is the only source | Use it, and state the ref's fetch date. The comparison is against that ref, not the live remote — say so in the finding |
 | Published manifest has no per-skill `version` field | A release predating the field. Report one row against the release version, never one row per skill |
+| `STANDARDS.md` missing or unparseable | Report ℹ️ Info that the register was not read, and run every other check. Never report the standards checks as passing |
+| A tracked standard has been renamed or moved | Report 🔴 Critical against the old path, and name the new path if one file plainly replaced it. Never follow the rename silently — every declaration of it needs re-pointing, and its reviews may no longer hold |
+| A standard changed on the same day as a skill's `Reviewed` stamp | Not a finding. Dates cannot order two events on one day — say so once in the report, under the drift table |
+| Not a git repository, or `git log` unavailable | Skip the drift check and report it as not run. Never report every declaration as current |
+| A `Reference` declaration's skill no longer cites the standard | Report ℹ️ Info and recommend removing the row |
 | Published release is behind `dist/` and `dist/` is uncommitted | Report both. Publishing is blocked until `dist/` is committed — `sync-standalone-skills.sh` refuses to run otherwise |
 
 ---
@@ -354,6 +398,8 @@ Consider running /skill-health before this sprint begins.
 ## Related
 
 - `global/.claude/skills/manifest.json` — the **Forge Skills Manifest** this skill audits
+- `STANDARDS.md` — the standards register: which skills apply which standards, and when each pairing was last reviewed
+- `/review-language --skill <name>` — the review that clears a `language.md` drift finding, after which the maintainer updates the `Reviewed` stamp
 - `/update-forge` — applies fixes identified by skill-health
 - `/commands` — lists all skills; skill-health validates they match what's in the manifest
 - `/evolve` — promotes instincts to new skills; skill-health verifies the promotion landed correctly
@@ -376,6 +422,10 @@ Consider running /skill-health before this sprint begins.
 - A skill is "complete" only when it passes all checks — partial passes show in the scorecard but not as "complete"
 - Always include the Trend line (overall completeness vs previous report) — single snapshots are less useful than direction
 - Recommended actions must name the exact file or command — never generic guidance
+- Never update a `Reviewed` stamp in `STANDARDS.md` during the audit. The audit is read-only, and a stamp records a review this skill did not do
+- Never treat a grep for a standard's path as its impact list. Coverage is read from `Applies to`, which catches a skill that applies a standard without naming it
+- Never require a citation of an always-loaded standard. Every session loads it, so a missing citation is not a gap
+- Never report drift on a `Reference` declaration — the skill does not apply that standard's rules
 - If all checks pass, say "✅ All N skills pass all checks" — do not omit the result
 
 ---

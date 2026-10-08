@@ -11,6 +11,39 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
+## v4.23.0 — 2026-10-08
+
+**`$skill-health` tracks which skills apply which standards, and flags a standard that changed
+after a skill was last reviewed against it.** A change to `language.md` or a `rules/common/` file
+can leave every skill that applies it teaching an old form. Nothing in the skill changes, so no
+existing check notices. An impact assessment that greps for the standard's path finds only the
+skills that cite it.
+
+- **`$skill-health` 1.8.0:**
+  - A new register, `skill-health/STANDARDS.md`, lists 12 tracked standards: the 5
+    `standards/requirements/` files and 7 `rules/common/` files. Each carries an `Applies to` list.
+    52 declarations record each skill and standard pair, with its relation and the date it was
+    last reviewed.
+  - New checks:
+    - 🔴 A tracked standard is missing, or a declaration names an unknown skill or standard.
+    - ⚠️ A skill in a standard's `Applies to` list has no declaration for it.
+    - ⚠️ A skill cites an on-demand standard without declaring it.
+    - ⚠️ An on-demand standard is declared but never cited.
+    - ⚠️ A standard changed after the `Reviewed` date (**drift**).
+    - ℹ️ A declaration has never been reviewed.
+  - Always-loaded `rules/common/` standards are never required to be cited, because every session
+    loads them.
+  - A `Reviewed` stamp is updated by the maintainer after a review, never by the audit. For
+    `language.md` the review is `$review-language --skill`.
+- **Seeded state:** the 5 requirements-writing skills are stamped as reviewed against
+  `language.md` on 2026-10-08, by the runs in v4.21.0–v4.22.1. The other 46 `Applies`
+  declarations start as never reviewed, so the first run reports them as ℹ️ Info. That is the
+  review backlog.
+- **Not tracked:** language-specific rules (`rules/<lang>/`), which govern project code rather than
+  skills.
+
+---
+
 ## v4.22.1 — 2026-10-08
 
 **`$write-reqs` briefs use the BRD's real IDs.** The authoring brief asked for each need's

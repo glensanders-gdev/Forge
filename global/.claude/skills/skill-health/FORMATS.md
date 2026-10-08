@@ -35,6 +35,9 @@ outside this repository.
 **Published repository:** release `N.N.N` [✅ matches `dist/` / ⚠️ N releases behind /
 ℹ️ not verified]. Read from [gh / `.standalone-sync` origin-main, fetched YYYY-MM-DD / unread].
 
+**Standards:** N tracked · N `Applies` declarations — N current / N drifted / N never reviewed.
+[Or: ℹ️ `STANDARDS.md` not read — the standards checks did not run.]
+
 ---
 
 ## 🔴 Critical — Must Fix
@@ -71,6 +74,10 @@ outside this repository.
 
 *An exception is relief from a finding, never from the failure the finding catches. A broken
 invariant ranks above the finding it exempts.*
+
+### Standards register errors (`STANDARDS.md` names something that is not there)
+| Row | Problem | Action |
+|-----|---------|--------|
 
 ---
 
@@ -120,6 +127,28 @@ changed behaviour still needs its bumps; review the list before dismissing it.*
 source of truth this check exists to remove. Skills listed under Declared exceptions below are
 excluded from this table.*
 
+### Standards drift (standard changed after the skill was last reviewed against it)
+| Skill | Standard | Reviewed | Standard changed | Action |
+|-------|----------|----------|------------------|--------|
+
+*Action is the review, then the stamp: `/review-language --skill <name>` for `language.md`, a read
+against the standard otherwise. A change on the same day as a stamp cannot be ordered and is not
+reported.*
+
+### Undeclared standards (skill applies or cites a standard the register does not record)
+| Skill | Standard | Found by | Action |
+|-------|----------|----------|--------|
+
+*`Found by` is `Applies to` (the skill is in the standard's scope) or `citation` (the file that
+cites it). Add a declaration row, or for a citation that is only an analogy, a `Reference` row.*
+
+### Uncited declarations (on-demand standard declared, never cited)
+| Skill | Standard | Action |
+|-------|----------|--------|
+
+*An on-demand standard is loaded only when a skill cites it. A skill that declares one and never
+cites it does not apply it, whatever the register says.*
+
 ### Attribution gaps (origin: in frontmatter, no body credit)
 | Skill | Origin | Action |
 |-------|--------|--------|
@@ -143,6 +172,13 @@ excluded from this table.*
 *Listed every run. An exception the reader cannot see is indistinguishable from a check that was
 not run. Where `EXCEPTIONS.md` could not be read, say so here and treat the register as unread,
 never as empty.*
+
+### Never reviewed (`Applies` declarations with `Reviewed: —`)
+| Standard | Skills |
+|----------|--------|
+
+*One row per standard. This is the review backlog, not a defect: the skill may conform, and nobody
+has checked.*
 
 ### Stale exceptions (row outlived the condition it was granted for)
 | Skill | Check | Granted | Why stale | Action |
