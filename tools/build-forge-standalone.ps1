@@ -260,6 +260,33 @@ if (Test-Path -LiteralPath $pointerSrc) {
     [IO.File]::WriteAllText((Join-Path $OutRoot "rules" "requirements.md"), (Convert-StandaloneText $text $pointerSrc $held), [Text.UTF8Encoding]::new($false))
 }
 
+# ---------------------------------------------------------------- Copilot prompts
+
+# Hand-adapted prompts for Microsoft 365 Copilot Chat, which cannot install skills, read a repo
+# or run anything. They are copied verbatim -- each is already written for the published tree --
+# so the build only checks that every prompt still names a shipped skill. A prompt for a skill
+# that was renamed or held would otherwise publish advice for something the reader cannot find.
+$copilotSrc = Join-Path $ForgeRoot "global" ".claude" "copilot"
+$copilotPrompts = @()
+if (Test-Path -LiteralPath $copilotSrc) {
+    $copilotOut = Join-Path $OutRoot "copilot"
+    Ensure-Directory $copilotOut
+    $orphans = @()
+    foreach ($f in (Get-ChildItem -LiteralPath $copilotSrc -File -Filter "*.md" | Sort-Object Name)) {
+        Copy-Item -LiteralPath $f.FullName -Destination (Join-Path $copilotOut $f.Name) -Force
+        if ($f.Name -eq "README.md") { continue }
+        $base = [IO.Path]::GetFileNameWithoutExtension($f.Name)
+        if ($shipped -notcontains $base) { $orphans += $base }
+        $copilotPrompts += $base
+    }
+    if ($orphans.Count -gt 0) {
+        throw "Copilot prompt(s) name no shipped skill: $($orphans -join ', '). Rename, remove, or ship the skill."
+    }
+    if (-not (Test-Path -LiteralPath (Join-Path $copilotOut "README.md"))) {
+        throw "Copilot prompts ship without global/.claude/copilot/README.md to explain them."
+    }
+}
+
 # ---------------------------------------------------------------- self-contained bundling
 
 # A self-contained skill ships as three files: SKILL.md, REFERENCE.md and STANDARDS.md.
@@ -780,6 +807,15 @@ if ($bundled.Count -gt 0) {
     $readme.Add('removes it after copying, so an installed skill never carries it:')
     $readme.Add("")
     foreach ($b in $bundled) { $readme.Add("- [``$($b.Skill)$StandaloneSuffix``](skills/$($b.Skill)/$($b.Skill)$StandaloneSuffix)") }
+}
+if ($copilotPrompts.Count -gt 0) {
+    $readme.Add("")
+    $readme.Add("## Microsoft 365 Copilot")
+    $readme.Add("")
+    $readme.Add("[``copilot/``](copilot/README.md) holds $($copilotPrompts.Count) of these skills rewritten as prompts for")
+    $readme.Add('Microsoft 365 Copilot Chat, which cannot install skills, read a repository or run commands.')
+    $readme.Add('Paste a prompt as the first message of a new chat, then paste or attach your material. The')
+    $readme.Add('index there lists each prompt and the skills that have no chat version.')
 }
 $readme.Add("")
 $readme.Add("## Skills")

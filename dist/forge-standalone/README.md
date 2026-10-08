@@ -51,6 +51,13 @@ removes it after copying, so an installed skill never carries it:
 - [`write-reqs-standalone.md`](skills/write-reqs/write-reqs-standalone.md)
 - [`review-language-standalone.md`](skills/review-language/review-language-standalone.md)
 
+## Microsoft 365 Copilot
+
+[`copilot/`](copilot/README.md) holds 40 of these skills rewritten as prompts for
+Microsoft 365 Copilot Chat, which cannot install skills, read a repository or run commands.
+Paste a prompt as the first message of a new chat, then paste or attach your material. The
+index there lists each prompt and the skills that have no chat version.
+
 ## Skills
 
 ### Specification and delivery
@@ -195,7 +202,7 @@ These files are generated, so edits made directly here are overwritten on the ne
 release. Open an issue describing what needs changing and it will be fixed upstream
 and republished.
 
-Release 4.23.2.
+Release 4.24.0.
 
 ## Credits
 

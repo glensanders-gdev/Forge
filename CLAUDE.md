@@ -130,6 +130,11 @@ Copilot that take one pasted or attached file. It exists only in `dist/`, never 
 `global/.claude/skills/`. The generated `install.sh` deletes it after copying a skill folder, so
 no installed skill carries it. Never cite it from a skill.
 
+`global/.claude/copilot/` holds hand-adapted prompts for Microsoft 365 Copilot Chat, one file per
+shipped skill (named `<skill>.md`) plus a `README.md` index. The build copies them to
+`dist/forge-standalone/copilot/` verbatim and fails on a prompt whose skill does not ship. They are
+not generated from the skills: when you change a skill that has a prompt, update the prompt too.
+
 ### Naming a host product
 
 The Codex build rewrites `Claude Code` → `Codex`, `Claude` → `Codex`, `CLAUDE.md` → `AGENTS.md`, and `~/.claude/` → `~/.codex/forge/` unconditionally. That is right when the text means *the host you are running on*, and wrong when it names **Claude Code specifically** — the rewrite turns a true sentence into a false one with no error.
