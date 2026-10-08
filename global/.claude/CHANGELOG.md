@@ -11,6 +11,32 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
+## v4.24.0 — 2026-10-09
+
+**Microsoft 365 Copilot prompts ship with the standalone skills.** Copilot Chat cannot install a
+skill, read a repository or run a command, so a skill is used there by pasting its text. 40 shipped
+skills now have a prompt written for that, in `global/.claude/copilot/`.
+
+- **Source:** one hand-adapted prompt per skill, plus a `README.md` index. Each prompt states what
+  Copilot cannot do, keeps every human gate as a typed keyword, puts its load-bearing rules at the
+  top and a *Never* list at the end, and adds a rule against pasting personal or customer data.
+  `write-prd`, `review-brd` and `review-ord` condense their standards and gate criteria. All 40 fit
+  in one message. Only `review-ord` (23k characters) and `write-prd` (21k) exceed Agent Builder's
+  20,000-character skill limit.
+- **Not converted:** 25 skills need a repo, terminal, git or the agent's own state. The index lists
+  each one with its reason. `write-ord`, `write-brd`, `write-ac`, `write-reqs` and
+  `review-language` are covered by their `<skill>-standalone.md` bundles instead.
+- **Bundles moved:** every `<skill>-standalone.md` single-file bundle now builds into
+  `dist/forge-standalone/copilot/` instead of its skill folder, so all chat material sits in one
+  place. `install.sh` no longer needs to delete it from installed skills, and that step is gone.
+- **Build:** `build-forge-standalone.ps1` copies the prompts to `dist/forge-standalone/copilot/`
+  verbatim and adds a *Microsoft 365 Copilot* section to the generated README. It fails if a prompt
+  names a skill that does not ship, or if the index is missing.
+- **Maintenance:** the prompts are not generated from the skills. A skill change reaches its prompt
+  only when the prompt is edited too.
+
+---
+
 ## v4.23.2 — 2026-10-09
 
 **`RESERVED-NAMES.md` refreshed against Claude Code 2.1.293.** The list was 48 days old, recorded no

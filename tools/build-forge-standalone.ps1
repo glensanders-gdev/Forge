@@ -260,6 +260,33 @@ if (Test-Path -LiteralPath $pointerSrc) {
     [IO.File]::WriteAllText((Join-Path $OutRoot "rules" "requirements.md"), (Convert-StandaloneText $text $pointerSrc $held), [Text.UTF8Encoding]::new($false))
 }
 
+# ---------------------------------------------------------------- Copilot prompts
+
+# Hand-adapted prompts for Microsoft 365 Copilot Chat, which cannot install skills, read a repo
+# or run anything. They are copied verbatim -- each is already written for the published tree --
+# so the build only checks that every prompt still names a shipped skill. A prompt for a skill
+# that was renamed or held would otherwise publish advice for something the reader cannot find.
+$copilotSrc = Join-Path $ForgeRoot "global" ".claude" "copilot"
+$copilotPrompts = @()
+if (Test-Path -LiteralPath $copilotSrc) {
+    $copilotOut = Join-Path $OutRoot "copilot"
+    Ensure-Directory $copilotOut
+    $orphans = @()
+    foreach ($f in (Get-ChildItem -LiteralPath $copilotSrc -File -Filter "*.md" | Sort-Object Name)) {
+        Copy-Item -LiteralPath $f.FullName -Destination (Join-Path $copilotOut $f.Name) -Force
+        if ($f.Name -eq "README.md") { continue }
+        $base = [IO.Path]::GetFileNameWithoutExtension($f.Name)
+        if ($shipped -notcontains $base) { $orphans += $base }
+        $copilotPrompts += $base
+    }
+    if ($orphans.Count -gt 0) {
+        throw "Copilot prompt(s) name no shipped skill: $($orphans -join ', '). Rename, remove, or ship the skill."
+    }
+    if (-not (Test-Path -LiteralPath (Join-Path $copilotOut "README.md"))) {
+        throw "Copilot prompts ship without global/.claude/copilot/README.md to explain them."
+    }
+}
+
 # ---------------------------------------------------------------- self-contained bundling
 
 # A self-contained skill ships as three files: SKILL.md, REFERENCE.md and STANDARDS.md.
@@ -458,10 +485,9 @@ foreach ($entry in $SelfContainedSkills.GetEnumerator()) {
 # So each self-contained skill also ships as one file, `<skill>-standalone.md`, every part
 # keyed by the filename the skill cites it by.
 #
-# It sits inside the skill folder because that is where a reader browsing the published tree
-# looks for it. Nothing in the skill names it, so an assistant reading the skill never reaches
-# it, and install.sh deletes it after copying the folder, so it never lands in an installed
-# skill either. It is for pasting, nothing else.
+# It sits in `copilot/`, beside the hand-adapted chat prompts, because pasting into a chat
+# assistant is its only use. Keeping it out of the skill folder means an installed skill never
+# carries it and nothing has to delete it at install time.
 #
 # Headings are left at their own levels. STANDARDS.md already nests its parts one level
 # down, and demoting it again would push its deepest headings past what markdown renders.
@@ -478,6 +504,8 @@ the output that it was skipped; never produce the script's output by hand.
 '@
 
 $StandaloneSuffix = "-standalone.md"
+$bundleOut = Join-Path $OutRoot "copilot"
+if ($bundled.Count -gt 0) { Ensure-Directory $bundleOut }
 foreach ($b in $bundled) {
     $skillDir = Join-Path $skillsOut $b.Skill
     $files = @(Get-ChildItem -LiteralPath $skillDir -File -Filter "*.md" |
@@ -504,8 +532,8 @@ foreach ($b in $bundled) {
         $doc.Add([IO.File]::ReadAllText($f.FullName, [Text.Encoding]::UTF8).Trim())
     }
     $outName = "$($b.Skill)$StandaloneSuffix"
-    [IO.File]::WriteAllText((Join-Path $skillDir $outName), (($doc -join "`n").TrimEnd() + "`n"), [Text.UTF8Encoding]::new($false))
-    Write-Host "Wrote skills/$($b.Skill)/$outName from $($ordered.Count) file(s)"
+    [IO.File]::WriteAllText((Join-Path $bundleOut $outName), (($doc -join "`n").TrimEnd() + "`n"), [Text.UTF8Encoding]::new($false))
+    Write-Host "Wrote copilot/$outName from $($ordered.Count) file(s)"
 }
 
 # ---------------------------------------------------------------- reference resolution
@@ -774,12 +802,20 @@ if ($bundled.Count -gt 0) {
     $readme.Add("")
     foreach ($b in $bundled) { $readme.Add("- ``/$($b.Skill)``") }
     $readme.Add("")
-    $readme.Add('To use one in a chat assistant that cannot install skills, such as M365 Copilot, paste or')
-    $readme.Add('attach the single file inside its folder — for example `skills/write-ord/write-ord-standalone.md`.')
-    $readme.Add('It holds the whole skill folder in one file. Nothing in the skill reads it, and `install.sh`')
-    $readme.Add('removes it after copying, so an installed skill never carries it:')
+    $readme.Add('To use one in a chat assistant that cannot install skills, such as M365 Copilot, attach its')
+    $readme.Add('single-file copy from `copilot/`. It holds the whole skill folder in one file:')
     $readme.Add("")
-    foreach ($b in $bundled) { $readme.Add("- [``$($b.Skill)$StandaloneSuffix``](skills/$($b.Skill)/$($b.Skill)$StandaloneSuffix)") }
+    foreach ($b in $bundled) { $readme.Add("- [``$($b.Skill)$StandaloneSuffix``](copilot/$($b.Skill)$StandaloneSuffix)") }
+}
+if ($copilotPrompts.Count -gt 0) {
+    $readme.Add("")
+    $readme.Add("## Microsoft 365 Copilot")
+    $readme.Add("")
+    $readme.Add("[``copilot/``](copilot/README.md) holds $($copilotPrompts.Count) of these skills rewritten as prompts for")
+    $readme.Add('Microsoft 365 Copilot Chat, which cannot install skills, read a repository or run commands.')
+    $readme.Add('Paste a prompt as the first message of a new chat, then paste or attach your material. The')
+    $readme.Add('folder also holds the single-file bundles above. Its index lists every file and the skills')
+    $readme.Add('that have no chat version.')
 }
 $readme.Add("")
 $readme.Add("## Skills")
@@ -844,8 +880,6 @@ for dir in "$here"/skills/*/; do
     fi
     rm -rf "${skills_dst:?}/$name"
     cp -R "$dir" "$skills_dst/$name"
-    # The single-file copy is for pasting into a chat assistant. An installed skill never reads it.
-    rm -f "$skills_dst/$name/$name-standalone.md"
     installed=$((installed + 1))
 done
 
