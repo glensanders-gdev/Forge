@@ -109,13 +109,13 @@
     "qa-report": "1.1.0",
     "ia": "1.3.0",
     "vibe-security": "1.0.1",
-    "write-brd": "1.4.2",
+    "write-brd": "1.4.3",
     "write-ord": "3.0.6",
     "write-reqs": "1.4.4",
     "write-ac": "1.6.5",
     "roap": "1.0.1",
-    "review-brd": "2.2.0",
-    "review-ord": "2.4.0",
+    "review-brd": "2.2.1",
+    "review-ord": "2.4.1",
     "review-language": "1.1.0"
   }
 }

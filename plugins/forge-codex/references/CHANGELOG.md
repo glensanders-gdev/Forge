@@ -20,8 +20,9 @@ name them independently; read the pack". Fixing the wording of guidance that sho
 document at all would have been the wrong fix.
 
 - **`$write-prd` 2.9.0:**
-  - All authoring guidance moves out of the fence, unchanged, into a new *Template notes*
-    section after the template, grouped by PRD section. The fence keeps headings, fields,
+  - All authoring guidance moves out of the fence into a new *Template notes* section after the
+    template, grouped by PRD section. The wording is unchanged apart from the joins needed to move
+    it. The fence keeps headings, fields,
     placeholders, tables and the worked example.
   - The conditional-lines note now also covers the Task List and Definition of Done variants:
     keep the one matching `Delivery Mode` and drop its **Under …** marker.
@@ -49,7 +50,7 @@ the wrong generator: `$write-brd` 1.3.0 against 1.4.1, and `$write-ord` 3.0.0 ag
 
 - **`$write-ord` 3.0.6:** the `--generator` argument now takes the version from the skill's own
   frontmatter, which `EXCEPTIONS.md` already holds equal to the manifest. It cannot drift again.
-- **`$write-brd` 1.4.2:** the literal is corrected. `$write-brd` carries no frontmatter version,
+- **`$write-brd` 1.4.3:** the literal is corrected. `$write-brd` carries no frontmatter version,
   and the standalone copy has no manifest to read, so the literal stays and is updated with each
   bump.
 
@@ -120,6 +121,26 @@ text.
   is unchanged.
 - **Not adopted:** checking skill instruction prose. `language.md` bans the directives that make a
   skill work, so that would need a separate standard written for instruction prose.
+
+---
+
+## v4.20.1 — 2026-10-08
+
+**The review-criteria extracts are regenerated from requirements pack v1.16 (`e5b1e1d`) and are
+current again.** Three changes in v4.17.0–v4.17.2 edited `write-brd/STANDARD.md` directly rather
+than the pack it is generated from. The pack fell behind, and regenerating would have reverted those
+edits. Pack v1.16 now carries them: the Style Manual writing and referencing rules, Appendix B
+*References*, "Decision sought", and ORD tolerance citations at §7.x.
+
+- **`$write-brd` 1.4.2:** the extract's content is unchanged. It is restamped to pack v1.16, and the
+  standard's version line now reads 1.16.
+- **`$review-brd` 2.2.1:** the worked handoff-gate rows pick up the numeral and `cl` citation fixes
+  the `$write-brd` extract had already received: "9 rows", and "cl 14.3, 14.5 and 14.6".
+- **`$review-ord` 2.4.1:** restamp only. **Its criteria still cite the ORD's tolerances at §3.x**,
+  as the rest of the pack does, while `$write-ord` 3.x numbers them §7. The pack's v1.16 CHANGELOG
+  records this as a declared open item for its own revision.
+- **Never edit a generated extract by hand.** Edit the pack, then run
+  `tools/build-review-criteria.py`.
 
 ---
 
