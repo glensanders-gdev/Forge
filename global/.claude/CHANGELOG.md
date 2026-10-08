@@ -11,6 +11,26 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
+## v4.20.1 — 2026-10-08
+
+**The review-criteria extracts are regenerated from requirements pack v1.16 (`e5b1e1d`) and are
+current again.** Three changes in v4.17.0–v4.17.2 edited `write-brd/STANDARD.md` directly rather
+than the pack it is generated from. The pack fell behind, and regenerating would have reverted those
+edits. Pack v1.16 now carries them: the Style Manual writing and referencing rules, Appendix B
+*References*, "Decision sought", and ORD tolerance citations at §7.x.
+
+- **`/write-brd` 1.4.2:** the extract's content is unchanged. It is restamped to pack v1.16, and the
+  standard's version line now reads 1.16.
+- **`/review-brd` 2.2.1:** the worked handoff-gate rows pick up the numeral and `cl` citation fixes
+  the `/write-brd` extract had already received: "9 rows", and "cl 14.3, 14.5 and 14.6".
+- **`/review-ord` 2.4.1:** restamp only. **Its criteria still cite the ORD's tolerances at §3.x**,
+  as the rest of the pack does, while `/write-ord` 3.x numbers them §7. The pack's v1.16 CHANGELOG
+  records this as a declared open item for its own revision.
+- **Never edit a generated extract by hand.** Edit the pack, then run
+  `tools/build-review-criteria.py`.
+
+---
+
 ## v4.20.0 — 2026-10-08
 
 **AI governance scope, re-assessment and AI incidents, adapted from the Australian Government's AI
