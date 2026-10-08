@@ -11,6 +11,33 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
+## v4.23.1 — 2026-10-08
+
+**Fixes from the first `$skill-health` run with standards checks.**
+
+- **`$skill-health` 1.8.1:**
+  - The version-bump check now runs `git log -S` with `--diff-merges=first-parent`. Without it, a
+    version set while resolving a merge read as never committed. `write-brd` 1.4.3 and
+    `grill-with-peer` 1.0.0 were both affected.
+  - `EXCEPTIONS.md`: the `dashboard-tokens` invariant now names the latest non-sweep commit. It
+    was false the day it was granted, because the 113-skill sweep `7e60ad1` predates it. The
+    `knowledge-health` and `write-article` rows are removed: both skills were bumped since, and
+    neither trips the check any more. A new note says latest-commit invariants count non-sweep
+    commits only.
+- **Versions for changes that landed without a bump:**
+  - **`$commands` 1.0.3:** table rows for `$fix-one-thing` (`3601646`), `$review-language`
+    (`e287ba6`) and its `--skill` mode (`36702eb`).
+  - **`$write-a-skill` 1.8.1:** `workflow-authoring` added to `RESERVED-NAMES.md` (`3601646`).
+  - **`$testplan` 1.2.4:** reads a 2.x ORD in its own section numbering (`7c51ea8`).
+  - **`$grill-with-peer` 1.0.1:** the note that `/grill-with-codex` is an intentional alias
+    (`a44f38f`). The old pickaxe hid this one, because the 1.0.0 version was set in a merge.
+  - **`$setup-brain` 3.0.1:** the shared-space definition reworded (`fcbfbd8`). It also gains an
+    `## Attribution` section crediting Andrej Karpathy, whom only its frontmatter named.
+- **CHANGELOG:** the v4.10.1 and v4.11.0 entries now name the versions they shipped:
+  `$write-a-skill` 1.8.0, `$ingest` 2.0.0 and `$knowledge-health` 1.2.0.
+
+---
+
 ## v4.23.0 — 2026-10-08
 
 **`$skill-health` tracks which skills apply which standards, and flags a standard that changed
@@ -695,6 +722,7 @@ No migration: no `_scope.md` or `pending-changes.md` existed anywhere when the r
 ## v4.11.0 — 2026-09-16
 
 **`Raw/` is now an inbox, not a dump — `$ingest` archives each compiled source.**
+`$ingest` 1.1.1 → 2.0.0 · `$knowledge-health` 1.1.0 → 1.2.0.
 
 Compiled sources move to `Raw/_archive/YYYY-MM/`, filed by compile month. What remains at the
 top level of `Raw/` is exactly the pending queue, which is also what `$ingest` and
@@ -755,7 +783,7 @@ root. Held: the company-aware path resolution, the registry-driven scope prompt,
 
 ## v4.10.1 — 2026-09-16
 
-**`$write-a-skill` now ships in the public distribution.**
+**`$write-a-skill` now ships in the public distribution.** `$write-a-skill` 1.7.0 → 1.8.0.
 
 The skill was held at `standalone: false` while its text already carried seven ``
 fences — authored for a public cut that the flag never let run. Flipped to `standalone: true`, with

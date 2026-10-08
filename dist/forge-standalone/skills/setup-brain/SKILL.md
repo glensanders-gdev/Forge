@@ -86,3 +86,10 @@ adding rows as changes crystallise is the human's discipline.
 | Asked to change scope shared → private | Refuse — state the already-published reason and stop; manual action outside the skill. |
 | A template's target file already exists | Leave it untouched; note "exists — skipped" in the report. |
 | Asked to merge a shipped project's Wiki | Out of scope — it belongs to whatever ships the project. |
+
+---
+
+## Attribution
+
+The Raw → Wiki knowledge model is adapted from Andrej Karpathy's second-brain pattern: raw sources
+compiled into a curated wiki.

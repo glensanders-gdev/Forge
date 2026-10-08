@@ -135,14 +135,15 @@ Do not produce output during this phase.
    directory:
 
    ```
-   git log -1 --format=%cI -S '"<name>": "<version>"' -- global/.claude/skills/manifest.json
+   git log -1 --format=%cI --diff-merges=first-parent -S '"<name>": "<version>"' -- global/.claude/skills/manifest.json
    git log --format='%H %cI' -- global/.claude/skills/<name>/
    ```
 
    Walk the second list newest-first and take the first commit that is **not a portfolio sweep**
    — a commit touching 10 or more distinct skill directories. Count the sweeps skipped; they are
    reported, never silently dropped. A skill whose directory changed after its version was set
-   is a stale version.
+   is a stale version. `--diff-merges=first-parent` is required: without it `-S` skips merge
+   commits, and a version set while resolving a merge reads as never committed.
 
 10. **Published distribution — read the remote, do not fetch.** Read the published `manifest.json`
    in this order, and record which source answered:
