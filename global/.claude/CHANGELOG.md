@@ -11,6 +11,40 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
+## v4.20.0 — 2026-10-08
+
+**AI governance scope, re-assessment and AI incidents, adapted from the Australian Government's AI
+policy.** The DTA *Policy for the responsible use of AI in government* v2.0 (effective 15 December
+2025, digital.gov.au/ai/ai-in-government-policy) binds only non-corporate Commonwealth entities.
+Its Appendix C test for which AI uses need governance carries over to any organisation. `/idea-ai`
+screened governance *areas*, but had no rule for whether governance applied at all, and nothing
+that re-opened an assessment once it was done.
+
+- **`/idea-ai` 1.1.0:**
+  - Stage 11 opens with a five-criterion scope screen (harm, decision influence, unreviewed
+    external exposure, personal or classified data, company-designated risk). It lists the
+    areas that need closer attention, including critical infrastructure. It sets out the
+    incidental-use and early-experimentation exclusions, and any `Unknown` keeps the result
+    `Unknown`.
+  - Stage 1 records whether a general-purpose AI product is one complex use case or several.
+  - Stage 15 names re-assessment triggers: material change, vendor or regulatory change, and
+    at most 12 months for high-risk use cases.
+  - Two failure-mode rows, a twelfth consistency check, and a guardrail against "only a pilot".
+- **`/incident` 1.1.0:** asks at declaration whether an AI component contributed, tests it against
+  an AI incident definition (adapted from the policy's Appendix B, itself from the OECD), and
+  records the result in the incident record.
+- **`standards/requirements/ai.md`:** *Australian adoptions and instruments* gains a row for the
+  policy, marked mandatory for non-corporate Commonwealth entities only. The "no mandatory AI-specific
+  requirement classes" paragraph now says the policy adds governance actions, not classes. A new
+  *Never* rule bars citing the policy as an obligation elsewhere.
+- **Not adopted:** agency duties such as accountable officials, transparency statements, strategy,
+  mandatory training and reporting to the DTA; the policy's deadlines; and the AI impact
+  assessment tool, which `ai.md` names as the method agencies use.
+- The AI incident definition lives in `/incident` rather than in `ai.md`, because `/incident` ships
+  standalone and is the only skill that applies it.
+
+---
+
 ## v4.19.0 — 2026-10-08
 
 **An AI-use baseline, adapted from the Australian Government's guidance on public generative AI.**

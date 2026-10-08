@@ -278,6 +278,7 @@ exists** — it is the same text, and it is the one an Australian auditor asks f
 | **Voluntary AI Safety Standard (VAISS)** — DISR, 10 guardrails | **Voluntary. Binds nothing.** Useful as a checklist against the class map; never cite a guardrail as the authority for a requirement. |
 | **Guidance for AI Adoption (GfAA)** — October 2025, six practices | Voluntary; supersedes VAISS in practice. Same treatment. |
 | Proposed mandatory guardrails for high-risk AI, September 2024 | **Shelved.** Do not author against them. |
+| **Policy for the responsible use of AI in government v2.0** — DTA, effective 15 December 2025 | **Mandatory for non-corporate Commonwealth entities only** — departments and agencies. Binds no corporate Commonwealth entity, government business enterprise or private organisation, and is not law. An in-scope use case is screened at design, impact-assessed with the Australian Government AI impact assessment tool before deployment, registered with an accountable use case owner, and re-validated on material change. Its Appendix C scope criteria are applied as a screen, for anyone, in `$idea-ai` Stage 11. |
 | **National AI Plan**, 2 December 2025 | Policy direction, not law: existing legislation and sector regulators, supported by voluntary guidance and the Australian AI Safety Institute. **There is no Australian AI Act.** |
 
 **Watch item — an Australian AI standard to be legislated.** An Office of AI was established in the
@@ -292,7 +293,8 @@ Re-check before the next document cycle; the owner named above owns this too.
 from the **EU AI Act**, and apply only where a system falls within its scope. A purely domestic
 Australian system currently has **no mandatory AI-specific requirement classes**: it is governed by
 existing law — privacy, consumer, anti-discrimination, sector regulation — plus whatever the
-organisation adopts voluntarily. Name which regime applies in the document rather than importing the
+organisation adopts voluntarily. The one mandatory AI instrument, the DTA policy above, binds only
+non-corporate Commonwealth entities, and it adds governance actions, not requirement classes. Name which regime applies in the document rather than importing the
 AI Act by default. The evaluative criterion, the evaluation-set discipline and the shelf-life rule in
 this file are **engineering practice, not regulation**, and apply either way.
 
@@ -318,6 +320,8 @@ this file are **engineering practice, not regulation**, and apply either way.
   consolidated Article 113 — the stamp above records exactly what was and was not checked.
 - Never cite a VAISS or GfAA guardrail as the authority for a requirement. Both are voluntary; a
   requirement naming one as its source names no obligation.
+- Never cite the DTA *Policy for the responsible use of AI in government* as an obligation on an
+  organisation that is not a non-corporate Commonwealth entity — elsewhere it is practice, not duty.
 - Never import the EU AI Act's classes into a purely domestic Australian system by default — name
   the regime that applies and why.
 - Never cite an ISO designation alone where an AS adoption exists — an Australian auditor asks for
