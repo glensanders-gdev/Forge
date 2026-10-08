@@ -2,7 +2,7 @@
 name: "write-ord"
 description: "Synthesize a call transcript, document, conversation context, or structured notes into a business-focused, demand-side Operational Requirements Document (ORD) — executive summary first, quantified business tolerances organised by ISO/IEC 25010:2023 quality characteristics, with decisions, assumptions and dependencies as first-class registers, and business rules and reporting requirements in their own appendices. Use when the user runs $write-ord, provides a transcript or document to convert into an ORD, or wants to formalise operational requirements from a conversation."
 metadata:
-  version: 3.0.5
+  version: 3.0.6
   category: pipeline
   origin: Adapted from Glen Sanders (Forge / https://github.com/glensanders-gdev/Forge)
 ---
@@ -377,7 +377,8 @@ Runs after the human confirms the Phase 1 summary. Writes the ORD using the temp
     cites IDs and restates no value a row carries.
 14. Save to `docs/ord/[system-name]-ORD.md`.
 15. **Generate the LLM companion** from the saved ORD by running
-    `python3 scripts/llm_companion.py docs/ord/[system-name]-ORD.md --generator "$write-ord 3.0.0"`,
+    `python3 scripts/llm_companion.py docs/ord/[system-name]-ORD.md --generator "$write-ord [version]"`,
+    where `[version]` is the `version:` in this file's frontmatter,
     per `standards/llm-companion.md`. It writes `docs/ord/[system-name]-ORD.llm.md` only when every row
     reconciles and every value arrived verbatim. On a refusal, report the reason; never write the
     companion by hand instead.

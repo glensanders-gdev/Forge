@@ -11,6 +11,20 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
+## v4.21.3 — 2026-10-08
+
+**LLM companion generator versions.** Both requirements skills passed a hard-coded version to
+`llm_companion.py`, and neither literal moved when the skill was bumped. Every companion recorded
+the wrong generator: `/write-brd` 1.3.0 against 1.4.1, and `/write-ord` 3.0.0 against 3.0.5.
+
+- **`/write-ord` 3.0.6:** the `--generator` argument now takes the version from the skill's own
+  frontmatter, which `EXCEPTIONS.md` already holds equal to the manifest. It cannot drift again.
+- **`/write-brd` 1.4.2:** the literal is corrected. `/write-brd` carries no frontmatter version,
+  and the standalone copy has no manifest to read, so the literal stays and is updated with each
+  bump.
+
+---
+
 ## v4.21.2 — 2026-10-08
 
 **`/write-ord` template fixes, found by `/review-language --skill write-ord`.** The worked register
