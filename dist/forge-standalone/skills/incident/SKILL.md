@@ -88,6 +88,20 @@ Ask (skip any provided as arguments):
 - What is affected? (brief description)
 - When did it start? (or "now" for current time)
 - Which project(s) or system(s)?
+- Does an AI component contribute? If yes, test it against **AI incident** below and record the result.
+
+**AI incident.** An incident is an AI incident when the development, use or malfunction of an AI
+system, directly or indirectly, leads to any of:
+
+- injury or harm to the health of a person or group;
+- disruption of the management or operation of critical infrastructure;
+- a breach of legal obligations, or a violation of rights, including privacy, intellectual property
+  and Indigenous cultural and intellectual property;
+- harm to property, communities or the environment.
+
+A company may add circumstances of its own. *Definition adapted from the Digital Transformation
+Agency, Policy for the responsible use of AI in government v2.0, Appendix B, itself adapted from the
+OECD.*
 
 ### 3 — Create incident record
 
@@ -99,6 +113,7 @@ Write `~/.claude/companies/[active_company]/incidents/INC-NNN/incident.md`:
 **Severity:** [SEV1 / P1 etc.]
 **Declared:** YYYY-MM-DD HH:MM
 **Affected:** [systems / features / users]
+**AI incident:** [Yes — criterion met / No — AI involved, no criterion met / N/A — no AI component]
 **Status:** 🔴 Open
 
 ---
@@ -360,3 +375,4 @@ Show open incidents and the 5 most recently closed:
 - Timeline entries must have timestamps — ask if not provided
 - Action items in the post-mortem must be specific and ownable — not "improve monitoring" but "add alert for payment service latency > 2s"
 - This skill coordinates /diagnose and /rollback — it does not replace them
+- Never mark an incident an AI incident because AI is present — name the criterion it meets, or record `No`

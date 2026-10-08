@@ -34,6 +34,8 @@ Hypothesis  If [proposed AI capability] uses [identified information] to perform
 
 Classify the **AI role** as one or more of: Retrieve · Extract · Summarise · Generate · Classify · Recommend · Predict · Detect anomalies · Orchestrate workflow · Take action · Make or materially influence a decision.
 
+**A general-purpose AI product** (an enterprise copilot or assistant serving many tasks) is reviewed one of two ways, and the choice is recorded: as **one complex use case**, governed at the risk of its highest-risk use, or as **separate use cases**, each with its own owner, screen and register entry. Never review the product's least risky use and let the rest ride on it.
+
 ### Stage 2: Existing Capability Review
 
 Check whether the requirement is already met by an approved enterprise capability, a current business-unit capability, an active or completed pilot, an existing AI register or governance record, a reusable platform service or evaluation asset, conventional automation, or related work in another business area.
@@ -180,6 +182,24 @@ Assign platform feasibility: **Confirmed** · **Plausible** · **Unknown** · **
 
 ### Stage 11: Governance and AI Register Triage
 
+**Scope screen first.** Before the area table, decide whether the use case needs governance at all. It is **in scope** if *any* of these holds:
+
+| # | Criterion | Holds? |
+|---|---|---|
+| S1 | Its use, misuse or failure could cause more than insignificant harm to individuals, communities, organisations, the environment, or the collective rights of cultural groups including First Nations peoples | Yes / No / Unknown |
+| S2 | It materially influences decisions affecting any of those parties | Yes / No / Unknown |
+| S3 | People outside the organisation interact with it, or are significantly affected by its output, without human review | Yes / No / Unknown |
+| S4 | It is designed to use personal, sensitive or security-classified information | Yes / No / Unknown |
+| S5 | The company's own policy designates it elevated risk | Yes / No / Unknown |
+
+Look harder, without assuming high risk, at recruitment and employment decisions, discretionary automated decisions, justice and democratic processes, law enforcement and profiling, health, education, and **critical infrastructure**.
+
+Out of scope: **incidental use** (off-the-shelf features such as grammar checking or AI-assisted search), and **early experimentation**, but only if the experiment commits to no design decision, can harm no one, and adds no privacy or security risk. Once proceeding is likely, the experiment is screened like any other use case.
+
+Record the result as **In scope — [criteria]** · **Out of scope — [reason]** · **Unknown — [what would settle it]**. Any `Unknown` on S1–S4 makes the result `Unknown`, never `Out of scope`. An out-of-scope use case is re-screened on a material change to its scope, usage or operation.
+
+*Scope criteria adapted from the Digital Transformation Agency, Policy for the responsible use of AI in government v2.0, Appendix C (digital.gov.au/ai/ai-in-government-policy). That policy binds only non-corporate Commonwealth entities; elsewhere this screen is practice, not obligation.*
+
 Assess the **use case** separately from the underlying **AI system or model**. Capture any existing AI register or governance record, existing use-case assessment, existing system or model assessment, whether this is a new use case on an existing platform or a new agent, model, assistant or automation, use of business, customer, employee or operational data, support for decisions, external-facing content, consequences of error, transparency and explainability needs, human accountability, and privacy, security, legal, regulatory and data-governance relevance.
 
 | Area | Screen | Notes |
@@ -299,6 +319,8 @@ Classify defects:
 | Escalation precision | Correct identification of manual cases | | | |
 
 Define ongoing monitoring for user overrides, refusals, defects, escalations, source changes, prompt or configuration changes, performance degradation and benefit realisation. **Every alert names its runbook** — an alert with no documented response is observability, not a control.
+
+**Re-assessment, not just monitoring.** Name what re-opens the review itself: a material change in scope, usage or operation; a change the organisation did not initiate (a vendor model or platform update, a new regulation or company policy); and a fixed interval. For a use case the review rates high risk, the interval is at most 12 months, and the review reports to the governing body or executive named in Stage 12. Where vendor changes cannot be observed, record the contractual notice the vendor owes as a dependency in Stage 18.
 
 ### Stage 16: Failure Modes and Controls
 
@@ -450,6 +472,8 @@ Order by decision value, not by review-section order: the first five are those m
 | Confidence thresholds proposed without calibration | Remove the number and define validation first |
 | Cost, schedule or effort lacks design evidence | Use `Not estimable` |
 | Governance applicability is uncertain | Recommend governance triage without implying its outcome |
+| Idea is framed as "just an experiment" | Apply the Stage 11 experimentation test; if proceeding is likely, screen it as a use case |
+| A general-purpose AI product is proposed for many tasks | Record the single-use-case or separate-use-case choice from Stage 1 |
 | Ownership is incomplete | Set a mandatory ownership gate before pilot or production progression |
 | Idea is too broad | Define a bounded first use case, its exclusions and its stop conditions |
 | Critical evidence is missing | Issue a conditional assessment with a prioritised validation plan |
@@ -469,6 +493,7 @@ Verify before completing any review:
 9. Human accountability is operationally defined.
 10. Pilot scope, measures, stop criteria and rollback are visible where relevant.
 11. Findings are traceable and assumptions carry validation methods.
+12. The Stage 11 scope screen result is recorded, and Stage 15 names the re-assessment triggers.
 12. Maturity matches the available evidence.
 13. The disposition follows from evidence, blockers and readiness.
 14. The top five discovery actions are those most likely to change the decision.

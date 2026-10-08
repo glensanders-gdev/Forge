@@ -92,6 +92,7 @@ Write `idea-ai-review.md` from the template for the selected mode in [TEMPLATES.
 - Never accept human review as a control without a defined review task, visible evidence, failure response and accountability.
 - Never let a score or maturity label conceal a critical safety, governance, data, platform or ownership blocker.
 - Never claim a file, registry entry or decision was saved unless the operation succeeded.
+- Never record a use case as out of governance scope while any Stage 11 scope criterion is `Unknown`, or because it is "only a pilot".
 - Never delete a declined idea — retain the decision and its reason in the idea registry.
 
 ## Failure Modes
