@@ -19,7 +19,7 @@ Named for its pair: `/handoff` puts a stream down, `/pickup` takes it up. (Renam
 `/continue` in v3.25.0 — that name is shadowed by a Claude Code built-in.)
 
 This skill is focused and fast: pick a stream, load its state, confirm the next action, start
-working. For broader daily orientation across all streams (priorities, deadlines, PI plan) use
+working. For broader daily orientation across all streams (priorities, deadlines, release plan) use
 `/standup` instead.
 
 **`/pickup` never writes.** It reads state; it does not migrate, close, or update anything.

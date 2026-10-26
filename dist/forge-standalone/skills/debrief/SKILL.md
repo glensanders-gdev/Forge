@@ -34,7 +34,7 @@ writes the stream it was run for, and is the **only** session skill that sweeps 
    stream and no slug given, ask which one this session's work belongs to.
 3. **Update `docs/handoffs/<slug>.md`** — overwrite using the stream-file template in `STREAMS.md`,
    after applying the conflict guard:
-   - Session type: Planning | Build | QA | Sprint Close | PI Management | Deployment | Ad Hoc
+   - Session type: Planning | Build | QA | Sprint Close | Deployment | Ad Hoc
    - Current ticket and status
    - What was just done (one or two sentences)
    - Exact next action for the next session

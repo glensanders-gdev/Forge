@@ -276,7 +276,7 @@ Task List and Definition of Done, keep only the variant matching `Delivery Mode`
 **Chain position:** Business Requirements Document (BRD) → **Product Requirements Document (PRD)** → Solution on a Page (SOAP) → Operational Requirements Document (ORD) → Solution Architecture Review (SAR)
 **Sprint:** Sprint-NN (or "Not sprint-tracked")
 **PI:** PI-N [Name] (or "Not PI-tracked")
-**Target Release:** PI-N-RN (or "Standalone" or "Not assigned")
+**Target Release:** [release ID] (or "Standalone" or "Not assigned")
 **Author:** [Human name or the authoring agent]
 
 **Stakeholder Label:** [External-facing feature name for stakeholder communication]

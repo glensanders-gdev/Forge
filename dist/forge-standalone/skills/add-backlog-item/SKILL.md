@@ -15,7 +15,7 @@ Add a new item to the global or project backlog. Grills it lightly first to ensu
 Ask: "Add to **global** backlog or a **project** backlog?"
 
 - **Global** → `~/.claude/backlog.md`
-- **Project** → build project list from `~/.claude/priorities.md` and PI plan, human selects
+- **Project** → build project list from `~/.claude/priorities.md` and the release plan, human selects
 
 ### 2. Capture Initial Description
 

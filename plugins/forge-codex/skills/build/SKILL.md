@@ -53,7 +53,7 @@ Before executing any ticket:
    ```
    ⚠️ Buffer Window Active
 
-   You are in the buffer window for PI-N-RN (Release: Mon DD MMM).
+   You are in the buffer window for [release ID] (Release: Mon DD MMM).
    Friday EOD is the last working day for feature tickets.
    During the buffer window, only bug fixes [BUG] and deployment prep [PREP] should be executed.
 

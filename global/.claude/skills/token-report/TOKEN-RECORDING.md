@@ -73,7 +73,7 @@ Each phase keeps one accumulating record. At session close, add the session's ac
 When recording the first entry for a feature:
 1. Derive the feature name from the active PRD in `docs/prd/active/`
 2. Check if `docs/tokens/[feature-name].md` exists
-3. If not, copy from `docs/tokens/_template.md` and fill in the header fields (PRD name, project, sprint, PI)
+3. If not, copy from `docs/tokens/_template.md` and fill in the header fields (PRD name, project, sprint, planning period)
 4. If no active PRD exists yet (e.g. recording during the `/idea` phase), use the idea name slug as the feature name — it will be updated when the PRD is written
 
 ---
@@ -88,14 +88,14 @@ Phase: Grill — Session 2 of current phase
 
 ---
 
-## Multi-PI Features
+## Features Spanning Planning Periods
 
-When a feature spans multiple PIs (starts in PI-N, completes in PI-N+1):
-- The token file `docs/tokens/[feature-name].md` accumulates across all sessions regardless of PI
-- The global ledger entry is created at `/approve` and tagged with the PI in which the feature was approved
-- The phase date ranges in the token file show the actual dates — spanning the PI boundary naturally
-- In `/token-report`, multi-PI features appear in the PI they were approved in, with a note: "Phase dates span PI-N and PI-N+1"
-- For accurate PI-level cost accounting, the PI report notes: "N features approved this PI; N phases from prior PI included"
+When a feature spans planning periods (starts in one, completes in the next):
+- The token file `docs/tokens/[feature-name].md` accumulates across all sessions regardless of planning period
+- The global ledger entry is created at `/approve` and tagged with the planning period in which the feature was approved
+- The phase date ranges in the token file show the actual dates — spanning the period boundary naturally
+- In `/token-report`, features spanning periods appear in the period they were approved in, with a note: "Phase dates span [period] and [next period]"
+- For accurate period-level cost accounting, the period report notes: "N features approved this period; N phases from the prior period included"
 
 ---
 

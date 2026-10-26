@@ -14,7 +14,7 @@ Generate a concise standup summary from the project's living documents. No input
 **Step 0 — Resolve active company:** Read `~/.claude/preferences.md`. If `active_company:` is set, use that value in place of `[active_company]` throughout this run. If not set, skip all company-config reads and apply defaults.
 
 1. Read `~/.claude/priorities.md` — global feature priority order.
-2. Read `~/.claude/pi/[current-pi]/plan.md` — current PI release dates and Go/No Go dates.
+2. Read the current release plan<!--forge-only--> at `~/.claude/pi/[current-pi]/plan.md`<!--/forge-only--> — release dates and Go/No Go dates.
 3. Read `docs/DEVLOG.md` — most recent entry only.
 4. Read `docs/kanban.md` — current In Progress, Blocked, and top Backlog items.
 5. Read `docs/prd/active/` — identify the feature currently in flight, check Delivery Type and Due Dates for deadline risk.
@@ -40,7 +40,7 @@ Generate a concise standup summary from the project's living documents. No input
 ## Standup — YYYY-MM-DD
 
 ### ⚠️ Flags (if any)
-- 📋 Go/No Go for PI-N-RN due [date] — [N days away]
+- 📋 Go/No Go for [release ID] due [date] — [N days away]
 - 🔴 [Feature] deadline at risk — [N days to internal/external due date]
 - 🟡 Fixed Deadline feature — scope check summary below
 - 🚩 Overdue feature flags: [FF-NNN flag-name (N days overdue), ...]

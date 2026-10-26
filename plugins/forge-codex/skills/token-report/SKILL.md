@@ -1,6 +1,6 @@
 ---
 name: "token-report"
-description: "Generate a program-level token usage report across features, sprints, and PIs. Shows phase breakdowns, estimate vs actual calibration, and session counts. Use when user runs $token-report or wants to analyse AI execution costs across projects."
+description: "Generate a program-level token usage report across features, sprints, and planning periods. Shows phase breakdowns, estimate vs actual calibration, and session counts. Use when user runs $token-report or wants to analyse AI execution costs across projects."
 metadata:
   category: metrics
   origin: Adapted from Glen Sanders (Forge / https://github.com/glensanders-gdev/Forge)
@@ -8,12 +8,12 @@ metadata:
 
 # Token Report
 
-Generate a program-level analysis of token usage. Reads from the global ledger and per-project token files to produce reports at feature, sprint, PI, or program level.
+Generate a program-level analysis of token usage. Reads from the global ledger and per-project token files to produce reports at feature, sprint, planning-period or program level.
 
 ## When to Use
 
 - User runs `token-report` explicitly
-- End of PI for program-level cost analysis
+- End of a planning period for program-level cost analysis
 - When estimates consistently miss and calibration is needed
 - Before setting a target date, to inform capacity estimates
 
@@ -22,11 +22,11 @@ Generate a program-level analysis of token usage. Reads from the global ledger a
 The user can request:
 - **Feature** — one feature's phase breakdown and estimate comparison
 - **Sprint** — all features in a sprint, total and by phase
-- **PI** — all features in a PI across all projects
+- **Planning period** — all features in a planning period (a PI) across all projects
 - **Program** — everything in the ledger, all time
 - **Calibration** — estimate vs actual analysis for refining future estimates
 
-If scope not specified, ask once: "Which scope — feature, sprint, PI, program, or calibration?"
+If scope not specified, ask once: "Which scope — feature, sprint, planning period, program, or calibration?"
 
 ---
 
@@ -34,7 +34,7 @@ If scope not specified, ask once: "Which scope — feature, sprint, PI, program,
 
 1. Read `~/.codex/forge/tokens/ledger.md` — global feature records
 2. Read `docs/tokens/[feature].md` files for in-progress features (not yet in ledger)
-3. Read `~/.codex/forge/sprints/calendar.md` and `~/.codex/forge/pi/[current-pi]/plan.md` for sprint/PI context
+3. Read `~/.codex/forge/sprints/calendar.md` and `~/.codex/forge/pi/[current-pi]/plan.md` for sprint and planning-period context
 4. Aggregate by requested scope
 5. Present the report
 
@@ -105,10 +105,10 @@ If scope not specified, ask once: "Which scope — feature, sprint, PI, program,
 - Other: N% (~Nk)
 ```
 
-### PI Report
+### Planning Period Report
 
 ```markdown
-## Token Report — PI-N [Name]
+## Token Report — [planning period] [Name]
 
 **Period:** YYYY-MM-DD → YYYY-MM-DD
 **Projects:** [list]
@@ -128,8 +128,8 @@ If scope not specified, ask once: "Which scope — feature, sprint, PI, program,
 | Sprint-NN | N | ~Nk | N |
 | Sprint-NN | N | ~Nk | N |
 
-### Phase Distribution (PI total)
-| Phase | Tokens | % of PI total |
+### Phase Distribution (period total)
+| Phase | Tokens | % of period total |
 |-------|--------|--------------|
 | Build | ~Nk | N% |
 | Grill | ~Nk | N% |
@@ -204,7 +204,7 @@ PI token total: ~Nk across N features, N projects, N sessions
 
 | Condition | Behaviour |
 |-----------|-----------|
-| Scope not specified | Ask once — feature, sprint, PI, program, or calibration. |
+| Scope not specified | Ask once — feature, sprint, planning period, program, or calibration. |
 | A phase has no record | Show "—" — never a guessed number. |
 | Records mix exact Codex measurements and legacy estimates | Label the sources distinctly — never present them unlabelled. |
 | Calibration requested with in-progress features | Use approved features only; mark in-progress ⚠️ partial and exclude from accuracy stats. |
