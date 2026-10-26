@@ -11,6 +11,24 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
+## v4.27.1 — 2026-10-26
+
+**The Microsoft 365 Copilot `review-brd` prompt carries the readiness projection.** 4.27.0 left it
+out to stay under Agent Builder's 20,000-character limit, so Copilot users got the gate and business
+definition but no BRD readiness rating, lead-time matrix or path to readiness.
+
+- **Added to the prompt:** the four BRD readiness ratings, including *Contested*; size bands;
+  resourcing status; the baseline and contested lead-time tables at 100–30% allocation; the
+  modifiers; the tier bands and `†`; the confidence rule; sufficient tiers by milestone; and a
+  projection block and RAID drafts in the report. Every lead-time cell was checked against the
+  pack's v1.18 tables.
+- **The 20,000-character limit no longer constrains the Copilot prompts.** A prompt carries what its
+  skill needs to run. One over the limit is pasted into Copilot Chat rather than loaded into Agent
+  Builder. `review-brd` is now 24,371 characters, beside `review-ord` (23k) and `write-prd` (21k),
+  and the prompts' README says so.
+
+---
+
 ## v4.27.0 — 2026-10-26
 
 **The requirements reviews carry pack v1.18: resourcing, missing SMEs, design support and the path to
