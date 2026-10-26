@@ -5,8 +5,8 @@
 > everything below. Editing this file puts it out of step with the pack; regenerate
 > instead.
 
-**Pack version:** v1.16 · **Pack commit:** `e5b1e1da0acc`
-**Generated:** 2026-10-08 · **Content hash:** `e114521e8d45a6b6`
+**Pack version:** v1.17 · **Pack commit:** `5058139f23e6`
+**Generated:** 2026-10-26 · **Content hash:** `90b30736aa825db9`
 
 **Quote the version in every review this extract is used for.**
 A reader needs to know which revision was applied — a verdict, and a document
@@ -230,6 +230,31 @@ specific, nameable defect.
 > else. The translation gap is the second-most valuable: Capability ACs derive from the SOAP rather
 > than from the ORD, so a criterion can be well-formed, testable, and still have quietly dropped the
 > business threshold it exists to protect.
+
+### Three more, where business rules carry the outcome
+
+Where an outcome turns on eligibility, classification, calculation or another rule, the chain has a
+link the five checks do not inspect: the rule between the objective and the demand that implements
+it.
+
+```
+Business objective → business rule → operational requirement → solution response → acceptance criterion → scenario or test
+```
+
+**This chain has no document for the second link** (§ *The column that is not there*), so a rule
+appears only where it has been routed — the referred requirements register — or as an unresolved
+decision recorded by the [BRD review](#brd). The three scans read what exists, and mark the rest
+*not answerable at this hop*:
+
+| Scan | Question | A failure means… |
+|---|---|---|
+| **Rule coverage gap** | Does every material business rule produce downstream demand? | Business policy exists that may never be implemented |
+| **Decision preservation gap** | Does the downstream response and acceptance criterion preserve the business outcome the rule established? | A requirement technically valid that has silently changed the business intent |
+| **Scenario coverage gap** | Does material decision logic have proving scenarios for its exclusions, boundaries and overlaps? | The combinations most likely to fail are the ones nobody tests |
+
+> **The decision preservation gap is the translation gap, one level down.** The translation gap
+> loses a threshold between tolerance and criterion; this one loses a rule. Both produce a criterion
+> that is well-formed, testable and wrong, and neither is visible from the criterion alone.
 
 > **Anti-pattern: duplicating a requirement across columns "to be safe".** A requirement is authored
 > in exactly one document; the matrix *links* to it, never restates it. Two copies drift, and which

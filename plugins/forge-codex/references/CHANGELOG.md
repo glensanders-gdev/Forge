@@ -11,6 +11,44 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
+## v4.25.0 — 2026-10-26
+
+**`$review-brd` asks three questions and projects the ORD's lead time.** Requirements pack v1.17 added
+business definition readiness beside the BRD handoff gate, and a readiness projection that turns a
+BRD's condition into a lead time, tier and confidence. This release carries both into the skills.
+
+- **`$review-brd` 2.3.0:**
+  - Steps 4–6 are new: assess business definition readiness (BD-1 – BD-10, with the two-reader test
+    and four outcomes), list each acceptance criterion that is *not safely derivable*, and project
+    the lead time, tier and confidence. The gate outcome is derived exactly as before, and the new
+    questions never change it.
+  - The projection never assumes full allocation, and never recalls a holiday date. It counts
+    business days on the calendar named by `lead_time_team` in the active company's `config.md`,
+    and asks for the holidays where none is held. At Low confidence it drafts RAID entries and never
+    raises them.
+  - The refusal outcome is renamed *Not yet ready for ORD development*, as the pack renamed it, and
+    recommendations are stated as *Recommended:* or *Consider:*.
+- **`GATE-PROTOCOL.md`:** BRD-only report sections for business definition, acceptance
+  derivability, the projection and recommended actions. The three rule-level traceability scans
+  join the checks. *Refusal and authority* becomes *Not yet ready, and authority*.
+- **`$review-ord` 2.4.2:** cites the renamed protocol section. Its criteria extract is regenerated
+  against pack v1.17; its gate is unchanged.
+- **`$write-ac` 1.7.0:** a requirement that fails the two-reader test is set aside as *Not safely
+  derivable*, with the decision required, its owner and a proving scenario, instead of being turned
+  into a criterion. The AC document gains that section, and a record already made upstream is
+  carried rather than re-derived.
+- **`$write-brd` 1.4.4:** its standard extract is regenerated against pack v1.17, which adds the
+  stakeholder `Engagement` column, the department prompt list and Appendix A's `Impact basis`.
+- **`tools/build-review-criteria.py`:** the `$review-brd` extract now also carries the department
+  list, the worked business definition assessment, and the ORD Intake Standard's §3.2, §4.1 – §4.3
+  and §4.7, which the projection reads its figures from.
+- **Microsoft 365 Copilot prompt `review-brd.md`:** pinned to pack v1.17, with a condensed business
+  definition check and the *Not safely derivable* record. The projection is not available in
+  Copilot, because it needs the lead-time tables; the prompt says so. It is 19,928 characters,
+  inside Agent Builder's 20,000 limit with little to spare.
+
+---
+
 ## v4.24.0 — 2026-10-09
 
 **Microsoft 365 Copilot prompts ship with the standalone skills.** Copilot Chat cannot install a

@@ -48,7 +48,7 @@ Long outputs arrive in numbered parts. Type **CONTINUE** to get the next one.
 | qa-report | Dated QA evidence record |
 | raid | Maintain a RAID log (Risks, Actions, Issues, Decisions) |
 | research | Cache exploration findings into a topic file |
-| review-brd | BRD conformance review against the handoff gate (BH-1 to BH-10) |
+| review-brd | BRD conformance review against the handoff gate (BH-1 to BH-10) and business definition readiness (BD-1 to BD-10). The lead-time projection is not available in Copilot |
 | review-diff | Two-axis code review (spec and standards) of a pasted diff |
 | review-ord | ORD conformance review against the handoff gate (OH-1 to OH-15) |
 | review-performance | Performance audit of pasted code |
@@ -106,4 +106,4 @@ These need a repo, terminal, git or the agent's own state, so they have no usefu
 
 ## Maintenance
 
-These prompts are adapted by hand from the skills in [`skills/`](../skills), not generated from them, so a change to a skill reaches its prompt only when the prompt is updated too. `review-brd` and `review-ord` embed a fixed copy of the gate criteria from requirements pack v1.16.
+These prompts are adapted by hand from the skills in [`skills/`](../skills), not generated from them, so a change to a skill reaches its prompt only when the prompt is updated too. `review-brd` embeds a fixed copy of the gate and business definition criteria from requirements pack v1.17, and `review-ord` the gate criteria from v1.16, which v1.17 did not change.

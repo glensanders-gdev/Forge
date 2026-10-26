@@ -48,7 +48,8 @@ Runs unattended. Reads the source requirements and sorts them by altitude — no
 5. Classify every requirement by altitude (see REFERENCE.md § Altitude). Apply the **MoSCoW gate first** — `Won't` produces no AC at all, `Could` never reaches Capability level — then the altitude tests:
    - **Capability AC** — every **[KPP]** from any register section, and each headline functional outcome.
    - **Child Epic/Story AC** — detailed story-level criteria, edge and error cases, and every delivery enabler (staffing, training, patch windows, SLA governance, infrastructure) unless tagged **[KPP]**.
-6. Present the Selection Summary and pause.
+6. **Test each selected requirement for derivability** (see REFERENCE.md § Not safely derivable). One that rests on a business decision its source does not make is set aside as *Not safely derivable* rather than given an altitude.
+7. Present the Selection Summary and pause.
 
 ### Selection Summary Format
 
@@ -69,6 +70,11 @@ Sources read: [PRD path / "none"] · [ORD path / "none"]
 |-----------|---------|------|
 | PRD-005 | Story | edge/error detail |
 
+### Not safely derivable — no AC will be written
+| Source ID | Decision required | Owner |
+|-----------|-------------------|-------|
+| ORD-003 | [question, never an answer] | [role / Unowned] |
+
 Unclassifiable / missing source: [list or "none"]
 
 ---
@@ -86,7 +92,7 @@ Runs after the human confirms the split.
    - **Functional (PRD)** → the criterion is already a declarative row. Carry it across verbatim with its `PRD-NNN.N` ID. Do not carry the story's "As a… I want…" narrative — that is context, not a criterion.
    - **Operational (ORD)** → the register row's `Business Tolerance`, carrying the `ORD-NNN` ID, both labelled values of a KPP, and the measurement population stated in the tolerance. Where §17 is populated, carry the instrument verbatim; where it is pending, say so rather than inventing a method.
 3. Assign each AC a stable `AC-NNN` ID with a Source column tracing to its `PRD-NNN`/`ORD-NNN`.
-4. Write the AC document to `docs/ac/[capability-name]-AC.md` using the template in REFERENCE.md.
+4. Write the AC document to `docs/ac/[capability-name]-AC.md` using the template in REFERENCE.md, with every requirement set aside in Phase 1 recorded under *Not safely derivable*.
 5. **Jira push is optional and gated.** If a Capability is linked and the human wants it pushed:
    - Show exactly what will be written to which Capability key (Capability AC field + child issue AC).
    - Require the human to type `PUSH` to confirm. On confirm, write via the `jira` MCP. Never push without it.
@@ -117,6 +123,7 @@ Runs after the human confirms the split.
 
 - Never emit `Happy path`, `Error` or `Edge` as a scenario label. Where a source PRD carries the pre-2.6.0 wording, read it and write `Sunny Day`, `Rainy Day` or `Edge Case` in the AC — mapping on read never means reproducing the old term on write.
 - Never author or invent requirements — every AC traces to an existing `PRD-NNN` or `ORD-NNN`. A need with no source is out of scope for this skill; flag it.
+- Never make a criterion more specific than its source allows. Where the source rests on an unresolved business decision, record it as *Not safely derivable* — never supply the rule, threshold, boundary or precedence that would make it testable.
 - Never write a non-functional AC without its verification method — an ORD requirement with no way to prove it is not an acceptance criterion.
 - Never push to Jira without a typed `PUSH` confirmation showing the exact target Capability and payload.
 - Never put detailed story-level criteria on the Capability — Capability AC are KPPs and headline outcomes only; detail flows to child issues.
@@ -139,6 +146,8 @@ Runs after the human confirms the split.
 | Only an ORD (no PRD) | Proceed — Capability AC are KPP thresholds only; note no functional AC exist. |
 | No [KPP] tagged in the ORD | Proceed — promote headline outcomes; flag "no KPP designated — confirm the Capability has no program-failure threshold." |
 | An ORD requirement is still `[TBD]` | Do not turn it into an AC. List it as blocked pending the ORD; do not invent a threshold. |
+| A requirement reads complete but fails the two-reader test | Record it as *Not safely derivable* with the decision required, its owner and a proving scenario. Never pick the reading that makes the criterion testable. |
+| A BRD review or ORD already records the decision as unresolved | Carry that record into *Not safely derivable* rather than re-deriving it, and cite where it came from. |
 | No Jira Capability linked | Produce the AC document only; never push. |
 | AC document already exists at target path | Stop. "An AC document already exists at docs/ac/. Confirm overwrite or provide a new name." |
 | jira MCP not configured at push time | Write the document, skip the push, and direct the user to configure the `jira` MCP. |

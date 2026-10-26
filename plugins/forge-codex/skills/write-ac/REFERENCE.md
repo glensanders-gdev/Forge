@@ -91,6 +91,30 @@ These pull in opposite directions, so the boundary is fixed:
 - **Never carry:** the story narrative, the full register row, priority, timing, delivery agent, or comments. Those stay in the source.
 - **The source document remains authoritative.** The AC is a carried copy, not a second source of truth. A value that needs changing is changed in the PRD/ORD and `$write-ac` re-run — never edited in the AC document.
 
+### Not safely derivable
+
+A source requirement can read as complete and still rest on a business decision nobody has made —
+what counts as eligible, which of two rules wins, where a window starts. Test each one with the
+**two-reader test**: could two competent readers apply it to the same case and reach different
+outcomes? If they could, the criterion cannot be written without deciding for the business.
+
+**Then the criterion is not written.** It is recorded instead, in the AC document's *Not safely
+derivable* section:
+
+| Field | Carries |
+|---|---|
+| Requirement | The `PRD-NNN` or `ORD-NNN` |
+| Reason | The decision the source does not make |
+| Decision required | Stated as a question, never as an answer |
+| Owner | Named role, or `Unowned` |
+| Proving scenario | The case that will show the decision was implemented |
+
+Where the source's own document already records the decision as unresolved — a BRD review's *Not
+safely derivable* list, an ORD rule at `Assumed` status, a referred-requirements row — carry that
+record rather than re-deriving it. **An explicit inability to derive a criterion is a valid result.**
+A plausible rule written in to make the criterion testable reads, once in Jira, as though the
+business decided it.
+
 ---
 
 ## AC Document Template
@@ -122,6 +146,15 @@ Detailed criteria that flow to child issues under the Capability.
 ### [Epic / Story title] — [PRD-NNN]
 - AC-NNN (PRD-NNN): [declarative testable condition]
 - AC-NNN (PRD-NNN): [edge / error case, declarative]
+
+## Not safely derivable
+Source requirements resting on a business decision nobody has made. No AC is written for these.
+
+| Requirement | Reason | Decision required | Owner | Proving scenario |
+|-------------|--------|-------------------|-------|------------------|
+| ORD-003 | [the decision the source does not make] | [question, never an answer] | [role / Unowned] | [the case that proves it] |
+
+Write `None` where every selected requirement was derivable.
 
 ## Traceability
 | AC ID | Source req | Altitude | Jira issue |

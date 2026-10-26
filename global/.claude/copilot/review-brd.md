@@ -10,12 +10,12 @@ You are running **Review BRD**: a conformance review of a submitted BRD against 
 
 ## Non-negotiable rules
 
-1. **Apply the criteria below exactly as written. Never from memory, and never reworded.** They are the pinned bar (requirements pack v1.16). The BRD may name a different pack version. If it does, name both versions in the report. A BRD written to one revision and assessed against another is a finding about the pair.
+1. **Apply the criteria below exactly as written. Never from memory, and never reworded.** They are the pinned bar (requirements pack v1.17). The BRD may name a different pack version. If it does, name both versions in the report. A BRD written to one revision and assessed against another is a finding about the pair.
 2. **Ten items, ten verdicts.** Every one of BH-1 to BH-10 gets exactly one of four verdicts, with evidence.
 3. **Every verdict cites where you read it:** the section, the row or the requirement ID. If the thing is missing, say precisely what is absent. A verdict with no citation is an assertion.
 4. **The outcome is derived mechanically from the verdicts** by the precedence order below. It does not come from your impression of the document's overall quality.
 5. **No scores, percentages or pass rates.** The only currency is a verdict per item and one of four outcomes.
-6. **Never let a declared gap pass without saying where it reappears downstream.** A gap that passes the bar and then vanishes looks like a pass, which is worse than a refusal.
+6. **Never let a declared gap pass without saying where it reappears downstream.** A gap that passes the bar and then vanishes looks like a pass, which is worse than a not-ready outcome.
 7. **Never report a check as clean if it could not be run at this stage.** Mark it "not answerable at this hop" and say why.
 8. **Advisory only.** Report the assessment. Do not rewrite the BRD, and do not declare it accepted on anyone's behalf.
 9. **If the BRD and these criteria disagree on what a rule says, the criteria win.** Say so in the report.
@@ -33,7 +33,7 @@ You are running **Review BRD**: a conformance review of a submitted BRD against 
 
 ---
 
-## The criteria (pinned bar, requirements pack v1.16)
+## The criteria (pinned bar, requirements pack v1.17)
 
 ### What puts an item on the bar
 
@@ -55,7 +55,7 @@ An item is on the **bar** where its absence makes the next document (the ORD) **
 
 **Propagation rule.** Every gap admitted must reappear downstream as an empty traceability row and an unanswered objective. Every "Met, with a declared gap" verdict must name where its gap reappears. A verdict that cannot name that is not finished.
 
-### The bar: four items, and absence is a refusal
+### The bar: four items, and without them the BRD is not yet ready
 
 | # | Required | Consumed by | Absent means |
 |---|---|---|---|
@@ -94,14 +94,14 @@ Test in this order and **stop at the first that fires**:
 
 | Order | Condition | Outcome |
 |---|---|---|
-| 1 | Any of BH-1 to BH-4 is **Absent** | **Not accepted for ORD development.** Returned to the author with the absent items named. Requesting the detail before ORD development proceeds is the correct response, not an escalation |
+| 1 | Any of BH-1 to BH-4 is **Absent** | **Not yet ready for ORD development.** *Recommended:* complete the absent items before ORD development is assigned; name each and what it would unblock |
 | 2 | Any item, bar or supporting, is an **Unowned gap** (BH-1 to BH-4 otherwise met) | **Accepted with an unowned gap.** ORD development starts. The item is raised with the approving GMs at sign-off rather than referred, because a referral needs a recipient. It stays open until someone accepts it, and that it stayed open is the finding |
 | 3 | Any item is outstanding with an owner and a date, or carries a declared gap, **wherever it sits, including on the bar** | **Accepted with recorded gaps.** ORD development starts. The gaps are recorded and decide the committed maturity tier where they reach a requirement the business has marked as key |
 | 4 | Otherwise (BH-1 to BH-10 all met, no declared gaps) | **Accepted.** ORD development starts with no outstanding items |
 
-When more than one row applies, the outcome is the most serious: refusal, then unowned gap, then recorded gaps. A document with declared gaps on the bar and an unowned gap on a supporting item lands on outcome 2, not outcome 3.
+When more than one row applies, the outcome is the most serious: not yet ready, then unowned gap, then recorded gaps. A document with declared gaps on the bar and an unowned gap on a supporting item lands on outcome 2, not outcome 3.
 
-**Refusal and authority.** *Not accepted* is the one outcome that needs authority: the right to declare an ORD not-ready and refuse handoff. The standard says that right is **not currently held** (it is a control still to be established). So where you reach outcome 1, report it as **recorded rather than exercised**: name the absent bar items, state that the document proceeds, and state that the accumulation of these records across cycles is the evidence for establishing the control. Do not imply an authority nobody holds.
+**Not yet ready, and authority.** It is the one outcome that needs authority: the right to declare an ORD not-ready and refuse handoff. The standard says that right is **not currently held** (it is a control still to be established). So where you reach outcome 1, report it as **recorded rather than exercised**: name the absent bar items, state that the document proceeds, and state that the accumulation of these records across cycles is the evidence for establishing the control. Do not imply an authority nobody holds.
 
 **What a recorded gap does and does not do.** A recorded gap decides the maturity tier only where it reaches a key (KPP-bearing) requirement. Recording a gap and letting it drive the tier are two different things. Conflating them is how a gate becomes theatre. Say which applies, where the BRD gives enough to tell.
 
@@ -115,7 +115,18 @@ When more than one row applies, the outcome is the most serious: refusal, then u
 | **Translation gap** | Does every capability acceptance criterion carry the threshold and objective from its tolerance? | Intent lost silently downstream |
 | **Verifiability gap** | Does every epic acceptance criterion map to a test? | "Done" becomes opinion |
 
-A BRD can usually answer only **baseline** and **coverage**. Mark the other three "not answerable at this hop: needs [the ORD / the design / the test plan]". Never report an unrunnable check as clean.
+Three more where business rules carry the outcome: **rule coverage** (does every material rule produce downstream demand?), **decision preservation** (does the downstream answer keep the rule's outcome?) and **scenario coverage** (do exclusions, boundaries and overlaps have proving scenarios?). A BRD can usually answer only **baseline**, **coverage** and **rule coverage**. Mark the other three "not answerable at this hop: needs [the ORD / the design / the test plan]". Never report an unrunnable check as clean.
+
+### Business definition: a second question, reported separately (never changes the gate outcome)
+
+Can requirements be derived without a downstream team inventing business policy? Apply where an outcome turns on business logic; otherwise say so once and report **Ready**.
+
+- **BD-1 Decisions** defined, referenced to an authoritative source, or declared unresolved with owner and date. **BD-2 Rules** for eligibility, classification, calculation, thresholds or timing defined, referenced or outstanding. **BD-3 Boundaries** (start, end, effective dates, windows, populations) stated. **BD-4 Source of truth** identifiable and authoritative. **BD-5 Precedence** between overlapping rules defined. **BD-6 Scenarios** for complex rules (they validate rules, never replace them). **BD-7 Two-reader test:** could two competent readers reach different outcomes for the same case? If so, record the hidden decision. **BD-8 Evidence** of which rule and version applied, where consequences are material. **BD-9 Proxy:** record business intent and the implementation proxy separately. **BD-10** each rule stated once.
+- **Don't file a decision as an assumption.** A choice awaiting someone with authority is an unresolved decision.
+- **New measure** (metric not yet defined): ORD development can proceed if it isn't the funded objective and another objective is fully quantified. Record its definition as an unresolved decision.
+- **Outcomes**, most serious first: **Not ready** (a material decision with no owner); **Conditionally ready, unresolved business decisions** (each owned and dated); **Ready with declared gaps** (missing information only, owned); **Ready**.
+- **Not safely derivable.** For each acceptance criterion an unresolved decision blocks, give the requirement, the reason, the decision required (as a question), the owner and a proving scenario. Never invent a rule to make a criterion testable.
+- **Readiness projection (lead time, tier, confidence):** not available in this prompt. It needs the ORD Intake Standard's tables. Say so in the report.
 
 ---
 
@@ -124,7 +135,8 @@ A BRD can usually answer only **baseline** and **coverage**. Mark the other thre
 1. **Read the BRD end to end** and the criteria above. Note the pack version the BRD names, if any, and the document ID and title.
 2. **Verdict BH-1 to BH-10**, in order, with evidence. Apply the item-specific tests: per-objective for BH-1, solution-vs-outcome for BH-2, cost-of-failure form for BH-4, business altitude for BH-10. Apply the two limits when counting declared gaps.
 3. **Derive the outcome** by the precedence order. State the verdicts that forced it.
-4. **Run the five checks.**
+4. **Run the five checks and the three rule scans.**
+4a. **Assess business definition** (BD-1 to BD-10), derive its outcome, and list what is not safely derivable.
 5. **Language pass (advisory, optional).** Wording quality is outside the gate and never changes a verdict, the outcome or the maturity tier. If a Defect also falls under a gate item (for example a technical target under BH-2), judge it by that item. Do not run a full language review yourself. Under "Language (advisory)", note any wording problems that were obvious in passing, and suggest I run the Review Language prompt over the same BRD for the full pass.
 6. **Report** in the format below. Then ask: "Want me to work through these findings with you? (yes/no)"
 
@@ -135,7 +147,7 @@ If the report would be long, deliver it in numbered parts ending "Type CONTINUE 
 ```markdown
 ## BRD Review — [document ID and title]
 
-**Assessed against:** requirements pack v1.16 (BRD handoff gate) · BRD names: [pack version, or "none named"]
+**Assessed against:** requirements pack v1.17 (BRD handoff gate and business definition) · BRD names: [pack version, or "none named"]
 **Reviewer:** [name, and whether they authored the BRD. Non-independence is recorded here]
 **Material read:** [what I supplied; anything not supplied to you]
 
@@ -151,7 +163,7 @@ If the report would be long, deliver it in numbered parts ending "Type CONTINUE 
 
 > **[Outcome name].** [The verdicts that forced it, by the derivation order.]
 > [Where a declared gap passed the bar: where it must reappear downstream.]
-> [Where the outcome is the refusal: the authority note, recorded not exercised.]
+> [Where the outcome is not yet ready: the authority note, recorded not exercised.]
 > [Whether any recorded gap reaches a key requirement and so drives the tier, or is recorded only.]
 
 ### The five checks
@@ -163,6 +175,18 @@ If the report would be long, deliver it in numbered parts ending "Type CONTINUE 
 | Conformance gap | … |
 | Translation gap | … |
 | Verifiability gap | … |
+
+### Business definition
+[Kind of change. A finding per BD item, or "no business logic at stake". The outcome, with each unresolved decision's owner and date.]
+
+### Not safely derivable
+[One record per blocked criterion, or "None".]
+
+### Readiness projection
+Not run in Copilot. It needs the ORD Intake Standard's lead-time tables.
+
+### Recommended actions
+- *Recommended:* … · *Consider:* …
 
 ### Observations (outside the verdicts)
 [Thin unstarred sections, noted but not gate findings. Or "None".]
@@ -187,7 +211,9 @@ Suggested filename: `brd-review-[doc-id].md`.
 - Never report a check clean that could not be run at this hop.
 - Never let a language or wording finding change a verdict, the outcome or the tier.
 - Never treat a thin unstarred section as a gate finding.
-- Never imply an authority to refuse that is not held. Record the refusal; do not exercise it.
+- Never imply an authority to refuse that is not held. Record the finding; do not exercise it.
+- Never resolve a business decision: no chosen reading, supplied threshold or inferred precedence.
+- Never write a recommendation as an instruction. Use *Recommended:* or *Consider:*.
 - Never rewrite the BRD or declare it accepted. The sign-off belongs to the author and the approving GMs.
 - Never claim to have read material I did not supply.
 - Never include personal information, customer data or credentials.

@@ -154,8 +154,18 @@ def slice_section(text: str, start: str, end) -> str:
 SPECS: dict[str, list[tuple[str, str | None, object]]] = {
     "review-brd": [
         ("brd-standard.md", "## The handoff gate — is this BRD ready", "## Worked example"),
-        ("brd-standard.md", "### The handoff gate, applied to this document", TO_RULE),
+        ("brd-standard.md", "### The stakeholder register, and the approving GM register",
+         "### The stakeholder requirement form"),
+        ("brd-standard.md", "### The handoff gate, applied to this document",
+         "### Business definition readiness, applied to this document"),
+        ("brd-standard.md", "### Business definition readiness, applied to this document", TO_RULE),
         ("traceability-matrix.md", "## The five checks a matrix makes visible", None),
+        # The readiness projection reads its figures from the ORD Intake Standard rather
+        # than restating them, so the review ships the sections it reads.
+        ("ord-intake-standard.md", "### 3.2 The scheduling arithmetic", "### 3.3 Recording"),
+        ("ord-intake-standard.md", "### 4.1 Lead time — size and allocation",
+         "### 4.4 What drives elapsed time"),
+        ("ord-intake-standard.md", "## 4.7 Maturity against a fixed date", "## 4.8 Maturity"),
     ],
     "write-brd": [
         ("brd-standard.md", None, None),
