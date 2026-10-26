@@ -14,7 +14,7 @@ Generate a program-level analysis of token usage. Reads from the global ledger a
 - User runs `/user:token-report` explicitly
 - End of PI for program-level cost analysis
 - When estimates consistently miss and calibration is needed
-- Before PI planning to inform capacity estimates
+- Before setting a target date, to inform capacity estimates
 
 ## Report Scopes
 

@@ -79,7 +79,7 @@
     "token-report": {
       "source": "global/.claude/skills/token-report/SKILL.md",
       "codex": "plugins/forge-codex/skills/token-report/SKILL.md",
-      "reviewedSourceSha256": "62203C3D590E3195C21B233A4474C2F28C80715375DB354C5EC87D2305322B72"
+      "reviewedSourceSha256": "603ACB69F5F5D8FC387B5C6A08D993C433CC7D332B21F7917596BAFDFFB92860"
     },
     "write-a-skill": {
       "source": "global/.claude/skills/write-a-skill/SKILL.md",

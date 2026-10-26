@@ -185,7 +185,7 @@ Count the §5 rows that are consulted, including *Not yet engaged* and *No SME n
 
 Fewer than 8 available days: Tier D at most. Mark the tier † when R is less than 0.05 above its band's floor (never on D). Slips: workshop rescheduled; stakeholder list late; contested rules emerge later; second ORD in elicitation; SME availability limited or unknown; stakeholders not yet engaged; allocation contended. **High:** no † and no slip. **Conditional:** † or one slip. **Low:** † with a slip, or two slips. At Low, the planning tier is one lower. Never a percentage.
 
-**Sufficient tier** for the date's milestone: PI planning C; funding gate B; architecture engagement B; architecture commitment A; vendor commitment A.
+**Sufficient tier** for the date's milestone: target date (release scoping) C; funding gate B; architecture engagement B; architecture commitment A; vendor commitment A.
 
 ---
 

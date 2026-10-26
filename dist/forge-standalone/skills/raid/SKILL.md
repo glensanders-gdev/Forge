@@ -191,8 +191,6 @@ All quadrants share this base schema:
 |--------|---------|---------|
 | `TC-NNN` | Ticket | `TC-042` |
 | `SPRINT-N` | Sprint event | `SPRINT-3` |
-| `PI-N` | PI planning | `PI-4` |
-| `GONOGO-PI-N-RN` | Go/No Go gate | `GONOGO-PI-4-R2` |
 | `GATE-NNN` | Front gate submission | `GATE-001` |
 | `INCIDENT-NNN` | Incident record | `INCIDENT-003` |
 | `IDEA-NNN` | Idea record | `IDEA-007` |

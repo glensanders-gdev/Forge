@@ -11,6 +11,26 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
+## v4.27.2 — 2026-10-26
+
+**No public skill names PI planning.** Program Increment planning is one delivery framework's
+ceremony, and the standalone skills are published for people outside it. Where a public skill named it
+as a milestone, it now names the **target date**.
+
+- **`/write-prd` 2.9.1:** story points size the work against a target date, and the stakeholder
+  label and the document `Priority:` field refer to target-date planning.
+- **`/token-report` 1.0.2:** "before setting a target date" replaces "before PI planning".
+- **`/raid` 1.0.1:** the `PI-N` and `GONOGO-PI-N-RN` source prefixes are Forge's own release
+  workflow, so they are fenced `forge-only` rather than renamed. Forge keeps them; the standalone
+  build drops them.
+- **`/review-brd` 2.4.1, `/review-ord` 2.5.1, `/write-brd` 1.4.6:** extracts regenerated against
+  requirements pack v1.19, which renamed the §4.7.5 milestone *Target date / release scoping*.
+- **Copilot `review-brd` prompt:** the sufficient-tier line reads *target date (release scoping) C*.
+- Skills that do not ship publicly (`standalone-release`, `knowledge-health`, `create-project`) are
+  unchanged.
+
+---
+
 ## v4.27.1 — 2026-10-26
 
 **The Microsoft 365 Copilot `review-brd` prompt carries the readiness projection.** 4.27.0 left it
