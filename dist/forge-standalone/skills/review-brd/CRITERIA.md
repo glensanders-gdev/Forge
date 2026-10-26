@@ -5,8 +5,8 @@
 > everything below. Editing this file puts it out of step with the pack; regenerate
 > instead.
 
-**Pack version:** v1.18 · **Pack commit:** `abeeb26a9ad4`
-**Generated:** 2026-10-26 · **Content hash:** `c501c300b0204345`
+**Pack version:** v1.19 · **Pack commit:** `070db87c4725`
+**Generated:** 2026-10-26 · **Content hash:** `1bc70a068970eb25`
 
 **Quote the version in every review this extract is used for.**
 A reader needs to know which revision was applied — a verdict, and a document
@@ -1002,7 +1002,7 @@ At high allocation an ORD is *latency-bound*: the constraint is waiting for stak
 
 ### Three known weaknesses in these figures
 
-- **D1 and D2 rest on a single week's count on one complex initiative.** Four weeks of the same count would move them from indicative to defensible, and it costs nothing but the counting. A PI-planning week runs materially higher.
+- **D1 and D2 rest on a single week's count on one complex initiative.** Four weeks of the same count would move them from indicative to defensible, and it costs nothing but the counting. A week leading into a target date runs materially higher.
 - **The disaggregation matters more than the total.** Counting all meetings together and deducting the lot would have double-counted D3 against the collection effort days, since refinement is productive ORD work rather than overhead on it. Any local recount must preserve the split.
 - **Standing load from previously delivered ORDs is not deducted at all, and it is not zero.** Every delivered ORD leaves a tail of refinement, clarification, acceptance queries and defect triage that never fully closes (§4.6), and that tail grows with each one shipped. **The figures above therefore describe a convenor at the start of a cycle, and overstate throughput for one carrying a standing backlog** — which is the normal condition after the first year.
 
@@ -1208,7 +1208,7 @@ E5 requires the confirmed target date **and the milestone it serves**, because a
 
 | Deadline serves | What that gate consumes | Sufficient tier | Why |
 |---|---|---|---|
-| **PI planning / release scoping** | The shape and scale of the demand | **C** | Estimation needs scope, not confirmed thresholds. A C-tier ORD is adequate input |
+| **Target date / release scoping** | The shape and scale of the demand | **C** | Estimation needs scope, not confirmed thresholds. A C-tier ORD is adequate input |
 | **Funding or investment gate** | A defensible traceability chain | **B** | The gate tests whether figures are derivable, not whether they are final |
 | **Architecture engagement / SOAP drafting** | KPP thresholds with cited sources | **B** | Architecture can begin against sourced figures; it cannot commit against assumed ones |
 | **Architecture commitment / design sign-off** | KPP thresholds owner-committed | **A** | This is the point past which a figure change becomes redesign rather than adjustment |
@@ -1222,4 +1222,4 @@ E5 requires the confirmed target date **and the milestone it serves**, because a
 
 That sentence is the entire purpose of this section. It states the position, prices both remedies, and rules out the remedy a manager reaches for first.
 
-**Rule.** Where the achievable tier meets the sufficient tier, say so and stop. This model exists to identify gaps, not to argue for more time on dates that are already adequate. A C-tier ORD delivered to a PI planning gate is a correct outcome, and treating it as a shortfall discredits the model on the occasions when the gap is real.
+**Rule.** Where the achievable tier meets the sufficient tier, say so and stop. This model exists to identify gaps, not to argue for more time on dates that are already adequate. A C-tier ORD delivered for release scoping against a target date is a correct outcome, and treating it as a shortfall discredits the model on the occasions when the gap is real.

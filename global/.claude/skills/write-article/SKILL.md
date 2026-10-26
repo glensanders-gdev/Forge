@@ -10,14 +10,14 @@ origin: Adapted from Affaan Mustafa (ECC / github.com/affaan-m/ECC)
 
 Write long-form content that sounds like an actual person with a point of view — not an AI smoothing itself into generic paste.
 
-Adapted from ECC's article-writing skill. Applied to written deliverables: Confluence pages, READMEs, stakeholder communications, Go/No Go briefs, PI summaries, research outputs, and release notes.
+Adapted from ECC's article-writing skill. Applied to written deliverables: Confluence pages, READMEs, stakeholder communications, Go/No Go briefs, planning-period summaries, research outputs, and release notes.
 
 ---
 
 ## When to Use
 
 - Writing or updating<!--forge-only--> `forge-confluence.md` or<!--/forge-only--> any Confluence section
-- Drafting stakeholder-facing content (PI summaries, release communications, Go/No Go briefs)
+- Drafting stakeholder-facing content (planning-period summaries, release communications, Go/No Go briefs)
 - Writing or improving README sections
 - Turning research notes or session findings into a structured document
 - Any written deliverable where generic AI tone would undermine credibility
@@ -73,7 +73,7 @@ Delete and rewrite any of these — they signal AI-generated filler:
 - Version history is a table, not prose
 - Installation steps are numbered and tested
 
-### Stakeholder Summaries (PI end, release notes)
+### Stakeholder Summaries (period end, release notes)
 - Lead with what was delivered — not with how hard it was
 - Use the stakeholder label, not the internal ticket name
 - Carry-forwards get one sentence of context: what's next, not why it slipped

@@ -136,7 +136,6 @@ Resolve before output: omit `Estimate (AI Token Cost)` entirely under Convention
 **Standard:** ISO/IEC/IEEE 29148:2018 · **Pack version:** vN.N | pack not read
 **Chain position:** Business Requirements Document (BRD) → **Product Requirements Document (PRD)** → Solution on a Page (SOAP) → Operational Requirements Document (ORD) → Solution Architecture Review (SAR)
 **Sprint:** Sprint-NN | Not sprint-tracked
-**PI:** PI-N | Not PI-tracked
 **Target Release:** [release] | Not assigned
 **Author:** [name]
 **Stakeholder Label:** [external-facing feature name]

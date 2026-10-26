@@ -279,7 +279,7 @@ Behaviours that must pass at Go/No Go:
 # Operational Test Plan: [Release / System Name]
 
 **ORD:** [path]
-**Release:** PI-N-RN
+**Release:** [release ID]
 **Date:** YYYY-MM-DD
 **TC range:** TC-NNN through TC-NNN
 

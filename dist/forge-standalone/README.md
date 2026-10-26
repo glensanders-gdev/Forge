@@ -150,7 +150,7 @@ that have no chat version.
 | Skill | What it does |
 |---|---|
 | [`/context-health`](skills/context-health/SKILL.md) | Audit the token load profile of the current project's context files. Measures every file loaded into a session, estimates token cost, flags files that… |
-| [`/token-report`](skills/token-report/SKILL.md) | Generate a program-level token usage report across features, sprints, and PIs. Shows phase breakdowns, estimate vs actual calibration, and session cou… |
+| [`/token-report`](skills/token-report/SKILL.md) | Generate a program-level token usage report across features, sprints, and planning periods. Shows phase breakdowns, estimate vs actual calibration, an… |
 
 ### Knowledge and learning
 
@@ -201,7 +201,7 @@ These files are generated, so edits made directly here are overwritten on the ne
 release. Open an issue describing what needs changing and it will be fixed upstream
 and republished.
 
-Release 4.27.1.
+Release 4.27.2.
 
 ## Credits
 

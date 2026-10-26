@@ -16,8 +16,8 @@ DEVLOG, ADRs, and git log — no single source is treated as definitive.
 ## Usage
 
 ```
-/changelog           ← generate for current release (reads PI plan for release ID)
-/changelog PI-2-R1   ← generate for a specific release
+/changelog           ← generate for current release (reads the release plan for the release ID)
+/changelog 2026-R2   ← generate for a specific release
 ```
 
 ---
@@ -26,15 +26,15 @@ DEVLOG, ADRs, and git log — no single source is treated as definitive.
 
 Read the following silently:
 
-1. `~/.claude/pi/[current-pi]/plan.md` — identify the release name, date, and included features
+1. The release plan<!--forge-only--> at `~/.claude/pi/[current-pi]/plan.md`<!--/forge-only--> — identify the release name, date, and included features
 2. `docs/kanban.md` — extract all tickets marked complete in this release
 3. `docs/DEVLOG.md` — extract entries since the previous release date
 4. `docs/adr/` — identify ADRs created or updated this sprint
 5. `git log [previous-tag]..HEAD --oneline` — commits since last release tag
 6. Previous entry in root `CHANGELOG.md` — establish the version baseline
 
-If no PI plan exists, ask:
-> "What is the release name and date? (e.g. PI-2-R1, 2026-06-02)"
+If no release plan exists, ask:
+> "What is the release name and date? (e.g. 2026-R2, 2026-06-02)"
 
 ---
 
@@ -152,7 +152,7 @@ Format follows [Keep a Changelog](https://keepachangelog.com).
 
 | Condition | Behaviour |
 |-----------|-----------|
-| No PI plan found | Ask for release name and date manually |
+| No release plan found | Ask for release name and date manually |
 | No completed tickets in kanban | Note "no tickets found" — generate from DEVLOG and git log only |
 | No DEVLOG entries since last release | Note and proceed with remaining sources |
 | No previous git tag found | Use full git log, note that previous tag was not found |

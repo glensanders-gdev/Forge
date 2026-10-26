@@ -5,8 +5,8 @@
 > everything below. Editing this file puts it out of step with the pack; regenerate
 > instead.
 
-**Pack version:** v1.18 · **Pack commit:** `abeeb26a9ad4`
-**Generated:** 2026-10-26 · **Content hash:** `a4a683006b31bc80`
+**Pack version:** v1.19 · **Pack commit:** `070db87c4725`
+**Generated:** 2026-10-26 · **Content hash:** `1a6654cbd1ec3b79`
 
 **Quote the version in every BRD authored from this extract.**
 A reader needs to know which revision was applied — a verdict, and a document
@@ -23,7 +23,7 @@ it and the pack disagree, the pack is right and this file is stale.
 
 # BRD Standard
 
-**Version:** 1.18 · **Last updated:** 2026-10-26 · **Status:** Approved at v1.13; the v1.17 and v1.18 additions are draft for review
+**Version:** 1.19 · **Last updated:** 2026-10-26 · **Status:** Approved at v1.13; the v1.17 and v1.18 additions are draft for review
 **Standard of record:** BABOK v3 · **Audience:** Business Analysts, Product Owners, Product
 Managers, Sponsors, Management
 

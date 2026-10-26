@@ -40,11 +40,11 @@ Before executing any ticket:
        Install: [install-hint from registry]
 
    ```
-8. Check sprint buffer window — read `~/.claude/sprints/calendar.md` and `~/.claude/pi/[current-pi]/plan.md`. If today falls within the buffer window (Friday–Sunday before a release Monday), warn and wait for an explicit decision:
+8. Check sprint buffer window — read `~/.claude/sprints/calendar.md`. If today falls within the buffer window (Friday–Sunday before a release Monday), warn and wait for an explicit decision:
    ```
    ⚠️ Buffer Window Active
 
-   You are in the buffer window for PI-N-RN (Release: Mon DD MMM).
+   You are in the buffer window for [release ID] (Release: Mon DD MMM).
    Friday EOD is the last working day for feature tickets.
    During the buffer window, only bug fixes [BUG] and deployment prep [PREP] should be executed.
 

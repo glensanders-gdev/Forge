@@ -11,6 +11,42 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
+## v4.27.2 — 2026-10-26
+
+**No public skill names PI planning or the PI release scheme.** Program Increment planning is one
+delivery framework's ceremony, and the standalone skills are published for people outside it. Where a public skill named it
+as a milestone, it now names the **target date**.
+
+- **`$write-prd` 2.9.1:** story points size the work against a target date, and the stakeholder
+  label and the document `Priority:` field refer to target-date planning.
+- **`$token-report` 1.0.2:** "before setting a target date" replaces "before PI planning".
+- **`$raid` 1.0.1:** the `PI-N` and `GONOGO-PI-N-RN` source prefixes are Forge's own release
+  workflow, so they are fenced `forge-only` rather than renamed. Forge keeps them; the standalone
+  build drops them.
+- **`$review-brd` 2.4.1, `$review-ord` 2.5.1, `$write-brd` 1.4.6:** extracts regenerated against
+  requirements pack v1.19, which renamed the §4.7.5 milestone *Target date / release scoping*.
+- **Copilot `review-brd` prompt:** the sufficient-tier line reads *target date (release scoping) C*.
+- **Forge's PI release scheme is out of the public skills.** Public skills use neutral terms; Forge keeps
+  the PI detail behind `forge-only` fences, so its own skills read as before.
+  - **Release IDs:** `PI-N-RN` becomes `[release ID]` in `$testplan`, `$build`, `$standup` and
+    `$rollback`. `$changelog`'s example is `2026-R2`, and "PI plan" becomes "release plan" in
+    `$changelog`, `$pickup` and `$add-backlog-item`.
+  - **The PI as an aggregation level** becomes a **planning period** in `$token-report` and its token
+    recording guide, and in `$write-article`'s summaries. Forge notes a planning period is a PI.
+  - **Fenced, not renamed, where Forge relies on the value:** the `PI:` header fields in `$approve`,
+    `$token-report` and `$write-prd`, `$debrief`'s *PI Management* session type, the `~/.codex/forge/pi/`
+    paths, and `$rollback`'s *PI Plan Update* section.
+  - **Copilot prompts:** `raid` drops the two PI prefixes, `write-prd` drops its `PI:` field, and
+    `changelog` uses `2026-R2` as its example.
+  - **Codex:** `token-report`'s hand-maintained override takes the same wording and keeps its PI field
+    unfenced, because Codex is a full install. Its review hash is updated.
+  - Patch versions: `changelog`, `standup`, `pickup`, `approve`, `testplan`, `build`, `rollback`,
+    `add-backlog-item`, `write-article` and `debrief`.
+- Skills that do not ship publicly (`standalone-release`, `knowledge-health`, `create-project`) are
+  unchanged.
+
+---
+
 ## v4.27.1 — 2026-10-26
 
 **The Microsoft 365 Copilot `review-brd` prompt carries the readiness projection.** 4.27.0 left it

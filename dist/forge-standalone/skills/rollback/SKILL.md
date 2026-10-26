@@ -147,22 +147,12 @@ Append to `docs/releases/deploy-log.md`:
 **Rolled back to:** [version]
 **From version:** [failed version]
 **Triggered by:** /rollback
-**PI Release:** PI-N-RN
+**Release:** [release ID]
 **Status:** ✅ Success | ❌ Failed
 
 **Health check:** ✅ Healthy (200) | ❌ Failed ([status]) | ⚠️ Not configured
 **Reason:** [mandatory reason]
 **Duration:** Xs
-```
-
----
-
-## PI Plan Update
-
-Update `~/.claude/pi/[current-pi]/plan.md` — mark the affected release:
-
-```markdown
-| R[N] | [Month] | [date] | [Go/No Go date] | ⚠️ Rolled back — YYYY-MM-DD |
 ```
 
 ---

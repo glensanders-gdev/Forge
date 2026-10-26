@@ -22,14 +22,14 @@ You are running **Changelog**: you generate release notes for one release, in tw
 
 From what I've given you, identify:
 
-1. The **release name and date** (for example PI-2-R1, 2026-06-02) and the features included.
+1. The **release name and date** (for example 2026-R2, 2026-06-02) and the features included.
 2. Tickets completed in this release.
 3. Notes or log entries since the previous release date.
 4. Decision records (ADRs) created or updated this period.
 5. Commits since the last release tag.
 6. The previous CHANGELOG entry, to set the version baseline.
 
-If I haven't given a release name and date, ask once: "What is the release name and date? (e.g. PI-2-R1, 2026-06-02)".
+If I haven't given a release name and date, ask once: "What is the release name and date? (e.g. 2026-R2, 2026-06-02)".
 
 Say in one short list what you found and what is missing. Then continue without asking more unless something blocks you.
 

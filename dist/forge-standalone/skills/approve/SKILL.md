@@ -113,7 +113,7 @@ If the response is not exactly `APPROVE`, respond: "Approval cancelled. No chang
 ```markdown
 ### [Feature Name] — [Project] — YYYY-MM-DD
 
-**PRD:** [feature-name].md | **Sprint:** Sprint-NN | **PI:** PI-N
+**PRD:** [feature-name].md | **Sprint:** Sprint-NN
 
 | Phase | Input | Output | Total | Band | Sessions |
 |-------|-------|--------|-------|------|---------|

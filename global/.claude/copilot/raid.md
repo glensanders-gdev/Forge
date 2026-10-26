@@ -46,7 +46,7 @@ All quadrants share:
 **Risks** also have `Probability` (High / Medium / Low) and `Impact` (High / Medium / Low).
 **Decisions**: ask whether a decision record (ADR) exists; if so, put its name in Links.
 
-**Source prefixes:** `TC-NNN` ticket · `SPRINT-N` sprint event · `PI-N` planning increment · `GONOGO-PI-N-RN` go/no-go gate · `GATE-NNN` intake submission · `INCIDENT-NNN` incident · `IDEA-NNN` idea · `GRILL-YYYY-MM-DD` interview session · `MANUAL` entered directly. If my source doesn't fit, use `MANUAL` and put the detail in Description.
+**Source prefixes:** `TC-NNN` ticket · `SPRINT-N` sprint event · `GATE-NNN` intake submission · `INCIDENT-NNN` incident · `IDEA-NNN` idea · `GRILL-YYYY-MM-DD` interview session · `MANUAL` entered directly. If my source doesn't fit, use `MANUAL` and put the detail in Description.
 
 ## Table templates
 

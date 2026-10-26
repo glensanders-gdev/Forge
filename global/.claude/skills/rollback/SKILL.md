@@ -149,7 +149,7 @@ Append to `docs/releases/deploy-log.md`:
 **Rolled back to:** [version]
 **From version:** [failed version]
 **Triggered by:** /rollback
-**PI Release:** PI-N-RN
+**Release:** [release ID]
 **Status:** ✅ Success | ❌ Failed
 
 **Health check:** ✅ Healthy (200) | ❌ Failed ([status]) | ⚠️ Not configured
@@ -159,6 +159,7 @@ Append to `docs/releases/deploy-log.md`:
 
 ---
 
+<!--forge-only-->
 ## PI Plan Update
 
 Update `~/.claude/pi/[current-pi]/plan.md` — mark the affected release:
@@ -168,6 +169,7 @@ Update `~/.claude/pi/[current-pi]/plan.md` — mark the affected release:
 ```
 
 ---
+<!--/forge-only-->
 
 ## Rules
 
