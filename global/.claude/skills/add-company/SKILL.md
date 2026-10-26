@@ -165,9 +165,36 @@ If yes, for each additional location ask:
 
 Repeat until the user says no more locations.
 
+**Q2.4** Which team's calendar should requirements lead-time projections count against?
+> `/review-brd` turns a BRD's readiness into a lead time in business days. It counts those days on
+> one team's calendar. Name one of the teams captured above. It is usually the team that will
+> develop the ORD. Skip if the company will not use `/review-brd`.
+
+If a team is named, ask Q2.5. If Q2.4 is skipped, skip Q2.5 too.
+
+**Q2.5** Do you have that team's public holidays from the jurisdiction's official published
+calendar?
+> Yes / Not yet
+
+If yes, ask for:
+- The source: the publishing body, the calendar's title and its URL
+- The date the user retrieved it
+- Each holiday in the window: date and name. Mark any date the source calls provisional or
+  subject to confirmation.
+
+The user supplies these from the published calendar. **Forge never fetches, looks up or recalls a
+holiday date.** It writes only what the user gives it, as a dated file (see *Holiday calendar
+file* below). If the user asks Forge to fill in the dates, decline and ask them to paste them from
+the official source. A date recalled from memory may be wrong. The projection would then count it
+without anyone noticing.
+
+If not yet, leave `lead_time_team` and `holidays:` out of `config.md`. `/review-brd` then asks for
+the holidays each time it runs. They can be added later with `/update-company` or by hand.
+
 **Note:** Forge does not automatically fetch public holiday dates. It uses the
 configured locales to flag: "check [locale] public holidays — [date] may be
 a holiday." The human confirms. Specific known blackout dates go in Topic 3.
+Company shutdowns are not public holidays. Record them in Topic 3, not in the holiday file.
 
 ---
 
@@ -380,6 +407,8 @@ Release cadence:   [end-of-sprint / monthly / quarterly / on-demand]
 Team locations:
   • [Primary Team] — [timezone] ([locale])
   [• Additional teams if any]
+Lead-time team:     [team name / None — /review-brd will ask for holidays]
+  [Holiday file: calendars/[file].md — N weekday holidays, source, retrieved YYYY-MM-DD]
 
 Freeze periods:     [N configured / None]
   [List each window + type if any]
@@ -556,11 +585,20 @@ name: Primary Team
 timezone: [IANA timezone — e.g. Australia/Sydney]
 locale: [country/region — e.g. Australia/NSW]
 
+# holidays: calendars/[country]-[region]-public-holidays.md
+# Uncomment holidays: only when the user supplied dates in Q2.5 and the file is written.
+
 # Additional teams (uncomment and fill in as needed):
 # [[teams]]
 # name: [Team name]
 # timezone: [IANA timezone]
 # locale: [country/region]
+# holidays: calendars/[file].md
+
+# The team whose calendar a requirements lead-time projection counts business days against
+# (/review-brd readiness projection; ORD Intake Standard §4.7.1). Its holidays file must exist.
+# Uncomment only with the holidays: key above. Left out, /review-brd asks for holidays each run.
+# lead_time_team: Primary Team
 
 ## Change Freeze Periods
 # Recurring annual windows where deployment is restricted or inadvisable.
@@ -650,6 +688,47 @@ Create the following stub files:
 - `tools.md` — pre-populate with skeleton entries for any prohibited/required/approved tools captured in Topic 8; each entry flagged with `# TODO: run /add-tool --company [name] to complete details`; if none captured, create an empty `tools.md` with the standard header (see `/add-tool` appendix template)
 - `projects/registry.md` — company project index stub; populated incrementally by `/add-project` and `/create-project`
 - `rules/README.md` — explain that `~/.claude/rules/common/` is the universal baseline; rules in this directory are company-specific extensions and overrides; stub out sections for naming conventions, compliance gates, and deployment rules; note that projects activate rules via `.claude/rules/active.md`
+
+### Holiday calendar file
+
+Write this only when the user supplied dates in Q2.5. Create `calendars/` under the company folder
+and write `calendars/[country]-[region]-public-holidays.md`. The team's `holidays:` key must point
+at this exact path. The file holds only what the user supplied:
+
+```markdown
+# Public holidays — [Region] ([locale])
+
+Read by `/review-brd` when it counts available business days for the readiness projection
+(requirements pack, ORD Intake Standard §4.7.1). Forge does not fetch calendars; this file is the
+dated record it counts against. A date that is not here is not excluded.
+
+**Source:** [Publishing body], *[calendar title]*, [URL]
+**Retrieved:** [YYYY-MM-DD the user gave]
+
+**Refresh** when a projection window reaches past the last date below, when a provisional date is
+confirmed, and when the following year's calendar is published.
+
+## Weekday holidays — excluded from the business-day count
+
+| Date | Day | Holiday | Note |
+|---|---|---|---|
+| [YYYY-MM-DD] | [Mon–Fri] | [Name] | [**Provisional.** and the source's reason, or blank] |
+
+## Weekend holidays — no effect on the count
+
+[Holidays that fall on a Saturday or Sunday, listed by year. Name any replacement weekday, which
+goes in the table above.]
+
+## Not covered here
+
+Company shutdowns and change freezes are not public holidays. Record a declared shutdown in
+`config.md` § *Change Freeze Periods* and the projection excludes it too.
+```
+
+Work out each date's weekday and sort it into the table or the weekend list. Weekdays come only
+from the date itself. Never add, move or rename a holiday. Where the source lists a replacement
+day, record what the source says. A provisional date stays in the table, marked
+**Provisional.**, so the count excludes it until the date is confirmed.
 
 ---
 
@@ -869,6 +948,7 @@ Skills that read your new config:
   /check-tools      → verifies required tools are installed on this machine
   /dashboard-tokens → shows spend vs monthly cap if configured
   /review-fy       → uses fy_start and review_display_name
+  /review-brd      → counts lead-time business days on lead_time_team's holidays file
   /ingest          → routes Raw/Wiki to knowledge/ (shared with team)
 
 Next steps:
@@ -900,6 +980,10 @@ Next steps:
 | Name normalisation produces empty string | Ask user to provide a valid name |
 | User skips a grilling topic | Record as default or blank with a `# TODO` comment in config.md — do not block setup |
 | User provides non-IANA timezone | Accept as-is but note: "Verify this is a valid IANA timezone — /standup will use it for holiday warnings." |
+| User has no holiday calendar for the lead-time team yet | Leave `lead_time_team` and `holidays:` out of `config.md` and write no `calendars/` file. Say: "/review-brd will ask for holidays each run until a calendar is added." Never fill the gap from memory |
+| User asks Forge to supply or look up the holiday dates | Decline. Ask for the dates from the jurisdiction's official published calendar. If none are given, treat it as no calendar yet |
+| User cannot give the source or retrieved date | Ask once. If still missing, write no file and leave the keys out. An undated, unsourced calendar cannot be refreshed or checked |
+| `lead_time_team` names a team not captured in Q2.1–Q2.3 | Ask the user to pick one of the captured teams. `lead_time_team` must match a `[[teams]]` name exactly |
 | Skill missing from ~/.claude/ at bundle time | Skip it, note in confirm output: "⚠️ [skill] not found in ~/.claude/skills/ — not bundled. Install Forge first if this is needed." |
 | `~/.claude/skills` or `~/.claude/commands` is a symlink at setup time | Forge is installed and owns those names — skip the bundled copies entirely and say so. Never write through the symlink. |
 
@@ -915,4 +999,6 @@ Next steps:
 - Never let `setup.sh` copy the bundled skills or commands into `~/.claude/skills` or `~/.claude/commands` when either is a symlink — that path is Forge's own repository, and the copy overwrites live skills and breaks the standalone build
 - Never bundle a skill under a name Forge has since renamed — re-bundle after a rename, or the copy installs as a new skill that shadows nothing and fails silently
 - Never pre-populate stub files with invented company data
+- Never generate, fetch or recall a public holiday date. Write a holiday file only from dates the user supplied, with its source and retrieved date
+- Never write `lead_time_team` without a `holidays:` file on that team that exists
 - config.md is written once with real values — it is not a template for the user to fill in manually (beyond the labelled placeholders)

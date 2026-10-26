@@ -20,7 +20,7 @@ When invoked with `--quick`, propose defaults for sprint length, release cadence
 2. If it exists, stop and ask whether to update it.
 3. Grill one topic at a time:
    - sprint and release cadence
-   - team locations and public holidays
+   - team locations and public holidays, and which team's calendar `$review-brd` lead-time projections count against (`lead_time_team`). If the user supplies that team's holidays from the jurisdiction's official published calendar, write them to `calendars/[country]-[region]-public-holidays.md` with the source and retrieved date, weekday holidays in a table, weekend holidays listed separately and provisional dates marked, and set the team's `holidays:` key to that path. With no calendar yet, leave both keys out; `$review-brd` then asks each run
    - freeze periods
    - compliance tier and frameworks
    - external approval gates
@@ -41,6 +41,7 @@ Use installed MCP servers or app connectors for Jira, Confluence, GitHub, and ot
 ## Rules
 
 - Never store company secrets or credentials in Forge files.
+- Never generate, fetch or recall a public holiday date. Write only the dates the user supplied.
 - Never copy plugin skills into company data directories.
 - Never modify `~/.codex/AGENTS.md` without showing the exact proposed change.
 - Never commit company data to the upstream Forge repository.
