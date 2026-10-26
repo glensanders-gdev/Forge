@@ -75,7 +75,7 @@ that have no chat version.
 | [`/qa-plan`](skills/qa-plan/SKILL.md) | Generate a human QA checklist from the active PRD's user stories and definition of done. Use when user runs /qa-plan, implementation is complete, or t… |
 | [`/qa-report`](skills/qa-report/SKILL.md) | Record the results of a completed QA session as a datestamped evidence artefact. Reads the qa-plan and TC registry, captures pass/fail per test case,… |
 | [`/research`](skills/research/SKILL.md) | Cache findings from expensive exploration phases into topic-specific markdown files. Use when implementation would require repeated or costly explorat… |
-| [`/review-brd`](skills/review-brd/SKILL.md) | Assess a submitted BRD against the published handoff gate — BH-1 to BH-10, the [TBD] treatment rule and the four outcomes — returning a per-item verdi… |
+| [`/review-brd`](skills/review-brd/SKILL.md) | Assess a submitted BRD against the requirements-documents pack on three independent questions — the handoff gate (BH-1 to BH-10, the [TBD] rule, four… |
 | [`/review-language`](skills/review-language/SKILL.md) | Check the wording of a requirements document — BRD, PRD, ORD or AC — against the requirements language standard, including the modal and construction… |
 | [`/review-ord`](skills/review-ord/SKILL.md) | Assess a submitted ORD against the published §7.1 handoff gate — OH-1 to OH-15, the four outcomes, the §7.3 refuse-to-produce scan and the §5 tier rul… |
 | [`/tdd`](skills/tdd/SKILL.md) | Test-driven development with red-green-refactor loop. Use when user wants to build features or fix bugs using TDD, mentions "red-green-refactor", want… |
@@ -201,7 +201,7 @@ These files are generated, so edits made directly here are overwritten on the ne
 release. Open an issue describing what needs changing and it will be fixed upstream
 and republished.
 
-Release 4.24.0.
+Release 4.25.0.
 
 ## Credits
 

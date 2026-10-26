@@ -2089,7 +2089,7 @@ actually uses. Use these words exactly; a fifth verdict is a sign the treatment 
 | **Absent** | Nothing at all, or `[TBD]` missing the owner, the date, or both. A hole, not a gap |
 
 **The propagation rule is part of the verdict, not a footnote.** A declared gap that passes the bar
-and then disappears is worse than a refusal, because it looks like a pass. Every *Met, with a
+and then disappears is worse than a not-ready outcome, because it looks like a pass. Every *Met, with a
 declared gap* verdict names where the gap must reappear downstream — the empty traceability row, the
 unanswered objective — and a review that cannot name that has not finished the verdict.
 
@@ -2111,26 +2111,26 @@ The outcome follows from the verdicts. Test in this order and stop at the first 
 
 | Order | Condition | Outcome |
 |---|---|---|
-| 1 | Any **bar** item is *Absent* | The refusal outcome — *Not accepted for ORD development* / *Not ready for handoff* |
+| 1 | Any **bar** item is *Absent* | The not-ready outcome — *Not yet ready for ORD development* / *Not ready for handoff* |
 | 2 | Any item, bar or supporting, is an *Unowned gap* | The unowned-gap outcome |
 | 3 | Any item is outstanding with an owner and a date, or carries a declared gap | The recorded-gaps outcome |
 | 4 | Otherwise | The clean outcome — *Accepted* / *Ready for handoff* |
 
-**This order is the pack's, not this file's.** Both gates state the precedence — the refusal first,
+**This order is the pack's, not this file's.** Both gates state the precedence — not ready first,
 then the unowned gap, then recorded gaps — and both state that the recorded-gaps outcome covers a
 declared gap wherever it sits, **including on the bar**. Read those two statements at the gate rather
 than trusting this table; where they disagree with it, they win and this file is the defect.
 
-### Refusal and authority
+### Not yet ready, and authority
 
-The refusal outcome is the one outcome in the pack that requires authority: the Tier 1 control
+The not-ready outcome is the one outcome in the pack that requires authority: the Tier 1 control
 *"right to declare an ORD not-ready and refuse handoff"* at §8, which the standard states is **not
 currently held**.
 
-Where that right is not held, report the refusal as **recorded rather than exercised**: name the
+Where that right is not held, report the not-ready finding as **recorded rather than exercised**: name the
 absent bar items, state that the document proceeds, and state that the accumulation of these records
 across cycles is the evidence for establishing the control. A gate that implies an authority nobody
-holds is theatre; a refusal that was warranted, declared and overridden is the argument for the
+holds is theatre; a not-ready finding that was warranted, declared and overridden is the argument for the
 control.
 
 ### Report format
@@ -2150,13 +2150,45 @@ control.
 
 > **[Outcome name].** [The verdicts that forced it, by the derivation order above.]
 > [Where a declared gap passed the bar: where it must reappear downstream.]
-> [Where the outcome is a refusal: the authority note above.]
+> [Where the outcome is not ready: the authority note above.]
 
-### The five checks
+### The checks
 
 | Check | Finding |
 |---|---|
 | Baseline gap | [answered, or *not answerable at this hop* with the reason] |
+| Rule coverage gap | [the three rule-level scans likewise] |
+
+### Business definition — BRD only
+
+**Kind of change:** [enhancement / new capability / new measure, and what that means here]
+
+| # | Finding | Evidence |
+|---|---|---|
+| BD-1 | [finding, *Met*, or *not applicable* with the reason] | [section or row] |
+
+> **[Business definition outcome].** [The unresolved decisions that forced it, each with its owner
+> and date or *Unowned*.]
+
+[For each material gap: the pack's *what a gap reaches* block.]
+
+### Acceptance derivability — BRD only
+
+[One *Not safely derivable* record per blocked criterion, in the pack's form. Then one line naming
+the requirements that are derivable.]
+
+### Readiness projection — BRD only
+
+~~~
+[The pack's projection block, filled — or the missing input named and the projection stopped.]
+~~~
+
+[At Low confidence: the drafted RAID entries, as a table. Drafted, not raised.]
+
+### Recommended actions
+
+- *Recommended:* [an action the findings support, and who would take it]
+- *Consider:* [an action worth weighing]
 
 ### Language (advisory)
 
@@ -2184,10 +2216,11 @@ for the gate by that item. The language pass only names it.
 **It never blocks the gate.** Where the language standard cannot be read, emit the gate report and
 write under *Language (advisory)* that the pass did not run, and why.
 
-### The five checks
+### The checks
 
 Read from `reference/traceability-matrix.md` at review time — baseline, coverage, conformance,
-translation and verifiability gaps. Answer each, or mark it not-yet-answerable at this hop with the
+translation and verifiability gaps, and the three scans where business rules carry the outcome: rule
+coverage, decision preservation and scenario coverage. Answer each, or mark it not-yet-answerable at this hop with the
 reason. A check reported clean because it could not be run is worse than one reported unanswerable.
 
 ---
@@ -2199,6 +2232,8 @@ reason. A check reported clean because it could not be run is worse than one rep
 - Never report a check clean that could not be run at this hop.
 - Never let a language finding change a verdict, the outcome or the tier.
 - Never let a declared gap pass without naming where it reappears downstream.
+- Never state a recommendation as an instruction. The review recommends; the author and the
+  approvers decide. *Recommended:* and *Consider:*, never *must*, *reject* or *return*.
 
 
 ---
@@ -2210,8 +2245,8 @@ reason. A check reported clean because it could not be run is worse than one rep
 > everything below. Editing this file puts it out of step with the pack; regenerate
 > instead.
 
-**Pack version:** v1.16 · **Pack commit:** `e5b1e1da0acc`
-**Generated:** 2026-10-08 · **Content hash:** `d0078b39e2ea3e9c`
+**Pack version:** v1.17 · **Pack commit:** `5058139f23e6`
+**Generated:** 2026-10-26 · **Content hash:** `cbd71c7086e4ddd4`
 
 **Quote the version in every BRD authored from this extract.**
 A reader needs to know which revision was applied — a verdict, and a document
@@ -2228,7 +2263,7 @@ it and the pack disagree, the pack is right and this file is stale.
 
 ## BRD Standard
 
-**Version:** 1.16 · **Last updated:** 2026-10-08 · **Status:** Approved
+**Version:** 1.17 · **Last updated:** 2026-10-26 · **Status:** Approved at v1.13; the v1.17 additions are draft for review
 **Standard of record:** BABOK v3 · **Audience:** Business Analysts, Product Owners, Product
 Managers, Sponsors, Management
 
@@ -2252,7 +2287,7 @@ Business Requirements Documents are written inconsistently, and the common failu
 
 The BRD is also the **entry criterion** for the operational document that follows it. A BRD with no
 quantified objective and no cost-of-failure case leaves the ORD with nothing to derive a tolerance
-from — see [Entry criteria](#entry) and the E1–E9 list.
+from — see Entry criteria (ORD Intake and Maturity Standard) and the E1–E9 list.
 
 ### The standard
 
@@ -2263,10 +2298,10 @@ requirements and frames the **Stakeholder** ones. **Solution** requirements are 
 operational half to the ORD, as quantified business tolerance.
 
 **The functional half has no document in this chain.** The taxonomy names it, the
-[PRD standard](#prd) defines its shape, and it is not adopted here — so functional detail is
+PRD standard defines its shape, and it is not adopted here — so functional detail is
 inferred during Epic decomposition rather than elicited. That absence is not a gap in the BRD's
 responsibilities, but it does change what happens to a business rule the BRD correctly declines to
-carry: see [what leaves the chain](#traceability).
+carry: see what leaves the chain (traceability matrix).
 
 #### What changes, concretely
 
@@ -2299,7 +2334,7 @@ for deciding **which document a requirement belongs in**.
 |---|---|---|
 | **Business** | Higher-level goals, objectives and outcomes of the enterprise. The "why" | BRD |
 | **Stakeholder** | Needs of a specific stakeholder or group — the bridge from business goal to solution | BRD |
-| **Solution — Functional** | What the solution must *do* (behaviour, capabilities) | **No document in this chain.** Inferred at Epic decomposition. Defined shape: [PRD standard](#prd), unadopted |
+| **Solution — Functional** | What the solution must *do* (behaviour, capabilities) | **No document in this chain.** Inferred at Epic decomposition. Defined shape: PRD standard, unadopted |
 | **Solution — Non-functional** | How well the solution must *perform and run* (quality attributes) | ORD, as business tolerance |
 | **Transition** | Temporary capabilities to move from current to future state (migration, training, cutover). Retired after go-live | BRD or implementation plan |
 
@@ -2343,7 +2378,7 @@ important to enforce.
 | 10 | **Constraints, assumptions and dependencies** | Regulatory, contractual and time constraints; assumptions with a status; dependencies with a status |
 | 11 | **★ Cost of failure** | What is lost when the objective is not met — the input every operational tolerance is derived from |
 | 12 | **★ Traceability** | Stakeholder requirement → business objective, and each objective onward to the ORD tolerance expected to quantify it. Proves every build traces to a justification |
-| App. A | **Process and system scope** | The L1–L3 process areas and the systems in scope, each with a named owner. Seeds the ORD's impact register |
+| App. A | **Process and system scope** | The L1–L3 process areas and the systems in scope, each with a named owner and whether its impact is confirmed by that owner or assumed. Seeds the ORD's impact register |
 | App. B | **References** | Every source the BRD cites, in the reference-list form `tables.md` § *Reference list* defines. `None cited` where there is none |
 
 > **The six ★ sections close the gaps most BRDs miss**: SMART objectives, a real stakeholder
@@ -2468,7 +2503,7 @@ something specific:
 | Cannot fill | What that means |
 |---|---|
 | **Decision sought** | The document has not established what decision it wants. It is a briefing paper, not a BRD |
-| **Cost of not acting** | BH-4 is absent, and the gate will refuse the document. §2 found it first |
+| **Cost of not acting** | BH-4 is absent, and the gate will find the document not yet ready. §2 found it first |
 | **What will be true** | No objective is quantified — BH-1, and the two limits at § *How a `[TBD]` is treated* |
 | **Problem** | §3 has described where a problem was noticed rather than what the enterprise loses |
 
@@ -2541,9 +2576,9 @@ becomes hard to find at exactly the moment sign-off is chased.
 
 **§5 — the stakeholder register.**
 
-| Stakeholder | Interest | Role |
-|---|---|---|
-| [named role, or group where the group is the stakeholder] | [what they stand to gain or lose] | Sponsor / Consulted / Affected / Authors [downstream document] |
+| Stakeholder | Interest | Role | Engagement |
+|---|---|---|---|
+| [named role, or group where the group is the stakeholder] | [what they stand to gain or lose] | Sponsor / Consulted / Affected / Authors [downstream document] | Engaged / Not yet engaged / Unavailable until [date] |
 
 **§6 — the approving GM register.** One row per business unit in scope, and the count of rows is
 checkable against §8's scope and Appendix A's owners.
@@ -2559,6 +2594,56 @@ checkable against §8's scope and Appendix A's owners.
   up. It is the case BH-6 exists to surface.
 - **Never infer an approver from an org chart.** An unconfirmed GM is `[TBD]` with the owner who will
   confirm it and a date, exactly as an unquantified objective is.
+
+**`Engagement` records whether the stakeholder has actually been spoken to.** A BRD can be written
+from a brief before anyone in §5 has been engaged, and a register that lists a stakeholder reads the
+same whether they were consulted or merely named. *Not yet engaged* is a valid entry; a blank is not.
+A stakeholder who is engaged but has limited availability before the fixed date says so, with the
+date, because it is a lead-time input at ORD Intake and Maturity Standard §4.7.4. Where a group is affected and is not
+consulted directly, say that in this column rather than leaving it empty.
+
+**Stakeholders are elicited, not recalled — ask against each department.** The register is built by
+asking whether the change reaches each department below, and recording the answer, including *none
+found*. It is the same discipline as the constraint categories at § *Constraints, assumptions and
+dependencies*, for the same reason: a department asked and answered *none found* is a record, and a
+department never asked is a hole. The count the answers produce sets the ORD's size at
+ORD Intake and Maturity Standard §4.1, so a register that undercounts is an undersized change — and a lead time quoted short
+from the first day.
+
+| Group | Department | Likely affected when the change… |
+|---|---|---|
+| Customer-facing | Sales and account management | changes what is sold, how it is ordered, or what a customer is promised |
+| | Marketing, brand and customer communications | changes a customer-facing message, notice or channel |
+| | Customer service and contact centre | changes why customers call, or what an agent can see or do |
+| | Complaints, disputes and customer advocacy | changes eligibility, credits, outcomes a customer can challenge, or the complaint path |
+| | Digital channels — web, app and self-service | lets customers see or do something new themselves |
+| | Partner, channel and wholesale management | reaches resellers, wholesale customers or third parties who sell for the enterprise |
+| Operations | Service delivery, fulfilment and provisioning | changes how an order becomes a working service |
+| | Field operations and workforce management | changes scheduling, dispatch, attendance or on-site work |
+| | Service assurance and fault management | changes how a problem is detected, reported or restored |
+| | Supply chain, procurement and logistics | changes what is bought, stocked or delivered |
+| | Facilities and property | changes a physical site — usually outside an ORD's logical scope, and still a stakeholder |
+| Product and change | Product and pricing | changes a product's features, rules or roadmap, or a price, discount, rebate or credit |
+| | Business transformation and change management | changes how people work, or needs adoption support |
+| Finance | Billing and revenue assurance | changes a charge, a credit, a billing cycle or revenue leakage |
+| | Finance operations — receivable and payable | changes payments, refunds or reconciliation |
+| Legal, regulatory and security | Legal | interprets or changes a contract clause, or creates a liability |
+| | Regulatory affairs | touches a licence condition, regulator reporting or an industry code |
+| | Privacy | collects, uses, shares or keeps personal information differently |
+| | Information and cyber security | changes access, data flows or exposure |
+| Technology and data | Application owners | touches a system they own — Appendix A's `Owner` column |
+| | Data, analytics and reporting | creates or changes a measure, a report or a data feed. **Always ask where an objective is a new measure** |
+
+- **A department is a prompt, not a stakeholder.** An affected department becomes a §5 row naming the
+  role who holds its interest. Never add a row because the list names a department, and never infer
+  the person from an org chart.
+- **A department affected and not yet engaged is still counted**, as *Not yet engaged*. Leaving it out
+  until someone has spoken to it undersizes the change by exactly the stakeholders most likely to be
+  late.
+- **Departments not asked are reported** at the gate review, and they widen the lead-time projection
+  to a range — see § *The readiness projection*.
+- **Tailor the list to the enterprise, once, and keep the asking.** The departments are generic. The
+  rule that each is asked and answered is not.
 
 **Both registers are routinely incomplete at first draft, and that is expected.** The stakeholder the
 author is least placed to identify is the one whose absence costs the most later. There is no second
@@ -2718,7 +2803,7 @@ why     what the      how it will      what will      what will
 
 **The ORD is a demand document, not a design one.** It states what the business can tolerate;
 architecture's response — the Solution on a Page — derives the technical figure that satisfies it.
-See [Roles at the boundary](#roles).
+See Roles at the boundary (ORD Intake and Maturity Standard).
 
 **One artefact is missing from this chain, and the BRD feels it first.** There is no functional
 requirements document between the BRD and the Capability. A business rule the BRD correctly declines
@@ -2769,13 +2854,13 @@ record what arrived; this gate establishes whether what arrived is enough to sta
 **What puts an item on the bar, and what does not.** An item is on the bar where its absence makes
 the next document **unwritable** — not merely less mature. Everything whose absence the maturity
 tier can absorb is a supporting item. That rule is what keeps the two lists from being a matter of
-taste, and it is the same rule [§7.1](#handoff) applies one hop downstream.
+taste, and it is the same rule ORD Intake and Maturity Standard §7.1 applies one hop downstream.
 
 #### How a `[TBD]` is treated — read this before the bar
 
 The pack's rule against inventing a threshold means a BRD arrives with declared gaps, and a gate
-that treats every gap as an absence refuses every real document. A gate that treats every gap as
-satisfied refuses none. Neither is useful, so the treatment is stated rather than left to judgement:
+that treats every gap as an absence finds every real document not ready. A gate that treats every gap
+as satisfied finds none. Neither is useful, so the treatment is stated rather than left to judgement:
 
 | The item carries | Treatment |
 |---|---|
@@ -2794,11 +2879,11 @@ satisfied refuses none. Neither is useful, so the treatment is stated rather tha
    can repair that.
 
 > **The point of the propagation rule.** A declared gap that passes the bar and then disappears is
-> worse than a refusal, because it looks like a pass. Every gap admitted here **must** reappear as
+> worse than a not-ready outcome, because it looks like a pass. Every gap admitted here **must** reappear as
 > an empty traceability row and an unanswered objective downstream — see BO-4, which does exactly
-> that at §12 of the worked example and again on the [traceability matrix](#traceability).
+> that at §12 of the worked example and again on the traceability matrix.
 
-#### The bar — four items, and their absence is a refusal
+#### The bar — four items, and without them the BRD is not yet ready
 
 These four are what an ORD cannot be written without. Each maps to a load-bearing element the ORD
 consumes immediately.
@@ -2810,14 +2895,14 @@ consumes immediately.
 | **BH-3** | **Constraints and dependencies carrying operational weight** — regulatory obligations, contractual commitments, platform dependencies, named specifically, each elicited against the categories at § *Constraints, assumptions and dependencies* rather than recalled | Seeds Security, Compatibility and Reliability | The ORD author invents them or misses them |
 | **BH-4** | A **cost-of-failure case** for each objective carrying operational exposure | The input every tolerance is derived from | A tolerance traced to no consequence is an invented figure, however well it is written. The single most common upstream cause of a low-maturity ORD |
 
-> **BH-1 to BH-3 are the three load-bearing elements at [§3.4](#entry); BH-4 is the fourth, and it
+> **BH-1 to BH-3 are the three load-bearing elements at ORD Intake and Maturity Standard §3.4; BH-4 is the fourth, and it
 > is the one most often assumed to be optional.** A complete BRD is not the bar — these four are.
 > A BRD carrying only these and nothing else is enough to start on.
 
 #### Supporting items — absent, these are recorded and drive the tier
 
 Their absence does not stop ORD development. It determines the maturity tier committable on the
-fixed date, and each is recorded under [§3.3](#entry) at assignment.
+fixed date, and each is recorded under ORD Intake and Maturity Standard §3.3 at assignment.
 
 | # | Required | Absent means |
 |---|---|---|
@@ -2833,17 +2918,17 @@ fixed date, and each is recorded under [§3.3](#entry) at assignment.
 | Outcome | Condition | What follows |
 |---|---|---|
 | **Accepted** | BH-1 – BH-10 met, no declared gaps | ORD development starts. The entry position record carries no outstanding items |
-| **Accepted with recorded gaps** | BH-1 – BH-4 met; one or more items outstanding, **each with a named owner and a date** — a declared gap on a bar item, a supporting item outstanding, or both | ORD development starts. The gaps are recorded at [§3.3](#entry) and determine the committed maturity tier where they reach a KPP-bearing requirement |
-| **Accepted with an unowned gap** | BH-1 – BH-4 met; an outstanding item has **no owner to carry it** | ORD development starts. The item is recorded at [§3.3](#entry) and **raised with the approving GMs at sign-off rather than referred, because a referral needs a recipient.** It stays open until someone accepts it — and that it stayed open is the finding |
-| **Not accepted for ORD development** | Any of BH-1 – BH-4 absent, per the `[TBD]` rule above | Returned to the author with the absent items named. **The ORD task is a BRD task in disguise** — see the antipatterns at [§3.4](#entry) |
+| **Accepted with recorded gaps** | BH-1 – BH-4 met; one or more items outstanding, **each with a named owner and a date** — a declared gap on a bar item, a supporting item outstanding, or both | ORD development starts. The gaps are recorded at ORD Intake and Maturity Standard §3.3 and determine the committed maturity tier where they reach a KPP-bearing requirement |
+| **Accepted with an unowned gap** | BH-1 – BH-4 met; an outstanding item has **no owner to carry it** | ORD development starts. The item is recorded at ORD Intake and Maturity Standard §3.3 and **raised with the approving GMs at sign-off rather than referred, because a referral needs a recipient.** It stays open until someone accepts it — and that it stayed open is the finding |
+| **Not yet ready for ORD development** | Any of BH-1 – BH-4 absent, per the `[TBD]` rule above | *Recommended:* complete the absent items before ORD development is assigned. The review names each one and what it would unblock. **Without them, the ORD task is a BRD task in disguise** — see the antipatterns at ORD Intake and Maturity Standard §3.4 |
 
-**Where more than one row applies, the outcome is the most serious of them** — the refusal first,
+**Where more than one row applies, the outcome is the most serious of them** — not yet ready first,
 then the unowned gap, then recorded gaps. The worked assessment below carries declared gaps at BH-1,
 BH-3 and BH-4 *and* an unowned one at BH-8, and lands on the third outcome rather than the second.
 
 **The second row covers a declared gap wherever it sits, including on the bar.** A bar item carrying
 `[TBD]` with an owner and a date is met *for the bar* under the rule above, but the document is not
-gap-free — so it is neither the first outcome nor a refusal. Reading the row as supporting-items-only
+gap-free — so it is neither the first outcome nor the last. Reading the row as supporting-items-only
 left that document matching no outcome at all.
 
 **The third outcome is the one most documents land on, and it exists because the second could not
@@ -2856,17 +2941,278 @@ escalation.** An ORD written from a BRD missing its bar produces figures nobody 
 the cost of that lands after architecture has designed against them.
 
 > **This outcome depends on a right the standard says is currently absent, and that is worth
-> stating plainly rather than glossing.** The [ORD Intake and Maturity Standard](#purpose) is a
+> stating plainly rather than glossing.** The ORD Intake and Maturity Standard is a
 > **declaring** standard, not a blocking one — every other mechanism in it produces a record rather
 > than exercising a veto, precisely because a record is available to someone holding no authority.
-> *Not accepted for ORD development* is the one outcome in this pack that requires authority: the
+> *Not yet ready for ORD development* is the one outcome in this pack that requires authority: the
 > Tier 1 control **"right to declare an ORD not-ready and refuse handoff"** at
-> [§8](#controls), listed there as a control **to be established**.
+> ORD Intake and Maturity Standard §8, listed there as a control **to be established**.
 >
 > **Where that right is not yet held**, the outcome is *recorded* rather than exercised: the ORD
-> proceeds, the absent bar items are recorded at [§3.3](#entry), and the committed tier reflects
-> them. That record is the evidence for establishing the control — a refusal that was warranted,
-> declared, and overridden is a stronger argument than the same right requested on day one.
+> proceeds, the absent bar items are recorded at ORD Intake and Maturity Standard §3.3, and the committed tier reflects
+> them. That record is the evidence for establishing the control — a not-ready finding that was
+> warranted, declared, and overridden is a stronger argument than the same right requested on day one.
+
+---
+
+### Business definition readiness — the question the gate does not ask ★
+
+The handoff gate answers one question: **can ORD development begin?** It does not establish that the
+business decisions the downstream documents depend on have been made. A BRD can clear the bar while a
+rule it relies on is still undecided, and when it does, someone downstream makes the decision
+instead — without the authority to make it, and usually without knowing they made it.
+
+A BRD review therefore asks three questions and reports each one separately:
+
+| # | Question | Answered by | Reported as |
+|---|---|---|---|
+| 1 | **Structural readiness.** Can ORD development begin? | The handoff gate, BH-1 – BH-10 | One of the gate's four outcomes |
+| 2 | **Business definition readiness.** Can requirements be derived without a downstream team inventing business policy? | BD-1 – BD-10, below | One of the four business definition outcomes |
+| 3 | **Acceptance derivability.** Which acceptance criteria cannot yet be derived without an unsupported business decision? | § *Acceptance derivability, before the ORD exists* | A list of the blocked criteria, not an outcome |
+
+**The three are independent, and the second and third never change the first.** A BRD accepted for
+ORD development can still carry decisions that keep particular requirements from being baselined.
+The review states that combination rather than averaging it into one verdict, and the gate outcome
+is derived exactly as before.
+
+> **The principle.** A BRD is mature when downstream teams can translate business intent without
+> becoming the business decision-maker.
+
+#### Six kinds of gap, and where each goes
+
+A review that calls everything a gap loses the distinction that matters. Each kind has a different
+owner and a different destination.
+
+| Kind | Looks like | Where it goes |
+|---|---|---|
+| **Missing information** | A fact that exists and has not been supplied — a baseline, a volume, an owner | `[TBD]` with a named owner and a date, per § *How a `[TBD]` is treated* |
+| **Unresolved business decision** | A choice nobody has made — what counts as eligible, which rule wins, where a window starts | Declared with an owner and a date, and drafted as a Decision for the RAID log |
+| **Implementation constraint** | A given the change cannot move — a platform boundary, a data feed's timing | §10's constraint table |
+| **Implementation proxy** | What current capability can measure, standing in for what the business means | Recorded under BD-9, never rewritten as the intent |
+| **Assumption** | Something believed true, pending confirmation | §10's assumption table, with `If false` |
+| **Solution detail** | A design answer the BRD has no business holding | §9's routing table |
+
+**The most common misfiling is an unresolved decision recorded as an assumption.** "The window runs
+from the appointment" is not a belief awaiting evidence. It is a choice that someone with authority
+has to make, and filing it as an assumption implies that waiting will resolve it.
+
+**A review never resolves a business question.** It names the decision, who should make it and what
+it blocks. It does not pick the answer that makes the requirement cleanest.
+
+#### The kind of change shapes what can be defined
+
+| Kind of change | What usually exists | What usually does not |
+|---|---|---|
+| **Enhancement** of an existing process or measure | A baseline, a current rule set, a source of truth | A record of which current rules are intended and which are accidents of the current system — BD-9 |
+| **New capability** | The intent | Rules, boundaries and an authoritative source. Every BD item is in play |
+| **New measure** — an objective whose metric does not yet exist | The target, sometimes | The metric's definition, its measurement rule and its baseline |
+
+**Can ORD development proceed while a new measure is undefined?** At the gate, yes, within both
+limits: the undefined measure is a declared gap with an owner and a date, it is not on the objective
+the change is funded against, and another objective is fully quantified. **Where the new measure is
+the funded objective, the second limit applies and the gate outcome is *Not yet ready for ORD
+development*.** In both cases the review records an unresolved business decision under BD-1 — how
+the measure is defined and calculated — and lists any acceptance criterion resting on it as blocked.
+ORD development proceeds, and a tolerance traced to the undefined measure carries no status above
+Assumed until the measure is defined.
+
+#### The business definition checks
+
+Apply these where an outcome depends on material business logic. Where a BRD carries none — every
+objective measured on an existing, defined metric, with no eligibility, calculation or
+classification at stake — say so once rather than applying them item by item.
+
+| # | Check | A finding looks like |
+|---|---|---|
+| **BD-1** | **Decision completeness.** Every material business decision needed to determine an outcome is defined, referenced to an authoritative source, or declared unresolved with an owner and a date | A requirement that can only be met once somebody decides something the BRD does not mention |
+| **BD-2** | **Business rule sufficiency.** Where an outcome depends on eligibility, qualification, classification, inclusion, exclusion, calculation, attribution, a threshold, sequencing or timing, the rule is defined, referenced or explicitly outstanding. It need not be written in the BRD | "Eligible customers receive…" with eligibility defined nowhere |
+| **BD-3** | **Boundary conditions.** Commencement, cessation, effective dates, time windows, and population, threshold and lifecycle boundaries are stated wherever they change an outcome | A window with no stated start. A rule change with no stated effective date for cases already in flight |
+| **BD-4** | **Source of truth.** Each material term, value, rule and decision input has an identifiable authoritative source. Being traceable to a source does not make the source authoritative | A threshold traced to a meeting note. Two systems that each hold the customer's status |
+| **BD-5** | **Precedence and overrides.** Where several rules can apply to one outcome — eligibility, exclusion, exception, override, attribution — the order between them is defined | Two valid readings of the rules produce different outcomes for the same case |
+| **BD-6** | **Scenario completeness.** A complex rule set has representative scenarios showing the intended behaviour: positive, negative, exclusion, boundary, lifecycle or sequence, and overlapping conditions. Scenarios validate rules and never substitute for a missing one | A rule set illustrated by its happy path alone |
+| **BD-7** | **Outcome determinism — the two-reader test.** Could two competent readers apply the documented definition to the same case and reasonably reach different outcomes? | They could. Record the underlying decision gap, and never choose an interpretation |
+| **BD-8** | **Decision evidence.** Where an outcome has material customer, financial, contractual, regulatory or operational consequence, enough can be known afterwards to explain which rule applied, which version of it, what inputs it used and why the outcome followed. Never invent a logging requirement the sources do not support | A retained determination with no record of which version of a twice-amended clause it applied |
+| **BD-9** | **Intent and implementation proxy.** Where current capability approximates the business intent rather than expressing it, both are recorded: the intent, the proxy, why the proxy is used, its known limitation, its owner, and what would trigger a review of it | "Missed" defined as "no attendance record", when the intent is "the customer was not attended" |
+| **BD-10** | **Change survivability.** Each material rule, threshold and classification is stated once and identifiable, so that changing it makes every affected downstream requirement discoverable | One threshold stated in three sections, each free to drift — § *State it once*, applied to rules |
+
+**BD-7 is the check most findings come from, and it is also how ambiguity is told apart from solution
+freedom.** Ask of each material stakeholder requirement: *could a downstream team implement this two
+different ways and both claim conformance?* Where the two ways produce different business outcomes,
+a decision is hidden in the requirement. Name it, check whether an authoritative rule already
+resolves it, and where none does, declare it unresolved with the requirements it reaches. Where only the
+means differ and the outcome is the same, that is solution freedom, and the BRD is right to leave it
+open.
+
+#### Source authority
+
+Where provenance can be established, the review records which kind of source a rule or value rests
+on, because they do not carry equal weight:
+
+1. An external obligation or binding source — legislation, regulation, an executed contract
+2. An approved business policy or rule
+3. A baselined requirement
+4. An approved decision, with its decision-maker named
+5. An SME clarification
+6. An assumption
+7. A working interpretation
+
+**Where two authoritative sources conflict, the review surfaces the conflict.** It never selects the
+reading that produces the cleanest requirement. A rule resting only on the sixth or seventh kind has
+not been decided, however it is worded.
+
+#### What a gap reaches
+
+Recording that a gap exists is half a finding. For each material gap or unresolved decision, the
+review states what it reaches downstream — **only as far as the traceability shows**, never by
+inferring dependencies the documents do not show.
+
+```
+Gap:                        [the decision or missing information]
+Kind:                       [from § Six kinds of gap]
+Owner · Target date:        [named role] · [date], or Unowned
+Objectives affected:        [BO-n]
+Rules affected:             [the rule, or its REF-n where one exists]
+Downstream requirements:    [BR-n, and ORD-n where the ORD exists]
+Acceptance criteria:        [blocked, or none known]
+Testing:                    [the proving scenario that cannot yet be written]
+Other known impact:         [only where a source records it]
+```
+
+This is the propagation rule at § *How a `[TBD]` is treated*, applied to decisions as well as to
+quantities. A declared decision that does not reappear downstream is as invisible as a declared gap
+that does not.
+
+#### Acceptance derivability, before the ORD exists
+
+Before the ORD exists, no acceptance criterion does either: Capability ACs derive from the SOAP, and the ORD
+proposes criteria rather than writing them (ORD Intake and Maturity Standard §7.4). So the review does not grade acceptance
+readiness here. It lists each criterion that **cannot be derived** without an unresolved decision:
+
+```
+AC status:            Not safely derivable
+Requirement:          [BR-n, or the objective]
+Reason:               [the unresolved decision]
+Decision required:    [stated as a question, never as an answer]
+Owner:                [named role, or Unowned]
+Proving scenario:     [the case that will show the decision was implemented]
+```
+
+**An explicit inability to derive a criterion is a valid finding, and a valuable one.** The failure
+it prevents is a criterion made more specific than its sources allow — a plausible rule written in to
+make the criterion testable, which then reads as though the business decided it. The full acceptance
+judgement belongs to the ORD review, where proposed criteria exist to be assessed.
+
+#### The four business definition outcomes
+
+| Outcome | Condition |
+|---|---|
+| **Ready** | Every material business decision is defined or referenced to an authoritative source, and no BD item carries a finding |
+| **Ready with declared gaps** | What is outstanding is missing information, each item with an owner and a date. No business decision is unresolved |
+| **Conditionally ready — unresolved business decisions** | One or more material business decisions are unresolved, **each with an owner and a date** |
+| **Not ready** | A material business decision, or missing information a business rule depends on, has **no owner** — including a hidden decision the review surfaced and nobody has yet accepted |
+
+**Where more than one row applies, the outcome is the most serious of them**, by the gate's
+precedence and for the gate's reason: a decision with an owner is a scheduling problem, and a
+decision nobody owns is a finding about the organisation.
+
+**Most real BRDs land on the third outcome, and that is not a criticism of them.** The BRD correctly
+declines to carry business rules (§ *Where the BRD sits in the chain*), and no document in this chain
+receives them, so a rule that has been identified has usually not been decided anywhere. The outcome
+records that structural fact against the requirements it affects, and its accumulation across BRDs is
+the argument for the functional requirements document the chain lacks.
+
+#### The readiness projection — from the BRD's condition to a lead time
+
+The review also states what the BRD's condition means for the ORD that follows it: how long it will
+take, and how sure that figure is. It reads the ORD Intake and Maturity Standard to do
+so and estimates nothing separately. **Every figure comes from the §4.1 tables and the §4.7 method;
+this section says only which row, which table and which column the BRD selects, and what moves the
+result afterwards.**
+
+**Step 1 — the BRD readiness rating selects the table.** It follows mechanically from the gate
+outcome and the business definition outcome:
+
+| BRD readiness | Condition | Lead-time table |
+|---|---|---|
+| **Ready** | Gate accepted, in any of its three accepted outcomes; business definition *Ready* or *Ready with declared gaps* | Baseline |
+| **Decisions open** | Gate accepted; business definition *Conditionally ready*, with every decision owned and none needing an obligation interpreted or agreement across business units | Baseline — routine refinement resolves inside the window (ORD Intake and Maturity Standard §4.5) |
+| **Contested** | Gate accepted; business definition *Conditionally ready*, with at least one decision that interprets an obligation or needs agreement across business units | Contested (ORD Intake and Maturity Standard §4.2) |
+| **Not ready** | Gate *Not yet ready for ORD development*, or business definition *Not ready* | **None.** The committed position is Tier D until the BRD is reconstructed or the decision owned (ORD Intake and Maturity Standard §4.7.1) |
+
+The rating is not the confidence. It is an input to the projection, and confidence is its output.
+
+**Step 2 — the stakeholder count and the other indicators select the row.** Count the §5 rows whose
+stakeholders are consulted — every row except a group affected and not consulted directly — after
+asking against the departments at § *The stakeholder register, and the approving GM register*. The
+size is **the highest band any §4.1 indicator reaches**: business units, objectives, stakeholders,
+and impacted workflows and systems from Appendix A. A change with few stakeholders and many systems
+is not small.
+
+**Step 3 — the allocation selects the column.** The allocation is E6, and the review asks for it
+rather than assuming full time. The person's leave in the window comes off capacity first
+(ORD Intake and Maturity Standard §4.3). Read the cell from the §4.1 table selected at step 1.
+
+**Step 4 — the modifiers move the result:**
+
+| Modifier | Effect | Source |
+|---|---|---|
+| Any consulted stakeholder not yet engaged (S6) | **+5 business days**, once — one booking cycle covers everyone invited together | §3.2 |
+| An SME is unavailable until a date (S5) | The decision workshop is no earlier than that date plus five business days' notice. A shift on the calendar, not added days | §3.2, §4.5 |
+| The convenor's leave falls on the workshop or sign-off | The date moves past the leave | §4.3, §4.7.1 |
+| A department not asked | The lead time is reported as a range, up to the next size's row | §4.1, re-size trigger |
+| An unowned system or process in Appendix A | The impact count is uncertain: the range widens by one size | §4.1 |
+| A decision depends on legal or regulatory interpretation | **No upper bound.** "*29 business days; upper bound open*" | §4.2 |
+| The person carries delivered ORDs | The figure is reported as a **ceiling**, because standing load is not yet deducted | §4.3 |
+
+**Step 5 — the date, the tier and the confidence.** Count the available business days from
+assignment to the fixed date on the jurisdiction's calendar (ORD Intake and Maturity Standard §4.7.1). Then R, the tier
+and its `†` follow from §4.7.2, and confidence — **High, Conditional or Low** — from
+ORD Intake and Maturity Standard §4.7.4, with its slips for SME availability (S5) and stakeholders not yet engaged
+(S6). Never a percentage.
+
+**Where an input is missing, say so.** Without the allocation or the fixed date, the review reports
+the readiness rating and the size, states that the projection cannot be made, and names the missing
+input.
+
+**The projection is reported in one block:**
+
+```
+BRD readiness   [rating] — [the decisions or gate items that set it]
+Stakeholders    [n counted, n not yet engaged, n departments not asked] → [size, or range]
+Allocation      [E6], leave [days in window]
+Lead time       [cell or range from §4.1], after modifiers · upper bound [stated, or open]
+Against date    [n] available business days → R = [n] → Tier [x]
+Confidence      [High / Conditional / Low] — [what sets it] → planning tier [x]
+```
+
+**Stakeholder engagement may not have happened, and the register says so.** §5's `Engagement` column
+records whether each stakeholder has been engaged, has not yet been, or is unavailable until a date.
+A requirement whose only source is a stakeholder not yet engaged rests on the author's reading of that
+stakeholder, and the review treats it as an assumption.
+
+**Process and system impacts can be assumed too.** Appendix A's `Impact basis` column records whether
+each impact has been confirmed by its owner or is assumed, and an assumed impact cites its `ASM-NNN`.
+
+**At Low confidence, the review is not complete until it has drafted the RAID entries:** a Decision for
+each unresolved business decision, with its owner and the date it is needed by, and a Risk for each
+slip present. They are drafted, not raised — the author or convenor raises them. **This is a
+completion rule, not a block on progression.** ORD development proceeds at any confidence, and the
+entries are what make a Low confidence visible to the people able to change it. At High or
+Conditional confidence, drafting them is recommended rather than required.
+
+#### What the reviewer does not do
+
+- Resolve an ambiguity, choose between two readings, or infer an order of precedence
+- Supply a threshold, a boundary or a rule the sources do not state
+- Turn an assumption into a requirement, or an implementation limitation into the business intent
+- Treat a scenario as the rule it illustrates
+- Write an acceptance criterion more precise than the requirement it derives from
+- Let a well-formed acceptance criterion hide the decision it depends on
+
+**Recommendations are stated as recommendations.** The review recommends, and the BRD's author and
+the approving GMs decide. *Recommended:* names the action the findings support; *Consider:* names one
+worth weighing. A review that instructs, rejects or returns a document has claimed an authority that
+ORD Intake and Maturity Standard §8 says is not held.
 
 ---
 
@@ -2877,11 +3223,11 @@ the cost of that lands after architecture has designed against them.
 **Horizon:** FY26 H2 – FY27 Q2 · **Phase:** 1 of 2 (Phase 2 — BRD-2026-058) · **Standard:** BABOK v3
 
 > **One worked example runs the pack's live chain.** This BRD is the upstream document for the
-> [worked example ORD](#example) and for the [traceability matrix](#traceability). Its objectives,
+> worked example ORD and for the traceability matrix. Its objectives,
 > constraints and scope are the ones that ORD's tolerances trace back to, so the three can be read
 > as one chain rather than three unrelated illustrations. Copy the shape, not the figures.
 >
-> **One page stands outside it, deliberately.** The [PRD standard](#prd) carries a self-contained
+> **One page stands outside it, deliberately.** The PRD standard carries a self-contained
 > example, because the chain documented here has no functional requirements column to run one
 > through. That exception is the gap, not an inconsistency.
 
@@ -2951,17 +3297,36 @@ business case, which is why it is not deferred out of the document.
 
 #### 5 · Stakeholders ★
 
-| Stakeholder | Interest | Role |
-|---|---|---|
-| Chief Customer Officer | Complaint volume and customer trust | Executive sponsor; approves spend |
-| GM Customer Care | Complaint handling, customer channel | Approver — §6 |
-| GM Field Operations | Attendance capture and contractor data | Approver — §6 |
-| GM Billing | Rebate application, billing-cycle boundary | Approver — §6 |
-| Regulatory Affairs | Clause 14.3 interpretation, enquiry response | Consulted; owns BO-4's quantification and OQ-01 |
-| Contract Manager, Field Services | Attendance-data timeliness under the field services agreement | Consulted; constrains scope |
-| Solution Architecture | The design that answers the ORD | Authors the SOAP |
-| Product Manager | What will be accepted | Authors the Capability acceptance criteria |
-| Affected customers | Receiving the credit they are owed | Affected; not consulted directly |
+| Stakeholder | Interest | Role | Engagement |
+|---|---|---|---|
+| Chief Customer Officer | Complaint volume and customer trust | Executive sponsor; approves spend | Engaged |
+| GM Customer Care | Complaint handling, customer channel | Approver — §6 | Engaged |
+| GM Field Operations | Attendance capture and contractor data | Approver — §6 | Engaged |
+| GM Billing | Rebate application, billing-cycle boundary | Approver — §6 | Engaged |
+| Regulatory Affairs | Clause 14.3 interpretation, enquiry response | Consulted; owns BO-4's quantification and OQ-01 | Engaged — limited availability until 2026-08-14, quarterly regulatory reporting |
+| Contract Manager, Field Services | Attendance-data timeliness under the field services agreement | Consulted; constrains scope | Engaged |
+| Solution Architecture | The design that answers the ORD | Authors the SOAP | Engaged — briefed; authors the SOAP after the ORD |
+| Product Manager | What will be accepted | Authors the Capability acceptance criteria | Engaged |
+| Affected customers | Receiving the credit they are owed | Affected | Not consulted directly — represented by GM Customer Care |
+
+**All 21 departments were asked.** Ten are affected and eleven answered *none found*:
+
+| Department | Answer |
+|---|---|
+| Customer service and contact centre · Complaints, disputes and customer advocacy · Digital channels | Affected — GM Customer Care |
+| Field operations and workforce management | Affected — GM Field Operations; Contract Manager, Field Services |
+| Billing and revenue assurance | Affected — GM Billing |
+| Regulatory affairs | Affected — Regulatory Affairs |
+| Product and pricing | Affected — the rebate amount is a contract term. Contract Manager, Consumer, through DEP-002 |
+| Legal · Privacy | Affected through the privacy constraint — Legal Counsel owns its `[TBD]` at §10 |
+| Application owners | Affected — Appendix A, with one system unowned |
+| Data, analytics and reporting | Affected — BO-4 is a new measure. Commercial Analytics, through ASM-003 |
+| The remaining eleven | None found |
+
+**Three of the roles the answers name have no row above:** Legal Counsel, Contract Manager, Consumer,
+and Commercial Analytics. Each appears once elsewhere in this document, as the owner of one item, and
+none was added to the register. That is left as found rather than tidied, because it is the case the
+department list exists to catch — see the readiness projection at the end of this example.
 
 **§5 records interest and role, and stops there. What each GM approves is §6's** — holding it in
 both places is how the two come to disagree.
@@ -3125,7 +3490,7 @@ recorded as producing none.
 **BO-4's blank appears in both tables, and that is the point.** Tracing only downward would show an
 objective with no tolerance. Tracing only upward would show an objective nobody has stated a need
 against. Both are true, and each is a different conversation with a different person. The full chain
-onward to the SOAP and the acceptance criteria is on the [traceability matrix](#traceability).
+onward to the SOAP and the acceptance criteria is on the traceability matrix.
 
 #### Appendix A · Process and system scope ★
 
@@ -3133,16 +3498,22 @@ The L1–L3 process areas and the systems in scope, each with a named owner. **T
 ORD sizeable at assignment** — the impact counts that set S/M/L are read off it, and it seeds the
 ORD's impact register.
 
-| Kind | In scope | Owner |
-|---|---|---|
-| L1–L3 process | Order-to-Activate — appointment booking, field dispatch, attendance capture | Process owner, Field Operations |
-| L1–L3 process | Bill-to-Cash — rebate determination and application | Process owner, Billing |
-| L1–L3 process | Customer contact and complaint handling | Process owner, Customer Care |
-| System | Workforce management platform | Application owner, Field Operations |
-| System | Billing engine | Application owner, Billing |
-| System | CRM / customer record | Application owner, Customer Care |
-| System | Contractor portal | Application owner, Field Operations |
-| System | Customer notification service | **Unowned — open** |
+| Kind | In scope | Owner | Impact basis |
+|---|---|---|---|
+| L1–L3 process | Order-to-Activate — appointment booking, field dispatch, attendance capture | Process owner, Field Operations | Confirmed by owner |
+| L1–L3 process | Bill-to-Cash — rebate determination and application | Process owner, Billing | Confirmed by owner |
+| L1–L3 process | Customer contact and complaint handling | Process owner, Customer Care | Confirmed by owner |
+| System | Workforce management platform | Application owner, Field Operations | Confirmed by owner |
+| System | Billing engine | Application owner, Billing | Confirmed by owner |
+| System | CRM / customer record | Application owner, Customer Care | Confirmed by owner |
+| System | Contractor portal | Application owner, Field Operations | **Assumed — ASM-001** |
+| System | Customer notification service | **Unowned — open** | **Assumed** — no owner to confirm it |
+
+**`Impact basis` says who has agreed the row is true.** An impact the author inferred and nobody owning
+the process or system has confirmed is an assumption, and it is filed as one: the contractor portal
+row rests on ASM-001, and if that assumption is false the portal carries a process change the size
+of this appendix does not count. The notification service cannot be confirmed by anyone, because
+nobody owns it.
 
 **The unowned system is recorded, not resolved.** The notification service appears in the estate
 with its owning team vacant. That is a finding about Acme's ownership records rather than about this
@@ -3168,11 +3539,11 @@ Every source this BRD cites, in alphabetical order of the form it is cited as.
 
 #### The handoff gate, applied to this document
 
-Run against the [gate above](#brd). This is what a real assessment looks like — not a clean sheet.
+Run against the gate above (BRD standard). This is what a real assessment looks like — not a clean sheet.
 
 | # | Verdict | Evidence |
 |---|---|---|
-| BH-1 | **Met, with one declared gap** | BO-1, BO-2, BO-3 and BO-5 each carry a baseline, a target and FY27 Q2. **BO-4 carries `[TBD]` with Regulatory Affairs and 2026-08-15** — a declared gap under the rule above: owned, dated, and not the objective the case rests on, with BO-1 fully quantified. It propagates rather than vanishing — §12 leaves its row empty, and so does the [traceability matrix](#traceability) |
+| BH-1 | **Met, with one declared gap** | BO-1, BO-2, BO-3 and BO-5 each carry a baseline, a target and FY27 Q2. **BO-4 carries `[TBD]` with Regulatory Affairs and 2026-08-15** — a declared gap under the rule above: owned, dated, and not the objective the case rests on, with BO-1 fully quantified. It propagates rather than vanishing — §12 leaves its row empty, and so does the traceability matrix |
 | BH-2 | **Met** | No objective or stakeholder requirement names a system, workflow or figure. This BRD's §9 states four outcomes, and the four statements that would have breached the altitude are in its routing register instead |
 | BH-3 | **Met, with one declared gap** | §10 — consumer contract cl 14.3, 14.5 and 14.6, field services agreement cl 9 and the billing-cycle boundary, each with its operational weight stated, and three categories recorded as *none found*. The privacy constraint is `[TBD]` with Legal Counsel and 2026-08-29; it propagates as an unquantified confidentiality tolerance in the ORD. DEP-001 and DEP-002 carry statuses, and DEP-001's exposure is `R-115` in the RAID log rather than a risk table here |
 | BH-4 | **Met, with one declared gap** | §11 — three consequences, two sourced to the contract and INC-5012. The third is BO-4's, `[TBD]` with Regulatory Affairs and 2026-08-15; it is the same gap as BH-1's, propagating from the objective to its cost case |
@@ -3191,17 +3562,112 @@ Run against the [gate above](#brd). This is what a real assessment looks like �
 > **That it stayed open is the finding** — about Acme's ownership records, not about this change.
 >
 > **Note what neither gap did.** Neither moved the maturity tier. The
-> [worked example ORD](#example) commits **Tier B** because both KPPs are Provisional — the tier is
+> worked example ORD commits **Tier B** because both KPPs are Provisional — the tier is
 > the weakest status carried by any KPP-bearing requirement, and an unowned system in the estate is
 > not one. A recorded gap drives the tier only where it reaches a KPP. Recording it and tier-driving
 > it are two different things, and conflating them is how a gate becomes theatre.
 
+#### Business definition readiness, applied to this document
+
+Assessed at the same point as the gate, before ORD development was assigned. Nothing here changes the
+gate outcome above.
+
+**The kind of change.** BO-1, BO-2, BO-3 and BO-5 are an enhancement, each measured on a metric that
+already exists. **BO-4 is a new measure**: the unclaimed exposure has no definition, no measurement rule
+and no baseline. It is not the objective the case is funded against, and BO-1 is fully quantified, so
+the gate admits it as a declared gap. How the measure is defined is also an unresolved decision under
+BD-1, owned with the gap by Regulatory Affairs.
+
+| # | Finding | Evidence |
+|---|---|---|
+| BD-1, BD-2, BD-7 | **Unresolved decision — what counts as a missed appointment.** BR-1 and BO-2 both turn on it, and neither this BRD nor the contract defines it. A technician arriving outside the window, a technician who arrives and cannot complete, and a customer not at home are three cases two readers would classify differently. Raised at review; **Regulatory Affairs accepted it, due 2026-08-28** | §9 BR-1; §4 BO-2; cl. 14.3 says "missed" without defining it |
+| BD-3 | **Unresolved decision, filed as an assumption.** Whether the two-billing-cycle window runs from the appointment or from its confirmation is an interpretation of a binding source, not a belief awaiting evidence. ASM-002 is recorded as a decision with the same owner and date, and R-114 stands | §10 ASM-002 — Regulatory Affairs, 2026-08-15 |
+| BD-5 | **Unresolved decision — precedence between cl. 14.3 and cl. 14.5.** Where a rebooked appointment is also missed, the customer is owed one credit or two depending on whether a rebooking is a new appointment. Raised at review; **Regulatory Affairs, due 2026-08-28** | §10 constraints, cl. 14.3 and 14.5 |
+| BD-3, BD-8 | **Missing information — which version of cl. 14.3 applies to an appointment in flight across an amendment.** Determinations are retained under cl. 14.6, but nothing states which version of the clause each one applied. Contract Manager, Consumer, through DEP-002 | §10 cl. 14.6 and DEP-002; §3, two amendments since 2023 |
+| BD-4 | **Source not authoritative.** The supervisor-approval rule for rebates over $500 rests on an elicited statement, the fifth kind of source, and is routed with `[REF-TBD]`. Raised at review; **GM Billing to confirm whether it is approved policy, due 2026-08-28** | §9 routing table |
+| BD-9 | **Implementation proxy.** *Intent:* the customer was not attended. *Proxy:* no attendance record from the contractor. *Reason:* attendance is the only source captured today. *Limitation:* data of known imperfect quality. *Owner:* GM Field Operations. *Review trigger:* DEP-001 reaching Met | §8 phasing; §10 DEP-001 and R-115 |
+| BD-6 | **Not yet applicable.** There are no scenarios, and the rules they would validate are undecided. *Consider:* requesting them with the decisions above, since scenarios written after the build tend to describe what was built | — |
+| BD-10 | **Met.** Each constraint is stated once, in §10, and cited elsewhere by its source | §10; § *State it once* |
+
+**Acceptance derivability.** BR-2, BR-3 and BO-5 are derivable from what this document and its
+sources state. Three are not:
+
+| Requirement | Decision required | Owner | Proving scenario |
+|---|---|---|---|
+| BR-1, BO-2 | Which events constitute a missed appointment, and from which event does the two-cycle window run? | Regulatory Affairs | A technician arrives 40 minutes after the window closes and completes the job |
+| BR-1 | Does a missed rebooking attract a second credit? | Regulatory Affairs | An appointment is missed, rebooked, and missed again |
+| BR-4 | What makes a rebate position "genuinely disputed" rather than a request for an owed credit? It depends on the first decision | Regulatory Affairs | A customer contacts Acme about a rebate the determination has not yet issued |
+| BO-4 | How is unclaimed exposure defined and measured? | Regulatory Affairs | — none can be written until the measure exists |
+
+**What the first decision reaches**, as an example of the form:
+
+```
+Gap:                        What counts as a missed appointment
+Kind:                       Unresolved business decision
+Owner · Target date:        Regulatory Affairs · 2026-08-28
+Objectives affected:        BO-1, BO-2
+Rules affected:             Rebate eligibility, referred at ORD development as REF-01
+Downstream requirements:    BR-1, BR-4; ORD-03 and ORD-15 once written
+Acceptance criteria:        Blocked for BR-1 and BR-4
+Testing:                    The partial-attendance and late-arrival scenarios
+Other known impact:         None recorded
+```
+
+> **Outcome: Conditionally ready — unresolved business decisions.** Four decisions — the missed-appointment
+> definition, the window's start, the rebooking precedence and BO-4's measure — each with Regulatory
+> Affairs and a date, and two items of missing information, each owned. Nothing material is unowned.
+>
+> **The readiness projection.**
+>
+> ```
+> BRD readiness   Contested — the cl. 14.3 and 14.5 decisions interpret a binding contract
+> Stakeholders    8 counted, all engaged · 21 departments asked
+>                 3 roles named elsewhere and absent from §5 → M, or L if they are added
+> Allocation      60%, no convenor leave in the window
+> Lead time       29 (M) – 44 (L) business days · upper bound open: regulatory interpretation
+> Modifiers       S5 — Regulatory Affairs limited until 2026-08-14 → workshop no earlier than 2026-08-21
+>                 Unowned notification service → range widens one size, already M–L
+> Against date    24 available business days → R = 0.83 → Tier B† (M) · R = 0.55 → Tier D (L)
+> Confidence      Low — B† with S5 → planning tier C
+> ```
+>
+> **Read it from the top.** The three clause decisions make the rule set contested, so the contested
+> §4.1 table applies, and at 60% a Medium change takes 29 business days. Every indicator in
+> Appendix A reads Medium; the three roles missing from §5 would take the stakeholder count to 11,
+> which is Large, and so does the unowned system, so the lead time is a range rather than a figure.
+> The 24 available days are counted on the jurisdiction's calendar with public holidays excluded.
+> Against 29, R sits less than 0.05 above the B floor, and every decision rests on one stakeholder
+> whose availability is limited: a `†` with a slip is **Low** confidence, so the planning tier is
+> **C** and B is the optimistic case.
+>
+> At Low confidence the review drafts the RAID entries before it is complete:
+>
+> | Draft | Type | Entry | Owner | Needed by |
+> |---|---|---|---|---|
+> | 1 | Decision | What constitutes a missed appointment under cl. 14.3 | Regulatory Affairs | 2026-08-28 |
+> | 2 | Decision | Whether the cl. 14.3 window runs from the appointment or its confirmation — ASM-002, with R-114 | Regulatory Affairs | 2026-08-15 |
+> | 3 | Decision | Whether a missed rebooking attracts a second credit under cl. 14.3 and 14.5 | Regulatory Affairs | 2026-08-28 |
+> | 4 | Decision | How the unclaimed-rebate exposure under BO-4 is defined and measured | Regulatory Affairs | 2026-08-15 |
+> | 5 | Risk | All four decisions, and the contested lead time, rest on one stakeholder with limited availability until 2026-08-14 | Chief Customer Officer | At assignment |
+>
+> *Recommended:* take the three clause decisions to Regulatory Affairs before the decision workshop, since
+> both of the ORD's KPPs rest on them. *Consider:* asking the sponsor whether a second Regulatory
+> Affairs contact can carry them during quarterly reporting, and either adding the three roles
+> missing from §5 or recording why each is consulted on one item only — the answer decides the size.
+>
+> **What happened next.** The worked example ORD reached Tier B, the optimistic case.
+> The three missing roles were each consulted on their one item and the change was run as
+> Medium. The decisions did not close by their dates: they became REF-01 on the
+> traceability matrix, still open after nine weeks with four of seven rule areas
+> agreed. That is the contested rule set this review identified on day one, running past handoff as
+> ORD Intake and Maturity Standard §4.8 expects.
+
 ---
 
-*Standard of record: BABOK v3. Companion pages: the [ORD Intake and Maturity Standard](#purpose)
-for operational demand, the [worked example ORD](#example) for what BRD-2026-041's objectives become
-as tolerances, the [traceability matrix](#traceability) for the chain end to end, and the
-[PRD standard](#prd) for the functional half — defined, and not adopted in this chain.*
+*Standard of record: BABOK v3. Companion pages: the ORD Intake and Maturity Standard
+for operational demand, the worked example ORD for what BRD-2026-041's objectives become
+as tolerances, the traceability matrix for the chain end to end, and the
+PRD standard for the functional half — defined, and not adopted in this chain.*
 
 ---
 

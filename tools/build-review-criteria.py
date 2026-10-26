@@ -154,8 +154,18 @@ def slice_section(text: str, start: str, end) -> str:
 SPECS: dict[str, list[tuple[str, str | None, object]]] = {
     "review-brd": [
         ("brd-standard.md", "## The handoff gate — is this BRD ready", "## Worked example"),
-        ("brd-standard.md", "### The handoff gate, applied to this document", TO_RULE),
+        ("brd-standard.md", "### The stakeholder register, and the approving GM register",
+         "### The stakeholder requirement form"),
+        ("brd-standard.md", "### The handoff gate, applied to this document",
+         "### Business definition readiness, applied to this document"),
+        ("brd-standard.md", "### Business definition readiness, applied to this document", TO_RULE),
         ("traceability-matrix.md", "## The five checks a matrix makes visible", None),
+        # The readiness projection reads its figures from the ORD Intake Standard rather
+        # than restating them, so the review ships the sections it reads.
+        ("ord-intake-standard.md", "### 3.2 The scheduling arithmetic", "### 3.3 Recording"),
+        ("ord-intake-standard.md", "### 4.1 Lead time — size and allocation",
+         "### 4.4 What drives elapsed time"),
+        ("ord-intake-standard.md", "## 4.7 Maturity against a fixed date", "## 4.8 Maturity"),
     ],
     "write-brd": [
         ("brd-standard.md", None, None),
@@ -213,6 +223,49 @@ it and the pack disagree, the pack is right and this file is stale.
 """
 
 
+# The pack links between its pages by wiki anchor (`[text](#brd)`), which resolves only in the
+# pack's own wiki build. In a shipped extract it points nowhere, so each link becomes plain text
+# naming the page. An anchor missing from this map fails the build: a new page the generator does
+# not know would otherwise ship as a dead link nobody notices.
+ORD_STANDARD = "ORD Intake and Maturity Standard"
+ANCHOR_PAGES: dict[str, str] = {
+    **{anchor: ORD_STANDARD for anchor in (
+        "purpose", "roles", "entry", "leadtime", "maturity", "status",
+        "writeback", "handoff", "controls", "limitations")},
+    "brd": "BRD standard",
+    "prd": "PRD standard",
+    "traceability": "traceability matrix",
+    "example": "worked example ORD",
+    "kpp": "KPP identification guide",
+    "nine": "nine characteristics quick reference",
+    "sectionmap": "requirement-to-section map",
+    "expectations": "What to expect from an ORD",
+    "briefing": "management briefing",
+    "glossary": "glossary",
+}
+ANCHOR_LINK = re.compile(r"\[([^\]]+)\]\(#([a-z0-9-]+)\)")
+
+
+def delink(text: str) -> str:
+    """Rewrite each pack wiki link as plain text naming the page it pointed to."""
+
+    def replace(match: re.Match) -> str:
+        label, anchor = match.group(1), match.group(2)
+        page = ANCHOR_PAGES.get(anchor)
+        if page is None:
+            raise SystemExit(
+                f"FAIL: unknown pack anchor #{anchor} in link [{label}].\n"
+                "Add it to ANCHOR_PAGES with the page it names, rather than shipping a dead link."
+            )
+        if label.startswith("§"):
+            return f"{page} {label}"
+        if page.lower() in label.lower() or label.lower() in page.lower():
+            return label
+        return f"{label} ({page})"
+
+    return ANCHOR_LINK.sub(replace, text)
+
+
 def build_body(reference: Path) -> dict[str, str]:
     """Assemble each skill's extract body (everything below the preamble)."""
     out: dict[str, str] = {}
@@ -224,6 +277,7 @@ def build_body(reference: Path) -> dict[str, str]:
                 raise SystemExit(f"FAIL: source not found: {source}")
             text = source.read_text(encoding="utf-8")
             body = text.rstrip() + "\n" if start is None else slice_section(text, start, end)
+            body = delink(body)
             chunks.append(f"<!-- from reference/{filename} -->\n\n{body}")
         out[skill] = "\n---\n\n".join(chunks)
     return out

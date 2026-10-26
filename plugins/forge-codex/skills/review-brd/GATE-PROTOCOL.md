@@ -50,7 +50,7 @@ actually uses. Use these words exactly; a fifth verdict is a sign the treatment 
 | **Absent** | Nothing at all, or `[TBD]` missing the owner, the date, or both. A hole, not a gap |
 
 **The propagation rule is part of the verdict, not a footnote.** A declared gap that passes the bar
-and then disappears is worse than a refusal, because it looks like a pass. Every *Met, with a
+and then disappears is worse than a not-ready outcome, because it looks like a pass. Every *Met, with a
 declared gap* verdict names where the gap must reappear downstream — the empty traceability row, the
 unanswered objective — and a review that cannot name that has not finished the verdict.
 
@@ -72,26 +72,26 @@ The outcome follows from the verdicts. Test in this order and stop at the first 
 
 | Order | Condition | Outcome |
 |---|---|---|
-| 1 | Any **bar** item is *Absent* | The refusal outcome — *Not accepted for ORD development* / *Not ready for handoff* |
+| 1 | Any **bar** item is *Absent* | The not-ready outcome — *Not yet ready for ORD development* / *Not ready for handoff* |
 | 2 | Any item, bar or supporting, is an *Unowned gap* | The unowned-gap outcome |
 | 3 | Any item is outstanding with an owner and a date, or carries a declared gap | The recorded-gaps outcome |
 | 4 | Otherwise | The clean outcome — *Accepted* / *Ready for handoff* |
 
-**This order is the pack's, not this file's.** Both gates state the precedence — the refusal first,
+**This order is the pack's, not this file's.** Both gates state the precedence — not ready first,
 then the unowned gap, then recorded gaps — and both state that the recorded-gaps outcome covers a
 declared gap wherever it sits, **including on the bar**. Read those two statements at the gate rather
 than trusting this table; where they disagree with it, they win and this file is the defect.
 
-## Refusal and authority
+## Not yet ready, and authority
 
-The refusal outcome is the one outcome in the pack that requires authority: the Tier 1 control
+The not-ready outcome is the one outcome in the pack that requires authority: the Tier 1 control
 *"right to declare an ORD not-ready and refuse handoff"* at §8, which the standard states is **not
 currently held**.
 
-Where that right is not held, report the refusal as **recorded rather than exercised**: name the
+Where that right is not held, report the not-ready finding as **recorded rather than exercised**: name the
 absent bar items, state that the document proceeds, and state that the accumulation of these records
 across cycles is the evidence for establishing the control. A gate that implies an authority nobody
-holds is theatre; a refusal that was warranted, declared and overridden is the argument for the
+holds is theatre; a not-ready finding that was warranted, declared and overridden is the argument for the
 control.
 
 ## Report format
@@ -111,13 +111,45 @@ control.
 
 > **[Outcome name].** [The verdicts that forced it, by the derivation order above.]
 > [Where a declared gap passed the bar: where it must reappear downstream.]
-> [Where the outcome is a refusal: the authority note above.]
+> [Where the outcome is not ready: the authority note above.]
 
-### The five checks
+### The checks
 
 | Check | Finding |
 |---|---|
 | Baseline gap | [answered, or *not answerable at this hop* with the reason] |
+| Rule coverage gap | [the three rule-level scans likewise] |
+
+### Business definition — BRD only
+
+**Kind of change:** [enhancement / new capability / new measure, and what that means here]
+
+| # | Finding | Evidence |
+|---|---|---|
+| BD-1 | [finding, *Met*, or *not applicable* with the reason] | [section or row] |
+
+> **[Business definition outcome].** [The unresolved decisions that forced it, each with its owner
+> and date or *Unowned*.]
+
+[For each material gap: the pack's *what a gap reaches* block.]
+
+### Acceptance derivability — BRD only
+
+[One *Not safely derivable* record per blocked criterion, in the pack's form. Then one line naming
+the requirements that are derivable.]
+
+### Readiness projection — BRD only
+
+~~~
+[The pack's projection block, filled — or the missing input named and the projection stopped.]
+~~~
+
+[At Low confidence: the drafted RAID entries, as a table. Drafted, not raised.]
+
+### Recommended actions
+
+- *Recommended:* [an action the findings support, and who would take it]
+- *Consider:* [an action worth weighing]
 
 ### Language (advisory)
 
@@ -145,10 +177,11 @@ for the gate by that item. The language pass only names it.
 **It never blocks the gate.** Where the language standard cannot be read, emit the gate report and
 write under *Language (advisory)* that the pass did not run, and why.
 
-## The five checks
+## The checks
 
 Read from `reference/traceability-matrix.md` at review time — baseline, coverage, conformance,
-translation and verifiability gaps. Answer each, or mark it not-yet-answerable at this hop with the
+translation and verifiability gaps, and the three scans where business rules carry the outcome: rule
+coverage, decision preservation and scenario coverage. Answer each, or mark it not-yet-answerable at this hop with the
 reason. A check reported clean because it could not be run is worse than one reported unanswerable.
 
 ---
@@ -160,3 +193,5 @@ reason. A check reported clean because it could not be run is worse than one rep
 - Never report a check clean that could not be run at this hop.
 - Never let a language finding change a verdict, the outcome or the tier.
 - Never let a declared gap pass without naming where it reappears downstream.
+- Never state a recommendation as an instruction. The review recommends; the author and the
+  approvers decide. *Recommended:* and *Consider:*, never *must*, *reject* or *return*.

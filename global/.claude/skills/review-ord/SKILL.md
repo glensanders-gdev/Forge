@@ -143,7 +143,7 @@ from gaps, and each of the five checks is answered or explicitly marked not-yet-
 | One of the three desk references is unavailable | Answer its question from the standard itself and record which reference was missing. Never leave the question unanswered because its shortcut was absent |
 | A check from `reference/traceability-matrix.md` cannot be answered at this hop | Mark it *not answerable at this hop* with the reason. A check reported clean because it could not be run is worse than one reported unanswerable |
 | The language standard cannot be read | Emit the gate report anyway, and record under *Language (advisory)* that the pass did not run. The language pass never blocks the gate |
-| The outcome is the refusal | Apply [GATE-PROTOCOL.md](../review-brd/GATE-PROTOCOL.md) § *Refusal and authority* before emitting. The right to declare an ORD not-ready and refuse handoff is not currently held, so the refusal is recorded rather than exercised — and the accumulation of those records is the argument for establishing the control |
+| The outcome is the refusal | Apply [GATE-PROTOCOL.md](../review-brd/GATE-PROTOCOL.md) § *Not yet ready, and authority* before emitting. The right to declare an ORD not-ready and refuse handoff is not currently held, so the refusal is recorded rather than exercised — and the accumulation of those records is the argument for establishing the control |
 
 ---
 
