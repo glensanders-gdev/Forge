@@ -11,6 +11,42 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
+## v4.27.0 — 2026-10-26
+
+**The requirements reviews carry pack v1.18: resourcing, missing SMEs, design support and the path to
+readiness.** Numbered 4.27.0 so it sits above the two open releases from the same base, 4.25.1 and
+4.26.0, whichever order they merge in.
+
+- **`$review-brd` 2.4.0:**
+  - Step 6 reads the **resourcing status**. A *Contended* allocation is read beside the next
+    allocation down, with S7. An *Unallocated* BRD, including one endorsed on a resourcing
+    condition, gets the lead time from allocation and the lowest allocation that meets the date,
+    instead of "the projection cannot be made".
+  - A department with **No SME nominated** is recorded at BH-5 by the `[TBD]` rule, counted toward
+    size, and leaves the upper bound open where its demand is on the critical path.
+  - New **Step 7, the path to readiness**: findings become activities stated as obtaining something,
+    with owner, date and what each moves, grouped before assignment, inside the ORD window and before
+    the SOAP; alternatives priced; stopping at the sufficient tier. The RAID drafts are its rows.
+  - A *Conditionally endorsed* BRD's content conditions are unresolved decisions. A resourcing
+    condition never makes the BRD *Contested*.
+- **`GATE-PROTOCOL.md`:** the projection section carries the resourcing line, and a BRD-only *Path
+  to readiness* section replaces recommended actions for BRD reviews.
+- **`$review-ord` 2.5.0:** verdicts **OH-16**, design support per business unit, read from the ORD's
+  header and never inferred from an approver. Sixteen items throughout. Its command stub also named
+  the supporting items as OH-8 to OH-13, two items out of date before this release; it now reads
+  OH-8 to OH-16.
+- **`$write-ord` 3.1.0:** the template header gains `Design support`, one entry per business unit,
+  read from the BRD's §6, with `[TBD]` and the unit's approving GM where nobody is committed. Never
+  filled from an approver or an actor row.
+- **`$write-brd` 1.4.5:** standard extract regenerated against pack v1.18.
+- **`tools/build-review-criteria.py`:** the review-brd extract also carries the BRD standard's
+  *Document control and the Doc ID*, where conditional endorsement is recorded.
+- **Copilot prompts:** both pinned to pack v1.18. `review-ord` gains OH-16. `review-brd` gains *No SME
+  nominated*, conditional endorsement and a path-to-readiness section in its report, and was
+  tightened elsewhere to stay inside Agent Builder's limit — 19,832 characters.
+
+---
+
 ## v4.26.0 — 2026-10-26
 
 **`$add-company` sets up the lead-time calendar that `$review-brd` reads.** `$review-brd` 2.3.0

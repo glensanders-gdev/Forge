@@ -1,7 +1,7 @@
 ---
 name: review-brd
 category: pipeline
-description: Assess a submitted BRD against the requirements-documents pack on three independent questions — the handoff gate (BH-1 to BH-10, the [TBD] rule, four outcomes), business definition readiness (BD-1 to BD-10, four outcomes) and acceptance derivability (the criteria that cannot yet be derived) — then project the ORD's lead time, tier and confidence from the BRD's condition. Returns per-item verdicts with evidence and mechanically derived outcomes, never resolving a business decision on the business's behalf. Criteria are read from the pack at review time, never recalled. Use when a BRD arrives for ORD development, when /review-brd is run, or before ORD work is assigned against a BRD.
+description: Assess a submitted BRD against the requirements-documents pack on three independent questions — the handoff gate (BH-1 to BH-10, the [TBD] rule, four outcomes), business definition readiness (BD-1 to BD-10, four outcomes) and acceptance derivability (the criteria that cannot yet be derived) — then project the ORD's lead time, tier and confidence from the BRD's condition and resourcing, and lay out the path to readiness. Returns per-item verdicts with evidence and mechanically derived outcomes, never resolving a business decision on the business's behalf. Criteria are read from the pack at review time, never recalled. Use when a BRD arrives for ORD development, when /review-brd is run, or before ORD work is assigned against a BRD.
 ---
 
 # BRD Review
@@ -39,9 +39,11 @@ Source them per [GATE-PROTOCOL.md](GATE-PROTOCOL.md) § *Sourcing the criteria* 
 where held, otherwise the stamped extract in [CRITERIA.md](CRITERIA.md). Name the pack version in the
 report.
 
-Read in full, from the BRD standard: § *The handoff gate* with its `[TBD]` treatment, bar, supporting
-items and four outcomes; § *Business definition readiness* with every subsection; § *The stakeholder
-register, and the approving GM register*, which carries the department list; and both worked
+Read in full, from the BRD standard: § *Document control and the Doc ID*, which carries any
+conditions of endorsement; § *The handoff gate* with its `[TBD]` treatment, bar, supporting items and
+four outcomes; § *Business definition readiness* with every subsection, including *The readiness
+projection* and *The path to readiness*; § *The stakeholder register, and the approving GM register*,
+which carries the department list, *No SME nominated* and design support; and both worked
 assessments — § *The handoff gate, applied to this document* and § *Business definition readiness,
 applied to this document*. From the ORD Intake Standard: §3.2, §4.1 – §4.3 and §4.7, which the
 readiness projection reads its figures from.
@@ -90,7 +92,9 @@ answered or explicitly marked not answerable at this hop.
 Apply § *Business definition readiness* from the BRD standard:
 
 1. **Name the kind of change** — enhancement, new capability or new measure — and, for a new measure,
-   apply the standard's answer on whether ORD development can proceed while it is undefined.
+   apply the standard's answer on whether ORD development can proceed while it is undefined. Where
+   the BRD is *Conditionally endorsed*, treat each **content** condition as an unresolved business
+   decision; a **resourcing** condition belongs to Step 6, never here.
 2. **Decide whether BD-1 – BD-10 apply.** Where no outcome turns on material business logic, say so
    once, and the outcome is *Ready*.
 3. **Apply BD-1 – BD-10**, running the two-reader test over each material stakeholder requirement to
@@ -126,29 +130,49 @@ Standard rather than estimating:
    *Not ready* ends the projection at Tier D.
 2. **Size** — the highest band any §4.1 indicator reaches. Count the stakeholders after checking the
    BRD's answers against the department list, and report any department not asked.
-3. **Allocation** — ask for it if the BRD or the request does not state it. **Never assume full
-   allocation.** Take the convenor's leave in the window off capacity.
-4. **Modifiers** — apply each that is present, with its source.
+3. **Resourcing status and allocation** — *Allocated*, *Contended* or *Unallocated*, by the
+   standard's conditions. Ask for the allocation if the BRD or the request does not state it, and
+   **never assume full allocation.** Take the convenor's leave in the window off capacity.
+   - *Contended*: read the cell at the stated allocation and the next allocation down, and count S7.
+   - *Unallocated*, including a BRD endorsed on a resourcing condition: give the lead time from the
+     day of allocation at each allocation in the §4.1 row, and, for a stated allocation day, the
+     lowest allocation that meets the fixed date — or say none does, and what would have to move.
+4. **Modifiers** — apply each that is present, with its source, including a department with **No
+   SME nominated**: no upper bound where its demand is on the critical path, S6 where it is not.
 5. **Available business days** — count from assignment to the fixed date on the jurisdiction's
    calendar. Where no calendar is held, ask the user for the
    jurisdiction's published holidays in the window. **Never recall a holiday date.**
 6. **Tier and confidence** — R, the tier and its `†` by §4.7.2, and confidence by §4.7.4.
 
-**At Low confidence, draft the RAID entries** the standard requires — a Decision for each unresolved
-business decision and a Risk for each slip present. Draft them; never raise them. At High or
-Conditional confidence, say drafting them is recommended.
+**Completion:** the projection block is filled, including its resourcing line. Without a fixed date
+it gives the lead time and states that no tier can be read; *Unallocated* still gives its answer.
 
-**Completion:** the projection block is filled, or the report states which input is missing and
-stops the projection there.
+## Step 7 — Lay out the path to readiness
 
-## Step 7 — Run the language pass
+Apply § *The path to readiness* from the BRD standard. Turn every finding from Steps 2–6 into an
+activity with an owner, a needed-by date and what it moves, grouped before assignment, inside the
+ORD window, and before the SOAP is drafted — each unit's design support sits in the last group.
+
+- **State each activity as obtaining something**, never as its answer.
+- **Where two activities move the same thing, show both with their price**, and name what does not
+  help where it is the remedy most likely to be reached for.
+- **Stop at the sufficient tier** for the fixed date's milestone. Where it is already met, say so.
+- **The RAID drafts are the path's rows** the RAID log can hold: Decisions, Risks for slips and for
+  units with no design support, Actions for nominations and allocation. At Low confidence they are
+  drafted before the report is complete; at High or Conditional, say drafting them is recommended.
+  Draft them; never raise them.
+
+**Completion:** every finding that has a remedy is a row, the rows are ordered, and the path ends at
+the sufficient tier or states that it has none to reach.
+
+## Step 8 — Run the language pass
 
 Run the language pass in [GATE-PROTOCOL.md](GATE-PROTOCOL.md) § *The language pass* over the BRD.
 
 **Completion:** the `/review-language` report is in hand, or the reason it could not run is
 recorded.
 
-## Step 8 — Report
+## Step 9 — Report
 
 Emit the report in [GATE-PROTOCOL.md](GATE-PROTOCOL.md)'s output format, then ask whether to work
 through the findings. Where the gate outcome is *Not yet ready for ORD development*, apply the
@@ -177,7 +201,12 @@ protocol's § *Not yet ready, and authority* before emitting it. State every rec
 | Two authoritative sources conflict | Surface the conflict with both sources cited. Never select one |
 | An acceptance criterion would need a rule the sources do not state | Record it as *Not safely derivable*. Never write a plausible rule to make the criterion testable |
 | No business logic is at stake | Say so once; the business definition outcome is *Ready*. Never apply BD-1 – BD-10 item by item to a document they do not reach |
-| The allocation or the fixed date is not known | Report the readiness rating and the size, state that the projection cannot be made, and name the missing input. Never assume full allocation or a date |
+| No allocation is known | The resourcing status is *Unallocated*. Give the lead time from allocation and the lowest allocation that meets the date. Never assume full allocation, and never answer only that the projection cannot be made |
+| The fixed date is not known | Give the readiness rating, the size and the lead time, and state that no tier can be read. Never assume a date |
+| The BRD is *Conditionally endorsed* | Read each condition by its kind. A content condition is an unresolved decision; a resourcing condition sets the resourcing status. **Never rate a BRD *Contested* because nobody is allocated** — that rating means a rule is in dispute |
+| An affected department has no SME nominated | Record it at BH-5 by the `[TBD]` rule — a declared gap where someone will nominate by a date, an unowned gap where nobody will — and count it toward size. Never infer who the SME is |
+| A business unit has no design support committed | Record it, carry it to the path's before-SOAP group with a drafted Risk, and leave the BRD gate verdicts unchanged. It is checked at the ORD gate as OH-16 |
+| The path would argue for a tier above the sufficient one | Stop at the sufficient tier and say so. Never list activities that only reach a tier the milestone does not need |
 | No holiday calendar is held for the jurisdiction | Ask the user for the published holidays in the window. Where none is supplied, count weekdays only and say in the projection that public holidays are not excluded. Never recall a holiday date |
 | The BRD's §5 has no `Engagement` column, or Appendix A no `Impact basis`, because it predates pack v1.17 | Read every stakeholder as *engagement not recorded* and every impact as *basis not recorded*, and say so. Never infer that a stakeholder was engaged |
 | Departments were not asked | Report them, and project a range up to the next size's row. Never assume *none found* |
@@ -199,6 +228,7 @@ protocol's § *Not yet ready, and authority* before emitting it. State every rec
   questions are independent.
 - **Never assume full allocation, and never recall a holiday date.**
 - **Never raise a RAID entry.** Draft it; the author or convenor raises it.
+- **Never state a path activity as its answer.** *Obtain the decision on…*, never *Define it as…*.
 - Report an assessment; the sign-off is the author's and the approvers'. This skill declares.
 - Where the standard and this skill disagree, the standard wins — and say so in the report, because
   a disagreement is a defect in this skill.

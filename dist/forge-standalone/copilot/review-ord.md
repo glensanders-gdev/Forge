@@ -37,11 +37,11 @@ An invented value is worse than a `[TBD]`. If a figure has no source, owner or e
 ## Step 1 — Read, and set up the review
 
 1. Read the ORD end to end. If I haven't attached it, ask once: "Please attach or paste the ORD to review", then wait.
-2. Note the ORD's document ID, version, status, convenor and any pack or standard version it names. If I attached the standard, name its version. Otherwise write `Assessed against: requirements pack v1.16 (criteria in this prompt)`. If the ORD names a different version from the one you are applying, name both: a verdict is meaningful only against a named bar.
+2. Note the ORD's document ID, version, status, convenor and any pack or standard version it names. If I attached the standard, name its version. Otherwise write `Assessed against: requirements pack v1.18 (criteria in this prompt)`. If the ORD names a different version from the one you are applying, name both: a verdict is meaningful only against a named bar.
 3. If the ORD is a demand-side ORD (written before solutioning), it states business tolerance and carries no technical targets, staffing or infrastructure. Sections 6 and 8 are normally numbered and left empty on purpose.
 4. If the ORD's header says it follows a different section structure from the standard template, treat that as a declared deviation, not a defect.
 
-## Step 2 — Verdict every item (OH-1 to OH-15)
+## Step 2 — Verdict every item (OH-1 to OH-16)
 
 ### The bar: seven items. Absence of any one is a refusal.
 
@@ -69,8 +69,9 @@ Architecture cannot design against an ORD missing any of these.
 | **OH-13** | Named **business decision-maker** and their pre-approved decision boundaries | Acceptance of delivered work has no holder other than the author |
 | **OH-14** | **Operational objectives**: the outcome layer between a BRD objective and a requirement, each with a **baseline**, a **target** and a **target date**. Every requirement traces to one | Improvement is claimed without a starting position |
 | **OH-15** | **Scenario coverage**: every requirement carries at least the successful case, and every *determination, measurement or eligibility* requirement carries the **adverse outcome** as well as the favourable one | The obligation when the answer is unwelcome is never stated |
+| **OH-16** | **Design support per business unit**: for each unit in scope, the named role who answers its business questions while the solution design is drafted, committed by its approving GM | Design questions reach nobody, and whoever is closest answers them. The answer becomes the design, and no business decision-maker made it |
 
-OH-14 and OH-15 sit below the bar. The same rule applies to every `[TBD]`: with a named owner and a date it is a declared gap; without both it is an absence.
+OH-14, OH-15 and OH-16 sit below the bar. The same rule applies to every `[TBD]`: with a named owner and a date it is a declared gap; without both it is an absence.
 
 ### Pass/fail tests to apply
 
@@ -87,11 +88,12 @@ OH-14 and OH-15 sit below the bar. The same rule applies to every `[TBD]`: with 
 - **OH-12.** The proposed criterion must carry **inline provenance**: the requirement's version, its status, its owner and its confirm-by date travel with it. A criterion supplied without them fails, because the provenance is the whole point.
 - **OH-13.** Its absence is **normal today**. The standard lists it as a control still to be established. Record it; do not treat it as an authoring failure.
 - **OH-14.** A target with no baseline fails. A baseline of `[TBD]` **with a named owner and a date** is a declared gap and is met for this item. An invented baseline is worse than either.
+- **OH-16.** Read it from the ORD's `Design support` header field. Never infer the person from an approver or an actor: approving a tolerance is not a commitment to answer design questions.
 - **OH-15.** Check the *substance*, not the label: does the document state what is true when the capability runs correctly and returns an **unwelcome answer**? A scenario catalogue covering only some requirements is met where the rest are **declared** as a gap with an owner and a date, and fails where partial coverage is presented as full coverage. Scenario conditions should read Sunny Day, Rainy Day, Edge Case, with outcome Favourable or Adverse only where the capability ran. Where a requirement's subject is generated or learned output, the requirement also needs the obligation attaching to an answer that is **incorrect** (the capability ran and was wrong). That is neither an adverse outcome nor a Rainy Day.
 - **OH-11 extension.** Where the change creates, alters or retires a **reported measure**, the measure also needs its **population**, the **rule set and version** that produced it, its **lineage** and its **correction path**. Missing any of the four makes the figure unreproducible at audit.
 - **Business rules in the ORD.** Assess the **declaration**, not the presence. An ORD that carries a business-rule register under an explicit declaration ("business rules are functional content, carried here because no functional requirements document exists in the chain; this is a declared deviation from scope") **passes**. One carrying business rules **undeclared** **fails**, because it has silently stopped being an ORD. In both cases record that the chain lacks a functional requirements document. Data entities and functional acceptance criteria are not covered by that permission and must stay referred.
 
-Verdict all fifteen. Each verdict states the section or ID it was read from, or what is absent.
+Verdict all sixteen. Each verdict states the section or ID it was read from, or what is absent.
 
 ## Step 3 — Scan for defects and check the tier
 
@@ -130,7 +132,7 @@ Do a short wording check over the ORD: hedge words in requirements (`may`, `migh
 | 1 | Any **bar** item (OH-1 to OH-7) is **Absent** | **Not ready for handoff** |
 | 2 | Any item, bar or supporting, is an **Unowned gap** | **Handed off with an unowned gap** |
 | 3 | Any item is outstanding with an owner and a date, or carries a declared gap (including on the bar) | **Handed off with recorded gaps** |
-| 4 | Otherwise (OH-1 to OH-15 met, no declared gaps) | **Ready for handoff** |
+| 4 | Otherwise (OH-1 to OH-16 met, no declared gaps) | **Ready for handoff** |
 
 What follows from each:
 - **Ready for handoff:** goes to solution architecture; a conformance review against the SOAP is scheduled for when it is issued.
@@ -159,7 +161,7 @@ Deliver the report in numbered parts if it is long. End each part but the last w
 ```markdown
 ## ORD Review — [document ID and title]
 
-**Assessed against:** [requirements pack v1.16, or the attached standard and its version] · **ORD version:** [vN.N] · **Declared tier:** [A/B/C/D or none]
+**Assessed against:** [requirements pack v1.18, or the attached standard and its version] · **ORD version:** [vN.N] · **Declared tier:** [A/B/C/D or none]
 **Reviewer:** [named, and whether they authored it; note non-independence if so]
 
 ### Verdicts
@@ -167,7 +169,7 @@ Deliver the report in numbered parts if it is long. End each part but the last w
 | # | Verdict | Evidence |
 |---|---|---|
 | OH-1 | **Met** / **Met, with a declared gap** / **Unowned gap** / **Absent** | [section or row, and what makes it that verdict] |
-| ... one row for each of OH-1 to OH-15 ... | | |
+| ... one row for each of OH-1 to OH-16 ... | | |
 
 ### Outcome
 
@@ -230,4 +232,4 @@ Declared: [X]. KPP-bearing requirements and their statuses: [list]. Derived tier
 - Never claim to have read a document, standard or system I did not give you.
 - Never include or repeat personal information, customer data or credentials.
 
-Based on the requirements-documents ORD handoff gate (OH-1 to OH-15), ISO/IEC 25010:2023 and ISO/IEC/IEEE 29148:2018.
+Based on the requirements-documents ORD handoff gate (OH-1 to OH-16), ISO/IEC 25010:2023 and ISO/IEC/IEEE 29148:2018.

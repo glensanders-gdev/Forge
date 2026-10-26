@@ -124,7 +124,8 @@ assumption with an owner and a confirm-by date, or a decision item.
    operational process runs through, each with its role and owner. `Kind` is `User` / `System` /
    `Party`; `Party` is the subject a cross-party consequence names. No ID — the actor name is the
    key. **Governance roles are not actors**: the SME who informed the document and the business
-   owner who approves it go to the header and to E2/E3. Where no stakeholder list arrived, `Owner`
+   owner who approves it go to the header and to E2/E3, and the role committed to answer a unit's
+   business questions during design goes to the header's `Design support`. Where no stakeholder list arrived, `Owner`
    carries `[TBD]` with a confirm-by date per actor.
 9. **Extract referred requirements** (`REF-NNN`) — content raised during elicitation that this ORD
    will not deliver: functional detail, staffing, training, policy, commercial or process-design
@@ -373,6 +374,10 @@ Runs after the human confirms the Phase 1 summary. Writes the ORD using the temp
     as **orphan scope**, and any BRD objective with no resulting register row as a **coverage gap**.
     Do not silently resolve either.
 12. **State the document tier** in the header — the weakest `Status` on any KPP-bearing requirement.
+    **State design support** in the header too: one entry per business unit in scope, read from the
+    BRD's §6 `Design support` column where it carries one. A unit with nobody committed is
+    `[TBD]` with its approving GM as owner and a date before SOAP drafting. The pack checks it at
+    handoff as OH-16.
 13. **Write §1 Executive Summary last**, from the register that exists: the problem, the outcome,
     what is changing, what is not changing, and the major unresolved decisions with their owners. It
     cites IDs and restates no value a row carries.
@@ -470,6 +475,8 @@ how the two drift. The rules below are write-ord's own.
 - Never assume a reporting platform already holds a new attribute, dimension or data element.
 - Never put dependencies, related initiatives, referred requirements and out-of-scope items in one
   table — each has its own register and test.
+- Never fill `Design support` from an approver or an actor row. Approving a unit's tolerance is not a
+  commitment to answer architecture's questions, and an inferred name is the failure OH-16 exists to catch.
 - Never reword or drop the header's `**Structure:** write-ord 3.x` marker line — `/review-ord`
   matches it verbatim to read the document against the 3.x section map.
 - Never reword the §5.2 definitions — copy them verbatim from `tables.md`. Never record a descoped

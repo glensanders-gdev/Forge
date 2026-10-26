@@ -5,8 +5,8 @@
 > everything below. Editing this file puts it out of step with the pack; regenerate
 > instead.
 
-**Pack version:** v1.17 · **Pack commit:** `5058139f23e6`
-**Generated:** 2026-10-26 · **Content hash:** `488c51ac7d6740e8`
+**Pack version:** v1.18 · **Pack commit:** `abeeb26a9ad4`
+**Generated:** 2026-10-26 · **Content hash:** `320df7aa0e200d14`
 
 **Quote the version in every review this extract is used for.**
 A reader needs to know which revision was applied — a verdict, and a document
@@ -57,8 +57,9 @@ Architecture cannot design against a document missing any of these.
 | **OH-13** | Named **business decision-maker** and their pre-approved decision boundaries | Acceptance of delivered work has no holder other than the author. **This is a Tier 1 control at §8, listed there as one to be established** — its absence is normal today and is recorded rather than treated as an authoring failure |
 | **OH-14** | **Operational objectives** — the outcome layer between a BRD objective and a requirement, each carrying a **baseline**, a **target** and a **target date**. Every requirement traces to one | Improvement is claimed without a starting position. A target with no baseline cannot be shown to have been met, and the ORD's requirements trace to an intent rather than to a measurable outcome |
 | **OH-15** | **Scenario coverage** — every requirement carrying at least the successful case, and every *determination, measurement or eligibility* requirement carrying the **adverse outcome** as well as the favourable one | The obligation when the answer is unfavourable is never stated. The capability runs correctly, returns bad news, and nobody specified what happens next — the most common blind spot in a measurement change |
+| **OH-16** | **Design support per business unit** — for each unit in scope, the named role who answers that unit's business questions while the SOAP is drafted, committed by its approving GM | Architecture's questions about what a rule means or which reading the business intends reach nobody, and are answered by whoever is closest. The answer becomes the design, and no business decision-maker made it |
 
-**OH-14 and OH-15 are supporting items, not bar items.** Architecture demonstrably designs without
+**OH-14, OH-15 and OH-16 are supporting items, not bar items.** Architecture demonstrably designs without
 either: an objective's baseline and a requirement's adverse-outcome obligation both matter to whether
 the change *achieves* anything, not to whether the SOAP can be written. They sit below the bar under
 the same rule that put the other six there, and the same rule governs them — a `[TBD]` with a named
@@ -83,7 +84,7 @@ is unreproducible at audit, which is the point at which somebody asks.
 
 | Outcome | Condition | What follows |
 |---|---|---|
-| **Ready for handoff** | OH-1 – OH-15 met, no declared gaps | Handed to solution architecture. §6.3 conformance review scheduled against E7 |
+| **Ready for handoff** | OH-1 – OH-16 met, no declared gaps | Handed to solution architecture. §6.3 conformance review scheduled against E7 |
 | **Handed off with recorded gaps** | OH-1 – OH-7 met; one or more items outstanding, **each with a named owner and a date** — a declared gap on a bar item, a supporting item outstanding, or both | Handed off. The gaps are recorded under §3.3 and are reflected in the committed maturity tier where they reach a KPP-bearing requirement |
 | **Handed off with an unowned gap** | OH-1 – OH-7 met; an outstanding item has **no owner to carry it** | Handed off. The item is recorded under §3.3 and **raised with the approving GMs at sign-off rather than referred, because a referral needs a recipient** (§7.2). It stays open until someone accepts it, and that it stayed open is the finding |
 | **Not ready for handoff** | Any of OH-1 – OH-7 absent | Handoff declared not-ready, with the absent items named |

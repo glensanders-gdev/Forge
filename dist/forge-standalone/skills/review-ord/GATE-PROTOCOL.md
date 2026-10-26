@@ -139,12 +139,23 @@ the requirements that are derivable.]
 ### Readiness projection — BRD only
 
 ~~~
-[The pack's projection block, filled — or the missing input named and the projection stopped.]
+[The pack's projection block, filled, with its resourcing line. Unallocated: the lead time from
+allocation at each allocation, and the lowest allocation that meets the date.]
 ~~~
 
-[At Low confidence: the drafted RAID entries, as a table. Drafted, not raised.]
+### Path to readiness — BRD only
 
-### Recommended actions
+**Sufficient tier:** [the tier the fixed date's milestone needs, and the gap to it — or "met"]
+
+| # | Activity | Owner | Needed by | Moves |
+|---|---|---|---|---|
+| 1 | [Obtain …] | [named role] | [date, tied to the step it unblocks] | [what it changes, and by how much] |
+
+[Grouped before assignment, inside the ORD window, and before the SOAP. Alternatives priced side by
+side; what does not help, named. Then the drafted RAID entries — the path's rows the RAID log can
+hold. Drafted, not raised.]
+
+### Recommended actions — ORD only
 
 - *Recommended:* [an action the findings support, and who would take it]
 - *Consider:* [an action worth weighing]

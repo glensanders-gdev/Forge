@@ -1,6 +1,6 @@
 ---
 name: "review-ord"
-description: "Assess a submitted ORD against the published §7.1 handoff gate — OH-1 to OH-15, the four outcomes, the §7.3 refuse-to-produce scan and the §5 tier rule — returning a per-item verdict table with evidence and a mechanically derived outcome. Criteria are read from the requirements-documents pack at review time, never recalled. Use when an ORD is ready for solution architecture, when $review-ord is run, or before handoff is declared."
+description: "Assess a submitted ORD against the published §7.1 handoff gate — OH-1 to OH-16, the four outcomes, the §7.3 refuse-to-produce scan and the §5 tier rule — returning a per-item verdict table with evidence and a mechanically derived outcome. Criteria are read from the requirements-documents pack at review time, never recalled. Use when an ORD is ready for solution architecture, when $review-ord is run, or before handoff is declared."
 metadata:
   category: pipeline
   origin: Adapted from Glen Sanders (Forge / https://github.com/glensanders-gdev/Forge)
@@ -29,7 +29,7 @@ Source them per [GATE-PROTOCOL.md](../review-brd/GATE-PROTOCOL.md) § *Sourcing 
 live pack's `reference/` where held, otherwise the stamped extract in [CRITERIA.md](CRITERIA.md),
 which carries every file named below. Name the pack version in the report.
 
-Read in full: **§7.1** (the bar OH-1 – OH-7, the supporting items OH-8 – OH-15, the four outcomes,
+Read in full: **§7.1** (the bar OH-1 – OH-7, the supporting items OH-8 – OH-16, the four outcomes,
 and *What the ORD does not supply*), **§7.3**, **§5** with its tier rule, **§5.2** on KPPs, and
 **§2.1**. Read `reference/example-ORD.md` as the **worked reference implementation**.
 
@@ -43,13 +43,13 @@ Three desk references answer specific questions — read each when its question 
 `nine-characteristics-quickref.md` (the ISO/IEC 25010 set), `kpp-identification-guide.md` (is this
 genuinely a KPP).
 
-**Completion:** the standard and the ORD under review are both read end to end, and the fifteen
+**Completion:** the standard and the ORD under review are both read end to end, and the sixteen
 item definitions are in hand as written rather than as remembered.
 
 ## Step 2 — Verdict every item, with evidence
 
 Apply the verdict vocabulary and the evidence rule in
-[GATE-PROTOCOL.md](../review-brd/GATE-PROTOCOL.md) to each of OH-1 – OH-15.
+[GATE-PROTOCOL.md](../review-brd/GATE-PROTOCOL.md) to each of OH-1 – OH-16.
 
 ORD-specific criteria to apply while doing so, each defined in the standard rather than here:
 
@@ -76,13 +76,18 @@ ORD-specific criteria to apply while doing so, each defined in the standard rath
   unwelcome answer. A catalogue covering only some requirements is met where the remainder are
   **declared** as a gap with an owner and a date, and failed where partial coverage is presented as
   coverage.
+- **OH-16** — each business unit in scope names who answers its business questions while the SOAP
+  is drafted, committed by its approving GM. Read it from the header's `Design support` field, or
+  the BRD's §6 where the ORD predates the field. A unit with `[TBD]`, an owner and a date is a
+  declared gap; a unit with nobody is an absence. **Never infer the person from an approver or an
+  actor row** — approving a tolerance is not a commitment to answer design questions.
 - **Business rules present in the ORD** — assess the **declaration**, not the presence. §7.1
   *What the ORD does not supply* permits a carried rule register where the carry is declared as a
   deviation. Undeclared functional content fails; declared content passes (§13 carries the declaration) and is recorded as
   evidence that the chain lacks a functional requirements document. Data entities and functional
   acceptance criteria are not covered by that permission and stay referred.
 
-**Completion:** all fifteen carry a verdict, and every verdict cites the section or requirement ID
+**Completion:** all sixteen carry a verdict, and every verdict cites the section or requirement ID
 it was read from, or names precisely what is absent.
 
 ## Step 3 — Scan §7.3 for defects, and check the tier
@@ -135,7 +140,7 @@ from gaps, and each of the five checks is answered or explicitly marked not-yet-
 | The live pack and `CRITERIA.md` disagree | The pack wins and the extract is stale — say so in the report and regenerate with `tools/build-review-criteria.py`. Never prefer the extract because it is closer to hand |
 | The pack defines an item this skill does not name — an OH-16, or a renumbered §7.1 | Verdict every item the pack defines, and report the ones this skill does not name. The skill is the defect, not the document: where the standard and this skill disagree, the standard wins |
 | The reviewer authored the ORD | Run the review and record the non-independence in the *Reviewer* line. §8 names a reviewer *"who did not author it"* as its highest-value Tier 1 control and its absence as the cause of silent defect survival — an unmarked self-review is exactly the condition the record exists to make countable |
-| A BRD, PRD or SOAP is submitted to this gate | Stop and name the mismatch. OH-1 – OH-15 are the ORD's bar; applying them to a document written to a different one produces verdicts against a bar it was never authored to |
+| A BRD, PRD or SOAP is submitted to this gate | Stop and name the mismatch. OH-1 – OH-16 are the ORD's bar; applying them to a document written to a different one produces verdicts against a bar it was never authored to |
 | The ORD names a pack version other than the one being applied | Name both in the report. A verdict is meaningful only against a named bar, and an ORD authored to one revision assessed against another is a finding about the pair, not about the document |
 | The ORD carries no KPP-bearing requirement | §5's tier rule has no input. Report the declared tier as underivable and name the absence — never accept a declared tier by default, and never substitute the weakest status anywhere in the register, which is the substitution the rule exists to refuse |
 | A §7.3 item is present **and** the demand it displaced is absent | Report the defect under *Defects (§7.3)* and the absence under its own item's verdict. A §7.3 item is never a gap; folding it into the tier hides it |
@@ -152,7 +157,7 @@ from gaps, and each of the five checks is answered or explicitly marked not-yet-
 
 - **Never restate a criterion in this skill's own prose.** The pack is the source of truth, and
   `CRITERIA.md` is a generated extract of it — never a second copy to hand-edit.
-- **Never emit a score or a percentage** — fifteen verdicts and one of four outcomes.
+- **Never emit a score or a percentage** — sixteen verdicts and one of four outcomes.
 - **Never report a §7.3 item as a gap.** It is a defect, and folding it into the tier hides it.
 - Report an assessment; approval is the General Managers'. This skill declares.
 - Where the standard and this skill disagree, the standard wins — and say so in the report.

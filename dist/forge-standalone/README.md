@@ -77,7 +77,7 @@ that have no chat version.
 | [`/research`](skills/research/SKILL.md) | Cache findings from expensive exploration phases into topic-specific markdown files. Use when implementation would require repeated or costly explorat… |
 | [`/review-brd`](skills/review-brd/SKILL.md) | Assess a submitted BRD against the requirements-documents pack on three independent questions — the handoff gate (BH-1 to BH-10, the [TBD] rule, four… |
 | [`/review-language`](skills/review-language/SKILL.md) | Check the wording of a requirements document — BRD, PRD, ORD or AC — against the requirements language standard, including the modal and construction… |
-| [`/review-ord`](skills/review-ord/SKILL.md) | Assess a submitted ORD against the published §7.1 handoff gate — OH-1 to OH-15, the four outcomes, the §7.3 refuse-to-produce scan and the §5 tier rul… |
+| [`/review-ord`](skills/review-ord/SKILL.md) | Assess a submitted ORD against the published §7.1 handoff gate — OH-1 to OH-16, the four outcomes, the §7.3 refuse-to-produce scan and the §5 tier rul… |
 | [`/tdd`](skills/tdd/SKILL.md) | Test-driven development with red-green-refactor loop. Use when user wants to build features or fix bugs using TDD, mentions "red-green-refactor", want… |
 | [`/test-coverage`](skills/test-coverage/SKILL.md) | Analyze test coverage gaps in an existing codebase, identify under-covered files and functions, then generate missing tests to reach the project cover… |
 | [`/testplan`](skills/testplan/SKILL.md) | Design the testing strategy for a feature or a release — what to test, at what level, automated vs manual, and which behaviours are critical. Runs in… |
@@ -201,7 +201,7 @@ These files are generated, so edits made directly here are overwritten on the ne
 release. Open an issue describing what needs changing and it will be fixed upstream
 and republished.
 
-Release 4.26.0.
+Release 4.27.0.
 
 ## Credits
 

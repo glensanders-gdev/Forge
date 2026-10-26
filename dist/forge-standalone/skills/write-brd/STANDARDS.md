@@ -2180,12 +2180,23 @@ the requirements that are derivable.]
 ### Readiness projection — BRD only
 
 ~~~
-[The pack's projection block, filled — or the missing input named and the projection stopped.]
+[The pack's projection block, filled, with its resourcing line. Unallocated: the lead time from
+allocation at each allocation, and the lowest allocation that meets the date.]
 ~~~
 
-[At Low confidence: the drafted RAID entries, as a table. Drafted, not raised.]
+### Path to readiness — BRD only
 
-### Recommended actions
+**Sufficient tier:** [the tier the fixed date's milestone needs, and the gap to it — or "met"]
+
+| # | Activity | Owner | Needed by | Moves |
+|---|---|---|---|---|
+| 1 | [Obtain …] | [named role] | [date, tied to the step it unblocks] | [what it changes, and by how much] |
+
+[Grouped before assignment, inside the ORD window, and before the SOAP. Alternatives priced side by
+side; what does not help, named. Then the drafted RAID entries — the path's rows the RAID log can
+hold. Drafted, not raised.]
+
+### Recommended actions — ORD only
 
 - *Recommended:* [an action the findings support, and who would take it]
 - *Consider:* [an action worth weighing]
@@ -2245,8 +2256,8 @@ reason. A check reported clean because it could not be run is worse than one rep
 > everything below. Editing this file puts it out of step with the pack; regenerate
 > instead.
 
-**Pack version:** v1.17 · **Pack commit:** `5058139f23e6`
-**Generated:** 2026-10-26 · **Content hash:** `cbd71c7086e4ddd4`
+**Pack version:** v1.18 · **Pack commit:** `abeeb26a9ad4`
+**Generated:** 2026-10-26 · **Content hash:** `a4a683006b31bc80`
 
 **Quote the version in every BRD authored from this extract.**
 A reader needs to know which revision was applied — a verdict, and a document
@@ -2263,7 +2274,7 @@ it and the pack disagree, the pack is right and this file is stale.
 
 ## BRD Standard
 
-**Version:** 1.17 · **Last updated:** 2026-10-26 · **Status:** Approved at v1.13; the v1.17 additions are draft for review
+**Version:** 1.18 · **Last updated:** 2026-10-26 · **Status:** Approved at v1.13; the v1.17 and v1.18 additions are draft for review
 **Standard of record:** BABOK v3 · **Audience:** Business Analysts, Product Owners, Product
 Managers, Sponsors, Management
 
@@ -2461,7 +2472,7 @@ entry position record, the traceability matrix, the RAID entries raised from it,
 where the change is phased.
 
 ```
-**Doc ID:** BRD-YYYY-NNN · **Version:** N.N · **Status:** Draft / In review / Approved · **Priority:** P1–P4
+**Doc ID:** BRD-YYYY-NNN · **Version:** N.N · **Status:** Draft / In review / Conditionally endorsed / Approved · **Priority:** P1–P4
 **Executive sponsor:** [role] · **Author:** [name or role]
 **Horizon:** [FYnn Hn – FYnn Qn] · **Phase:** [n of m, or "single release"] · **Standard:** BABOK v3
 ```
@@ -2473,6 +2484,23 @@ where the change is phased.
 - **The ID is assigned at first draft, not at approval.** A document that acquires its identity only
   when it is signed cannot be cited by the RAID entries and the referred requirements raised while it
   was being written — which is exactly when they are raised.
+
+**A BRD can be endorsed before it is resourced, and then its conditions are part of it.** *Conditionally
+endorsed* means the sponsor has endorsed the document subject to stated conditions — most often that
+people are found to do the work. §1 lists each condition, with its kind, because the two kinds go to
+different places in the review:
+
+| Condition | Kind | Owner | Due |
+|---|---|---|---|
+| [the condition, as endorsed] | Content / Resourcing | [named role] | [date] |
+
+- **Content** — scope to settle, a rule to agree, funding tied to a decision. A content condition is
+  an unresolved business decision, and the review treats it as one under § *Business definition
+  readiness*.
+- **Resourcing** — people to be allocated or nominated. A resourcing condition sets the resourcing
+  status at § *The readiness projection*, and it never makes a rule contested: nobody being allocated
+  is not a dispute about the rules.
+- **A condition with no owner or no date is an absence**, under the same rule as any other `[TBD]`.
 
 #### The executive summary
 
@@ -2578,14 +2606,14 @@ becomes hard to find at exactly the moment sign-off is chased.
 
 | Stakeholder | Interest | Role | Engagement |
 |---|---|---|---|
-| [named role, or group where the group is the stakeholder] | [what they stand to gain or lose] | Sponsor / Consulted / Affected / Authors [downstream document] | Engaged / Not yet engaged / Unavailable until [date] |
+| [named role, or group where the group is the stakeholder] | [what they stand to gain or lose] | Sponsor / Consulted / Affected / Authors [downstream document] | Engaged / Not yet engaged / Unavailable until [date] / No SME nominated |
 
 **§6 — the approving GM register.** One row per business unit in scope, and the count of rows is
 checkable against §8's scope and Appendix A's owners.
 
-| Business unit in scope | Approving GM | Approves | Status |
-|---|---|---|---|
-| [unit, matching a §8 scope area] | [named GM] | The ORD's operational tolerance for this unit | Confirmed, or `[TBD]` carrying the owner who will confirm it and a date |
+| Business unit in scope | Approving GM | Approves | Status | Design support |
+|---|---|---|---|---|
+| [unit, matching a §8 scope area] | [named GM] | The ORD's operational tolerance for this unit | Confirmed, or `[TBD]` carrying the owner who will confirm it and a date | [named role who answers this unit's business questions while the SOAP is drafted], or `[TBD]` with an owner and a date |
 
 - **The BRD's sponsor is not automatically an approving GM, and often is not one.** The sponsor funds
   the change; the approving GM commits the unit that carries the operational consequence. Where the
@@ -2594,6 +2622,12 @@ checkable against §8's scope and Appendix A's owners.
   up. It is the case BH-6 exists to surface.
 - **Never infer an approver from an org chart.** An unconfirmed GM is `[TBD]` with the owner who will
   confirm it and a date, exactly as an unquantified objective is.
+- **`Design support` names who answers the unit's business questions after the ORD is handed off.**
+  Architecture drafts the SOAP against the ORD, and it will ask what a rule means, what an exception
+  is for, or which of two readings the business intends. A unit fully engaged for the ORD can be
+  absent at design time, and nothing upstream shows it until the questions go unanswered. The
+  commitment is the GM's to make, because it is their unit's time. Its absence does not change the
+  BRD gate; it is carried forward to the ORD's handoff gate as OH-16, and into the path to readiness.
 
 **`Engagement` records whether the stakeholder has actually been spoken to.** A BRD can be written
 from a brief before anyone in §5 has been engaged, and a register that lists a stakeholder reads the
@@ -2601,6 +2635,13 @@ same whether they were consulted or merely named. *Not yet engaged* is a valid e
 A stakeholder who is engaged but has limited availability before the fixed date says so, with the
 date, because it is a lead-time input at ORD Intake and Maturity Standard §4.7.4. Where a group is affected and is not
 consulted directly, say that in this column rather than leaving it empty.
+
+**`No SME nominated` is the case where a department is affected and nobody has been named for it.**
+It is not *Not yet engaged*, which implies someone to engage, and not *Unavailable until*, which needs
+a date. It is treated by the `[TBD]` rule like any other missing name: a row reading *No SME
+nominated* with the role who will nominate and a date is a **declared gap** at BH-5, and one with
+nobody to nominate is an **unowned gap**. Either way the department is counted toward size, because
+the demand it holds is real whether or not anyone is yet named to state it.
 
 **Stakeholders are elicited, not recalled — ask against each department.** The register is built by
 asking whether the change reaches each department below, and recording the answer, including *none
@@ -2637,7 +2678,8 @@ from the first day.
 - **A department is a prompt, not a stakeholder.** An affected department becomes a §5 row naming the
   role who holds its interest. Never add a row because the list names a department, and never infer
   the person from an org chart.
-- **A department affected and not yet engaged is still counted**, as *Not yet engaged*. Leaving it out
+- **A department affected and not yet engaged is still counted**, as *Not yet engaged* — or as *No
+  SME nominated* where nobody has been named for it. Leaving it out
   until someone has spoken to it undersizes the change by exactly the stakeholders most likely to be
   late.
 - **Departments not asked are reported** at the gate review, and they widen the lead-time projection
@@ -3148,9 +3190,21 @@ size is **the highest band any §4.1 indicator reaches**: business units, object
 and impacted workflows and systems from Appendix A. A change with few stakeholders and many systems
 is not small.
 
-**Step 3 — the allocation selects the column.** The allocation is E6, and the review asks for it
-rather than assuming full time. The person's leave in the window comes off capacity first
-(ORD Intake and Maturity Standard §4.3). Read the cell from the §4.1 table selected at step 1.
+**Step 3 — the resourcing status and the allocation select the column.** The allocation is E6, and
+the review asks for it rather than assuming full time. The person's leave in the window comes off
+capacity first (ORD Intake and Maturity Standard §4.3). What can be read depends on whether anyone is allocated at all:
+
+| Resourcing status | Condition | What the projection reads |
+|---|---|---|
+| **Allocated** | A named convenor at a confirmed allocation | The cell from the §4.1 table selected at step 1 |
+| **Contended** | A named convenor at a stated allocation that another program also claims | The cell at the stated allocation, **and** the cell at the next allocation down, with slip S7 counted (ORD Intake and Maturity Standard §4.7.4). The second figure is what the first becomes if the competing claim wins |
+| **Unallocated** | Nobody allocated yet — typically a BRD endorsed on a resourcing condition | **No date.** Instead, the lead time **from the day of allocation** at each allocation in the §4.1 row, and the **lowest allocation that meets the fixed date** if allocation happens by a stated day |
+
+**An *Unallocated* BRD still gets an answer.** "The projection cannot be made" is true and useless to
+a sponsor deciding what the condition is worth. The answer is the price of meeting it: *"Allocated by
+1 December, a Medium contested change needs at least 60% to meet the gate date; at 50% it takes 39
+business days and misses it."* Where no allocation in the row meets the date, say that, and say which
+of size, date or tier would have to move instead.
 
 **Step 4 — the modifiers move the result:**
 
@@ -3162,24 +3216,28 @@ rather than assuming full time. The person's leave in the window comes off capac
 | A department not asked | The lead time is reported as a range, up to the next size's row | §4.1, re-size trigger |
 | An unowned system or process in Appendix A | The impact count is uncertain: the range widens by one size | §4.1 |
 | A decision depends on legal or regulatory interpretation | **No upper bound.** "*29 business days; upper bound open*" | §4.2 |
+| A department with **No SME nominated** whose demand is on the critical path — it owns a decision, holds KPP-bearing demand, or owns a process in Appendix A | **No upper bound until someone is nominated**; then treat as S6 | §3.2 |
+| A department with **No SME nominated** off the critical path | S6 — **+5 business days** once someone is nominated, and the same booking cycle covers it | §3.2 |
+| The allocation is **Contended** (S7) | Report the next allocation down beside the stated one | §4.6 |
 | The person carries delivered ORDs | The figure is reported as a **ceiling**, because standing load is not yet deducted | §4.3 |
 
 **Step 5 — the date, the tier and the confidence.** Count the available business days from
 assignment to the fixed date on the jurisdiction's calendar (ORD Intake and Maturity Standard §4.7.1). Then R, the tier
 and its `†` follow from §4.7.2, and confidence — **High, Conditional or Low** — from
-ORD Intake and Maturity Standard §4.7.4, with its slips for SME availability (S5) and stakeholders not yet engaged
-(S6). Never a percentage.
+ORD Intake and Maturity Standard §4.7.4, with its slips for SME availability (S5), stakeholders not yet engaged (S6) and
+contended allocation (S7). Never a percentage.
 
-**Where an input is missing, say so.** Without the allocation or the fixed date, the review reports
-the readiness rating and the size, states that the projection cannot be made, and names the missing
-input.
+**Where an input is missing, say so.** Without the fixed date, the review reports the readiness
+rating, the size and the lead time, and states that no tier can be read. Without an allocation, the
+resourcing status is *Unallocated* and the review gives its answer rather than none.
 
 **The projection is reported in one block:**
 
 ```
 BRD readiness   [rating] — [the decisions or gate items that set it]
-Stakeholders    [n counted, n not yet engaged, n departments not asked] → [size, or range]
-Allocation      [E6], leave [days in window]
+Stakeholders    [n counted, n not yet engaged, n with no SME nominated, n departments not asked] → [size, or range]
+Resourcing      [Allocated / Contended / Unallocated] — [E6, or the competing claim, or the condition]
+Allocation      [E6], leave [days in window] — or, if Unallocated, [days from allocation at each %; lowest % meeting the date]
 Lead time       [cell or range from §4.1], after modifiers · upper bound [stated, or open]
 Against date    [n] available business days → R = [n] → Tier [x]
 Confidence      [High / Conditional / Low] — [what sets it] → planning tier [x]
@@ -3194,11 +3252,50 @@ stakeholder, and the review treats it as an assumption.
 each impact has been confirmed by its owner or is assumed, and an assumed impact cites its `ASM-NNN`.
 
 **At Low confidence, the review is not complete until it has drafted the RAID entries:** a Decision for
-each unresolved business decision, with its owner and the date it is needed by, and a Risk for each
-slip present. They are drafted, not raised — the author or convenor raises them. **This is a
+each unresolved business decision, with its owner and the date it is needed by; a Risk for each slip
+present; an Action for each SME not nominated and, where the BRD is *Unallocated*, for the allocation;
+and a Risk for each business unit with no design support committed. They are the rows of the path to
+readiness, below, that RAID can hold. They are drafted, not raised — the author or convenor raises them. **This is a
 completion rule, not a block on progression.** ORD development proceeds at any confidence, and the
 entries are what make a Low confidence visible to the people able to change it. At High or
 Conditional confidence, drafting them is recommended rather than required.
+
+#### The path to readiness
+
+A review that lists findings leaves the reader to work out what to do about them, in what order,
+and what each would buy. The path does that, and it is where the review's recommendations live.
+
+| # | Activity | Owner | Needed by | Moves |
+|---|---|---|---|---|
+| [n] | [an action to **obtain** something] | [named role] | [the date, tied to the step it unblocks] | [the rating, outcome, lead time, slip or tier it changes, and by how much] |
+
+**Ordered by when the activity has to happen:**
+
+1. **Before ORD assignment** — anything that sets the readiness rating, the resourcing status or the
+   size: business decisions, a resourcing condition, nominations for departments on the critical path,
+   departments not asked.
+2. **Inside the ORD window** — anything that only raises confidence or the tier: engaging stakeholders
+   not yet engaged, owning an unowned system, confirming an assumed impact.
+3. **Before the SOAP is drafted** — each unit's design support.
+
+**Every activity is stated as obtaining something, never as the answer.** *Obtain Regulatory Affairs'
+decision on what counts as a missed appointment* — never *Define a missed appointment as…*. A path
+that states the answer has made the business decision the review exists not to make.
+
+**Every activity says what it moves, and where two activities move the same thing, both are shown
+with their price.** Resolving a contested rule before assignment and raising the allocation can buy
+the same lead time; one costs a decision brought forward, the other costs a person's time, and the
+reader chooses. **Name what does not help**, where it is the remedy most likely to be reached for —
+more allocation buys nothing for a change already at its latency floor.
+
+**Stop at the sufficient tier.** The target is the tier the fixed date's milestone needs
+(ORD Intake and Maturity Standard §4.7.5), not Tier A. Where the achievable tier already meets it, the path says so and
+lists only what the BRD gate or business definition still requires. A path to a tier nobody needs
+discredits the paths that matter.
+
+**The path and the RAID drafts are one list.** Each RAID draft is a row of the path, so the two can
+never disagree. At Low confidence the rows the RAID log can hold must be drafted before the review is
+complete; at High or Conditional, drafting them is recommended.
 
 #### What the reviewer does not do
 
@@ -3333,11 +3430,11 @@ both places is how the two come to disagree.
 
 #### 6 · Approving GM register ★
 
-| Business unit in scope | Approving GM | Approves | Status |
-|---|---|---|---|
-| Field Operations | GM Field Operations | The ORD's operational tolerance for this unit | Confirmed |
-| Customer Care | GM Customer Care | The ORD's operational tolerance for this unit | Confirmed |
-| Billing | GM Billing | The ORD's operational tolerance for this unit | Confirmed |
+| Business unit in scope | Approving GM | Approves | Status | Design support |
+|---|---|---|---|---|
+| Field Operations | GM Field Operations | The ORD's operational tolerance for this unit | Confirmed | Process owner, Field Operations |
+| Customer Care | GM Customer Care | The ORD's operational tolerance for this unit | Confirmed | `[TBD — GM Customer Care, due 2026-09-30]` |
+| Billing | GM Billing | The ORD's operational tolerance for this unit | Confirmed | Process owner, Billing |
 
 **Three GMs approve the ORD, and none of them approves this document.** The obligation is
 contractual and the consequence lands across 3 business units, so the operational tolerance is
@@ -3345,6 +3442,11 @@ committed by the units that carry it rather than by the sponsor who funds the ch
 
 **Three rows against three in-scope business units at §8, and three process owners at Appendix A.**
 That the three counts agree is the check this register exists to make possible.
+
+**Customer Care's design support is a declared gap.** Its GM approves the unit's tolerance and has
+not yet named who will answer architecture's questions about the complaint path while the SOAP is
+drafted. It is owned and dated, so it changes nothing at the BRD gate. It reaches the ORD's handoff
+gate as OH-16, and the readiness projection's path carries it to the date that matters.
 
 #### 7 · Current vs future state
 
@@ -3621,14 +3723,16 @@ Other known impact:         None recorded
 >
 > ```
 > BRD readiness   Contested — the cl. 14.3 and 14.5 decisions interpret a binding contract
-> Stakeholders    8 counted, all engaged · 21 departments asked
+> Stakeholders    8 counted, all engaged, none with no SME nominated · 21 departments asked
 >                 3 roles named elsewhere and absent from §5 → M, or L if they are added
+> Resourcing      Allocated — the convenor at a confirmed 60%
 > Allocation      60%, no convenor leave in the window
 > Lead time       29 (M) – 44 (L) business days · upper bound open: regulatory interpretation
 > Modifiers       S5 — Regulatory Affairs limited until 2026-08-14 → workshop no earlier than 2026-08-21
 >                 Unowned notification service → range widens one size, already M–L
 > Against date    24 available business days → R = 0.83 → Tier B† (M) · R = 0.55 → Tier D (L)
 > Confidence      Low — B† with S5 → planning tier C
+> Sufficient      Tier B — the date serves architecture engagement (§4.7.5) → gap: one tier
 > ```
 >
 > **Read it from the top.** The three clause decisions make the rule set contested, so the contested
@@ -3649,11 +3753,27 @@ Other known impact:         None recorded
 > | 3 | Decision | Whether a missed rebooking attracts a second credit under cl. 14.3 and 14.5 | Regulatory Affairs | 2026-08-28 |
 > | 4 | Decision | How the unclaimed-rebate exposure under BO-4 is defined and measured | Regulatory Affairs | 2026-08-15 |
 > | 5 | Risk | All four decisions, and the contested lead time, rest on one stakeholder with limited availability until 2026-08-14 | Chief Customer Officer | At assignment |
+> | 6 | Risk | Customer Care has no design support committed: architecture's questions about the complaint path have nobody to answer them | GM Customer Care | 2026-09-30 — before SOAP drafting |
 >
-> *Recommended:* take the three clause decisions to Regulatory Affairs before the decision workshop, since
-> both of the ORD's KPPs rest on them. *Consider:* asking the sponsor whether a second Regulatory
-> Affairs contact can carry them during quarterly reporting, and either adding the three roles
-> missing from §5 or recording why each is consulted on one item only — the answer decides the size.
+> **The path to readiness.** The gap is one tier, and two activities close it on their own:
+>
+> | # | Activity | Owner | Needed by | Moves |
+> |---|---|---|---|---|
+> | 1 | Obtain the three clause 14.3 and 14.5 decisions | Regulatory Affairs | Before assignment | Readiness *Contested* → *Decisions open*: the baseline table applies, and a Medium change at 60% takes **25** business days, not 29. R = 0.96, Tier B with no `†`, and the decisions no longer put Regulatory Affairs on the critical path, so S5 falls away. **Confidence High; planning tier B** |
+> | 1a | *Or* obtain an allocation of 80% rather than 60% | Assigning manager | At assignment | Medium contested at 80% also takes **25** days, so R = 0.96 and Tier B. S5 remains, so **confidence Conditional; planning tier B**. It costs a person's time instead of an early decision, and the rules reach the ORD still undecided |
+> | 2 | Obtain an answer on the three roles missing from §5 — added, or recorded as consulted on one item only | BRD author | Before assignment | With row 3, collapses the size from M–L to one figure |
+> | 3 | Obtain an owner for the customer notification service | Approving GMs | Before assignment | Clears the unowned gap at BH-8 and, with row 2, the range |
+> | 4 | Obtain the definition of BO-4's measure | Regulatory Affairs | 2026-08-15 | BO-4's criterion becomes derivable, and its tolerance can rise above Assumed. No change to the tier |
+> | 5 | Obtain Customer Care's design support commitment | GM Customer Care | 2026-09-30 — before SOAP drafting | Clears OH-16 at the ORD's handoff gate |
+>
+> **What does not help:** allocation above 80%. A Medium change reads 25 days at both 80% and 100%;
+> the latency floor governs, and the extra time buys nothing. **The path stops at Tier B**, because
+> that is what architecture engagement needs; nothing here is offered for Tier A.
+>
+> The decision dates the review found (2026-08-15 and 2026-08-28) fall after assignment, so row 1
+> as dated cannot close the gap in time — which is exactly what the path is for showing. Bringing
+> the decisions forward, or taking row 1a, are the two ways to Tier B; leaving both is the planning
+> tier C the confidence already states.
 >
 > **What happened next.** The worked example ORD reached Tier B, the optimistic case.
 > The three missing roles were each consulted on their one item and the change was run as
