@@ -12,7 +12,7 @@ Copilot works only from what you give it. Anything it would have saved comes bac
 
 Long outputs arrive in numbered parts. Type **CONTINUE** to get the next one.
 
-**Size.** Every prompt fits in one Copilot message. Two are over Agent Builder's 20,000-character skill limit: `review-ord` (23k) and `write-prd` (21k). The rest are under it.
+**Size.** Every prompt fits in one Copilot message. Agent Builder's 20,000-character skill limit is not a constraint on these prompts: a prompt carries what its skill needs to run, and is pasted into Chat where it does not fit Agent Builder. Three are over the limit: `review-brd` (24k), `review-ord` (23k) and `write-prd` (21k).
 
 ## Typical chains
 
@@ -48,7 +48,7 @@ Long outputs arrive in numbered parts. Type **CONTINUE** to get the next one.
 | qa-report | Dated QA evidence record |
 | raid | Maintain a RAID log (Risks, Actions, Issues, Decisions) |
 | research | Cache exploration findings into a topic file |
-| review-brd | BRD conformance review against the handoff gate (BH-1 to BH-10) and business definition readiness (BD-1 to BD-10). The lead-time projection is not available in Copilot |
+| review-brd | BRD conformance review against the handoff gate (BH-1 to BH-10) and business definition readiness (BD-1 to BD-10), with the readiness projection and path to readiness |
 | review-diff | Two-axis code review (spec and standards) of a pasted diff |
 | review-ord | ORD conformance review against the handoff gate (OH-1 to OH-16) |
 | review-performance | Performance audit of pasted code |

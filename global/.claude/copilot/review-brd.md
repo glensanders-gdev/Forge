@@ -127,7 +127,65 @@ Can requirements be derived without a downstream team inventing business policy?
 - **New measure** (metric not yet defined): ORD development can proceed if it isn't the funded objective and another objective is fully quantified. Record its definition as an unresolved decision.
 - **Outcomes**, most serious first: **Not ready** (a material decision with no owner); **Conditionally ready, unresolved business decisions** (each owned and dated); **Ready with declared gaps** (missing information only, owned); **Ready**.
 - **Not safely derivable.** For each acceptance criterion an unresolved decision blocks, give the requirement, the reason, the decision required (as a question), the owner and a proving scenario. Never invent a rule to make a criterion testable.
-- **Readiness projection (lead time, tier, confidence):** not available in this prompt. It needs the ORD Intake Standard's tables. Say so in the report.
+
+### Readiness projection: what the BRD's condition means for the ORD's lead time
+
+A third output, reported separately. It never changes the gate or business definition outcome. Use only the figures below; never estimate.
+
+**1. BRD readiness rating** (from the two outcomes above). It is not confidence; it picks the lead-time table.
+
+| Rating | Condition | Table |
+|---|---|---|
+| **Ready** | Gate accepted (any accepted outcome); business definition Ready, or Ready with declared gaps | Baseline |
+| **Decisions open** | Gate accepted; Conditionally ready, every decision owned, none needing an obligation interpreted or cross-unit agreement | Baseline |
+| **Contested** | Gate accepted; Conditionally ready, with at least one decision that interprets an obligation or needs cross-unit agreement | Contested |
+| **Not ready** | Gate Not yet ready, or business definition Not ready | None. Tier D until fixed |
+
+Never rate a BRD Contested because nobody is allocated. That is resourcing, below.
+
+**2. Size: the highest band any indicator reaches.**
+
+| Size | Business units | Objectives | Stakeholders | Workflows + systems (Appendix A) |
+|---|---|---|---|---|
+| **S** | 1 | 1–3 | ≤4 | ≤5 |
+| **M** | 2–3 | 4–6 | 5–8 | 6–15 |
+| **L** | more | more | 9+ | 16+, or owned by different programs |
+
+Count the §5 rows that are consulted, including *Not yet engaged* and *No SME nominated*; leave out a group affected and not consulted directly. Departments not asked: give a range up to the next size.
+
+**3. Resourcing and allocation.** Ask for the allocation; never assume 100%. **Allocated:** read the cell. **Contended** (another program claims the same person): read the cell and the next allocation down. **Unallocated** (often a resourcing condition of endorsement): give the lead time from the day of allocation for each allocation, and the lowest allocation that meets the fixed date.
+
+**Lead time in business days**, by size and allocation. "—" means not deliverable at any date.
+
+| Baseline | 100% | 80% | 60% | 50% | 40% | 30% |
+|---|---|---|---|---|---|---|
+| S | 20 | 20 | 20 | 20 | 28 | 44 |
+| M | 25 | 25 | 25 | 31 | 42 | — |
+| L | 30 | 30 | 36 | 46 | — | — |
+
+| Contested | 100% | 80% | 60% | 50% | 40% | 30% |
+|---|---|---|---|---|---|---|
+| S | 20 | 20 | 20 | 26 | 40 | — |
+| M | 25 | 25 | 29 | 39 | 60 | — |
+| L | 30 | 30 | 44 | 59 | — | — |
+
+20% and below: not deliverable. Over 30 days: viable only if the date is explicitly accepted.
+
+**4. Modifiers.** Consulted stakeholder not yet engaged: +5 business days, once. SME unavailable until a date: workshop no earlier than that date plus 5 business days. Department with no SME nominated: no upper bound if it owns a decision, KPP demand or a process; otherwise +5 once nominated. Unowned system or process, or departments not asked: range up one size. A decision needing legal or regulatory interpretation: upper bound open. The person already carries delivered ORDs: say the figure is a ceiling.
+
+**5. Tier and confidence.** Count available business days from assignment to the fixed date, excluding weekends and public holidays. **Ask me for the holidays; never recall one.** R = available days ÷ lead time.
+
+| R | Latency-bound (S, M at 60%+; L at 80%+) | Otherwise |
+|---|---|---|
+| 1.00+ | A | A |
+| 0.80–0.99 | B | B |
+| 0.60–0.79 | B | C |
+| 0.40–0.59 | C | D |
+| under 0.40 | D | D |
+
+Fewer than 8 available days: Tier D at most. Mark the tier † when R is less than 0.05 above its band's floor (never on D). Slips: workshop rescheduled; stakeholder list late; contested rules emerge later; second ORD in elicitation; SME availability limited or unknown; stakeholders not yet engaged; allocation contended. **High:** no † and no slip. **Conditional:** † or one slip. **Low:** † with a slip, or two slips. At Low, the planning tier is one lower. Never a percentage.
+
+**Sufficient tier** for the date's milestone: PI planning C; funding gate B; architecture engagement B; architecture commitment A; vendor commitment A.
 
 ---
 
@@ -138,6 +196,7 @@ Can requirements be derived without a downstream team inventing business policy?
 3. **Derive the outcome** by the precedence order. State the verdicts that forced it.
 4. **Run the five checks and the three rule scans.**
 4a. **Assess business definition** (BD-1 to BD-10), derive its outcome, and list what is not safely derivable.
+4b. **Project the lead time, tier and confidence**, then lay out the path to readiness. If I haven't given the allocation, fixed date, milestone or holidays, ask once; give what you can without them.
 5. **Language pass (advisory, optional).** Wording quality is outside the gate and never changes a verdict, the outcome or the maturity tier. If a Defect also falls under a gate item (for example a technical target under BH-2), judge it by that item. Do not run a full language review yourself. Under "Language (advisory)", note any wording problems that were obvious in passing, and suggest I run the Review Language prompt over the same BRD for the full pass.
 6. **Report** in the format below. Then ask: "Want me to work through these findings with you? (yes/no)"
 
@@ -184,11 +243,15 @@ If the report would be long, deliver it in numbered parts ending "Type CONTINUE 
 [One record per blocked criterion, or "None".]
 
 ### Readiness projection
-Not run in Copilot. It needs the ORD Intake Standard's lead-time tables.
+BRD readiness [rating, and why] · Stakeholders [n counted, n not engaged, n no SME, n not asked] → [size or range]
+Resourcing [Allocated / Contended / Unallocated] · Allocation [%]
+Lead time [days or range] · upper bound [stated or open]
+Against date [n] business days → R = [n] → Tier [x] · Confidence [High / Conditional / Low] → planning tier [x]
+Sufficient [tier for the milestone] → gap [n tiers, or met]
 
 ### Path to readiness
 | # | Activity ("Obtain …", never the answer) | Owner | Needed by | Moves |
-Grouped: before ORD assignment · during the ORD · before design (each unit's design support). Price alternatives side by side; say what won't help.
+Grouped: before ORD assignment · during the ORD · before design (each unit's design support). Price alternatives side by side; say what won't help. Stop at the sufficient tier. At Low confidence, add draft RAID entries (Decisions, Risks for slips, Actions for nominations and allocation); drafted, never raised.
 
 ### Observations (outside the verdicts)
 [Thin unstarred sections, noted but not gate findings. Or "None".]
