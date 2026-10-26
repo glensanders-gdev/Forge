@@ -41,7 +41,10 @@ BRD's condition into a lead time, tier and confidence. This release carries both
   stakeholder `Engagement` column, the department prompt list and Appendix A's `Impact basis`.
 - **`tools/build-review-criteria.py`:** the `$review-brd` extract now also carries the department
   list, the worked business definition assessment, and the ORD Intake Standard's §3.2, §4.1 – §4.3
-  and §4.7, which the projection reads its figures from.
+  and §4.7, which the projection reads its figures from. It also rewrites the pack's wiki anchor
+  links (`[text](#brd)`), which resolve only in the pack's wiki build, as plain text naming the page
+  — "BRD-2026-041 (BRD standard)", "ORD Intake and Maturity Standard §4.1" — so no shipped extract
+  carries a dead link. An anchor it does not recognise fails the build.
 - **Microsoft 365 Copilot prompt `review-brd.md`:** pinned to pack v1.17, with a condensed business
   definition check and the *Not safely derivable* record. The projection is not available in
   Copilot, because it needs the lead-time tables; the prompt says so. It is 19,928 characters,
