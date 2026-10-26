@@ -6,7 +6,7 @@
 > instead.
 
 **Pack version:** v1.17 · **Pack commit:** `5058139f23e6`
-**Generated:** 2026-10-26 · **Content hash:** `1bf413939ec5ae1d`
+**Generated:** 2026-10-26 · **Content hash:** `1203a9ebe65866ea`
 
 **Quote the version in every review this extract is used for.**
 A reader needs to know which revision was applied — a verdict, and a document
@@ -33,7 +33,7 @@ record what arrived; this gate establishes whether what arrived is enough to sta
 **What puts an item on the bar, and what does not.** An item is on the bar where its absence makes
 the next document **unwritable** — not merely less mature. Everything whose absence the maturity
 tier can absorb is a supporting item. That rule is what keeps the two lists from being a matter of
-taste, and it is the same rule [§7.1](#handoff) applies one hop downstream.
+taste, and it is the same rule ORD Intake and Maturity Standard §7.1 applies one hop downstream.
 
 ### How a `[TBD]` is treated — read this before the bar
 
@@ -60,7 +60,7 @@ as satisfied finds none. Neither is useful, so the treatment is stated rather th
 > **The point of the propagation rule.** A declared gap that passes the bar and then disappears is
 > worse than a not-ready outcome, because it looks like a pass. Every gap admitted here **must** reappear as
 > an empty traceability row and an unanswered objective downstream — see BO-4, which does exactly
-> that at §12 of the worked example and again on the [traceability matrix](#traceability).
+> that at §12 of the worked example and again on the traceability matrix.
 
 ### The bar — four items, and without them the BRD is not yet ready
 
@@ -74,14 +74,14 @@ consumes immediately.
 | **BH-3** | **Constraints and dependencies carrying operational weight** — regulatory obligations, contractual commitments, platform dependencies, named specifically, each elicited against the categories at § *Constraints, assumptions and dependencies* rather than recalled | Seeds Security, Compatibility and Reliability | The ORD author invents them or misses them |
 | **BH-4** | A **cost-of-failure case** for each objective carrying operational exposure | The input every tolerance is derived from | A tolerance traced to no consequence is an invented figure, however well it is written. The single most common upstream cause of a low-maturity ORD |
 
-> **BH-1 to BH-3 are the three load-bearing elements at [§3.4](#entry); BH-4 is the fourth, and it
+> **BH-1 to BH-3 are the three load-bearing elements at ORD Intake and Maturity Standard §3.4; BH-4 is the fourth, and it
 > is the one most often assumed to be optional.** A complete BRD is not the bar — these four are.
 > A BRD carrying only these and nothing else is enough to start on.
 
 ### Supporting items — absent, these are recorded and drive the tier
 
 Their absence does not stop ORD development. It determines the maturity tier committable on the
-fixed date, and each is recorded under [§3.3](#entry) at assignment.
+fixed date, and each is recorded under ORD Intake and Maturity Standard §3.3 at assignment.
 
 | # | Required | Absent means |
 |---|---|---|
@@ -97,9 +97,9 @@ fixed date, and each is recorded under [§3.3](#entry) at assignment.
 | Outcome | Condition | What follows |
 |---|---|---|
 | **Accepted** | BH-1 – BH-10 met, no declared gaps | ORD development starts. The entry position record carries no outstanding items |
-| **Accepted with recorded gaps** | BH-1 – BH-4 met; one or more items outstanding, **each with a named owner and a date** — a declared gap on a bar item, a supporting item outstanding, or both | ORD development starts. The gaps are recorded at [§3.3](#entry) and determine the committed maturity tier where they reach a KPP-bearing requirement |
-| **Accepted with an unowned gap** | BH-1 – BH-4 met; an outstanding item has **no owner to carry it** | ORD development starts. The item is recorded at [§3.3](#entry) and **raised with the approving GMs at sign-off rather than referred, because a referral needs a recipient.** It stays open until someone accepts it — and that it stayed open is the finding |
-| **Not yet ready for ORD development** | Any of BH-1 – BH-4 absent, per the `[TBD]` rule above | *Recommended:* complete the absent items before ORD development is assigned. The review names each one and what it would unblock. **Without them, the ORD task is a BRD task in disguise** — see the antipatterns at [§3.4](#entry) |
+| **Accepted with recorded gaps** | BH-1 – BH-4 met; one or more items outstanding, **each with a named owner and a date** — a declared gap on a bar item, a supporting item outstanding, or both | ORD development starts. The gaps are recorded at ORD Intake and Maturity Standard §3.3 and determine the committed maturity tier where they reach a KPP-bearing requirement |
+| **Accepted with an unowned gap** | BH-1 – BH-4 met; an outstanding item has **no owner to carry it** | ORD development starts. The item is recorded at ORD Intake and Maturity Standard §3.3 and **raised with the approving GMs at sign-off rather than referred, because a referral needs a recipient.** It stays open until someone accepts it — and that it stayed open is the finding |
+| **Not yet ready for ORD development** | Any of BH-1 – BH-4 absent, per the `[TBD]` rule above | *Recommended:* complete the absent items before ORD development is assigned. The review names each one and what it would unblock. **Without them, the ORD task is a BRD task in disguise** — see the antipatterns at ORD Intake and Maturity Standard §3.4 |
 
 **Where more than one row applies, the outcome is the most serious of them** — not yet ready first,
 then the unowned gap, then recorded gaps. The worked assessment below carries declared gaps at BH-1,
@@ -120,15 +120,15 @@ escalation.** An ORD written from a BRD missing its bar produces figures nobody 
 the cost of that lands after architecture has designed against them.
 
 > **This outcome depends on a right the standard says is currently absent, and that is worth
-> stating plainly rather than glossing.** The [ORD Intake and Maturity Standard](#purpose) is a
+> stating plainly rather than glossing.** The ORD Intake and Maturity Standard is a
 > **declaring** standard, not a blocking one — every other mechanism in it produces a record rather
 > than exercising a veto, precisely because a record is available to someone holding no authority.
 > *Not yet ready for ORD development* is the one outcome in this pack that requires authority: the
 > Tier 1 control **"right to declare an ORD not-ready and refuse handoff"** at
-> [§8](#controls), listed there as a control **to be established**.
+> ORD Intake and Maturity Standard §8, listed there as a control **to be established**.
 >
 > **Where that right is not yet held**, the outcome is *recorded* rather than exercised: the ORD
-> proceeds, the absent bar items are recorded at [§3.3](#entry), and the committed tier reflects
+> proceeds, the absent bar items are recorded at ORD Intake and Maturity Standard §3.3, and the committed tier reflects
 > them. That record is the evidence for establishing the control — a not-ready finding that was
 > warranted, declared, and overridden is a stronger argument than the same right requested on day one.
 
@@ -264,7 +264,7 @@ that does not.
 ### Acceptance derivability, before the ORD exists
 
 Before the ORD exists, no acceptance criterion does either: Capability ACs derive from the SOAP, and the ORD
-proposes criteria rather than writing them ([§7.4](#handoff)). So the review does not grade acceptance
+proposes criteria rather than writing them (ORD Intake and Maturity Standard §7.4). So the review does not grade acceptance
 readiness here. It lists each criterion that **cannot be derived** without an unresolved decision:
 
 ```
@@ -303,7 +303,7 @@ the argument for the functional requirements document the chain lacks.
 ### The readiness projection — from the BRD's condition to a lead time
 
 The review also states what the BRD's condition means for the ORD that follows it: how long it will
-take, and how sure that figure is. It reads the [ORD Intake and Maturity Standard](#purpose) to do
+take, and how sure that figure is. It reads the ORD Intake and Maturity Standard to do
 so and estimates nothing separately. **Every figure comes from the §4.1 tables and the §4.7 method;
 this section says only which row, which table and which column the BRD selects, and what moves the
 result afterwards.**
@@ -314,9 +314,9 @@ outcome and the business definition outcome:
 | BRD readiness | Condition | Lead-time table |
 |---|---|---|
 | **Ready** | Gate accepted, in any of its three accepted outcomes; business definition *Ready* or *Ready with declared gaps* | Baseline |
-| **Decisions open** | Gate accepted; business definition *Conditionally ready*, with every decision owned and none needing an obligation interpreted or agreement across business units | Baseline — routine refinement resolves inside the window ([§4.5](#leadtime)) |
-| **Contested** | Gate accepted; business definition *Conditionally ready*, with at least one decision that interprets an obligation or needs agreement across business units | Contested ([§4.2](#leadtime)) |
-| **Not ready** | Gate *Not yet ready for ORD development*, or business definition *Not ready* | **None.** The committed position is Tier D until the BRD is reconstructed or the decision owned ([§4.7.1](#maturity)) |
+| **Decisions open** | Gate accepted; business definition *Conditionally ready*, with every decision owned and none needing an obligation interpreted or agreement across business units | Baseline — routine refinement resolves inside the window (ORD Intake and Maturity Standard §4.5) |
+| **Contested** | Gate accepted; business definition *Conditionally ready*, with at least one decision that interprets an obligation or needs agreement across business units | Contested (ORD Intake and Maturity Standard §4.2) |
+| **Not ready** | Gate *Not yet ready for ORD development*, or business definition *Not ready* | **None.** The committed position is Tier D until the BRD is reconstructed or the decision owned (ORD Intake and Maturity Standard §4.7.1) |
 
 The rating is not the confidence. It is an input to the projection, and confidence is its output.
 
@@ -329,7 +329,7 @@ is not small.
 
 **Step 3 — the allocation selects the column.** The allocation is E6, and the review asks for it
 rather than assuming full time. The person's leave in the window comes off capacity first
-([§4.3](#leadtime)). Read the cell from the §4.1 table selected at step 1.
+(ORD Intake and Maturity Standard §4.3). Read the cell from the §4.1 table selected at step 1.
 
 **Step 4 — the modifiers move the result:**
 
@@ -344,9 +344,9 @@ rather than assuming full time. The person's leave in the window comes off capac
 | The person carries delivered ORDs | The figure is reported as a **ceiling**, because standing load is not yet deducted | §4.3 |
 
 **Step 5 — the date, the tier and the confidence.** Count the available business days from
-assignment to the fixed date on the jurisdiction's calendar ([§4.7.1](#maturity)). Then R, the tier
+assignment to the fixed date on the jurisdiction's calendar (ORD Intake and Maturity Standard §4.7.1). Then R, the tier
 and its `†` follow from §4.7.2, and confidence — **High, Conditional or Low** — from
-[§4.7.4](#maturity), with its slips for SME availability (S5) and stakeholders not yet engaged
+ORD Intake and Maturity Standard §4.7.4, with its slips for SME availability (S5) and stakeholders not yet engaged
 (S6). Never a percentage.
 
 **Where an input is missing, say so.** Without the allocation or the fixed date, the review reports
@@ -391,7 +391,7 @@ Conditional confidence, drafting them is recommended rather than required.
 **Recommendations are stated as recommendations.** The review recommends, and the BRD's author and
 the approving GMs decide. *Recommended:* names the action the findings support; *Consider:* names one
 worth weighing. A review that instructs, rejects or returns a document has claimed an authority that
-[§8](#controls) says is not held.
+ORD Intake and Maturity Standard §8 says is not held.
 
 ---
 
@@ -431,7 +431,7 @@ checkable against §8's scope and Appendix A's owners.
 from a brief before anyone in §5 has been engaged, and a register that lists a stakeholder reads the
 same whether they were consulted or merely named. *Not yet engaged* is a valid entry; a blank is not.
 A stakeholder who is engaged but has limited availability before the fixed date says so, with the
-date, because it is a lead-time input at [§4.7.4](#maturity). Where a group is affected and is not
+date, because it is a lead-time input at ORD Intake and Maturity Standard §4.7.4. Where a group is affected and is not
 consulted directly, say that in this column rather than leaving it empty.
 
 **Stakeholders are elicited, not recalled — ask against each department.** The register is built by
@@ -439,7 +439,7 @@ asking whether the change reaches each department below, and recording the answe
 found*. It is the same discipline as the constraint categories at § *Constraints, assumptions and
 dependencies*, for the same reason: a department asked and answered *none found* is a record, and a
 department never asked is a hole. The count the answers produce sets the ORD's size at
-[§4.1](#leadtime), so a register that undercounts is an undersized change — and a lead time quoted short
+ORD Intake and Maturity Standard §4.1, so a register that undercounts is an undersized change — and a lead time quoted short
 from the first day.
 
 | Group | Department | Likely affected when the change… |
@@ -493,11 +493,11 @@ as a complete-looking list that happens to be wrong.
 
 ### The handoff gate, applied to this document
 
-Run against the [gate above](#brd). This is what a real assessment looks like — not a clean sheet.
+Run against the gate above (BRD standard). This is what a real assessment looks like — not a clean sheet.
 
 | # | Verdict | Evidence |
 |---|---|---|
-| BH-1 | **Met, with one declared gap** | BO-1, BO-2, BO-3 and BO-5 each carry a baseline, a target and FY27 Q2. **BO-4 carries `[TBD]` with Regulatory Affairs and 2026-08-15** — a declared gap under the rule above: owned, dated, and not the objective the case rests on, with BO-1 fully quantified. It propagates rather than vanishing — §12 leaves its row empty, and so does the [traceability matrix](#traceability) |
+| BH-1 | **Met, with one declared gap** | BO-1, BO-2, BO-3 and BO-5 each carry a baseline, a target and FY27 Q2. **BO-4 carries `[TBD]` with Regulatory Affairs and 2026-08-15** — a declared gap under the rule above: owned, dated, and not the objective the case rests on, with BO-1 fully quantified. It propagates rather than vanishing — §12 leaves its row empty, and so does the traceability matrix |
 | BH-2 | **Met** | No objective or stakeholder requirement names a system, workflow or figure. This BRD's §9 states four outcomes, and the four statements that would have breached the altitude are in its routing register instead |
 | BH-3 | **Met, with one declared gap** | §10 — consumer contract cl 14.3, 14.5 and 14.6, field services agreement cl 9 and the billing-cycle boundary, each with its operational weight stated, and three categories recorded as *none found*. The privacy constraint is `[TBD]` with Legal Counsel and 2026-08-29; it propagates as an unquantified confidentiality tolerance in the ORD. DEP-001 and DEP-002 carry statuses, and DEP-001's exposure is `R-115` in the RAID log rather than a risk table here |
 | BH-4 | **Met, with one declared gap** | §11 — three consequences, two sourced to the contract and INC-5012. The third is BO-4's, `[TBD]` with Regulatory Affairs and 2026-08-15; it is the same gap as BH-1's, propagating from the objective to its cost case |
@@ -516,7 +516,7 @@ Run against the [gate above](#brd). This is what a real assessment looks like �
 > **That it stayed open is the finding** — about Acme's ownership records, not about this change.
 >
 > **Note what neither gap did.** Neither moved the maturity tier. The
-> [worked example ORD](#example) commits **Tier B** because both KPPs are Provisional — the tier is
+> worked example ORD commits **Tier B** because both KPPs are Provisional — the tier is
 > the weakest status carried by any KPP-bearing requirement, and an unowned system in the estate is
 > not one. A recorded gap drives the tier only where it reaches a KPP. Recording it and tier-driving
 > it are two different things, and conflating them is how a gate becomes theatre.
@@ -613,12 +613,12 @@ Other known impact:         None recorded
 > Affairs contact can carry them during quarterly reporting, and either adding the three roles
 > missing from §5 or recording why each is consulted on one item only — the answer decides the size.
 >
-> **What happened next.** The [worked example ORD](#example) reached Tier B, the optimistic case.
+> **What happened next.** The worked example ORD reached Tier B, the optimistic case.
 > The three missing roles were each consulted on their one item and the change was run as
 > Medium. The decisions did not close by their dates: they became REF-01 on the
-> [traceability matrix](#traceability), still open after nine weeks with four of seven rule areas
+> traceability matrix, still open after nine weeks with four of seven rule areas
 > agreed. That is the contested rule set this review identified on day one, running past handoff as
-> [§4.8](#maturity) expects.
+> ORD Intake and Maturity Standard §4.8 expects.
 
 ---
 
@@ -655,7 +655,7 @@ Business objective → business rule → operational requirement → solution re
 
 **This chain has no document for the second link** (§ *The column that is not there*), so a rule
 appears only where it has been routed — the referred requirements register — or as an unresolved
-decision recorded by the [BRD review](#brd). The three scans read what exists, and mark the rest
+decision recorded by the BRD review (BRD standard). The three scans read what exists, and mark the rest
 *not answerable at this hop*:
 
 | Scan | Question | A failure means… |
@@ -695,8 +695,8 @@ decision recorded by the [BRD review](#brd). The three scans read what exists, a
 
 ---
 
-*Worked example continuous with [BRD-2026-041](#brd) and the [worked example ORD](#example). The
-chain and its artefact owners are from [§1 Purpose and the chain](#purpose). Standards: BABOK v3 ·
+*Worked example continuous with BRD-2026-041 (BRD standard) and the worked example ORD. The
+chain and its artefact owners are from ORD Intake and Maturity Standard §1 Purpose and the chain. Standards: BABOK v3 ·
 ISO/IEC 25010:2023 · ISO/IEC/IEEE 29148:2018 (the unadopted functional half).*
 
 ---

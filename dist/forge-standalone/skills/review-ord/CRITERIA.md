@@ -6,7 +6,7 @@
 > instead.
 
 **Pack version:** v1.17 · **Pack commit:** `5058139f23e6`
-**Generated:** 2026-10-26 · **Content hash:** `90b30736aa825db9`
+**Generated:** 2026-10-26 · **Content hash:** `488c51ac7d6740e8`
 
 **Quote the version in every review this extract is used for.**
 A reader needs to know which revision was applied — a verdict, and a document
@@ -243,7 +243,7 @@ Business objective → business rule → operational requirement → solution re
 
 **This chain has no document for the second link** (§ *The column that is not there*), so a rule
 appears only where it has been routed — the referred requirements register — or as an unresolved
-decision recorded by the [BRD review](#brd). The three scans read what exists, and mark the rest
+decision recorded by the BRD review (BRD standard). The three scans read what exists, and mark the rest
 *not answerable at this hop*:
 
 | Scan | Question | A failure means… |
@@ -283,8 +283,8 @@ decision recorded by the [BRD review](#brd). The three scans read what exists, a
 
 ---
 
-*Worked example continuous with [BRD-2026-041](#brd) and the [worked example ORD](#example). The
-chain and its artefact owners are from [§1 Purpose and the chain](#purpose). Standards: BABOK v3 ·
+*Worked example continuous with BRD-2026-041 (BRD standard) and the worked example ORD. The
+chain and its artefact owners are from ORD Intake and Maturity Standard §1 Purpose and the chain. Standards: BABOK v3 ·
 ISO/IEC 25010:2023 · ISO/IEC/IEEE 29148:2018 (the unadopted functional half).*
 
 ---
