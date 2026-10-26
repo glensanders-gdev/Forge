@@ -1,0 +1,195 @@
+---
+name: review-brd-gate-protocol
+description: Shared review protocol for the two handoff gates in the requirements-documents pack — verdict vocabulary, evidence rule, outcome derivation and precedence, refusal-and-authority handling, the advisory language pass, and the report format. Read when running /review-brd or /review-ord.
+---
+
+# Gate Review Protocol
+
+The machinery both gates share. `review-brd` and `review-ord` cite this file rather than carrying
+two copies that drift.
+
+**What this file is not.** It holds no criterion. Every BH and OH item, the `[TBD]` treatment table
+and the four outcomes are defined in the pack and read from it at review time. This file states only
+how a review is *conducted and reported* — which is tooling, and has no home in the pack.
+
+---
+
+## Sourcing the criteria
+
+Two sources, in this order. The skill names which files it needs; this is where they come from.
+
+1. **The live pack, where it is held** — `$FORGE_REQ_PACK/reference/…`, else
+   `requirements-documents/reference/…` searching up from the working directory. **Authoritative.**
+2. **`CRITERIA.md` beside the skill** — the same criteria, extracted from the pack by
+   `tools/build-review-criteria.py` and shipped with the skill so a review runs on a machine that
+   does not hold the pack. It is a **generated file**: pinned, stamped with the pack version, and
+   never hand-edited.
+
+**Name the pack version in every report**, from whichever source supplied it. A verdict is only
+meaningful against a named bar — that is the pack's own thesis applied to the review of it.
+
+**Where both are present and disagree, the pack wins and the extract is stale.** Say so in the
+report and regenerate; a silent divergence between them is precisely the defect this pairing exists
+to prevent.
+
+**Never review from recollection.** A gate applied from memory drifts from the published one
+silently, and the drift is invisible in the output. Where neither source is readable, stop.
+
+## Verdict vocabulary
+
+Four verdicts, from the pack's `[TBD]` treatment table and the verdicts its worked assessment
+actually uses. Use these words exactly; a fifth verdict is a sign the treatment table was not read.
+
+| Verdict | The item carries |
+|---|---|
+| **Met** | A value |
+| **Met, with a declared gap** | `[TBD]` with a named owner **and** a date. Met for the bar — and the gap propagates |
+| **Unowned gap** | Outstanding, with **nobody to carry it**. Neither met nor owned |
+| **Absent** | Nothing at all, or `[TBD]` missing the owner, the date, or both. A hole, not a gap |
+
+**The propagation rule is part of the verdict, not a footnote.** A declared gap that passes the bar
+and then disappears is worse than a not-ready outcome, because it looks like a pass. Every *Met, with a
+declared gap* verdict names where the gap must reappear downstream — the empty traceability row, the
+unanswered objective — and a review that cannot name that has not finished the verdict.
+
+**The two limits, wherever declared gaps are counted.** The pack states both at the BRD gate, in
+objective terms: at least one objective is fully quantified, and the gap does not sit on the
+objective the change is funded against. Without them the bar is unfailable, because every absence
+converts to `[TBD] + owner + date`. Apply them where the pack scopes them; where a downstream item
+is not an objective, say the limits are stated upstream rather than asserting they bind here.
+
+## Evidence rule
+
+**Every verdict cites where it was read** — the section, the row, the requirement ID — or names
+precisely what is absent. A verdict with no citation is an assertion, and an assertion is what an
+independent reviewer exists to replace.
+
+## Outcome derivation
+
+The outcome follows from the verdicts. Test in this order and stop at the first that fires:
+
+| Order | Condition | Outcome |
+|---|---|---|
+| 1 | Any **bar** item is *Absent* | The not-ready outcome — *Not yet ready for ORD development* / *Not ready for handoff* |
+| 2 | Any item, bar or supporting, is an *Unowned gap* | The unowned-gap outcome |
+| 3 | Any item is outstanding with an owner and a date, or carries a declared gap | The recorded-gaps outcome |
+| 4 | Otherwise | The clean outcome — *Accepted* / *Ready for handoff* |
+
+**This order is the pack's, not this file's.** Both gates state the precedence — not ready first,
+then the unowned gap, then recorded gaps — and both state that the recorded-gaps outcome covers a
+declared gap wherever it sits, **including on the bar**. Read those two statements at the gate rather
+than trusting this table; where they disagree with it, they win and this file is the defect.
+
+## Not yet ready, and authority
+
+The not-ready outcome is the one outcome in the pack that requires authority: the Tier 1 control
+*"right to declare an ORD not-ready and refuse handoff"* at §8, which the standard states is **not
+currently held**.
+
+Where that right is not held, report the not-ready finding as **recorded rather than exercised**: name the
+absent bar items, state that the document proceeds, and state that the accumulation of these records
+across cycles is the evidence for establishing the control. A gate that implies an authority nobody
+holds is theatre; a not-ready finding that was warranted, declared and overridden is the argument for the
+control.
+
+## Report format
+
+```markdown
+## [BRD|ORD] Review — [document ID and title]
+
+**Assessed against:** [standard path] · **Reviewer:** [named, and whether they authored it]
+
+### Verdicts
+
+| # | Verdict | Evidence |
+|---|---|---|
+| BH-1 | **Met, with one declared gap** | [section or row, and what makes it that verdict] |
+
+### Outcome
+
+> **[Outcome name].** [The verdicts that forced it, by the derivation order above.]
+> [Where a declared gap passed the bar: where it must reappear downstream.]
+> [Where the outcome is not ready: the authority note above.]
+
+### The checks
+
+| Check | Finding |
+|---|---|
+| Baseline gap | [answered, or *not answerable at this hop* with the reason] |
+| Rule coverage gap | [the three rule-level scans likewise] |
+
+### Business definition — BRD only
+
+**Kind of change:** [enhancement / new capability / new measure, and what that means here]
+
+| # | Finding | Evidence |
+|---|---|---|
+| BD-1 | [finding, *Met*, or *not applicable* with the reason] | [section or row] |
+
+> **[Business definition outcome].** [The unresolved decisions that forced it, each with its owner
+> and date or *Unowned*.]
+
+[For each material gap: the pack's *what a gap reaches* block.]
+
+### Acceptance derivability — BRD only
+
+[One *Not safely derivable* record per blocked criterion, in the pack's form. Then one line naming
+the requirements that are derivable.]
+
+### Readiness projection — BRD only
+
+~~~
+[The pack's projection block, filled — or the missing input named and the projection stopped.]
+~~~
+
+[At Low confidence: the drafted RAID entries, as a table. Drafted, not raised.]
+
+### Recommended actions
+
+- *Recommended:* [an action the findings support, and who would take it]
+- *Consider:* [an action worth weighing]
+
+### Language (advisory)
+
+[The `/review-language` report from its Summary down, per § *The language pass*. Outside the gate.]
+
+### What this review does not cover
+
+[Anything the gate does not reach — content quality, altitude beyond the items, downstream fit.]
+```
+
+**Report what the verdicts did not do, where it matters.** A recorded gap drives the maturity tier
+only where it reaches a KPP-bearing requirement. Recording a gap and tier-driving it are two
+different things, and the pack names conflating them as how a gate becomes theatre.
+
+## The language pass
+
+Every gate review ends with a language pass: the `/review-language` skill's procedure, run over the
+same document. It checks wording against the requirements language standard, which is not part of
+either gate.
+
+**It is advisory and sits outside the gate.** Its findings never change a verdict, the outcome or the
+tier. A Defect that also falls under a gate item, such as a technical target under OH-4, is judged
+for the gate by that item. The language pass only names it.
+
+**It never blocks the gate.** Where the language standard cannot be read, emit the gate report and
+write under *Language (advisory)* that the pass did not run, and why.
+
+## The checks
+
+Read from `reference/traceability-matrix.md` at review time — baseline, coverage, conformance,
+translation and verifiability gaps, and the three scans where business rules carry the outcome: rule
+coverage, decision preservation and scenario coverage. Answer each, or mark it not-yet-answerable at this hop with the
+reason. A check reported clean because it could not be run is worse than one reported unanswerable.
+
+---
+
+## Never
+
+- Never carry a criterion in this file. It holds protocol; the pack holds the bar.
+- Never emit a score, a percentage or a pass rate — four outcomes and a verdict per item.
+- Never report a check clean that could not be run at this hop.
+- Never let a language finding change a verdict, the outcome or the tier.
+- Never let a declared gap pass without naming where it reappears downstream.
+- Never state a recommendation as an instruction. The review recommends; the author and the
+  approvers decide. *Recommended:* and *Consider:*, never *must*, *reject* or *return*.

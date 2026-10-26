@@ -23,7 +23,7 @@ Every pass over that pack to date has been its own author's. This skill is that 
 
 ## Step 1 — Read the criteria, never recall them
 
-Source them per [GATE-PROTOCOL.md](../review-brd/GATE-PROTOCOL.md) § *Sourcing the criteria* — the
+Source them per [GATE-PROTOCOL.md](GATE-PROTOCOL.md) § *Sourcing the criteria* — the
 live pack's `reference/` where held, otherwise the stamped extract in [CRITERIA.md](CRITERIA.md),
 which carries every file named below. Name the pack version in the report.
 
@@ -47,7 +47,7 @@ item definitions are in hand as written rather than as remembered.
 ## Step 2 — Verdict every item, with evidence
 
 Apply the verdict vocabulary and the evidence rule in
-[GATE-PROTOCOL.md](../review-brd/GATE-PROTOCOL.md) to each of OH-1 – OH-15.
+[GATE-PROTOCOL.md](GATE-PROTOCOL.md) to each of OH-1 – OH-15.
 
 ORD-specific criteria to apply while doing so, each defined in the standard rather than here:
 
@@ -105,7 +105,7 @@ declared tier is confirmed against the actual KPP statuses or the disagreement i
 
 ## Step 4 — Run the language pass
 
-Run the language pass in [GATE-PROTOCOL.md](../review-brd/GATE-PROTOCOL.md) § *The language pass*
+Run the language pass in [GATE-PROTOCOL.md](GATE-PROTOCOL.md) § *The language pass*
 over the ORD.
 
 **Completion:** the `/review-language` report is in hand, or the reason it could not run is
@@ -114,7 +114,7 @@ recorded.
 ## Step 5 — Derive the outcome, run the five checks, report
 
 Derive one of the four outcomes mechanically by the precedence rule in
-[GATE-PROTOCOL.md](../review-brd/GATE-PROTOCOL.md), apply the **five checks** from
+[GATE-PROTOCOL.md](GATE-PROTOCOL.md), apply the **five checks** from
 `reference/traceability-matrix.md`, and emit the protocol's report format with a **Defects (§7.3)**
 section added above the five checks. Where the outcome is *Not ready for handoff*, apply the
 protocol's refusal-and-authority handling first.
@@ -128,7 +128,7 @@ from gaps, and each of the five checks is answered or explicitly marked not-yet-
 
 | Condition | Behaviour |
 |-----------|-----------|
-| Neither the live pack nor `CRITERIA.md` is readable | Stop, per [GATE-PROTOCOL.md](../review-brd/GATE-PROTOCOL.md) § *Sourcing the criteria*. Never substitute recollection — a gate applied from memory drifts from the published one silently, and the drift is invisible in the output |
+| Neither the live pack nor `CRITERIA.md` is readable | Stop, per [GATE-PROTOCOL.md](GATE-PROTOCOL.md) § *Sourcing the criteria*. Never substitute recollection — a gate applied from memory drifts from the published one silently, and the drift is invisible in the output |
 | `CRITERIA.md` carries the ⚠️ **dirty working tree** warning in its provenance line | The extract was generated from uncommitted pack state, corresponds to no committed version, and cannot be reproduced. Prefer the live pack and say the extract was bypassed; where it is the only source, run the review and record in *Assessed against* that the bar itself is unreproducible |
 | The live pack and `CRITERIA.md` disagree | The pack wins and the extract is stale — say so in the report and regenerate with `tools/build-review-criteria.py`. Never prefer the extract because it is closer to hand |
 | The pack defines an item this skill does not name — an OH-16, or a renumbered §7.1 | Verdict every item the pack defines, and report the ones this skill does not name. The skill is the defect, not the document: where the standard and this skill disagree, the standard wins |
@@ -142,7 +142,7 @@ from gaps, and each of the five checks is answered or explicitly marked not-yet-
 | One of the three desk references is unavailable | Answer its question from the standard itself and record which reference was missing. Never leave the question unanswered because its shortcut was absent |
 | A check from `reference/traceability-matrix.md` cannot be answered at this hop | Mark it *not answerable at this hop* with the reason. A check reported clean because it could not be run is worse than one reported unanswerable |
 | The language standard cannot be read | Emit the gate report anyway, and record under *Language (advisory)* that the pass did not run. The language pass never blocks the gate |
-| The outcome is the refusal | Apply [GATE-PROTOCOL.md](../review-brd/GATE-PROTOCOL.md) § *Not yet ready, and authority* before emitting. The right to declare an ORD not-ready and refuse handoff is not currently held, so the refusal is recorded rather than exercised — and the accumulation of those records is the argument for establishing the control |
+| The outcome is the refusal | Apply [GATE-PROTOCOL.md](GATE-PROTOCOL.md) § *Not yet ready, and authority* before emitting. The right to declare an ORD not-ready and refuse handoff is not currently held, so the refusal is recorded rather than exercised — and the accumulation of those records is the argument for establishing the control |
 
 ---
 
