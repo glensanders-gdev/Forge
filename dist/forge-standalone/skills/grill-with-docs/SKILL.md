@@ -9,7 +9,7 @@ description: Planning phase grilling session that challenges a plan against the 
 
 The planning phase entry point. Like `/grill-me` but domain-aware — challenges the plan against `docs/CONTEXT.md`, the codebase, and existing ADRs. Updates living documents inline as decisions are made.
 
-See [FRONTIER.md](../grill-me/FRONTIER.md) for the traversal protocol — design tree, bounded rounds, question format, and stop condition. It is shared with `/grill-me` and is not restated here.
+See [FRONTIER.md](FRONTIER.md) for the traversal protocol — design tree, bounded rounds, question format, and stop condition. It is shared with `/grill-me` and is not restated here.
 See [CONTEXT-FORMAT.md](CONTEXT-FORMAT.md) for how to write and structure `CONTEXT.md`.
 See [ADR-FORMAT.md](ADR-FORMAT.md) for when and how to write ADRs.
 
@@ -19,7 +19,7 @@ See [ADR-FORMAT.md](ADR-FORMAT.md) for when and how to write ADRs.
 
 ## Rules
 
-- Work the design tree in **bounded frontier rounds** — up to 5 numbered questions per round, each carrying your recommended answer, then wait ([FRONTIER.md](../grill-me/FRONTIER.md)).
+- Work the design tree in **bounded frontier rounds** — up to 5 numbered questions per round, each carrying your recommended answer, then wait ([FRONTIER.md](FRONTIER.md)).
 - **Facts you look up; decisions you put to the human.** Dispatch a subagent for codebase and environment facts rather than asking. A *decision* is theirs — put each one to them and wait; never decide on the human's behalf to keep the session moving.
 - Never use a term that conflicts with `docs/CONTEXT.md` without flagging it first.
 
