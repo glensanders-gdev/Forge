@@ -47,6 +47,25 @@ readiness.** Numbered 4.27.0 so it sits above the two open releases from the sam
 
 ---
 
+## v4.26.0 — 2026-10-26
+
+**`$add-company` sets up the lead-time calendar that `$review-brd` reads.** `$review-brd` 2.3.0
+counts a readiness projection's business days on the calendar named by `lead_time_team`. Until
+now only a hand-edited `config.md` could name one, so a new company asked for holidays each run.
+
+- **`$add-company` 2.3.0:**
+  - Topic 2 asks which team's calendar lead-time projections count against (Q2.4), and whether the
+    user holds that team's holidays from the jurisdiction's official published calendar (Q2.5).
+  - The config template gains `lead_time_team` and a team `holidays:` key, both left commented out
+    unless a calendar is written.
+  - A new *Holiday calendar file* section writes `calendars/[country]-[region]-public-holidays.md`
+    from the dates the user supplies. It records the source and retrieved date, puts weekday
+    holidays in a table, lists weekend holidays separately and marks provisional dates.
+  - Forge never fetches, looks up or recalls a holiday date. With no calendar yet, the keys are
+    left out and `$review-brd` falls back to asking. New failure-mode rows and rules cover this.
+
+---
+
 ## v4.25.1 — 2026-10-26
 
 **A standalone skill installed on its own keeps the files it cites from a sibling skill.** Two
