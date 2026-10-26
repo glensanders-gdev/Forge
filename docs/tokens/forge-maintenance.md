@@ -6,7 +6,7 @@
 **PI:** —
 **Status:** In Progress
 **Created:** 2026-06-11
-**Last updated:** 2026-09-27
+**Last updated:** 2026-10-26
 
 ---
 
@@ -76,3 +76,12 @@ _Updated at each session close (`/debrief`) from ccusage actuals — see `~/.cla
 **Total:** 351k (L)
 **Source:** ccusage actuals
 **Notes:** Machine totals for 2026-10-08 (full day: input 1,076, output 319,850, claude-opus-5-5 and claude-sonnet-5-5) and 2026-10-09 to 08:57 (input 92, output 30,554, claude-opus-5-5). The Sonnet share is the five `/review-language --skill` subagent runs. **Not attributable to this session alone:** PR #105 (v4.20.1) was authored concurrently on 2026-10-08, and ccusage daily totals cannot be split between sessions. Covers PR #106's 9 commits, a merge of `main`, about 10 Codex and standalone rebuild and parity cycles, two `/skill-health` runs and the reserved-names refresh. Cache: 2.2M creation / 107.7M read (not counted in total). Notional API-rate cost $43.33 — informational only on a subscription plan.
+
+### Framework Maintenance — 2026-10-26 (BRD readiness, v4.25.0 → v4.27.2)
+**Date range:** 2026-10-26
+**Sessions:** 1 (stream `brd-readiness`, opened and closed at debrief), plus two follow-up sessions it started
+**Input:** 1k tokens
+**Output:** 345k tokens
+**Total:** 346k (L)
+**Source:** ccusage actuals
+**Notes:** Machine total for 2026-10-26 at debrief, not a full day — input 1,068, output 344,976, all claude-opus-5-5. **Not attributable to this session alone:** it includes the two follow-up sessions this one started (`/add-company` lead-time calendar, PR #110; standalone `review-ord` gate protocol, PR #109). ccusage daily totals cannot be split between them. Covers requirements pack v1.17–v1.19, PRs #108 and #111–#113, three merge-conflict resolutions, about 15 Codex and standalone rebuild and parity cycles, a lead-time table regeneration verified against all 216 published tiers, and the PI-term removal. Cache: 1.2M creation / 172.9M read (not counted in total). Notional API-rate cost $50.83 — informational only on a subscription plan.

@@ -1,6 +1,6 @@
 # Handoffs: Forge Framework
 
-**Last updated:** 2026-10-09 09:00
+**Last updated:** 2026-10-26
 **Register version:** 2
 
 Pointer rows only — each stream's handoff lives at `docs/handoffs/<slug>.md`. Schema, resolution
@@ -17,11 +17,13 @@ batch 3 from `main` after #106 merges, not from an older branch. `write-ord` was
 (`docs/handoffs/archive/2026-10-07-write-ord.md`). Earlier closed streams: `correction-standards`
 (2026-09-27), `standalone-skills` (2026-09-07), `skill-naming` and `ai-requirements` (2026-08-23).
 
-Work on this repository is currently driven from the **workspace register** at `../docs/HANDOFF.md`,
-where `requirements-pack` is Active and writes `global/.claude/`, `dist/forge-standalone/` and
-`plugins/forge-codex/`. **Open a stream here before taking up Forge-repo work that is not the
-requirements pack's** — the collision warning this register used to carry is gone because the stream
-it warned about is gone, not because the paths stopped being shared.
+`brd-readiness` was opened and closed on 2026-10-26 at debrief — requirements pack v1.17–v1.19 and
+Forge v4.25.0 → v4.27.2, PRs #108–#113 all merged (`docs/handoffs/archive/2026-10-26-brd-readiness.md`).
+
+The **workspace register** at `../docs/HANDOFF.md` has no Active streams: `requirements-pack` closed
+there on 2026-10-07. **Open a stream here before taking up Forge-repo work, the requirements pack's
+included** — pack changes reach this repo through `tools/build-review-criteria.py`, and they write
+`global/.claude/`, `dist/forge-standalone/` and `plugins/forge-codex/` like any other stream.
 
 Closed streams are archived to `docs/handoffs/archive/`. The pre-v3.24.0 single-document handoff is
 at `docs/handoffs/archive/2026-06-19-forge-framework.md`.
