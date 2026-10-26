@@ -154,6 +154,7 @@ def slice_section(text: str, start: str, end) -> str:
 SPECS: dict[str, list[tuple[str, str | None, object]]] = {
     "review-brd": [
         ("brd-standard.md", "## The handoff gate — is this BRD ready", "## Worked example"),
+        ("brd-standard.md", "### Document control and the Doc ID", "### The executive summary"),
         ("brd-standard.md", "### The stakeholder register, and the approving GM register",
          "### The stakeholder requirement form"),
         ("brd-standard.md", "### The handoff gate, applied to this document",

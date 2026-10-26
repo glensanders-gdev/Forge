@@ -108,7 +108,7 @@ at executive altitude, and moves *how decisions are made* (§13) and *what repor
 what `$review-ord` matches to switch to this map; reword it and the review falls back to the pack's
 layout and reports the structure as defects.
 
-**Content is unchanged in kind; only its place moves.** Every item the pack's gate (OH-1 – OH-15)
+**Content is unchanged in kind; only its place moves.** Every item the pack's gate (OH-1 – OH-16)
 assesses is still produced. A reviewer applying the pack resolves each pack section through this
 map:
 

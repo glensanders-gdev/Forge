@@ -104,6 +104,7 @@ with nothing to state says so in one line — it is never dropped, and nothing c
 **Document tier:** [weakest status carried by any requirement marked as a Key Performance Parameter (KPP)]
 **Owner (convenor):** [Role / Name]
 **Approvers:** [named business owners — endorsement is not approval]
+**Design support:** [per business unit in scope — `Unit: named role` who answers its business questions while the SOAP is drafted, or `Unit: [TBD — Owner, due YYYY-MM-DD]`]
 **Classification:** [Internal / Confidential / Restricted]
 **Conformance:** ISO/IEC/IEEE 29148:2018 (stakeholder and system requirements), organised by
 ISO/IEC 25010:2023 quality characteristics at §7.
