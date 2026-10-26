@@ -131,7 +131,7 @@
     },
     {
       "name": "grill-with-docs",
-      "version": "2.2.1",
+      "version": "2.2.2",
       "category": "pipeline",
       "description": "Planning phase grilling session that challenges a plan against the existing domain model, sharpens terminology, and updates CONTEXT.md and ADRs inline as decisions crystallise. The standard entry point for project planning. Use when stress-testing a plan against the project's language, codebase, and documented decisions."
     },

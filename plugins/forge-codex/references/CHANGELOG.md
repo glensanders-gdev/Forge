@@ -47,6 +47,26 @@ readiness.** Numbered 4.27.0 so it sits above the two open releases from the sam
 
 ---
 
+## v4.25.1 — 2026-10-26
+
+**A standalone skill installed on its own keeps the files it cites from a sibling skill.** Two
+shipped skills linked into another skill's folder, which resolves in a full install and in no
+single-skill one. Source keeps one copy of each shared file; the standalone build now copies it
+beside the citing skill and repoints the link.
+
+- **`$review-ord` 2.4.3:** the standalone `review-ord/` ships its own `GATE-PROTOCOL.md`, copied from
+  `review-brd/`. `$review-brd` already owns the file and is unchanged.
+- **`$grill-with-docs` 2.2.2:** the standalone `grill-with-docs/` ships its own `FRONTIER.md`, copied
+  from `grill-me/`.
+- **`build-forge-standalone.ps1`:** a `$SiblingCopies` table declares each shared file. `-Strict`
+  now fails on any shipped skill linking to a file in another skill's folder — a link to that
+  skill's `SKILL.md` names the skill and is allowed. The build report counts these links.
+- The Codex plugin installs every skill together, so its `../` links resolve and it is unchanged.
+  The Copilot prompts for `$review-brd` and `$review-ord` are hand-adapted and already carry the
+  protocol inline.
+
+---
+
 ## v4.25.0 — 2026-10-26
 
 **`$review-brd` asks three questions and projects the ORD's lead time.** Requirements pack v1.17 added

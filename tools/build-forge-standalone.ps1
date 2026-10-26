@@ -477,6 +477,50 @@ foreach ($entry in $SelfContainedSkills.GetEnumerator()) {
     Write-Host "Wrote skills/$name/STANDARDS.md from $($parts.Count) part(s) ($rewritten file(s) repointed)"
 }
 
+# ---------------------------------------------------------------- sibling copies
+
+# A skill citing a file in another skill's folder works in a full install and in nothing
+# else: a user who installs only that skill holds a link to a folder they never copied.
+# Source keeps one copy so the two skills cannot drift; the distribution gives each citing
+# skill its own copy beside SKILL.md and repoints the link. A self-contained skill declares
+# its siblings in `$SelfContainedSkills` instead, which folds them into STANDARDS.md.
+$SiblingCopies = [ordered]@{
+    'review-ord'      = @('review-brd/GATE-PROTOCOL.md')
+    'grill-with-docs' = @('grill-me/FRONTIER.md')
+}
+
+foreach ($entry in $SiblingCopies.GetEnumerator()) {
+    $name = $entry.Key
+    if ($shipped -notcontains $name) { throw "Sibling copy target '$name' is not shipped." }
+    if ($SelfContainedSkills.Contains($name)) {
+        throw "'$name' is self-contained; declare its siblings in `$SelfContainedSkills, not `$SiblingCopies."
+    }
+    $skillDir = (Resolve-Path -LiteralPath (Join-Path $skillsOut $name)).Path
+    foreach ($sib in $entry.Value) {
+        $leaf   = Split-Path -Leaf $sib
+        $sibSrc = Join-Path $skillsOut $sib
+        $sibDst = Join-Path $skillDir $leaf
+        if (-not (Test-Path -LiteralPath $sibSrc)) { throw "Sibling file '$sib' declared by '$name' is not in the output tree." }
+        if (Test-Path -LiteralPath $sibDst) { throw "'$name' already owns a '$leaf'; the copy of '$sib' would overwrite it." }
+        # Taken from the output tree, so it has already been through Convert-StandaloneText.
+        Copy-Item -LiteralPath $sibSrc -Destination $sibDst
+
+        $rewritten = 0
+        foreach ($f in @(Get-ChildItem -LiteralPath $skillDir -File -Filter "*.md")) {
+            $text   = [IO.File]::ReadAllText($f.FullName, [Text.Encoding]::UTF8)
+            $before = $text
+            $text = $text.Replace("](../$sib)", "]($leaf)").Replace("``../$sib``", "``$leaf``")
+            if ($text -ne $before) {
+                [IO.File]::WriteAllText($f.FullName, $text, [Text.UTF8Encoding]::new($false))
+                $rewritten++
+            }
+        }
+        # A declaration nothing cites is stale, and would ship a file the skill never reads.
+        if ($rewritten -eq 0) { throw "'$name' declares sibling '$sib' but no file in it cites ../$sib." }
+        Write-Host "Copied $sib into skills/$name ($rewritten file(s) repointed)"
+    }
+}
+
 # ---------------------------------------------------------------- single-file bundles
 
 # A self-contained skill is still a folder of files, and a chat assistant that takes no
@@ -547,6 +591,7 @@ foreach ($b in $bundled) {
 $danglingFiles = New-Object System.Collections.Generic.List[object]
 $ambiguousRefs = New-Object System.Collections.Generic.List[object]
 $escapees      = New-Object System.Collections.Generic.List[object]
+$crossSkillRefs = New-Object System.Collections.Generic.List[object]
 
 $packBasenames = @{}
 foreach ($pack in $PackRoots.Keys) {
@@ -633,6 +678,20 @@ foreach ($file in (Get-ChildItem -LiteralPath $skillsOut -Recurse -File -Filter 
                     })
                 }
             }
+        } else {
+            # Any shipped skill can be installed on its own. A `../other-skill/` link resolves
+            # in this tree, so the citation scan passes it, and in no single-skill install.
+            # Declare the file in `$SiblingCopies` to ship a copy beside the citing skill. A link
+            # to another skill's SKILL.md names that skill rather than depending on it, and is
+            # governed by the held-skill scan; a `../` that is not a skill is a template path.
+            foreach ($pattern in @('\]\((\.\./([^/)]+)/([^)]*?\.md))\)', '`(\.\./([^/`]+)/([^`]*?\.md))`')) {
+                foreach ($m in [regex]::Matches($line, $pattern)) {
+                    if ($shipped -notcontains $m.Groups[2].Value -or $m.Groups[3].Value -eq 'SKILL.md') { continue }
+                    $crossSkillRefs.Add([pscustomobject]@{
+                        Skill = $skillName; File = $rel; Line = $lineNo; Cited = $m.Groups[1].Value
+                    })
+                }
+            }
         }
     }
 }
@@ -683,6 +742,7 @@ $report.Add("- Surviving ``Forge`` mentions: $($forgeWord.Count)")
 $report.Add("- Dangling file references: $($danglingFiles.Count)")
 $report.Add("- Ambiguous bare standard citations: $($ambiguousRefs.Count)")
 $report.Add("- Self-contained skills citing outside their folder: $($escapees.Count)")
+$report.Add("- Skills linking into another skill's folder: $($crossSkillRefs.Count)")
 foreach ($b in $bundled) {
     $report.Add("- Self-contained: ``$($b.Skill)`` ships STANDARDS.md from $($b.Files) ``$($b.Pack)`` part(s), $($b.Rewritten) file(s) repointed")
 }
@@ -711,6 +771,19 @@ if ($danglingFiles.Count -gt 0) {
     $report.Add("| Skill | File | Line | Cited |")
     $report.Add("|---|---|---|---|")
     foreach ($r in ($danglingFiles | Sort-Object Skill, File, Line)) {
+        $report.Add("| $($r.Skill) | $($r.File) | $($r.Line) | ``$($r.Cited)`` |")
+    }
+    $report.Add("")
+}
+if ($crossSkillRefs.Count -gt 0) {
+    $report.Add("## Links into another skill's folder")
+    $report.Add("")
+    $report.Add("A shipped skill links to a file in a sibling skill's folder, which a single-skill")
+    $report.Add('install does not have. Declare the file in `$SiblingCopies` to ship a copy beside the skill.')
+    $report.Add("")
+    $report.Add("| Skill | File | Line | Cited |")
+    $report.Add("|---|---|---|---|")
+    foreach ($r in ($crossSkillRefs | Sort-Object Skill, File, Line)) {
         $report.Add("| $($r.Skill) | $($r.File) | $($r.Line) | ``$($r.Cited)`` |")
     }
     $report.Add("")
@@ -982,4 +1055,11 @@ if ($danglingFiles.Count -gt 0) {
 
 if ($Strict -and $residual.Count -gt 0) {
     throw "$($residual.Count) dangling skill reference(s). See $reportPath"
+}
+
+if ($Strict -and $crossSkillRefs.Count -gt 0) {
+    foreach ($r in ($crossSkillRefs | Sort-Object Skill, File, Line)) {
+        Write-Host "  $($r.File):$($r.Line): $($r.Cited)"
+    }
+    throw "$($crossSkillRefs.Count) link(s) into another skill's folder. See $reportPath"
 }
