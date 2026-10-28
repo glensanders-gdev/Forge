@@ -1,6 +1,6 @@
 # Write Agent Brief — Reference
 
-Read by `/write-agent-brief` before Phase 1. The template, the checks, and the reasons behind each part.
+Read by `/write-agent-brief` before Phase 1. The template, the conversation-source rules, the checks, and the reasons behind each part.
 
 ---
 
@@ -90,6 +90,45 @@ if none.
 
 ---
 
+## Conversation source
+
+Applies when the source is this session, or pasted notes or a transcript. A document is agreed
+text; a conversation mixes what the user decided with what was only suggested, and changes its
+mind as it goes. These rules settle what counts as a requirement.
+
+**Provenance.** Tag each candidate item before it fills a slot:
+
+| Tag | Means | Fills a slot? |
+|---|---|---|
+| **Stated** | The user said it | Yes |
+| **Accepted** | The assistant proposed it and the user plainly agreed (“yes”, “go with that”, or acted on it) | Yes |
+| **Proposed** | The assistant proposed it and the user moved on without agreeing | No: `GAP` |
+| **Inferred** | Nobody said it; it follows from what was said | No: `GAP` |
+
+Silence is not agreement. In notes or a transcript with several speakers, a point is **Stated**
+only when the speaker who owns the decision made it; any other speaker's point is **Proposed**.
+
+**Reversals.** Where a later decision replaces an earlier one, the later one fills the slot and the
+pair goes in the first gap round as `Earlier: X. Later: Y. Y stands?`. Where the conversation
+moved on without settling a point, it is a `GAP`.
+
+**Goal and Done round.** Where either is missing, ask for it once, in the first gap round,
+recommending an answer drawn from the conversation and saying which lines it comes from. This is the
+only elicitation the skill does. More is a grill.
+
+**Source slot.** The agent never sees the conversation, so the Source slot holds the decisions as
+numbered statements, each one a Stated or Accepted item, worded so it stands alone:
+
+```markdown
+## Source
+Decisions agreed before this brief (work from these, and the files below, only):
+1. Passkeys are offered only to users who already have a password.
+2. The existing password path stays as it is.
+- `src/auth/login.ts`: current sign-in flow
+```
+
+---
+
 ## Cold-reader checks
 
 Run in Phase 3, step 7. Each check has a pass condition.
@@ -132,6 +171,12 @@ Run in Phase 3, step 7. Each check has a pass condition.
 > ✗ `Make sure it works.`
 > ✓ `Run npm test -- auth and confirm zero failures. Then check each criterion and mark it met, unmet or untested.`
 
+**Conversation provenance**
+
+> ✗ The assistant suggested rate-limiting sign-in to 10 a minute; the user replied about the button
+> colour. The brief says `Rate-limit sign-in to 10 attempts a minute.`
+> ✓ `Ask before acting: rate-limiting was suggested but not agreed. Confirm whether it is in scope.`
+
 **Chat source**
 
 > ✗ `Write the requirements section using what you know about our billing system.`
@@ -155,6 +200,7 @@ pages are living documents, so check the page for the model in use before relyin
 | No contradiction | Contradictions cost precise instruction-followers the most | OpenAI GPT-5 prompting guide |
 | Scope, stop conditions | Bound eagerness and unrequested changes | Anthropic; OpenAI; Google |
 | Verify | Give the agent a check to run before it reports done | <!--no-adapt-->Anthropic Claude Code best practices<!--/no-adapt--> |
+| Conversation source | Interview the user, write the spec, then build from a fresh session that holds only the spec | <!--no-adapt-->Anthropic Claude Code best practices<!--/no-adapt--> (interview pattern); Anthropic context engineering (context rot) |
 | Ask before acting | Ask rather than assume | Google; AWS Kiro (ambiguity check); <!--no-adapt-->Claude Code<!--/no-adapt--> (interview pattern) |
 | Every line live | Context is a finite attention budget. Include only what the agent cannot infer | Anthropic, *Effective context engineering for AI agents* (2025-09-29) |
 | One goal | Small, gated units of work | GitHub Spec Kit; AWS Kiro; <!--no-adapt-->Claude Code<!--/no-adapt--> |
