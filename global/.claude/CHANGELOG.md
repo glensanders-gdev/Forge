@@ -11,6 +11,31 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
+## v4.28.0 — 2026-10-28
+
+**New skill: `/write-agent-brief`.** Turns an existing PRD, ticket or requirement set into a brief
+that an AI agent acts on cold. Forge had rules for requirements *about* an AI system (`ai.md`) and
+for AI *writing* the code (`ai-first-engineering`), but nothing for requirements handed *to* an AI.
+Grounded in the workspace research `docs/research/prompting-llms-with-requirements.md`, drawn from
+Anthropic, OpenAI, Google and Microsoft prompting guidance and the GitHub Spec Kit and AWS Kiro
+spec workflows.
+
+- **`/write-agent-brief` 1.0.0** (standalone, self-contained with the requirements pack):
+  - Four phases: Read [AFK], Gap Gate [HITL], Write [AFK], Hand-over [HITL].
+  - Nine slots: goal, done, source, acceptance criteria, constraints, scope, verify, ask before
+    acting, report. A missing goal or definition of done stops the run and recommends `/grill-me`.
+  - Every gap goes to the user rather than being filled from inference. Gaps left open travel into
+    the brief under *Ask before acting*.
+  - Two targets: a repo agent (points to files by path) and a chat assistant (source excerpts first,
+    built on Microsoft's goal / context / source / expectations prompt).
+  - Eleven cold-reader checks, including no contradictions, reasons on every constraint, positive
+    framing and no shouted emphasis. Criteria follow `language.md`; EARS is optional.
+  - Never launches or messages an agent itself.
+- **Copilot prompt** `copilot/write-agent-brief.md`, and a generated single-file bundle.
+- Named verb-first per ADR-0002. `agent-brief` was considered and rejected as an action named like a state.
+
+---
+
 ## v4.27.2 — 2026-10-26
 
 **No public skill names PI planning or the PI release scheme.** Program Increment planning is one

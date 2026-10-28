@@ -1,0 +1,614 @@
+# Requirements Tables
+
+> Governs how requirements are *presented* in generated documents. Pairs with
+> [language.md](language.md), which governs how they are worded.
+
+## The Rule
+
+**Every binding statement is a row in a table with a stable ID. Prose carries narrative only.**
+
+A statement is **binding** if someone could later be held to it. The test: *could this be
+cited in a review, an audit, an SLA dispute, or an acceptance test?* If yes, it is a row.
+
+This is deliberately narrower than "tabularise everything". Prose sections earn their place and
+are made worse by tabulation — background, mission context, system overview, and day-in-the-life
+operational scenarios stay as prose. What they must never do is introduce a commitment that does
+not also appear as a row somewhere.
+
+## Canonical Schemas
+
+Use these exactly. A document that invents a column set drifts from its sibling, which is the
+failure this file exists to prevent.
+
+### Requirement register — the demand-side ORD
+
+Every operational requirement, in every section. The subsection heading supplies the ISO/IEC 25010
+characteristic, so there is no characteristic column.
+
+| ORD# | Ver | Requirement Title | Business Tolerance | KPP | MoSCoW | Status | Owner | Source |
+|---|---|---|---|---|---|---|---|---|
+| ORD-NNN | 1.0 | [active, verb-first] | [declarative end state, carrying its own quantified value] | [KPP] or blank | Must | Committed | [named business owner] | [contract, obligation, incident record, or BU/Function/Name] |
+
+**Column-name equivalence.** The requirements-documents pack writes the first column `Ref` and uses
+sentence case (`Requirement title`, `Business tolerance`). They are the same columns; `ORD#` is used
+here for consistency with `PRD#` and `BRD#` elsewhere in this file. `MoSCoW` is an extension the
+pack does not require — see below.
+
+**The register states business demand, never the technical target that satisfies it.** *"Service is
+restorable within one business day, beyond which obligation X is breached"* is a requirement;
+*"RTO 4h"* is the design response to it. See [language.md](language.md) § *Demand, not design*.
+
+- **`Requirement Title` is active and verb-first** — `Restore service within one business day` —
+  while `Business Tolerance` is noun-first and passive. That split is the existing rule in
+  [language.md](language.md) § *Voice by Altitude*, applied at one altitude: titles command,
+  criteria state. It is not a summary of the tolerance and never carries a value of its own.
+- **`Business Tolerance` is written at executive altitude.** The test: *could an executive
+  understand it without understanding reporting, governance, architecture or implementation?* If
+  not, it states the outcome and the breach consequence, and the detail moves to a `BRL-NNN` rule
+  (§13) or a §14 reporting definition the row cites — *"published results are auditable and
+  reproducible"*, not *"each included, excluded and exception record retains a stable identifier
+  linking …"*. Moving detail never drops it.
+- **`Business Tolerance` carries its own quantified value.** No separate threshold column — under
+  [language.md](language.md) the requirement is a declarative end state, so the number is part of
+  the sentence. Prefix **[AI]** where [ai.md](ai.md) governs the row.
+- **`KPP` is a column, not a prefix.** A KPP carries **threshold** (minimum acceptable) and
+  **objective** (desired) as two labelled values inside `Business Tolerance`; collapsing them to one
+  figure is how KPP intent is lost downstream. `[AI]` remains a prefix — it records which ruleset
+  governs the row's form, which is not a property a column should imply is severity.
+- **`Status` is `Committed` / `Provisional` / `Assumed`** — the maturity of the demand statement, not
+  of a technical threshold. An `Assumed` row without a named owner and a confirm-by date in the
+  assumption register is an invented number, not an assumption.
+- **`Owner` is the named business owner of the tolerance.** Not the delivery team and not the
+  operating team — both are response-side and neither is knowable at ORD time.
+- **`Ver` is the requirement's own version**, not the document's. It rises when the tolerance
+  changes after first issue, and it is what makes inline provenance work: a proposed acceptance
+  criterion carries `[ORD-003 · v1.0 · Provisional · owner: … · confirm by …]` so the criterion's
+  standing travels with it to whoever writes the Capability AC. Without it a downstream reader
+  cannot tell an agreed tolerance from a revised one.
+- **Traceability is not a register column.** The up-link — the `OBJ-NNN` objective and the BRD
+  objective it serves via its business requirement — lives once, in §11 Traceability. Carrying it in both
+  places is the restatement the § *View Tables* rule forbids. A row tracing only as far as a `BR-N`
+  has no funded outcome behind it, which is what §11's `via` makes visible.
+- **`Source` is the evidence, not the speaker alone.** A contract clause, a regulatory obligation, an
+  incident record or an `ASM-NNN`. Where the only source is a stakeholder, name Business Unit,
+  Function and Name.
+- **There is no `Verification` column.** The measurement *population* belongs inside the tolerance
+  sentence; the *instrument* that measures it is the design response, recorded at §17 when
+  the SOAP is issued. A demand-side ORD that names its own instrument has pre-empted the review it
+  exists to inform.
+
+**MoSCoW, `KPP` and `Status` are three orthogonal axes and all three are kept.** A KPP is a
+business-failure threshold; a Must is required for this release; a Status is how well evidenced the
+statement is. Most KPPs are Musts; most Musts are not KPPs; a KPP may sit at any status, and one at
+`Assumed` is the single item that warrants escalation.
+
+**`Should` and `Could` as MoSCoW values are not a `language.md` violation.** That rule bans hedging
+verbs inside requirement *text*; a controlled enum in a priority column is unambiguous. Do not
+"correct" it. **MoSCoW is DSDM, and KPP is US DoD JCIDS** — neither is ISO-backed. Both are retained
+as house convention; neither is cited as a standards obligation.
+
+### Prioritisation and status definitions
+
+**Emitted verbatim into every ORD at §5.2**, so a reader meets the three axes defined before meeting
+the register. In the ORD the table is headed as a **view** of this section, so the LLM companion
+omits it — the companion's own Vocabulary already carries these definitions. Never reworded per document — the definitions are what make one ORD's `Must` mean the
+same as another's.
+
+| Column | Value | Definition | Assigned by |
+|---|---|---|---|
+| MoSCoW | **Must** | Required for this release. The release is not accepted without it. | Product Manager |
+| MoSCoW | **Should** | Important and of significant value. The release is accepted without it. | Product Manager |
+| MoSCoW | **Could** | Desirable. Delivered where capacity allows. | Product Manager |
+| MoSCoW | **Won't (this release)** | Raised, recorded and deliberately deferred. It stays in the register for a later release and carries no acceptance criterion. | Product Manager |
+| KPP | **[KPP]** | A business-failure threshold: failure means the capability is unfit for purpose, not merely degraded. Carries a threshold (minimum acceptable) and an objective (desired). Independent of MoSCoW — most KPPs are Musts, most Musts are not KPPs. | Business owner, at the Phase 1 gate |
+| Status | **Committed** | The business owner has stated and agreed the tolerance, and it traces to an obligation, contract, incident record or business decision. | Evidence |
+| Status | **Provisional** | The tolerance derives from a real source — an SLA, contract, incident history, analogous service — not yet confirmed by the owner for this change. | Evidence |
+| Status | **Assumed** | No owner confirmation and no documentary source; rests on an `ASM-NNN` with a named owner and a confirm-by date. | Evidence |
+| Rule status | **Confirmed** | The rule owner has agreed the business rule as written in §13. | Rule owner |
+| Rule status | **Provisional** | A source states the rule, but its owner has not confirmed it for this change. The same word as the requirement status, applied to a rule. | Evidence |
+| Rule status | **Unresolved** | The rule is not decided. `Rule` carries a `[TBD]`, and the row cites the decision item that settles it. | Evidence |
+
+**`Won't` is not out of scope.** A `Won't` item is in this document's scope and deferred; an
+out-of-scope item is never delivered by this document (ORD §4.2). **An item removed from scope after
+agreement is descoped, and descoping is a scope change, not a priority** — it is recorded as a §4.2
+exclusion with a §18 change-history entry stating when, by whom and why, never as a `Won't`.
+
+**Delivery Agent, Operational Owner, Timing and Verification are deliberately absent.** Each names
+something the demand side does not know and cannot commit: who will build it, who will run it, when
+it will be scheduled, and what instrument will prove it. Timing lives at the objective
+(`OBJ-NNN` § *Target Date*), which the requirement inherits through §11. Traceability and the
+written-back downstream links both live in §11 Traceability, not in the register.
+
+**`MoSCoW` is an extension to the demand-side standard.** The standard does not require it; these
+rules keep it because `$write-ac` gates AC altitude on it. It is business prioritisation, so it sits
+on the demand side legitimately — but an ORD authored to the pack alone carrying no `MoSCoW` column
+is conforming, not defective.
+
+### Operational objective
+
+The outcome layer between a BRD objective and an operational requirement. Every register row traces
+to one.
+
+| ID | Objective | Baseline | Target | Target Date | Traces to |
+|---|---|---|---|---|---|
+| OBJ-NNN | [operational outcome, never the solution] | [current measurable position] | [required outcome] | [date or milestone] | [BO-N via BR-N] · [ORD-NNN, …] |
+
+`Baseline`, `Target` and `Target Date` are measures under ISO/IEC 25022 / 25023. Where any of the
+three is unavailable, write `[TBD — source: "quoted vague statement"]` and leave the gap visible.
+**Never invent a baseline** — an objective whose baseline is guessed cannot show improvement.
+
+### Scenario
+
+Requirement-level scenarios and the consolidated scenario catalogue are **one table**, keyed by
+`ORD#`. Building a second catalogue would restate every row.
+
+| ID | ORD# | Scenario | Outcome | Condition | Expected end state |
+|---|---|---|---|---|---|
+| SCN-NNN | ORD-NNN | Sunny Day | Favourable | [in-distribution, everything available] | [declarative end state] |
+| SCN-NNN | ORD-NNN | Sunny Day | Adverse | [processing succeeds, result is unfavourable] | [declarative end state] |
+| SCN-NNN | ORD-NNN | Rainy Day | — | [dependency down, data unavailable, retrieval failed] | [declarative end state] |
+| SCN-NNN | ORD-NNN | Edge Case | — | [empty, maximum, expired, first, last] | [declarative end state] |
+
+**`Scenario` and `Outcome` are two axes, not one.** `Scenario` is the condition the *capability* is
+put through — the three values in this file, unchanged. `Outcome` is whether the *subject being
+measured* passes or fails, and it applies only on a Sunny Day: a determination that runs correctly
+and returns bad news is not a capability failure. That is why a fourth `Scenario` value was not
+added — it would conflate the two axes.
+
+- **`Outcome` is `Favourable` / `Adverse`, and `—` where the axis does not apply.** A Rainy Day has
+  no outcome because nothing was determined.
+- **A determination, measurement or eligibility requirement carrying only a Favourable Sunny Day row
+  is incomplete.** What must be true when the answer is unfavourable is a separate obligation, and
+  it is the one most often left unstated.
+- Each row stays a declarative statement under [language.md](language.md). A Rainy Day row states
+  what *is* true when the dependency fails, never what might happen.
+- A story or requirement whose scenarios are all `Sunny Day` has been specified for the demo, not
+  for production.
+
+### Business rule
+
+**The ORD states what must happen; the business rule register states how decisions are made.**
+Every ORD carries the register at §13, grouped into three, whether or not a functional requirements
+document follows — a requirement that embeds its classification, cut-off or reconciliation logic has
+been written at the wrong altitude, and the register is where that detail goes instead. Where a PRD
+in the chain already states a rule, the row cites the PRD criterion (`PRD-NNN.N`) and restates
+nothing — the PRD states rules as criteria and never mints `BRL-NNN`.
+
+| ID | Group | Rule Type | Required Decision | Rule | Status | Owner | Effective Date | Affects |
+|---|---|---|---|---|---|---|---|---|
+| BRL-NNN | Classification / Reporting / Governance | [from the group's types below] | [what must be determined] | [the rule as the business states it, or `[TBD — source: "…"]` while unresolved] | Confirmed / Provisional / Unresolved | [named, or TBD with confirm-by] | [where supplied] | [ORD-NNN, …] |
+
+| Group | Rule types |
+|---|---|
+| **Classification** | Inclusion · Exclusion · Cohort assignment · Eligibility |
+| **Reporting** | Reporting period · Cut-off · Late-arriving data · Calculation · Restatement |
+| **Governance** | Reconciliation · Exception handling · Evidence retention · Rule versioning |
+
+- **`Owner`, `Status` and `Affects` are mandatory on every row** — a rule with no affected
+  requirement governs nothing, and one with no owner has nobody to change it.
+- **Business rules are functional content carried by the ORD by design.** State that in the §13
+  lead so a reviewer reading against a scope that excludes them sees a declaration, not an absorption.
+
+- **`Required Decision` and `Rule` are OMG DMN's two levels, kept in two columns.** The decision
+  is what must be determined — *whether a complaint counts in the measure*. The rule is the decision
+  logic in the business's own words — *a complaint withdrawn by the customer is excluded*. The ORD
+  carries both: the executive-altitude test moves this logic out of the requirement, and this column
+  is where it lands.
+- **`Rule` is business policy, never implementation design.** No query, field name, system
+  behaviour, decision-table encoding or algorithm — those are how the delivered solution applies the
+  rule, and belong to the design response. The test: a business owner reads it and agrees or
+  disagrees without asking how it is built.
+- **An `Unresolved` row carries `[TBD — source: "…"]` in `Rule`**, never a drafted answer. Where two
+  documented positions compete, both go in the decision item the row cites, not in `Rule`.
+- An `Unresolved` rule affecting a KPP-bearing requirement is raised via `$raid add decision`.
+
+### Decision
+
+Every unresolved business decision is a first-class row — never an assumption embedded in a
+requirement. ORD §8.1.
+
+| ID | Decision required | Affects | Options | Owner | Required by | Status | Resolution |
+|---|---|---|---|---|---|---|---|
+| D-NNN | [what must be decided] | [ORD-NNN, BRL-NNN, …] | [the documented positions] | [named] | [date] | Open / Resolved / Superseded | [the decision taken, by whom and when — blank only while Open] |
+
+`$raid` owns `D-NNN`. Where no RAID log exists, the ID cell carries a **numbered placeholder** —
+`[D-TBD-1]`, `[D-TBD-2]`, flat and sequential in order of first appearance — and the row is kept.
+The number is what lets a `BRL-NNN` or `ORD-NNN` row cite *which* open decision governs it; it is
+local to the document and is replaced, everywhere it is cited, when `$raid` mints the real ID.
+A `Resolved` row is kept, not deleted — the resolution is the record the affected requirements
+were changed against.
+
+### Related initiative
+
+Adjacent work this document neither depends on nor delivers. ORD §10.2. **No ID — the initiative
+name is the key**, on the operational-actor reasoning: it identifies, and commits nothing.
+
+| Initiative | Relationship | Owner | Routed items | Status |
+|---|---|---|---|---|
+| [named programme, project or change] | Overlaps / Feeds / Consumes / Supersedes | [named] | [REF-NNN, …, or —] | [as reported by its owner] |
+
+**Four registers, four tests — never one table:**
+
+| It is a… | When |
+|---|---|
+| **Dependency** (`DEP-NNN`) | This document's outcome cannot be delivered until it is |
+| **Related initiative** | It touches the same scope, but this document's outcome does not wait for it |
+| **Referred requirement** (`REF-NNN`) | Content raised here that another owner delivers |
+| **Out-of-scope item** (§4.2, `IMP.Treatment`) | Deliberately excluded, and delivered by nobody as a result of this document |
+
+### Impact register
+
+What the change touches and who owns it. Identification and accountability — never target state.
+
+| ID | Impact | Kind | Treatment | Owner | Referred |
+|---|---|---|---|---|---|
+| IMP-NNN | [named L4 workflow or system in the current estate] | Process / System | Addressed / No change required / Out of scope | [named owner] | [REF-NNN or —] |
+
+Naming the as-is estate is identification; naming the to-be estate is design. A row says what is
+touched, who owns it, and whether **this document** addresses it — and says nothing about what
+becomes of it. **Where tier numbers are cited, name the scheme they belong to** — an unqualified
+"L4" resolves differently in APQC, eTOM and a house scheme.
+
+**`Treatment` is a scope disposition, and the enum is closed.** Three values, no others:
+
+| Value | Means |
+|---|---|
+| `Addressed` | This document carries requirements for the impact |
+| `No change required` | The impact was identified and assessed as needing nothing |
+| `Out of scope` | Identified, and deliberately excluded from this document |
+
+**A design disposition is not a treatment.** *Migrated*, *decommissioned*, *extended*, *replaced*,
+*rebuilt* — each names what becomes of the impact, which is the response's answer and not the
+demand's. A row carrying one has crossed the line this register exists to hold.
+
+**`Referred` is the pointer, `Treatment` is the disposition, and neither substitutes for the
+other.** A referred impact still carries a treatment — usually `Out of scope`, because referral is
+what happens *after* this document excludes it. Reading a populated `Referred` cell as a treatment
+loses the distinction between an exclusion that went somewhere and one that did not.
+
+**Where a document states an exclusion for a named impact, this cell is the authoritative value**
+and any prose scope statement is a view of it. Prose keeps the exclusions that are not impacts —
+populations, geographies, timeframes — which have no row to be authoritative in.
+
+`Treatment` is additive. A register predating it reads `[TBD]` in that cell and is not retrofitted;
+the value is written when the document is next reissued.
+
+### Operational actor
+
+Who and what the operational process runs through. **Identification, like the impact register** —
+never authority the source did not state, and never a target operating model.
+
+| Actor | Kind | Operational role | Owner |
+|---|---|---|---|
+| [named person-role, system or organisation] | User / System / Party | [what it does in the operational process] | [named owner, or TBD with confirm-by] |
+
+- **`Kind` is `User` / `System` / `Party`.** `Party` is an external organisation — a retail service
+  provider, a contractor, a regulator. Without it a cross-party consequence has no subject to name,
+  and cross-party consequence is the class most often left derived and unconfirmed.
+- **This table carries no ID, and that is deliberate.** The actor name is the key. An actor row
+  identifies a subject; it commits nothing, so nothing traces *to* it — which is the test the
+  § *Statements that carry no ID* rule applies, and this row sits outside that list rather than
+  extending it. A prefix here would buy reference precision and cost a namespace every sibling
+  skill must avoid colliding with.
+- **Governance roles are not actors.** The SME who informed the document, the business owner who
+  approves it and the convenor who wrote it belong in the document header and the entry-position
+  record. A table mixing *the billing platform* with *the SME who reviewed this* serves neither
+  purpose.
+- **Notification is a view, not a column.** Who is told what, and when, cites the requirement rows
+  that carry it.
+- `Owner` accepts `[TBD]` with a confirm-by date. Where no stakeholder list arrives at assignment,
+  a `[TBD]` per actor is what makes the absence countable; one entry-position row is not.
+
+### Referred requirement
+
+Content raised during elicitation that this document will not deliver. No row is classified against
+a 25010 characteristic and no row becomes a requirement of this document.
+
+| ID | Requirement | Raised by | Kind | Related impact | Resolver group | Referred to | Date | Status |
+|---|---|---|---|---|---|---|---|---|
+| REF-NNN | [what was raised] | [name] | Functional / Wrong resolver / Out of scope | [IMP-NNN] | [group, or **None in chain**] | [named recipient] | [date] | Referred / Accepted / **Referred, not accepted** |
+
+An omitted requirement is indistinguishable from one nobody had; a referred requirement with a named
+recipient is a handoff. **`Resolver group: None in chain` is a real answer** and the row stays open —
+it is the visible form of a gap in the delivery chain, not a defect in the document.
+
+### PRD story criteria
+
+A PRD story is deliberately narrative — "As a … I want … so that …" carries intent and the business
+outcome, which a register row cannot. Its **acceptance criteria** are rows:
+
+| ID | Acceptance Criterion | Scenario |
+|---|---|---|
+| PRD-NNN.N | [declarative statement of what is true once delivered] | Sunny Day / Rainy Day / Edge Case |
+
+- Criterion IDs are `PRD-NNN.N` within their story, so `$write-ac` maps each `AC-NNN` to a precise
+  criterion rather than a whole story.
+- A criterion over learned or generated behaviour is prefixed **[AI]** in the `Acceptance Criterion`
+  cell and follows [ai.md](ai.md) as well as this file.
+- The story carries a `MoSCoW` priority; `$write-ac` gates altitude on it exactly as it does for
+  ORD register rows.
+- **`Scenario` names the weather the requirement is being put through**, not a category of criterion.
+  The three values are the same requirement examined under three conditions, which is why the column
+  is `Scenario` and not `Type` — a reader who sees `Type` asks what kind of criterion this is, and
+  the answer is always "an acceptance criterion".
+
+| Value | The requirement under | Answers |
+|---|---|---|
+| **Sunny Day** | Everything available and behaving | What is true when it works |
+| **Rainy Day** | Something failing — dependency down, timeout, refusal | What is true when it breaks |
+| **Edge Case** | A valid but boundary condition — empty, maximum, expired, first, last | What is true at the limits |
+
+- `Scenario` makes the Sunny-Day-only coverage warning mechanically checkable: a story whose criteria
+  are all `Sunny Day` has been specified for the demo, not for production.
+- **These are labels for the condition, not a licence to hedge.** Each row stays a declarative
+  statement under [language.md](language.md) — a Rainy Day criterion states what *is* true when the
+  dependency fails, never what *might* happen.
+- **A determination or eligibility story carries two Sunny Day criteria** — one where the answer is
+  favourable and one where it is adverse. The capability succeeding and returning bad news is not a
+  Rainy Day, and stating only the favourable case leaves the larger obligation unwritten. See
+  § *Scenario* above for the `Outcome` axis; a PRD story may carry the column or say it in the
+  criterion, but it states both cases either way.
+
+### Reference list
+
+One table holds every source the document cites: the ORD's §4.5, the BRD's Appendix B and the
+PRD's § *References*. The citation forms are in [language.md](language.md) § *Citing Sources*.
+
+| Cited as | Full citation | Type |
+|---|---|---|
+| Privacy Act | Privacy Act 1988 (Cth) | Legislation |
+| ISO/IEC 25010:2023 | ISO/IEC (2023) *ISO/IEC 25010:2023 Systems and software engineering — Systems and software Quality Requirements and Evaluation (SQuaRE) — Product quality model*, International Organization for Standardization, Geneva | Standard |
+| Retail service agreement | Acme Communications and Retailer Pty Ltd (2025) *Retail service agreement*, version 4.2, unpublished | Contract |
+| Acme Communications (2026) | Acme Communications (2026) *Missed appointment rebate review*, unpublished internal report | Report |
+
+- **`Cited as` is the exact form used in `Source` cells and in prose.** A reader who finds the
+  short form anywhere in the document finds it in this column.
+- **Every cited source has a row, and every row is cited.** A source with no row is an
+  untraceable claim. A row that nothing cites is padding.
+- Rows are in alphabetical order of `Cited as`. `Type` is one of `Legislation`, `Standard`,
+  `Contract`, `Report`, `Webpage`, `Dataset` or `Internal record`.
+- `Full citation` follows the Style Manual's author–date form for its type. Act titles are roman
+  in this table, although they are italic at first mention in text. A source with no date
+  takes `n.d.`, and a webpage carries its accessed date.
+- **A document that cites no source says so** with a single row: `None cited`. A list left out
+  hides whether anything was cited.
+- `ASM-NNN`, `D-NNN` and other register IDs are not listed. They already resolve inside the
+  document or the RAID log.
+
+### Statements that carry no ID
+
+Two kinds of binding row are deliberately ID-less, because nothing ever traces *to* them:
+
+- **Exclusions** (PRD § Out of Scope) — cited in scope disputes, never referenced by another row.
+- **Coverage gaps** (ORD § 7.10) — a record of absence; the ID would belong to a requirement that
+  does not exist.
+
+Everything else that binds carries an ID. Do not extend this list to avoid assigning one.
+
+### Interface detail
+
+Per-interface technical attributes, keyed to a register row by `ORD#`. Specification, not
+commitment — the binding statement is the register row, so this carries no priority or timing.
+
+| ORD# | Integrated System | Interface Type | Protocol | Data Exchanged | Direction | Failure Behavior |
+|---|---|---|---|---|---|---|
+
+### Assumption
+
+Carries forward the table `$idea` already produces, so an assumption tracked at idea stage keeps
+its identity and lifecycle into the requirements documents rather than collapsing back to prose.
+
+| ID | Assumption | Status | If false | Owner | Confirm by |
+|---|---|---|---|---|---|
+| ASM-NNN | [declarative statement] | Unvalidated / Validated / Falsified | [consequence] | [named role] | [date] |
+
+`If false` is mandatory — an assumption with no stated consequence is a note, not an assumption.
+
+**`Owner` and `Confirm by` are mandatory wherever a register row cites the assumption as its
+`Source`.** A requirement at `Status: Assumed` resting on an assumption with no named owner and no
+date is an invented number, and it is the largest audit exposure a requirements document carries.
+ISO/IEC/IEEE 29148:2018 requires traceability, not finality: a TBD with an owner and a date
+conforms; a silent gap does not.
+
+**Escalation:** The RAID log is Risks, Actions, Issues, Decisions — it has **no Assumptions
+quadrant**. A falsified assumption therefore has no home in RAID and must be raised as a risk:
+set `Status: Falsified`, run `$raid add risk`, and record the `R-NNN` in the `If false` cell.
+
+### Dependency
+
+| ID | Depends on | Type | Owner | Needed by | Status |
+|---|---|---|---|---|---|
+| DEP-NNN | [named system, team, or deliverable] | Internal / External / Vendor | [role] | [date or milestone] | Open / Met / At risk |
+
+## ID Namespaces
+
+Authorised prefixes. See ADR-0001 for the requirement prefixes and their extension.
+
+| Prefix | Owns | Assigned by |
+|---|---|---|
+| `BO-N` | Business objectives | `$write-brd` |
+| `BR-N` | Business requirements | `$write-brd` |
+| `PRD-NNN` | Functional requirements / user stories | `$write-prd` |
+| `CON-NNN` | Solution constraints — demand-side givens (regulatory, contractual, mandated integration) | `$write-prd` |
+| `ORD-NNN` | Operational requirements | `$write-ord` |
+| `AC-NNN` | Acceptance criteria | `$write-ac` |
+| `OBJ-NNN` | Operational objectives — the outcome layer every ORD row traces to | `$write-ord` |
+| `BRL-NNN` | Business rules — every ORD, see § *Business rule* | `$write-ord` |
+| `SCN-NNN` | Scenarios — requirement-level and catalogue, one namespace | `$write-ord` |
+| `IMP-NNN` | Impacts — workflows and systems touched, with named owners | `$write-ord` |
+| `REF-NNN` | Referred requirements — raised here, delivered elsewhere | `$write-ord` |
+| `DAT-NNN` | Data elements — conditional, schema in [reporting.md](reporting.md) | `$write-ord` |
+| `ASM-NNN` | Assumptions | whichever document records it |
+| `DEP-NNN` | Dependencies | whichever document records it |
+| `EVL-NNN` | Evaluation sets — schema in [ai.md](ai.md) | `$write-ord` (the PRD cites, never mints — see below) |
+| `MDL-NNN` | Model / provider dependencies — schema in [ai.md](ai.md) | `$write-ord` (as above) |
+
+`EVL-NNN` and `MDL-NNN` were added by ADR-0003 and apply only where [ai.md](ai.md) is triggered.
+**Both have exactly one assigning skill, like every other prefix here.** `$write-reqs` authors the
+PRD before the ORD, so a PRD needing a set that does not exist yet writes `[EVL-TBD — <what must be
+measured>]` and `$write-ord` writes the real ID back — the same mechanism as `Capability` and `Epic`.
+Where no ORD is produced at all, the PRD holds the registers and assigns the IDs, and says so.
+
+All are flat and sequential in order of first appearance, never encode a theme or characteristic,
+and are never reused once retired. `BO-N` and `BR-N` are single-digit-sequential per BRD, matching
+the form `$write-brd` emits — do not re-pad them to three digits.
+
+**Do not use single-letter prefixes.** `$raid` owns `R-`, `A-`, `I-`, `D-` for Risks, Actions,
+Issues and Decisions — `A-NNN` for assumptions would collide with Actions.
+
+## Coverage Gaps — the collapse rule
+
+A gap must stay visible, but a stub table per absent subsection buries the document. A
+requirements document authored from thin source material can easily have more empty tables than
+populated ones.
+
+**Do not scaffold an empty table per absent subsection.** Instead:
+
+- A subsection with **at least one** requirement gets its table, populated.
+- A sub-characteristic with **no** requirement is omitted from the body entirely, and listed as one
+  row in a single **Coverage Gaps** table at the end of the section.
+
+**The collapse applies at sub-characteristic level only. All nine ISO/IEC 25010:2023 characteristics
+appear in every ORD, without exception** — §7.1 through §7.9, each present even where it carries
+nothing. A characteristic with nothing to state carries an explicit statement of that fact and its
+status, never an omission. The two rules are not in tension: a characteristic is a heading a
+reviewer checks for, and its absence is invisible; a sub-characteristic is a table, and thirty empty
+ones bury the document.
+
+| Absent subsection | Reason | Action |
+|---|---|---|
+| [e.g. 3.5.4 Replaceability] | No source material | Stakeholder workshop |
+
+A requirement known to exist but unquantified is **not** a coverage gap — it is a populated row
+carrying `[TBD — source: "quoted vague statement"]`.
+
+## View Tables
+
+Where a commitment is genuinely needed in two places — an SLA summary restating availability, an
+incident-response table restating recovery targets — the second occurrence is a **view**, not a
+second source of truth.
+
+A view table restates the `ID` and the agreed value by reference and introduces **no new
+numbers**. Head it explicitly:
+
+> *View of Section 7. Values are authoritative in the referenced rows; this table adds no new commitments.*
+
+Two tables carrying the same commitment at independently editable values is the defect this
+prevents.
+
+## Document Structure
+
+Adopted from the Australian Government Style Manual, *Structuring content* (stylemanual.gov.au).
+§ *The Rule* above decides *whether* something is a table. This section governs how headings,
+paragraphs, lists and tables are put together.
+
+**Order: most important first.** Each document leads with its executive summary or problem
+statement, and each section leads with its main point. Supporting detail, mechanism and evidence
+follow, and the appendices take what an executive does not need to read.
+
+**Headings.**
+- Under 70 characters, starting with the keyword. Never a question, and never an empty heading
+  such as `Other` or `More information`.
+- No more than 4 levels, and no level skipped. Section numbers go no deeper than 3 levels
+  (`7.4.1`).
+- A level used once is a stranded heading. Use at least 2 headings at that level, or none.
+- At least 1 sentence between a heading and the next heading.
+- Headings at the same level share a grammatical form, either all noun phrases or all verb
+  phrases.
+
+**Paragraphs.**
+- One topic per paragraph. A new topic starts a new paragraph.
+- The first sentence says what the paragraph is about. The first paragraph of a section
+  summarises the section.
+- No more than 6 sentences. A longer paragraph becomes 2 paragraphs or a list.
+- A paragraph never starts with a pronoun whose noun is in an earlier paragraph.
+
+**Lists.**
+- A lead-in introduces every list. A lead-in phrase ends with a colon.
+- Items share a grammatical form, and words repeated in every item move to the lead-in.
+- **Fragment list:** items complete the lead-in. They start lower case, take no end punctuation,
+  and only the last item takes a full stop. Lead-in and item together stay within 25 words.
+- **Sentence list:** each item is 1 full sentence, with a capital and a full stop.
+- Never end an item with `;`, `,`, `and` or `or`. Never end a list with `etc.`: write `for
+  example` or `including` in the lead-in instead.
+- Numbered lists only where the order matters. No more than 2 levels.
+
+**Tables.**
+- The text introduces every table and says what it shows. The text interprets the table and
+  never repeats its data.
+- Each column holds one kind of content in one grammatical form. Headings sit in the first row,
+  and row labels in the first column.
+- No merged cells and no tables inside tables. Meaning is never carried by colour, bold or
+  position alone.
+- No empty cells: `None`, `—` (for an axis that does not apply, as § *Scenario* defines), or the
+  declared-gap markers this file defines.
+
+**Links.**
+- Link text names the destination and makes sense on its own. Never `click here` or `this
+  page`.
+- A link to a file names its type and size: `Annual report 2025–26 [PDF 1.9 MB]`. Link to the
+  landing page where there is one.
+
+**Callouts.** A `>` callout carries a view note, a rule statement or a test. It is used
+sparingly and never holds a binding statement, because a callout is not a row.
+
+### Recorded deviations from the Style Manual
+
+1. **Numbered headings.** The Style Manual numbers headings only for sequences. Requirements
+   documents number their sections because a section number is a stable address that other
+   documents, reviews and the `.llm.md` companion cite. Numbering stops at 3 levels, which is
+   the Style Manual's own limit. A template's fixed sections are kept as the template gives them,
+   even where one level holds a single heading.
+2. **A table for 1 item.** The Style Manual puts 1 or 2 items in text rather than a table. A
+   binding statement is a row with an ID however few there are, because § *The Rule* is about
+   citability, not volume. The Style Manual's rule applies to everything that does not bind.
+3. **One reference list.** The Style Manual lists legislation and legal cases under their own
+   headings. A requirements document keeps one table and sorts it with the `Type` column.
+
+## Never
+
+- Never cite a source without a row in the reference list, or keep a row that nothing cites.
+- Never write a heading as a question, or skip a heading level.
+- Never let a paragraph run past 6 sentences or cover 2 topics.
+- Never end a list item with `;`, `,`, `and` or `or`, and never end a list with `etc.`.
+- Never merge table cells, or carry meaning by colour, bold or position alone.
+- Never write link text that only makes sense in its sentence.
+- Never add a fourth `Scenario` value. A capability that runs correctly and returns an unfavourable
+  answer is a Sunny Day with `Outcome: Adverse` — condition and outcome are two axes, and collapsing
+  them into one column is what a fourth value would do.
+- Never leave a determination, measurement or eligibility requirement with only a Favourable Sunny
+  Day scenario. What is true when the answer is adverse is a separate obligation.
+- Never write a design disposition into `Treatment` — *migrated*, *decommissioned*, *extended* and
+  *replaced* each name what becomes of an impact, which is the response's answer and not the
+  demand's. The enum is three values and it is closed.
+- Never read a populated `Referred` cell as a treatment, and never leave a referred impact without
+  one — referral is what happens after an exclusion, not the exclusion itself.
+- Never give the operational actor table an ID prefix, and never put a governance role in it.
+- Never put `Delivery Agent`, `Operational Owner`, `Timing` or `Verification` in the ORD register —
+  each is response-side, and stating one pre-empts the design review the document exists to inform.
+- Never state a technical target where a business tolerance belongs (see [language.md](language.md)).
+- Never collapse a KPP's threshold and objective into a single figure.
+- Never carry an `Assumed` row whose assumption has no named owner and no confirm-by date.
+- Never omit one of the nine ISO/IEC 25010 characteristics from an ORD — collapse sub-characteristics
+  to the Coverage Gaps table, never the characteristic itself.
+- Never embed classification, cut-off, calculation, reconciliation or retention logic in a register
+  row — state the outcome and cite the `BRL-NNN` rule.
+- Never carry a business rule without an owner, a status and the requirements it affects.
+- Never record a dependency, a related initiative, a referred requirement and an out-of-scope item
+  in one table — each has its own register and its own test.
+- Never leave an unresolved business decision as an assumption inside a requirement — it is a
+  decision row with an owner.
+- Never write `Happy path`, `Happy Path`, `Error`, `Error Case` or `Edge` as a scenario value, and
+  never head the column `Type`. The three values are `Sunny Day`, `Rainy Day` and `Edge Case`, and
+  the column is `Scenario` — written exactly so, capitalised so, in every document and in every
+  sentence of prose that names them. These are the words a stakeholder reads aloud; reverting one
+  of them mid-document is the failure this rule exists to prevent.
+- Never write a binding statement as free-text prose, in any section.
+- Never give a table row a commitment without a stable ID.
+- Never invent a column set where a canonical schema exists.
+- Never restate a value in a second table — reference the ID and mark the table as a view.
+- Never scaffold an empty table per absent subsection — use the Coverage Gaps table.
+- Never use a single-letter ID prefix (collides with `$raid`).
+- Never mint an ID from a prefix this table assigns to a different skill — write the `[TBD]` form and
+  let the owning skill write it back.
+- Never silently drop a gap to keep a document looking complete.
