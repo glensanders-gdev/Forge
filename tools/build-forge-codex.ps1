@@ -331,6 +331,7 @@ $SelfContainedSkills = [ordered]@{
     'write-prd'  = 'requirements'
     'write-brd'  = 'requirements'
     'write-ac'   = 'requirements'
+    'write-agent-brief' = 'requirements'
     'write-reqs' = 'requirements'
     'roap'       = 'requirements'
     'idea-ai'    = 'requirements'

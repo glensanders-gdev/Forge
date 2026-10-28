@@ -62,6 +62,7 @@ Long outputs arrive in numbered parts. Type **CONTINUE** to get the next one.
 | update-readme | Propose README updates from current project state |
 | vibe-security | Security audit tuned to AI-generated code |
 | write-adr | Architecture Decision Record |
+| write-agent-brief | Requirements into a brief an AI agent or assistant can act on cold |
 | write-article | Long-form content: wiki pages, summaries, briefs |
 | write-prd | PRD in two phases with three confirmation gates |
 
@@ -73,6 +74,7 @@ The requirements skills also ship whole, every file they cite included, as one g
 |---|---|
 | `review-language-standalone.md` | Check a requirements document's wording against the language standard |
 | `write-ac-standalone.md` | Acceptance criteria from a PRD and ORD |
+| `write-agent-brief-standalone.md` | Requirements into a brief an AI agent can act on cold |
 | `write-brd-standalone.md` | Business Requirements Document |
 | `write-ord-standalone.md` | Operational Requirements Document |
 | `write-prd-standalone.md` | Product Requirements Document, full version |

@@ -309,6 +309,7 @@ $SelfContainedSkills = [ordered]@{
     # difference in one folder -- a reader picking the wrong one has no way to know.
     'write-brd'  = @{ Pack = 'requirements'; Siblings = @('review-brd/GATE-PROTOCOL.md'); Fold = @('STANDARD.md') }
     'write-ac'   = @{ Pack = 'requirements' }
+    'write-agent-brief' = @{ Pack = 'requirements' }
     'write-reqs' = @{ Pack = 'requirements' }
     'review-language' = @{ Pack = 'requirements' }
 }

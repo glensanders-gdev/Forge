@@ -1,6 +1,6 @@
 # Skills
 
-70 skills for [Claude Code](https://claude.com/claude-code) — practical, self-contained
+71 skills for [Claude Code](https://claude.com/claude-code) — practical, self-contained
 workflows for getting real work done with an AI assistant.
 
 They cover the parts of software delivery that benefit most from structure: writing
@@ -36,6 +36,7 @@ from `rules/` or `standards/` — the skill folder is the whole skill:
 - `/write-prd`
 - `/write-brd`
 - `/write-ac`
+- `/write-agent-brief`
 - `/write-reqs`
 - `/review-language`
 
@@ -46,12 +47,13 @@ single-file copy from `copilot/`. It holds the whole skill folder in one file:
 - [`write-prd-standalone.md`](copilot/write-prd-standalone.md)
 - [`write-brd-standalone.md`](copilot/write-brd-standalone.md)
 - [`write-ac-standalone.md`](copilot/write-ac-standalone.md)
+- [`write-agent-brief-standalone.md`](copilot/write-agent-brief-standalone.md)
 - [`write-reqs-standalone.md`](copilot/write-reqs-standalone.md)
 - [`review-language-standalone.md`](copilot/review-language-standalone.md)
 
 ## Microsoft 365 Copilot
 
-[`copilot/`](copilot/README.md) holds 40 of these skills rewritten as prompts for
+[`copilot/`](copilot/README.md) holds 41 of these skills rewritten as prompts for
 Microsoft 365 Copilot Chat, which cannot install skills, read a repository or run commands.
 Paste a prompt as the first message of a new chat, then paste or attach your material. The
 folder also holds the single-file bundles above. Its index lists every file and the skills
@@ -83,6 +85,7 @@ that have no chat version.
 | [`/testplan`](skills/testplan/SKILL.md) | Design the testing strategy for a feature or a release — what to test, at what level, automated vs manual, and which behaviours are critical. Runs in… |
 | [`/to-tickets`](skills/to-tickets/SKILL.md) | Convert a plan, PRD, spec, or conversation into a set of vertical-slice kanban tickets — each a tracer bullet sized to the smart zone, with genuine bl… |
 | [`/write-ac`](skills/write-ac/SKILL.md) | Transform a PRD and ORD into Jira acceptance criteria — promote KPPs and headline outcomes to Capability-level AC, flow story detail to child Epics/St… |
+| [`/write-agent-brief`](skills/write-agent-brief/SKILL.md) | Turn an existing PRD, ticket or set of requirements into an agent brief — a self-sufficient instruction an AI agent acts on cold, carrying the goal, t… |
 | [`/write-brd`](skills/write-brd/SKILL.md) | Author a Business Requirements Document to the pack's BABOK v3 standard — SMART objectives carrying baseline, target and date, outcomes rather than so… |
 | [`/write-ord`](skills/write-ord/SKILL.md) | Synthesize a call transcript, document, conversation context, or structured notes into a business-focused, demand-side Operational Requirements Docume… |
 | [`/write-prd`](skills/write-prd/SKILL.md) | Synthesize the current conversation, grill session, research, and prototype findings into a structured PRD aligned with ISO/IEC/IEEE 29148:2018 — the… |
@@ -201,7 +204,7 @@ These files are generated, so edits made directly here are overwritten on the ne
 release. Open an issue describing what needs changing and it will be fixed upstream
 and republished.
 
-Release 4.27.2.
+Release 4.28.0.
 
 ## Credits
 
