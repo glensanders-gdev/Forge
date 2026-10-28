@@ -1,6 +1,6 @@
 {
   "repository": "https://github.com/glensanders-gdev/skills",
-  "version": "4.28.0",
+  "version": "4.29.0",
   "skill_count": 71,
   "skills": [
     {
@@ -395,9 +395,9 @@
     },
     {
       "name": "write-agent-brief",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "category": "pipeline",
-      "description": "Turn an existing PRD, ticket or set of requirements into an agent brief — a self-sufficient instruction an AI agent acts on cold, carrying the goal, the definition of done, testable criteria, constraints with their reasons, scope bounds, a verification check and the questions to ask rather than assume. Use when the user runs /write-agent-brief, or is about to hand requirements to a coding agent, sub-agent or chat assistant such as Microsoft 365 Copilot."
+      "description": "Turn an existing PRD, ticket, set of requirements, or the decisions agreed in a conversation or notes, into an agent brief — a self-sufficient instruction an AI agent acts on cold, carrying the goal, the definition of done, testable criteria, constraints with their reasons, scope bounds, a verification check and the questions to ask rather than assume. Use when the user runs /write-agent-brief, or is about to hand requirements to a coding agent, sub-agent or chat assistant such as Microsoft 365 Copilot."
     },
     {
       "name": "write-article",

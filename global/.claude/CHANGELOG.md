@@ -11,6 +11,27 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
+## v4.29.0 — 2026-10-28
+
+**`/write-agent-brief` briefs from a conversation.** Until now the skill needed a PRD, ticket or
+requirement rows. It now also takes this session, or pasted notes or a transcript, as the source,
+for work that has been talked through but never written down.
+
+- **`/write-agent-brief` 1.1.0:**
+  - **Provenance tags.** Each item is tagged Stated, Accepted, Proposed or Inferred. Only what the
+    user said or plainly agreed fills a slot. An assistant suggestion the user moved past becomes a
+    `GAP`, so the brief cannot launder the assistant's own ideas into requirements.
+  - **Reversals.** The later decision fills the slot, and the earlier/later pair goes to the user in
+    the first gap round.
+  - **One Goal and Done round.** A conversation source missing either is asked once, with a
+    recommended answer drawn from the conversation, instead of stopping outright. It still stops and
+    recommends `/grill-me` if either stays open or more than half the slots are `GAP`. A document
+    source keeps the hard stop.
+  - **Decisions carried inline.** The Source slot holds the agreed decisions as numbered
+    statements, because the agent never sees the conversation.
+  - A line-by-line data check on conversation sources, and the boundary with `/handoff` stated.
+- **Copilot prompt** updated to match.
+
 ## v4.28.0 — 2026-10-28
 
 **New skill: `/write-agent-brief`.** Turns an existing PRD, ticket or requirement set into a brief

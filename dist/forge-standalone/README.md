@@ -85,7 +85,7 @@ that have no chat version.
 | [`/testplan`](skills/testplan/SKILL.md) | Design the testing strategy for a feature or a release — what to test, at what level, automated vs manual, and which behaviours are critical. Runs in… |
 | [`/to-tickets`](skills/to-tickets/SKILL.md) | Convert a plan, PRD, spec, or conversation into a set of vertical-slice kanban tickets — each a tracer bullet sized to the smart zone, with genuine bl… |
 | [`/write-ac`](skills/write-ac/SKILL.md) | Transform a PRD and ORD into Jira acceptance criteria — promote KPPs and headline outcomes to Capability-level AC, flow story detail to child Epics/St… |
-| [`/write-agent-brief`](skills/write-agent-brief/SKILL.md) | Turn an existing PRD, ticket or set of requirements into an agent brief — a self-sufficient instruction an AI agent acts on cold, carrying the goal, t… |
+| [`/write-agent-brief`](skills/write-agent-brief/SKILL.md) | Turn an existing PRD, ticket, set of requirements, or the decisions agreed in a conversation or notes, into an agent brief — a self-sufficient instruc… |
 | [`/write-brd`](skills/write-brd/SKILL.md) | Author a Business Requirements Document to the pack's BABOK v3 standard — SMART objectives carrying baseline, target and date, outcomes rather than so… |
 | [`/write-ord`](skills/write-ord/SKILL.md) | Synthesize a call transcript, document, conversation context, or structured notes into a business-focused, demand-side Operational Requirements Docume… |
 | [`/write-prd`](skills/write-prd/SKILL.md) | Synthesize the current conversation, grill session, research, and prototype findings into a structured PRD aligned with ISO/IEC/IEEE 29148:2018 — the… |
@@ -204,7 +204,7 @@ These files are generated, so edits made directly here are overwritten on the ne
 release. Open an issue describing what needs changing and it will be fixed upstream
 and republished.
 
-Release 4.28.0.
+Release 4.29.0.
 
 ## Credits
 
