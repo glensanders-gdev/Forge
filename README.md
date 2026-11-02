@@ -20,7 +20,7 @@ Each stage produces an artifact that feeds the next. The AI agent orients itself
 
 ## What's Included
 
-**117 shared skills** covering the full software delivery lifecycle, adapted for Claude Code and Codex:
+**118 shared skills** covering the full software delivery lifecycle, adapted for Claude Code and Codex:
 
 | Category | Skills |
 |----------|--------|
@@ -28,7 +28,7 @@ Each stage produces an artifact that feeds the next. The AI agent orients itself
 | Pipeline | `/grill-with-docs`, `/grill-me`, `/grill-with-peer`, `/research`, `/prototype`, `/write-brd`, `/write-prd`, `/write-ord`, `/review-brd`, `/review-ord`, `/review-language`, `/write-reqs`, `/write-ac`, `/write-agent-brief`, `/testplan`, `/estimate`, `/break-down`, `/to-tickets`, `/build`, `/tdd`, `/test-coverage`, `/qa-plan`, `/qa-report`, `/check-pii`, `/approve` |
 | Session Management | `/pickup`, `/standup`, `/handoff`, `/debrief`, `/save-state`, `/check-scope`, `/caveman`, `/backlog-list`, `/backlog-proj`, `/add-backlog-item`, `/lookup`, `/ia` |
 | Code Quality | `/scan-first`, `/review-diff`, `/fix-one-thing`, `/critic`, `/diagnose`, `/write-adr`, `/push-standards`, `/lang-rules`, `/update-readme`, `/git-guardrails`, `/accessibility`, `/ai-first-engineering`, `/write-article`, `/seo`, `/security-assessment`, `/resolve-findings`, `/review-performance`, `/vibe-security`, `/codex-review` |
-| Knowledge Base | `/ia`, `/add-system`, `/add-project`, `/setup-brain`, `/teach`, `/summarise-system`, `/update-context`, `/add-term`, `/knowledge-health`, `/onboard-knowledge`, `/check-style`, `/ingest`, `/publish`, `/setup-confluence` |
+| Knowledge Base | `/ia`, `/add-system`, `/add-project`, `/setup-brain`, `/teach`, `/summarise-system`, `/update-context`, `/add-term`, `/knowledge-health`, `/onboard-knowledge`, `/check-style`, `/ingest`, `/publish`, `/setup-confluence`, `/review-resume` |
 | Metrics & Reporting | `/token-report`, `/dashboard-tokens`, `/context-health`, `/review-fy` |
 | PI & Release | `/piplan`, `/end-pi`, `/sprintplan`, `/go-nogo`, `/changelog`, `/deploy`, `/deploy-pi`, `/rollback`, `/rollback-pi`, `/standalone-release`, `/replan-sprint`, `/replan-pi`, `/incident`, `/raid` |
 | Sprint Management | `/start-sprint`, `/end-sprint`, `/pir` |
