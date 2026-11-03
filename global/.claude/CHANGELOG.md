@@ -11,6 +11,29 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
+## v4.31.0 — 2026-11-04
+
+**New skill: `/write-system-prompt`.** Writes the persistent system prompt that defines an AI
+agent, for any of eight targets across four vendors.
+
+- **`/write-system-prompt` 1.0.0** (standalone):
+  - **One spec, many renders.** Fills a 14-slot platform-neutral agent spec from a document,
+    an existing prompt, or an interview. It stops if Purpose or End state is missing, and puts
+    every gap to the user before rendering.
+  - **Eight targets:** `claude`, `openai`, `codex`, `m365`, `copilot-studio`, `github-copilot`,
+    `servicenow-agent` and `servicenow-skill`. Each render follows that platform's format,
+    skeleton, emphasis rules and field split.
+  - **Measured limits.** Characters are counted with a tool, with 10% headroom under each cap.
+    Copilot Studio's standard-harness limit is unverified, so renders stay under 5,000 characters.
+  - **14 lint checks,** covering contradictions, shouted emphasis, routing overlap, directives
+    in knowledge files, cache-breaking prefixes and data hygiene. **A 5–10 case test set** is
+    written so the prompt can be re-checked after a model change.
+  - `PLATFORMS.md` holds the per-platform rules, dated 2026-11-04 with sources. The skill
+    warns when that date is more than 90 days old. Research is in
+    `docs/research/agent-system-prompts-cross-platform.md`.
+
+---
+
 ## v4.30.0 — 2026-11-02
 
 **New skill: `/review-resume`.** Reviews an existing resume, CV or cover letter and, once the user
