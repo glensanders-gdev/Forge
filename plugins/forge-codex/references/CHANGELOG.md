@@ -11,6 +11,26 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
+## v4.30.0 — 2026-11-02
+
+**New skill: `$review-resume`.** Reviews an existing resume, CV or cover letter and, once the user
+approves the findings, writes an improved version.
+
+- **`$review-resume` 1.0.0** (standalone):
+  - **Three readers.** Assesses the document separately as the ATS parser reads it (text layer,
+    reading order, headings, dates, hidden text), as an LLM screener reads it, and as the human
+    recruiter reads it, with per-item verdicts (P-, M-, H- and C-items) and no match score.
+  - **Summary test.** Writes the summary an LLM screener would produce from the document as it
+    stands, and reruns it on the revision so the before and after can be compared.
+  - **Optional job-ad gap analysis.** Each requirement in the ad is marked Evidenced, Listed or Missing.
+  - **Market conventions.** Covers Australia, UK/NZ, US/Canada, academic CVs, and selection
+    criteria in STAR form.
+  - **Invents nothing.** Missing metrics become `[add: …]` placeholders. Hidden text and keyword
+    stuffing are flagged, never added. Unsourced screening statistics are never cited.
+  - `REFERENCE.md` holds the criteria and an evidence base with sources and the research date.
+
+---
+
 ## v4.29.0 — 2026-10-28
 
 **`$write-agent-brief` briefs from a conversation.** Until now the skill needed a PRD, ticket or
