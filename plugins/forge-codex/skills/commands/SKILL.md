@@ -114,6 +114,7 @@ Print the following reference exactly:
 | `ingest` | Compile Raw/ items into Wiki articles, then archive each source under `Raw/_archive/YYYY-MM/` so the top of Raw/ stays an inbox — handles files in Raw/, uploaded files, and pasted text |
 | `publish` | Publish wiki articles to Confluence — pushes changed articles since last run or all with --all |
 | `setup-confluence` | Configure Confluence publishing — connection details, auth, and validation before writing config |
+| `review-resume` | Review a resume, CV or cover letter through its three readers (ATS parser, LLM screener, human recruiter), with optional job-ad gap analysis — per-item verdicts, no score, ranked fixes, then a revised version on approval that invents no facts |
 
 ### Metrics & Reporting
 | Command | What it does |
