@@ -11,6 +11,21 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
+## v4.31.1 — 2026-11-04
+
+**`$write-system-prompt` for Copilot Chat, and a Codex-copy fix.**
+
+- **`$write-system-prompt` 1.0.1:**
+  - **Fixed:** the Codex build rewrote every "Codex" to "Codex". The Codex copy said "Anthropic
+    Codex" and listed the `Codex` target as a second `codex`. Product mentions are now fenced
+    with `no-adapt`, and the description names "the Anthropic API".
+  - **New Copilot Chat prompt:** `copilot/write-system-prompt.md` is a single-file version,
+    about 15k characters, that fits one message and Agent Builder's 20,000-character limit. In
+    Copilot it reports character counts as estimates unless it can run code. It is added to the
+    `copilot/README.md` index.
+
+---
+
 ## v4.31.0 — 2026-11-04
 
 **New skill: `$write-system-prompt`.** Writes the persistent system prompt that defines an AI

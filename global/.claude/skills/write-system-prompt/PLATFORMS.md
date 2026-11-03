@@ -13,7 +13,7 @@ official documentation.
 
 | Key | Platform | Output |
 |---|---|---|
-| `claude` | Anthropic Claude: API system prompt, Agent SDK, subagent | One system prompt |
+| <!--no-adapt-->`claude` | Anthropic Claude<!--/no-adapt-->: API system prompt, Agent SDK, subagent | One system prompt |
 | `openai` | OpenAI Responses API: `instructions` or a developer message | One developer prompt |
 | `codex` | OpenAI Codex: `AGENTS.md` | One Markdown file |
 | `m365` | Microsoft 365 Copilot declarative agent or Agent Builder | Instructions, description, conversation starters |
@@ -24,7 +24,7 @@ official documentation.
 
 ---
 
-## `claude`
+## <!--no-adapt-->`claude`<!--/no-adapt-->
 
 - **Format.** Open with a one-sentence role, then XML-tagged blocks with consistent, descriptive
   names. Nest the tags for hierarchy. Put long reference documents at the top, in a `<documents>` block. [V]
@@ -63,7 +63,7 @@ You are [role, one sentence].
 <verification>[the check to run before reporting done]</verification>
 ```
 
-Sources: platform.claude.com prompting best practices and the per-model pages; anthropic.com/engineering *Writing tools for agents*; the prompt caching docs.
+Sources: <!--no-adapt-->platform.claude.com<!--/no-adapt--> prompting best practices and the per-model pages; anthropic.com/engineering *Writing tools for agents*; the prompt caching docs.
 
 ---
 
@@ -257,7 +257,7 @@ Source: learn.microsoft.com *Write effective instructions for declarative agents
   run automatically. Recommend `copilot` for irreversible actions. [V]
 - **Scale.** At most about 10 agents per workflow and about 15 tools is recommended. The context
   window is 128K. The orchestrator runs on Azure OpenAI GPT models, so write the prompt to be
-  model-agnostic, not Claude-specific. [V]/[C]
+  model-agnostic, not <!--no-adapt-->Claude<!--/no-adapt-->-specific. [V]/[C]
 - **Markdown** rendering in the instructions field is **unverified**. Use plain numbered steps.
 
 ---

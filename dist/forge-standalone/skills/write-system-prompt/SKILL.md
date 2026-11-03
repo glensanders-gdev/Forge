@@ -1,7 +1,7 @@
 ---
 name: write-system-prompt
 category: pipeline
-description: Write an LLM-optimised system prompt for an AI agent. It builds one platform-neutral agent spec, then renders it for each target platform within that platform's format and limits, lints it, and adds a test set. Targets are Claude, the OpenAI API, Codex AGENTS.md, Microsoft 365 Copilot declarative agents, Copilot Studio, GitHub Copilot, and ServiceNow AI Agent Studio or Now Assist Skill Kit. Use when the user runs /write-system-prompt, is building or configuring an agent on one of these platforms, or wants an existing agent prompt ported, tightened or reviewed.
+description: Write an LLM-optimised system prompt for an AI agent. It builds one platform-neutral agent spec, then renders it for each target platform within that platform's format and limits, lints it, and adds a test set. Targets are the Anthropic API, the OpenAI API, Codex AGENTS.md, Microsoft 365 Copilot declarative agents, Copilot Studio, GitHub Copilot, and ServiceNow AI Agent Studio or Now Assist Skill Kit. Use when the user runs /write-system-prompt, is building or configuring an agent on one of these platforms, or wants an existing agent prompt ported, tightened or reviewed.
 ---
 
 # Write System Prompt
