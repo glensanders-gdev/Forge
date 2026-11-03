@@ -53,7 +53,7 @@ single-file copy from `copilot/`. It holds the whole skill folder in one file:
 
 ## Microsoft 365 Copilot
 
-[`copilot/`](copilot/README.md) holds 41 of these skills rewritten as prompts for
+[`copilot/`](copilot/README.md) holds 42 of these skills rewritten as prompts for
 Microsoft 365 Copilot Chat, which cannot install skills, read a repository or run commands.
 Paste a prompt as the first message of a new chat, then paste or attach your material. The
 folder also holds the single-file bundles above. Its index lists every file and the skills
@@ -206,7 +206,7 @@ These files are generated, so edits made directly here are overwritten on the ne
 release. Open an issue describing what needs changing and it will be fixed upstream
 and republished.
 
-Release 4.31.0.
+Release 4.31.1.
 
 ## Credits
 

@@ -65,6 +65,7 @@ Long outputs arrive in numbered parts. Type **CONTINUE** to get the next one.
 | write-agent-brief | Requirements into a brief an AI agent or assistant can act on cold |
 | write-article | Long-form content: wiki pages, summaries, briefs |
 | write-prd | PRD in two phases with three confirmation gates |
+| write-system-prompt | One agent spec rendered as a system prompt for Claude, OpenAI, Codex, M365 Copilot, Copilot Studio, GitHub Copilot or ServiceNow, with lint checks and a test set |
 
 ## Full single-file skills
 

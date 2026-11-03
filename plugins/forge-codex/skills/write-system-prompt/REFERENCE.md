@@ -54,7 +54,7 @@ Run in Phase 3, step 8, against every render. Each check has a pass condition.
 | L7 | **Numbers, not adjectives** | Length, count and frequency are stated as numbers ("at most 5 bullets", not "concise") |
 | L8 | **Distinct routing text** | No two agents or tools in the same orchestration have overlapping names or descriptions |
 | L9 | **Instructions in the instruction field** | No directive text has been pushed into knowledge files or retrieved content |
-| L10 | **Static prefix** | Codex and OpenAI only: no timestamps, user names or per-request data in the system prompt or other cached prefix |
+| L10 | **Static prefix** | Claude and OpenAI only: no timestamps, user names or per-request data in the system prompt or other cached prefix |
 | L11 | **Within limits** | Every field is at most 90% of its hard cap, measured with a tool |
 | L12 | **Data clean** | No personal information, customer data, credentials or internal hostnames. Examples use placeholders |
 | L13 | **Stop and confirm** | Every irreversible action in the workflow has a confirmation step or a deterministic platform control |
