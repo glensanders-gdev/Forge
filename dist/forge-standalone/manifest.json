@@ -1,7 +1,7 @@
 {
   "repository": "https://github.com/glensanders-gdev/skills",
-  "version": "4.30.0",
-  "skill_count": 72,
+  "version": "4.31.0",
+  "skill_count": 73,
   "skills": [
     {
       "name": "accessibility",
@@ -434,6 +434,12 @@
       "version": "1.4.5",
       "category": "pipeline",
       "description": "Author a PRD and an ORD together from one source — classify needs into functional (PRD) and operational (ORD), delegate each document end-to-end to /write-prd and /write-ord via a binding authoring brief (each keeping its own confirmation gate), then own the bidirectional BRD↔PRD↔ORD cross-link neither sibling can complete alone. Use when the user runs /write-reqs, or wants both a PRD and an ORD from a single grill, transcript, or BRD rather than authoring either standalone."
+    },
+    {
+      "name": "write-system-prompt",
+      "version": "1.0.0",
+      "category": "pipeline",
+      "description": "Write an LLM-optimised system prompt for an AI agent. It builds one platform-neutral agent spec, then renders it for each target platform within that platform's format and limits, lints it, and adds a test set. Targets are Claude, the OpenAI API, Codex AGENTS.md, Microsoft 365 Copilot declarative agents, Copilot Studio, GitHub Copilot, and ServiceNow AI Agent Studio or Now Assist Skill Kit. Use when the user runs /write-system-prompt, is building or configuring an agent on one of these platforms, or wants an existing agent prompt ported, tightened or reviewed."
     }
   ]
 }

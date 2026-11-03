@@ -1,6 +1,6 @@
 # Skills
 
-72 skills for [Claude Code](https://claude.com/claude-code) — practical, self-contained
+73 skills for [Claude Code](https://claude.com/claude-code) — practical, self-contained
 workflows for getting real work done with an AI assistant.
 
 They cover the parts of software delivery that benefit most from structure: writing
@@ -90,6 +90,7 @@ that have no chat version.
 | [`/write-ord`](skills/write-ord/SKILL.md) | Synthesize a call transcript, document, conversation context, or structured notes into a business-focused, demand-side Operational Requirements Docume… |
 | [`/write-prd`](skills/write-prd/SKILL.md) | Synthesize the current conversation, grill session, research, and prototype findings into a structured PRD aligned with ISO/IEC/IEEE 29148:2018 — the… |
 | [`/write-reqs`](skills/write-reqs/SKILL.md) | Author a PRD and an ORD together from one source — classify needs into functional (PRD) and operational (ORD), delegate each document end-to-end to /w… |
+| [`/write-system-prompt`](skills/write-system-prompt/SKILL.md) | Write an LLM-optimised system prompt for an AI agent. It builds one platform-neutral agent spec, then renders it for each target platform within that… |
 
 ### Code quality and review
 
@@ -205,7 +206,7 @@ These files are generated, so edits made directly here are overwritten on the ne
 release. Open an issue describing what needs changing and it will be fixed upstream
 and republished.
 
-Release 4.30.0.
+Release 4.31.0.
 
 ## Credits
 
