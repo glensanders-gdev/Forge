@@ -11,6 +11,21 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
+## v4.32.0 — 2026-11-04
+
+**New skill: `/mermaid`.**
+
+- **`/mermaid` 1.0.0 (standalone):** builds a Mermaid diagram from the conversation or from
+  files the user provides. It offers a choice first: a light grill that asks only what the
+  diagram needs (actors, steps, states, branches), or drawing straight away. It picks the type
+  by the shape of the context: `sequenceDiagram` for system interactions, `flowchart LR` for
+  current-to-target journeys, `flowchart TD` for decisions, `stateDiagram-v2` for lifecycles.
+  It confirms the diagram inline, then always saves `[subject]-[type].mmd` and asks before
+  overwriting. Gaps are labelled `[unconfirmed]` rather than invented. Skeletons and syntax
+  rules are in `mermaid/TEMPLATES.md`, adapted from the `/idea` diagrams.
+
+---
+
 ## v4.31.1 — 2026-11-04
 
 **`/write-system-prompt` for Copilot Chat, and a Codex-copy fix.**
