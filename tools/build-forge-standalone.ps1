@@ -308,6 +308,8 @@ $SelfContainedSkills = [ordered]@{
     # standard in its own right, and `STANDARD.md` beside `STANDARDS.md` is a one-letter
     # difference in one folder -- a reader picking the wrong one has no way to know.
     'write-brd'  = @{ Pack = 'requirements'; Siblings = @('review-brd/GATE-PROTOCOL.md'); Fold = @('STANDARD.md') }
+    'write-brd-v2' = @{ Pack = 'requirements' }
+    'write-stakeholder' = @{ Pack = 'requirements' }
     'write-ac'   = @{ Pack = 'requirements' }
     'write-agent-brief' = @{ Pack = 'requirements' }
     'write-reqs' = @{ Pack = 'requirements' }
@@ -487,6 +489,7 @@ foreach ($entry in $SelfContainedSkills.GetEnumerator()) {
 # its siblings in `$SelfContainedSkills` instead, which folds them into STANDARDS.md.
 $SiblingCopies = [ordered]@{
     'review-ord'      = @('review-brd/GATE-PROTOCOL.md')
+    'review-brd-v2'   = @('review-brd/GATE-PROTOCOL.md', 'review-brd/CRITERIA.md')
     'grill-with-docs' = @('grill-me/FRONTIER.md')
 }
 

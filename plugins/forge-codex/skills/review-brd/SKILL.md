@@ -54,6 +54,12 @@ The worked assessments are the **reference implementation** — real assessments
 gaps, an unowned gap, owned decisions and a Low-confidence projection, not clean sheets. This skill's
 output looks like them.
 
+**Read a companion stakeholder-requirements file as part of the BRD.** Where the BRD's §8 or §9
+points to a `-SR.md` file, or a file in `docs/brd/` carries the BRD's Doc ID in its `brd` field, read
+it in full: its requirements, routing register and traceability are the BRD's for BH-9, BH-10 and
+BD-1 – BD-10, and verdicts cite it by file and section. A pointer to a file that does not exist
+leaves BH-9 and BH-10 *Absent*, and the report names the missing file.
+
 **Completion:** the standard and the BRD under review are both read end to end, and every item
 definition is in hand as written rather than as remembered.
 
@@ -193,6 +199,7 @@ protocol's § *Not yet ready, and authority* before emitting it. State every rec
 | The live pack and `CRITERIA.md` disagree | The pack wins and the extract is stale — say so in the report and regenerate with `tools/build-review-criteria.py`. Never prefer the extract because it is closer to hand |
 | The pack defines an item this skill does not name — a BH-11, a BD-11, or a renumbered bar | Verdict every item the pack defines, and report the ones this skill does not name. The skill is the defect, not the document: where the standard and this skill disagree, the standard wins |
 | The reviewer authored the BRD | Run the review and record the non-independence in the *Reviewer* line. An unmarked self-review is exactly the condition the record exists to make countable |
+| The BRD points to a `-SR.md` file whose `brd` field names a different Doc ID | Name both IDs and stop. Assessing stakeholder requirements written for another BRD produces traceability verdicts against objectives they were never traced to |
 | An ORD, PRD or other document is submitted | Stop and name the mismatch. BH-1 – BH-10 and BD-1 – BD-10 are the BRD's bar; applying them to a document written to a different one produces verdicts against a bar it was never authored to |
 | The BRD names a pack version other than the one being applied | Name both in the report. A verdict is meaningful only against a named bar |
 | The BRD declares no business objectives at all | BH-1 is *Absent*, not unassessable. Say the two limits cannot be applied, and that the readiness rating is *Not ready* |

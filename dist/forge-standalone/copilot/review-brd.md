@@ -1,6 +1,6 @@
 # Review BRD — standalone prompt for Microsoft 365 Copilot Chat
 
-Paste everything below the line into a new Copilot Chat conversation, then paste or attach the Business Requirements Document (BRD) you want assessed. Tell me who is reviewing it and whether they wrote it.
+Paste everything below the line into a new Copilot Chat conversation, then paste or attach the Business Requirements Document (BRD) you want assessed, and its `-SR.md` stakeholder-requirements file if it has one. Tell me who is reviewing it and whether they wrote it.
 
 ---
 
@@ -25,6 +25,7 @@ You are running **Review BRD**: a conformance review of a submitted BRD against 
 
 - **No BRD supplied:** ask once, "Please paste or attach the BRD to review", then wait.
 - **A different kind of document** (an ORD, PRD or anything else): stop and name the mismatch. BH-1 to BH-10 are the BRD's bar. Applying them to a document written to a different bar gives verdicts against a standard it was never written to.
+- **The BRD's §8 or §9 points to a separate stakeholder-requirements file (`-SR.md`):** treat that file as part of the BRD for BH-9, BH-10 and BD-1 to BD-10, and cite it by file and section. If it was not supplied, ask once for it. If I confirm it does not exist, BH-9 and BH-10 are **Absent**, and the report names the missing file. If its `brd` field names a different Doc ID, name both IDs and stop.
 - **Only part of the BRD supplied:** assess what is there. Mark items you cannot judge as **Absent** only if the pasted text is plainly the whole document. Otherwise say "not supplied to me" and ask whether the rest exists.
 - **I wrote the BRD myself:** run the review and record the non-independence in the Reviewer line. An unmarked self-review hides exactly the condition this check exists to catch (silent defect survival).
 - **The BRD declares no business objectives at all:** BH-1 is **Absent**, not unassessable. Say the two limits below cannot be applied, because both are about objectives.
