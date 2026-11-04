@@ -1,0 +1,3 @@
+Invoke the mermaid skill. Build a Mermaid diagram from context — the conversation, or files the user provides — after offering to grill first (a light, diagram-only grill) or draw straight away. Picks the type by the context's shape: sequenceDiagram for system interactions, flowchart for journeys and decisions, stateDiagram for lifecycles. Confirms the diagram inline, then saves it as a [subject]-[type].mmd file next to the source file or in the current directory, asking before any overwrite. Use when user runs /mermaid, or asks to diagram, map, or visualise a flow, journey, or system interaction.
+
+Skill: global/.claude/skills/mermaid/SKILL.md

@@ -20,11 +20,11 @@ Each stage produces an artifact that feeds the next. The AI agent orients itself
 
 ## What's Included
 
-**119 shared skills** covering the full software delivery lifecycle, adapted for Claude Code and Codex:
+**120 shared skills** covering the full software delivery lifecycle, adapted for Claude Code and Codex:
 
 | Category | Skills |
 |----------|--------|
-| Ideation | `/idea`, `/idea-ai`, `/create-project`, `/front-gate`, `/onboard` |
+| Ideation | `/idea`, `/idea-ai`, `/mermaid`, `/create-project`, `/front-gate`, `/onboard` |
 | Pipeline | `/grill-with-docs`, `/grill-me`, `/grill-with-peer`, `/research`, `/prototype`, `/write-brd`, `/write-prd`, `/write-ord`, `/review-brd`, `/review-ord`, `/review-language`, `/write-reqs`, `/write-ac`, `/write-agent-brief`, `/write-system-prompt`, `/testplan`, `/estimate`, `/break-down`, `/to-tickets`, `/build`, `/tdd`, `/test-coverage`, `/qa-plan`, `/qa-report`, `/check-pii`, `/approve` |
 | Session Management | `/pickup`, `/standup`, `/handoff`, `/debrief`, `/save-state`, `/check-scope`, `/caveman`, `/backlog-list`, `/backlog-proj`, `/add-backlog-item`, `/lookup`, `/ia` |
 | Code Quality | `/scan-first`, `/review-diff`, `/fix-one-thing`, `/critic`, `/diagnose`, `/write-adr`, `/push-standards`, `/lang-rules`, `/update-readme`, `/git-guardrails`, `/accessibility`, `/ai-first-engineering`, `/write-article`, `/seo`, `/security-assessment`, `/resolve-findings`, `/review-performance`, `/vibe-security`, `/codex-review` |
@@ -150,7 +150,7 @@ Or if you have an existing project:
 
 ```
 ~/.claude/
-  skills/              ← 115 shared skills
+  skills/              ← 120 shared skills
   commands/            ← 111 Claude command entries including /grill-with-codex
   tools/
     global.md          ← global tools registry (security scanners, perf analysers, etc.)

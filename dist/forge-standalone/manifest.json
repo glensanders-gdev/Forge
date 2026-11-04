@@ -1,7 +1,7 @@
 {
   "repository": "https://github.com/glensanders-gdev/skills",
-  "version": "4.31.1",
-  "skill_count": 73,
+  "version": "4.32.0",
+  "skill_count": 74,
   "skills": [
     {
       "name": "accessibility",
@@ -188,6 +188,12 @@
       "version": "1.1.0",
       "category": "framework",
       "description": "Capture a pattern observed during a session as an instinct — a recurring behaviour change the agent carries into future sessions. Accepts an optional inline description. Checks for duplicates and increments observation count if a match exists. Use when a recurring pattern, failure mode, or useful heuristic is noticed during any session phase."
+    },
+    {
+      "name": "mermaid",
+      "version": "1.0.0",
+      "category": "ideation",
+      "description": "Build a Mermaid diagram from context — the conversation, or files the user provides — and save it as a .mmd file. Offers a light grill first when the context is thin. Use when user runs /mermaid, or asks to diagram, map, or visualise a flow, journey, or system interaction."
     },
     {
       "name": "pickup",

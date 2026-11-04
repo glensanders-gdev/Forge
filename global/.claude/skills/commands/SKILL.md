@@ -32,6 +32,7 @@ Print the following reference exactly:
 |---------|-------------|
 | `/user:idea` | Capture and stress-test an idea — problem, baseline, targets, journey, impact vs effort |
 | `/user:idea-ai` | Review an AI, agent or automation idea as an evidence-led reviewer — normalises the problem, tests reuse and non-AI alternatives, assigns maturity and a disposition; grants no approval |
+| `/user:mermaid` | Build a Mermaid diagram from chat or files — offers a light grill first, picks the diagram type, saves a `.mmd` |
 | `/user:create-project` | Progress an accepted idea into a new repo — grills before scaffolding |
 | `/user:onboard` | Bootstrap Forge onto an existing project — explores codebase, scaffolds docs, migrates decisions |
 
