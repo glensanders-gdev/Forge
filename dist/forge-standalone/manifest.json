@@ -1,7 +1,7 @@
 {
   "repository": "https://github.com/glensanders-gdev/skills",
-  "version": "4.32.0",
-  "skill_count": 74,
+  "version": "4.33.0",
+  "skill_count": 77,
   "skills": [
     {
       "name": "accessibility",
@@ -245,9 +245,15 @@
     },
     {
       "name": "review-brd",
-      "version": "2.4.1",
+      "version": "2.4.2",
       "category": "pipeline",
       "description": "Assess a submitted BRD against the requirements-documents pack on three independent questions — the handoff gate (BH-1 to BH-10, the [TBD] rule, four outcomes), business definition readiness (BD-1 to BD-10, four outcomes) and acceptance derivability (the criteria that cannot yet be derived) — then project the ORD's lead time, tier and confidence from the BRD's condition and resourcing, and lay out the path to readiness. Returns per-item verdicts with evidence and mechanically derived outcomes, never resolving a business decision on the business's behalf. Criteria are read from the pack at review time, never recalled. Use when a BRD arrives for ORD development, when /review-brd is run, or before ORD work is assigned against a BRD."
+    },
+    {
+      "name": "review-brd-v2",
+      "version": "1.0.0",
+      "category": "pipeline",
+      "description": "Review a two-file BRD — the BRD from /write-brd-v2 and its -SR.md stakeholder requirements from /write-stakeholder. Works out which stage the work has reached, then checks what that stage allows. BRD only — is it ready for stakeholder requirements? Both files — are they consistent with each other, and ready together for ORD development? The second stage applies the BH-1 – BH-10 handoff gate, business definition readiness, acceptance derivability and the readiness projection, all read from the requirements pack via /review-brd's criteria and protocol. It does not penalise v2's lean layout as defects. Advisory: per-item verdicts with evidence and outcomes derived from them, never a score. Use when /review-brd-v2 is run, or a v2 BRD needs a readiness check before stakeholder requirements or before ORD work is assigned."
     },
     {
       "name": "review-diff",
@@ -424,6 +430,12 @@
       "description": "Author a Business Requirements Document to the pack's BABOK v3 standard — SMART objectives carrying baseline, target and date, outcomes rather than solutions, and a cost-of-failure case for each objective carrying operational exposure — then self-assess it against the BH-1 – BH-10 handoff gate that decides whether ORD development can start. Runs AFK ingest, HITL write, then the gate. The standard is read at authoring time, never recalled. Use when a BRD is needed from a request brief, idea, transcript or notes, when /write-brd is run, or when an ORD task turns out to be a BRD task in disguise."
     },
     {
+      "name": "write-brd-v2",
+      "version": "1.0.0",
+      "category": "pipeline",
+      "description": "Author a concise, outcome-focused Business Requirements Document that secures alignment and funding for a change — why change is required, what success looks like, and the boundaries of the initiative — without describing solution design. Grills one question at a time where context is thin, writes the BRD to docs/brd/, and points §8 Stakeholder Requirements and §9 Traceability at the separate -SR.md file /write-stakeholder writes. Shaped to clear the BH-1 – BH-4 bar, checked by /review-brd-v2. Use when a lean funding-alignment BRD is needed from an idea, brief, transcript or conversation, or when /write-brd-v2 is run."
+    },
+    {
       "name": "write-ord",
       "version": "3.1.0",
       "category": "pipeline",
@@ -440,6 +452,12 @@
       "version": "1.4.5",
       "category": "pipeline",
       "description": "Author a PRD and an ORD together from one source — classify needs into functional (PRD) and operational (ORD), delegate each document end-to-end to /write-prd and /write-ord via a binding authoring brief (each keeping its own confirmation gate), then own the bidirectional BRD↔PRD↔ORD cross-link neither sibling can complete alone. Use when the user runs /write-reqs, or wants both a PRD and an ORD from a single grill, transcript, or BRD rather than authoring either standalone."
+    },
+    {
+      "name": "write-stakeholder",
+      "version": "1.0.0",
+      "category": "pipeline",
+      "description": "Add stakeholder requirements to an existing BRD — operational accountabilities, high-level business rules, business policies and compliance mandates, written system-neutral in a strict declarative blueprint, anchored to business capability and process-step headings, with SR-[DOMAIN]-[PROCESS]-NNN IDs, versioned anchors to externally mastered rules, and baseline appendix tables for anything un-mastered. Writes its own -SR.md file beside the BRD from /write-brd-v2, which it reads and never edits — the requirements, a routing register for every statement it declines, and traceability in both directions. Use when a BRD needs its stakeholder requirements, or when /write-stakeholder is run."
     },
     {
       "name": "write-system-prompt",

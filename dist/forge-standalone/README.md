@@ -1,6 +1,6 @@
 # Skills
 
-74 skills for [Claude Code](https://claude.com/claude-code) — practical, self-contained
+77 skills for [Claude Code](https://claude.com/claude-code) — practical, self-contained
 workflows for getting real work done with an AI assistant.
 
 They cover the parts of software delivery that benefit most from structure: writing
@@ -35,6 +35,8 @@ from `rules/` or `standards/` — the skill folder is the whole skill:
 - `/write-ord`
 - `/write-prd`
 - `/write-brd`
+- `/write-brd-v2`
+- `/write-stakeholder`
 - `/write-ac`
 - `/write-agent-brief`
 - `/write-reqs`
@@ -46,6 +48,8 @@ single-file copy from `copilot/`. It holds the whole skill folder in one file:
 - [`write-ord-standalone.md`](copilot/write-ord-standalone.md)
 - [`write-prd-standalone.md`](copilot/write-prd-standalone.md)
 - [`write-brd-standalone.md`](copilot/write-brd-standalone.md)
+- [`write-brd-v2-standalone.md`](copilot/write-brd-v2-standalone.md)
+- [`write-stakeholder-standalone.md`](copilot/write-stakeholder-standalone.md)
 - [`write-ac-standalone.md`](copilot/write-ac-standalone.md)
 - [`write-agent-brief-standalone.md`](copilot/write-agent-brief-standalone.md)
 - [`write-reqs-standalone.md`](copilot/write-reqs-standalone.md)
@@ -78,6 +82,7 @@ that have no chat version.
 | [`/qa-report`](skills/qa-report/SKILL.md) | Record the results of a completed QA session as a datestamped evidence artefact. Reads the qa-plan and TC registry, captures pass/fail per test case,… |
 | [`/research`](skills/research/SKILL.md) | Cache findings from expensive exploration phases into topic-specific markdown files. Use when implementation would require repeated or costly explorat… |
 | [`/review-brd`](skills/review-brd/SKILL.md) | Assess a submitted BRD against the requirements-documents pack on three independent questions — the handoff gate (BH-1 to BH-10, the [TBD] rule, four… |
+| [`/review-brd-v2`](skills/review-brd-v2/SKILL.md) | Review a two-file BRD — the BRD from /write-brd-v2 and its -SR.md stakeholder requirements from /write-stakeholder. Works out which stage the work has… |
 | [`/review-language`](skills/review-language/SKILL.md) | Check the wording of a requirements document — BRD, PRD, ORD or AC — against the requirements language standard, including the modal and construction… |
 | [`/review-ord`](skills/review-ord/SKILL.md) | Assess a submitted ORD against the published §7.1 handoff gate — OH-1 to OH-16, the four outcomes, the §7.3 refuse-to-produce scan and the §5 tier rul… |
 | [`/tdd`](skills/tdd/SKILL.md) | Test-driven development with red-green-refactor loop. Use when user wants to build features or fix bugs using TDD, mentions "red-green-refactor", want… |
@@ -87,9 +92,11 @@ that have no chat version.
 | [`/write-ac`](skills/write-ac/SKILL.md) | Transform a PRD and ORD into Jira acceptance criteria — promote KPPs and headline outcomes to Capability-level AC, flow story detail to child Epics/St… |
 | [`/write-agent-brief`](skills/write-agent-brief/SKILL.md) | Turn an existing PRD, ticket, set of requirements, or the decisions agreed in a conversation or notes, into an agent brief — a self-sufficient instruc… |
 | [`/write-brd`](skills/write-brd/SKILL.md) | Author a Business Requirements Document to the pack's BABOK v3 standard — SMART objectives carrying baseline, target and date, outcomes rather than so… |
+| [`/write-brd-v2`](skills/write-brd-v2/SKILL.md) | Author a concise, outcome-focused Business Requirements Document that secures alignment and funding for a change — why change is required, what succes… |
 | [`/write-ord`](skills/write-ord/SKILL.md) | Synthesize a call transcript, document, conversation context, or structured notes into a business-focused, demand-side Operational Requirements Docume… |
 | [`/write-prd`](skills/write-prd/SKILL.md) | Synthesize the current conversation, grill session, research, and prototype findings into a structured PRD aligned with ISO/IEC/IEEE 29148:2018 — the… |
 | [`/write-reqs`](skills/write-reqs/SKILL.md) | Author a PRD and an ORD together from one source — classify needs into functional (PRD) and operational (ORD), delegate each document end-to-end to /w… |
+| [`/write-stakeholder`](skills/write-stakeholder/SKILL.md) | Add stakeholder requirements to an existing BRD — operational accountabilities, high-level business rules, business policies and compliance mandates,… |
 | [`/write-system-prompt`](skills/write-system-prompt/SKILL.md) | Write an LLM-optimised system prompt for an AI agent. It builds one platform-neutral agent spec, then renders it for each target platform within that… |
 
 ### Code quality and review
@@ -207,7 +214,7 @@ These files are generated, so edits made directly here are overwritten on the ne
 release. Open an issue describing what needs changing and it will be fixed upstream
 and republished.
 
-Release 4.32.0.
+Release 4.33.0.
 
 ## Credits
 

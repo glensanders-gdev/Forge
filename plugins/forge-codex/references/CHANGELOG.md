@@ -11,6 +11,42 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
+## v4.33.0 — 2026-11-05
+
+**New skills: `$write-brd-v2`, `$write-stakeholder` and `$review-brd-v2`.** A lean, two-file BRD
+path and its review. It sits beside `$write-brd` and `$review-brd`.
+
+- **`$write-brd-v2` 1.0.0 (standalone):** writes a concise BRD whose job is to secure alignment
+  and funding: current state, problem, need and outcome, then a decision sought. It grills one
+  question at a time and checks in after 5–7 exchanges. Objectives are `BO-N` with a baseline,
+  target and `By` date, atomic, never inverse pairs, and sorted by date. A cost-of-failure table
+  supports BH-4. Constraints are asked against six categories, separate from `DP-N` design
+  principles. Assumptions use Unvalidated / Validated / Falsified, and dependencies use Open / Met /
+  At risk. `[TBD]` carries `@owner` and a date. §8 and §9 point to the separate `-SR.md` file
+  that `$write-stakeholder` writes.
+- **`$write-stakeholder` 1.0.0 (standalone):** writes `docs/brd/[change-name]-SR.md` beside the
+  BRD, which it reads and never edits. The file carries the BRD's Doc ID in `brd` and holds system-neutral stakeholder
+  requirements in a declarative blueprint, with modals banned and the paper process test applied.
+  Rows sit under capability and process-step headings, with `SR-[DOMAIN]-[PROCESS]-NNN` IDs, MoSCoW
+  priority, versioned anchors and baseline appendix tables. It keeps a routing register and
+  writes traceability in both directions.
+- **`$review-brd` 2.4.2:** reads a companion `-SR.md` file as part of the BRD for BH-9, BH-10 and
+  BD-1 – BD-10, matched by the BRD pointer or the file's `brd` field. A pointer to a missing file
+  leaves BH-9 and BH-10 *Absent*, and a `brd` field naming another Doc ID stops the review.
+  `copilot/review-brd.md` is updated to match.
+- **`$review-brd-v2` 1.0.0 (standalone):** detects the stage — no BRD, BRD only, or BRD plus
+  `-SR.md` — and answers that stage's question: is the BRD ready for `$write-stakeholder`, or are
+  both files ready for ORD development? It runs each file's authoring verification gate, eight
+  cross-document checks (X-1 – X-8, including staleness via the SR file's new `brd_version` field), and
+  `$review-brd`'s gate, business definition, projection and path steps through a v2 section map.
+  It restates no criterion, and it does not treat v2's lean layout as a defect. At Stage 1, BH-9 and BH-10
+  are not assessed and no ORD outcome is derived.
+- **Known deviation, pending an ADR:** the `SR-` and `DP-` prefixes are not yet in the `tables.md`
+  ID namespaces, and `SR-` encodes a theme. `$write-reqs`, `$write-prd` and `$write-ord` read
+  `BR-N` provenance and do not yet recognise `SR-`.
+
+---
+
 ## v4.32.0 — 2026-11-04
 
 **New skill: `$mermaid`.**
