@@ -1,6 +1,6 @@
 # Skills
 
-77 skills for [Claude Code](https://claude.com/claude-code) — practical, self-contained
+78 skills for [Claude Code](https://claude.com/claude-code) — practical, self-contained
 workflows for getting real work done with an AI assistant.
 
 They cover the parts of software delivery that benefit most from structure: writing
@@ -179,6 +179,7 @@ that have no chat version.
 
 | Skill | What it does |
 |---|---|
+| [`/front-gate`](skills/front-gate/SKILL.md) | Structured intake for non-technical users submitting an idea or request for team consideration. Interprets the idea in plain language, checks it again… |
 | [`/idea`](skills/idea/SKILL.md) | Capture and stress-test a new idea through structured grilling — problem statement, baseline measurements, destination targets, journey, impact vs eff… |
 | [`/mermaid`](skills/mermaid/SKILL.md) | Build a Mermaid diagram from context — the conversation, or files the user provides — and save it as a .mmd file. Offers a light grill first when the… |
 
@@ -214,7 +215,7 @@ These files are generated, so edits made directly here are overwritten on the ne
 release. Open an issue describing what needs changing and it will be fixed upstream
 and republished.
 
-Release 4.33.0.
+Release 4.33.1.
 
 ## Credits
 

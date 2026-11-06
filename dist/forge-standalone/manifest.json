@@ -1,7 +1,7 @@
 {
   "repository": "https://github.com/glensanders-gdev/skills",
-  "version": "4.33.0",
-  "skill_count": 77,
+  "version": "4.33.1",
+  "skill_count": 78,
   "skills": [
     {
       "name": "accessibility",
@@ -110,6 +110,12 @@
       "version": "1.0.0",
       "category": "maintenance",
       "description": "Track feature flags from creation to planned removal. Register flags, monitor for overdue removal dates, and create kanban tickets for cleanup. /standup surfaces overdue flags. Per-project register at docs/feature-flags.md. Use when user runs /feature-flag, a new flag is added to the codebase, or /standup surfaces overdue flags."
+    },
+    {
+      "name": "front-gate",
+      "version": "1.1.0",
+      "category": "ideation",
+      "description": "Structured intake for non-technical users submitting an idea or request for team consideration. Interprets the idea in plain language, checks it against whatever documented constraints are available (system knowledge, organisational context, contractual gate-check articles), then grills the requestor one question at a time to produce a complete Request Brief. Output covers problem statement, objective, metrics (optional), team ask, risk of inaction, negative impacts, and brief summary. Use when a stakeholder or non-technical user wants to formally submit an idea or request, or runs /front-gate."
     },
     {
       "name": "git-guardrails",
