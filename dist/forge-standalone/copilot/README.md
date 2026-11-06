@@ -16,7 +16,7 @@ Long outputs arrive in numbered parts. Type **CONTINUE** to get the next one.
 
 ## Typical chains
 
-- **Planning:** idea → grill-me or grill-with-docs → research / prototype → write-prd → testplan → to-tickets → qa-plan → qa-report
+- **Planning:** front-gate (for a stakeholder's request) → idea → grill-me or grill-with-docs → research / prototype → write-prd → testplan → to-tickets → qa-plan → qa-report
 - **Requirements review:** review-brd, review-ord
 - **Session continuity:** handoff → (new chat) pickup · standup · update-context
 
@@ -35,6 +35,7 @@ Long outputs arrive in numbered parts. Type **CONTINUE** to get the next one.
 | critic | Honest, prioritised critical evaluation |
 | diagnose | Systematic investigation of a bug or repeated failure |
 | estimate | Token-cost bands and story points |
+| front-gate | Plain-language intake that turns a non-technical request into a Request Brief |
 | grill-me | Stress-test a plan in rounds of up to 5 questions, each with a recommendation |
 | grill-with-docs | As grill-me, checked against your glossary and ADRs |
 | handoff | Compact a chat into a handoff document for a new chat |

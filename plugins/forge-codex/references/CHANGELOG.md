@@ -11,6 +11,15 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
+## v4.33.2 — 2026-11-06
+
+**Copilot Chat prompt for `$front-gate`.** `copilot/front-gate.md` is a single paste-ready file
+for Microsoft 365 Copilot Chat. It carries the standalone intake and the Request Brief format,
+so it needs no other file. The brief comes back as markdown with a suggested filename, since
+Copilot can't save files. The Copilot README lists it and starts the planning chain with it.
+
+---
+
 ## v4.33.1 — 2026-11-06
 
 **`$front-gate` 1.1.0 now ships standalone.** People outside Forge can run the stakeholder intake
