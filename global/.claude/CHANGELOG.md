@@ -11,6 +11,20 @@ Version history for the Forge framework. Update when bumping `forge_version` in 
 
 ---
 
+## v4.33.1 — 2026-11-06
+
+**`/front-gate` 1.1.0 now ships standalone.** People outside Forge can run the stakeholder intake
+and get a plain-language Request Brief, without company config or a system knowledge base.
+
+- The standalone build drops the system knowledge search, the company context and gate-check
+  article check, the ⚠️ constraint check during grilling, and the Company Context Notes section.
+  Forge behaviour is unchanged.
+- In both builds the brief still lists each system the requestor named. Constraints it can't
+  confirm are marked "Not verified" so the receiving team checks them. Constraints come only from
+  the requestor, or from the knowledge base in Forge. Nothing is inferred.
+
+---
+
 ## v4.33.0 — 2026-11-05
 
 **New skills: `/write-brd-v2`, `/write-stakeholder` and `/review-brd-v2`.** A lean, two-file BRD

@@ -294,6 +294,15 @@ When an idea is accepted or progressed to a project:
 - Ask: "Log this as a decision in the RAID log? (yes/no)"
 - If yes, run `/raid add decision` pre-populated with the idea name and `IDEA-NNN` in Source.
 
+### `/front-gate`
+
+After producing a Request Brief:
+- If the brief surfaces risks or constraints (from system knowledge or stakeholder constraints), ask:
+  "Log these as RAID risks? (yes/no / select)"
+- Pre-populate each selected risk with Source `GATE-NNN`.
+
+---
+
 ## Cross-Context Linking
 
 Entries may link to RAID entries in other contexts via the Links field using the convention:

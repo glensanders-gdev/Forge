@@ -1,5 +1,5 @@
 {
-  "forge_version": "4.33.0",
+  "forge_version": "4.33.1",
   "skills": {
     "setup-brain": "3.0.1",
     "scan-first": "1.0.0",
@@ -102,7 +102,7 @@
     "test-coverage": "1.0.2",
     "seo": "1.0.0",
     "caveman": "1.0.0",
-    "front-gate": "1.0.1",
+    "front-gate": "1.1.0",
     "init-forge": "2.1.0",
     "update-forge": "3.1.0",
     "install-forge": "3.1.0",

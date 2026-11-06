@@ -56,10 +56,13 @@ status: draft | pending-jira
 
 | System | Constraint | Source |
 |--------|------------|--------|
-| [System name] | [Constraint text] | known-issues.md / stakeholder-feedback.md |
+| [System name] | [Constraint text, or "Not verified — the receiving team should check directly"] | [Requestor<!--forge-only--> / known-issues.md / stakeholder-feedback.md<!--/forge-only-->] |
+<!--forge-only-->
 
 *No system constraints identified.* — if no relevant knowledge base entries were found.
+<!--/forge-only-->
 
+<!--forge-only-->
 ---
 
 ## Company Context Notes
@@ -69,6 +72,7 @@ status: draft | pending-jira
 | Constraint / Obligation | Impact on this request | Source |
 |-------------------------|------------------------|--------|
 | [e.g. contractual service-level or process obligation, in plain language] | [how it affects the request] | [article path, e.g. legal/Wiki/wba-assurance-module.md] |
+<!--/forge-only-->
 
 ---
 
@@ -82,7 +86,11 @@ status: draft | pending-jira
 - `status` in frontmatter is always one of `draft` or `pending-jira` — set from Phase 5 selection, never omit
 - Metrics section: omit the table entirely if "Not provided" — do not show an empty table
 - System Notes section: omit entirely if no systems were named
+<!--forge-only-->
 - Company Context Notes section: omit entirely if no company constraints surfaced; every row must cite its source article
+<!--/forge-only-->
 - Write in the requestor's voice — do not rewrite into AI-formal language
 - Do not add commentary, recommendations, or solution hints to the brief
+<!--forge-only-->
 - Constraints flagged with ⚠️ during grilling must appear in the System Notes table
+<!--/forge-only-->

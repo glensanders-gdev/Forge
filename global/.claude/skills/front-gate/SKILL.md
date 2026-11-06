@@ -1,8 +1,8 @@
 ---
 name: front-gate
 category: ideation
-standalone: false
-description: Structured intake for non-technical users submitting an idea or request for team consideration. Interprets the idea in plain language, checks relevant system knowledge, company context, and contractual obligations (including company-configured gate-check articles), then grills the requestor one question at a time to produce a complete Request Brief. Output covers problem statement, objective, metrics (optional), team ask, risk of inaction, negative impacts, and brief summary. Use when a stakeholder or non-technical user wants to formally submit an idea or request, or runs /front-gate.
+standalone: true
+description: Structured intake for non-technical users submitting an idea or request for team consideration. Interprets the idea in plain language, checks it against whatever documented constraints are available (system knowledge, organisational context, contractual gate-check articles), then grills the requestor one question at a time to produce a complete Request Brief. Output covers problem statement, objective, metrics (optional), team ask, risk of inaction, negative impacts, and brief summary. Use when a stakeholder or non-technical user wants to formally submit an idea or request, or runs /front-gate.
 ---
 
 # Front Gate
@@ -31,18 +31,20 @@ Structured intake for non-technical idea submissions. Translates a raw idea into
    ```
    Wait for confirmation or correction before proceeding.
 
-3. Identify any systems mentioned (explicitly or implicitly). For each:
+3. Identify any systems mentioned (explicitly or implicitly) and note each one for the brief.<!--forge-only--> For each:
    - Search `~/.claude/knowledge/systems/` — and, when `active_company` is set in `~/.claude/preferences.md`, also `~/.claude/companies/[active_company]/knowledge/systems/` — for a matching system entry
    - If found: read `Wiki/overview.md` (What an AI Can/Cannot Do here), `Wiki/known-issues.md` (Do Not Attempt, Limitations), `Wiki/stakeholder-feedback.md` (Constraints Imposed)
-   - Note any constraints relevant to the idea — carry into Phase 2, do not surface yet
+   - Note any constraints relevant to the idea — carry into Phase 2, do not surface yet<!--/forge-only-->
 
+<!--forge-only-->
 4. **Company context check** — mandatory when `active_company` is set in `~/.claude/preferences.md`:
    - Read `~/.claude/companies/[active_company]/knowledge/company/context.md` (company overview and operating constraints), if present
    - Read the `## Front Gate Context` section of `~/.claude/companies/[active_company]/config.md`. Each path under `gate_check_articles` (relative to the company `knowledge/` folder) is a **mandatory check** — read every listed article in full
    - If the config has no `## Front Gate Context` section, fall back to scanning each company `knowledge/*/Wiki/_index.md` and reading any article whose topic plausibly intersects the idea
    - Note every contractual obligation, defined process, or service-level commitment the idea touches — carry into Phase 2, do not surface yet
+<!--/forge-only-->
 
-Do not produce output during steps 3–4.
+Orientation is silent — produce no output after the restatement is confirmed until Phase 2 begins.
 
 ---
 
@@ -53,12 +55,14 @@ Ask one question at a time. For each question:
 - Provide a brief example answer to guide the requestor
 - Wait for a full response before moving to the next question
 
+<!--forge-only-->
 **Constraint check:** After any answer that names a system, or that touches a process or obligation covered by the company context (Phase 1 steps 3–4), surface the relevant constraint immediately before the next question:
 ```
 ⚠️ Note: [System or company-context topic] has a known constraint — [constraint or contractual obligation, in plain language].
    Source: [file or article]. This may affect how the team can respond. Shall we note this in the brief?
 ```
 Wait for acknowledgment, then continue. Translate contractual language into plain terms when surfacing — the requestor is non-technical.
+<!--/forge-only-->
 
 ### Q1 — Problem Statement
 > "What problem or pain are you trying to solve? What's going wrong, or what opportunity are you missing out on?"
@@ -195,11 +199,15 @@ Exit without writing to disk. Confirm: "Brief discarded."
 | Condition | Behaviour |
 |-----------|-----------|
 | Requestor cannot articulate the problem | Ask: "Can you describe a recent situation where this caused difficulty?" — concrete examples unlock the statement |
-| System mentioned has no knowledge base entry | Note it in the brief: "No knowledge record found for [system] — the receiving team will need to verify constraints directly." |
+| System mentioned with no documented constraints<!--forge-only--> (no knowledge base entry)<!--/forge-only--> | Note it in the brief: "Constraints for [system] not verified — the receiving team will need to check them directly." |
+<!--forge-only-->
 | `active_company` set but config has no `## Front Gate Context` section | Fall back to scanning company `knowledge/*/Wiki/_index.md` files; note in the brief that no mandatory gate-check list is configured |
 | A `gate_check_articles` path does not exist | Note in the brief: "Configured gate-check article [path] not found — constraints unverified." Never guess its content |
+<!--/forge-only-->
 | Requestor wants to skip a required section | Explain the section is needed for the brief to be actionable. Offer a minimal answer if they're stuck. Metrics (Q3) is the only section that may be omitted. |
+<!--forge-only-->
 | Brief reveals a hard constraint (Do Not Attempt) | Surface prominently at the top of the brief: "⚠️ This request may conflict with a known constraint on [system]. The team will need to resolve this before proceeding." |
+<!--/forge-only-->
 | `docs/requests/` cannot be created | Output the brief inline and ask the user to save it manually |
 | Requestor provides metrics for only one of baseline or goal | Record what was provided, note the other as "not provided" — do not estimate or infer |
 | Requestor does not enter 1, 2, or 3 at Phase 5 | Re-present the options once with no additional explanation |
@@ -208,14 +216,16 @@ Exit without writing to disk. Confirm: "Brief discarded."
 
 ## Rules
 
-- Use plain, non-technical language throughout — no Forge terminology, no jargon in requestor-facing output
+- Use plain, non-technical language throughout — no framework or tooling terms, no jargon in requestor-facing output
 - Never pre-commit to a solution during the grill — this skill captures the request, not the answer
+<!--forge-only-->
 - Never skip the system constraint check if a system is named
 - When `active_company` is set, the company context check (Phase 1 step 4) is mandatory — a brief produced without it is incomplete
 - Constraints sourced from company gate-check articles must cite the source article in the brief
+<!--/forge-only-->
 - Never write the brief to disk without a Phase 5 selection — Phase 4 approval alone is not enough
 - "cancel" in Phase 4 and "Discard" in Phase 5 are distinct exits: cancel means the brief is wrong; Discard means the requestor changed their mind after approving
-- Never invent or infer constraints — only surface what is documented in the knowledge base
+- Never invent or infer constraints — only record what the requestor states<!--forge-only--> or the knowledge base documents<!--/forge-only-->
 - All sections except Metrics are required — a brief missing a required section is incomplete
 - Write the brief in the requestor's voice — do not rewrite their answers in AI-formal language
 - Metrics may be left as "Not provided" — never press the requestor for numbers they don't have
