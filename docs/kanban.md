@@ -20,6 +20,8 @@
 
 - [ ] [HITL] Merge PR #106 (v4.23.2), run `tools/sync-standalone-skills.sh`, pull `main` into the main checkout — stream `standards-drift`
 - [ ] [HITL] Work the standards review backlog — 46 never-reviewed declarations in `skill-health/STANDARDS.md` — stream `standards-drift`
+- [x] [AFK]  Explore sources and feasibility for PRD — write-prd phase 1 — stream `skill-security` ✓
+- [x] [HITL] Confirm scope and estimates, write PRD `docs/prd/active/skill-security.md` — write-prd phase 2 — stream `skill-security` ✓
 - [ ] [HITL] `/assimilate` Style Manual batch 3 — Latin shortened forms, abbreviations and contractions, misspellings and word confusion, hyphens/dashes/colons/quotes, names and terms, inclusive language — stream `style-manual`
 
 ---
